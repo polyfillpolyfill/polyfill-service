@@ -1,0 +1,79 @@
+{
+	"android": {
+		"browser": "/Android/",
+		"prefix": "ms",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"blackberry": {
+		"browser": "/BlackBerry/",
+		"prefix": "webkit",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/BlackBerry\\s?[\\w\\d]+\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"safari-ios": {
+		"browser": "/iPad|iPhone|iPod/",
+		"prefix": "webkit",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Mobile Safari (\\d+\\.?\\d*)/",
+			"/(?:CPU|Phone) OS (\\d+_?\\d*)/"
+		]
+	},
+	"opera-mini": {
+		"browser": "/Opera Mini/",
+		"prefix": "o",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Opera Mini\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"opera-mobile": {
+		"browser": "/Opera Mobi/",
+		"prefix": "o",
+		"version": [
+			"/Opera Mobile (\\d+\\.?\\d*)/",
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Opera (\\d+\\.?\\d*)/"
+		]
+	},
+	"chrome": {
+		"browser": "/Chrome/",
+		"prefix": "webkit",
+		"version": [
+			"/Chrome\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"firefox": {
+		"browser": "/[Ff]irefox/",
+		"prefix": "moz",
+		"version": [
+			"/[Ff]irefox[\\/\\s\\(\\/]?(\\d+\\.?\\d*)/"
+		]
+	},
+	"internet-explorer": {
+		"browser": "/MSIE/",
+		"prefix": "ms",
+		"version": [
+			"/MSIE (\\d+\\.?\\d*)/"
+		]
+	},
+	"opera": {
+		"browser": "/Opera/",
+		"prefix": "o",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"safari": {
+		"browser": "/Safari/",
+		"prefix": "webkit",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Safari (\\d+\\.?\\d*)/"
+		]
+	}
+}
