@@ -1,36 +1,42 @@
 {
 	"android": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"blackberry": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"safari-ios": [{
 		"max": "4.3",
 		"fill": "object.defineProperty element.property.hidden"
 	}, {
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"opera-mini": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"opera-mobile": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style"
+	}, {
+		"max": "11",
+		"fill": "element.prototype.matchesSelector.js"
+	}, {
+		"min": "11.1",
+		"fill": "element.vendor.matchesSelector"
 	}],
 
 	"chrome": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"firefox": [{
 		"max": "3.6",
 		"fill": "object.defineProperty"
 	}, {
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"internet-explorer": [{
@@ -43,17 +49,17 @@
 		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array element.EventListener element.matchesSelector element.classList string.trim window.prototype.pageOffset window.property.XMLHttpRequest"
 	}, {
 		"min": "9",
-		"fill": "element.property.matchesSelector"
+		"fill": "element.vendor.matchesSelector"
 	}],
 
 	"opera": [{
 		"only": "11.5",
 		"fill": "object.defineProperty object.defineProperties"
 	}, {
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"safari": [{
-		"fill": "shiv.html5.style element.property.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}]
 }
