@@ -3,25 +3,29 @@ polyfill
 
 **polyfill** makes web development less frustrating by polyfilling as much javascript functionality in the browser as it can.
 
-This service is also provided on HTTP and HTTPS. 
+This service can be used on HTTP and HTTPS connections.
 
 ```html
 <script src="//polyfill.io"></script>
 ```
 
-How about document.querySelector for IE6+.
+*Whoa, where's the script file?*
+
+The script file *is* the domain.
+
+Give document.querySelector to IE6+.
 
 ```js
 var el = document.querySelector(".foo.bar");
 ```
 
-Or matchesSelector without a vendor prefix. 
+Use matchesSelector without a vendor prefix. 
 
 ```js
 el.matchesSelector(".bar");
 ```
 
-HTML5 elements work in old IE and style correctly in all browsers.
+Have HTML5 elements work in old IE and style correctly in all browsers.
 
 ```html
 <main>I am block!</main>
