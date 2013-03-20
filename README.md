@@ -24,5 +24,5 @@ el.matchesSelector(".bar");
 HTML5 elements work in old IE and style correctly in all browsers.
 
 ```html
-<main>Hello World!</main>
+<main>I am block!</main>
 ```
