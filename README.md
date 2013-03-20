@@ -9,12 +9,20 @@ This service is also provided on HTTP and HTTPS.
 <script src="//polyfill.io"></script>
 ```
 
-Then, have some fun.
+How about document.querySelector for IE6+.
 
 ```js
-var el = document.querySelector(".foo.bar"); // works in IE6+
+var el = document.querySelector(".foo.bar");
 ```
+
+Or matchesSelector without a vendor prefix. 
 
 ```js
 el.matchesSelector(".bar"); // works without vendor prefixes
+```
+
+HTML5 elements work in old IE and style correctly in all browsers.
+
+```html
+<main>Hello World!</main>
 ```
