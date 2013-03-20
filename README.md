@@ -18,7 +18,7 @@ var el = document.querySelector(".foo.bar");
 Or matchesSelector without a vendor prefix. 
 
 ```js
-el.matchesSelector(".bar"); // works without vendor prefixes
+el.matchesSelector(".bar");
 ```
 
 HTML5 elements work in old IE and style correctly in all browsers.
