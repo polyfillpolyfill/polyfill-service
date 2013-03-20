@@ -15,6 +15,6 @@ Then, have some fun.
 var el = document.querySelector(".foo.bar"); // works in IE6+
 ```
 
-```
+```js
 el.matchesSelector(".bar"); // works without vendor prefixes
 ```
