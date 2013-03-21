@@ -19,26 +19,28 @@ foreach ($agentList as $agentString => &$agentArray) {
 		foreach ($agentArray['version'] as $versionString) {
 			$versionBoolean = preg_match($versionString, $thisAgentString, $versionMatches);
 
-			$versionString = $versionBoolean ? intval($versionMatches[1]) : 0;
+			if ($versionBoolean) {
+				$versionString = $versionBoolean ? intval($versionMatches[1]) : 0;
 
-			foreach ($polyfillList[$agentString] as $polyfillArray) {
-				$min = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['min']) ? $polyfillArray['min'] : -INF;
-				$max = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['max']) ? $polyfillArray['max'] : +INF;
+				foreach ($polyfillList[$agentString] as $polyfillArray) {
+					$min = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['min']) ? $polyfillArray['min'] : -INF;
+					$max = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['max']) ? $polyfillArray['max'] : +INF;
 
-				if ($versionString >= $min && $versionString <= $max) {
-					$fillList = explode(' ', $polyfillArray['fill']);
+					if ($versionString >= $min && $versionString <= $max) {
+						$fillList = explode(' ', $polyfillArray['fill']);
 
-					foreach ($fillList as $fillString) {
-						if (file_exists('source/' . $fillString . '.js')) {
-							array_push($buffer, file_get_contents('source/' . $fillString . '.js'));
+						foreach ($fillList as $fillString) {
+							if (file_exists('source/' . $fillString . '.js')) {
+								array_push($buffer, file_get_contents('source/' . $fillString . '.js'));
+							}
 						}
 					}
 				}
+
+				array_unshift($buffer, '// '.$agentString.' '.$versionString.' polyfill', 'this.vendorPrefix = "'.$agentArray['prefix'].'";');
+
+				exit(implode("\n\n", $buffer));
 			}
 		}
-
-		array_unshift($buffer, '// '.$agentString.' '.$versionString.' polyfill', 'this.vendorPrefix = "'.$agentArray['prefix'].'";');
-
-		exit(implode("\n\n", $buffer));
 	}
 }
