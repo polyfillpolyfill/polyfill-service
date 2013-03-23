@@ -23,8 +23,8 @@ foreach ($agentList as $agentString => &$agentArray) {
 				$versionString = $versionBoolean ? intval($versionMatches[1]) : 0;
 
 				foreach ($polyfillList[$agentString] as $polyfillArray) {
-					$min = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['min']) ? $polyfillArray['min'] : -INF;
-					$max = isset($polyfillArray['only']) ? $polyfillArray['only'] : isset($polyfillArray['max']) ? $polyfillArray['max'] : +INF;
+					$min = isset($polyfillArray['only']) ? $polyfillArray['only'] : (isset($polyfillArray['min']) ? $polyfillArray['min'] : -INF);
+					$max = isset($polyfillArray['only']) ? $polyfillArray['only'] : (isset($polyfillArray['max']) ? $polyfillArray['max'] : +INF);
 
 					if ($versionString >= $min && $versionString <= $max) {
 						$fillList = explode(' ', $polyfillArray['fill']);
