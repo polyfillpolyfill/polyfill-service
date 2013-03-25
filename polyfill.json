@@ -41,15 +41,13 @@
 
 	"internet-explorer": [{
 		"max": "7",
-		"fill": "object.defineProperty.ie object.defineProperties object.keys shiv.html5 array string.trim window.XMLHttpRequest document.querySelector"
-	}, {
-		"fill": "shiv.html5.style"
+		"fill": "object.defineProperty.ie object.defineProperties object.keys shiv.html5 shiv.html5.style array string.trim window.XMLHttpRequest document.querySelector"
 	}, {
 		"only": "8",
-		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array element.EventListener element.matchesSelector element.classList string.trim window.prototype.pageOffset window.property.XMLHttpRequest"
+		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array string.trim element.prototype.eventListener element.matchesSelector element.classList window.property.pageOffset window.property.XMLHttpRequest"
 	}, {
 		"min": "9",
-		"fill": "element.vendor.matchesSelector"
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
 	"opera": [{

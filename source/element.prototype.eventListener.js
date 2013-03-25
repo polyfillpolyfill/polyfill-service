@@ -40,9 +40,9 @@
 		try {
 			return this.fireEvent("on" + eventObject.type, eventObject);
 		} catch (error) {
-			for (var index = 0, length = registry.length; index < length; ++index) {
-				if (registry[index].target == this && registry[index].type == eventObject.type) {
-					registry[index].__listener.call(this, eventObject);
+			for (var items = [].concat.call([], registry), index = 0, length = items.length; index < length; ++index) {
+				if (items[index].target == this && items[index].type == eventObject.type) {
+					items[index].__listener.call(this, eventObject);
 				}
 			}
 		}
