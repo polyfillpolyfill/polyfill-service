@@ -3,7 +3,22 @@
 /* Polyfill.io
    ========================================================================== */
 
+$fileLastModified = gmdate('D, d M Y H:i:s T', filemtime(__FILE__));
+$fileMD5 = md5_file(__FILE__);
+
+$headLastModified = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+$headMD5 = trim($_SERVER['HTTP_IF_NONE_MATCH']);
+
+header('Cache-Control: public');
 header('Content-Type: application/javascript');
+header('Etag: '.$fileMD5);
+header('Last-Modified: '.$fileLastModified, true, 200);
+
+if ($fileLastModified == $headLastModified || $fileMD5 == $headMD5) {
+	header($_SERVER['SERVER_PROTOCOL'].' 304 Not Modified');
+
+	exit();
+}
 
 $agentList = json_decode(file_get_contents('agent.json'), true);
 $polyfillList = json_decode(file_get_contents('polyfill.json'), true);
