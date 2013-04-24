@@ -1,3 +1,4 @@
+// <element>.matchesSelector
 Element.prototype.matchesSelector = function (selector) {
 	var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
 

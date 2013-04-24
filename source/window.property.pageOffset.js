@@ -1,4 +1,4 @@
-// Polyfill window.pageXOffset, window.pageYOffset
+// <window>.pageXOffset, <window>.pageYOffset
 Object.defineProperties(Window.prototype, {
 	pageXOffset: {
 		get: function () {

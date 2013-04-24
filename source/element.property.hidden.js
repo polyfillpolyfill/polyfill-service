@@ -1,3 +1,4 @@
+// <element>.hidden
 Object.defineProperty(Element.prototype, "hidden", {
 	configurable: true,
 	enumerable: true,

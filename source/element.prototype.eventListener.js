@@ -1,4 +1,4 @@
-// EventListener.js | MIT License | github.com/jonathantneal/EventListener
+// addEventListener, removeEventListener, dispatchEvent, window.CustomEvent, document.onDOMContentLoaded
 (function () {
 	// add
 	function addEventListener(type, listener) {

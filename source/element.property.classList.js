@@ -1,3 +1,4 @@
+// <element>.classList
 Object.defineProperty(Element.prototype, "classList", {
 	configurable: true,
 	get: function () {

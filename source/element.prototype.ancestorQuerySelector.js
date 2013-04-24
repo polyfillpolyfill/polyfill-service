@@ -1,3 +1,4 @@
+// <element>.ancestorQuerySelector
 (function (Element) {
 	function NodeList() {}
 
@@ -17,4 +18,4 @@
 
 		return node || null;
 	}
-})(Element)
+})(Element);

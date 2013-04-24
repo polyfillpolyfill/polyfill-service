@@ -1,4 +1,4 @@
-// cloneNode, innerHTML
+// <element>.cloneNode, <element>.innerHTML
 (function () {
 	// set innerHTMLSetter
 	var innerHTMLSetter = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML").set;
