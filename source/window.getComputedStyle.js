@@ -47,8 +47,8 @@ this.getComputedStyle = (function () {
 				return '-' + match.toLowerCase();
 			}));
 
-			if (property == 'width') style[property] = element.offsetWidth;
-			else if (property == 'height') style[property] = element.offsetHeight;
+			if (property == 'width') style[property] = element.offsetWidth + 'px';
+			else if (property == 'height') style[property] = element.offsetHeight + 'px';
 			else if (property == 'styleFloat') style['float'] = currentStyle[property];
 			else if (/margin.|padding.|border.+W/.test(property) && style[property] != 'auto') style[property] = Math.round(getComputedStylePixel(element, property, fontSize)) + 'px';
 			else style[property] = currentStyle[property];
