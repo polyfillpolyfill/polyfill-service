@@ -5,6 +5,7 @@
 
 $fileLastModified = gmdate('D, d M Y H:i:s T', filemtime(__FILE__));
 $fileMD5 = md5_file(__FILE__);
+$fileDir = dirname(__FILE__).'/';
 
 $headLastModified = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 $headMD5 = trim($_SERVER['HTTP_IF_NONE_MATCH']);
@@ -20,8 +21,8 @@ if ($fileLastModified == $headLastModified || $fileMD5 == $headMD5) {
 	exit();
 }
 
-$agentList = json_decode(file_get_contents('agent.json'), true);
-$polyfillList = json_decode(file_get_contents('polyfill.json'), true);
+$agentList = json_decode(file_get_contents($fileDir.'agent.json'), true);
+$polyfillList = json_decode(file_get_contents($fileDir.'polyfill.json'), true);
 
 $thisAgentString = $_SERVER['HTTP_USER_AGENT'];
 
@@ -45,8 +46,8 @@ foreach ($agentList as $agentString => &$agentArray) {
 						$fillList = explode(' ', $polyfillArray['fill']);
 
 						foreach ($fillList as $fillString) {
-							if (file_exists('source/' . $fillString . '.js')) {
-								array_push($buffer, file_get_contents('source/' . $fillString . '.js'));
+							if (file_exists($fileDir.'source/' . $fillString . '.js')) {
+								array_push($buffer, file_get_contents($fileDir.'source/' . $fillString . '.js'));
 							}
 						}
 					}
