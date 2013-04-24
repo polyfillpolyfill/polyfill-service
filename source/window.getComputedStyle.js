@@ -30,10 +30,10 @@ this.getComputedStyle = (function () {
 		b = property + 'Bottom' + borderSuffix,
 		l = property + 'Left' + borderSuffix;
 
-		style[property] = (style[t] == style[r] && style[t] == style[b] && style[t] == style[l] ? [ style[t] ]
-		: style[t] == style[b] && style[l] == style[r] ? [ style[t], style[r] ]
-		: style[l] == style[r] ? [ style[t], style[r], style[b] ]
-		: [ style[t], style[r], style[b], style[l] ]).join(' ');
+		style[property] = (style[t] == style[r] && style[t] == style[b] && style[t] == style[l] ? [ style[t] ] :
+		                   style[t] == style[b] && style[l] == style[r] ? [ style[t], style[r] ] :
+		                   style[l] == style[r] ? [ style[t], style[r], style[b] ] :
+		                   [ style[t], style[r], style[b], style[l] ]).join(' ');
 	}
 
 	function CSSStyleDeclaration(element) {
