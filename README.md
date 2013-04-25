@@ -30,6 +30,10 @@ Have HTML5 elements work in old IE and style correctly in all browsers.
 <main>I am block!</main>
 ```
 
+## Polyfills target
+
+Android, Blackberry, Chrome, Opera, Opera Mini, Opera Mobile, Firefox, Internet Explorer, Safari, Safari IOS
+
 ## Polyfills include
 
 ### HTML5 Elements
