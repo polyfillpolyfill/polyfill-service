@@ -30,7 +30,7 @@ Have HTML5 elements work in old IE and style correctly in all browsers.
 <main>I am block!</main>
 ```
 
-## Current Polyfills include
+## Polyfills include
 
 ### HTML5 Elements
 
@@ -38,7 +38,7 @@ Have HTML5 elements work in old IE and style correctly in all browsers.
 
 ### Array
 
-`every` `filter` `forEach` `indexOf` `.lastIndexOf` `map` `some`
+`every` `filter` `forEach` `indexOf` `lastIndexOf` `map` `some`
 
 ### Element
 
