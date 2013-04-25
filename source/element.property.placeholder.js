@@ -48,3 +48,9 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 		});
 	}
 });
+
+document.addEventListener('DOMContentLoaded', function (event) {
+	Array.prototype.forEach.call(document.querySelectorAll('input,textarea'), function (element) {
+		if (element.placeholder) element.placeholder = element.placeholder;
+	});
+});
