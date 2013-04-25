@@ -1,5 +1,4 @@
-polyfill
-========
+# polyfill
 
 **polyfill** makes web development less frustrating by polyfilling as much javascript functionality in the browser as it can.
 
@@ -9,7 +8,7 @@ This service can be used on HTTP and HTTPS connections.
 <script src="//polyfill.io"></script>
 ```
 
-*Whoa, where's the script file?*
+Whoa, where's the script file?*
 
 The script file *is* the domain.
 
@@ -30,3 +29,29 @@ Have HTML5 elements work in old IE and style correctly in all browsers.
 ```html
 <main>I am block!</main>
 ```
+
+## Current Polyfills include
+
+### HTML5 Elements
+
+`abbr` `article` `aside` `audio` `bdi` `canvas` `data` `datalist` `details` `figcaption` `figure` `footer` `header` `hgroup` `main` `mark` `meter` `nav` `output` `progress` `section` `subline` `summary` `time` `video`
+
+### Array
+
+`every` `filter` `forEach` `indexOf` `.lastIndexOf` `map` `some`
+
+### Element
+
+`addEventListener` `classList` `dispatchEvent` `hidden` `matchesSelector` `placeholder` `removeEventListener`
+
+### Object
+
+`defineProperty` `defineProperties` `keys`
+
+### String
+
+`trim`
+
+### Window
+
+`getComputedStyle` `innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
