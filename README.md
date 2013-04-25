@@ -54,4 +54,4 @@ Have HTML5 elements work in old IE and style correctly in all browsers.
 
 ### Window
 
-`getComputedStyle` `innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
+`CustomEvent` `getComputedStyle` `innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
