@@ -13,9 +13,13 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 		elementCurrentStyle = element.currentStyle,
 		style;
 
+		xInputRuntimeStyle.display = 'inline-block';
+		xInputRuntimeStyle.fontSize = '100%';
+		xInputRuntimeStyle.margin = elementCurrentStyle.margin;
+		xInputRuntimeStyle.width = elementCurrentStyle.width;
+
 		element.parentNode.insertBefore(xInput, element).appendChild(element);
 
-		xInputRuntimeStyle.display = 'inline-block';
 		xPlaceholderRuntimeStyle.backgroundColor = 'transparent';
 		xPlaceholderRuntimeStyle.fontFamily = elementCurrentStyle.fontFamily;
 		xPlaceholderRuntimeStyle.fontSize = elementCurrentStyle.fontSize;
@@ -23,7 +27,6 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 		xPlaceholderRuntimeStyle.padding = elementCurrentStyle.padding;
 		xPlaceholderRuntimeStyle.position = 'absolute';
 		xPlaceholderRuntimeStyle.display = element.value ? 'none' : 'inline-block';
-		xInputRuntimeStyle.margin = elementCurrentStyle.margin;
 		element.runtimeStyle.margin = '0';
 
 		xPlaceholder.attachEvent('onclick', function (event) {
