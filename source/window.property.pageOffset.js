@@ -1,4 +1,4 @@
-// <window>.pageXOffset, <window>.pageYOffset
+// <window>.pageXOffset, <window>.pageYOffset, <window>.innerWidth, <window>.innerHeight
 Object.defineProperties(Window.prototype, {
 	pageXOffset: {
 		get: function () {

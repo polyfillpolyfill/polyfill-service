@@ -41,10 +41,10 @@
 
 	"internet-explorer": [{
 		"max": "7",
-		"fill": "object.defineProperty.ie object.defineProperties object.keys shiv.html5 shiv.html5.style array.prototype string.trim window.getComputedStyle window.XMLHttpRequest document.querySelector"
+		"fill": "oldie.before object.defineProperty.ie object.defineProperties object.keys shiv.html5 shiv.html5.style array.prototype string.trim window.prototype.getComputedStyle window.prototype.XMLHttpRequest element.prototype.matchesSelector oldie.after"
 	}, {
 		"only": "8",
-		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array.prototype string.trim element.prototype.eventListener element.prototype.matchesSelector element.property.classList element.property.placeholder window.property.pageOffset window.getComputedStyle window.XMLHttpRequest"
+		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array.prototype string.trim element.prototype.eventListener element.prototype.matchesSelector element.property.classList element.property.placeholder window.property.pageOffset window.prototype.getComputedStyle window.prototype.XMLHttpRequest"
 	}, {
 		"min": "9",
 		"fill": "shiv.html5.style element.vendor.matchesSelector"
