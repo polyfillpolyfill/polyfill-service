@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>.awesome { background-color: #FF0; }</style>
+		<script src="./"></script>
+		<script>
+		document.addEventListener('DOMContentLoaded', function (event) {
+			var h1 = document.body.querySelector('h1');
+
+			if (h1.matchesSelector('body > h1[class^="coo"]') && !h1.matchesSelector('body > h1[class$="coo"]')) {
+				h1.classList.add('awesome');
+
+				h1.addEventListener('click', function (event) {
+					alert([event.type, event.currentTarget.nodeName, event.target.nodeName, event.target.constructor])
+				});
+			}
+		});
+		</script>
+		<title>polyfill test</title>
+	</head>
+	<body>
+		<h1 class="cool"><span>This is a test of polyfill.js</span></h1>
+		<p><script>document.write(window.innerWidth)</script></p>
+		<script>
+		var p = document.querySelector('p');
+
+		window.addEventListener('resize', function (event) {
+			p.innerHTML = window.innerWidth;
+		});
+		</script>
+	</body>
+</html>
