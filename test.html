@@ -6,7 +6,7 @@
 		<script src="./"></script>
 		<script>
 		document.addEventListener('DOMContentLoaded', function (event) {
-			var h1 = document.body.querySelector('h1');
+			var h1 = document.body.querySelectorAll('p, h1')[0];
 
 			if (h1.matchesSelector('body > h1[class^="coo"]') && !h1.matchesSelector('body > h1[class$="coo"]')) {
 				h1.classList.add('awesome');

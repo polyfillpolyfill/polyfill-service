@@ -18,144 +18,155 @@
 
 	function getElementsByQuery(element, query) {
 		var
-		elements = getAllElements(element),
-		valid = '-?[_a-zA-Z]+[_a-zA-Z0-9-]*',
+		// get all descendant elements
+		allElements = getAllElements(element),
+		allMatchedElements = new NodeList,
+		valid = '-?[_a-zA-Z]+[_a-zA-Z0-9-]*', // valid tag, id, or classname
 		matches = new RegExp([
-			'('+valid+'|\\*)', // element [1]
-			'#('+valid+')', // id [2]
-			'\\.('+valid+')', // class [3]
-			'\\[('+valid+')]', // attribute [4]
-			'\\[('+valid+')([*$|~^]?=)?(["\'])(.*?)\\7\\]', // attribute with value [5, 6, 7, 8]
-			':('+valid+')', // :pseudo [9]
+			'(' + valid + '|\\*)', // element [1]
+			'#(' + valid + ')', // id [2]
+			'\\.(' + valid + ')', // class [3]
+			'\\[(' + valid + ')]', // attribute [4]
+			'\\[(' + valid + ')([*$|~^]?=)?(["\'])(.*?)\\7\\]', // attribute with value [5, 6, 7, 8]
+			':(' + valid + ')', // :pseudo [9]
 			'\\s*([>~+ ])\\s*' // modifier [10]
 		].join('|'), 'g');
 
-		while (match = elements && matches.exec(query)) {
-			var
-			_element = match[1],
-			_id = match[2],
-			_class = match[3],
-			_attribute = match[4], _attributeName = match[5], _attributeType = match[6], _attributeValue = match[8],
-			_pseudo = match[9],
-			_modifier = match[10];
+		// loop through the queries
+		for (var queries = query.replace(/^\s+|\s+$/g, '').split(/\s*,\s*/), queryIndex = 0; query = queries[queryIndex]; ++queryIndex) {
+			elements = [].concat(allElements);
 
-			if (_element == '*') continue;
+			while (match = elements && matches.exec(query)) {
+				var
+				_element = match[1],
+				_id = match[2],
+				_class = match[3],
+				_attribute = match[4], _attributeName = match[5], _attributeType = match[6], _attributeValue = match[8],
+				_pseudo = match[9],
+				_modifier = match[10];
 
-			for (var matchedElements = new NodeList, index = 0, element; element = elements[index]; ++index) {
-				if (_element) {
-					if (element.nodeName.toLowerCase() == _element.toLowerCase()) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_id) {
-					if (element.id.toLowerCase() == _id.toLowerCase()) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_class) {
-					if (element.className.toLowerCase() == _class.toLowerCase()) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_pseudo == 'first-child') {
-					var child = element.parentNode && element.parentNode.nodeType == 1 && element.parentNode.firstChild;
+				if (_element == '*') continue;
 
-					while (child && child.nodeType != 1) {
-						child = child.nextSibling;
-					}
-
-					if (element == child) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_pseudo == 'last-child') {
-					var child = element.parentNode && element.parentNode.nodeType == 1 && element.parentNode.lastChild;
-
-					while (child && child.nodeType != 1) {
-						child = child.previousSibling;
-					}
-
-					if (element == child) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_attribute) {
-					if (element.attributes[_attribute] && element.attributes[_attribute].specified) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_attributeName) {
-					if (element.attributes[_attributeName] && element.attributes[_attributeName].specified) {
-						var nodeValue =  element.attributes[_attributeName].nodeValue;
-
-						if (_attributeType == '=' && nodeValue == _attributeValue) {
-							push.call(matchedElements, element);
-						}
-						if (_attributeType == '*=' && nodeValue.indexOf(_attributeValue) > -1) {
-							push.call(matchedElements, element);
-						}
-						if (_attributeType == '^=' && nodeValue.indexOf(_attributeValue) == 0) {
-							push.call(matchedElements, element);
-						}
-						if (_attributeType == '$=' && nodeValue.indexOf(_attributeValue) == nodeValue.length - _attributeValue.length) {
-							push.call(matchedElements, element);
-						}
-						if (_attributeType == '~=' && (' ' + nodeValue.split(/\s+/).join(' ') + ' ').indexOf(' '+_attributeValue+' ') > -1) {
-							push.call(matchedElements, element);
-						}
-						if (_attributeType == '|=' && (' ' + nodeValue.split(/-+/).join(' ') + ' ').indexOf(' '+_attributeValue+' ') > -1) {
+				for (var matchedElements = [], elementIndex = 0, element; element = elements[elementIndex]; ++elementIndex) {
+					if (_element) {
+						if (element.nodeName.toLowerCase() == _element.toLowerCase()) {
 							push.call(matchedElements, element);
 						}
 					}
-				}
-				else if (_pseudo == 'last-child') {
-					var child = element.parentNode.lastChild;
-
-					while (child && child.nodeType != 1) {
-						child = child.previousSibling;
-					}
-
-					if (element == child) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_modifier == '>') {
-					for (var children = element.children, index2 = 0; child = children[index2]; ++index2) {
-						if (child.nodeType == 1) {
-							push.call(matchedElements, child);
+					else if (_id) {
+						if (element.id.toLowerCase() == _id.toLowerCase()) {
+							push.call(matchedElements, element);
 						}
 					}
-				}
-				else if (_modifier == '~') {
-					do {
-						element = element.nextSibling
-					} while (element && element.nodeType != 1);
+					else if (_class) {
+						if (element.className.toLowerCase() == _class.toLowerCase()) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_pseudo == 'first-child') {
+						var child = element.parentNode && element.parentNode.nodeType == 1 && element.parentNode.firstChild;
 
-					if (element) {
-						push.call(matchedElements, element);
+						while (child && child.nodeType != 1) {
+							child = child.nextSibling;
+						}
+
+						if (element == child) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_pseudo == 'last-child') {
+						var child = element.parentNode && element.parentNode.nodeType == 1 && element.parentNode.lastChild;
+
+						while (child && child.nodeType != 1) {
+							child = child.previousSibling;
+						}
+
+						if (element == child) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_attribute) {
+						if (element.attributes[_attribute] && element.attributes[_attribute].specified) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_attributeName) {
+						if (element.attributes[_attributeName] && element.attributes[_attributeName].specified) {
+							var nodeValue =  element.attributes[_attributeName].nodeValue;
+
+							if (_attributeType == '=' && nodeValue == _attributeValue) {
+								push.call(matchedElements, element);
+							}
+							if (_attributeType == '*=' && nodeValue.indexOf(_attributeValue) > -1) {
+								push.call(matchedElements, element);
+							}
+							if (_attributeType == '^=' && nodeValue.indexOf(_attributeValue) == 0) {
+								push.call(matchedElements, element);
+							}
+							if (_attributeType == '$=' && nodeValue.indexOf(_attributeValue) == nodeValue.length - _attributeValue.length) {
+								push.call(matchedElements, element);
+							}
+							if (_attributeType == '~=' && (' ' + nodeValue.split(/\s+/).join(' ') + ' ').indexOf(' '+_attributeValue+' ') > -1) {
+								push.call(matchedElements, element);
+							}
+							if (_attributeType == '|=' && (' ' + nodeValue.split(/-+/).join(' ') + ' ').indexOf(' '+_attributeValue+' ') > -1) {
+								push.call(matchedElements, element);
+							}
+						}
+					}
+					else if (_pseudo == 'last-child') {
+						var child = element.parentNode.lastChild;
+
+						while (child && child.nodeType != 1) {
+							child = child.previousSibling;
+						}
+
+						if (element == child) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_modifier == '>') {
+						for (var children = element.children, childIndex = 0; child = children[childIndex]; ++childIndex) {
+							if (child.nodeType == 1) {
+								push.call(matchedElements, child);
+							}
+						}
+					}
+					else if (_modifier == '~') {
+						do {
+							element = element.nextSibling
+						} while (element && element.nodeType != 1);
+
+						if (element) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_modifier == '+') {
+						do {
+							element = element.nextSibling
+						} while (element && element.nodeType != 1);
+
+						if (element) {
+							push.call(matchedElements, element);
+						}
+					}
+					else if (_modifier == ' ') {
+						push.apply(matchedElements, getAllElements(element));
+					}
+					else {
+						throw Error('SyntaxError: DOM Exception 12');
 					}
 				}
-				else if (_modifier == '+') {
-					do {
-						element = element.nextSibling
-					} while (element && element.nodeType != 1);
 
-					if (element) {
-						push.call(matchedElements, element);
-					}
-				}
-				else if (_modifier == ' ') {
-					push.apply(matchedElements, getAllElements(element));
-				}
-				else {
-					throw Error('SyntaxError: DOM Exception 12');
-				}
+				elements = matchedElements;
 			}
 
-			elements = matchedElements;
+			push.apply(allMatchedElements, elements);
 		}
 
-		return elements;
+		return Array.prototype.sort.call(allMatchedElements, function (a, b) {
+			return a.sourceIndex - b.sourceIndex;
+		});
 	}
 
 	// <window|document|element>.addEventListener
