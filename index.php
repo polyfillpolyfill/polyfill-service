@@ -21,6 +21,7 @@ if ($fileLastModified == $headLastModified || $fileMD5 == $headMD5) {
 	exit();
 }
 
+$is_source = isset($_GET['!']);
 $agentList = json_decode(file_get_contents($fileDir.'agent.json'), true);
 $polyfillList = json_decode(file_get_contents($fileDir.'polyfill.json'), true);
 
@@ -46,16 +47,18 @@ foreach ($agentList as $agentString => &$agentArray) {
 						$fillList = explode(' ', $polyfillArray['fill']);
 
 						foreach ($fillList as $fillString) {
-							if (file_exists($fileDir.'source/' . $fillString . '.js')) {
-								array_push($buffer, file_get_contents($fileDir.'source/' . $fillString . '.js'));
+							$file = $is_source ? 'source/'.$fillString.'.js' : 'minified/'.$fillString.'.js';
+
+							if (file_exists($file)) {
+								array_push($buffer, file_get_contents($file));
 							}
 						}
 					}
 				}
 
-				array_unshift($buffer, '// '.$agentString.' '.$versionString.' polyfill', 'this.vendorPrefix = "'.$agentArray['prefix'].'";');
+				array_unshift($buffer, '// '.$agentString.' '.$versionString.' polyfill'.($is_source ? '' : PHP_EOL), 'this.vendorPrefix = "'.$agentArray['prefix'].'";');
 
-				exit(implode("\n\n", $buffer));
+				exit(implode($is_source ? PHP_EOL.PHP_EOL : '', $buffer));
 			}
 		}
 	}
