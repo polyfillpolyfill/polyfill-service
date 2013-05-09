@@ -1,1 +1,1 @@
-Object.keys=function(object){var names=[],key;for(key in object){if(object.hasOwnProperty(key)){names.push(key)}}return names};
+Object.keys=function(r){var n=[],e;for(e in r){if(r.hasOwnProperty(e)){n.push(e)}}return n};

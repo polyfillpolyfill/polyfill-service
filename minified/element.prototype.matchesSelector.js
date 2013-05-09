@@ -1,1 +1,1 @@
-Element.prototype.matchesSelector=function(selector){var node=this,nodes=node.document.querySelectorAll(selector),i=-1;while(nodes[++i]&&nodes[i]!=node);return!!nodes[i]};
+Element.prototype.matchesSelector=function(e){var t=this,r=t.document.querySelectorAll(e),l=-1;while(r[++l]&&r[l]!=t);return!!r[l]};

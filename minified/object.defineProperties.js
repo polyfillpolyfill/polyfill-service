@@ -1,1 +1,1 @@
-Object.defineProperties=function(object,properties){for(var property in properties){Object.defineProperty(object,property,properties[property])}return object};
+Object.defineProperties=function(e,r){for(var n in r){Object.defineProperty(e,n,r[n])}return e};
