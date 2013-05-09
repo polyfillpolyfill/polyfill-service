@@ -1,15 +1,9 @@
 // array prototype methods
 (function () {
-	ArrayPrototype = Array.prototype;
-	HasOwnProperty = Object.prototype.hasOwnProperty;
+	var ArrayPrototype = Array.prototype;
+	var HasOwnProperty = Object.prototype.hasOwnProperty;
 
-	ArrayLoopString = String(function(){
-		for (var arrayB = new Array, array = this, length = array.length, index = index < 0 ? length - index : index || 0, indexB = -1; index < length; ++index) {
-			if (HasOwnProperty.call(array, index)) {
-				/**/
-			}
-		}
-	}).slice(12, -1).split(/\/\*\*\//);
+	var ArrayLoopString=['for(var array=this,arrayB=[],length=array.length,index=index<0||0,indexB=-1;index<length;++index){if(Object.prototype.hasOwnProperty.call(array,index)){','}}'];
 
 	ArrayPrototype.every = new Function("callback", "scope", ArrayLoopString.join("if (!callback.call(scope || window, array[index], index, array)) return false") + "return true");
 	ArrayPrototype.every.enumerable = false;
