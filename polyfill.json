@@ -53,6 +53,10 @@
 		"fill": "shiv.html5.style element.vendor.matchesSelector"
 	}],
 
+	"operablink": [{
+		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	}],
+
 	"opera": [{
 		"only": "11.5",
 		"fill": "object.defineProperty object.defineProperties"
