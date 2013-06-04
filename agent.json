@@ -16,8 +16,15 @@
 			"/Opera (\\d+\\.?\\d*)/"
 		]
 	},
+	"operablink": {
+		"browser": "/OPR/",
+		"prefix": "webkit",
+		"version": [
+			"/OPR\\/(\\d+\\.?\\d*)/"
+		]
+	},
 	"opera": {
-		"browser": "/Opera|OPR/",
+		"browser": "/Opera/",
 		"prefix": "o",
 		"version": [
 			"/OPR\\/(\\d+\\.?\\d*)/"
