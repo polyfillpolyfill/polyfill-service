@@ -1,4 +1,28 @@
 {
+	"opera-mini": {
+		"browser": "/Opera Mini/",
+		"prefix": "o",
+		"version": [
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Opera Mini\\/(\\d+\\.?\\d*)/"
+		]
+	},
+	"opera-mobile": {
+		"browser": "/Opera Mobi/",
+		"prefix": "o",
+		"version": [
+			"/Opera Mobile (\\d+\\.?\\d*)/",
+			"/Version\\/(\\d+\\.?\\d*)/",
+			"/Opera (\\d+\\.?\\d*)/"
+		]
+	},
+	"opera": {
+		"browser": "/Opera|OPR/",
+		"prefix": "o",
+		"version": [
+			"/OPR\\/(\\d+\\.?\\d*)/"
+		]
+	},
 	"android": {
 		"browser": "/Android/",
 		"prefix": "ms",
@@ -23,23 +47,6 @@
 			"/(?:CPU|Phone) OS (\\d+_?\\d*)/"
 		]
 	},
-	"opera-mini": {
-		"browser": "/Opera Mini/",
-		"prefix": "o",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Opera Mini\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"opera-mobile": {
-		"browser": "/Opera Mobi/",
-		"prefix": "o",
-		"version": [
-			"/Opera Mobile (\\d+\\.?\\d*)/",
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Opera (\\d+\\.?\\d*)/"
-		]
-	},
 	"chrome": {
 		"browser": "/Chrome/",
 		"prefix": "webkit",
@@ -59,13 +66,6 @@
 		"prefix": "ms",
 		"version": [
 			"/MSIE (\\d+\\.?\\d*)/"
-		]
-	},
-	"opera": {
-		"browser": "/Opera/",
-		"prefix": "o",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/"
 		]
 	},
 	"safari": {
