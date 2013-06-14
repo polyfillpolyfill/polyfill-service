@@ -48,21 +48,11 @@
 		}
 	}
 
-	var registry = [], propertyDescriptors = {
-		addEventListener: {
-			value: addEventListener
-		},
-		removeEventListener: {
-			value: removeEventListener
-		},
-		dispatchEvent: {
-			value: dispatchEvent
-		}
-	};
+	var registry = [];
 
-	Object.defineProperties(Window.prototype, propertyDescriptors);
-	Object.defineProperties(HTMLDocument.prototype, propertyDescriptors);
-	Object.defineProperties(Element.prototype, propertyDescriptors);
+	Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = addEventListener;
+	Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = removeEventListener;
+	Window.prototype.dispatchEvent = Document.prototype.dispatchEvent = Element.prototype.dispatchEvent = dispatchEvent;
 
 	// custom
 	Object.defineProperty(Window.prototype, "CustomEvent", {
