@@ -33,4 +33,7 @@ Object.defineProperty = function (object, property, descriptor) {
 
 	// assign the event
 	object.attachEvent('onpropertychange', onPropertyChange);
+
+	// return the object
+	return object;
 };

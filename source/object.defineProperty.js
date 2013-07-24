@@ -7,4 +7,6 @@ Object.defineProperty = function (object, property, descriptor) {
 	if (descriptor.set) {
 		object.__defineSetter__(property, descriptor.set);
 	}
+
+	return object;
 };

@@ -7,6 +7,6 @@
 		delete descriptor.enumerable;
 		delete descriptor.writable;
 
-		defineProperty(object, property, descriptor);
+		return defineProperty(object, property, descriptor);
 	};
 })();
