@@ -99,7 +99,7 @@
 	};
 
 	// <window>.getComputedStyle
-	Window.prototype.getComputedStyle = function (element) {
+	window.getComputedStyle = Window.prototype.getComputedStyle = function (element) {
 		return new CSSStyleDeclaration(element);
 	};
 })();
