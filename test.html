@@ -17,23 +17,23 @@
 		}
 		</style>
 		<script>
-		document.addEventListener("DOMContentLoaded", function (event) {
-			var h1 = document.body.querySelectorAll("p, h1")[0];
+		document.addEventListener('DOMContentLoaded', function (event) {
+			var h1 = document.body.querySelectorAll('p, h1')[0];
 
-			if (h1.matchesSelector("body > h1[class^='fo']") && !h1.matchesSelector("body > h1[class$='of']")) {
-				h1.classList.remove("foo");
+			if (h1.matchesSelector('body > h1[class^="fo"]') && !h1.matchesSelector('body > h1[class$="of"]')) {
+				h1.classList.remove('foo');
 
-				h1.innerHTML = "<mark>"+h1.innerHTML+"</mark>";
+				h1.innerHTML = '<mark>'+h1.innerHTML+'</mark>';
 
-				h1.addEventListener("click", function (event) {
-					var pre = document.querySelector("pre#stats");
+				h1.addEventListener('click', function (event) {
+					var pre = document.querySelector('pre#stats');
 
 					pre.innerHTML = [
-						"event.timeStamp: "+event.timeStamp,
-						"event.target.nodeName: "+event.target.nodeName,
-						"event.currentTarget.nodeName: "+event.currentTarget.nodeName,
-						"event.currentTarget.innerHTML: "+event.currentTarget.innerHTML.replace(/</g, "&lt;")
-					].join("<br>");
+						'event.timeStamp: '+event.timeStamp,
+						'event.target.nodeName: '+event.target.nodeName,
+						'event.currentTarget.nodeName: '+event.currentTarget.nodeName,
+						'event.currentTarget.innerHTML: '+event.currentTarget.innerHTML.replace(/</g, '&lt;')
+					].join('<br>');
 
 					document.body.style.marginTop = getComputedStyle(pre).height;
 				});
