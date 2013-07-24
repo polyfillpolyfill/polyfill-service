@@ -1,8 +1,6 @@
 # polyfill
 
-**polyfill** makes web development less frustrating by polyfilling as much javascript functionality in the browser as it can.
-
-This service can be used on HTTP and HTTPS connections.
+**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. It can also be used as a service over HTTP and HTTPS connections.
 
 ```html
 <script src="//polyfill.io"></script>
@@ -12,29 +10,29 @@ Whoa, where's the script file?
 
 The script file *is* the domain.
 
-Give document.querySelector to IE6+.
+## What does it do?
+
+A lot. For instance, you can use querySelectors in IE6.
 
 ```js
 var el = document.querySelector(".foo.bar");
 ```
 
-Use matchesSelector without a vendor prefix. 
+Or use matchesSelector without a vendor prefix. 
 
 ```js
 el.matchesSelector(".bar");
 ```
 
-Have HTML5 elements work in old IE and style correctly in all browsers.
+HTML5 elements are styling are covered too. The script is clean, compressed, and aggressively cached.
 
-```html
-<main>I am block!</main>
-```
+## What browsers are you supporting?
 
-## Polyfills target
+Android, Blackberry, Chrome, Opera (including 15+), Opera Mini, Opera Mobile, Firefox 3.6+, Internet Explorer 6+, Safari 4+, and Safari IOS.
 
-Android, Blackberry, Chrome, Opera, Opera Mini, Opera Mobile, Firefox, Internet Explorer, Safari, Safari IOS
+## What functionality are you polyfilling?
 
-## Polyfills include
+You should be able to use all of the following features to a reasonable extent in every supported browser.
 
 ### HTML5 Elements
 
@@ -42,20 +40,34 @@ Android, Blackberry, Chrome, Opera, Opera Mini, Opera Mobile, Firefox, Internet 
 
 ### Array
 
-`every` `filter` `forEach` `indexOf` `lastIndexOf` `map` `some`
-
-### Element
-
-`addEventListener` `classList` `dispatchEvent` `hidden` `matchesSelector` `placeholder` `removeEventListener`
+`is` `every` `filter` `forEach` `indexOf` `lastIndexOf` `map` `reduce` `reduceRight` `some`
 
 ### Object
 
-`defineProperty` `defineProperties` `keys`
+`create` `defineProperty` `defineProperties` `getOwnPropertyNames` `getPrototypeOf` `is` `keys`
 
 ### String
 
 `trim`
 
-### Window
+### Date
 
-`CustomEvent` `getComputedStyle` `innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
+`Date.now` `toISOString`
+
+### Event
+
+`addEventListener` `removeEventListener` `dispatchEvent` `new Event` `new CustomEvent` `hashchange` `DOMContentLoaded` `geolocation`
+
+### Selector
+`querySelector` `querySelectorAll` `matchesSelector`
+
+### Class
+`getComputedStyle` `getElementsByClassName` `classList`
+
+### Attribute
+`hasAttribute` `hidden` `placeholder`
+
+### Window
+`innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
+
+Thanks for reading. Now, please&hellip; enjoy!
