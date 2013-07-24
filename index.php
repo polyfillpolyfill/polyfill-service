@@ -47,7 +47,7 @@ foreach ($agentList as $agentString => &$agentArray) {
 						$fillList = explode(' ', $polyfillArray['fill']);
 
 						foreach ($fillList as $fillString) {
-							$file = $isSource ? 'source/'.$fillString.'.js' : 'minified/'.$fillString.'.js';
+							$file = $fileDir.($isSource ? 'source/'.$fillString.'.js' : 'minified/'.$fillString.'.js');
 
 							if (file_exists($file)) {
 								array_push($buffer, file_get_contents($file));
