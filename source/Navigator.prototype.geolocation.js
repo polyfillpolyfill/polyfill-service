@@ -76,6 +76,6 @@
 	timeout = 1000 * 60,
 	request = 'This Webpage wants to track your physical location.\nDo you allow it?',
 	confirmed = false,
-	navigator = window.navigator.constructor ? window.navigator.constructor.prototype : window.navigator,
+	navigator = window.navigator.constructor && window.navigator.constructor !== Object ? window.navigator.constructor.prototype : window.navigator,
 	geolocation = navigator.geolocation = new Geolocation();
 })();
