@@ -189,7 +189,6 @@
 
 		return instance;
 	},
-	concat = Array.prototype.concat,
 	push = Array.prototype.push,
 	sort = Array.prototype.sort;
 
@@ -284,7 +283,8 @@
 		var
 		element = this,
 		getElementById = element.getElementById,
-		getElementsByTagName = element.getElementsByTagName;
+		getElementsByTagName = element.getElementsByTagName,
+		setAttribute = element.setAttribute;
 
 		// <element>.getElementById
 		element.getElementById = function (id) {
@@ -327,8 +327,21 @@
 			return elements;
 		};
 
+		// <element>.setAttribute
+		element.setAttribute = function (name, value) {
+			element = element || this;
+
+			if (name === 'class') {
+				element.className = value !== undefined && value !== null && String(name) || '';
+			}
+
+			return setAttribute.call(element, name, value);
+		};
+
 		// <element>.hasAttribute
 		element.hasAttribute = function (name) {
+			element = element || this;
+
 			return element.getAttribute(name) !== null;
 		};
 	}];
