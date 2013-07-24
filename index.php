@@ -56,7 +56,7 @@ foreach ($agentList as $agentString => &$agentArray) {
 					}
 				}
 
-				array_unshift($buffer, '// '.$agentString.' '.$versionString.' polyfill'.($is_source ? '' : PHP_EOL), 'this.vendorPrefix = "'.$agentArray['prefix'].'";');
+				array_unshift($buffer, '// '.$agentString.' '.$versionString.' Polyfill'.($is_source ? '' : PHP_EOL));
 
 				exit(implode($is_source ? PHP_EOL.PHP_EOL : '', $buffer));
 			}

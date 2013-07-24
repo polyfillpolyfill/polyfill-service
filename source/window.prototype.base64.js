@@ -1,9 +1,9 @@
-// <window>.atob, <window>.btoa
 /** @license MIT David Lindquist (http://www.webtoolkit.info/javascript-base64.html), Andrew Dodson (drew81.com) */
 (function () {
 	var keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=', keysRe = new RegExp('[^' + keys + ']');
 
-	Window.prototype.atob = function (input) {
+	// Window.prototype.atob
+	Window.prototype.atob = function atob(input) {
 		var output = [], buffer, bufferB, chrs, index = 0, indexB, length = input.length;
 
 		if ((length % 4 > 0) || (keysRe.test(input)) || (/=/.test(input) && (/=[^=]/.test(input) || /={3}/.test(input)))) {
@@ -17,7 +17,7 @@
 
 			buffer = (bufferB[0] << 18) + (bufferB[1] << 12) + ((bufferB[2] & 63) << 6) + (bufferB[3] & 63);
 
-			chrs = [(buffer & (255 << 16)) >> 16, bufferB[2] == 64 ? -1 : (buffer & (255 << 8)) >> 8, bufferB[3] == 64 ? -1 : buffer & 255];
+			chrs = [(buffer & (255 << 16)) >> 16, bufferB[2] === 64 ? -1 : (buffer & (255 << 8)) >> 8, bufferB[3] === 64 ? -1 : buffer & 255];
 
 			for (indexB = 0; indexB < 3; ++indexB) {
 				if (chrs[indexB] >= 0 || indexB === 0) {
@@ -29,7 +29,8 @@
 		return output.join('');
 	};
 
-	Window.prototype.btoa = function (input) {
+	// Window.prototype.btoa
+	Window.prototype.btoa = function btoa(input) {
 		var output = [], buffer, chrs, index = 0, length = input.length;
 
 		while (index < length) {

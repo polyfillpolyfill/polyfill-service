@@ -1,12 +1,12 @@
 // Object.keys
-Object.keys = function (object) {
-	var names = [], key;
+Object.keys = function keys(object) {
+	var buffer = [], key;
 
 	for (key in object) {
-		if (object.hasOwnProperty(key)) {
-			names.push(key);
+		if (Object.prototype.hasOwnProperty.call(object, key)) {
+			buffer.push(key);
 		}
 	}
 
-	return names;
+	return buffer;
 };

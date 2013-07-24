@@ -1,0 +1,1 @@
+window.polyfill(window,Window);

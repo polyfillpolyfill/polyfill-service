@@ -1,8 +1,12 @@
-// <element>.matchesSelector
-Element.prototype.matchesSelector = function (selector) {
-	var node = this, nodes = node.document.querySelectorAll(selector), i = -1;
+Element.prototype.matchesSelector = function matchesSelector(selector) {
+	var
+	element = this,
+	elements = (element.document || element.ownerDocument).querySelectorAll(selector),
+	index = 0;
 
-	while (nodes[++i] && nodes[i] != node);
+	while (elements[index] && elements[index] !== element) {
+		++index;
+	}
 
-	return !!nodes[i];
+	return elements[index] ? true : false;
 };

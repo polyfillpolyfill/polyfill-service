@@ -1,70 +1,74 @@
 {
-	"android": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	"Android": [{
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}],
 
-	"blackberry": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	"BlackBerry": [{
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}],
 
-	"safari-ios": [{
+	"Safari (iOS)": [{
 		"max": "4.3",
-		"fill": "object.defineProperty element.property.hidden"
+		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"
 	}, {
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}],
 
-	"opera-mini": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	"Opera Mini": [{
+		"fill": "Element.prototype.matchesSelector.o Window.polyfill.style"
 	}],
 
-	"opera-mobile": [{
-		"fill": "shiv.html5.style"
-	}, {
-		"max": "11",
-		"fill": "element.prototype.matchesSelector.js"
-	}, {
-		"min": "11.1",
-		"fill": "element.vendor.matchesSelector"
+	"Opera Mobile": [{
+		"fill": "Element.prototype.matchesSelector.o Window.polyfill.style"
 	}],
 
-	"chrome": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	"Chrome": [{
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}],
 
-	"firefox": [{
+	"Firefox": [{
 		"max": "3.6",
-		"fill": "object.defineProperty"
+		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isAray Function.prototype.bind Window.polyfill.style"
 	}, {
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+		"min": "3",
+		"fill": "Element.prototype.matchesSelector.moz Window.polyfill.style"
 	}],
 
-	"internet-explorer": [{
+	"Internet Explorer": [{
+		"min": "6",
 		"max": "7",
-		"fill": "oldie.before object.defineProperty.ie object.defineProperties object.keys shiv.html5 shiv.html5.style array.prototype string.trim window.prototype.base64 window.prototype.getComputedStyle window.prototype.XMLHttpRequest element.prototype.matchesSelector oldie.after"
+		"fill": "Object.create.ie7 Object.defineProperty.ie7 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.is Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie7 Window.prototype.base64 Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.Event.hashchange Window.prototype.getComputedStyle.ie8 Window.polyfill.pageOffset Window.prototype.XMLHttpRequest.ie7 Navigator.prototype.geolocation Element.polyfill.classList Element.prototype.matchesSelector Element.polyfill.placeholder Window.polyfill.ie7.init Window.polyfill.style"
 	}, {
 		"only": "8",
-		"fill": "object.defineProperties object.keys shiv.html5 shiv.html5.style shiv.innerHTML array.prototype string.trim element.prototype.eventListener element.prototype.matchesSelector element.property.classList element.property.placeholder window.property.pageOffset window.prototype.base64 window.prototype.getComputedStyle window.prototype.XMLHttpRequest"
+		"fill": "Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.is Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.pageOffset Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matchesSelector Element.prototype.placeholder Window.polyfill.ie8.init Window.polyfill.style"
 	}, {
 		"only": "9",
-		"fill": "window.prototype.base64 shiv.html5.style element.vendor.matchesSelector"
+		"fill": "Window.prototype.base64 Element.prototype.classList Window.polyfill.style"
 	}, {
-		"min": "10",
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+		"min": "9",
+		"fill": "Element.prototype.matchesSelector.ms Window.polyfill.style"
 	}],
 
-	"operablink": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
-	}],
-
-	"opera": [{
+	"Opera": [{
 		"only": "11.5",
-		"fill": "object.defineProperty object.defineProperties"
+		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"		
 	}, {
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+		"only": "15",
+		"fill": "Navigator.prototype.geolocation Window.polyfill.style"
+	}, {
+		"min": "15",
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}],
 
-	"safari": [{
-		"fill": "shiv.html5.style element.vendor.matchesSelector"
+	"Safari": [{
+		"only": "4",
+		"fill": "Object.defineProperty Object.defineProperties Window.prototype.Event.hashchange Navigator.prototype.geolocation Element.prototype.classList Element.prototype.matchesSelector Window.polyfill.style"
+	}, {
+		"min": "5",
+		"max": "5.1",
+		"fill": "Function.prototype.bind Element.prototype.matchesSelector.webkit Window.polyfill.style"
+	}, {
+		"min": "6",
+		"fill": "Element.prototype.matchesSelector.webkit Window.polyfill.style"
 	}]
 }

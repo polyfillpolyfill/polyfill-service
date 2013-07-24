@@ -1,1 +1,0 @@
-Object.defineProperty=function(t,n,e){var r=t[n];function c(o){if(o.propertyName==n){t.detachEvent("onpropertychange",c);if(e.set){r=e.set.call(t,t[n])}t[n]=new String(r);t[n].toString=function(){return e.get.call(t)};t.attachEvent("onpropertychange",c)}}t[n]=new String(r);t[n].toString=function(){return e.get.call(t)};t.attachEvent("onpropertychange",c)};

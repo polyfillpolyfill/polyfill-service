@@ -1,1 +1,1 @@
-Object.keys=function(r){var n=[],e;for(e in r){if(r.hasOwnProperty(e)){n.push(e)}}return n};
+Object.keys=function keys(object){var buffer=[],key;for(key in object){if(Object.prototype.hasOwnProperty.call(object,key)){buffer.push(key)}}return buffer};

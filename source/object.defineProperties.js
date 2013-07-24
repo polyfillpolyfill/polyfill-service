@@ -1,8 +1,6 @@
 // Object.defineProperties
-Object.defineProperties = function (object, properties) {
-	for (var property in properties) {
-		Object.defineProperty(object, property, properties[property]);
+Object.defineProperties = function defineProperties(object, descriptors) {
+	for (var property in descriptors) {
+		Object.defineProperty(object, property, descriptors[property]);
 	}
-
-	return object;
 };

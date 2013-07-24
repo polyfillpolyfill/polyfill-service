@@ -1,5 +1,5 @@
 {
-	"opera-mini": {
+	"Opera Mini": {
 		"browser": "/Opera Mini/",
 		"prefix": "o",
 		"version": [
@@ -7,7 +7,7 @@
 			"/Opera Mini\\/(\\d+\\.?\\d*)/"
 		]
 	},
-	"opera-mobile": {
+	"Opera Mobile": {
 		"browser": "/Opera Mobi/",
 		"prefix": "o",
 		"version": [
@@ -16,28 +16,21 @@
 			"/Opera (\\d+\\.?\\d*)/"
 		]
 	},
-	"operablink": {
+	"Opera": {
 		"browser": "/OPR/",
 		"prefix": "webkit",
 		"version": [
 			"/OPR\\/(\\d+\\.?\\d*)/"
 		]
 	},
-	"opera": {
-		"browser": "/Opera/",
-		"prefix": "o",
-		"version": [
-			"/OPR\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"android": {
+	"Android": {
 		"browser": "/Android/",
 		"prefix": "ms",
 		"version": [
 			"/Version\\/(\\d+\\.?\\d*)/"
 		]
 	},
-	"blackberry": {
+	"BlackBerry": {
 		"browser": "/BlackBerry/",
 		"prefix": "webkit",
 		"version": [
@@ -45,7 +38,7 @@
 			"/BlackBerry\\s?[\\w\\d]+\\/(\\d+\\.?\\d*)/"
 		]
 	},
-	"safari-ios": {
+	"Safari (iOS)": {
 		"browser": "/iPad|iPhone|iPod/",
 		"prefix": "webkit",
 		"version": [
@@ -54,28 +47,28 @@
 			"/(?:CPU|Phone) OS (\\d+_?\\d*)/"
 		]
 	},
-	"chrome": {
+	"Chrome": {
 		"browser": "/Chrome/",
 		"prefix": "webkit",
 		"version": [
 			"/Chrome\\/(\\d+\\.?\\d*)/"
 		]
 	},
-	"firefox": {
+	"Firefox": {
 		"browser": "/[Ff]irefox/",
 		"prefix": "moz",
 		"version": [
 			"/[Ff]irefox[\\/\\s\\(\\/]?(\\d+\\.?\\d*)/"
 		]
 	},
-	"internet-explorer": {
+	"Internet Explorer": {
 		"browser": "/MSIE/",
 		"prefix": "ms",
 		"version": [
 			"/MSIE (\\d+\\.?\\d*)/"
 		]
 	},
-	"safari": {
+	"Safari": {
 		"browser": "/Safari/",
 		"prefix": "webkit",
 		"version": [

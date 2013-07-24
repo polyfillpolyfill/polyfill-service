@@ -8,7 +8,7 @@ This service can be used on HTTP and HTTPS connections.
 <script src="//polyfill.io"></script>
 ```
 
-Whoa, where's the script file?*
+Whoa, where's the script file?
 
 The script file *is* the domain.
 

@@ -1,1 +1,0 @@
-Object.defineProperty(Element.prototype,"hidden",{configurable:true,enumerable:true,get:function(){return this.hasAttribute("hidden")},set:function(e){!!e?this.setAttribute("hidden",""):this.removeAttribute("hidden")}});
