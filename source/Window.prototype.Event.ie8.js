@@ -1,6 +1,6 @@
 // Window.prototype.Event
 (function () {
-	Window.prototype.Event = function Event(type, eventInitDict) {
+	window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
 		if (!type) {
 			throw new Error('Not enough arguments');
 		}
@@ -14,22 +14,15 @@
 		return event;
 	};
 
-	Window.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
-		if (!type) {
-			throw new Error('Not enough arguments');
-		}
+	window.CustomEvent = Window.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
+		var event = new Event(type, eventInitDict);
 
-		var event = document.createEventObject();
-
-		event.type = type;
-		event.bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false;
-		event.cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : true;
 		event.detail = eventInitDict && eventInitDict.detail || {};
 
 		return event;
 	};
 
-	Element.prototype.addEventListener = function addEventListener(type, listener) {
+	window.addEventListener = Window.prototype.addEventListener = HTMLDocument.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener(type, listener) {
 		var element = this;
 
 		if (!element._events) {
@@ -79,7 +72,7 @@
 		element._events[type].list.push(listener);
 	};
 
-	Element.prototype.removeEventListener = function removeEventListener(type, listener) {
+	window.removeEventListener = Window.prototype.removeEventListener = HTMLDocument.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener(type, listener) {
 		var element = this;
 
 		if (element._events && element._events[type] && element._events[type].list) {
@@ -95,7 +88,7 @@
 		}
 	};
 
-	Element.prototype.dispatchEvent = function dispatchEvent(event) {
+	window.dispatchEvent = Window.prototype.dispatchEvent = HTMLDocument.prototype.dispatchEvent = Element.prototype.dispatchEvent = function dispatchEvent(event) {
 		if (!arguments.length) {
 			throw new Error('Not enough arguments');
 		}
@@ -130,11 +123,4 @@
 			} while (element && !event.cancelBubble);
 		}
 	};
-
-	window.addEventListener = Window.prototype.addEventListener = HTMLDocument.prototype.addEventListener = Element.prototype.addEventListener;
-	window.removeEventListener = Window.prototype.removeEventListener = ntListener = HTMLDocument.prototype.removeEventListener = Element.prototype.removeEventListener;
-	window.dispatchEvent = Window.prototype.dispatchEvent = HTMLDocument.prototype.dispatchEvent = Element.prototype.dispatchEvent;
-
-	window.Event = Window.prototype.Event;
-	window.CustomEvent = Window.prototype.CustomEvent;
 })();

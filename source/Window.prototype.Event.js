@@ -1,6 +1,6 @@
 // Window.prototype.Event
 (function () {
-	Window.prototype.Event = function Event(type, eventInitDict) {
+	window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
 		if (!type) {
 			throw new Error('Not enough arguments');
 		}
@@ -15,13 +15,11 @@
 		return event;
 	};
 
-	Window.prototype.CustomEvent = function Event(type, eventInitDict) {
-		var event = new this.Event(type, eventInitDict);
+	window.CustomEvent = Window.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
+		var event = new Event(type, eventInitDict);
 
 		event.detail = eventInitDict && eventInitDict.detail || {};
 
 		return event;
 	};
-
-	window.event = Window.prototype.Event;
 })();
