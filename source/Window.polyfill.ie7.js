@@ -335,7 +335,7 @@
 				element.className = value !== undefined && value !== null && String(name) || '';
 			}
 
-			return setAttribute.call(element, name, value);
+			return setAttribute(name, value);
 		};
 
 		// <element>.hasAttribute
