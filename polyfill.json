@@ -53,6 +53,10 @@
 		"only": "11.5",
 		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"		
 	}, {
+		"min": "11.5",
+		"max": "12.1",
+		"fill": "Element.prototype.matches.o Window.polyfill.style"
+	}, {
 		"only": "15",
 		"fill": "Navigator.prototype.geolocation Window.polyfill.style"
 	}, {
