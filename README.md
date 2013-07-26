@@ -8,7 +8,7 @@
 
 Whoa, where's the script file?
 
-The script file *is* the domain.
+The script file [*is* the domain](https://polyfill.io).
 
 ## What does it do?
 
@@ -28,7 +28,7 @@ The script is clean, compressed, and aggressively cached.
 
 ## What browsers are you supporting?
 
-Android, Blackberry, Chrome, Opera (including 15+), Opera Mini, Opera Mobile, Firefox 3.6+, Internet Explorer 6+, Safari 4+, and Safari IOS.
+Android 2.2+, Blackberry 7+, Chrome, Opera 11.5+, Opera Mini 5+, Opera Mobile 10+, Firefox 3.6+, Internet Explorer 6+, Safari 4+, and Safari IOS 4+.
 
 ## What functionality are you polyfilling?
 
@@ -38,10 +38,10 @@ You should be able to use all of the following features to a reasonable extent i
 
 `abbr` `article` `aside` `audio` `bdi` `canvas` `data` `datalist` `details` `figcaption` `figure` `footer` `header` `hgroup` `main` `mark` `meter` `nav` `output` `progress` `section` `subline` `summary` `time` `video`
 
-Default HTML5 element styling is covered too, with the experimental `.css` query.
+Default HTML5 element styling is covered too, with [the experimental .css query](https://polyfill.io?.css).
 
 ```html
-<link rel="stylesheet" href="//polyfill.io?.css"/>
+<link href="//polyfill.io?.css" rel="stylesheet">
 ```
 
 ### Array
