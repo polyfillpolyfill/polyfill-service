@@ -41,7 +41,7 @@ You should be able to use all of the following features to a reasonable extent i
 Default HTML5 element styling is covered too, with the experimental `.css` query.
 
 ```html
-<script src="//polyfill.io?.css"></script>
+<link rel="stylesheet" href="//polyfill.io?.css"/>
 ```
 
 ### Array
