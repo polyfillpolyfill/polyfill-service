@@ -40,34 +40,67 @@ You should be able to use all of the following features to a reasonable extent i
 
 ### Array
 
-`is` `every` `filter` `forEach` `indexOf` `lastIndexOf` `map` `reduce` `reduceRight` `some`
+* [Array.isArray](http://kangax.github.io/es5-compat-table/#Array.isArray)
+
+* [Array.prototype.every](http://kangax.github.io/es5-compat-table/#Array.prototype.every)
+* [Array.prototype.filter](http://kangax.github.io/es5-compat-table/#Array.prototype.filter)
+* [Array.prototype.forEach](http://kangax.github.io/es5-compat-table/#Array.prototype.forEach)
+* [Array.prototype.indexOf](http://kangax.github.io/es5-compat-table/#Array.prototype.indexOf)
+* [Array.prototype.lastIndexOf](http://kangax.github.io/es5-compat-table/#Array.prototype.lastIndexOf)
+* [Array.prototype.map](http://kangax.github.io/es5-compat-table/#Array.prototype.map)
+* [Array.prototype.reduce](http://kangax.github.io/es5-compat-table/#Array.prototype.reduce)
+* [Array.prototype.reduceRight](http://kangax.github.io/es5-compat-table/#Array.prototype.reduceRight)
+* [Array.prototype.some](http://kangax.github.io/es5-compat-table/#Array.prototype.some)
 
 ### Object
 
-`create` `defineProperty` `defineProperties` `getOwnPropertyNames` `getPrototypeOf` `is` `keys`
+* [Object.create](http://kangax.github.io/es5-compat-table/#Object.create)
+* [Object.defineProperty](http://kangax.github.io/es5-compat-table/#Object.defineProperty)
+* [Object.defineProperties](http://kangax.github.io/es5-compat-table/#Object.defineProperties)
+* [Object.getOwnPropertyNames](http://kangax.github.io/es5-compat-table/#Object.getOwnPropertyNames)
+* [Object.getPrototypeOf](http://kangax.github.io/es5-compat-table/#Object.getPrototypeOf)
+* [Object.is](http://kangax.github.io/es5-compat-table/#Object.is)
+* [Object.keys](http://kangax.github.io/es5-compat-table/#Object.keys)
 
-### String
+### Other
 
-`trim`
+* [Date.now](http://kangax.github.io/es5-compat-table/#Date.now)
+* [Date.prototype.toISOString](http://kangax.github.io/es5-compat-table/#Date.prototype.toISOString)
+* [Function.prototype.bind](http://kangax.github.io/es5-compat-table/#Function.prototype.bind)
+* [String.prototype.trim](http://kangax.github.io/es5-compat-table/#String.prototype.trim)
 
-### Date
+### Selectors
 
-`Date.now` `toISOString`
+* [Element.prototype.querySelector / Element.prototype.querySelectorAll](http://caniuse.com/querySelector)
+* [Element.prototype.matches / matchesSelector](http://caniuse.com/matches)
+* [Element.prototype.getElementsByClassName](getElementsByClassName)
 
 ### Event
 
-`addEventListener` `removeEventListener` `dispatchEvent` `new Event` `new CustomEvent` `hashchange` `DOMContentLoaded` `geolocation`
+* [Element.prototype.addEventListener / Element.prototype.removeEventListener / Element.prototype.dispatchEvent](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget#Browser_Compatibility)
 
-### Selector
-`querySelector` `querySelectorAll` `matchesSelector`
+* [new Event / new CustomEvent](https://developer.mozilla.org/en-US/docs/Web/Guide/DOM/Events/Creating_and_triggering_events)
 
-### Class
-`getComputedStyle` `getElementsByClassName` `classList`
+* [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/Reference/Events/DOMContentLoaded#Browser_compatibility)
 
-### Attribute
-`hasAttribute` `hidden` `placeholder`
+* [hashchange](http://caniuse.com/hashchange)
+
+### Goodies
+
+* [Window.prototype.localStorage](http://caniuse.com/localStorage)
+* [Window.prototype.getComputedStyle](http://caniuse.com/getComputedStyle)
+
+* [Navigator.prototype.geolocation](http://caniuse.com/geolocation)
+
+* [Element.prototype.classList](http://caniuse.com/classList)
+* [Element.prototype.hasAttribute](https://developer.mozilla.org/en-US/docs/Web/API/element.hasAttribute)
+* [Element.prototype.placeholder](http://caniuse.com/input-placeholder)
 
 ### Window
-`innerHeight` `innerWidth` `pageXOffset` `pageYOffset`
+
+* [Window.prototype.innerHeight](https://developer.mozilla.org/en-US/docs/Web/API/window.innerHeight)
+* [Window.prototype.innerWidth](https://developer.mozilla.org/en-US/docs/Web/API/window.innerWidth)
+* [Window.prototype.scrollX / Window.prototype.pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollX)
+* [Window.prototype.scrollY / Window.prototype.pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY)
 
 Thanks for reading. Now, please&hellip; enjoy!

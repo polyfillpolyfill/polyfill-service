@@ -1,3 +1,3 @@
-Array.is = function is(array) {
+Array.isArray = function isArray(array) {
 	return array && Object.prototype.toString.call(array) === '[Object Array]';
 };

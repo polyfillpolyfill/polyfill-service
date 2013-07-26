@@ -1,1 +1,0 @@
-Element.prototype.matchesSelector=Element.prototype.mozMatchesSelector;
