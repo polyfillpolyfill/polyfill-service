@@ -103,4 +103,19 @@ You should be able to use all of the following features to a reasonable extent i
 * [Window.prototype.scrollX / Window.prototype.pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollX)
 * [Window.prototype.scrollY / Window.prototype.pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY)
 
+## For all this functionality, how big does the polyfill end up being?
+
+* Chrome: 383 bytes
+* Firefox 4+: 384 bytes
+* Safari 6+: 384 bytes
+* Safari (iOS 6): 389 bytes
+* Safari 5.1: 531 bytes
+* Firefox 3.6: 852 bytes
+* Opera 15+: 917 bytes
+* Internet Explorer 10+: 392 bytes
+* Internet Explorer 9: 1510 bytes
+* Safari 4: 1958 bytes
+* Internet Explorer 8: 5239 bytes
+* Internet Explorer 6/7: 7088 bytes
+
 Thanks for reading. Now, please&hellip; enjoy!
