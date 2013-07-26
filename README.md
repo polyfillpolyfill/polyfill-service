@@ -18,13 +18,13 @@ A lot. For instance, you can use querySelectors in IE6.
 var el = document.querySelector(".foo.bar");
 ```
 
-Or use matchesSelector without a vendor prefix. 
+Or use matches or matchesSelector without a vendor prefix. 
 
 ```js
-el.matchesSelector(".bar");
+el.matches(".bar");
 ```
 
-HTML5 elements are styling are covered too. The script is clean, compressed, and aggressively cached.
+The script is clean, compressed, and aggressively cached.
 
 ## What browsers are you supporting?
 
@@ -37,6 +37,8 @@ You should be able to use all of the following features to a reasonable extent i
 ### HTML5 Elements
 
 `abbr` `article` `aside` `audio` `bdi` `canvas` `data` `datalist` `details` `figcaption` `figure` `footer` `header` `hgroup` `main` `mark` `meter` `nav` `output` `progress` `section` `subline` `summary` `time` `video`
+
+Default HTML5 element styling is covered too.
 
 ### Array
 
