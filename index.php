@@ -7,12 +7,13 @@ $fileLastModified = gmdate('D, d M Y H:i:s T', filemtime(__FILE__));
 $fileMD5 = md5_file(__FILE__);
 $fileDir = dirname(__FILE__).'/';
 $isSource = isset($_GET['!']);
+$isCSS = isset($_GET['_css']);
 
 $headLastModified = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 $headMD5 = trim($_SERVER['HTTP_IF_NONE_MATCH']);
 
 header('Cache-Control: public');
-header('Content-Type: '.($isSource ? 'text/plain' : 'application/javascript'));
+header('Content-Type: '.($isCSS ? 'text/css' : ($isSource ? 'text/plain' : 'application/javascript')));
 header('Etag: '.$fileMD5);
 header('Last-Modified: '.$fileLastModified, true, 200);
 
@@ -23,7 +24,7 @@ if ($fileLastModified == $headLastModified || $fileMD5 == $headMD5) {
 }
 
 $agentList = json_decode(file_get_contents($fileDir.'agent.json'), true);
-$polyfillList = json_decode(file_get_contents($fileDir.'polyfill.json'), true);
+$polyfillList = json_decode(file_get_contents($fileDir.($isCSS ? 'normalize.json' : 'polyfill.json')), true);
 
 $thisAgentString = $_SERVER['HTTP_USER_AGENT'];
 
@@ -41,20 +42,28 @@ foreach ($agentList as $agent => &$sniffers) {
 				$max = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['max']) ? $polyfill['max'] : +INF);
 
 				if ($version >= $min && $version <= $max) {
-					$fillList = explode(' ', $polyfill['fill']);
+					if ($isCSS) {
+						$buffer = array_merge($buffer, $polyfill['fill']);
+					} else {
+						$fillList = explode(' ', $polyfill['fill']);
 
-					foreach ($fillList as $fill) {
-						$file = $fileDir.($isSource ? 'source/'.$fill.'.js' : 'minified/'.$fill.'.js');
+						foreach ($fillList as $fill) {
+							$file = $fileDir.($isSource ? 'source/'.$fill.'.js' : 'minified/'.$fill.'.js');
 
-						if (file_exists($file)) {
-							array_push($buffer, file_get_contents($file));
+							if (file_exists($file)) {
+								array_push($buffer, file_get_contents($file));
+							}
 						}
 					}
 				}
 			}
 
-			if ($isSource) {
-				array_unshift($buffer, '// '.$agent.' '.$version.' Polyfill'.($isSource ? '' : PHP_EOL));
+			if ($isCSS) {
+				array_unshift($buffer, '/* '.$agent.' '.$version.' Normalize | MIT License | git.io/normalize */'.($isSource ? '' : PHP_EOL));
+			} else {
+				if ($isSource) {
+					array_unshift($buffer, '// '.$agent.' '.$version.' Polyfill'.($isSource ? '' : PHP_EOL));
+				}
 			}
 
 			exit(implode($isSource ? PHP_EOL.PHP_EOL : '', $buffer));

@@ -1,0 +1,185 @@
+{
+	"Opera Mini": [{
+		"fill": [
+			"main,subline{display:block}",
+			"audio:not([controls]){height:0}"
+		]
+	}],
+	"Opera Mobile": [{
+		"fill": [
+			"main,subline{display:block}",
+			"audio:not([controls]){height:0}"
+		]
+	}],
+	"Opera": [{
+		"min": "10",
+		"max": "10.63",
+		"fill": [
+			"article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,subline,summary{display:block}",
+			"audio[controls],canvas,video{display:inline-block}",
+			"audio,[hidden],template{display:none}"
+		]
+	}, {
+		"min": "10",
+		"max": "11.64",
+		"fill": [
+			"figure{margin:0}"
+		]
+	}, {
+		"min": "11",
+		"max": "11.64",
+		"fill": [
+			"details,main,subline,summary{display:block}"
+		]
+	}, {
+		"min": "15",
+		"fill": [
+			"subline{display:block}"
+		]
+	}],
+	"Android": [{
+		"fill": [
+			"main,subline{display:block}"
+		]
+	}],
+	"BlackBerry": [{
+		"fill": [
+			"main,subline{display:block}"
+		]
+	}],
+	"Chrome iOS": [{
+		"fill": [
+			"main,subline{display:block}",
+			"audio:not([controls]){height:0}"
+		]
+	}],
+	"Safari iOS": [{
+		"fill": [
+			"main,subline{display:block}",
+			"audio:not([controls]){height:0}"
+		]
+	}],
+	"Chrome": [{
+		"fill": [
+			"subline{display:block}",
+			"abbr[title]{border-bottom:1px dotted}"
+		]
+	}],
+	"Internet Explorer": [{
+		"min": "6",
+		"max": "9",
+		"fill": [
+			"article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,subline,summary{display:block}",
+			"template{display:none}",
+			"mark{background:#FF0;color:#000}",
+			"img{border:0}",
+			"figure{margin:0}",
+			"legend{border:0}",
+			"textarea{overflow:auto}"
+		]
+	}, {
+		"min": "6",
+		"max": "8",
+		"fill": [
+			"-ms-placeholder{color:#777}",
+			"audio{clip:rect(0 0 0 0);position:absolute}",
+			"pre{font-size:90%}"
+		]
+	}, {
+		"min": "6",
+		"max": "7",
+		"fill": [
+			"html{font-size:100%}",
+			"h1{font-size:2em;margin:.67em 0}",
+			"h2{font-size:1.5em;margin:.83em 0}",
+			"h3{font-size:1.17em;margin:1em 0}",
+			"h4{font-size:1em;margin: 1.33em 0}",
+			"h5{font-size:.83em;margin:1.67em 0}",
+			"h6{font-size:0.67em;margin:2.33em 0}",
+			"p,pre{margin:1em 0}",
+			"dl,menu,ol,ul{margin:1em 0}",
+			"dd{margin:0 0 0 40px}",
+			"menu,ol,ul{padding:0 0 0 40px}",
+			"form{margin:0}",
+			"legend{margin-left:-7px}",
+			"button,input,select,textarea{margin:0}"
+		]
+	}, {
+		"only": "6",
+		"fill": [
+			"canvas,video{display:inline;zoom:1}",
+			"code,kbd,pre,samp{font-family:'courier new',monospace}",
+			"font-size:1em"
+		]
+	}, {
+		"min": "7",
+		"max": "9",
+		"fill": [
+			"[hidden]{display:none}",
+			"abbr[title]{border-bottom: 1px dotted}"
+		]
+	}, {
+		"only": "7",
+		"fill": [
+			"audio[controls],canvas,video{display:inline;zoom:1}",
+			"button,input[type=\"button\"],input[type=\"reset\"],input[type=\"submit\"]{overflow:visible}",
+			"input[type=\"checkbox\"],input[type=\"radio\"]{height:13px;width:13px}"
+		]
+	}, {
+		"min": "8",
+		"max": "9",
+		"fill": [
+			"audio[controls],canvas,video{display:inline-block}",
+			"input[type=\"checkbox\"],input[type=\"radio\"]{padding:0}"
+		]
+	}, {
+		"only": "9",
+		"fill": [
+			"audio{display:none}",
+			"svg:not(:root){overflow:hidden}"
+		]
+	}, {
+		"min": "10",
+		"fill": [
+			"details,main,subline,summary{display:block}"
+		]
+	}],
+	"Firefox": [{
+		"min": "3",
+		"max": "3.6",
+		"fill": [
+			"article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,subline,summary{display:block}",
+			"audio,canvas,video{display:inline-block}",
+			"b,strong{font-weight:bold}",
+			"legend{white-space:normal}"
+		]
+	}, {
+		"min": "4",
+		"max": "20",
+		"fill": [
+			"details,main,subline,summary{display:block}"
+		]
+	}, {
+		"min": "21",
+		"fill": [
+			"details,summary{display:block}"
+		]
+	}],
+	"Safari": [{
+		"min": "3",
+		"max": "5.1",
+		"fill": [
+			"article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,subline,summary{display:block}",
+			"audio,canvas,video{display:inline-block}",
+			"abbr[title]{border-bottom:1px dotted}",
+			"dfn{font-style:italic}",
+			"code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}",
+			"figure{margin:0}"
+		]
+	}, {
+		"min": "6",
+		"fill": [
+			"main,subline{display:block}"
+		]
+	}]
+}

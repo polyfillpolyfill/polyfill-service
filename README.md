@@ -38,7 +38,11 @@ You should be able to use all of the following features to a reasonable extent i
 
 `abbr` `article` `aside` `audio` `bdi` `canvas` `data` `datalist` `details` `figcaption` `figure` `footer` `header` `hgroup` `main` `mark` `meter` `nav` `output` `progress` `section` `subline` `summary` `time` `video`
 
-Default HTML5 element styling is covered too.
+Default HTML5 element styling is covered too, with the experimental `.css` query.
+
+```html
+<script src="//polyfill.io?.css"></script>
+```
 
 ### Array
 
@@ -104,17 +108,17 @@ Default HTML5 element styling is covered too.
 
 | Browser               | Filesize |
 | --------------------- | --------:|
-| Chrome                |    383 B |
-| Firefox 4+            |    384 B |
-| Safari 6+             |    384 B |
-| Safari (iOS 6)        |    389 B |
-| Internet Explorer 10+ |    392 B |
-| Safari 5.1            |    531 B |
-| Firefox 3.6           |    852 B |
-| Opera 15+             |    917 B |
-| Internet Explorer 9   |  1.47 KB |
-| Safari 4              |  1.91 KB |
-| Internet Explorer 8   |  5.11 KB |
-| Internet Explorer 6/7 |  6.92 KB |
+| Internet Explorer 10+ |     64 B |
+| Chrome                |     69 B |
+| Firefox 4+            |     65 B |
+| Safari 6+             |     69 B |
+| Safari (iOS 6)        |     69 B |
+| Safari 5.1            |    241 B |
+| Firefox 3.6           |    591 B |
+| Opera 15+             |    632 B |
+| Internet Explorer 9   |  1.17 KB |
+| Safari 4              |  1.64 KB |
+| Internet Explorer 8   |  4.94 KB |
+| Internet Explorer 6/7 |  6.73 KB |
 
 Thanks for reading. Now, please&hellip; enjoy!
