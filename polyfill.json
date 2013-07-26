@@ -1,39 +1,42 @@
 {
+	"Opera Mini": [{
+		"fill": "Element.prototype.matches.o Window.polyfill.style"
+	}],
+	"Opera Mobile": [{
+		"fill": "Element.prototype.matches.o Window.polyfill.style"
+	}],
+	"Opera": [{
+		"only": "11.5",
+		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"
+	}, {
+		"min": "11.5",
+		"max": "12.1",
+		"fill": "Element.prototype.matches.o Window.polyfill.style"
+	}, {
+		"only": "15",
+		"fill": "Navigator.prototype.geolocation Window.polyfill.style"
+	}, {
+		"min": "15",
+		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
+	}],
 	"Android": [{
 		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
 	}],
-
 	"BlackBerry": [{
 		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
 	}],
-
-	"Safari (iOS)": [{
+	"Chrome iOS": [{
+		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
+	}],
+	"Safari iOS": [{
 		"max": "4.3",
 		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"
 	}, {
 		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
 	}],
-
-	"Opera Mini": [{
-		"fill": "Element.prototype.matches.o Window.polyfill.style"
-	}],
-
-	"Opera Mobile": [{
-		"fill": "Element.prototype.matches.o Window.polyfill.style"
-	}],
-
 	"Chrome": [{
 		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
 	}],
-
-	"Firefox": [{
-		"max": "3.6",
-		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isAray Function.prototype.bind Window.polyfill.style"
-	}, {
-		"min": "3",
-		"fill": "Element.prototype.matches.moz Window.polyfill.style"
-	}],
-
 	"Internet Explorer": [{
 		"min": "6",
 		"max": "7",
@@ -48,22 +51,13 @@
 		"min": "9",
 		"fill": "Element.prototype.matches.ms Window.polyfill.style"
 	}],
-
-	"Opera": [{
-		"only": "11.5",
-		"fill": "Object.defineProperty Object.defineProperties Window.polyfill.style"		
+	"Firefox": [{
+		"max": "3.6",
+		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isAray Function.prototype.bind Window.polyfill.style"
 	}, {
-		"min": "11.5",
-		"max": "12.1",
-		"fill": "Element.prototype.matches.o Window.polyfill.style"
-	}, {
-		"only": "15",
-		"fill": "Navigator.prototype.geolocation Window.polyfill.style"
-	}, {
-		"min": "15",
-		"fill": "Element.prototype.matches.webkit Window.polyfill.style"
+		"min": "3",
+		"fill": "Element.prototype.matches.moz Window.polyfill.style"
 	}],
-
 	"Safari": [{
 		"only": "4",
 		"fill": "Object.defineProperty Object.defineProperties String.prototype.trim Window.polyfill.safari4 Window.prototype.DOMTokenList Window.prototype.Event Window.prototype.Event.hashchange Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Window.polyfill.style"

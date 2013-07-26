@@ -27,39 +27,37 @@ $polyfillList = json_decode(file_get_contents($fileDir.'polyfill.json'), true);
 
 $thisAgentString = $_SERVER['HTTP_USER_AGENT'];
 
-foreach ($agentList as $agentString => &$agentArray) {
-	$agentBoolean = preg_match($agentArray['browser'], $thisAgentString, $agentMatches);
+foreach ($agentList as $agent => &$sniffers) {
+	foreach($sniffers as $sniffer) {
+		$versionBoolean = preg_match('/'.$sniffer.'/', $thisAgentString, $version);
 
-	if ($agentBoolean) {
-		$buffer = array();
+		if ($versionBoolean) {
+			$buffer = array();			
 
-		foreach ($agentArray['version'] as $versionString) {
-			$versionBoolean = preg_match($versionString, $thisAgentString, $versionMatches);
+			$version = floatval($version[1]);
 
-			if ($versionBoolean) {
-				$versionString = $versionBoolean ? intval($versionMatches[1]) : 0;
+			foreach ($polyfillList[$agent] as $polyfill) {
+				$min = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['min']) ? $polyfill['min'] : -INF);
+				$max = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['max']) ? $polyfill['max'] : +INF);
 
-				foreach ($polyfillList[$agentString] as $polyfillArray) {
-					$min = isset($polyfillArray['only']) ? $polyfillArray['only'] : (isset($polyfillArray['min']) ? $polyfillArray['min'] : -INF);
-					$max = isset($polyfillArray['only']) ? $polyfillArray['only'] : (isset($polyfillArray['max']) ? $polyfillArray['max'] : +INF);
+				if ($version >= $min && $version <= $max) {
+					$fillList = explode(' ', $polyfill['fill']);
 
-					if ($versionString >= $min && $versionString <= $max) {
-						$fillList = explode(' ', $polyfillArray['fill']);
+					foreach ($fillList as $fill) {
+						$file = $fileDir.($isSource ? 'source/'.$fill.'.js' : 'minified/'.$fill.'.js');
 
-						foreach ($fillList as $fillString) {
-							$file = $fileDir.($isSource ? 'source/'.$fillString.'.js' : 'minified/'.$fillString.'.js');
-
-							if (file_exists($file)) {
-								array_push($buffer, file_get_contents($file));
-							}
+						if (file_exists($file)) {
+							array_push($buffer, file_get_contents($file));
 						}
 					}
 				}
-
-				array_unshift($buffer, '// '.$agentString.' '.$versionString.' Polyfill'.($isSource ? '' : PHP_EOL));
-
-				exit(implode($isSource ? PHP_EOL.PHP_EOL : '', $buffer));
 			}
+
+			if ($isSource) {
+				array_unshift($buffer, '// '.$agent.' '.$version.' Polyfill'.($isSource ? '' : PHP_EOL));
+			}
+
+			exit(implode($isSource ? PHP_EOL.PHP_EOL : '', $buffer));
 		}
 	}
 }

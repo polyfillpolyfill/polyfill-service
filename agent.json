@@ -1,79 +1,13 @@
 {
-	"Opera Mini": {
-		"browser": "/Opera Mini/",
-		"prefix": "o",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Opera Mini\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"Opera Mobile": {
-		"browser": "/Opera Mobi/",
-		"prefix": "o",
-		"version": [
-			"/Opera Mobile (\\d+\\.?\\d*)/",
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Opera (\\d+\\.?\\d*)/"
-		]
-	},
-	"Opera": {
-		"browser": "/OPR/",
-		"prefix": "webkit",
-		"version": [
-			"/OPR\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"Android": {
-		"browser": "/Android/",
-		"prefix": "ms",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"BlackBerry": {
-		"browser": "/BlackBerry/",
-		"prefix": "webkit",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/BlackBerry\\s?[\\w\\d]+\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"Safari (iOS)": {
-		"browser": "/iPad|iPhone|iPod/",
-		"prefix": "webkit",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Mobile Safari (\\d+\\.?\\d*)/",
-			"/(?:CPU|Phone) OS (\\d+_?\\d*)/"
-		]
-	},
-	"Chrome": {
-		"browser": "/Chrome/",
-		"prefix": "webkit",
-		"version": [
-			"/Chrome\\/(\\d+\\.?\\d*)/"
-		]
-	},
-	"Firefox": {
-		"browser": "/[Ff]irefox/",
-		"prefix": "moz",
-		"version": [
-			"/[Ff]irefox[\\/\\s\\(\\/]?(\\d+\\.?\\d*)/"
-		]
-	},
-	"Internet Explorer": {
-		"browser": "/MSIE/",
-		"prefix": "ms",
-		"version": [
-			"/MSIE (\\d+\\.?\\d*)/"
-		]
-	},
-	"Safari": {
-		"browser": "/Safari/",
-		"prefix": "webkit",
-		"version": [
-			"/Version\\/(\\d+\\.?\\d*)/",
-			"/Safari (\\d+\\.?\\d*)/"
-		]
-	}
+	"Opera Mini": ["\\sOpera\\sMini\\/(\\d+\\.?\\d*)"],
+	"Opera Mobile": ["\\sOpera\\sMobi\\/.+?Version\\/(\\d+\\.?\\d*)"],
+	"Opera": ["\\sOPR\\/(\\d+\\.?\\d*)", "^Opera\\/.+?Version\\/(\\d+\\.?\\d*)", "\\sOpera\\s(\\d+\\.?\\d*)"],
+	"Android": ["\\sAndroid\\s(\\d+\\.?\\d*)"],
+	"BlackBerry": ["\\(BB\\d+\\.?\\d*;.+?\\sVersion\\/(\\d+\\.?\\d*)", "\\(BlackBerry;.+?\\sVersion\\/(\\d+\\.?\\d*)"],
+	"Chrome iOS": ["\\sCriOS\\/(\\d+\\.?\\d*)"],
+	"Safari iOS": ["\\(iPad.+?\\Version\\/(\\d+\\.?\\d*).+?\\sSafari\\/", "\\(iPhone.+?\\Version\\/(\\d+\\.?\\d*).+?\\sSafari\\/"],
+	"Chrome": ["\\sChrome\\/(\\d+\\.?\\d*)"],
+	"Internet Explorer": ["\\sTrident\\/\\d+.+?rv\\s(\\d+\\.?\\d*)", "\\sMSIE\\s(\\d+\\.?\\d*)"],
+	"Firefox": ["\\s[Ff]irefox[\\/\\s\\(\\/]?(\\d+\\.?\\d*)"],
+	"Safari": ["\\sVersion\\/(\\d+\\.?\\d*).+?Safari\\/[\\d\\.]+$"]
 }
