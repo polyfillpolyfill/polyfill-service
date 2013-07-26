@@ -7,7 +7,7 @@
 	"Chrome iOS": ["\\sCriOS\\/(\\d+\\.?\\d*)"],
 	"Safari iOS": ["\\(iPad.+?\\Version\\/(\\d+\\.?\\d*).+?\\sSafari\\/", "\\(iPhone.+?\\Version\\/(\\d+\\.?\\d*).+?\\sSafari\\/"],
 	"Chrome": ["\\sChrome\\/(\\d+\\.?\\d*)"],
-	"Internet Explorer": ["\\sTrident\\/\\d+.+?rv\\s(\\d+\\.?\\d*)", "\\sMSIE\\s(\\d+\\.?\\d*)"],
+	"Internet Explorer": ["\\sTrident\\/.+?rv[:\\s](\\d+\\.?\\d*)", "\\sMSIE\\s(\\d+\\.?\\d*)"],
 	"Firefox": ["\\s[Ff]irefox[\\/\\s\\(\\/]?(\\d+\\.?\\d*)"],
 	"Safari": ["\\sVersion\\/(\\d+\\.?\\d*).+?Safari\\/[\\d\\.]+$"]
 }
