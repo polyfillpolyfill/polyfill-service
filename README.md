@@ -80,20 +80,15 @@ Default HTML5 element styling is covered too.
 ### Event
 
 * [Element.prototype.addEventListener / Element.prototype.removeEventListener / Element.prototype.dispatchEvent](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget#Browser_Compatibility)
-
 * [new Event / new CustomEvent](https://developer.mozilla.org/en-US/docs/Web/Guide/DOM/Events/Creating_and_triggering_events)
-
 * [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/Reference/Events/DOMContentLoaded#Browser_compatibility)
-
 * [hashchange](http://caniuse.com/hashchange)
 
 ### Goodies
 
 * [Window.prototype.localStorage](http://caniuse.com/localStorage)
 * [Window.prototype.getComputedStyle](http://caniuse.com/getComputedStyle)
-
 * [Navigator.prototype.geolocation](http://caniuse.com/geolocation)
-
 * [Element.prototype.classList](http://caniuse.com/classList)
 * [Element.prototype.hasAttribute](https://developer.mozilla.org/en-US/docs/Web/API/element.hasAttribute)
 * [Element.prototype.placeholder](http://caniuse.com/input-placeholder)
@@ -107,17 +102,19 @@ Default HTML5 element styling is covered too.
 
 ## How big does the script end up being?
 
-* Chrome: 383 bytes
-* Firefox 4+: 384 bytes
-* Safari 6+: 384 bytes
-* Safari (iOS 6): 389 bytes
-* Safari 5.1: 531 bytes
-* Firefox 3.6: 852 bytes
-* Opera 15+: 917 bytes
-* Internet Explorer 10+: 392 bytes
-* Internet Explorer 9: 1510 bytes
-* Safari 4: 1958 bytes
-* Internet Explorer 8: 5239 bytes
-* Internet Explorer 6/7: 7088 bytes
+| Browser               | Filesize |
+| --------------------- | --------:|
+| Chrome                |    383 B |
+| Firefox 4+            |    384 B |
+| Safari 6+             |    384 B |
+| Safari (iOS 6)        |    389 B |
+| Internet Explorer 10+ |    392 B |
+| Safari 5.1            |    531 B |
+| Firefox 3.6           |    852 B |
+| Opera 15+             |    917 B |
+| Internet Explorer 9   |  1.47 KB |
+| Safari 4              |  1.91 KB |
+| Internet Explorer 8   |  5.11 KB |
+| Internet Explorer 6/7 |  6.92 KB |
 
 Thanks for reading. Now, please&hellip; enjoy!
