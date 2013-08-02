@@ -47,7 +47,6 @@ Default HTML5 element styling is covered too, with [the experimental .css query]
 ### Array
 
 * [Array.isArray](http://kangax.github.io/es5-compat-table/#Array.isArray)
-
 * [Array.prototype.every](http://kangax.github.io/es5-compat-table/#Array.prototype.every)
 * [Array.prototype.filter](http://kangax.github.io/es5-compat-table/#Array.prototype.filter)
 * [Array.prototype.forEach](http://kangax.github.io/es5-compat-table/#Array.prototype.forEach)
