@@ -100,6 +100,9 @@ Default HTML5 element styling is covered too, with [the experimental .css query]
 
 * [Window.prototype.localStorage](http://caniuse.com/localStorage)
 * [Window.prototype.getComputedStyle](http://caniuse.com/getComputedStyle)
+* [Window.prototype.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/window.matchMedia)
+* [Window.prototype.matchMedia.addListener](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList#Methods)
+* [Window.prototype.matchMedia.addListener](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList#Methods)
 * [Navigator.prototype.geolocation](http://caniuse.com/geolocation)
 * [Element.prototype.classList](http://caniuse.com/classList)
 * [Element.prototype.hasAttribute](https://developer.mozilla.org/en-US/docs/Web/API/element.hasAttribute)
@@ -118,15 +121,15 @@ Default HTML5 element styling is covered too, with [the experimental .css query]
 | --------------------- | --------:|
 | Chrome                |    385 B |
 | Internet Explorer 10+ |    396 B |
-| Firefox 4+            |    397 B |
+| Firefox 6+            |    397 B |
 | Safari 6+             |    400 B |
 | Safari (iOS 6)        |    400 B |
 | Safari 5.1            |    536 B |
-| Firefox 3.6           |    864 B |
 | Opera 15+             |    899 B |
-| Internet Explorer 9   |  1.43 KB |
-| Safari 4              |  1.82 KB |
-| Internet Explorer 8   |  5.15 KB |
-| Internet Explorer 6/7 |  6.93 KB |
+| Firefox 3.6           |  1.37 KB |
+| Internet Explorer 9   |  1.93 KB |
+| Safari 4              |  2.32 KB |
+| Internet Explorer 8   |  5.58 KB |
+| Internet Explorer 6/7 |  7.36 KB |
 
 Thanks for reading. Now, please&hellip; enjoy!

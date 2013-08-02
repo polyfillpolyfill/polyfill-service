@@ -17,7 +17,7 @@
 		}
 		</style>
 		<script>
-		document.addEventListener('DOMContentLoaded', function (event) {
+		document.addEventListener('DOMContentLoaded', function () {
 			var h1 = document.body.querySelectorAll('p, h1')[0];
 
 			if (h1.matchesSelector('body > h1[class^="fo"]') && !h1.matchesSelector('body > h1[class$="of"]')) {
@@ -38,6 +38,20 @@
 					document.body.style.marginTop = getComputedStyle(pre).height;
 				});
 			}
+
+			if (window.matchMedia) {
+				var listFn = function (list) {
+					document.getElementById('media').innerHTML = list.matches ? 'Yes' : 'No';
+				};
+
+				var list = window.matchMedia('(min-width: 50em)');
+
+				list.addListener(listFn);
+
+				console.log(list);
+
+				listFn.call(window, list);
+			}
 		});
 		</script>
 		<link rel="stylesheet" href="./?!&amp;.css">
@@ -50,12 +64,12 @@
 		<p><input placeholder="Placeholder text..."></p>
 		<script>
 		(function () {
-			function onchange(event) {
+			function onchange() {
 				pre.innerHTML = [
-					'window.innerWidth: '+window.innerWidth,
-					'window.innerHeight: '+window.innerHeight,
-					'window.scrollX: '+window.scrollX,
-					'window.scrollY: '+window.scrollY
+					'window.innerWidth: ' + window.innerWidth,
+					'window.innerHeight: ' + window.innerHeight,
+					'window.scrollX: ' + window.scrollX,
+					'window.scrollY: ' + window.scrollY
 				].join('<br>');
 
 				document.body.style.marginTop = getComputedStyle(pre).height;
@@ -67,9 +81,11 @@
 			window.addEventListener('scroll', onchange);
 		})();
 
-		window.dispatchEvent(new CustomEvent('resize'));
+		if (window.Event) {
+			window.dispatchEvent(new window.Event('resize'));
+		}
 
-		window.addEventListener('hashchange', function (event) {
+		window.addEventListener('hashchange', function () {
 			if (window.location.hash === '#whereami') {
 				var element = document.getElementById('coords');
 
@@ -91,6 +107,8 @@
 		<p><a href="javascript:;" onclick="localStorage.clear()">Forget everything.</a></p>
 
 		<p>But they were in no hurry.  Cylinder followed cylinder on its interplanetary flight; every twenty-four hours brought them reinforcement.  And meanwhile the military and naval authorities, now fully alive to the tremendous power of their antagonists, worked with furious energy.  Every minute a fresh gun came into position until, before twilight, every copse, every row of suburban villas on the hilly slopes about Kingston and Richmond, masked an expectant black muzzle.  And through the charred and desolated area--perhaps twenty square miles altogether--that encircled the Martian encampment on Horsell Common, through charred and ruined villages among the green trees, through the blackened and smoking arcades that had been but a day ago pine spinneys, crawled the devoted scouts with the heliographs that were presently to warn the gunners of the Martian approach.  But the Martians now understood our command of artillery and the danger of human proximity, and not a man ventured within a mile of either cylinder, save at the price of his life.</p>
+
+		<p>Is (min-width: 50em)? <span id="media">It's unavailable</span>.</p>
 
 		<p>It would seem that these giants spent the earlier part of the afternoon in going to and fro, transferring everything from the second and third cylinders--the second in Addlestone Golf Links and the third at Pyrford--to their original pit on Horsell Common.  Over that, above the blackened heather and ruined buildings that stretched far and wide, stood one as sentinel, while the rest abandoned their vast fighting-machines and descended into the pit.  They were hard at work there far into the night, and the towering pillar of dense green smoke that rose therefrom could be seen from the hills about Merrow, and even, it is said, from Banstead and Epsom Downs.</p>
 

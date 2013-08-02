@@ -1,8 +1,12 @@
 {
 	"Opera Mini": [{
-		"fill": "Element.prototype.matches.o Element.prototype.mutation"
+		"fill": "Window.prototype.matchMedia Element.prototype.matches.o Element.prototype.mutation"
 	}],
 	"Opera Mobile": [{
+		"min": "10",
+		"max": "12",
+		"fill": "Window.prototype.matchMedia"
+	}, {
 		"fill": "Element.prototype.matches.o"
 	}],
 	"Opera": [{
@@ -11,7 +15,7 @@
 	}, {
 		"min": "11.5",
 		"max": "12.1",
-		"fill": "Element.prototype.matches.o Element.prototype.mutation"
+		"fill": "Window.prototype.matchMedia Element.prototype.matches.o Element.prototype.mutation"
 	}, {
 		"only": "15",
 		"fill": "Navigator.prototype.geolocation"
@@ -20,9 +24,16 @@
 		"fill": "Element.prototype.matches.webkit Element.prototype.mutation.blink"
 	}],
 	"Android": [{
+		"min": "2.1",
+		"max": "2.3",
+		"fill": "Window.prototype.matchMedia"
+	}, {
 		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"BlackBerry": [{
+		"only": "7",
+		"fill": "Window.prototype.matchMedia"
+	}, {
 		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"Chrome iOS": [{
@@ -40,13 +51,13 @@
 	"Internet Explorer": [{
 		"min": "6",
 		"max": "7",
-		"fill": "Object.create.ie7 Object.defineProperty.ie7 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie7 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.Event.hashchange Window.prototype.getComputedStyle.ie8 Window.prototype.localStorage.ie7 Window.prototype.viewport.ie7 Window.prototype.XMLHttpRequest.ie7 Navigator.prototype.geolocation Element.prototype.classList.ie7 Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder.ie7 Window.polyfill.ie7.init"
+		"fill": "Object.create.ie7 Object.defineProperty.ie7 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie7 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.Event.hashchange Window.prototype.getComputedStyle.ie8 Window.prototype.localStorage.ie7 Window.prototype.matchMedia Window.prototype.viewport.ie7 Window.prototype.XMLHttpRequest.ie7 Navigator.prototype.geolocation Element.prototype.classList.ie7 Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder.ie7 Window.polyfill.ie7.init"
 	}, {
 		"only": "8",
-		"fill": "Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.viewport Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder Window.polyfill.ie8.init"
+		"fill": "Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.matchMedia Window.prototype.viewport Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder Window.polyfill.ie8.init"
 	}, {
 		"only": "9",
-		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Element.prototype.classList"
+		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.matchMedia Element.prototype.classList"
 	}, {
 		"min": "9",
 		"fill": "Element.prototype.matches.ms Element.prototype.mutation"
@@ -55,6 +66,10 @@
 		"min": "3",
 		"max": "3.6",
 		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isArray Function.prototype.bind"
+	}, {
+		"min": "3",
+		"max": "5",
+		"fill": "Window.prototype.matchMedia"
 	}, {
 		"min": "3",
 		"fill": "Element.prototype.matches.moz Element.prototype.mutation"
@@ -66,6 +81,10 @@
 		"min": "5",
 		"max": "5.1",
 		"fill": "Function.prototype.bind"
+	}, {
+		"min": "4",
+		"max": "5",
+		"fill": "Window.prototype.matchMedia"
 	}, {
 		"min": "4",
 		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
