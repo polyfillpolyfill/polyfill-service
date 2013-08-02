@@ -1,6 +1,6 @@
 {
 	"Opera Mini": [{
-		"fill": "Element.prototype.matches.o"
+		"fill": "Element.prototype.matches.o Element.prototype.mutation"
 	}],
 	"Opera Mobile": [{
 		"fill": "Element.prototype.matches.o"
@@ -11,62 +11,63 @@
 	}, {
 		"min": "11.5",
 		"max": "12.1",
-		"fill": "Element.prototype.matches.o"
+		"fill": "Element.prototype.matches.o Element.prototype.mutation"
 	}, {
 		"only": "15",
 		"fill": "Navigator.prototype.geolocation"
 	}, {
 		"min": "15",
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation.blink"
 	}],
 	"Android": [{
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"BlackBerry": [{
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"Chrome iOS": [{
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"Safari iOS": [{
 		"max": "4.3",
 		"fill": "Object.defineProperty Object.defineProperties"
 	}, {
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"Chrome": [{
-		"fill": "Element.prototype.matches.webkit"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation.blink"
 	}],
 	"Internet Explorer": [{
 		"min": "6",
 		"max": "7",
-		"fill": "Object.create.ie7 Object.defineProperty.ie7 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie7 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.Event.hashchange Window.prototype.getComputedStyle.ie8 Window.prototype.localStorage.ie7 Window.prototype.viewport.ie7 Window.prototype.XMLHttpRequest.ie7 Navigator.prototype.geolocation Element.prototype.classList.ie7 Element.prototype.matches Element.prototype.placeholder.ie7 Window.polyfill.ie7.init"
+		"fill": "Object.create.ie7 Object.defineProperty.ie7 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie7 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.Event.hashchange Window.prototype.getComputedStyle.ie8 Window.prototype.localStorage.ie7 Window.prototype.viewport.ie7 Window.prototype.XMLHttpRequest.ie7 Navigator.prototype.geolocation Element.prototype.classList.ie7 Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder.ie7 Window.polyfill.ie7.init"
 	}, {
 		"only": "8",
-		"fill": "Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.viewport Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Element.prototype.placeholder Window.polyfill.ie8.init"
+		"fill": "Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.viewport Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder Window.polyfill.ie8.init"
 	}, {
 		"only": "9",
 		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Element.prototype.classList"
 	}, {
 		"min": "9",
-		"fill": "Element.prototype.matches.ms"
+		"fill": "Element.prototype.matches.ms Element.prototype.mutation"
 	}],
 	"Firefox": [{
+		"min": "3",
 		"max": "3.6",
 		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isArray Function.prototype.bind"
 	}, {
 		"min": "3",
-		"fill": "Element.prototype.matches.moz"
+		"fill": "Element.prototype.matches.moz Element.prototype.mutation"
 	}],
 	"Safari": [{
 		"only": "4",
-		"fill": "Object.defineProperty Object.defineProperties String.prototype.trim Window.polyfill.safari4 Window.prototype.DOMTokenList Window.prototype.Event Window.prototype.Event.hashchange Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches"
+		"fill": "Object.defineProperty Object.defineProperties String.prototype.trim Window.polyfill.safari4 Window.prototype.DOMTokenList Window.prototype.Event Window.prototype.Event.hashchange Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList"
 	}, {
 		"min": "5",
 		"max": "5.1",
-		"fill": "Function.prototype.bind Element.prototype.matches.webkit"
+		"fill": "Function.prototype.bind"
 	}, {
-		"min": "6",
-		"fill": "Element.prototype.matches.webkit"
+		"min": "4",
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation"
 	}]
 }
