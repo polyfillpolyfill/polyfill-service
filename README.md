@@ -81,6 +81,15 @@ Default HTML5 element styling is covered too, with [the experimental .css query]
 * [Element.prototype.matches / matchesSelector](http://caniuse.com/matches)
 * [Element.prototype.getElementsByClassName](getElementsByClassName)
 
+### Mutations
+
+* [Element.prototype.prepend](http://dom.spec.whatwg.org/#dom-parentnode-prepend)
+* [Element.prototype.append](http://dom.spec.whatwg.org/#dom-parentnode-append)
+* [Element.prototype.before](http://dom.spec.whatwg.org/#dom-childnode-before)
+* [Element.prototype.after](http://dom.spec.whatwg.org/#dom-childnode-after)
+* [Element.prototype.remove](http://dom.spec.whatwg.org/#dom-childnode-remove)
+* [Element.prototype.replace](http://dom.spec.whatwg.org/#dom-childnode-replace)
+
 ### Event
 
 * [Element.prototype.addEventListener / Element.prototype.removeEventListener / Element.prototype.dispatchEvent](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget#Browser_Compatibility)
@@ -108,17 +117,17 @@ Default HTML5 element styling is covered too, with [the experimental .css query]
 
 | Browser               | Filesize |
 | --------------------- | --------:|
-| Internet Explorer 10+ |     64 B |
-| Chrome                |     69 B |
-| Firefox 4+            |     65 B |
-| Safari 6+             |     69 B |
-| Safari (iOS 6)        |     69 B |
-| Safari 5.1            |    241 B |
-| Firefox 3.6           |    591 B |
-| Opera 15+             |    632 B |
-| Internet Explorer 9   |  1.17 KB |
-| Safari 4              |  1.64 KB |
-| Internet Explorer 8   |  4.94 KB |
-| Internet Explorer 6/7 |  6.73 KB |
+| Chrome                |    385 B |
+| Internet Explorer 10+ |    396 B |
+| Firefox 4+            |    397 B |
+| Safari 6+             |    400 B |
+| Safari (iOS 6)        |    400 B |
+| Safari 5.1            |    536 B |
+| Firefox 3.6           |    864 B |
+| Opera 15+             |    899 B |
+| Internet Explorer 9   |  1.43 KB |
+| Safari 4              |  1.82 KB |
+| Internet Explorer 8   |  5.15 KB |
+| Internet Explorer 6/7 |  6.93 KB |
 
 Thanks for reading. Now, please&hellip; enjoy!
