@@ -1,5 +1,5 @@
 // Element.prototype.matches, Element.prototype.matchesSelector
-Element.prototype.matches = Element.prototype.matchesSelector = function matchesSelector(selector) {
+Element.prototype.matches = function matches(selector) {
 	var
 	element = this,
 	elements = (element.document || element.ownerDocument).querySelectorAll(selector),

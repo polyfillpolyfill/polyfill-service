@@ -1,2 +1,2 @@
-// Element.prototype.matches, Element.prototype.matchesSelector
-Element.prototype.matches = Element.prototype.matchesSelector = Element.prototype.webkitMatchesSelector;
+// Element.prototype.matches
+Element.prototype.matches = Element.prototype.matches || Element.prototype.webkitMatchesSelector;
