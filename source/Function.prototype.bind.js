@@ -4,11 +4,7 @@ Function.prototype.bind = function bind(scope) {
 		return callback.apply(this instanceof Constructor && scope ? this : scope, Array.prototype.concat.apply(prepend, arguments));
 	};
 
-	Constructor.prototype = this.prototype;
-
-	bound.prototype = new Constructor();
-
-	bound.prototype = callback.prototype;
+	Constructor.prototype = bound.prototype = callback.prototype;
 
 	return bound;
 };
