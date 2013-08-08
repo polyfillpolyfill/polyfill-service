@@ -76,7 +76,7 @@
 
 	for (key in supported) {
 		if (!supported[key]) {
-			array.push(key);
+			array.push(key.replace(/_/g, '.'));
 		}
 	}
 
