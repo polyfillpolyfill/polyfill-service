@@ -81,4 +81,6 @@ if ($mtime == $_SERVER['HTTP_IF_MODIFIED_SINCE']) {
 	exit();
 }
 
+ob_start('ob_gzhandler');
+
 exit(implode($br, $buffer));
