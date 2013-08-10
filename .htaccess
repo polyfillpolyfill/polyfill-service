@@ -1,0 +1,20 @@
+# ----------------------------------------------------------------------
+# Rewrite rules
+# ----------------------------------------------------------------------
+
+# unset the php header
+Header unset X-Powered-By
+
+RewriteEngine on
+
+# remove the www
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+
+# forward the modified headers
+RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
+RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
+
+# go to the router
+RewriteRule ^.*$ index.php [L]
