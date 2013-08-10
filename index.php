@@ -5,7 +5,7 @@
 
 $minified = !isset($_GET['!']);
 $css = isset($_GET['_css']);
-$list = $_SERVER['QUERY_STRING'];
+$list = isset($_SERVER['QUERY_STRING']) ? preg_replace('/!/', '', $_SERVER['QUERY_STRING']) : '';
 
 $dir = dirname(__FILE__).'/';
 $scriptdir = $dir.($minified ? 'minified/' : 'source/');
@@ -21,7 +21,7 @@ if (!empty($list) && !$css) {
 } else {
 	$fills = array();
 
-	$thisAgentString = $_SERVER['HTTP_USER_AGENT'];
+	$thisAgentString = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
 	foreach ($agentList as $agent => &$sniffers) {
 		foreach($sniffers as $sniffer) {
@@ -75,7 +75,7 @@ header('Cache-Control: public');
 header('Content-Type: '.($css ? 'text/css' : ($minified ? 'application/javascript' : 'text/plain')));
 header('Last-Modified: '.$mtime, true, 200);
 
-if ($mtime == $_SERVER['HTTP_IF_MODIFIED_SINCE']) {
+if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $mtime == $_SERVER['HTTP_IF_MODIFIED_SINCE']) {
 	header($_SERVER['SERVER_PROTOCOL'].' 304 Not Modified');
 
 	exit();
