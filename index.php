@@ -7,13 +7,14 @@ $minified = !isset($_GET['!']);
 $css = isset($_GET['_css']);
 $list = $_SERVER['QUERY_STRING'];
 
-$dir = dirname(__FILE__).'/'.($minified ? 'minified/' : 'source/');
+$dir = dirname(__FILE__).'/';
+$scriptdir = $dir.($minified ? 'minified/' : 'source/');
 $mtime = filemtime(__FILE__);
 $br = $minified ? '' : PHP_EOL.PHP_EOL;
 $buffer = array();
 
-$agentList = json_decode(file_get_contents($fileDir.'agent.json'), true);
-$polyfillList = json_decode(file_get_contents($fileDir.($css ? 'normalize.json' : 'polyfill.json')), true);
+$agentList = json_decode(file_get_contents($dir.'agent.json'), true);
+$polyfillList = json_decode(file_get_contents($dir.($css ? 'normalize.json' : 'polyfill.json')), true);
 
 if (!empty($list) && !$css) {
 	$fills = explode(',', preg_replace('/&.*?$/', '', str_replace('..', '.prototype.', $list)));
@@ -59,7 +60,7 @@ if (!empty($list) && !$css) {
 }
 
 foreach ($fills as $fill) {
-	$file = $dir.$fill.'.js';
+	$file = $scriptdir.$fill.'.js';
 
 	if (file_exists($file)) {
 		$mtime = max($mtime, filemtime($file));
