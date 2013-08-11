@@ -7,7 +7,7 @@ class Polyfill {
 	 * @param {String} [type] The polyfill type to detect (optional)
 	 * @param {String} [useragent] The user agent to detect (optional)
 	 * @return {String} [filter] The matching filter for any polyfill
-	 * @return {Array} [required] The polyfills for the user agent
+	 * @return {Array} The polyfills for the user agent
 	 */
 	public static function detect($type = 'js', $useragent = 'all', $filter = null) {
 		// the current path
@@ -94,6 +94,7 @@ class Polyfill {
 	 * @param {Array} [required] The polyfills to render
 	 * @param {String} [type] The polyfill rendering method
 	 * @param {String} [minified] Whether the rendered polyfills should be minified
+	 * @return {Object} The polyfill
 	 */
 	public static function render($required = null, $type = 'js', $minified = true) {
 		// if JavaScript
@@ -180,6 +181,11 @@ class Polyfill {
 		);
 	}
 
+	/**
+	 * Renders the polyfills
+	 *
+	 * @param {Array} [polyfill] The polyfill to render
+	 */
 	public static function buffer($polyfill = null) {
 		// the time
 		$time = gmdate('D, d M Y H:i:s T', $polyfill->time);
