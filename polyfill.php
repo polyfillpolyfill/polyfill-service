@@ -1,195 +1,190 @@
 <?php
 
 class Polyfill {
-	public static function detect($userAgent = null) {
-		// get the user agent
-		$userAgent = $userAgent ? $userAgent : $_SERVER['HTTP_USER_AGENT'];
-
-		// get the current path
+	/**
+	 * Returns the required polyfills for a user agent
+	 *
+	 * @param {String} [type] The polyfill type to detect (optional)
+	 * @param {String} [useragent] The user agent to detect (optional)
+	 * @return {String} [filter] The matching filter for any polyfill
+	 * @return {Array} [required] The polyfills for the user agent
+	 */
+	public static function detect($type = 'js', $useragent = 'all', $filter = null) {
+		// the current path
 		$path = dirname(__FILE__);
 
-		// load the agent, script, and style objects
-		$agentArray = json_decode(file_get_contents($path.'/agent.json'), true);
-		$polyfillArray = json_decode(file_get_contents($path.'/polyfill.script.json'), true);
-		$polyfillCSSArray = json_decode(file_get_contents($path.'/polyfill.style.json'), true);
+		// the agents and polyfills
+		$agents = json_decode(file_get_contents($path.'/agent.json'), true);
+		$agentsFills = json_decode(file_get_contents($path.'/agent.'.$type.'.json'), true);
 
-		// get the detected object
-		$detected = (object) array(
-			'script' => array(),
-			'style' => array()
-		);
+		// the required array
+		$required = array();
 
-		// for each agent object's validator
-		foreach ($agentArray as $agent => &$validatorArray) {
-			foreach ($validatorArray as $validator) {
-				// check whether the user agent matches the agent object's validator
-				$hasAgent = preg_match('/'.$validator.'/', $userAgent, $version);
+		// if the useragent is all
+		if ($useragent === 'all') {
+			// require every JavaScript polyfill matching any filter
+			if ($type === 'js') {
+				foreach (glob($path.'/source/*.js') as $file) {
+					$fill = substr(basename($file), 0, -3);
 
-				// if it does
-				if ($hasAgent) {
-					// get the user agent version
-					$version = floatval($version[1]);
+					if (!$filter || preg_match($filter, $fill)) {
+						array_push($required, $fill);
+					}
+				}
+			}
 
-					// for each matching agent's script polyfills
-					foreach ($polyfillArray[$agent] as $polyfill) {
-						// get the polyfill version range
-						$min = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['min']) ? $polyfill['min'] : -INF);
-						$max = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['max']) ? $polyfill['max'] : +INF);
+			// require every CSS polyfill matching any filter
+			if ($type === 'css') {
+				$normalize = json_decode(file_get_contents($path.'/normalize.json'), true);
 
-						// if the user agent version is within that range
-						if ($version >= $min && $version <= $max) {
-							// add the agent's script polyfills to the detected object
-							$detected->script = array_merge($detected->script, explode(' ', $polyfill['fill']));
+				foreach ($normalize as $selectors => $cssblock) {
+					$selectors = explode(' ', $selectors);
+
+					foreach ($selectors as $selector) {
+						if (!in_array($selector, $required) && (!$filter || preg_match($filter, $selector))) {
+							array_push($required, $selector);
 						}
 					}
+				}
+			}
 
-					// for each matching agent's style polyfills
-					foreach ($polyfillCSSArray[$agent] as $polyfill) {
-						// get the polyfill version range
-						$min = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['min']) ? $polyfill['min'] : -INF);
-						$max = isset($polyfill['only']) ? $polyfill['only'] : (isset($polyfill['max']) ? $polyfill['max'] : +INF);
+			return $required;
+		} else {
+			// for each agent validator
+			foreach ($agents as $agent => &$validators) {
+				foreach ($validators as $validator) {
+					// if the user agent matches the validator
+					if (preg_match('/'.$validator.'/', $useragent, $version)) {
+						// the user agent version
+						$version = floatval($version[1]);
 
-						// if the user agent version is within that range
-						if ($version >= $min && $version <= $max) {
-							// add the agent's style polyfills to the detected object
-							$detected->style = array_merge($detected->style, explode(' ', $polyfill['fill']));
+						// for each agent polyfill
+						foreach ($agentsFills[$agent] as $fills) {
+							// the polyfill version range
+							$min = isset($fills['only']) ? $fills['only'] : (isset($fills['min']) ? $fills['min'] : -INF);
+							$max = isset($fills['only']) ? $fills['only'] : (isset($fills['max']) ? $fills['max'] : +INF);
+
+							// if the user agent version is within the polyfill version range
+							if ($version >= $min && $version <= $max) {
+								// require the polyfills matching any filter
+								$fills['fill'] = is_array($fills['fill']) ? $fills['fill'] : explode(' ', $fills['fill']);
+
+								foreach ($fills['fill'] as $fill) {
+									if (!$filter || preg_match($filter, $fill)) {
+										array_push($required, $fill);
+									}
+								}
+							}
 						}
-					}
 
-					// stop checking for every agent list's validator 
-					break 2;
+						// stop checking agent validators
+						break 2;
+					}
 				}
 			}
 		}
 
-		// return the detected object
-		return $detected;
+		// return the required array
+		return $required;
 	}
 
-	public static function script($scripts = null, $minified = true, $filter = false, $all = false) {
-		// get the current script path
-		$path = dirname(__FILE__).'/'.($minified ? 'minified' : 'source').'/';
+	/**
+	 * Returns the rendered polyfills
+	 *
+	 * @param {Array} [required] The polyfills to render
+	 * @param {String} [type] The polyfill rendering method
+	 * @param {String} [minified] Whether the rendered polyfills should be minified
+	 */
+	public static function render($required = null, $type = 'js', $minified = true) {
+		// if JavaScript
+		if ($type === 'js') {
+			// the current script path
+			$path = dirname(__FILE__).'/'.($minified ? 'minified' : 'source').'/';
 
-		// get the scripts object
-		$scripts = isset($scripts) ? $scripts : $all ? glob($path.'*.js') : Polyfill::detect(null, $minified)->script;
+			// the time
+			$time = 0;
 
-		// get the time
-		$time = 0;
+			// the type
+			$type = $minified ? 'application/javascript' : 'text/plain';
 
-		// get the type
-		$type = $minified ? 'application/javascript' : 'text/plain';
+			// the render array
+			$render = array();
 
-		// get the polyfill array
-		$polyfillArray = array();
+			// for each required file
+			foreach ($required as $require) {
+				$file = $path.$require.'.js';
 
-		// get the string that joins the polyfill array
-		$polyfillArrayJoiner = $minified ? '' : PHP_EOL.PHP_EOL;
+				// if the file exists
+				if (file_exists($file)) {
+					// the newest time
+					$time = max($time, filemtime($file));
 
-		// for each scripts object's script
-		foreach ($scripts as $script) {
-			// get the script file
-			$file = $all ? $script : $path.$script.'.js';
-
-			// if the script file exists
-			if (file_exists($file) && (!$filter || preg_match($filter, $script))) {
-				// get the newest time
-				$time = max($time, filemtime($file));
-
-				// add the script contents to the script polyfill array
-				array_push($polyfillArray, file_get_contents($file));
+					// add the contents to the render array
+					array_push($render, file_get_contents($file));
+				}
 			}
+
+			$data = implode($minified ? '' : PHP_EOL.PHP_EOL, $render);
 		}
 
-		// return the script polyfill
-		return (object) array(
-			'data' => implode($polyfillArrayJoiner, $polyfillArray),
-			'time' => $time,
-			'type' => $type
-		);
-	}
+		if ($type === 'css') {
+			// the normalize file
+			$file = dirname(__FILE__).'/normalize.json';
 
-	public static function style($styles = null, $minified = true, $filter = false, $all = false) {
-		// get the normalize file
-		$file = dirname(__FILE__).'/normalize.json';
+			// the time
+			$time = filemtime($file);
 
-		// get the normalize object
-		$normalize = json_decode(file_get_contents($file), true);
+			// the type
+			$type = 'text/style';
 
-		// get the scripts object
-		$styles = isset($styles) ? $styles : Polyfill::detect(null, $minified)->style;
+			// the normalize object
+			$normalize = json_decode(file_get_contents($file), true);
 
-		// get the time
-		$time = filemtime($file);
+			// the rules array
+			$rulesArray = array();
 
-		// get the type
-		$type = 'text/style';
+			// for each normalize object's selectors and css block
+			foreach ($normalize as $selectors => $cssblock) {
+				// the selectors as an array
+				$selectors = explode(' ', $selectors);
 
-		// get the strings that join the various css blocks
-		$cssblockArrayJoiner = $minified ? ',' : ', ';
-		$cssblockStart = $minified ? '{' : ' {'.PHP_EOL;
-		$cssblockEnd = $minified ? '}' : PHP_EOL.'}';
+				// the selectors' css block
+				$cssblock = $minified ? preg_replace('/: /', ':', $cssblock) : "\t".preg_replace('/;/', ';'.PHP_EOL."\t", $cssblock).';';
 
-		// get the rules array
-		$rulesArray = array();
+				// the css block array
+				$cssblockArray = array();
 
-		// get the string that joins rules arrays
-		$rulesArrayJoiner = $minified ? '' : PHP_EOL.PHP_EOL;
-
-		// for each normalize object's selectors and css block
-		foreach ($normalize as $selectors => $cssblock) {
-			// get the selectors as an array
-			$selectorsArray = explode(' ', $selectors);
-
-			// get the selectors' css block
-			$cssblock = $minified ? preg_replace('/: /', ':', $cssblock) : "\t".preg_replace('/;/', ';'.PHP_EOL."\t", $cssblock).';';
-
-			// get the css block array
-			$cssblockArray = array();
-
-			if ($all) {
-				if ($filter) {
-					foreach ($selectorsArray as $selector) {
-						if (preg_match($filter, $selector)) {
-							array_push($cssblockArray, preg_replace('/^_/', '', $selector));
-						}
-					}
-				} else {
-					$cssblockArray = $selectorsArray;
-				}
-			} else {
 				// for each style object's matching selector
-				foreach ($styles as $selector) {
-					if (in_array($selector, $selectorsArray) && (!$filter || preg_match($filter, $selector))) {
+				foreach ($required as $selector) {
+					if (in_array($selector, $selectors)) {
 						// add the selectors' css block to the block array
 						array_push($cssblockArray, preg_replace('/^_/', '', $selector));
 					}
 				}
+
+				// if there is anything in the css block array
+				if (count($cssblockArray)) {
+					// add the matching selector and css block to the rules array
+					array_push($rulesArray, implode($minified ? ',' : ', ', $cssblockArray).($minified ? '{' : ' {'.PHP_EOL).$cssblock.($minified ? '}' : PHP_EOL.'}'));
+				}
 			}
 
-			// if there is anything in the css block array
-			if (count($cssblockArray)) {
-				// add the matching selector and css block to the rules array
-				array_push($rulesArray, implode($cssblockArrayJoiner, $cssblockArray).$cssblockStart.$cssblock.$cssblockEnd);
-
-			}
+			$data = implode($minified ? '' : PHP_EOL.PHP_EOL, $rulesArray);
 		}
 
-		// return the style polyfill
+		// return the polyfill
 		return (object) array(
-			'data' => implode($rulesArrayJoiner, $rulesArray),
+			'data' => $data,
 			'time' => $time,
 			'type' => $type
 		);
 	}
 
-	public static function buffer($polyfill = null, $minified = true, $filter = false, $all = false) {
-		// get the polyfill object
-		$polyfill = isset($polyfill) ? $polyfill : Polyfill::script(null, $minified, $filter, $all);
-
-		// get time
+	public static function buffer($polyfill = null) {
+		// the time
 		$time = gmdate('D, d M Y H:i:s T', $polyfill->time);
 
-		// get headers
+		// the headers
 		header('Cache-Control: public');
 		header('Content-Type: '.$polyfill->type);
 		header('Last-Modified: '.$time, true, 200);
