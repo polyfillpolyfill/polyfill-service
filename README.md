@@ -6,13 +6,13 @@
 <script src="//polyfill.io"></script>
 ```
 
-That's it. The script file *is* the [domain](https://polyfill.io). No need to specify the HTTP or HTTPS, because the service runs over both.
+That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need to specify the **http** or **https**, because the service runs over both.
 
 ```html
 <link href="//polyfill.io/normalize.css" rel="stylesheet">
 ```
 
-Don't punish Chrome for old Internet Explorer either, because [Normalize.css](github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
+Don&rsquo;t punish Chrome for old Internet Explorer either, because [Normalize.css](github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
 
 ## What can I do with this?
 
@@ -36,7 +36,7 @@ Android 2.2+, Blackberry 7+, Chrome, Opera 11.5+, Opera Mini 5+, Opera Mobile 10
 
 ## What functionality is supported?
 
-You should be able to use all of the following features to a reasonable extent in every supported browser.
+You should be able to use the following features to a reasonable extent in every supported browser.
 
 ### HTML Elements
 
@@ -156,7 +156,7 @@ You should be able to use all of the following features to a reasonable extent i
 
 ## Can I hack this?
 
-Yes. By default, [polyfill.io](https://polyfill.io) returns minified JavaScript polyfills. Basically, almost any URL returns this.
+Yes. By default, almost any [polyfill.io](https://polyfill.io) URL returns minified JavaScript polyfills.
 
 ```html
 <script src="//polyfill.io"></script>
@@ -166,9 +166,9 @@ Yes. By default, [polyfill.io](https://polyfill.io) returns minified JavaScript 
 <script src="//polyfill.io/same-difference/whatever.js"></script>
 ```
 
-<small>Both scripts return only critical JavaScript polyfills to the user agent.</small>
+*Both scripts return only critical JavaScript polyfills.*
 
-Similarly, adding **.css** to the end of the URL returns minified CSS.
+Similarly, adding **.css** to the end of the URL returns minified CSS polyfills.
 
 ```html
 <link href="//polyfill.io/.css" rel="stylesheet">
@@ -178,41 +178,37 @@ Similarly, adding **.css** to the end of the URL returns minified CSS.
 <link href="//polyfill.io/same-difference/whatever.css" rel="stylesheet">
 ```
 
-<small>Both links return only critical [Normalize.css](github.com/necolas/normalize.css) to the user agent.</small>
+*Both links return only critical CSS polyfills.*
 
-### But I know what I want.
-
-Return only specific JavaScript or CSS polyfills needed by the user agent by adding **maybe=X** in the URL, where **X** is a matching fragment of the desired scripts or elements.
+Add **maybe(X)** in the URL to return only specific JavaScript or CSS polyfills needed by the user agent, where **X** is a comma-delimited list of the desired scripts or elements.
 
 ```html
 <script src="//polyfill.io/maybe=Array"></script>
 ```
 
-<small>Returns only the necessary polyfill script for **Array**.</small>
+*Returns only critical JavaScript polyfills for **Array**.*
 
 ```html
 <link href="//polyfill.io/maybe=section.css" rel="stylesheet">
 ```
 
-<small>Returns only the necessary polyfill styles for **section**.</small>
+*Returns only critical CSS polyfills for **section**.*
 
-Return only specific JavaScript or CSS polyfills regardless of the user agent by adding **gimme=X** to the URL, where **X** is a matching fragment of the desired scripts or elements.
+Add **gimme(X)** in the URL to return only specific JavaScript or CSS polyfills (regardless of the user agent), where **X** is a comma-delimited list of the desired scripts or elements. This is your sniff-free solution.
 
 ```html
 <script src="//polyfill.io/gimme=Array"></script>
 ```
 
-<small>Returns all the polyfill script for **Array**.</small>
+*Returns all JavaScript polyfills for **Array**.*
 
 ```html
 <link href="//polyfill.io/gimme=section.css" rel="stylesheet">
 ```
 
-<small>Returns all the polyfill styles for **section**.</small>
+*Returns all CSS polyfills for **section**.*
 
-### But I like readable code.
-
-Return human readable JavaScript or CSS by adding the word **readable** in the URL.
+Add **readable** in the URL to return human readable JavaScript or CSS.
 
 ```html
 <script src="//polyfill.io/readable"></script>
@@ -222,6 +218,6 @@ Return human readable JavaScript or CSS by adding the word **readable** in the U
 <link href="//polyfill.io/readable.css" rel="stylesheet">
 ```
 
-## We're good.
+## We&rsquo;re good.
 
 Now, please&hellip; enjoy!
