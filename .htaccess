@@ -2,19 +2,23 @@
 # Rewrite rules
 # ----------------------------------------------------------------------
 
-# unset the php header
-Header unset X-Powered-By
+<ifModule mod_headers.c>
+	# unset the php header
+	Header unset X-Powered-By
+</ifModule>
 
-RewriteEngine on
+<IfModule mod_rewrite.c>
+	RewriteEngine on
 
-# remove the www
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+	# remove the www
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
-# forward the modified headers
-RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
-RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
+	# forward the modified headers
+	RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
+	RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
 
-# go to the router
-RewriteRule ^.*$ index.php [L]
+	# go to the router
+	RewriteRule ^.*$ index.php [L]
+</IfModule>
