@@ -43,9 +43,6 @@ class Polyfill {
 						}
 					}
 
-					// get the detected object's array as an object
-					$detected->script = (object) $detected->script;
-
 					// for each matching agent's style polyfills
 					foreach ($polyfillCSSArray[$agent] as $polyfill) {
 						// get the polyfill version range
@@ -59,9 +56,6 @@ class Polyfill {
 						}
 					}
 
-					// get the detected object's array as an object
-					$detected->style = (object) $detected->style;
-
 					// stop checking for every agent list's validator 
 					break 2;
 				}
@@ -72,15 +66,12 @@ class Polyfill {
 		return $detected;
 	}
 
-	public static function script($detect = null, $minified = true) {
-		// get the detected object
-		$detect = $detect ? $detect : Polyfill::detect();
-
-		// get the scripts object
-		$scripts = $detect->script;
-
+	public static function script($scripts = null, $minified = true, $filter = false, $all = false) {
 		// get the current script path
 		$path = dirname(__FILE__).'/'.($minified ? 'minified' : 'source').'/';
+
+		// get the scripts object
+		$scripts = isset($scripts) ? $scripts : $all ? glob($path.'*.js') : Polyfill::detect(null, $minified)->script;
 
 		// get the time
 		$time = 0;
@@ -97,10 +88,10 @@ class Polyfill {
 		// for each scripts object's script
 		foreach ($scripts as $script) {
 			// get the script file
-			$file = $path.$script.'.js';
+			$file = $all ? $script : $path.$script.'.js';
 
 			// if the script file exists
-			if (file_exists($file)) {
+			if (file_exists($file) && (!$filter || preg_match($filter, $script))) {
 				// get the newest time
 				$time = max($time, filemtime($file));
 
@@ -117,18 +108,15 @@ class Polyfill {
 		);
 	}
 
-	public static function style($detect = null, $minified = true) {
-		// get the detected object
-		$detect = $detect ? $detect : Polyfill::detect();
-
-		// get the styles object
-		$styles = $detect->style;
-
+	public static function style($styles = null, $minified = true, $filter = false, $all = false) {
 		// get the normalize file
 		$file = dirname(__FILE__).'/normalize.json';
 
 		// get the normalize object
 		$normalize = json_decode(file_get_contents($file), true);
+
+		// get the scripts object
+		$styles = isset($styles) ? $styles : Polyfill::detect(null, $minified)->style;
 
 		// get the time
 		$time = filemtime($file);
@@ -158,11 +146,23 @@ class Polyfill {
 			// get the css block array
 			$cssblockArray = array();
 
-			// for each style object's matching selector
-			foreach ($styles as $selector) {
-				if (in_array($selector, $selectorsArray)) {
-					// add the selectors' css block to the block array
-					array_push($cssblockArray, preg_replace('/^_/', '', $selector));
+			if ($all) {
+				if ($filter) {
+					foreach ($selectorsArray as $selector) {
+						if (preg_match($filter, $selector)) {
+							array_push($cssblockArray, preg_replace('/^_/', '', $selector));
+						}
+					}
+				} else {
+					$cssblockArray = $selectorsArray;
+				}
+			} else {
+				// for each style object's matching selector
+				foreach ($styles as $selector) {
+					if (in_array($selector, $selectorsArray) && (!$filter || preg_match($filter, $selector))) {
+						// add the selectors' css block to the block array
+						array_push($cssblockArray, preg_replace('/^_/', '', $selector));
+					}
 				}
 			}
 
@@ -170,6 +170,7 @@ class Polyfill {
 			if (count($cssblockArray)) {
 				// add the matching selector and css block to the rules array
 				array_push($rulesArray, implode($cssblockArrayJoiner, $cssblockArray).$cssblockStart.$cssblock.$cssblockEnd);
+
 			}
 		}
 
@@ -181,9 +182,9 @@ class Polyfill {
 		);
 	}
 
-	public static function buffer($type = 'script', $minified = true) {
-		// get polyfill
-		$polyfill = Polyfill::$type(null, $minified);
+	public static function buffer($polyfill = null, $minified = true, $filter = false, $all = false) {
+		// get the polyfill object
+		$polyfill = isset($polyfill) ? $polyfill : Polyfill::script(null, $minified, $filter, $all);
 
 		// get time
 		$time = gmdate('D, d M Y H:i:s T', $polyfill->time);
