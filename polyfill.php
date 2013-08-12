@@ -136,7 +136,7 @@ class Polyfill {
 			$time = filemtime($file);
 
 			// the type
-			$type = 'text/style';
+			$type = 'text/css';
 
 			// the normalize object
 			$normalize = json_decode(file_get_contents($file), true);
