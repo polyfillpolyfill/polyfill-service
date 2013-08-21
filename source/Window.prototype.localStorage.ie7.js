@@ -34,6 +34,8 @@ Window.polyfill.push(function () {
 			}
 
 			this[key] = value;
+
+			updateKeys();
 		}
 	};
 
@@ -49,49 +51,48 @@ Window.polyfill.push(function () {
 		return buffer;
 	}
 
-	if (!('localStorage' in this)) {
-		var
-		window = this,
-		// set localStorage
-		localStorage = window.localStorage = new Storage(),
-		// set storage element
-		element = window.document.lastChild.lastChild.appendChild(window.document.createElement('x-local-storage')),
-		// set userdata key and prefix
-		userdata = 'userdata',
-		keys;
+	function updateKeys() {
+		var unloadkeys = keys;
 
-		// proprietary ie local storage
-		try {
-			element.addBehavior('#default#' + userdata);
-			element.load(userdata);
-		} catch (error) {}
+		keys = getKeys(localStorage);
 
-		// get keys
-		keys = element.getAttribute(userdata) ? element.getAttribute(userdata).split(',') : [];
-
-		localStorage.length = keys.length;
-
-		// assign keys to localStorage
-		keys.forEach(function (key) {
-			localStorage[key] = element.getAttribute(userdata + key);
+		unloadkeys.concat(keys).forEach(function (key) {
+			if (key in localStorage) {
+				element.setAttribute(userdata + key, localStorage[key]);
+			} else {
+				element.removeAttribute(userdata + key);
+			}
 		});
 
-		window.attachEvent('onunload', function () {
-			var unloadkeys = keys;
+		element.setAttribute(userdata, keys.join(','));
 
-			keys = getKeys(localStorage);
-
-			unloadkeys.concat(keys).forEach(function (key) {
-				if (key in localStorage) {
-					element.setAttribute(userdata + key, localStorage[key]);
-				} else {
-					element.removeAttribute(userdata + key);
-				}
-			});
-
-			element.setAttribute(userdata, keys.join(','));
-
-			element.save(userdata);
-		});
+		element.save(userdata);
 	}
+
+	var
+	// set localStorage
+	localStorage = window.localStorage = new Storage(),
+	// set storage element
+	element = window.document.lastChild.lastChild.appendChild(window.document.createElement('x-local-storage')),
+	// set userdata key and prefix
+	userdata = 'userdata',
+	keys;
+
+	// proprietary ie local storage
+	try {
+		element.addBehavior('#default#' + userdata);
+		element.load(userdata);
+	} catch (error) {}
+
+	// get keys
+	keys = element.getAttribute(userdata) ? element.getAttribute(userdata).split(',') : [];
+
+	localStorage.length = keys.length;
+
+	// assign keys to localStorage
+	keys.forEach(function (key) {
+		localStorage[key] = element.getAttribute(userdata + key);
+	});
+
+	window.attachEvent('onunload', updateKeys);
 });
