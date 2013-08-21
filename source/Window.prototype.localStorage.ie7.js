@@ -25,6 +25,8 @@ Window.polyfill.push(function () {
 
 				--this.length;
 			}
+
+			updateKeys();
 		},
 		setItem: function () {
 			var key = String(arguments[0]), value = String(arguments[1]);
@@ -70,6 +72,8 @@ Window.polyfill.push(function () {
 	}
 
 	var
+	// set window
+	window = this,
 	// set localStorage
 	localStorage = window.localStorage = new Storage(),
 	// set storage element
