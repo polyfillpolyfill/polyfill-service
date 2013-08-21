@@ -1,1 +1,1 @@
-Array.isArray=function isArray(array){return array&&Object.prototype.toString.call(array)==="[Object Array]"};
+Array.isArray=function isArray(array){return array&&Object.prototype.toString.call(array)==="[object Array]"};
