@@ -127,6 +127,7 @@ You should be able to use the following features to a reasonable extent in every
 
 ### Other Goodies
 
+[Window.prototype.JSON](http://caniuse.com/json),
 [Window.prototype.localStorage](http://caniuse.com/localStorage),
 [Window.prototype.getComputedStyle](http://caniuse.com/getComputedStyle),
 [Window.prototype.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/window.matchMedia),
