@@ -182,35 +182,35 @@ Similarly, adding **.css** to the end of the URL returns minified CSS polyfills.
 
 *Both links return only critical CSS polyfills.*
 
-Add **maybe(X)** in the URL to return only specific JavaScript or CSS polyfills needed by the user agent, where **X** is a comma-delimited list of the desired scripts or elements.
+Adding **maybe(X)** to the URL will return only the specific JavaScript or CSS polyfills needed by the user agent, where **X** is a comma-delimited list of the desired scripts or elements.
 
 ```html
-<script src="//polyfill.io/maybe=Array"></script>
+<script src="//polyfill.io/maybe(array,geolocation)"></script>
 ```
 
-*Returns only critical JavaScript polyfills for **Array**.*
+*Returns only critical JavaScript polyfills for array and geolocation.*
 
 ```html
-<link href="//polyfill.io/maybe=section.css" rel="stylesheet">
+<link href="//polyfill.io/maybe(article,section).css" rel="stylesheet">
 ```
 
-*Returns only critical CSS polyfills for **section**.*
+*Returns only critical CSS polyfills for article and section.*
 
-Add **gimme(X)** in the URL to return only specific JavaScript or CSS polyfills (regardless of the user agent), where **X** is a comma-delimited list of the desired scripts or elements. This is your sniff-free solution.
+Adding **gimme(X)** to the URL will return only specific JavaScript or CSS polyfills (regardless of the user agent), where **X** is a comma-delimited list of the desired scripts or elements. This is your sniff-free solution.
 
 ```html
-<script src="//polyfill.io/gimme=Array"></script>
+<script src="//polyfill.io/gimme(array)"></script>
 ```
 
-*Returns all JavaScript polyfills for **Array**.*
+*Returns all JavaScript polyfills for array.*
 
 ```html
-<link href="//polyfill.io/gimme=section.css" rel="stylesheet">
+<link href="//polyfill.io/gimme(section).css" rel="stylesheet">
 ```
 
-*Returns all CSS polyfills for **section**.*
+*Returns all CSS polyfills for section.*
 
-Add **readable** in the URL to return human readable JavaScript or CSS.
+Adding **readable** to the URL will return human readable JavaScript or CSS.
 
 ```html
 <script src="//polyfill.io/readable"></script>
