@@ -1,12 +1,11 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
 	grunt.initConfig({
 		uglify: {
 			target: {
 				src: '*.js',
 				dest: '../minified/',
 				expand: true
-			},
+			}
 		}
 	});
 
@@ -15,5 +14,4 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['uglify']);
 
 	grunt.file.setBase('source');
-
 };
