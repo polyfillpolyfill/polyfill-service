@@ -68,7 +68,7 @@
 	}, {
 		"min": "3.6",
 		"max": "5",
-		"fill": "Window.prototype.matchMedia"
+		"fill": "Window.prototype.Event Window.prototype.matchMedia Window.prototype.Event.firefox5"
 	}, {
 		"min": "3.6",
 		"fill": "Element.prototype.matches.moz Element.prototype.mutation"
