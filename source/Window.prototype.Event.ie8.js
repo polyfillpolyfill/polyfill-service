@@ -122,5 +122,7 @@
 				element = element.nodeType === 9 ? element.parentWindow : element.parentNode;
 			} while (element && !event.cancelBubble);
 		}
+
+		return true;
 	};
 })();
