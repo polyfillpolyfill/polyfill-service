@@ -1,0 +1,140 @@
+<!doctype html>
+<title>QUnit: polyfill</title>
+
+<meta charset="utf-8">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/qunit/1.11.0/qunit.min.css" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/qunit/1.11.0/qunit.min.js"></script>
+<script src="polyfill/readable.js"></script>
+
+<body>
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+
+	<script>
+	// 1
+	test('Array', function () {
+		var array = [];
+
+		ok('isArray' in Array, 'isArray');
+		ok('every' in array, 'every');
+		ok('filter' in array, 'filter');
+		ok('forEach' in array, 'forEach');
+		ok('indexOf' in array, 'indexOf');
+		ok('lastIndexOf' in array, 'lastIndexOf');
+		ok('map' in array, 'map');
+		ok('reduce' in array, 'reduce');
+		ok('reduceRight' in array, 'reduceRight');
+		ok('some' in array, 'some');
+	});
+
+	// 2
+	test('Date', function () {
+		var date = new Date();
+
+		ok('now' in Date, 'now');
+		ok('toISOString' in date, 'toISOString');
+	});
+
+	// 3
+	test('Object', function () {
+		ok('create' in Object, 'create');
+		ok('defineProperty' in Object, 'defineProperty');
+		ok('defineProperties' in Object, 'defineProperties');
+		ok('getOwnPropertyNames' in Object, 'getOwnPropertyNames');
+		ok('getPrototypeOf' in Object, 'getPrototypeOf');
+		ok('keys' in Object, 'keys');
+	});
+
+	// 4
+	test('String', function () {
+		var string = '';
+
+		ok(!!string.trim, 'trim');
+	});
+
+	// 5
+	test('Function', function () {
+		var fn = function () {};
+
+		ok('bind' in fn, 'bind');
+	});
+
+	// 6
+	test('Window', function () {
+		ok('Window' in window, 'Window');
+		ok('atob' in window, 'atob');
+		ok('btoa' in window, 'btoa');
+		// ok('CustomEvent' in window, 'CustomEvent');
+		ok('Element' in window, 'Element');
+		ok('Event' in window, 'Event');
+		ok('geolocation' in navigator, 'navigator.geolocation');
+		ok('getCurrentPosition' in navigator.geolocation, 'navigator.geolocation.getCurrentPosition');
+		ok('getComputedStyle' in window, 'getComputedStyle');
+		ok('HTMLDocument' in window, 'HTMLDocument');
+		ok('innerWidth' in window, 'innerWidth');
+		ok('innerHeight' in window, 'innerHeight');
+		ok('JSON' in window, 'JSON');
+		ok('parse' in window.JSON, 'JSON.parse');
+		ok('stringify' in window.JSON, 'JSON.stringify');
+		ok('localStorage' in window, 'localStorage');
+		ok('matchMedia' in window, 'matchMedia');
+		ok('pageXOffset' in window, 'pageXOffset');
+		ok('pageYOffset' in window, 'pageYOffset');
+		ok('scrollX' in window, 'scrollX');
+		ok('scrollY' in window, 'scrollY');
+		ok('XMLHttpRequest' in window, 'XMLHttpRequest');
+	});
+
+	// 7
+	test('Document', function () {
+		ok('head' in document, 'document.head');
+	});
+
+	// 8
+	test('Element', function () {
+		var
+		xelement = document.createElement('x-element'),
+		input = document.createElement('input');
+
+		ok('Element' in window, 'Element');
+		ok('addEventListener' in xelement, '<x-element>.addEventListener');
+		ok('after' in xelement, '<x-element>.after');
+		ok('append' in xelement, '<x-element>.append');
+		ok('before' in xelement, '<x-element>.before');
+		ok('classList' in xelement, '<x-element>.classList');
+		ok('dispatchEvent' in xelement, '<x-element>.dispatchEvent');
+		ok('matches' in xelement, '<x-element>.matches');
+		ok('placeholder' in input, '<input>.placeholder');
+		ok('prepend' in xelement, '<x-element>.prepend');
+		ok('remove' in xelement, '<x-element>.remove');
+		ok('removeEventListener' in xelement, '<x-element>.removeEventListener');
+		ok('replace' in xelement, '<x-element>.replace');
+	});
+
+	// 8
+	test('Events', function () {
+		var
+		xelement = document.createElement('x-element');
+
+		ok('addEventListener' in xelement && xelement.addEventListener('click', function (event) {
+			start();
+
+			ok('currentTarget' in event, 'event.currentTarget');
+			ok('preventDefault' in event, 'event.preventDefault');
+			ok('stopImmediatePropagation' in event, 'event.stopImmediatePropagation');
+			ok('stopPropagation' in event, 'event.stopPropagation');
+			ok('target' in event, 'event.target');
+			ok('timeStamp' in event, 'event.timeStamp');
+		}) === undefined, 'addEventListener');
+
+		stop();
+
+		xelement.dispatchEvent(new Event('click'));
+	});
+	</script>
+</body>
