@@ -1,0 +1,7 @@
+{
+	"private": true,
+	"dependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-uglify": "~0.2.2"
+	}
+}
