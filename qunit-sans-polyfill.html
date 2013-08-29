@@ -21,7 +21,7 @@
 	test('Array', function () {
 		var array = [];
 
-		ok(typeof Array.isArray === 'function', 'Array.isArray');
+		ok(typeof Array.isArray === 'function' && Array.isArray([]) === true, 'Array.isArray');
 		ok(typeof array.every === 'function', '<array>.every');
 		ok(typeof array.filter === 'function', '<array>.filter');
 		ok(typeof array.forEach === 'function', '<array>.forEach');
@@ -74,11 +74,11 @@
 		ok(typeof window.getComputedStyle === 'function', 'window.getComputedStyle');
 		ok(typeof window.innerHeight === 'number', 'window.innerHeight');
 		ok(typeof window.innerWidth === 'number', 'window.innerWidth');
-		ok(typeof window.matchMedia === 'function', 'matchMedia');
-		ok(typeof window.pageXOffset === 'number', 'pageXOffset');
-		ok(typeof window.pageYOffset === 'number', 'pageYOffset');
-		ok(typeof window.scrollX === 'number', 'scrollX');
-		ok(typeof window.scrollY === 'number', 'scrollY');
+		ok(typeof window.matchMedia === 'function', 'window.matchMedia');
+		ok(typeof window.pageXOffset === 'number', 'window.pageXOffset');
+		ok(typeof window.pageYOffset === 'number', 'window.pageYOffset');
+		ok(typeof window.scrollX === 'number', 'window.scrollX');
+		ok(typeof window.scrollY === 'number', 'window.scrollY');
 		ok('XMLHttpRequest' in window, 'window.XMLHttpRequest');
 	});
 
@@ -125,8 +125,6 @@
 		var
 		xelement = document.createElement('x-element'),
 		fn = function (event) {
-			start();
-
 			ok('currentTarget' in event, 'event.currentTarget');
 			ok('preventDefault' in event, 'event.preventDefault');
 			ok('stopImmediatePropagation' in event, 'event.stopImmediatePropagation');
@@ -137,11 +135,9 @@
 			ok('removeEventListener' in xelement && xelement.removeEventListener('click', fn) === undefined, '<x-element>.removeEventListener');
 		};
 
-		ok('Event' in window, 'Event');
-		ok('CustomEvent' in window, 'CustomEvent');
+		ok('Event' in window, 'window.Event');
+		ok('CustomEvent' in window, 'window.CustomEvent');
 		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener');
-
-		stop();
 
 		ok(xelement.dispatchEvent(new Event('click')) === true, '<x-element>.dispatchEvent');
 	});
@@ -152,7 +148,7 @@
 		object = { foo: true, bar: 0, qux: 'hello' },
 		string = '{"foo":true,"bar":0,"qux":"hello"}';
 
-		ok('JSON' in window, 'JSON');
+		ok('JSON' in window, 'window.JSON');
 		ok('parse' in window.JSON && JSON.parse(string).foo === true, 'JSON.parse');
 		ok('stringify' in window.JSON && JSON.stringify(object) === string, 'JSON.stringify');
 	});
