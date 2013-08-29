@@ -37,7 +37,7 @@
 	test('Date', function () {
 		var date = new Date(), now = date.getTime();
 
-		ok(typeof Date.now === 'function' && Date.now() === now, 'Date.now');
+		ok(typeof Date.now === 'function', 'Date.now');
 		ok(typeof date.toISOString === 'function', '<date>.toISOString');
 	});
 
@@ -79,7 +79,6 @@
 		ok(typeof window.pageYOffset === 'number', 'window.pageYOffset');
 		ok(typeof window.scrollX === 'number', 'window.scrollX');
 		ok(typeof window.scrollY === 'number', 'window.scrollY');
-		ok('XMLHttpRequest' in window, 'window.XMLHttpRequest');
 	});
 
 	// 7
@@ -176,8 +175,6 @@
 	test('Geolocation', function () {
 		ok('geolocation' in navigator, 'navigator.geolocation');
 
-		stop();
-
 		navigator.geolocation.getCurrentPosition(function (event) {
 			start();
 
@@ -187,6 +184,26 @@
 
 			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition // ' + [event.message]);
 		});
+
+		stop();
+	});
+
+	test('XMLHttpRequest', function () {
+		ok('XMLHttpRequest' in window, 'window.XMLHttpRequest');
+
+		var request = new XMLHttpRequest();
+
+		ok(request.open('GET', location.href) === undefined, '<XMLHttpRequest>.open');
+
+		ok(request.addEventListener('load', function (event) {
+			start();
+
+			ok(request.responseText, '<XMLHttpRequest>.onload');
+		}) === undefined, '<XMLHttpRequest>.addEventListener');
+
+		ok(request.send() === undefined, '<XMLHttpRequest>.send');
+
+		stop();
 	});
 	</script>
 </body>
