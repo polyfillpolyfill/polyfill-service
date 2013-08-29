@@ -1,1 +1,1 @@
-Object.create=function create(prototype,properties){if(typeof prototype!=="object"){throw new Error("Object prototype may only be an Object or null")}var Constructor=function(){};Constructor.prototype=prototype;var object=new Constructor;Object.defineProperties(object,properties);return object};
+Object.create=function(a,b){if("object"!=typeof a)throw new Error("Object prototype may only be an Object or null");var c=function(){};c.prototype=a;var d=new c;return Object.defineProperties(d,b),d};

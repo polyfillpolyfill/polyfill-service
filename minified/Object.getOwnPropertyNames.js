@@ -1,1 +1,1 @@
-Object.getOwnPropertyNames=function getOwnPropertyNames(object){var buffer=[],key;for(key in object){buffer.push(key)}return buffer};
+Object.getOwnPropertyNames=function(a){var b,c=[];for(b in a)c.push(b);return c};

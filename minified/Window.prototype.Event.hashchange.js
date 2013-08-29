@@ -1,1 +1,1 @@
-!function(){var hash=window.location.hash,func=function(){if(hash!==window.location.hash){hash=window.location.hash;window.dispatchEvent(new Event("hashchange"))}setTimeout(func,200)};func()}();
+!function(){var a=window.location.hash,b=function(){a!==window.location.hash&&(a=window.location.hash,window.dispatchEvent(new Event("hashchange"))),setTimeout(b,200)};b()}();

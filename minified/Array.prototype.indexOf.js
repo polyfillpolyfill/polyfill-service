@@ -1,1 +1,1 @@
-Array.prototype.indexOf=function indexOf(searchElement){for(var array=this,index=0,length=array.length;index<length;++index){if(array[index]===searchElement){return index}}return-1};
+Array.prototype.indexOf=function(a){for(var b=this,c=0,d=b.length;d>c;++c)if(b[c]===a)return c;return-1};

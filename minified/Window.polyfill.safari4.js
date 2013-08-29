@@ -1,1 +1,1 @@
-window.constructor=window.Window=function Window(){};
+window.constructor=window.Window=function(){};

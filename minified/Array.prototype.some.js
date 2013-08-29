@@ -1,1 +1,1 @@
-Array.prototype.some=function some(callback,scope){for(var array=this,index=0,length=array.length;index<length;++index){if(callback.call(scope||window,array[index],index,array)){break}}return index===length};
+Array.prototype.some=function(a,b){for(var c=this,d=0,e=c.length;e>d&&!a.call(b||window,c[d],d,c);++d);return d===e};

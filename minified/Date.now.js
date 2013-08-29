@@ -1,1 +1,1 @@
-Date.now=function now(){return(new Date).getTime()};
+Date.now=function(){return(new Date).getTime()};
