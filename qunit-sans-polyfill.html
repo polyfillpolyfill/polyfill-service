@@ -21,103 +21,106 @@
 	test('Array', function () {
 		var array = [];
 
-		ok('isArray' in Array, 'isArray');
-		ok('every' in array, 'every');
-		ok('filter' in array, 'filter');
-		ok('forEach' in array, 'forEach');
-		ok('indexOf' in array, 'indexOf');
-		ok('lastIndexOf' in array, 'lastIndexOf');
-		ok('map' in array, 'map');
-		ok('reduce' in array, 'reduce');
-		ok('reduceRight' in array, 'reduceRight');
-		ok('some' in array, 'some');
+		ok(typeof Array.isArray === 'function', 'Array.isArray');
+		ok(typeof array.every === 'function', '<array>.every');
+		ok(typeof array.filter === 'function', '<array>.filter');
+		ok(typeof array.forEach === 'function', '<array>.forEach');
+		ok(typeof array.indexOf === 'function', '<array>.indexOf');
+		ok(typeof array.lastIndexOf === 'function', '<array>.lastIndexOf');
+		ok(typeof array.map === 'function', '<array>.map');
+		ok(typeof array.reduce === 'function', '<array>.reduce');
+		ok(typeof array.reduceRight === 'function', '<array>.reduceRight');
+		ok(typeof array.some === 'function', '<array>.some');
 	});
 
 	// 2
 	test('Date', function () {
-		var date = new Date();
+		var date = new Date(), now = date.getTime();
 
-		ok('now' in Date, 'now');
-		ok('toISOString' in date, 'toISOString');
+		ok(typeof Date.now === 'function' && Date.now() === now, 'Date.now');
+		ok(typeof date.toISOString === 'function', '<date>.toISOString');
 	});
 
 	// 3
 	test('Object', function () {
-		ok('create' in Object, 'create');
-		ok('defineProperty' in Object, 'defineProperty');
-		ok('defineProperties' in Object, 'defineProperties');
-		ok('getOwnPropertyNames' in Object, 'getOwnPropertyNames');
-		ok('getPrototypeOf' in Object, 'getPrototypeOf');
-		ok('keys' in Object, 'keys');
+		ok(typeof Object.create === 'function', 'Object.create');
+		ok(typeof Object.defineProperty === 'function', 'Object.defineProperty');
+		ok(typeof Object.defineProperties === 'function', 'Object.defineProperties');
+		ok(typeof Object.getOwnPropertyNames === 'function', 'Object.getOwnPropertyNames');
+		ok(typeof Object.getPrototypeOf === 'function', 'Object.getPrototypeOf');
+		ok(typeof Object.keys === 'function', 'Object.keys');
 	});
 
 	// 4
 	test('String', function () {
-		var string = '';
+		var string = '   trimmed   ';
 
-		ok(!!string.trim, 'trim');
+		ok(typeof string.trim === 'function' && string.trim() === 'trimmed', '<string>.trim');
 	});
 
 	// 5
 	test('Function', function () {
 		var fn = function () {};
 
-		ok('bind' in fn, 'bind');
+		ok(typeof fn.bind === 'function', '<function>.bind');
 	});
 
 	// 6
 	test('Window', function () {
-		ok('Window' in window, 'Window');
-		ok('atob' in window, 'atob');
-		ok('btoa' in window, 'btoa');
-		ok('CustomEvent' in window, 'CustomEvent');
-		ok('Element' in window, 'Element');
-		ok('Event' in window, 'Event');
-		ok('geolocation' in navigator, 'navigator.geolocation');
-		ok('getCurrentPosition' in navigator.geolocation, 'navigator.geolocation.getCurrentPosition');
-		ok('getComputedStyle' in window, 'getComputedStyle');
-		ok('HTMLDocument' in window, 'HTMLDocument');
-		ok('innerWidth' in window, 'innerWidth');
-		ok('innerHeight' in window, 'innerHeight');
-		ok('JSON' in window, 'JSON');
-		ok('parse' in window.JSON, 'JSON.parse');
-		ok('stringify' in window.JSON, 'JSON.stringify');
-		ok('localStorage' in window, 'localStorage');
-		ok('matchMedia' in window, 'matchMedia');
-		ok('pageXOffset' in window, 'pageXOffset');
-		ok('pageYOffset' in window, 'pageYOffset');
-		ok('scrollX' in window, 'scrollX');
-		ok('scrollY' in window, 'scrollY');
-		ok('XMLHttpRequest' in window, 'XMLHttpRequest');
+		ok('Window' in window, 'window.Window');
+
+		ok(typeof window.atob === 'function', 'window.atob');
+		ok(typeof window.btoa === 'function', 'window.btoa');
+		ok(typeof window.getComputedStyle === 'function', 'window.getComputedStyle');
+		ok(typeof window.innerHeight === 'number', 'window.innerHeight');
+		ok(typeof window.innerWidth === 'number', 'window.innerWidth');
+		ok(typeof window.matchMedia === 'function', 'matchMedia');
+		ok(typeof window.pageXOffset === 'number', 'pageXOffset');
+		ok(typeof window.pageYOffset === 'number', 'pageYOffset');
+		ok(typeof window.scrollX === 'number', 'scrollX');
+		ok(typeof window.scrollY === 'number', 'scrollY');
+		ok('XMLHttpRequest' in window, 'window.XMLHttpRequest');
 	});
 
 	// 7
 	test('Document', function () {
-		ok('head' in document, 'document.head');
+		ok('HTMLDocument' in window, 'window.HTMLDocument');
+		ok('head' in document && document.getElementsByTagName('head')[0] === document.head, 'document.head');
 	});
 
 	// 8
 	test('Element', function () {
+		ok('Element' in window, 'window.Element');
+
 		var
 		xelement = document.createElement('x-element'),
-		input = document.createElement('input');
+		input = xelement.appendChild(document.createElement('input'));
 
-		ok('Element' in window, 'Element');
-		ok('addEventListener' in xelement, '<x-element>.addEventListener');
 		ok('after' in xelement, '<x-element>.after');
 		ok('append' in xelement, '<x-element>.append');
 		ok('before' in xelement, '<x-element>.before');
-		ok('classList' in xelement, '<x-element>.classList');
-		ok('dispatchEvent' in xelement, '<x-element>.dispatchEvent');
 		ok('matches' in xelement, '<x-element>.matches');
 		ok('placeholder' in input, '<input>.placeholder');
 		ok('prepend' in xelement, '<x-element>.prepend');
 		ok('remove' in xelement, '<x-element>.remove');
-		ok('removeEventListener' in xelement, '<x-element>.removeEventListener');
 		ok('replace' in xelement, '<x-element>.replace');
+		ok('querySelector' in xelement && xelement.querySelector('input') === input, '<x-element>.querySelector');
+		ok('querySelectorAll' in xelement && xelement.querySelectorAll('input').length === 1, '<x-element>.querySelectorAll');
 	});
 
 	// 9
+	test('DOMTokenList', function () {
+		var
+		xelement = document.createElement('x-element');
+
+		ok('classList' in xelement, '<x-element>.classList');
+		ok('add' in xelement.classList && xelement.classList.add('foo') === undefined && xelement.className === 'foo', '<x-element>.classList.add');
+		ok('remove' in xelement.classList && xelement.classList.remove('foo') === undefined && xelement.className === '', '<x-element>.classList.remove');
+		ok('toggle' in xelement.classList && xelement.classList.toggle('foo') === true && xelement.classList.toggle('foo') === false && xelement.className === '', '<x-element>.classList.toggle');
+		ok('contains' in xelement.classList && xelement.classList.contains('foo') === false, '<x-element>.classList.contains');
+	});
+
+	// 10
 	test('Events', function () {
 		var
 		xelement = document.createElement('x-element'),
@@ -130,42 +133,64 @@
 			ok('stopPropagation' in event, 'event.stopPropagation');
 			ok('target' in event, 'event.target');
 			ok('timeStamp' in event, 'event.timeStamp');
+
+			ok('removeEventListener' in xelement && xelement.removeEventListener('click', fn) === undefined, '<x-element>.removeEventListener');
 		};
 
-		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener(\'click\', fn)');
+		ok('Event' in window, 'Event');
+		ok('CustomEvent' in window, 'CustomEvent');
+		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener');
 
 		stop();
 
-		xelement.dispatchEvent(new Event('click'));
+		ok(xelement.dispatchEvent(new Event('click')) === true, '<x-element>.dispatchEvent');
 	});
 
-	// 10
+	// 11
 	test('JSON', function () {
 		var
 		object = { foo: true, bar: 0, qux: 'hello' },
 		string = '{"foo":true,"bar":0,"qux":"hello"}';
 
-		ok(JSON.parse(string).foo === true, 'JSON.parse');
-		ok(JSON.stringify(object) === string, 'JSON.stringify');
+		ok('JSON' in window, 'JSON');
+		ok('parse' in window.JSON && JSON.parse(string).foo === true, 'JSON.parse');
+		ok('stringify' in window.JSON && JSON.stringify(object) === string, 'JSON.stringify');
 	});
 
-	// 11
+	// 12
 	test('localStorage', function () {
+		ok('localStorage' in window, 'window.localStorage');
+
 		localStorage.setItem('foo', 'bar');
 
-		ok(localStorage.foo === 'bar', 'localStorage.setItem(\'foo\', \'bar\'); localStorage.foo === \'bar\'');
+		ok(localStorage.foo === 'bar', 'localStorage.setItem');
 
 		localStorage.removeItem('foo');
 
-		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
+		ok(!localStorage.foo, 'localStorage.removeItem');
 
 		localStorage.foo = 'bar';
 
-		ok(localStorage.getItem('foo') === 'bar', 'localStorage.foo = \'bar\'; localStorage.getItem(\'foo\') === \'bar\'');
+		ok(localStorage.getItem('foo') === 'bar', 'localStorage.foo');
 
 		localStorage.removeItem('foo');
+	});
 
-		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
+	// 13
+	test('Geolocation', function () {
+		ok('geolocation' in navigator, 'navigator.geolocation');
+
+		stop();
+
+		navigator.geolocation.getCurrentPosition(function (event) {
+			start();
+
+			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition // ' + [event.coords.latitude, event.coords.longitude]);
+		}, function (event) {
+			start();
+
+			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition // ' + [event.message]);
+		});
 	});
 	</script>
 </body>

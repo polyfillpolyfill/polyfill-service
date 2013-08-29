@@ -54,9 +54,9 @@
 
 	// 4
 	test('String', function () {
-		var string = '';
+		var string = '   trimmed   ';
 
-		ok(typeof string.trim === 'function', '<string>.trim');
+		ok(typeof string.trim === 'function' && string.trim() === 'trimmed', '<string>.trim');
 	});
 
 	// 5
@@ -81,24 +81,6 @@
 		ok(typeof window.scrollX === 'number', 'scrollX');
 		ok(typeof window.scrollY === 'number', 'scrollY');
 		ok('XMLHttpRequest' in window, 'window.XMLHttpRequest');
-	});
-
-	// 6
-	test('Geolocation', function () {
-		ok('geolocation' in navigator, 'navigator.geolocation');
-		ok('getCurrentPosition' in navigator.geolocation, 'navigator.geolocation.getCurrentPosition');
-
-		stop();
-
-		window.navigator.geolocation.getCurrentPosition(function (event) {
-			start();
-
-			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition() // ' + [event.coords.latitude, event.coords.longitude]);
-		}, function (event) {
-			start();
-
-			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition() // ' + [event.message]);
-		});
 	});
 
 	// 7
@@ -153,16 +135,16 @@
 			ok('target' in event, 'event.target');
 			ok('timeStamp' in event, 'event.timeStamp');
 
-			ok('addEventListener' in xelement && xelement.removeEventListener('click', fn) === undefined, '<x-element>.addEventListener(\'click\', fn)');
+			ok('removeEventListener' in xelement && xelement.removeEventListener('click', fn) === undefined, '<x-element>.removeEventListener');
 		};
 
-		ok('CustomEvent' in window, 'CustomEvent');
 		ok('Event' in window, 'Event');
-		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener(\'click\', fn)');
+		ok('CustomEvent' in window, 'CustomEvent');
+		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener');
 
 		stop();
 
-		ok(xelement.dispatchEvent(new Event('click')) === true, '<x-element>.dispatchEvent(new Event(\'click\'))');
+		ok(xelement.dispatchEvent(new Event('click')) === true, '<x-element>.dispatchEvent');
 	});
 
 	// 11
@@ -182,19 +164,34 @@
 
 		localStorage.setItem('foo', 'bar');
 
-		ok(localStorage.foo === 'bar', 'localStorage.setItem(\'foo\', \'bar\'); localStorage.foo === \'bar\'');
+		ok(localStorage.foo === 'bar', 'localStorage.setItem');
 
 		localStorage.removeItem('foo');
 
-		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
+		ok(!localStorage.foo, 'localStorage.removeItem');
 
 		localStorage.foo = 'bar';
 
-		ok(localStorage.getItem('foo') === 'bar', 'localStorage.foo = \'bar\'; localStorage.getItem(\'foo\') === \'bar\'');
+		ok(localStorage.getItem('foo') === 'bar', 'localStorage.foo');
 
 		localStorage.removeItem('foo');
+	});
 
-		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
+	// 13
+	test('Geolocation', function () {
+		ok('geolocation' in navigator, 'navigator.geolocation');
+
+		stop();
+
+		navigator.geolocation.getCurrentPosition(function (event) {
+			start();
+
+			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition // ' + [event.coords.latitude, event.coords.longitude]);
+		}, function (event) {
+			start();
+
+			ok('geolocation' in navigator, 'navigator.geolocation.getCurrentPosition // ' + [event.message]);
+		});
 	});
 	</script>
 </body>
