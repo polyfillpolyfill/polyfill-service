@@ -66,7 +66,7 @@
 			};
 			element._events[type].list = [];
 
-			element.attachEvent('on' + type, element._events[type]);
+			element.attachEvent && element.attachEvent('on' + type, element._events[type]);
 		}
 
 		element._events[type].list.push(listener);
@@ -82,7 +82,7 @@
 				element._events[type].list.splice(index, 1);
 
 				if (!element._events[type].list.length) {
-					element.detachEvent('on' + type, element._events[type]);
+					element.detachEvent && element.detachEvent('on' + type, element._events[type]);
 				}
 			}
 		}
@@ -114,9 +114,17 @@
 
 			this.fireEvent('on' + type, event);
 		} catch (error) {
+			event.target = element;
+
 			do {
+				event.currentTarget = element;
+
 				if (element._events && element._events[type]) {
 					element._events[type].call(element, event);
+				}
+
+				if (element['on' + type]) {
+					element['on' + type].call(element, event);
 				}
 
 				element = element.nodeType === 9 ? element.parentWindow : element.parentNode;
