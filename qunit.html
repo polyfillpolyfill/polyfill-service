@@ -1,5 +1,5 @@
 <!doctype html>
-<title>QUnit: polyfill</title>
+<title>QUnit: Polyfill</title>
 
 <meta charset="utf-8">
 
@@ -9,10 +9,12 @@
 <script src="readable.js"></script>
 
 <body>
-	<h1 id="qunit-header">QUnit Test Suite</h1>
-	<h2 id="qunit-banner"></h2>
+	<h1 id="qunit-header">QUnit: Polyfill</h1>
+
 	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
+
+	<p id="qunit-userAgent"></p>
+
 	<ol id="qunit-tests"></ol>
 
 	<script>
@@ -69,7 +71,7 @@
 		ok('Window' in window, 'Window');
 		ok('atob' in window, 'atob');
 		ok('btoa' in window, 'btoa');
-		// ok('CustomEvent' in window, 'CustomEvent');
+		ok('CustomEvent' in window, 'CustomEvent');
 		ok('Element' in window, 'Element');
 		ok('Event' in window, 'Event');
 		ok('geolocation' in navigator, 'navigator.geolocation');
@@ -116,12 +118,11 @@
 		ok('replace' in xelement, '<x-element>.replace');
 	});
 
-	// 8
+	// 9
 	test('Events', function () {
 		var
-		xelement = document.createElement('x-element');
-
-		ok('addEventListener' in xelement && xelement.addEventListener('click', function (event) {
+		xelement = document.createElement('x-element'),
+		fn = function (event) {
 			start();
 
 			ok('currentTarget' in event, 'event.currentTarget');
@@ -130,11 +131,42 @@
 			ok('stopPropagation' in event, 'event.stopPropagation');
 			ok('target' in event, 'event.target');
 			ok('timeStamp' in event, 'event.timeStamp');
-		}) === undefined, 'addEventListener');
+		};
+
+		ok('addEventListener' in xelement && xelement.addEventListener('click', fn) === undefined, '<x-element>.addEventListener(\'click\', fn)');
 
 		stop();
 
 		xelement.dispatchEvent(new Event('click'));
+	});
+
+	// 10
+	test('JSON', function () {
+		var
+		object = { foo: true, bar: 0, qux: 'hello' },
+		string = '{"foo":true,"bar":0,"qux":"hello"}';
+
+		ok(JSON.parse(string).foo === true, 'JSON.parse');
+		ok(JSON.stringify(object) === string, 'JSON.stringify');
+	});
+
+	// 11
+	test('localStorage', function () {
+		localStorage.setItem('foo', 'bar');
+
+		ok(localStorage.foo === 'bar', 'localStorage.setItem(\'foo\', \'bar\'); localStorage.foo === \'bar\'');
+
+		localStorage.removeItem('foo');
+
+		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
+
+		localStorage.foo = 'bar';
+
+		ok(localStorage.getItem('foo') === 'bar', 'localStorage.foo = \'bar\'; localStorage.getItem(\'foo\') === \'bar\'');
+
+		localStorage.removeItem('foo');
+
+		ok(!localStorage.foo, 'localStorage.removeItem(\'foo\'); !localStorage.foo');
 	});
 	</script>
 </body>
