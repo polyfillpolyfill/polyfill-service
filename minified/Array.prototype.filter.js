@@ -1,1 +1,1 @@
-Array.prototype.filter=function filter(callback,scope){for(var array=this,arrayB=[],index=0,length=array.length,element;index<length;++index){element=array[index];if(callback.call(scope||window,element,index,array)){arrayB.push(element)}}return arrayB};
+Array.prototype.filter=function(a,b){for(var c,d=this,e=[],f=0,g=d.length;g>f;++f)c=d[f],a.call(b||window,c,f,d)&&e.push(c);return e};

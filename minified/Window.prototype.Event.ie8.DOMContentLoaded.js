@@ -1,1 +1,1 @@
-document.attachEvent("onreadystatechange",function(){if(document.readyState==="complete"){document.dispatchEvent(new Event("DOMContentLoaded",{bubbles:true}))}});
+document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&document.dispatchEvent(new Event("DOMContentLoaded",{bubbles:!0}))});

@@ -1,1 +1,1 @@
-Array.prototype.forEach=function forEach(callback,scope){for(var array=this,index=0,length=array.length;index<length;++index){callback.call(scope||window,array[index],index,array)}};
+Array.prototype.forEach=function(a,b){for(var c=this,d=0,e=c.length;e>d;++d)a.call(b||window,c[d],d,c)};

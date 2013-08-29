@@ -1,1 +1,1 @@
-Array.prototype.lastIndexOf=function lastIndexOf(searchElement){for(var array=this,index=array.length-1;index>-1;--index){if(array[index]===searchElement){return index}}return-1};
+Array.prototype.lastIndexOf=function(a){for(var b=this,c=b.length-1;c>-1;--c)if(b[c]===a)return c;return-1};

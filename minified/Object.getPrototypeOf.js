@@ -1,1 +1,1 @@
-Object.getPrototypeOf=function getPrototypeOf(object){return object&&object.constructor&&object.constructor.prototype||null};
+Object.getPrototypeOf=function(a){return a&&a.constructor&&a.constructor.prototype||null};

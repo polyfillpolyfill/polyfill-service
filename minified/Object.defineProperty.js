@@ -1,1 +1,1 @@
-Object.defineProperty=function(object,property,descriptor){if(descriptor.get){object.__defineGetter__(property,descriptor.get)}if(descriptor.set){object.__defineSetter__(property,descriptor.set)}return object};
+Object.defineProperty=function(a,b,c){return c.get&&a.__defineGetter__(b,c.get),c.set&&a.__defineSetter__(b,c.set),a};
