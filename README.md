@@ -140,20 +140,21 @@ You should be able to use the following features to a reasonable extent in every
 
 ## How big does the script end up being?
 
+With every polyfill loaded, filesizes are pleasingly small.
+
 | Browser               | Filesize |
 | --------------------- | --------:|
-| Chrome                |    385 B |
-| Internet Explorer 10+ |    396 B |
-| Firefox 6+            |    397 B |
-| Safari 6+             |    400 B |
-| Safari (iOS 6)        |    400 B |
-| Safari 5.1            |    536 B |
-| Opera 15+             |    899 B |
-| Firefox 3.6           |  1.37 KB |
-| Internet Explorer 9   |  1.93 KB |
+| Chrome                |    338 B |
+| Internet Explorer 10+ |    346 B |
+| Firefox 6+            |    346 B |
+| Safari 6+             |    351 B |
+| Safari 5.1            |    442 B |
+| Opera 15+             |    798 B |
+| Firefox 3.6           |  1.57 KB |
+| Internet Explorer 9   |  1.71 KB |
 | Safari 4              |  2.32 KB |
-| Internet Explorer 8   |  5.58 KB |
-| Internet Explorer 6/7 |  7.36 KB |
+| Internet Explorer 8   |  4.88 KB |
+| Internet Explorer 6/7 |  7.70 KB |
 
 ## Can I hack this?
 
