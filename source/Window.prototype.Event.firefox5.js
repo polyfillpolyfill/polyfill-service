@@ -1,7 +1,5 @@
 // Element.prototype.addEventListener, Element.prototype.removeEventListener 
 (function () {
-	'use strict';
-
 	Window.prototype.addEventListener = function (type, listener, capture) {
 		originalAddEventListener.call(this, type, listener, capture || false);
 	};
