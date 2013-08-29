@@ -20,5 +20,7 @@
 	RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
 
 	# go to the router
+	RewriteCond %{REQUEST_URI} !\.(css|html|js)$ [OR]
+	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^.*$ index.php [L]
 </IfModule>
