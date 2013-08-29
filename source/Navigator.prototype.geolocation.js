@@ -29,6 +29,10 @@
 		confirmed = confirmed || window.confirm(request);
 
 		if (!confirmed) {
+			setTimeout(function () {
+				error.call(window, new Error('User denied Geolocation'));
+			});
+
 			return;
 		}
 
