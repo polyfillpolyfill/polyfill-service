@@ -11,9 +11,10 @@
 		this.timestamp = date.getTime();
 	}
 
-	function PositionError() {
-		this.code = 3;
-		this.message = 'Timeout';
+	function PositionError(code) {
+		this.code = code;
+
+		this.message = 'Network location provider at \'' + url_geoip + '\' : ' + errors[code - 1];
 	}
 
 	function PositionOptions(options) {
@@ -30,7 +31,7 @@
 
 		if (!confirmed) {
 			setTimeout(function () {
-				error.call(window, new Error('User denied Geolocation'));
+				error.call(window, new PositionError(1));
 			});
 
 			return;
@@ -47,7 +48,7 @@
 
 			delete geolocation.callback;
 
-			error.call(window, new PositionError());
+			error.call(window, new PositionError(3));
 		}, positionOptions.timeout);
 
 		geolocation.callback = function (response) {
@@ -69,16 +70,22 @@
 
 			delete geolocation.callback;
 
-			error.call(window, new PositionError());
+			error.call(window, new PositionError(2));
 		});
 
-		script.src = url_geoip;
+		script.src = url_geoip + url_geoip_callback;
 	}
 
+	PositionError.prototype.PERMISSION_DENIED = 1;
+	PositionError.prototype.POSITION_UNAVAILABLE = 2;
+	PositionError.prototype.TIMEOUT = 3;
+
 	var
-	url_geoip = 'http://freegeoip.net/json/?callback=window.navigator.geolocation.callback',
+	url_geoip = 'http://freegeoip.net/',
+	url_geoip_callback = 'json/?callback=window.navigator.geolocation.callback',
+	errors = ['Permission denied', 'Position undetermined', 'Timeout elapsed'],
 	timeout = 1000 * 60,
-	request = 'This Webpage wants to track your physical location.\nDo you allow it?',
+	request = 'This page wants to track your physical location.\nDo you allow it?',
 	confirmed = false,
 	navigator = window.navigator.constructor && window.navigator.constructor !== Object ? window.navigator.constructor.prototype : window.navigator,
 	geolocation = navigator.geolocation = new Geolocation();
