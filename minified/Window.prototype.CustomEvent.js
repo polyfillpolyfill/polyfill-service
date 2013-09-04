@@ -1,0 +1,1 @@
+window.CustomEvent=Window.prototype.CustomEvent=function(a,b){var c=new Event(a,b);return c.detail=b&&b.detail||{},c};
