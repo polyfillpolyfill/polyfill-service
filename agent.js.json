@@ -60,6 +60,10 @@
 		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.matchMedia Element.prototype.classList"
 	}, {
 		"min": "9",
+		"max": "10",
+		"fill": "Window.prototype.Event Window.prototype.viewport.ie10 HTMLDocument"
+	}, {
+		"min": "9",
 		"fill": "Element.prototype.matches.ms Element.prototype.mutation"
 	}],
 	"Firefox": [{
@@ -68,14 +72,14 @@
 	}, {
 		"min": "3.6",
 		"max": "5",
-		"fill": "Window.prototype.Event Window.prototype.matchMedia Window.prototype.Event.firefox5"
+		"fill": "Window.prototype.Event Window.prototype.CustomEvent Window.prototype.matchMedia Window.prototype.Event.firefox5"
 	}, {
 		"min": "3.6",
 		"fill": "Element.prototype.matches.moz Element.prototype.mutation"
 	}],
 	"Safari": [{
 		"only": "4",
-		"fill": "Array.isArray Object.create Object.defineProperty Object.defineProperties Object.getOwnPropertyNames Object.getPrototypeOf Object.keys Function.prototype.bind String.prototype.trim Window.polyfill.safari4 Window.prototype.DOMTokenList Window.prototype.Event Window.prototype.Event.hashchange Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList"
+		"fill": "Array.isArray Object.create Object.defineProperty Object.defineProperties Object.getOwnPropertyNames Object.getPrototypeOf Object.keys Function.prototype.bind String.prototype.trim Window.polyfill.safari4 Window.prototype.DOMTokenList Window.prototype.Event Window.prototype.CustomEvent Window.prototype.Event.hashchange Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList"
 	}, {
 		"min": "5",
 		"max": "5.1",
