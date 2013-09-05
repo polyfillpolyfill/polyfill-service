@@ -56,12 +56,12 @@
 		"only": "8",
 		"fill": "Object.create Object.defineProperty.ie8 Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Date.prototype.toISOString Date.now Array.isArray Function.prototype.bind String.prototype.trim Array.prototype.every Array.prototype.filter Array.prototype.forEach Array.prototype.indexOf Array.prototype.lastIndexOf Array.prototype.map Array.prototype.reduce Array.prototype.reduceRight Array.prototype.some Window.polyfill.ie8 Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.Event.ie8 Window.prototype.Event.ie8.DOMContentLoaded Window.prototype.getComputedStyle.ie8 Window.prototype.matchMedia Window.prototype.viewport Window.prototype.XMLHttpRequest.ie8 Navigator.prototype.geolocation HTMLDocument.prototype.head Element.prototype.classList Element.prototype.matches Element.prototype.mutation Element.prototype.placeholder Window.polyfill.ie8.init"
 	}, {
-		"only": "9",
-		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.matchMedia Element.prototype.classList"
-	}, {
 		"min": "9",
 		"max": "10",
-		"fill": "Window.prototype.Event Window.prototype.viewport.ie10 HTMLDocument"
+		"fill": "Window.prototype.Event Window.prototype.scroll HTMLDocument"
+	}, {
+		"only": "9",
+		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.matchMedia Element.prototype.classList"
 	}, {
 		"min": "9",
 		"fill": "Element.prototype.matches.ms Element.prototype.mutation"
