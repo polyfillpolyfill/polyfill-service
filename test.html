@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<script src="./?!"></script>
+		<link href="readable.css" rel="stylesheet">
+		<script src="readable.js"></script>
 		<style>
 		#stats {
 			background-color: #FFF;
@@ -20,7 +21,7 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			var h1 = document.body.querySelectorAll('p, h1')[0];
 
-			if (h1.matchesSelector('body > h1[class^="fo"]') && !h1.matchesSelector('body > h1[class$="of"]')) {
+			if (h1.matches('body > h1[class^="fo"]') && !h1.matches('body > h1[class$="of"]')) {
 				h1.classList.remove('foo');
 
 				h1.innerHTML = '<mark>'+h1.innerHTML+'</mark>';
@@ -47,8 +48,6 @@
 				var list = window.matchMedia('(min-width: 50em)');
 
 				list.addListener(listFn);
-
-				console.log(list);
 
 				listFn.call(window, list);
 			}
