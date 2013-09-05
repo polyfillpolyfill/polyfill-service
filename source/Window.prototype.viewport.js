@@ -12,20 +12,28 @@
 		return (documentElement.scrollTop || body.scrollTop || 0) - (documentElement.clientTop || body.clientTop || 0);
 	}
 
-	function innerWidth() {
-		return this.document.documentElement.clientWidth;
-	}
-
-	function innerHeight() {
-		return this.document.documentElement.clientHeight;
-	}
-
 	Object.defineProperties(Window.prototype, {
-		innerWidth: { get: innerWidth },
-		innerHeight: { get: innerHeight },
-		pageXOffset: { get: scrollX },
-		pageYOffset: { get: scrollY },
-		scrollX: { get: scrollX },
-		scrollY: { get: scrollY }
+		'innerWidth': {
+			get: function () {
+				return this.document.documentElement.clientWidth;
+			}
+		},
+		'innerHeight': {
+			get: function () {
+				return this.document.documentElement.clientHeight;
+			}
+		},
+		'pageXOffset': {
+			get: scrollX
+		},
+		'pageYOffset': {
+			get: scrollY
+		},
+		'scrollX': {
+			get: scrollX
+		},
+		'scrollY': {
+			get: scrollY
+		}
 	});
 })();

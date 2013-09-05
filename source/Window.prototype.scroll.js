@@ -1,11 +1,11 @@
-// Window.prototype.viewport
+// Window.prototype.scroll
 Object.defineProperties(Window.prototype, {
-	scrollX: {
+	'scrollX': {
 		get: function () {
 			return this.pageXOffset;
 		}
 	},
-	scrollY: {
+	'scrollY': {
 		get: function () {
 			return this.pageYOffset;
 		}
