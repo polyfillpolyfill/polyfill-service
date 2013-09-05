@@ -6,22 +6,26 @@
 		var request = this, nativeRequest = request._request = new NativeXMLHttpRequest();
 
 		nativeRequest.onreadystatechange = function () {
-			var readyState = request.readyState = nativeRequest.readyState;
+			request.readyState = nativeRequest.readyState;
 
-			request.response = request.responseText = readyState > 1 ? nativeRequest.responseText : null;
-			request.status = readyState > 1 ? nativeRequest.status : null;
-			request.statusText = readyState > 1 ? nativeRequest.statusText : null;
+			var readyState = request.readyState === 4;
+
+			request.response = request.responseText = readyState ? nativeRequest.responseText : null;
+			request.status = readyState ? nativeRequest.status : null;
+			request.statusText = readyState ? nativeRequest.statusText : null;
 
 			request.dispatchEvent(new Event('readystatechange'));
 
-			if (readyState === 4) {
+			if (readyState) {
 				request.dispatchEvent(new Event('load'));
 			}
 		};
 
-		nativeRequest.onerror = function () {
-			request.dispatchEvent(new Event('error'));
-		};
+		if ('onerror' in nativeRequest) {
+			nativeRequest.onerror = function () {
+				request.dispatchEvent(new Event('error'));
+			};
+		}
 	}
 
 	XMLHttpRequest.prototype.addEventListener = Window.prototype.addEventListener;
@@ -37,8 +41,8 @@
 	XMLHttpRequest.prototype.getResponseHeader = function getResponseHeader(header) {
 		return this._request.getResponseHeader(header);
 	};
-	XMLHttpRequest.prototype.open = function open() {
-		this._request.open.apply(this._request, arguments);
+	XMLHttpRequest.prototype.open = function open(method, url, async, username, password) {
+		this._request.open(method, url, async, username, password);
 	};
 	XMLHttpRequest.prototype.overrideMimeType = function overrideMimeType(mimetype) {
 		this._request.overrideMimeType(mimetype);
