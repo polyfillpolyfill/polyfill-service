@@ -3,7 +3,7 @@ Window.polyfill.push(function () {
 	function Storage() {}
 
 	Storage.prototype = {
-		clear: function clear() {
+		clear: function () {
 			getKeys(this).forEach(this.removeItem, this);
 		},
 		constructor: Storage,
@@ -71,32 +71,34 @@ Window.polyfill.push(function () {
 		element.save(userdata);
 	}
 
-	var
-	// set window
-	window = this,
-	// set localStorage
-	localStorage = window.localStorage = new Storage(),
-	// set storage element
-	element = window.document.lastChild.lastChild.appendChild(window.document.createElement('x-local-storage')),
-	// set userdata key and prefix
-	userdata = 'userdata',
-	keys;
+	if (!this.localStorage) {
+		var
+		// set window
+		window = this,
+		// set localStorage
+		localStorage = window.localStorage = new Storage(),
+		// set storage element
+		element = window.document.lastChild.lastChild.appendChild(window.document.createElement('x-local-storage')),
+		// set userdata key and prefix
+		userdata = 'userdata',
+		keys;
 
-	// proprietary ie local storage
-	try {
-		element.addBehavior('#default#' + userdata);
-		element.load(userdata);
-	} catch (error) {}
+		// proprietary ie local storage
+		try {
+			element.addBehavior('#default#' + userdata);
+			element.load(userdata);
+		} catch (error) {}
 
-	// get keys
-	keys = element.getAttribute(userdata) ? element.getAttribute(userdata).split(',') : [];
+		// get keys
+		keys = element.getAttribute(userdata) ? element.getAttribute(userdata).split(',') : [];
 
-	localStorage.length = keys.length;
+		localStorage.length = keys.length;
 
-	// assign keys to localStorage
-	keys.forEach(function (key) {
-		localStorage[key] = element.getAttribute(userdata + key);
-	});
+		// assign keys to localStorage
+		keys.forEach(function (key) {
+			localStorage[key] = element.getAttribute(userdata + key);
+		});
 
-	window.attachEvent('onunload', updateKeys);
+		window.attachEvent('onunload', updateKeys);
+	}
 });
