@@ -173,7 +173,7 @@
 	polyfill = window.polyfill = function polyfill(instance, constructor) {
 		var each, index;
 
-		if (instance.constructor === constructor) {
+		if (!instance || instance.constructor === constructor) {
 			return instance;
 		} else {
 			instance.constructor = constructor;
@@ -332,7 +332,7 @@
 			element = element || this;
 
 			if (name === 'class') {
-				element.className = value !== undefined && value !== null && String(name) || '';
+				element.className = value !== undefined && value !== null ? String(name) : '';
 			}
 
 			return setAttribute(name, value);
