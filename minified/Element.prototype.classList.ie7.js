@@ -1,1 +1,1 @@
-Element.polyfill.push(function(){var a,b=this,c=function(){this._element=b},d=String(b.className).trim();c.prototype=window.DOMTokenList.prototype,a=b.classList=new c,d&&Array.prototype.push.apply(a,d.split(/\s+/)),b.attachEvent("onpropertychange",function(){if(b.className!==a.toString()){var c=b.className.trim().split(/\s+/);Array.prototype.splice.apply(a,[0,a.length].concat(c[0]?c:[]))}})});
+Element.polyfill.push(function(){function a(){}a.prototype=window.DOMTokenList.prototype;var b=new a;b.element=this,b.toString(),this.classList=b});

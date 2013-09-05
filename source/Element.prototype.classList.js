@@ -1,34 +1,28 @@
 // Element.prototype.classList
-Object.defineProperty(Element.prototype, 'classList', {
-	get: function () {
-		var element = this, DOMTokenList = function DOMTokenList() {
-			this._element = element;
-		}, array = String(element.className).trim().split(/\s+/), list;
+(function () {
+	var descriptor = {
+		"classList": {
+			get: function () {
+				function DOMTokenList() {}
 
-		DOMTokenList.prototype = window.DOMTokenList.prototype;
+				DOMTokenList.prototype = window.DOMTokenList.prototype;
 
-		list = new DOMTokenList();
+				var classList = new DOMTokenList();
 
-		Array.prototype.splice.apply(list, [0, list.length].concat(array[0] ? array : []));
+				classList.element = this;
 
-		return Object.defineProperties(element, {
-			className: {
-				get: function () {
-					return element.getAttribute('class') || '';
-				},
-				set: function (name) {
-					var array = name !== undefined && name !== null && String(name).trim().split(/\s+/) || [];
+				classList.toString();
 
-					Array.prototype.splice.apply(list, [0, list.length].concat(array[0] ? array : []));
-
-					element.setAttribute('class', list.toString());
-				}
-			},
-			classList: {
-				get: function () {
-					return list;
-				}
+				return classList;
 			}
-		}).classList;
+		}
+	};
+
+	for (var all = 'Anchor Area Audio Body BR Button Canvas Div DList FieldSet Form Head Heading HR Html IFrame Image Input Label Legend LI Menu OList Paragraph Pre Quote Script Select Span Style Table TableCaption TableCell TableRow TableSection TextArea UList Unknown Video '.split(' '), index = 0, length = all.length; index < length; ++index) {
+		if ('HTML' + all[index] + 'Element' in window) {
+			Object.defineProperties(window['HTML' + all[index] + 'Element'].prototype, descriptor);
+		}
 	}
-});
+
+	Object.defineProperties(window.Element.prototype, descriptor);
+})();

@@ -332,7 +332,7 @@
 			element = element || this;
 
 			if (name === 'class') {
-				element.className = value !== undefined && value !== null ? String(name) : '';
+				element.className = value !== undefined && value !== null ? String(value) : '';
 			}
 
 			return setAttribute(name, value);
