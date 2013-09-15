@@ -1,1 +1,0 @@
-!function(){var a=Object.defineProperty;Object.defineProperty=function(b,c,d){return delete d.configurable,delete d.enumerable,delete d.writable,a(b,c,d)}}();

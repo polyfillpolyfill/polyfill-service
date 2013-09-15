@@ -1,1 +1,0 @@
-Array.prototype.reduce=function(a,b){for(var c=this,d=b||0,e=0,f=c.length;f>e;++e)d=a.call(window,d,c[e],e,c);return d};

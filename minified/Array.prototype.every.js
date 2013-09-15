@@ -1,1 +1,0 @@
-Array.prototype.every=function(a,b){for(var c=this,d=0,e=c.length;e>d&&a.call(b||window,c[d],d,c);++d);return d===e};

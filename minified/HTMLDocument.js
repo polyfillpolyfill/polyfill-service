@@ -1,1 +1,0 @@
-window.HTMLDocument=window.Document;

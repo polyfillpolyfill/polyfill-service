@@ -1,1 +1,0 @@
-Object.is=function(a,b){return a===b&&(0!==a||1/a===1/b)||a!==a&&b!==b};

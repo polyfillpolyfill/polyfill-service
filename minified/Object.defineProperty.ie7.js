@@ -1,1 +1,0 @@
-Object.defineProperty=function(a,b,c){function d(f){f.propertyName==b&&(a.detachEvent("onpropertychange",d),c.set&&(e=c.set.call(a,a[b])),a[b]=new String(e),a[b].toString=function(){return c.get.call(a)},a.attachEvent("onpropertychange",d))}var e=a[b];return a[b]=new String(e),a[b].toString=function(){return c.get.call(a)},a.attachEvent("onpropertychange",d),a};

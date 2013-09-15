@@ -1,1 +1,0 @@
-Object.defineProperty=function(a,b,c){return c.get&&a.__defineGetter__(b,c.get),c.set&&a.__defineSetter__(b,c.set),a};

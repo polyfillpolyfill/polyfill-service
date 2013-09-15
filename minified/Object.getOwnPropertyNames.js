@@ -1,1 +1,0 @@
-Object.getOwnPropertyNames=function(a){var b,c=[];for(b in a)c.push(b);return c};

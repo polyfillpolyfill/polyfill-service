@@ -1,1 +1,0 @@
-window.Event=Window.prototype.Event=function(a,b){if(!a)throw new Error("Not enough arguments");var c=document.createEvent("Event"),d=b&&void 0!==b.bubbles?b.bubbles:!1,e=b&&void 0!==b.cancelable?b.cancelable:!0;return c.initEvent(a,d,e),c};

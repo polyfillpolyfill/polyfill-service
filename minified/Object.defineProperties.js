@@ -1,1 +1,0 @@
-Object.defineProperties=function(a,b){for(var c in b)Object.defineProperty(a,c,b[c]);return a};

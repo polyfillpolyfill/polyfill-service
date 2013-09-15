@@ -156,6 +156,10 @@ With every polyfill loaded, filesizes are pleasingly small.
 | Internet Explorer 8   |  4.88 KB |
 | Internet Explorer 6/7 |  7.70 KB |
 
+## How do I use this on my own?
+
+First, install [GIT](http://git-scm.com/downloads) to [fork this repository](https://github.com/jonathantneal/polyfill/fork). Then, install [Node](http://nodejs.org) and [Grunt](http://gruntjs.com/getting-started#installing-the-cli) to [build this project](http://gruntjs.com/getting-started#working-with-an-existing-grunt-project).
+
 ## Can I hack this?
 
 Yes. By default, almost any [polyfill.io](https://polyfill.io) URL returns minified JavaScript polyfills.

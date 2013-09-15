@@ -1,1 +1,0 @@
-Array.prototype.filter=function(a,b){for(var c,d=this,e=[],f=0,g=d.length;g>f;++f)c=d[f],a.call(b||window,c,f,d)&&e.push(c);return e};

@@ -1,1 +1,0 @@
-Object.getPrototypeOf=function(a){return a&&a.constructor&&a.constructor.prototype||null};

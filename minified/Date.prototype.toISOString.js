@@ -1,1 +1,0 @@
-Date.prototype.toISOString=function(){var a=this;return((a.getUTCMonth()+1)/100+a.toUTCString()+a/1e3).replace(/..(..).+?(\d+)\D+(\d+).(\S+).*(...)/,"$3-$1-$2T$4.$5Z")};

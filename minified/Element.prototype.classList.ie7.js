@@ -1,1 +1,0 @@
-Element.polyfill.push(function(){function a(){}a.prototype=window.DOMTokenList.prototype;var b=new a;b.element=this,b.toString(),this.classList=b});

@@ -1,1 +1,0 @@
-Element.prototype.matches=function(a){for(var b=this,c=(b.document||b.ownerDocument).querySelectorAll(a),d=0;c[d]&&c[d]!==b;)++d;return c[d]?!0:!1};
