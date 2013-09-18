@@ -14,7 +14,7 @@
 
 		window.devicePixelRatio = Math.round((rect.right - rect.left) / element.clientWidth * 1000) / 1000;
 
-		body.removeChild(element);
+		element.parentNode.removeChild(element)
 
 		if (!hasBody) {
 			document.documentElement.removeChild(body);
