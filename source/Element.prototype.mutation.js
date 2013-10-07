@@ -36,14 +36,14 @@
 	};
 
 	// http://dom.spec.whatwg.org/#dom-childnode-after
-	Element.prototype.after = function append() {
+	Element.prototype.after = function after() {
 		if (this.parentNode) {
 			this.parentNode.insertBefore(mutation(arguments), this.nextSibling);
 		}
 	};
 
 	// http://dom.spec.whatwg.org/#dom-childnode-replace
-	Element.prototype.replace = function append() {
+	Element.prototype.replace = function replace() {
 		if (this.parentNode) {
 			this.parentNode.replaceChild(mutation(arguments), this.nextSibling);
 		}
