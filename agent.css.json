@@ -64,6 +64,9 @@
 	}, {
 		"only": "9",
 		"fill": "audio:not([controls]) svg:not(:root)"
+	}, {
+		"only": "10",
+		"fill": "img"
 	}],
 	"Firefox": [{
 		"min": "3",
