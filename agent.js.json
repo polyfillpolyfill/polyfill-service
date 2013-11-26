@@ -58,7 +58,7 @@
 	}, {
 		"min": "9",
 		"max": "10",
-		"fill": "Window.prototype.Event Window.prototype.scroll HTMLDocument"
+		"fill": "Window.prototype.Event Window.prototype.CustomEvent Window.prototype.scroll HTMLDocument"
 	}, {
 		"only": "9",
 		"fill": "Window.prototype.base64 Window.prototype.DOMTokenList Window.prototype.matchMedia Element.prototype.classList"
