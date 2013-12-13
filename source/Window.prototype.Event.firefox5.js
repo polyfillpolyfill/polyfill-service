@@ -1,4 +1,4 @@
-// Element.prototype.addEventListener, Element.prototype.removeEventListener 
+// Element.prototype.addEventListener, Element.prototype.removeEventListener
 (function () {
 	Window.prototype.addEventListener = function (type, listener, capture) {
 		originalAddEventListener.call(this, type, listener, capture || false);
