@@ -56,6 +56,16 @@
 				style.float = currentStyle[property];
 			} else if (/margin.|padding.|border.+W/.test(property) && style[property] != 'auto') {
 				style[property] = Math.round(getComputedStylePixel(element, property, fontSize)) + 'px';
+			} else if (/^outline/.test(property)) {
+				// errors on checking outline
+				try {
+					style[property] = currentStyle[property];
+				} catch (error) {
+					style.outlineColor = currentStyle.color;
+					style.outlineStyle = style.outlineStyle || 'none';
+					style.outlineWidth = style.outlineWidth || '0px';
+					style.outline = [style.outlineColor, style.outlineWidth, style.outlineStyle].join(' ');
+				}
 			} else {
 				style[property] = currentStyle[property];
 			}
