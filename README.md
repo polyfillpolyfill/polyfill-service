@@ -61,7 +61,7 @@ You should be able to use the following features to a reasonable extent in every
 [output](http://developers.whatwg.org/the-button-element.html#the-output-element),
 [progress](http://developers.whatwg.org/the-button-element.html#the-progress-element),
 [section](http://developers.whatwg.org/sections.html#the-section-element),
-[subline](http://www.html5accessibility.com/HTML5extensions/subline.html),
+[subhead](http://rawgithub.com/w3c/subline/master/index.html),
 [summary](http://developers.whatwg.org/interactive-elements.html#the-summary-element),
 [time](http://developers.whatwg.org/text-level-semantics.html#the-time-element),
 [video](http://developers.whatwg.org/the-video-element.html#the-video-element)
