@@ -1,7 +1,7 @@
 {
 	"[hidden] template": "display: none",
 	"_abbr abbr[title]": "border-bottom: 1px dotted",
-	"article aside details figcaption figure footer header hgroup main nav section subline summary": "display: block",
+	"article aside details figcaption figure footer header hgroup main nav section subhead summary": "display: block",
 	"_audio": "clip: rect(0 0 0 0); position: absolute",
 	"audio[controls] canvas video": "display: inline-block",
 	"audio:not([controls])": "height: 0",
