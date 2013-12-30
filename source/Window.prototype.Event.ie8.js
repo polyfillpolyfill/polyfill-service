@@ -34,7 +34,7 @@
 				var list = element._events[event.type].list, events = Array.prototype.concat.call([], list);
 
 				event.preventDefault = function preventDefault() {
-					if (event.cancelable || !('cancelable' in event)) {
+					if (event.cancelable !== false) {
 						event.returnValue = false;
 					}
 				};
