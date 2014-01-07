@@ -75,7 +75,7 @@
 		"fill": "Window.prototype.Event Window.prototype.CustomEvent Window.prototype.matchMedia Window.prototype.Event.firefox5"
 	}, {
 		"min": "3.6",
-		"fill": "Element.prototype.matches.moz Element.prototype.mutation"
+		"fill": "Element.prototype.matches.moz Element.prototype.mutation Window.prototype.Event.focus"
 	}],
 	"Safari": [{
 		"only": "4",
