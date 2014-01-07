@@ -33,19 +33,21 @@
 		return self;
 	}
 
-	Promise.prototype.then = function (onFulfilled, onRejected) {
-		if (onFulfilled) this.then.fulfilled.push(onFulfilled);
-		if (onRejected) this.then.rejected.push(onRejected);
+	Promise.prototype = {
+		'constructor': Promise,
+		'then': function (onFulfilled, onRejected) {
+			if (onFulfilled) this.then.fulfilled.push(onFulfilled);
+			if (onRejected) this.then.rejected.push(onRejected);
 
-		if (this.then.state === 'fulfilled') this.then.fulfill(this.then.value);
+			if (this.then.state === 'fulfilled') this.then.fulfill(this.then.value);
 
-		return this;
-	};
+			return this;
+		},
+		'catch': function (onRejected) {
+			if (onRejected) this.then.rejected.push(onRejected);
 
-	Promise.prototype.catch = function (onRejected) {
-		if (onRejected) this.then.rejected.push(onRejected);
-
-		return this;
+			return this;
+		}
 	};
 
 	Promise.all = function () {
