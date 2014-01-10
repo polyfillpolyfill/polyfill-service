@@ -12,7 +12,7 @@ That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need
 <link href="//polyfill.io/normalize.css" rel="stylesheet">
 ```
 
-Don&rsquo;t punish Chrome for old Internet Explorer either, because [Normalize.css](github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
+Don&rsquo;t punish Chrome for old Internet Explorer either, because [Normalize.css](https://github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
 
 ## What can I do with this?
 
@@ -100,7 +100,7 @@ You should be able to use the following features to a reasonable extent in every
 
 * [Element.prototype.querySelector / Element.prototype.querySelectorAll](http://caniuse.com/querySelector)
 * [Element.prototype.matches / matchesSelector](http://caniuse.com/matches)
-* [Element.prototype.getElementsByClassName](getElementsByClassName)
+* [Element.prototype.getElementsByClassName](http://caniuse.com/getelementsbyclassname)
 
 ### Mutations
 
