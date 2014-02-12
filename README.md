@@ -6,17 +6,17 @@
 <script src="//polyfill.io"></script>
 ```
 
-That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need to specify the **http** or **https**, because the service runs over both.
+That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need to specify the **http** or **https**, because the service runs over both. Just place it in the head of your document.
 
 ```html
 <link href="//polyfill.io/normalize.css" rel="stylesheet">
 ```
 
-Don&rsquo;t punish Chrome for old Internet Explorer either, because [Normalize.css](https://github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
+Don&rsquo;t punish Chrome for old Internet Explorer CSS deficiencies either, because [Normalize.css](https://github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
 
 ## What can I do with this?
 
-You can code right the first time. Use **querySelector** in IE6.
+You can code right the first time. For example, use **querySelector** in IE6.
 
 ```js
 var el = document.querySelector(".foo.bar");
