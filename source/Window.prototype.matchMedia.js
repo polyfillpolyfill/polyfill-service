@@ -2,6 +2,7 @@
 (function () {
 	function evalQuery(window, query) {
 		return new Function('media', 'return ' + query
+			.replace(/^only\s+/, '')
 			.replace(/(device)-([\w.]+)/g, '$1.$2')
 			.replace(/([\w.]+)\s*:/g, 'media.$1 ===')
 			.replace(/min-([\w.]+)\s*===/g, '$1 >=')
