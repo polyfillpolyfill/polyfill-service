@@ -1,6 +1,8 @@
 // Window.prototype.getComputedStyle
 (function () {
 	function getComputedStylePixel(element, property, fontSize) {
+		element.document; // Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
+
 		var
 		value = element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
 		size = value[1],
