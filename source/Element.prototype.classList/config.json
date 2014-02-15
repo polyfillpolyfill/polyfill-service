@@ -1,0 +1,7 @@
+{
+	"browsers": {
+		"Internet Explorer": "8-9",
+		"Safari": "4"
+	},
+	"requires": ["Element"]
+}

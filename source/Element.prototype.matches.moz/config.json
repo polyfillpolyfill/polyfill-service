@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Firefox": "*"
+	},
+	"requires": ["Element"]
+}
