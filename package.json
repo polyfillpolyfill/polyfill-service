@@ -1,22 +1,22 @@
 {
-  "name": "polyfill",
-  "description": "A polyfill combinator",
-  "version": "1.0.0",
-  "author": {
-    "name": "Jonathan Neal",
-    "email": "jonathantneal+github@gmail.com",
-    "url": "http://jonathantneal.com/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jonathantneal/polyfill"
-  },
-  "bugs": {
-    "url": "https://github.com/jonathantneal/polyfill/issues"
-  },
-  "license": "CC0 1.0 Universal License",
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.4"
-  }
+	"name": "polyfill",
+	"description": "A polyfill combinator",
+	"version": "1.0.0",
+	"author": {
+		"name": "Jonathan Neal",
+		"email": "jonathantneal+github@gmail.com",
+		"url": "http://jonathantneal.com/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jonathantneal/polyfill"
+	},
+	"bugs": {
+		"url": "https://github.com/jonathantneal/polyfill/issues"
+	},
+	"license": "CC0 1.0 Universal License",
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-uglify": "~0.2.4"
+	}
 }
