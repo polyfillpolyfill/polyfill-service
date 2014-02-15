@@ -45,14 +45,14 @@
 	// http://dom.spec.whatwg.org/#dom-childnode-replace
 	Element.prototype.replace = function replace() {
 		if (this.parentNode) {
-			this.parentNode.replaceChild(mutation(arguments), this.nextSibling);
+			this.parentNode.replaceChild(mutation(arguments), this);
 		}
 	};
 
 	// http://dom.spec.whatwg.org/#dom-childnode-remove
 	Element.prototype.remove = function remove() {
 		if (this.parentNode) {
-			this.parentNode.removeChild(this.nextSibling);
+			this.parentNode.removeChild(this);
 		}
 	};
 })();
