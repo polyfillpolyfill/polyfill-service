@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Internet Explorer": "9-10"
+	},
+	"requires": ["Document"]
+}
