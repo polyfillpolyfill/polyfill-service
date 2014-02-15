@@ -8,12 +8,6 @@
 
 That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need to specify the **http** or **https**, because the service runs over both. Just place it in the head of your document.
 
-```html
-<link href="//polyfill.io/normalize.css" rel="stylesheet">
-```
-
-Don&rsquo;t punish Chrome for old Internet Explorer CSS deficiencies either, because [Normalize.css](https://github.com/necolas/normalize.css) has been ported over to deliver only the styles the browser needs.
-
 ## What can I do with this?
 
 You can code right the first time. For example, use **querySelector** in IE6.
@@ -174,18 +168,6 @@ Yes. By default, almost any [polyfill.io](https://polyfill.io) URL returns minif
 
 *Both scripts return only critical JavaScript polyfills.*
 
-Similarly, adding **.css** to the end of the URL returns minified CSS polyfills.
-
-```html
-<link href="//polyfill.io/.css" rel="stylesheet">
-```
-
-```html
-<link href="//polyfill.io/same-difference/whatever.css" rel="stylesheet">
-```
-
-*Both links return only critical CSS polyfills.*
-
 Adding **maybe(X)** to the URL will return only the specific JavaScript or CSS polyfills needed by the user agent, where **X** is a comma-delimited list of the desired scripts or elements.
 
 ```html
@@ -193,12 +175,6 @@ Adding **maybe(X)** to the URL will return only the specific JavaScript or CSS p
 ```
 
 *Returns only critical JavaScript polyfills for array and geolocation.*
-
-```html
-<link href="//polyfill.io/maybe(article,section).css" rel="stylesheet">
-```
-
-*Returns only critical CSS polyfills for article and section.*
 
 Adding **gimme(X)** to the URL will return only specific JavaScript or CSS polyfills (regardless of the user agent), where **X** is a comma-delimited list of the desired scripts or elements. This is your sniff-free solution.
 
@@ -208,20 +184,10 @@ Adding **gimme(X)** to the URL will return only specific JavaScript or CSS polyf
 
 *Returns all JavaScript polyfills for array.*
 
-```html
-<link href="//polyfill.io/gimme(section).css" rel="stylesheet">
-```
-
-*Returns all CSS polyfills for section.*
-
 Adding **readable** to the URL will return human readable JavaScript or CSS.
 
 ```html
 <script src="//polyfill.io/readable"></script>
-```
-
-```html
-<link href="//polyfill.io/readable.css" rel="stylesheet">
 ```
 
 ## We&rsquo;re good.
