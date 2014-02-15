@@ -1,0 +1,7 @@
+{
+	"browsers": {
+		"Internet Explorer": "7-9",
+		"Safari": "4"
+	},
+	"requires": ["Window", "Array.prototype.indexOf"]
+}

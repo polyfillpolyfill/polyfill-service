@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Firefox": "3.6-*"
+	},
+	"requires": ["Window", "Window.prototype.Event.firefox5"]
+}

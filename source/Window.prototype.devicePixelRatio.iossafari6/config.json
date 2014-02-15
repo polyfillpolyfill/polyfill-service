@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Safari": "*"
+	},
+	"requires": ["Window"]
+}

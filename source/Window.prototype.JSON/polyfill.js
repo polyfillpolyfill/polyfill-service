@@ -1,4 +1,3 @@
-/** @license MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json) */
 (function () {
 	'use strict';
 

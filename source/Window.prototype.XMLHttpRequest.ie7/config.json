@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Internet Explorer": "6-7"
+	},
+	"requires": ["Window"]
+}
