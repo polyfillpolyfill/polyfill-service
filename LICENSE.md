@@ -12,3 +12,7 @@ Unless expressly stated otherwise, the person(s) who associated a work with this
 When using or citing the work, you should not imply endorsement by the author or the affirmer.
 
 This is a [human-readable summary of the Legal Code](//creativecommons.org/publicdomain/zero/1.0/) ([read the full text](//creativecommons.org/publicdomain/zero/1.0/)).
+
+# Third party polyfills
+
+Some third party polyfills are not dedicated to the public domain, but are licensed MIT or MIT-compatible. In these instances, licensing information is stored in the polyfill’s configuration file. Middle-ware software using these polyfills should include their licensing information in final output.
