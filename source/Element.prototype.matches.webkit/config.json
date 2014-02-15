@@ -7,6 +7,5 @@
 		"Opera": "15",
 		"Safari": "4-*",
 		"Safari iOS": "*"
-	},
-	"requires": ["Element"]
+	}
 }

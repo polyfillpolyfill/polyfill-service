@@ -4,5 +4,5 @@
 		"Internet Explorer": "9-10",
 		"Safari": "4"
 	},
-	"requires": ["Window", "Window.prototype.Event"]
+	"requires": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]
 }

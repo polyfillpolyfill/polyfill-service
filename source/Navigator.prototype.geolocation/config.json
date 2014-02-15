@@ -3,6 +3,5 @@
 		"Internet Explorer": "6-8",
 		"Opera": "15",
 		"Safari": "4"
-	},
-	"requires": ["Navigator"]
+	}
 }

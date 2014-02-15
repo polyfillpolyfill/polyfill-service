@@ -3,6 +3,5 @@
 		"Internet Explorer": "6-8",
 		"Firefox": "3.6",
 		"Safari": "4"
-	},
-	"requires": ["Array"]
+	}
 }

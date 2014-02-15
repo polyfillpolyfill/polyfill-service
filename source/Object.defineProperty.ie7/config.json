@@ -1,6 +1,5 @@
 {
 	"browsers": {
-		"Internet Explorer": "8"
-	},
-	"requires": ["Object"]
+		"Internet Explorer": "6-7"
+	}
 }

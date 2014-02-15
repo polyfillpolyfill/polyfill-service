@@ -4,5 +4,5 @@
 		"Firefox": "3.6",
 		"Safari": "4"
 	},
-	"requires": ["Object", "Object.defineProperties"]
+	"requires": ["Object.defineProperties"]
 }

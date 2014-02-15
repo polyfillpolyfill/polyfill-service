@@ -10,6 +10,5 @@
 		"Opera Mobile": "*",
 		"Safari": "*",
 		"Safari iOS": "*"
-	},
-	"requires": ["Object"]
+	}
 }
