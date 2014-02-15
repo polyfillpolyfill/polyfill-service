@@ -1,0 +1,7 @@
+{
+	"browsers": {
+		"Internet Explorer": "6-8",
+		"Safari": "4"
+	},
+	"requires": ["String"]
+}
