@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Internet Explorer": "8"
+	},
+	"requires": ["Window", "Object.defineProperty"]
+}

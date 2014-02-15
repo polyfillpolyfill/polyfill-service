@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Internet Explorer": "7"
+	},
+	"requires": ["Window", "Window.polyfill.ie7"]
+}

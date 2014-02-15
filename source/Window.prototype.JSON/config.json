@@ -1,0 +1,7 @@
+{
+	"browsers": {
+		"Internet Explorer": "6-7"
+	},
+	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)",
+	"requires": ["Window", "Object", "Object.prototype.hasOwnProperty"]
+}

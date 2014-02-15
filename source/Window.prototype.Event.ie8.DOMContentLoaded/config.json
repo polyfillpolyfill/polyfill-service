@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Internet Explorer": "6-8"
+	},
+	"requires": ["Window.prototype.Event.ie8"]
+}

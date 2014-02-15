@@ -1,0 +1,13 @@
+{
+	"browsers": {
+		"Android": "2.1-2.3",
+		"Blackberry": "7",
+		"Internet Explorer": "6-9",
+		"Firefox": "3.6-5",
+		"Opera": "11.5-12.1",
+		"Opera Mini": "*",
+		"Opera Mobile": "10-12",
+		"Safari": "4-5"
+	},
+	"requires": ["Window", "Window.prototype.addEventListener"]
+}

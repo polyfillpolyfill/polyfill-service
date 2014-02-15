@@ -1,0 +1,6 @@
+{
+	"browsers": {
+		"Firefox": "3.6-5"
+	},
+	"requires": ["Window"]
+}
