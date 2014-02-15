@@ -2,5 +2,5 @@
 	"browsers": {
 		"Internet Explorer": "6-7"
 	},
-	"requires": ["Window.prototype.DOMTokenList", "Element", "Element.polyfill"]
+	"requires": ["Window", "Window.polyfill.ie7", "Window.prototype.DOMTokenList", "Element"]
 }
