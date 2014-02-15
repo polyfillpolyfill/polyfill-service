@@ -1,0 +1,14 @@
+{
+	"browsers": {
+		"Android": "*",
+		"BlackBerry": "*",
+		"Chrome iOS": "*",
+		"Firefox": "3.6-*",
+		"Internet Explorer": "9-*",
+		"Opera": "11.5-12.1",
+		"Opera Mini": "*",
+		"Safari": "4-*",
+		"Safari iOS": "*"
+	},
+	"requires": ["Element"]
+}
