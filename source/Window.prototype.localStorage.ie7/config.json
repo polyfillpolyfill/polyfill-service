@@ -2,5 +2,5 @@
 	"browsers": {
 		"Internet Explorer": "6-7"
 	},
-	"requires": ["Window", "Window.polyfill.ie7"]
+	"requires": ["Window.polyfill.ie7"]
 }

@@ -2,5 +2,5 @@
 	"browsers": {
 		"Internet Explorer": "6-8"
 	},
-	"requires": ["Element", "Element.prototype.querySelectorAll"]
+	"requires": ["Window.polyfill.ie7"]
 }

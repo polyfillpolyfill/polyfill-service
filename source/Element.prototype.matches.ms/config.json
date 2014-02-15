@@ -1,6 +1,5 @@
 {
 	"browsers": {
 		"Internet Explorer": "9-*"
-	},
-	"requires": ["Element"]
+	}
 }

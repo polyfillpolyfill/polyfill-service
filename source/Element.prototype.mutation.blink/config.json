@@ -2,6 +2,5 @@
 	"browsers": {
 		"Chrome": "*",
 		"Opera": "15-*"
-	},
-	"requires": ["Element"]
+	}
 }

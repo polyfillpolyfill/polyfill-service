@@ -3,6 +3,5 @@
 		"Firefox": "3.6-*",
 		"Internet Explorer": "9-10",
 		"Safari": "4"
-	},
-	"requires": ["Window"]
+	}
 }

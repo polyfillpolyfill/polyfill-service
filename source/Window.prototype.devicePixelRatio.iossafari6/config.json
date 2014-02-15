@@ -1,6 +1,5 @@
 {
 	"browsers": {
-		"Safari": "*"
-	},
-	"requires": ["Window"]
+		"iOS Safari": "*"
+	}
 }

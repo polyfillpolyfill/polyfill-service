@@ -3,6 +3,5 @@
 		"Firefox": "3.6",
 		"Safari": "4",
 		"Safari iOS": "4.3"
-	},
-	"requires": ["Object"]
+	}
 }
