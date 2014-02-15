@@ -1,0 +1,15 @@
+{
+	"browsers": {
+		"Android": "*",
+		"Blackberry": "*",
+		"Chrome": "1-29",
+		"Firefox": "3.6-21",
+		"Internet Explorer": "*",
+		"Opera": "*",
+		"Opera Mini": "*",
+		"Opera Mobile": "*",
+		"Safari": "*",
+		"Safari iOS": "*"
+	},
+	"requires": ["Object"]
+}

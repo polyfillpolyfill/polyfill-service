@@ -1,0 +1,8 @@
+{
+	"browsers": {
+		"Internet Explorer": "8",
+		"Firefox": "3.6",
+		"Safari": "4"
+	},
+	"requires": ["Object", "Object.defineProperties"]
+}
