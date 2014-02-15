@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	function Promise(resolver) {
 		var
 		self = this,
