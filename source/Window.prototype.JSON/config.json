@@ -3,5 +3,5 @@
 		"Internet Explorer": "6-7"
 	},
 	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)",
-	"requires": ["Window.polyfill.ie7"]
+	"dependencies": ["Window.polyfill.ie7"]
 }

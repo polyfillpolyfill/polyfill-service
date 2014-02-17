@@ -2,5 +2,5 @@
 	"browsers": {
 		"Internet Explorer": "6-8"
 	},
-	"requires": ["Window.prototype.Event.ie8"]
+	"dependencies": ["Window.prototype.Event.ie8"]
 }
