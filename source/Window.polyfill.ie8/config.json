@@ -2,5 +2,5 @@
 	"browsers": {
 		"Internet Explorer": "8"
 	},
-	"requires": ["Object.defineProperty.ie7", "Object.defineProperty.ie8", "Object.defineProperty"]
+	"dependencies": ["Object.defineProperty.ie7", "Object.defineProperty.ie8", "Object.defineProperty"]
 }

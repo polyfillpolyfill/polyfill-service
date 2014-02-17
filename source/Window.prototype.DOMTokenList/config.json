@@ -3,5 +3,5 @@
 		"Internet Explorer": "7-9",
 		"Safari": "4"
 	},
-	"requires": ["Array.prototype.indexOf"]
+	"dependencies": ["Array.prototype.indexOf"]
 }

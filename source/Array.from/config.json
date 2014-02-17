@@ -1,3 +1,3 @@
 {
-	"requires": ["Array.prototype.map"]
+	"dependencies": ["Array.prototype.map"]
 }

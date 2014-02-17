@@ -9,5 +9,5 @@
 		"Opera Mobile": "10-12",
 		"Safari": "4-5"
 	},
-	"requires": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]
+	"dependencies": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]
 }
