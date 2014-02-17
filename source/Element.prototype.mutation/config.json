@@ -10,5 +10,5 @@
 		"Safari": "4-*",
 		"Safari iOS": "*"
 	},
-	"requires": "Window.polyfill.ie7"
+	"requires": ["Window.polyfill.ie7"]
 }
