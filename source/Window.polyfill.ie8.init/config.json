@@ -2,5 +2,6 @@
 	"browsers": {
 		"Internet Explorer": "8"
 	},
-	"dependencies": ["Window.polyfill.ie8"]
+	"dependencies": ["Window.polyfill.ie8"],
+	"order": -1
 }
