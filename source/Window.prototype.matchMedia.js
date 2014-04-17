@@ -1,7 +1,8 @@
 // Window.prototype.matchMedia
 (function () {
 	function evalQuery(window, query) {
-		return new Function('media', 'return ' + query
+		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
+			.replace('%s', query)
 			.replace(/^only\s+/, '')
 			.replace(/(device)-([\w.]+)/g, '$1.$2')
 			.replace(/([\w.]+)\s*:/g, 'media.$1 ===')
@@ -11,6 +12,7 @@
 			.replace(/print/g, '0')
 			.replace(/,/g, '||')
 			.replace(/and/g, '&&')
+			.replace(/dpi/g, '')
 			.replace(/(\d+)(cm|em|in|mm|pc|pt|px|rem)/, function ($0, $1, $2) {
 				return $1 * (
 					$2 === 'cm' ? 0.3937 * 96 : (
