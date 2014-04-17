@@ -2,7 +2,7 @@
 (function () {
 	function evalQuery(window, query) {
 		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
-			.replace('%s', query)
+			.replace('%s', query||'true')
 			.replace(/^only\s+/, '')
 			.replace(/(device)-([\w.]+)/g, '$1.$2')
 			.replace(/([\w.]+)\s*:/g, 'media.$1 ===')
@@ -57,6 +57,10 @@
 		var
 		window = this,
 		list = new MediaQueryList();
+
+    if (0===arguments.length) {
+      throw new TypeError('Not enough arguments to window.matchMedia');
+    }
 
 		list.media = String(query);
 		list.matches = evalQuery(window, list.media);
