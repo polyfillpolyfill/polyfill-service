@@ -58,9 +58,9 @@
 		window = this,
 		list = new MediaQueryList();
 
-    if (0===arguments.length) {
-      throw new TypeError('Not enough arguments to window.matchMedia');
-    }
+		if (0===arguments.length) {
+			throw new TypeError('Not enough arguments to window.matchMedia');
+		}
 
 		list.media = String(query);
 		list.matches = evalQuery(window, list.media);
