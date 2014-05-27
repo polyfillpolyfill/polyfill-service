@@ -4,7 +4,7 @@
 		if (!nodes.length) {
 			throw new Error('DOM Exception 8');
 		} else if (nodes.length === 1) {
-			return nodes[0];
+			return typeof nodes[0] === 'string' ? document.createTextNode(nodes[0]) : nodes[0];
 		} else {
 			var fragment = document.createDocumentFragment(), index, node;
 
