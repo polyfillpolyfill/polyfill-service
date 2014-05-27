@@ -1,8 +1,5 @@
 // Window.polyfill
 (function () {
-	/* jshint validthis:true */
-	'use strict';
-
 	var
 	// Window
 	Window = window.Window = function Window() {},

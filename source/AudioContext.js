@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	var
 	AudioContext = window.AudioContext = window.AudioContext || window.webkitAudioContext,
 	AudioContextPrototype = AudioContext.prototype;

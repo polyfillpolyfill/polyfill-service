@@ -1,7 +1,5 @@
 /** @license MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json) */
 (function () {
-	'use strict';
-
 	var
 	toString = Object.prototype.toString,
 	hasOwnProperty = Object.prototype.hasOwnProperty,
