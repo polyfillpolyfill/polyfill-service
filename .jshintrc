@@ -1,0 +1,4 @@
+{
+	"strict": false,
+	"predef": ["Window", "Document", "Element"]
+}
