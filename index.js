@@ -6,7 +6,7 @@ exports.useragent = require('./agent.json');
 // map lookup for sources with aliases
 // source[name] = js string
 var source = exports.source = {};
-var aliases = exports.aliases = {};
+exports.aliases = {};
 
 var sourceFolder = join(__dirname, 'source');
 
@@ -20,6 +20,10 @@ fs.readdirSync(sourceFolder).forEach(function (path) {
 
 	// Cache alias names for fast lookup
 	for (var alias in config.aliases) {
-		aliases[alias] = path;
+		if (exports.aliases[config.aliases[alias]]) {
+			exports.aliases[config.aliases[alias]].push(path);
+		} else {
+			exports.aliases[config.aliases[alias]] = [ path ];
+		}
 	}
 });
