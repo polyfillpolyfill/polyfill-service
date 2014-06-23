@@ -16,7 +16,7 @@ var aliasResolver = new AliasResolver([
 					return {
 						name: alias,
 						flags: polyfill.flags,
-						aliasOf: polyfill.name
+						aliasOf: polyfill.aliasOf
 					};
 				});
 			}
