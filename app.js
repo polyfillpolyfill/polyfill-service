@@ -2,12 +2,15 @@ var express   = require('express');
 	app       = express(),
 	polyfills = require('./index'),
 	useragent = require('useragent'),
+	uglify    = require('uglify-js'),
 	AliasResolver = require('./aliases');
 
 var aliasResolver = new AliasResolver([
 		function(polyfill) {
 			var aliases = polyfills.aliases[polyfill.name];
 
+			// If aliases exist, expand them adding aliasOf information to
+			// each and tranferring the flags from the alias
 			if (aliases) {
 				return aliases.map(function(alias) {
 					return {
@@ -22,10 +25,16 @@ var aliasResolver = new AliasResolver([
 		}
 	]);
 
-app.get(/^\/polyfill\.(\w+)/, function(req, res) {
+app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var ua = useragent.lookup(req.header('user-agent'));
 	var requestedPolyfills = getRequestPolyfills(req);
 	var readableUAString = ua.family + ' ' + ua.major +'.' + ua.minor + '.' + ua.patch;
+	var minified =  req.params[0] === '.min'
+	var extension = req.params[0];
+
+	if (minified) {
+		extension = req.params[1];
+	}
 
 	var explainerComment = [
 		req.originalUrl,
@@ -34,7 +43,7 @@ app.get(/^\/polyfill\.(\w+)/, function(req, res) {
 
 	var polyFills = [];
 
-	if (requestedPolyfills.fileExtension === 'js') {
+	if (extension === '.js') {
 		res.set('Content-Type', 'application/javascript');
 	} else {
 		res.set('Conent-Type', 'text/css');
@@ -54,6 +63,11 @@ app.get(/^\/polyfill\.(\w+)/, function(req, res) {
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
 	var builtPolyfillString = polyFills.join('\n');
+
+	if (minified) {
+		builtPolyfillString = uglify.minify(builtPolyfillString, {fromString: true}).code;
+	}
+
 	res.send(builtExplainerComment + builtPolyfillString);
 });
 
@@ -70,8 +84,7 @@ function getRequestPolyfills(req) {
 
 	return {
 		maybePolyfills: aliasResolver.resolve(maybePolyfills),
-		defaultPolyfills: aliasResolver.resolve(defaultPolyfills),
-		fileExtension: req.params[0]
+		defaultPolyfills: aliasResolver.resolve(defaultPolyfills)
 	};
 }
 
