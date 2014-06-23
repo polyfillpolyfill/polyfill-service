@@ -1,19 +1,25 @@
 var fs = require('fs');
 var join = require('path').join;
 
-exports.agent = {
-	js: require('./agent.js.json')
-};
-
 exports.useragent = require('./agent.json');
 
 // map lookup for sources with aliases
 // source[name] = js string
 var source = exports.source = {};
+var aliases = exports.aliases = {};
+
 var sourceFolder = join(__dirname, 'source');
 
-fs.readdirSync(sourceFolder).forEach(function (filename) {
-	if (filename[0] === '.') return;
+fs.readdirSync(sourceFolder).forEach(function (path) {
 
-	source[filename.replace(/\.js$/, '')] = fs.readFileSync(join(sourceFolder, filename), 'utf8');
+	var config = require(join(sourceFolder, path, 'config.json'));
+	source[path] = {
+		file: fs.readFileSync(join(sourceFolder, path, 'polyfill.js'), 'utf8'),
+		config: config
+	};
+
+	// Cache alias names for fast lookup
+	for (var alias in config.aliases) {
+		aliases[alias] = path;
+	}
 });

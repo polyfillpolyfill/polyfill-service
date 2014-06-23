@@ -1,21 +1,26 @@
 {
-	"name": "polyfill",
-	"description": "A polyfill combinator",
-	"version": "1.0.0",
-	"author": {
-		"name": "Jonathan Neal",
-		"email": "jonathantneal+github@gmail.com",
-		"url": "http://jonathantneal.com/"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/jonathantneal/polyfill"
-	},
-	"bugs": {
-		"url": "https://github.com/jonathantneal/polyfill/issues"
-	},
-	"license": "CC0 1.0 Universal License",
-	"devDependencies": {
-		"gulp": "~3.5.2"
-	}
+  "name": "polyfill",
+  "description": "A polyfill combinator",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jonathan Neal",
+    "email": "jonathantneal+github@gmail.com",
+    "url": "http://jonathantneal.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathantneal/polyfill"
+  },
+  "bugs": {
+    "url": "https://github.com/jonathantneal/polyfill/issues"
+  },
+  "license": "CC0 1.0 Universal License",
+  "devDependencies": {
+    "gulp": "~3.5.2"
+  },
+  "dependencies": {
+    "express": "^4.4.4",
+    "semver": "^2.3.1",
+    "useragent": "^2.0.8"
+  }
 }
