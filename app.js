@@ -28,7 +28,6 @@ var aliasResolver = new AliasResolver([
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var ua = useragent.lookup(req.header('user-agent'));
 	var requestedPolyfills = getRequestPolyfills(req);
-	var readableUAString = ua.family + ' ' + ua.major +'.' + ua.minor + '.' + ua.patch;
 	var minified =  req.params[0] === '.min'
 	var extension = req.params[0];
 
@@ -38,7 +37,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var explainerComment = [
 		req.originalUrl,
-		'Detected ' + readableUAString
+		'Detected ' + ua.toAgent()
 	];
 
 	var polyFills = [];
