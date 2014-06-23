@@ -21,6 +21,7 @@
   "dependencies": {
     "express": "^4.4.4",
     "semver": "^2.3.1",
+    "uglify-js": "^2.4.14",
     "useragent": "^2.0.8"
   }
 }
