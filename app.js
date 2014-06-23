@@ -5,8 +5,20 @@ var express   = require('express');
 	AliasResolver = require('./aliases');
 
 var aliasResolver = new AliasResolver([
-		function(name) {
-			return polyfills.aliases[name] || [name];
+		function(polyfill) {
+			var aliases = polyfills.aliases[polyfill.name];
+
+			if (aliases) {
+				return aliases.map(function(alias) {
+					return {
+						name: alias,
+						flags: polyfill.flags,
+						aliasOf: polyfill.name
+					};
+				});
+			}
+
+			return [polyfill];
 		}
 	]);
 
@@ -35,8 +47,7 @@ app.get(/^\/polyfill\.(\w+)/, function(req, res) {
 			return;
 		}
 
-
-		explainerComment.push(polyfillInfo.name + ' - Reason TODO (LICENSE TODO)');
+		explainerComment.push(polyfillInfo.name + ' - ' + polyfillInfo.aliasOf + ' (LICENSE TODO)');
 		polyFills.push(polyfill.file);
 	});
 
@@ -68,6 +79,7 @@ function parseQueryString(name) {
 	var nameAndFlags = name.split('|');
 	return {
 		flags: nameAndFlags.slice(1),
-		name: nameAndFlags[0]
+		name: nameAndFlags[0],
+		aliasOf: nameAndFlags[0]
 	};
 }
