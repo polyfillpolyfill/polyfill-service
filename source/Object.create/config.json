@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Internet Explorer": "8",
+		"IE": "8",
 		"Firefox": "3.6",
 		"Safari": "4"
 	},

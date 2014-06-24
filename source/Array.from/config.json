@@ -1,5 +1,5 @@
 {
-	"dependencies": ["Array.prototype.map"]
+	"dependencies": ["Array.prototype.map"],
 	"aliases": [
 		"modernizr:es6array"
 	]

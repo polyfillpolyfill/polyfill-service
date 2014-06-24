@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Internet Explorer": "6-8"
+		"IE": "6 - 8"
 	},
 	"dependencies": ["Window.prototype.Event.ie8"]
 }

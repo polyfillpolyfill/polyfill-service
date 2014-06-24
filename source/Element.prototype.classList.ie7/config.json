@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Internet Explorer": "6-7"
+		"IE": "6 - 7"
 	},
 	"dependencies": ["Window.polyfill.ie7", "Window.prototype.DOMTokenList"],
 	"aliases": [

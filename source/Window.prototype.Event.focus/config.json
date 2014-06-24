@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Firefox": "3.6-*"
+		"Firefox": "3.6 - *"
 	},
 	"dependencies": ["Window.prototype.Event.firefox5"]
 }

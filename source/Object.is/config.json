@@ -2,9 +2,9 @@
 	"browsers": {
 		"Android": "*",
 		"Blackberry": "*",
-		"Chrome": "1-29",
-		"Firefox": "3.6-21",
-		"Internet Explorer": "*",
+		"Chrome": "1 - 29",
+		"Firefox": "3.6 - 21",
+		"IE": "*",
 		"Opera": "*",
 		"Opera Mini": "*",
 		"Opera Mobile": "*",
