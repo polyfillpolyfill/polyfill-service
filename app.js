@@ -27,7 +27,7 @@ var aliasResolver = new AliasResolver([
 
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var ua = useragent.lookup(req.header('user-agent'));
-	var requestedPolyfills = getRequestPolyfills(req);
+	var requestedPolyfills = parseRequestedPolyfills(req);
 	var minified =  req.params[0] === '.min'
 	var extension = req.params[0];
 
@@ -74,12 +74,11 @@ app.listen(3000);
 
 
 
-function getRequestPolyfills(req) {
-	var maybeQuery = req.query.maybe ? req.query.maybe.split(',') : [];
-	var defaultQuery= req.query.default ? req.query.default.split(',') : [];
-
-	var maybePolyfills = maybeQuery.map(parseQueryString);
-	var defaultPolyfills = defaultQuery.map(parseQueryString);
+function parseRequestPolyfills(req) {
+	var maybeQuery       = req.query.maybe   ? req.query.maybe.split(',')   : [],
+		defaultQuery     = req.query.default ? req.query.default.split(',') : [],
+		maybePolyfills   = maybeQuery.map(parsePolyfillInfo),
+		defaultPolyfills = defaultQuery.map(parsePolyfillInfo);
 
 	return {
 		maybePolyfills: aliasResolver.resolve(maybePolyfills),
@@ -87,7 +86,7 @@ function getRequestPolyfills(req) {
 	};
 }
 
-function parseQueryString(name) {
+function parsePolyfillInfo(name) {
 	var nameAndFlags = name.split('|');
 	return {
 		flags: nameAndFlags.slice(1),
