@@ -7,6 +7,7 @@ var express   = require('express');
 
 var aliasResolver = new AliasResolver([
 		function(polyfill) {
+
 			var aliases = polyfills.aliases[polyfill.name];
 
 			// If aliases exist, expand them adding aliasOf information to
@@ -35,11 +36,14 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		extension = req.params[1];
 	}
 
+	// Holds the strings that will be built into the explainer comment that is
+	// placed before the polyfill code.
 	var explainerComment = [
 		req.originalUrl,
 		'Detected ' + ua.toAgent()
 	];
 
+	// Holds the source code for each polyfill
 	var polyFills = [];
 
 	if (extension === '.js') {
@@ -49,7 +53,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	}
 
 	requestedPolyfills.defaultPolyfills.forEach(function(polyfillInfo) {
-		var polyfill = polyfills.source[polyfillInfo.name];
+		var polyfill = polyfills.sources[polyfillInfo.name];
 		if (!polyfill) {
 			explainerComment.push(polyfillInfo.name + ' does not match any polyfills');
 			return;
@@ -72,9 +76,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 app.listen(3000);
 
-
-
-function parseRequestPolyfills(req) {
+function parseRequestedPolyfills(req) {
 	var maybeQuery       = req.query.maybe   ? req.query.maybe.split(',')   : [],
 		defaultQuery     = req.query.default ? req.query.default.split(',') : [],
 		maybePolyfills   = maybeQuery.map(parsePolyfillInfo),
