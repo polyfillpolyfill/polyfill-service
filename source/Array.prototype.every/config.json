@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Internet Explorer": "6-8"
+		"IE": "6 - 8"
 	},
 	"aliases": [
 		"modernizr:es5array"

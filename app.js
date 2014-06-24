@@ -46,7 +46,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	];
 
 	// Holds the source code for each polyfill
-	var polyFills = [];
+	var currentPolyfills = {};
 
 	if (extension === '.js') {
 		res.set('Content-Type', 'application/javascript');
@@ -54,20 +54,48 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		res.set('Conent-Type', 'text/css');
 	}
 
-	requestedPolyfills.defaultPolyfills.forEach(function(polyfillInfo) {
-		var polyfill = polyfills.sources[polyfillInfo.name];
-		if (!polyfill) {
+
+	function includePolyfill(polyfill) {
+		var polyfillSource = polyfills.sources[polyfill.name];
+		if (!polyfillSource) {
 			explainerComment.push(polyfillInfo.name + ' does not match any polyfills');
 			return;
 		}
 
-		explainerComment.push(polyfillInfo.name + ' - ' + polyfillInfo.aliasOf + ' (LICENSE TODO)');
-		polyFills.push(polyfill.file);
+		explainerComment.push(polyfill.name + ' - ' + polyfill.aliasOf + ' (LICENSE TODO)');
+		currentPolyfills[polyfill.name] = polyfillSource.file;
+	}
+
+	requestedPolyfills.defaultPolyfills.forEach(includePolyfill);
+
+	requestedPolyfills.maybePolyfills.forEach(function(polyfill) {
+		var polyfillSource = polyfills.sources[polyfill.name];
+
+		if (!polyfillSource) {
+			explainerComment.push(polyfill.name + ' does not match any polyfills');
+			return;
+		}
+
+		var polyfillConfig = polyfills.sources[polyfill.name].config;
+
+		if (!(polyfillConfig && polyfillConfig.browsers)) {
+			return;
+		}
+
+		var browserVersion = polyfillConfig.browsers[ua.family];
+
+		if (browserVersion) {
+			var uaMatchesBrowser = ua.satisfies(browserVersion);
+
+			if (uaMatchesBrowser) {
+				includePolyfill(polyfill);
+			}
+		}
 	});
 
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
-	var builtPolyfillString = polyFills.join('\n');
+	var builtPolyfillString = Object.keys(currentPolyfills).map(function(polyfillName) { return currentPolyfills[polyfillName]; }).join('\n');
 
 	if (minified) {
 		builtPolyfillString = uglify.minify(builtPolyfillString, {fromString: true}).code;
@@ -93,8 +121,8 @@ function parseRequestedPolyfills(req) {
 function parsePolyfillInfo(name) {
 	var nameAndFlags = name.split('|');
 	return {
-		flags: nameAndFlags.slice(1),
-		name: nameAndFlags[0],
+		flags:   nameAndFlags.slice(1),
+		name:    nameAndFlags[0],
 		aliasOf: nameAndFlags[0]
 	};
 }

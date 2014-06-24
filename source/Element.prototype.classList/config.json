@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"Internet Explorer": "8-9",
+		"IE": "8 - 9",
 		"Safari": "4"
 	},
 	"dependencies": ["Window.polyfill.ie7", "Object.defineProperties"],

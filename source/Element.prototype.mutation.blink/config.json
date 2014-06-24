@@ -1,6 +1,6 @@
 {
 	"browsers": {
 		"Chrome": "*",
-		"Opera": "15-*"
+		"Opera": "15 - *"
 	}
 }
