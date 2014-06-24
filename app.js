@@ -5,6 +5,10 @@ var express   = require('express');
 	uglify    = require('uglify-js'),
 	AliasResolver = require('./aliases');
 
+// Load additional useragent features: primarily to use: agent.satisfies to
+// test a browser version against a semver string
+require('useragent/features');
+
 var aliasResolver = new AliasResolver([
 		function(polyfill) {
 
