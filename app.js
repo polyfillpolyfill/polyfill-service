@@ -27,14 +27,12 @@ var aliasResolver = new AliasResolver([
 	]);
 
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	var ua = useragent.lookup(req.header('user-agent'));
-	var requestedPolyfills = parseRequestedPolyfills(req);
-	var minified =  req.params[0] === '.min'
-	var extension = req.params[0];
+	var ua = useragent.lookup(req.header('user-agent')),
+		requestedPolyfills = parseRequestedPolyfills(req),
+		firstParameter = req.params[0].toLowerCase(),
+		minified =  firstParameter === '.min',
+		extension = minified ? req.params[1].toLowerCase() : firstParameter;
 
-	if (minified) {
-		extension = req.params[1];
-	}
 
 	// Holds the strings that will be built into the explainer comment that is
 	// placed before the polyfill code.
