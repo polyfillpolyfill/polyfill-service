@@ -1,29 +1,36 @@
-var fs = require('fs');
-var join = require('path').join;
+var fs = require('fs'),
+	path = require('path');
 
-exports.useragent = require('./agent.json');
+var polyfillSourceFolder = path.join(__dirname, 'source');
 
-// map lookup for sources with aliases
-// source[name] = js string
-var source = exports.source = {};
-exports.aliases = {};
+module.exports = (function initialisePolyfillInfo() {
+	var sources = {},
+		aliases = {};
 
-var sourceFolder = join(__dirname, 'source');
+	fs.readdirSync(polyfillSourceFolder).forEach(function (polyfillName) {
 
-fs.readdirSync(sourceFolder).forEach(function (path) {
+		var config = require(path.join(polyfillSourceFolder, polyfillName, 'config.json')),
+			polyfillSourcePath = path.join(polyfillSourceFolder, polyfillName, 'polyfill.js');
 
-	var config = require(join(sourceFolder, path, 'config.json'));
-	source[path] = {
-		file: fs.readFileSync(join(sourceFolder, path, 'polyfill.js'), 'utf8'),
-		config: config
-	};
+		// Read each file and store in a map for quick lookup
+		sources[polyfillName] = {
+			file: fs.readFileSync(polyfillSourcePath, 'utf8'),
+			config: config
+		};
 
-	// Cache alias names for fast lookup
-	for (var alias in config.aliases) {
-		if (exports.aliases[config.aliases[alias]]) {
-			exports.aliases[config.aliases[alias]].push(path);
-		} else {
-			exports.aliases[config.aliases[alias]] = [ path ];
-		}
-	}
-});
+		// Store alias names in a map for efficient lookup, mapping aliases to
+		// polyfillNames.  An alias can map to many polyfill names. So a group
+		// of polyfills can be aliased under the same name.  This is why an
+		// array is created and used for the value in the map.
+		config.aliases = config.aliases || [];
+		config.aliases.forEach(function(aliasName) {
+			if (aliases[aliasName]) {
+				aliases[aliasName].push(polyfillName);
+			} else {
+				aliases[aliasName] = [ polyfillName ];
+			}
+		});
+	});
+
+	return { sources: sources, aliases: aliases };
+}());
