@@ -45,11 +45,11 @@ AliasResolver.prototype.resolve = function(polyfillAliases) {
  *                           polyfills
  * @return {AliasResolver}
  */
-AliasResolver.createDefault = function(polyfills) {
+AliasResolver.createDefault = function(polyfillAliases) {
 	return new AliasResolver([
 		function expandAliasesFromConfig(polyfill) {
 
-			var aliases = polyfills.aliases[polyfill.name];
+			var aliases = polyfillAliases[polyfill.name];
 
 			if (aliases) {
 				return aliases.map(function(alias) {
