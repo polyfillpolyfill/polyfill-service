@@ -3,46 +3,29 @@ var express   = require('express');
 	polyfills = require('./index'),
 	useragent = require('useragent'),
 	uglify    = require('uglify-js'),
-	AliasResolver = require('./aliases');
+	AliasResolver = require('./aliases'),
+	lookupAgent = require('./agent');
 
 // Load additional useragent features: primarily to use: agent.satisfies to
 // test a browser version against a semver string
 require('useragent/features');
 
-var aliasResolver = new AliasResolver([
-		function(polyfill) {
-
-			var aliases = polyfills.aliases[polyfill.name];
-
-			// If aliases exist, expand them adding aliasOf information to
-			// each and tranferring the flags from the alias
-			if (aliases) {
-				return aliases.map(function(alias) {
-					return {
-						name: alias,
-						flags: polyfill.flags,
-						aliasOf: polyfill.aliasOf
-					};
-				});
-			}
-
-			return [polyfill];
-		}
-	]);
+var aliasResolver = AliasResolver.createDefault(polyfills);
 
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var ua = useragent.lookup(req.header('user-agent')),
 		requestedPolyfills = parseRequestedPolyfills(req),
 		firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
-		extension = minified ? req.params[1].toLowerCase() : firstParameter;
+		extension = minified ? req.params[1].toLowerCase() : firstParameter,
+		uaFamily = lookupAgent(ua.family.toLowerCase());
 
 
 	// Holds the strings that will be built into the explainer comment that is
 	// placed before the polyfill code.
 	var explainerComment = [
 		req.originalUrl,
-		'Detected ' + ua.toAgent()
+		'Detected ' + uaFamily + '/' + ua.toVersion()
 	];
 
 	// Holds the source code for each polyfill
@@ -82,7 +65,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 			return;
 		}
 
-		var browserVersion = polyfillConfig.browsers[ua.family];
+		var browserVersion = polyfillConfig.browsers[uaFamily];
 
 		if (browserVersion) {
 			var uaMatchesBrowser = ua.satisfies(browserVersion);
