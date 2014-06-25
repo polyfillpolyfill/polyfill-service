@@ -16,17 +16,39 @@ var aliasResolver = AliasResolver.createDefault(polyfills),
 	port = 3000;
 
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	var ua = useragent.lookup(req.header('user-agent')),
-		requestedPolyfills = parseRequestedPolyfills(req),
-		firstParameter = req.params[0].toLowerCase(),
+
+	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
-		extension = minified ? req.params[1].toLowerCase() : firstParameter,
+		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
+		maybePolyfills   = parseRequestedPolyfills(req.query.maybe || '', ['maybe'])
+		defaultPolyfills = parseRequestedPolyfills(req.query["default"] || '');
+
+	var polyfill = getPolyfillString({
+		polyfills: maybePolyfills.concat(defaultPolyfills) ,
+		extension: fileExtension,
+		minify: minified,
+		uaString: req.header('user-agent'),
+		url: req.originalUrl
+	});
+
+	if (fileExtension === '.js') {
+		res.set('Content-Type', 'application/javascript');
+	} else {
+		res.set('Conent-Type', 'text/css');
+	}
+
+	res.set('Vary', 'User-Agent');
+	res.send(polyfill);
+});
+
+function getPolyfillString(options) {
+	var ua = useragent.lookup(options.uaString),
 		uaFamily = lookupAgent(ua.family.toLowerCase()),
 
 		// Holds the strings that will be built into the explainer comment that is
 		// placed before the polyfill code.
 		explainerComment = [
-			req.originalUrl,
+			options.url,
 			'Detected ' + uaFamily + '/' + ua.toVersion()
 		],
 
@@ -41,80 +63,60 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		ua.patch = '0';
 	}
 
-	if (extension === '.js') {
-		res.set('Content-Type', 'application/javascript');
-	} else {
-		res.set('Conent-Type', 'text/css');
-	}
 
 	// Filter out polyfills that do not match the browser version in the UA
 	// with their config
-	var includePolyfills = requestedPolyfills.maybePolyfills.filter(function(polyfill) {
-
-		if (!polyfills.sources[polyfill.name]) {
-			explainerComment.push(polyfill.name + ' does not match any polyfills');
-			return false;
-		}
-
-		var polyfillConfig = polyfills.sources[polyfill.name].config;
-
-		if (!(polyfillConfig && polyfillConfig.browsers)) {
-			return false;
-		}
-
-
-		var browserVersion = polyfillConfig.browsers[uaFamily];
-		if (browserVersion && ua.satisfies(browserVersion)) {
-			return true;
-		}
-
-		return false;
-	});
-
-	includePolyfills = includePolyfills.concat(requestedPolyfills.defaultPolyfills);
-
-	includePolyfills.forEach(function(polyfill) {
+	var includePolyfills = options.polyfills.forEach(function(polyfill) {
 		var polyfillSource = polyfills.sources[polyfill.name];
+
 		if (!polyfillSource) {
-			explainerComment.push(polyfill.name + ' does not match any polyfills');
+			explainerComment.push('"' + polyfill.name + '" does not match any polyfills');
 			return;
+		}
+
+		if (polyfill.flags.indexOf('maybe') !== -1) {
+			var polyfillConfig = polyfillSource.config;
+
+			if (!(polyfillConfig && polyfillConfig.browsers)) {
+				return;
+			}
+
+
+			var browserVersion = polyfillConfig.browsers[uaFamily];
+			if (!(browserVersion && ua.satisfies(browserVersion))) {
+				return;
+			}
 		}
 
 		explainerComment.push(polyfill.name + ' - ' + polyfill.aliasOf + ' (LICENSE TODO)');
 		currentPolyfills[polyfill.name] = polyfillSource.file;
+
 	});
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
 	var builtPolyfillString = objectJoin(currentPolyfills, '\n');
 
-	if (minified) {
+	if (options.minified) {
 		builtPolyfillString = uglify.minify(builtPolyfillString, {fromString: true}).code;
 	}
 
-	res.send(builtExplainerComment + builtPolyfillString);
-});
+	return builtExplainerComment + builtPolyfillString;
+}
 
 app.listen(port);
 
-function parseRequestedPolyfills(req) {
-	var maybeQuery       = req.query.maybe   ? req.query.maybe.split(',')   : [],
-		defaultQuery     = req.query.default ? req.query.default.split(',') : [],
-		maybePolyfills   = maybeQuery.map(parsePolyfillInfo),
-		defaultPolyfills = defaultQuery.map(parsePolyfillInfo);
+function parseRequestedPolyfills(polyfillList, additionalFlags) {
+	var list = polyfillList.split(',').filter(function(x) { return x.length; });
+	additionalFlags = additionalFlags || [];
 
-	return {
-		maybePolyfills: aliasResolver.resolve(maybePolyfills),
-		defaultPolyfills: aliasResolver.resolve(defaultPolyfills)
-	};
-}
-
-function parsePolyfillInfo(name) {
-	var nameAndFlags = name.split('|');
-	return {
-		flags:   nameAndFlags.slice(1),
-		name:    nameAndFlags[0],
-		aliasOf: nameAndFlags[0]
-	};
+	return list.map(function parsePolyfillInfo(name) {
+		var nameAndFlags = name.split('|');
+		return {
+			flags:   nameAndFlags.slice(1).concat(additionalFlags),
+			name:    nameAndFlags[0],
+			aliasOf: nameAndFlags[0]
+		};
+	});
 }
 
 /**
