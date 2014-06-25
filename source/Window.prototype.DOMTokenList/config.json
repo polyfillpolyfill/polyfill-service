@@ -1,7 +1,7 @@
 {
 	"browsers": {
-		"IE": "7 - 9",
-		"Safari": "4"
+		"ie": "7 - 9",
+		"safari": "4"
 	},
 	"dependencies": ["Array.prototype.indexOf"]
 }

@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "8"
+		"ie": "8"
 	},
 	"dependencies": ["Object.defineProperties"]
 }

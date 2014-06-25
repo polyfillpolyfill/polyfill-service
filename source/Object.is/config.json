@@ -1,14 +1,14 @@
 {
 	"browsers": {
-		"Android": "*",
-		"Blackberry": "*",
-		"Chrome": "1 - 29",
-		"Firefox": "3.6 - 21",
-		"IE": "*",
-		"Opera": "*",
-		"Opera Mini": "*",
-		"Opera Mobile": "*",
-		"Safari": "*",
-		"Safari iOS": "*"
+		"android": "*",
+		"blackberry": "*",
+		"chrome": "1 - 29",
+		"firefox": "3.6 - 21",
+		"ie": "*",
+		"opera": "*",
+		"opera mini": "*",
+		"opera mobile": "*",
+		"safari": "*",
+		"safari ios": "*"
 	}
 }
