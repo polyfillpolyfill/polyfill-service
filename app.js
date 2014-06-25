@@ -6,6 +6,8 @@ var express   = require('express');
 	AliasResolver = require('./aliases'),
 	lookupAgent = require('./agent');
 
+'use strict';
+
 // Load additional useragent features: primarily to use: agent.satisfies to
 // test a browser version against a semver string
 require('useragent/features');
@@ -19,18 +21,25 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
 		extension = minified ? req.params[1].toLowerCase() : firstParameter,
-		uaFamily = lookupAgent(ua.family.toLowerCase());
+		uaFamily = lookupAgent(ua.family.toLowerCase()),
 
+		// Holds the strings that will be built into the explainer comment that is
+		// placed before the polyfill code.
+		explainerComment = [
+			req.originalUrl,
+			'Detected ' + uaFamily + '/' + ua.toVersion()
+		],
 
-	// Holds the strings that will be built into the explainer comment that is
-	// placed before the polyfill code.
-	var explainerComment = [
-		req.originalUrl,
-		'Detected ' + uaFamily + '/' + ua.toVersion()
-	];
+		// Holds the source code for each polyfill that should be sent to the
+		// client
+		currentPolyfills = {};
 
-	// Holds the source code for each polyfill
-	var currentPolyfills = {};
+	// Browsers don't really use semantic versioning, but tend to at least
+	// have a major and minor.  This normalises the patch version so that
+	// semantic version comparison is consistent.
+	if (!isNumeric(ua.patch)) {
+		ua.patch = '0';
+	}
 
 	if (extension === '.js') {
 		res.set('Content-Type', 'application/javascript');
@@ -38,45 +47,42 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		res.set('Conent-Type', 'text/css');
 	}
 
+	// Filter out polyfills that do not match the browser version in the UA
+	// with their config
+	var includePolyfills = requestedPolyfills.maybePolyfills.filter(function(polyfill) {
 
-	function includePolyfill(polyfill) {
-		var polyfillSource = polyfills.sources[polyfill.name];
-		if (!polyfillSource) {
-			explainerComment.push(polyfillInfo.name + ' does not match any polyfills');
-			return;
-		}
-
-		explainerComment.push(polyfill.name + ' - ' + polyfill.aliasOf + ' (LICENSE TODO)');
-		currentPolyfills[polyfill.name] = polyfillSource.file;
-	}
-
-	requestedPolyfills.defaultPolyfills.forEach(includePolyfill);
-
-	requestedPolyfills.maybePolyfills.forEach(function(polyfill) {
-		var polyfillSource = polyfills.sources[polyfill.name];
-
-		if (!polyfillSource) {
+		if (!polyfills.sources[polyfill.name]) {
 			explainerComment.push(polyfill.name + ' does not match any polyfills');
-			return;
+			return false;
 		}
 
 		var polyfillConfig = polyfills.sources[polyfill.name].config;
 
 		if (!(polyfillConfig && polyfillConfig.browsers)) {
+			return false;
+		}
+
+
+		var browserVersion = polyfillConfig.browsers[uaFamily];
+		if (browserVersion && ua.satisfies(browserVersion)) {
+			return true;
+		}
+
+		return false;
+	});
+
+	includePolyfills = includePolyfills.concat(requestedPolyfills.defaultPolyfills);
+
+	includePolyfills.forEach(function(polyfill) {
+		var polyfillSource = polyfills.sources[polyfill.name];
+		if (!polyfillSource) {
+			explainerComment.push(polyfill.name + ' does not match any polyfills');
 			return;
 		}
 
-		var browserVersion = polyfillConfig.browsers[uaFamily];
-
-		if (browserVersion) {
-			var uaMatchesBrowser = ua.satisfies(browserVersion);
-
-			if (uaMatchesBrowser) {
-				includePolyfill(polyfill);
-			}
-		}
+		explainerComment.push(polyfill.name + ' - ' + polyfill.aliasOf + ' (LICENSE TODO)');
+		currentPolyfills[polyfill.name] = polyfillSource.file;
 	});
-
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
 	var builtPolyfillString = Object.keys(currentPolyfills).map(function(polyfillName) { return currentPolyfills[polyfillName]; }).join('\n');
@@ -109,4 +115,12 @@ function parsePolyfillInfo(name) {
 		name:    nameAndFlags[0],
 		aliasOf: nameAndFlags[0]
 	};
+}
+
+/**
+ * jQuery: isNumeric
+ * https://github.com/jquery/jquery/blob/bbdfbb4ee859fe9319b348d88120ddc2c9efbd63/src/core.js#L212
+ */
+function isNumeric(obj) {
+	return !Array.isArray(obj) && (((obj- parseFloat(obj)) + 1) >= 0);
 }
