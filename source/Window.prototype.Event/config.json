@@ -1,7 +1,7 @@
 {
 	"browsers": {
-		"Firefox": "3.6 - *",
-		"IE": "9 - 10",
-		"Safari": "4"
+		"firefox": "3.6 - *",
+		"ie": "9 - 10",
+		"safari": "4"
 	}
 }

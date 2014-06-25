@@ -1,7 +1,7 @@
 {
 	"browsers": {
-		"Firefox": "3.6",
-		"Safari": "4",
-		"Safari iOS": "4.3"
+		"firefox": "3.6",
+		"safari": "4",
+		"safari ios": "4.3"
 	}
 }

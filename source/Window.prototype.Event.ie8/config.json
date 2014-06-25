@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "6 - 8"
+		"ie": "6 - 8"
 	},
 	"dependencies": ["Window.polyfill.ie7"]
 }

@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "6 - 7"
+		"ie": "6 - 7"
 	},
 	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)",
 	"dependencies": ["Window.polyfill.ie7"]

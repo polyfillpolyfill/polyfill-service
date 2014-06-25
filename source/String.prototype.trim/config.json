@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "6 - 8",
-		"Safari": "4"
+		"ie": "6 - 8",
+		"safari": "4"
 	}
 }

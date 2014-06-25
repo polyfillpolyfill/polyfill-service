@@ -1,7 +1,7 @@
 {
 	"browsers": {
-		"IE": "8 - 9",
-		"Safari": "4"
+		"ie": "8 - 9",
+		"safari": "4"
 	},
 	"dependencies": ["Window.polyfill.ie7", "Object.defineProperties"],
 	"aliases": [

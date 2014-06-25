@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "7"
+		"ie": "7"
 	},
 	"dependencies": ["Window.polyfill.ie7"],
 	"order": -1

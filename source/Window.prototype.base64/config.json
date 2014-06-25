@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"IE": "6 - 9"
+		"ie": "6 - 9"
 	},
 	"license": "MIT David Lindquist (http://www.webtoolkit.info/javascript-base64.html), Andrew Dodson (drew81.com)",
 	"dependencies": ["Window.polyfill.ie7"]
