@@ -1,20 +1,6 @@
 /**
  * The AliasResolver provides the logic used for expanding and resolving
- * aliases using more than one mechanism.
- *
- * As an alias can reference one or more polyfills this expands
- * aliases based on a number of given expansion functions/mechanisms.
- *
- * The AliasResolver is constructed with a list of alias functions, each
- * should return an array of names.  Each function in the list is called
- * expanding the aliases expanded from the previous function.  For this to
- * work, if an alias can not be expanded the function should return the name
- * anyway deferring to the next function. (For example see the identity
- * function in the constructor used as a default)
- *
- * The idea is that by the time the alias functions have completed you should
- * have the basic list of polyfills that can be referenced from the ./source
- * directory.
+ * aliases using more than one mechanism (if required).
  */
 
 /**
