@@ -10,7 +10,8 @@ var express   = require('express');
 // test a browser version against a semver string
 require('useragent/features');
 
-var aliasResolver = AliasResolver.createDefault(polyfills);
+var aliasResolver = AliasResolver.createDefault(polyfills),
+	port = 3000;
 
 app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var ua = useragent.lookup(req.header('user-agent')),
@@ -87,7 +88,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.send(builtExplainerComment + builtPolyfillString);
 });
 
-app.listen(3000);
+app.listen(port);
 
 function parseRequestedPolyfills(req) {
 	var maybeQuery       = req.query.maybe   ? req.query.maybe.split(',')   : [],
