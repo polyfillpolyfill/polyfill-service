@@ -34,8 +34,8 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		// client
 		currentPolyfills = {};
 
-	// Browsers don't really use semantic versioning, but tend to at least
-	// have a major and minor.  This normalises the patch version so that
+	// Browsers don't really use semantic versioning but tend to at least
+	// have a major and minor version.  This normalises the patch version so that
 	// semantic version comparison is consistent.
 	if (!isNumeric(ua.patch)) {
 		ua.patch = '0';
@@ -85,7 +85,7 @@ app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	});
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
-	var builtPolyfillString = Object.keys(currentPolyfills).map(function(polyfillName) { return currentPolyfills[polyfillName]; }).join('\n');
+	var builtPolyfillString = objectJoin(currentPolyfills, '\n');
 
 	if (minified) {
 		builtPolyfillString = uglify.minify(builtPolyfillString, {fromString: true}).code;
@@ -123,4 +123,23 @@ function parsePolyfillInfo(name) {
  */
 function isNumeric(obj) {
 	return !Array.isArray(obj) && (((obj- parseFloat(obj)) + 1) >= 0);
+}
+
+/**
+ * For each key in an object/hash map, join the value associated with the
+ * key.  This allows you to perform a join operation over what is effectively
+ * a set.
+ *
+ * Example:
+ *
+ * objectJoin({ x: 'A', y: 'B' }, ',');
+ *
+ * Result:
+ * 'A,B'
+ *
+ * In Harmony (ES6) Just use 'Set':
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+ */
+function objectJoin(obj, joinString) {
+	return Object.keys(obj).map(function(key) { return obj[key]; }).join(joinString);
 }
