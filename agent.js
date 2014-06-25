@@ -6,7 +6,8 @@
 
 var agentlist = {
 	"chromium": "chrome",
-	"mobile safari": "safari ios"
+	"mobile safari": "safari ios",
+	"firefox beta": "firefox"
 };
 
 
@@ -18,6 +19,5 @@ var agentlist = {
  * @returns {string} A normalized user agent name.
  */
 module.exports = function(agentname) {
-
 	return agentlist[agentname] || agentname;
 };
