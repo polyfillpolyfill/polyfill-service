@@ -66,12 +66,12 @@ function getPolyfillString(options) {
 		}
 
 		if (polyfill.flags.indexOf('maybe') !== -1) {
-			var polyfillConfig = polyfillSource.config;
+			var polyfillConfig = polyfillSource.config,
+				browsersConfigured = polyfillConfig && polyfillConfig.browsers;
 
-			if (!(polyfillConfig && polyfillConfig.browsers)) {
+			if (!(browsersConfigured)) {
 				return;
 			}
-
 
 			var browserVersion = polyfillConfig.browsers[uaFamily];
 			if (!(browserVersion && ua.satisfies(browserVersion))) {
