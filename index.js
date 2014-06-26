@@ -18,8 +18,15 @@ var sources = {},
 
 fs.readdirSync(polyfillSourceFolder).forEach(function (polyfillName) {
 
-	var config = require(path.join(polyfillSourceFolder, polyfillName, 'config.json')),
-		polyfillSourcePath = path.join(polyfillSourceFolder, polyfillName, 'polyfill.js');
+	var polyfillPath = path.join(polyfillSourceFolder, polyfillName),
+		configPath   = path.join(polyfillPath, 'config.json');
+
+	if (!fs.existsSync(polyfillPath) || !fs.existsSync(configPath)) {
+		return;
+	}
+
+	var config = require(configPath),
+		polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
 
 	// Read each file and store in a map for quick lookup
 	sources[polyfillName] = {
