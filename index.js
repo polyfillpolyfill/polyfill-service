@@ -41,6 +41,8 @@ fs.readdirSync(polyfillSourceFolder).forEach(function (polyfillName) {
 	});
 });
 
+var aliasResolver = AliasResolver.createDefault(aliases);
+
 function getPolyfillString(options) {
 	var ua = useragent.lookup(options.uaString),
 		uaFamily = lookupAgent(ua.family.toLowerCase()),
@@ -57,7 +59,8 @@ function getPolyfillString(options) {
 		ua.patch = '0';
 	}
 
-	var includePolyfills = options.polyfills.forEach(function(polyfill) {
+	var expandedPolyfillList = aliasResolver.resolve(options.polyfills),
+		includePolyfills = expandedPolyfillList.forEach(function(polyfill) {
 		var polyfillSource = sources[polyfill.name];
 
 		if (!polyfillSource) {
