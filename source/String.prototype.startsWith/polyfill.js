@@ -1,4 +1,6 @@
 // String.prototype.startsWith
-String.prototype.startsWith = function startsWith(searchString, position) {
-	return this.slice(position || 0).indexOf(searchString) === 0;
+String.prototype.startsWith = function (string) {
+	var index = arguments.length < 2 ? 0 : arguments[1];
+
+	return this.slice(index).indexOf(string) === 0;
 };
