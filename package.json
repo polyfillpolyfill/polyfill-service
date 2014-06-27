@@ -15,9 +15,6 @@
     "url": "https://github.com/jonathantneal/polyfill/issues"
   },
   "license": "CC0 1.0 Universal License",
-  "devDependencies": {
-    "gulp": "~3.5.2"
-  },
   "dependencies": {
     "express": "^4.4.4",
     "semver": "^2.3.1",
