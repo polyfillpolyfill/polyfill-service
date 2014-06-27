@@ -26,11 +26,13 @@ fs.readdirSync(polyfillSourceFolder).forEach(function (polyfillName) {
 	}
 
 	var config = require(configPath),
-		polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
+		polyfillSourcePath = path.join(polyfillPath, 'polyfill.js'),
+		fileContents = fs.readFileSync(polyfillSourcePath, 'utf8');
 
 	// Read each file and store in a map for quick lookup
 	sources[polyfillName] = {
-		file: fs.readFileSync(polyfillSourcePath, 'utf8'),
+		file: fileContents,
+		minifile: uglify.minify(fileContents, {fromString: true}).code,
 		config: config
 	};
 
@@ -90,16 +92,13 @@ function getPolyfillString(options) {
 		}
 
 		explainerComment.push(polyfill.name + ' - ' + polyfill.aliasOf + ' (LICENSE TODO)');
-		currentPolyfills[polyfill.name] = polyfillSource.file;
+
+		currentPolyfills[polyfill.name] = options.minify ? polyfillSource.minifile : polyfillSource.file;
 
 	});
 
 	var builtExplainerComment = '/* ' + explainerComment.join('\n * ') + '\n */\n';
-	var builtPolyfillString = objectJoin(currentPolyfills, '\n');
-
-	if (options.minified) {
-		builtPolyfillString = uglify.minify(builtPolyfillString, {fromString: true}).code;
-	}
+	var builtPolyfillString = objectJoin(currentPolyfills, '');
 
 	return builtExplainerComment + builtPolyfillString;
 }
