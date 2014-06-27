@@ -1,7 +1,6 @@
 // String.prototype.endsWith
-String.prototype.endsWith = function endsWith(searchString, position) {
-	var
-	string = this.slice(position || 0);
+String.prototype.endsWith = function (string) {
+	var index = arguments.length < 2 ? this.length : arguments[1];
 
-	return string.indexOf(searchString, string.length - searchString.length) !== -1;
+	return this.indexOf(string) === index - string.length;
 };
