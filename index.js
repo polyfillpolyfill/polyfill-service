@@ -68,8 +68,9 @@ function getPolyfillString(options) {
 		ua.patch = '0';
 	}
 
-	var expandedPolyfillList = aliasResolver.resolve(options.polyfills),
-		includePolyfills = expandedPolyfillList.forEach(function(polyfill) {
+	var expandedPolyfillList = aliasResolver.resolve(options.polyfills);
+
+	expandedPolyfillList.forEach(function(polyfill) {
 		var polyfillSource = sources[polyfill.name];
 
 		if (!polyfillSource) {
