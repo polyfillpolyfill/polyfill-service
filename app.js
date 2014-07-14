@@ -35,6 +35,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	}
 
 	res.set('Vary', 'User-Agent');
+	res.set('Access-Control-Allow-Origin', '*');
 	res.send(polyfill);
 });
 
