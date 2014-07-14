@@ -7,7 +7,12 @@ var polyfillio = require('./index'),
 var aliasResolver = AliasResolver.createDefault(polyfillio.aliases),
 	port = 3000;
 
-app.get(/^\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+
+app.get(/^\/__about$/, function(req, res) {
+	res.send("__about");
+});
+
+app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
