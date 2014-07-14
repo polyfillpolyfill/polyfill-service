@@ -41,6 +41,31 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 	res.send(JSON.stringify(info));
 });
 
+app.get(/^\/__health$/, function(req, res) {
+	var info = {
+		"schemaVersion": 1,
+		// TODO: This should match a service name in CMDB
+		"name": "polyfill-service",
+		"description": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent.  More at http://github.com/Financial-Times/polyfill-service.",
+		"checks": [
+			{
+				"name": "Server is up",
+				"ok": "true",
+				"severity": 3,
+				"businessImpact": "None",
+				"technicalSummary": "Tests that the Node JS process serving the health check response is up.",
+				"panicGuide": "This application consists of Node JS processes on any number of nodes in an environment.  The process must have read permissions on files within its deployment.  If the process is not running it should be started using `node {{deploymeny_directory}}/app.js`",
+				"checkOutput": "None",
+				"lastUpdated": new Date().toISOString()
+			}
+		],
+	};
+
+	res.set('Cache-Control', 'no-store');
+	res.set('Content-Type', 'application/json; charset=utf-8');
+	res.send(JSON.stringify(info));
+});
+
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var firstParameter = req.params[0].toLowerCase(),
