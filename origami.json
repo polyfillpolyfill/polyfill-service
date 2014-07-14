@@ -1,0 +1,8 @@
+{
+  "description": "Polyfill Service",
+  "origamiType": "service",
+  "origamiVersion": 1,
+  "support": "https://github.com/Financial-Times/polyfill-service/issues",
+  "supportStatus": "experimental",
+  "serviceUrl": "http://polyfill.webservices.ft.com"
+}
