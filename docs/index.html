@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=UTF8>
+    <title>Polyfill service</title>
+    <link rel="stylesheet" href="http://build.origami.ft.com/bundles/css?modules=o-techdocs@^1.0.0" />
+</head>
+<body class="o-techdocs">
+    <header class="o-techdocs-header">
+        <h1>Polyfill service</h1>
+        <p>Polyfill loader for legacy browser support</p>
+    </header>
+    <div class="o-techdocs-layout">
+        <div class="o-techdocs-content">
+
+            <h2>API reference</h2>
+
+            <h3>GET /v1/polyfill<var>:minify</var>.<var>:type</var></h3>
+
+            <p>Fetch a polyfill bundle.</p>
+
+            <div class="o-techdocs-table">
+            <table class='o-techdocs-table__table'>
+                <tr>
+                    <th>Param</th><th>Where</th><th>Description</th>
+                </tr><tr>
+                    <td><code>minify</code></td>
+                    <td>URL</td>
+                    <td>
+                        Whether to minify the result.  If omitted, output will include the full polyfill source, and a header comment with debug information about the user agent and which polyfills have been included in the bundle.  If set to <code>.min</code>, the output will be minified.
+                    </td>
+                </tr><tr>
+                    <td><code>type</code></td>
+                    <td>URL</td>
+                    <td>
+                        Set to <code>js</code> or <code>css</code>.
+                    </td>
+                </tr><tr>
+                    <td><code>features</code></td>
+                    <td>Querystring</td>
+                    <td>
+                        <p>Comma-separated list of features which should be considered when building the polyfill bundle.  Available feature names are directory names in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/source'>source</a> directory of the project, along with aliases defined in the polyfills' config.json files.</p>
+                        <p>Each feature may optionally be appended with zero or more of the following flags:</p>
+                        <dl>
+                            <dt><code>|always</code></dt>
+                            <dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
+                            <dt><code>|gated</code></dt>
+                            <dt>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dt>
+                        </dl>
+                    </td>
+                </tr><tr>
+                    <td><code>gated</code></td>
+                    <td>Querystring</td>
+                    <td>Set to <code>1</code> to enable feature detects on all polyfills.  Equivalent to adding <code>|gated</code> to every feature in the <code>features</code> argument.</td>
+                </tr>
+            </table>
+            </div>
+
+
+            <div class='o-techdocs-footer'>
+                <p>&copy; Jonathan Neal, THE FINANCIAL TIMES LTD and other contributors. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
