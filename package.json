@@ -18,6 +18,7 @@
   "dependencies": {
     "caniuse-db": "1.0.20140710",
     "express": "^4.4.4",
+    "forever": "^0.11.1",
     "semver": "^2.3.1",
     "uglify-js": "^2.4.14",
     "useragent": "^2.0.8"
