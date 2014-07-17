@@ -2,7 +2,8 @@ var polyfillio = require('../lib'),
 	express = require('express'),
 	app = express(),
 	packagejson = require('../package.json'),
-	origamijson = require('../origami.json');
+	origamijson = require('../origami.json'),
+	helpers = require('./helpers');
 
 'use strict';
 
@@ -45,8 +46,10 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
-		maybePolyfills   = parseRequestedPolyfills(req.query.features || ''),
-		defaultPolyfills = parseRequestedPolyfills(req.query["default"] || '');
+		maybePolyfills   = helpers.parseRequestedPolyfills(req.query.features || ''),
+		defaultPolyfills = helpers.parseRequestedPolyfills(req.query["default"] || '');
+
+	console.log(req.query["default"]);
 
 	var polyfill = polyfillio.getPolyfills({
 		polyfills: maybePolyfills.concat(defaultPolyfills) ,
@@ -70,18 +73,4 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 
 app.listen(port);
-
-function parseRequestedPolyfills(polyfillList, additionalFlags) {
-	var list = polyfillList.split(',').filter(function(x) { return x.length; });
-	additionalFlags = additionalFlags || [];
-
-	return list.map(function parsePolyfillInfo(name) {
-		var nameAndFlags = name.split('|');
-		return {
-			flags:   nameAndFlags.slice(1).concat(additionalFlags),
-			name:    nameAndFlags[0],
-			aliasOf: nameAndFlags[0]
-		};
-	});
-}
 
