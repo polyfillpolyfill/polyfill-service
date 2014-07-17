@@ -46,13 +46,11 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
-		maybePolyfills   = helpers.parseRequestedPolyfills(req.query.features || ''),
-		defaultPolyfills = helpers.parseRequestedPolyfills(req.query["default"] || '');
-
-	console.log(req.query["default"]);
+		isGateForced = req.query.gated === "1",
+		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []);
 
 	var polyfill = polyfillio.getPolyfills({
-		polyfills: maybePolyfills.concat(defaultPolyfills) ,
+		polyfills: polyfills,
 		extension: fileExtension,
 		minify: minified,
 		uaString: req.header('user-agent'),
@@ -73,4 +71,3 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 
 app.listen(port);
-
