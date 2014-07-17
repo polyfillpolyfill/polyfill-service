@@ -64,6 +64,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	res.set('Vary', 'User-Agent');
 	res.set('Access-Control-Allow-Origin', '*');
+	res.set('Cache-Control', 'public, max-age=86400');
 	res.send(polyfill);
 });
 
