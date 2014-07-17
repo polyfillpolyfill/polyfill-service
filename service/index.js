@@ -1,8 +1,8 @@
-var polyfillio = require('./index'),
+var polyfillio = require('../lib'),
 	express = require('express'),
 	app = express(),
-	packagejson = require('./package.json'),
-	origamijson = require('./origami.json');
+	packagejson = require('../package.json'),
+	origamijson = require('../origami.json');
 
 'use strict';
 
@@ -45,7 +45,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
-		maybePolyfills   = parseRequestedPolyfills(req.query.maybe || '', ['maybe']),
+		maybePolyfills   = parseRequestedPolyfills(req.query.features || ''),
 		defaultPolyfills = parseRequestedPolyfills(req.query["default"] || '');
 
 	var polyfill = polyfillio.getPolyfills({
