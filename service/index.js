@@ -11,10 +11,11 @@ var aliasResolver = AliasResolver.createDefault(polyfillio.aliases),
 	port = 3000;
 
 
-/** Return information about the web service
- *  See Origami spec:
- *  	http://origami.ft.com/docs/syntax/web-service-index/
- */
+/* Endpoints for health, application metadata and availability status
+ * compliant with FT Origami standard
+ * http://origami.ft.com/docs/syntax/web-service-index/ */
+
+// Describe the available
 app.get(/^\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
@@ -71,6 +72,15 @@ app.get(/^\/__health$/, function(req, res) {
     res.set('Content-Type', 'application/json; charset=utf-8');
     res.send(JSON.stringify(info));
 });
+
+app.get("/", function(req, res) {
+	res.redirect('/v1/');
+})
+
+
+app.get("/v1/", function(req, res) {
+	res.sendfile('docs/index.html');
+})
 
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
