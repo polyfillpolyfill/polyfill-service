@@ -1,198 +1,99 @@
-# polyfill
+# Polyfill service
 
 [![Build
 Status](https://travis-ci.org/Financial-Times/polyfill-service.svg)](https://travis-ci.org/Financial-Times/polyfill-service)
 
-**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
+**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](http://polyfill.webservices.ft.com), which formats and displays the documentation located in the [docs](docs/) folder.
 
-```html
-<script src="//polyfill.io"></script>
+## Installing as a service
+
+To install and run the polyfill service locally:
+
+1. Install [git](http://git-scm.com/downloads), [Node](http://nodejs.org) and [Grunt](http://gruntjs.com/getting-started#installing-the-cli) and  on your system
+2. Fork this repository.  You can do that [here](https://github.com/financial-times/polyfill/fork)
+3. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
+4. Run `npm install`
+5. Run `npm start` and navigate to `http://localhost:3000` in your browser
+
+For an API reference for the service, see the [hosted service documentation](http://polyfill.webservices.ft.com).
+
+## Using as a library
+
+Polyfill service can also be used as a library in NodeJS projects.  To do this:
+
+1. Add this repo as a dependency in your package.json
+2. Rebuild your project using `npm install`
+3. Use the API from your code
+
+```javascript
+var pf = require('polyfill-service');
+console.log(pf.getPolyfills({
+	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
+	minify: true
+}));
 ```
 
-That&rsquo;s it. The script file *is* the [domain](https://polyfill.io). No need to specify the **http** or **https**, because the service runs over both. Just place it in the head of your document.
+### Library API reference
 
-## What can I do with this?
+#### `getPolyfills(options)` (method)
 
-You can code right the first time. For example, use **querySelector** in IE6.
+Returns a bundle of polyfills as a string.  Options is an object with the following keys:
 
-```js
-var el = document.querySelector(".foo.bar");
+* `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
+* `minify`: Boolean, optional. Whether to minify the bundle
+* `type`: String, optional. 'js' or 'css', defaults to js
+* `polyfills`: Array, optional.  The list of polyfills that are to be considered for inclusion, each in the form of an object with the following properties:
+	* `name`: Name of polyfill, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array of flags to apply to this polyfill (see below)
+
+Flags that may be applied to polyfills are:
+
+* `gated`: Wrap this polyfill in a feature-detect, to avoid overwriting the native implementation
+* `always`: Include this polyfill regardless of the user-agent
+
+#### `aliases` (property)
+
+TODO - does this need to be exposed publicly?  Perhaps not, if the service doesn't need to deal with aliases
+
+## Polyfill configuration
+
+All polyfills are located in the polyfills directory, with one subdirectory per polyfill, named after the API method which is the subject of the polyfill.  Each polyfill folder may contain:
+
+* `polyfill.js`: Code to apply the polyfill behaviour
+* `detect.js`: A single expression or IIFE that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise
+* `config.json`: A config file conforming to the spec below
+
+The config.json file may contain any of the following keys:
+
+* `browsers`: Object, one key per browser family, with the value forming either a range or a list of specific versions separated by double pipes.
+* `aliases`: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.
+* `dependencies`: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.
+* `author`: Object, metadata about the author of the polyfill, following [NPM convention](https://www.npmjs.org/doc/json.html#people-fields-author-contributors)
+* `licence`: String, an [SPDX](https://spdx.org/licenses/) identifier for an [OSI Approved](http://opensource.org/licenses/alphabetical) license  (Or CC0 which is GPL compatible)
+
+Example:
+
+```json
+{
+	"browsers": {
+		"ie": "6-9",
+		"firefox": "<=20",
+		"opera": "11 || 14",
+		"safari": "<=4",
+		"mobile_safari" "<=6"
+	},
+	"aliases": [
+		"modernizr:es5array"
+	],
+	"dependencies": [
+		"Object.defineProperties",
+		"Object.create"
+	],
+	"author": {
+		"name" : "Person B",
+		"email" : "b@example.com",
+		"url" : "http://person.example.com"
+	},
+	"license": "Zlib"
+}
 ```
-
-Or **matches** without a vendor prefix.
-
-```js
-el.matches(".bar");
-```
-
-These polyfills are clean, compressed, and aggressively cached.
-
-## What browsers are supported?
-
-Android 2.2+, Blackberry 7+, Chrome, Opera 11.5+, Opera Mini 5+, Opera Mobile 10+, Firefox 3.6+, Internet Explorer 6+, Safari 4+, and Safari IOS 4+.
-
-## What functionality is supported?
-
-You should be able to use the following features to a reasonable extent in every supported browser.
-
-### HTML Elements
-
-[abbr](http://developers.whatwg.org/text-level-semantics.html#the-abbr-element),
-[article](http://developers.whatwg.org/sections.html#the-article-element),
-[aside](http://developers.whatwg.org/sections.html#the-aside-element),
-[audio](http://developers.whatwg.org/the-video-element.html#the-audio-element),
-[bdi](http://developers.whatwg.org/text-level-semantics.html#the-bdi-element),
-[canvas](http://developers.whatwg.org/the-canvas-element.html#the-canvas-element),
-[data](http://developers.whatwg.org/text-level-semantics.html#the-data-element),
-[datalist](http://developers.whatwg.org/the-button-element.html#the-datalist-element),
-[details](http://developers.whatwg.org/interactive-elements.html#the-details-element),
-[figcaption](http://developers.whatwg.org/grouping-content.html#the-figcaption-element),
-[figure](http://developers.whatwg.org/grouping-content.html#the-figure-element),
-[footer](http://developers.whatwg.org/sections.html#the-footer-element),
-[header](http://developers.whatwg.org/sections.html#the-header-element),
-[hgroup](http://developers.whatwg.org/sections.html#the-hgroup-element),
-[main](http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-main-element),
-[mark](http://developers.whatwg.org/text-level-semantics.html#the-mark-element),
-[meter](http://developers.whatwg.org/the-button-element.html#the-meter-element),
-[nav](http://developers.whatwg.org/sections.html#the-nav-element),
-[output](http://developers.whatwg.org/the-button-element.html#the-output-element),
-[progress](http://developers.whatwg.org/the-button-element.html#the-progress-element),
-[section](http://developers.whatwg.org/sections.html#the-section-element),
-[subhead](http://rawgithub.com/w3c/subline/master/index.html),
-[summary](http://developers.whatwg.org/interactive-elements.html#the-summary-element),
-[time](http://developers.whatwg.org/text-level-semantics.html#the-time-element),
-[video](http://developers.whatwg.org/the-video-element.html#the-video-element)
-
-### Array
-
-* [Array.isArray](http://kangax.github.io/es5-compat-table/#Array.isArray)
-* [Array.prototype.every](http://kangax.github.io/es5-compat-table/#Array.prototype.every)
-* [Array.prototype.filter](http://kangax.github.io/es5-compat-table/#Array.prototype.filter)
-* [Array.prototype.forEach](http://kangax.github.io/es5-compat-table/#Array.prototype.forEach)
-* [Array.prototype.indexOf](http://kangax.github.io/es5-compat-table/#Array.prototype.indexOf)
-* [Array.prototype.lastIndexOf](http://kangax.github.io/es5-compat-table/#Array.prototype.lastIndexOf)
-* [Array.prototype.map](http://kangax.github.io/es5-compat-table/#Array.prototype.map)
-* [Array.prototype.reduce](http://kangax.github.io/es5-compat-table/#Array.prototype.reduce)
-* [Array.prototype.reduceRight](http://kangax.github.io/es5-compat-table/#Array.prototype.reduceRight)
-* [Array.prototype.some](http://kangax.github.io/es5-compat-table/#Array.prototype.some)
-
-### Object
-
-* [Object.create](http://kangax.github.io/es5-compat-table/#Object.create)
-* [Object.defineProperty](http://kangax.github.io/es5-compat-table/#Object.defineProperty)
-* [Object.defineProperties](http://kangax.github.io/es5-compat-table/#Object.defineProperties)
-* [Object.getOwnPropertyNames](http://kangax.github.io/es5-compat-table/#Object.getOwnPropertyNames)
-* [Object.getPrototypeOf](http://kangax.github.io/es5-compat-table/#Object.getPrototypeOf)
-* [Object.is](http://kangax.github.io/es5-compat-table/#Object.is)
-* [Object.keys](http://kangax.github.io/es5-compat-table/#Object.keys)
-
-### Other
-
-* [Date.now](http://kangax.github.io/es5-compat-table/#Date.now)
-* [Date.prototype.toISOString](http://kangax.github.io/es5-compat-table/#Date.prototype.toISOString)
-* [Function.prototype.bind](http://kangax.github.io/es5-compat-table/#Function.prototype.bind)
-* [String.prototype.trim](http://kangax.github.io/es5-compat-table/#String.prototype.trim)
-
-### Selectors
-
-* [Element.prototype.querySelector / Element.prototype.querySelectorAll](http://caniuse.com/querySelector)
-* [Element.prototype.matches / matchesSelector](http://caniuse.com/matches)
-* [Element.prototype.getElementsByClassName](http://caniuse.com/getelementsbyclassname)
-
-### Mutations
-
-* [Element.prototype.prepend](http://dom.spec.whatwg.org/#dom-parentnode-prepend)
-* [Element.prototype.append](http://dom.spec.whatwg.org/#dom-parentnode-append)
-* [Element.prototype.before](http://dom.spec.whatwg.org/#dom-childnode-before)
-* [Element.prototype.after](http://dom.spec.whatwg.org/#dom-childnode-after)
-* [Element.prototype.remove](http://dom.spec.whatwg.org/#dom-childnode-remove)
-* [Element.prototype.replace](http://dom.spec.whatwg.org/#dom-childnode-replace)
-
-### Events
-
-* [Element.prototype.addEventListener / Element.prototype.removeEventListener / Element.prototype.dispatchEvent](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget#Browser_Compatibility)
-* [new Event / new CustomEvent](https://developer.mozilla.org/en-US/docs/Web/Guide/DOM/Events/Creating_and_triggering_events)
-* [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/Reference/Events/DOMContentLoaded#Browser_compatibility)
-* [hashchange](http://caniuse.com/hashchange)
-
-### Window
-
-* [Window.prototype.innerHeight](https://developer.mozilla.org/en-US/docs/Web/API/window.innerHeight)
-* [Window.prototype.innerWidth](https://developer.mozilla.org/en-US/docs/Web/API/window.innerWidth)
-* [Window.prototype.scrollX / Window.prototype.pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollX)
-* [Window.prototype.scrollY / Window.prototype.pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/window.scrollY)
-
-### Other Goodies
-
-* [Window.prototype.JSON](http://caniuse.com/json)
-* [Window.prototype.localStorage](http://caniuse.com/localStorage)
-* [Window.prototype.getComputedStyle](http://caniuse.com/getComputedStyle)
-* [Window.prototype.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/window.matchMedia)
-* [Window.prototype.matchMedia.addListener](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList#Methods)
-* [Window.prototype.matchMedia.addListener](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList#Methods)
-* [Navigator.prototype.geolocation](http://caniuse.com/geolocation)
-* [Element.prototype.classList](http://caniuse.com/classList)
-* [Element.prototype.hasAttribute](https://developer.mozilla.org/en-US/docs/Web/API/element.hasAttribute)
-* [Element.prototype.placeholder](http://caniuse.com/input-placeholder)
-
-## How big does the script end up being?
-
-With every polyfill loaded, filesizes are pleasingly small.
-
-| Browser               | Filesize |
-| --------------------- | --------:|
-| Chrome                |    338 B |
-| Internet Explorer 10+ |    346 B |
-| Firefox 6+            |    346 B |
-| Safari 6+             |    351 B |
-| Safari 5.1            |    442 B |
-| Opera 15+             |    798 B |
-| Firefox 3.6           |  1.57 KB |
-| Internet Explorer 9   |  1.71 KB |
-| Safari 4              |  2.32 KB |
-| Internet Explorer 8   |  4.88 KB |
-| Internet Explorer 6/7 |  7.70 KB |
-
-## How do I use this on my own?
-
-First, install [GIT](http://git-scm.com/downloads) to [fork this repository](https://github.com/jonathantneal/polyfill/fork). Then, install [Node](http://nodejs.org) and [Grunt](http://gruntjs.com/getting-started#installing-the-cli) to [build this project](http://gruntjs.com/getting-started#working-with-an-existing-grunt-project).
-
-## Can I hack this?
-
-Yes. By default, almost any [polyfill.io](https://polyfill.io) URL returns minified JavaScript polyfills.
-
-```html
-<script src="//polyfill.io"></script>
-```
-
-```html
-<script src="//polyfill.io/same-difference/whatever.js"></script>
-```
-
-*Both scripts return only critical JavaScript polyfills.*
-
-Adding **maybe(X)** to the URL will return only the specific JavaScript or CSS polyfills needed by the user agent, where **X** is a comma-delimited list of the desired scripts or elements.
-
-```html
-<script src="//polyfill.io/maybe(array,geolocation)"></script>
-```
-
-*Returns only critical JavaScript polyfills for array and geolocation.*
-
-Adding **gimme(X)** to the URL will return only specific JavaScript or CSS polyfills (regardless of the user agent), where **X** is a comma-delimited list of the desired scripts or elements. This is your sniff-free solution.
-
-```html
-<script src="//polyfill.io/gimme(array)"></script>
-```
-
-*Returns all JavaScript polyfills for array.*
-
-Adding **readable** to the URL will return human readable JavaScript or CSS.
-
-```html
-<script src="//polyfill.io/readable"></script>
-```
-
-## We&rsquo;re good.
-
-Now, please&hellip; enjoy!
