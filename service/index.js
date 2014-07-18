@@ -51,10 +51,10 @@ app.get(/^\/__health$/, function(req, res) {
 			{
 				"name": "Server is up",
 				"ok": "true",
-				"severity": 3,
-				"businessImpact": "None",
-				"technicalSummary": "Tests that the Node JS process serving the health check response is up.",
-				"panicGuide": "This application consists of Node JS processes on any number of nodes in an environment.  The process must have read permissions on files within its deployment.  If the process is not running it should be started using `node {{deploymeny_directory}}/app.js`",
+				"severity": 2,
+				"businessImpact": "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
+				"technicalSummary": "Tests that the Node JS process is up.",
+				"panicGuide": "This application consists of Node JS processes on any number of nodes in an environment.  The process must have read permissions on files within its deployment.",
 				"checkOutput": "None",
 				"lastUpdated": new Date().toISOString()
 			}
