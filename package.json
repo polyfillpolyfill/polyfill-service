@@ -12,10 +12,10 @@
     "url": "https://github.com/jonathantneal/polyfill"
   },
   "scripts": {
-	"start": "node_modules/.bin/forever --minUptime 30000 --spinSleepTime 1000 app.js",
-	"restart": "node_modules/.bin/forever restart app.js",
-	"stop": "node_modules/.bin/forever stop app.js",
-	"status": "node_modules/.bin/forever list | grep -q app.js"
+	"start": "node_modules/.bin/forever --minUptime 30000 --spinSleepTime 1000 service/index.js",
+	"restart": "node_modules/.bin/forever restart service/index.js",
+	"stop": "node_modules/.bin/forever stop service/index.js",
+	"status": "node_modules/.bin/forever list | grep -q service/index.js"
   },
   "bugs": {
     "url": "https://github.com/jonathantneal/polyfill/issues"
