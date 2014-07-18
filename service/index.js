@@ -41,6 +41,12 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 	res.send(JSON.stringify(info));
 });
 
+app.get(/^\/__gtg$/, function(req, res) {
+	res.set("Content-Type", "text/plain");
+	res.set("Cache-Control", "no-store");
+	res.send("OK");
+});
+
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var firstParameter = req.params[0].toLowerCase(),
