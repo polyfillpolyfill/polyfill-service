@@ -5,7 +5,8 @@ var polyfillio = require('../lib'),
 	origamijson = require('../origami.json'),
 	helpers = require('./helpers'),
 	path = require('path'),
-	parseArgs = require('minimist');
+	parseArgs = require('minimist'),
+	ServiceMetrics = require('./metrics');
 
 'use strict';
 
@@ -13,7 +14,7 @@ var argv = parseArgs(process.argv.slice(2));
 
 var aliasResolver = AliasResolver.createDefault(polyfillio.aliases),
 	port = argv.port || 3000,
-	metrics = new helpers.ServiceMetrics();
+	metrics = new ServiceMetrics();
 
 
 /* Endpoints for health, application metadata and availability status
@@ -132,7 +133,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Cache-Control', 'public, max-age=86400');
 	res.send(polyfill);
 	metrics.addResponseTime(Date.now() - responseStartTime);
-	console.log(fileExtension);
 	metrics.addResponseType(fileExtension);
 });
 
