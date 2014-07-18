@@ -14,6 +14,9 @@
   "bugs": {
     "url": "https://github.com/jonathantneal/polyfill/issues"
   },
+  "scripts": {
+	  "test": "node_modules/.bin/mocha --recursive"
+  },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
     "caniuse-db": "1.0.20140710",
@@ -21,5 +24,8 @@
     "semver": "^2.3.1",
     "uglify-js": "^2.4.14",
     "useragent": "^2.0.8"
+  },
+  "devDependencies": {
+    "mocha": "^1.20.1"
   }
 }
