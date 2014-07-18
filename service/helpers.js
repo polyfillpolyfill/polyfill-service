@@ -18,7 +18,32 @@ function ServiceMetrics() {
 	// The last time the response average was updated (null represents never
 	// in this case)
 	this.lastResponseAverageUpdate = null;
+
+	// Response type metrics
+	this.javascriptResponsesCount = 0;
+	this.javascriptResponsesLastUpdated = null;
+
+
+	this.cssResponsesCount = 0;
+	this.cssResponsesLastUpdated = null;
 }
+
+/** Increment the counter for response type where type is '.js' or '.css' */
+ServiceMetrics.prototype.addResponseType = function(type) {
+	if (type === ".js") {
+		this.javascriptResponsesCount++;
+		this.javascriptResponsesLastUpdated = Date.now();
+		return;
+	}
+
+	if (type === ".css") {
+		this.cssResponsesCount++;
+		this.cssResponsesLastUpdated = Date.now();
+		return;
+	}
+
+	throw new Error("Invalid response file type: " + type);
+};
 
 ServiceMetrics.prototype.addResponseTime = function(timeInMilliSecs) {
 	var newaverage = timeInMilliSecs + (this.averageResponseTime * this.responseCount) / (this.responseCount + 1);
@@ -57,6 +82,28 @@ ServiceMetrics.prototype.getUptimeMetric = function() {
 		"unit": "seconds",
 		"since": new Date(this.serviceStartTime).toISOString(),
 		"lastUpdated": new Date().toISOString()
+	};
+};
+
+ServiceMetrics.prototype.getJavascriptResponseCountMetric = function() {
+	return {
+		"type": "counter",
+		"description": "The number of Javascript polyfills served since last Node JS Process restart",
+		"val": this.javascriptResponsesCount,
+		"unit": "items",
+		"since": new Date(this.serviceStartTime).toISOString(),
+		"lastUpdated": new Date(this.javascriptResponsesLastUpdated).toISOString()
+	};
+};
+
+ServiceMetrics.prototype.getCSSResponseCountMetric = function() {
+	return {
+		"type": "counter",
+		"description": "The number of CSS polyfills served since last Node JS Process restart",
+		"val": this.cssResponsesCount,
+		"unit": "items",
+		"since": new Date(this.serviceStartTime).toISOString(),
+		"lastUpdated": new Date(this.cssResponsesLastUpdated).toISOString()
 	};
 };
 

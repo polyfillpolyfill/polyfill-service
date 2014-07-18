@@ -83,7 +83,9 @@ app.get(/^\/__metrics$/, function(req, res) {
 		"schemaVersion": 1,
 		"metrics": {
 			"responsetime": metrics.getResponseTimeMetric(),
-			"uptime": metrics.getUptimeMetric()
+			"uptime": metrics.getUptimeMetric(),
+			"servedjsresponsecount": metrics.getJavascriptResponseCountMetric(),
+			"servedcssresponsecount": metrics.getCSSResponseCountMetric()
 		}
 	};
 
@@ -130,6 +132,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Cache-Control', 'public, max-age=86400');
 	res.send(polyfill);
 	metrics.addResponseTime(Date.now() - responseStartTime);
+	console.log(fileExtension);
+	metrics.addResponseType(fileExtension);
 });
 
 app.listen(port);
