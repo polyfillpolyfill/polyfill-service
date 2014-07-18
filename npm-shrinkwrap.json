@@ -936,6 +936,11 @@
         }
       }
     },
+    "minimist": {
+      "version": "0.2.0",
+      "from": "minimist@",
+      "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.2.0.tgz"
+    },
     "semver": {
       "version": "2.3.1",
       "from": "https://registry.npmjs.org/semver/-/semver-2.3.1.tgz",
