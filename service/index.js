@@ -3,7 +3,8 @@ var polyfillio = require('../lib'),
 	app = express(),
 	packagejson = require('../package.json'),
 	origamijson = require('../origami.json'),
-	helpers = require('./helpers');
+	helpers = require('./helpers'),
+	path = require('path');
 
 'use strict';
 
@@ -79,7 +80,7 @@ app.get("/", function(req, res) {
 
 
 app.get("/v1/", function(req, res) {
-	res.sendfile('docs/index.html');
+	res.sendfile(path.join(__dirname, '/../docs/index.html'));
 })
 
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
