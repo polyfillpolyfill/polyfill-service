@@ -91,6 +91,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		isGateForced = req.query.gated === "1",
 		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []);
 
+	console.log(req.params, minified, firstParameter);
+
 	var polyfill = polyfillio.getPolyfills({
 		polyfills: polyfills,
 		extension: fileExtension,

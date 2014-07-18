@@ -9,8 +9,7 @@ module.exports = {
 			var nameAndFlags = name.split('|');
 			return {
 				flags:   nameAndFlags.slice(1).concat(additionalFlags),
-				name:    nameAndFlags[0],
-				aliasOf: nameAndFlags[0]
+				name:    nameAndFlags[0]
 			};
 		});
 	}

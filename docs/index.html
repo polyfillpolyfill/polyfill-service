@@ -89,19 +89,19 @@
 
             <iframe class='demo' src='/v1/polyfill.js'></iframe>
 
-            <p>Consider only the <code>Array.prototype.map</code> and <code>Element.prototype.matches</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
+            <p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
 
             <?prettify linenums=1?>
-            <pre><code>&lt;script src="/v1/polyfill.js?features=Array.prototype.map,Element.prototype.matches|always"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
 
-            <iframe class='demo' src='/v1/polyfill.js?features=Array.prototype.map,Element.prototype.matches|always'></iframe>
+            <iframe class='demo' src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></iframe>
 
             <p>Consider all polyfills but for an IE7 user-agent:</p>
 
             <?prettify linenums=1?>
             <pre><code>&lt;script src="/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
 
-            <iframe class='demo' src='/v1/polyfill.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe>
+            <iframe class='demo' src='/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe>
 
             <div class='o-techdocs-footer'>
                 <p>&copy; Jonathan Neal, THE FINANCIAL TIMES LTD and other contributors. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
