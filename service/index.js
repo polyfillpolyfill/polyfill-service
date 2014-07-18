@@ -8,7 +8,8 @@ var polyfillio = require('../lib'),
 'use strict';
 
 var aliasResolver = AliasResolver.createDefault(polyfillio.aliases),
-	port = 3000;
+	port = 3000,
+	metrics = new helpers.ServiceMetrics();
 
 
 /* Endpoints for health, application metadata and availability status
@@ -73,6 +74,20 @@ app.get(/^\/__health$/, function(req, res) {
     res.send(JSON.stringify(info));
 });
 
+app.get(/^\/__metrics$/, function(req, res) {
+	var info = {
+		"schemaVersion": 1,
+		"metrics": {
+			"responsetime": metrics.getResponseTimeMetric(),
+			"uptime": metrics.getUptimeMetric()
+		}
+	};
+
+	res.set("Cache-Control", "no-store");
+	res.set("Content-Type", "application/json; charset=utf-8");
+	res.send(JSON.stringify(info));
+});
+
 app.get("/", function(req, res) {
 	res.redirect('/v1/');
 })
@@ -82,7 +97,9 @@ app.get("/v1/", function(req, res) {
 	res.sendfile('docs/index.html');
 })
 
+
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+	var responseStartTime = Date.now();
 
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
@@ -108,6 +125,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Access-Control-Allow-Origin', '*');
 	res.set('Cache-Control', 'public, max-age=86400');
 	res.send(polyfill);
+	metrics.addResponseTime(Date.now() - responseStartTime);
 });
 
 
