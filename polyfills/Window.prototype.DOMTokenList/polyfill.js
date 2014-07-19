@@ -3,20 +3,11 @@
 	function spliceClassList(classList) {
 		Array.prototype.splice.call(classList, 0, classList.length);
 
-		var className = classList.element.className
-		if (typeof className === 'string') {
-			className = className.trim()
-			if (className.trim()) {
-				Array.prototype.push.apply(classList, className.trim().split(/\s+/));
-			}
+		// We use getAttribute to normalise element.className implementations
+		var className = classList.getAttribute('class')
+		if (className && className.trim()) {
+			Array.prototype.push.apply(classList, className.trim().split(/\s+/));
 		}
-		// AN SVG element's className property  an object with baseVal and
-		// animVal string properties containing the className
-		else if(typeof className === 'object') {
-			if (className.baseVal && className.baseVal.trim()) {
-				Array.prototype.push.apply(classList, className.baseVal.trim().split(/\s+/));
-			}
-  		}
 		return classList;
 	}
 
