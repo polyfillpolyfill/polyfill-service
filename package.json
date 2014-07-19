@@ -31,7 +31,8 @@
     "semver": "^2.3.1",
     "uglify-js": "^2.4.14",
     "useragent": "^2.0.8",
-    "tsort": "0.0.1"
+    "tsort": "0.0.1",
+    "minimist": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "^1.20.1"

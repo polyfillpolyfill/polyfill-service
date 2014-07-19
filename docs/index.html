@@ -3,15 +3,35 @@
 <head>
     <meta charset=UTF8>
     <title>Polyfill service</title>
-    <link rel="stylesheet" href="http://build.origami.ft.com/bundles/css?modules=o-techdocs@^1.0.0" />
+    <link rel="stylesheet" href="http://build.origami.ft.com/bundles/css?modules=o-techdocs@^2.1.2" />
+    <style>
+    body { padding: 0; margin: 0; }
+    var { font-family: monospace; color: rgb(158, 47, 80); font-style: normal; }
+    .demo { width: 100%; height: 90px; border: 1px dotted #999; }
+    </style>
 </head>
 <body class="o-techdocs">
-    <header class="o-techdocs-header">
-        <h1>Polyfill service</h1>
-        <p>Polyfill loader for legacy browser support</p>
+
+    <header data-o-component="o-ft-header" data-o-version="" class="o-ft-header">
+        <div class="o-ft-header__container">
+            <div class="o-ft-header__primary">
+                <div class="o-ft-header__primary__left">
+                    <div class="o-ft-header__logo o-ft-header__logo--ft">
+                        <a href="http://www.ft.com"><abbr title="Financial Times">FT</abbr></a>
+                    </div>
+                    <h1 class="o-ft-header__title">Polyfill service</h1>
+                </div>
+            </div>
+            <div class="o-ft-header__secondary"></div>
+        </div>
     </header>
+
     <div class="o-techdocs-layout">
         <div class="o-techdocs-content">
+
+            <p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.</p>
+
+            <p>Not all features can be polyfilled, and they can usually only be polyfilled back a few versions prior to the version in which native support was added.  Currently support tables are not available in a convenient form, so please consult the <code>config.json</code> file for the appropriate polyfill in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project.</p>
 
             <h2>API reference</h2>
 
@@ -19,7 +39,6 @@
 
             <p>Fetch a polyfill bundle.</p>
 
-            <div class="o-techdocs-table">
             <table class='o-techdocs-table__table'>
                 <tr>
                     <th>Param</th><th>Where</th><th>Description</th>
@@ -47,15 +66,42 @@
                             <dt><code>|gated</code></dt>
                             <dt>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dt>
                         </dl>
+                        <p>If not specified, all polyfills will be considered.</p>
                     </td>
                 </tr><tr>
                     <td><code>gated</code></td>
                     <td>Querystring</td>
                     <td>Set to <code>1</code> to enable feature detects on all polyfills.  Equivalent to adding <code>|gated</code> to every feature in the <code>features</code> argument.</td>
+                </tr><tr>
+                    <td><code>ua</code></td>
+                    <td>Querystring</td>
+                    <td>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a false <code>User-Agent</code> header.</td>
                 </tr>
             </table>
-            </div>
 
+
+            <h2>Examples</h2>
+
+            <p>Consider all polyfills, bundle and return those which are required by the current browser:</p>
+
+            <?prettify linenums=1?>
+            <pre><code>&lt;script src="/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
+
+            <iframe class='demo' src='/v1/polyfill.js'></iframe>
+
+            <p>Consider only the <code>Array.prototype.map</code> and <code>Element.prototype.matches</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
+
+            <?prettify linenums=1?>
+            <pre><code>&lt;script src="/v1/polyfill.js?features=Array.prototype.map,Element.prototype.matches|always"&gt;&lt;/script&gt;</code></pre>
+
+            <iframe class='demo' src='/v1/polyfill.js?features=Array.prototype.map,Element.prototype.matches|always'></iframe>
+
+            <p>Consider all polyfills but for an IE7 user-agent:</p>
+
+            <?prettify linenums=1?>
+            <pre><code>&lt;script src="/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
+
+            <iframe class='demo' src='/v1/polyfill.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe>
 
             <div class='o-techdocs-footer'>
                 <p>&copy; Jonathan Neal, THE FINANCIAL TIMES LTD and other contributors. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
@@ -63,5 +109,8 @@
 
         </div>
     </div>
+    <script src="http://build.origami.ft.com/bundles/js?modules=o-techdocs@^2.1.2"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js'></script>
+    <script>prettyPrint()</script>
 </body>
 </html>
