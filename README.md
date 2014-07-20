@@ -3,14 +3,14 @@
 [![Build
 Status](https://travis-ci.org/Financial-Times/polyfill-service.svg)](https://travis-ci.org/Financial-Times/polyfill-service)
 
-**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](http://polyfill.webservices.ft.com), which formats and displays the documentation located in the [docs](docs/) folder.
+**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](http://polyfill.webservices.ft.com), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
 ## Installing as a service
 
-To install and run the polyfill service locally:
+To install and run polyfill as a service:
 
 1. Install [git](http://git-scm.com/downloads), [Node](http://nodejs.org) and [Grunt](http://gruntjs.com/getting-started#installing-the-cli) and  on your system
-2. Fork this repository.  You can do that [here](https://github.com/financial-times/polyfill/fork)
+2. Fork this repository.  You can do that [here](https://github.com/financial-times/polyfill-service/fork)
 3. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
 4. Run `npm install`
 5. Run `npm start` and navigate to `http://localhost:3000` in your browser
@@ -25,14 +25,6 @@ Polyfill service can also be used as a library in NodeJS projects.  To do this:
 2. Rebuild your project using `npm install`
 3. Use the API from your code
 
-```javascript
-var pf = require('polyfill-service');
-console.log(pf.getPolyfills({
-	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
-	minify: true
-}));
-```
-
 ### Library API reference
 
 #### `getPolyfills(options)` (method)
@@ -42,25 +34,34 @@ Returns a bundle of polyfills as a string.  Options is an object with the follow
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `type`: String, optional. 'js' or 'css', defaults to js
-* `polyfills`: Array, optional.  The list of polyfills that are to be considered for inclusion, each in the form of an object with the following properties:
-	* `name`: Name of polyfill, matching a folder name in the polyfills directory, or a known alias
-	* `flags`: Array of flags to apply to this polyfill (see below)
+* `polyfills`: Array, optional.  The list of polyfills that are to be considered for inclusion.  If not supplied, all polyfills will be considered.  Each polyfill must be in the form of an object with the following properties:
+	* `name`: String, required. Name of polyfill, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this polyfill (see below)
 
 Flags that may be applied to polyfills are:
 
 * `gated`: Wrap this polyfill in a feature-detect, to avoid overwriting the native implementation
 * `always`: Include this polyfill regardless of the user-agent
 
-#### `aliases` (property)
+Example:
 
-TODO - does this need to be exposed publicly?  Perhaps not, if the service doesn't need to deal with aliases
+```javascript
+require('polyfill-service').getPolyfills({
+	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
+	minify: true,
+	polyfills: [
+		{name:"Element.prototype.matches", flags:['always', 'gated']},
+		{name:"modernizr:es5array"}
+	]
+}));
+```
 
 ## Polyfill configuration
 
 All polyfills are located in the polyfills directory, with one subdirectory per polyfill, named after the API method which is the subject of the polyfill.  Each polyfill folder may contain:
 
-* `polyfill.js`: Code to apply the polyfill behaviour
-* `detect.js`: A single expression or IIFE that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise
+* `polyfill.js`: Required. Code to apply the polyfill behaviour
+* `detect.js`: A single expression or IIFE that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  If not present, polyfill cannot be gated.
 * `config.json`: A config file conforming to the spec below
 
 The config.json file may contain any of the following keys:
