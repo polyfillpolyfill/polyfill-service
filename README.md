@@ -9,7 +9,7 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg)](https://tra
 
 To install and run polyfill as a service:
 
-1. Install [git](http://git-scm.com/downloads), [Node](http://nodejs.org) and [Grunt](http://gruntjs.com/getting-started#installing-the-cli) and  on your system
+1. Install [git](http://git-scm.com/downloads) and [Node](http://nodejs.org) on your system
 2. Fork this repository.  You can do that [here](https://github.com/financial-times/polyfill-service/fork)
 3. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
 4. Run `npm install`
