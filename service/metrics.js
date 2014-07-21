@@ -56,6 +56,7 @@ ServiceMetrics.prototype.addResponseTime = function(timeInMilliSecs) {
 
 	this.averageResponseTime = newaverage;
 	this.responseCount++;
+	this.lastResponseAverageUpdate = Date.now();
 };
 
 ServiceMetrics.prototype.getResponseTimeMetric = function() {
