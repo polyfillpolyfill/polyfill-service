@@ -8,7 +8,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 		// Initialise the resolver with a dictionary of names mapping to
 		// potentially many names (eg modernizr:es5array contains all the ES5
 		// array polyfills.
-		AliasResolver.initialise({
+		AliasResolver.initialiseAliasesFromConfig({
 			"alias_name_a": [ "resolved_name_a", "resolved_name_b" ],
 			"alias_name_b": [ "resolved_name_c", "resolved_name_d" ]
 		});
@@ -32,7 +32,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should remove duplicate polyfills once expanded and record which aliases included each polyfill once duplicates are removed", function() {
-		AliasResolver.initialise({
+		AliasResolver.initialiseAliasesFromConfig({
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		});
@@ -66,7 +66,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should pass flags from the aliases to their resolved counterparts", function() {
-		AliasResolver.initialise({
+		AliasResolver.initialiseAliasesFromConfig({
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_d"]
 		});
@@ -107,7 +107,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should concatenate duplicate polyfill's flags and aliases", function() {
-		AliasResolver.initialise({
+		AliasResolver.initialiseAliasesFromConfig({
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		});
