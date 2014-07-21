@@ -11,17 +11,15 @@
     "type": "git",
     "url": "https://github.com/jonathantneal/polyfill"
   },
-  "scripts": {
-	"start": "node_modules/.bin/forever --minUptime 30000 --spinSleepTime 1000 service/index.js",
-	"restart": "node_modules/.bin/forever restart service/index.js",
-	"stop": "node_modules/.bin/forever stop service/index.js",
-	"status": "node_modules/.bin/forever list | grep -q service/index.js"
-  },
   "bugs": {
     "url": "https://github.com/jonathantneal/polyfill/issues"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --recursive"
+    "test": "node_modules/.bin/mocha --recursive",
+	"start": "node_modules/.bin/forever  service/index.js",
+	"restart": "node_modules/.bin/forever restart service/index.js",
+	"stop": "node_modules/.bin/forever stop service/index.js",
+	"status": "node_modules/.bin/forever list | grep -q service/index.js"
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
