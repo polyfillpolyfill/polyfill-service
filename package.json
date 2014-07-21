@@ -1,18 +1,25 @@
 {
-  "name": "polyfill",
+  "name": "polyfill-service",
   "description": "A polyfill combinator",
   "version": "1.0.0",
-  "author": {
-    "name": "Jonathan Neal",
-    "email": "jonathantneal+github@gmail.com",
-    "url": "http://jonathantneal.com/"
-  },
+  "contributors": [
+    {
+      "name": "Jonathan Neal",
+      "email": "jonathantneal+github@gmail.com",
+      "url": "http://jonathantneal.com/"
+    },
+    {
+      "name": "FT Labs",
+      "email": "enquiries@labs.ft.com",
+      "url": "http://labs.ft.com"
+    }
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonathantneal/polyfill"
+    "url": "https://github.com/financial-times/polyfill-service.git"
   },
   "bugs": {
-    "url": "https://github.com/jonathantneal/polyfill/issues"
+	"url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive",
