@@ -1,7 +1,7 @@
 # polyfill
 
 [![Build
-Status](https://travis-ci.org/Financial-Times/polyfill-service.svg)](https://travis-ci.org/Financial-Times/polyfill-service)
+Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master)](https://travis-ci.org/Financial-Times/polyfill-service)
 
 **polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
