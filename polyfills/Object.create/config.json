@@ -4,5 +4,8 @@
 		"firefox": "3.6",
 		"safari": "4"
 	},
+	"aliases": [
+		"modernizr:es5object"
+	],
 	"dependencies": ["Object.defineProperties"]
 }

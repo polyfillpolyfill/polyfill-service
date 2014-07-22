@@ -2,5 +2,9 @@
 	"browsers": {
 		"ie": "8"
 	},
+	"aliases": [
+		"modernizr:placeholder",
+		"caniuse:input-placeholder"
+	],
 	"dependencies": ["Object.defineProperty"]
 }

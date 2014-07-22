@@ -2,6 +2,9 @@
 	"browsers": {
 		"ie": "6 - 9"
 	},
+	"aliases": [
+		"caniuse:datauri"
+	],
 	"license": "MIT David Lindquist (http://www.webtoolkit.info/javascript-base64.html), Andrew Dodson (drew81.com)",
 	"dependencies": ["Window.polyfill.ie7"]
 }

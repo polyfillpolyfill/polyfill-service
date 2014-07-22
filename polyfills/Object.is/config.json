@@ -10,5 +10,8 @@
 		"op_mob": "*",
 		"safari": "*",
 		"ios_saf": "*"
-	}
+	},
+	"aliases": [
+		"modernizr:es6object"
+	]
 }

@@ -2,6 +2,10 @@
 	"browsers": {
 		"ie": "6 - 7"
 	},
+	"aliases": [
+		"modernizr:json",
+		"caniuse:json"
+	],
 	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)",
 	"dependencies": ["Window.polyfill.ie7"]
 }
