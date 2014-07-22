@@ -1,6 +1,12 @@
 var assert  = require('assert');
 var AliasResolver = require('../../lib/aliases');
 
+var configuredAliases = {};
+
+AliasResolver.addResolver(function expandAliasFromConfig(polyfillIdentifierName) {
+	return configuredAliases[polyfillIdentifierName];
+});
+
 describe("#resolvePolyfills(polyfills)", function() {
 
 	it("should take a list of polyfill objects and resolve each to potentially many other polyfill objects based on a sequence of resolution functions", function() {
@@ -8,10 +14,10 @@ describe("#resolvePolyfills(polyfills)", function() {
 		// Initialise the resolver with a dictionary of names mapping to
 		// potentially many names (eg modernizr:es5array contains all the ES5
 		// array polyfills.
-		AliasResolver.initialiseAliasesFromConfig({
+		configuredAliases = {
 			"alias_name_a": [ "resolved_name_a", "resolved_name_b" ],
 			"alias_name_b": [ "resolved_name_c", "resolved_name_d" ]
-		});
+		};
 
 		var resolvedPolyfills = AliasResolver.resolvePolyfills([{
 			name: "alias_name_a",
@@ -32,10 +38,10 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should remove duplicate polyfills once expanded and record which aliases included each polyfill once duplicates are removed", function() {
-		AliasResolver.initialiseAliasesFromConfig({
+		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
-		});
+		};
 
 		var resolvedPolyfills = AliasResolver.resolvePolyfills([{
 			name: "alias_name_a",
@@ -66,10 +72,10 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should pass flags from the aliases to their resolved counterparts", function() {
-		AliasResolver.initialiseAliasesFromConfig({
+		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_d"]
-		});
+		};
 
 		var resolvedPolyfills = AliasResolver.resolvePolyfills([
 			{
@@ -107,10 +113,10 @@ describe("#resolvePolyfills(polyfills)", function() {
 	});
 
 	it("should concatenate duplicate polyfill's flags and aliases", function() {
-		AliasResolver.initialiseAliasesFromConfig({
+		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
-		});
+		};
 
 		var resolvedPolyfills = AliasResolver.resolvePolyfills([
 			{
