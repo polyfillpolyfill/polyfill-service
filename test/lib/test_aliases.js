@@ -147,4 +147,44 @@ describe("#resolvePolyfills(polyfills)", function() {
 			}
 		], resolvedPolyfills);
 	});
+
+	it("should transfer only the first, specified alias to the final resolved polyfill identifier", function() {
+		configuredAliases = {
+			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
+			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
+		};
+
+		AliasResolver.clearResolvers();
+		AliasResolver.addResolver(function(polyfillIdentifierName) {
+
+			// Map only first_alias_name_a to another alias
+			if (polyfillIdentifierName === "first_alias_name_a") {
+				return ["alias_name_a"];
+			}
+
+			return [polyfillIdentifierName];
+		}).addResolver(function(polyfillIdentifierName) {
+			return configuredAliases[polyfillIdentifierName];
+		});
+
+		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+			{
+				name: "first_alias_name_a",
+				flags: ["always"]
+			}
+		]);
+
+		assert.deepEqual([
+			{
+				name: "resolved_name_a",
+				flags: ["always"],
+				aliasOf: ["first_alias_name_a"]
+			},
+			{
+				name: "resolved_name_b",
+				flags: ["always"],
+				aliasOf: ["first_alias_name_a"]
+			}
+		], resolvedPolyfills);
+	});
 });
