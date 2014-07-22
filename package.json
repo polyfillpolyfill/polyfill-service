@@ -22,11 +22,11 @@
 	"url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --recursive",
-	"start": "node_modules/.bin/forever  service/index.js",
-	"restart": "node_modules/.bin/forever restart service/index.js",
-	"stop": "node_modules/.bin/forever stop service/index.js",
-	"status": "node_modules/.bin/forever list | grep -q service/index.js"
+    "test": "mocha --recursive",
+	"start": "forever  service/index.js",
+	"restart": "forever restart service/index.js",
+	"stop": "forever stop service/index.js",
+	"status": "forever list | grep -q service/index.js"
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
