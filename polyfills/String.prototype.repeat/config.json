@@ -1,3 +1,5 @@
 {
-	"modernir:es6string"
+	"aliases": [
+		"modernir:es6string"
+	]
 }
