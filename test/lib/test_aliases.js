@@ -188,7 +188,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 		], resolvedPolyfills);
 	});
 
-	it("should record the rule that included the polyfill in the final aliasOf array", function() {
+	it("should only record the rule that included the polyfill in the final aliasOf array if an alias was used", function() {
 		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
@@ -213,8 +213,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 		assert.deepEqual([
 			{
 				name: "resolved_name_a",
-				flags: ["always"],
-				aliasOf: ["resolved_name_a"]
+				flags: ["always"]
 			},
 			{
 				name: "resolved_name_c",
@@ -274,6 +273,32 @@ describe("#resolvePolyfills(polyfills)", function() {
 				name: "resolved_name_c",
 				flags: ["gated"],
 				aliasOf: ["alias_name_b"]
+			}
+		], resolvedPolyfills);
+	});
+
+	it("should remove duplicate canonical polyfills, merge flags and not create an alias", function() {
+
+		AliasResolver.clearResolvers();
+		AliasResolver.addResolver(function(polyfillIdentifierName) {
+			return undefined;
+		});
+
+		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+			{
+				name: "resolved_name_a",
+				flags: ["always"]
+			},
+			{
+				name: "resolved_name_a",
+				flags: ["gated"]
+			}
+		]);
+
+		assert.deepEqual([
+			{
+				name: "resolved_name_a",
+				flags: ["always", "gated"]
 			}
 		], resolvedPolyfills);
 	});
