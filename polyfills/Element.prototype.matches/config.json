@@ -6,12 +6,12 @@
 		"opera mini": "*",
 		"opera mobile": "*",
 		"android": "*",
-		"blackBerry": "*",
+		"blackberry": "*",
 		"chrome": "1 - 33",
 		"chrome iOS": "*",
 		"opera": "15",
 		"safari": "4 - *",
-		"safari iOS": "*"
+		"safari ios": "*"
 	},
 	"dependencies": ["Window.polyfill.ie7"]
 }
