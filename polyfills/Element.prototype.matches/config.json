@@ -1,6 +1,17 @@
 {
 	"browsers": {
-		"ie": "6 - 8"
+		"ie": "6 - *",
+		"firefox": "*",
+		"opera": "11.5 - 12.1",
+		"opera mini": "*",
+		"opera mobile": "*",
+		"android": "*",
+		"blackberry": "*",
+		"chrome": "1 - 33",
+		"chrome iOS": "*",
+		"opera": "15",
+		"safari": "4 - *",
+		"safari ios": "*"
 	},
 	"dependencies": ["Window.polyfill.ie7"]
 }
