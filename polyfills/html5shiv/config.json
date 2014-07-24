@@ -1,0 +1,14 @@
+{
+	"browsers": {
+		"ie": "6 - 8"
+	},
+	"aliases": [
+		"modernizr:hidden",
+		"modernizr:unknownelements"
+	],
+	"license": "MIT",
+	"author": {
+		"name": "html5shiv contributors",
+		"url": "https://github.com/aFarkas/html5shiv"
+	}
+}
