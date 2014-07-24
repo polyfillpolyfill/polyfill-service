@@ -1,5 +1,11 @@
 // Element.prototype.matches, Element.prototype.matchesSelector
-Element.prototype.matches = function matches(selector) {
+Element.prototype.matches = (Element.prototype.matches ||
+				Element.prototype.matchesSelector ||
+				Element.prototype.webkitMatchesSelector ||
+				Element.prototype.msMatchesSelector ||
+				Element.prototype.mozMatchesSelector ||
+				Element.prototype.oMatchesSelector ||
+function matches(selector) {
 	var
 	element = this,
 	elements = (element.document || element.ownerDocument).querySelectorAll(selector),
@@ -10,4 +16,4 @@ Element.prototype.matches = function matches(selector) {
 	}
 
 	return elements[index] ? true : false;
-};
+});
