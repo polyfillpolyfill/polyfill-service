@@ -44,7 +44,7 @@ ServiceMetrics.prototype.addResponseType = function(type) {
 };
 
 ServiceMetrics.prototype.addResponseTime = function(timeInMilliSecs) {
-	var newaverage = timeInMilliSecs + (this.averageResponseTime * this.responseCount) / (this.responseCount + 1);
+	var newaverage = (timeInMilliSecs + (this.averageResponseTime * this.responseCount)) / (this.responseCount + 1);
 
 	if (timeInMilliSecs < this.minResponseTime) {
 		this.minResponseTime = timeInMilliSecs;
