@@ -1,7 +1,7 @@
 {
   "name": "polyfill-service",
   "description": "A polyfill combinator",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "contributors": [
     {
       "name": "Jonathan Neal",
@@ -19,14 +19,14 @@
     "url": "https://github.com/financial-times/polyfill-service.git"
   },
   "bugs": {
-	"url": "https://github.com/financial-times/polyfill-service/issues"
+    "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
     "test": "mocha --recursive",
-	"start": "forever  service/index.js",
-	"restart": "forever restart service/index.js",
-	"stop": "forever stop service/index.js",
-	"status": "forever list | grep -q service/index.js"
+    "start": "forever  service/index.js",
+    "restart": "forever restart service/index.js",
+    "stop": "forever stop service/index.js",
+    "status": "forever list | grep -q service/index.js"
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
