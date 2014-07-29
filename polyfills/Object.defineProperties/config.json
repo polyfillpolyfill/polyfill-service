@@ -2,5 +2,8 @@
 	"browsers": {
 		"ie": "6 - 8"
 	},
+	"aliases": [
+		"modernizr:es5object"
+	],
 	"dependencies": ["Object.defineProperty.ie7", "Object.defineProperty.ie8", "Object.defineProperty"]
 }

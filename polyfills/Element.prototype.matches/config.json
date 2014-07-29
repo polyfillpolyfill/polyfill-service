@@ -13,5 +13,8 @@
 		"safari": "4 - *",
 		"ios_saf": "*"
 	},
+	"aliases": [
+		"caniuse:matchesselector"
+	],
 	"dependencies": ["Window.polyfill.ie7"]
 }

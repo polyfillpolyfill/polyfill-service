@@ -2,5 +2,9 @@
 	"browsers": {
 		"ie": "6 - 7"
 	},
+	"aliases": [
+		"modernizr:placeholder",
+		"caniuse:input-placeholder"
+	],
 	"dependencies": ["Window.polyfill.ie7"]
 }
