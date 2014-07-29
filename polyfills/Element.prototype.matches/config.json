@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"ie": "6 - 8",
+		"ie": "6 - 8"
 	},
 	"aliases": [
 		"caniuse:matchesselector"
