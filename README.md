@@ -81,7 +81,7 @@ Example:
 		"firefox": "<=20",
 		"opera": "11 || 14",
 		"safari": "<=4",
-		"mobile_safari" "<=6"
+		"ios_saf" "<=6"
 	},
 	"aliases": [
 		"modernizr:es5array"
