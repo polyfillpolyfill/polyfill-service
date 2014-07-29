@@ -111,13 +111,14 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
 		isGateForced = req.query.gated === "1",
-		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []);
+		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []),
+		uaString = req.query.ua || req.header('user-agent');
 
 	var polyfill = polyfillio.getPolyfills({
 		polyfills: polyfills,
 		extension: fileExtension,
 		minify: minified,
-		uaString: req.header('user-agent'),
+		uaString: uaString,
 		url: req.originalUrl
 	});
 
