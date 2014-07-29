@@ -3,5 +3,8 @@
 		"opera": "11.5 - 12.1",
 		"op_mini": "*",
 		"op_mob": "*"
-	}
+	},
+	"aliases": [
+		"caniuse:matchesselector"
+	]
 }

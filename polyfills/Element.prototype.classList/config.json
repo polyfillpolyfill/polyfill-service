@@ -3,7 +3,7 @@
 		"ie": "8 - 9",
 		"safari": "4"
 	},
-	"dependencies": ["Window.polyfill.ie7", "Object.defineProperties"],
+	"dependencies": ["Window.polyfill.ie7", "Object.defineProperties", "Window.prototype.DOMTokenList"],
 	"aliases": [
 		"modernizr:classlist"
 	]

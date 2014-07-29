@@ -3,5 +3,8 @@
 		"firefox": "3.6",
 		"safari": "4",
 		"ios_saf": "4.3"
-	}
+	},
+	"aliases": [
+		"modernizr:es5object"
+	]
 }

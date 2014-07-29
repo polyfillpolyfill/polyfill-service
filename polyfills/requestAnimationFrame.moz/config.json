@@ -1,5 +1,9 @@
 {
 	"browsers": {
 		"firefox": "4 - 22"
-	}
+	},
+	"aliases": [
+		"modernizr:requestanimationframe",
+		"caniuse:requestanimationframe"
+	]
 }

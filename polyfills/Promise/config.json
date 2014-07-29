@@ -1,1 +1,6 @@
-{}
+{
+	"aliases": [
+		"modernizr:promises",
+		"caniuse:promises"
+	]
+}
