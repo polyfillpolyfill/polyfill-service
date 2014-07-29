@@ -1,17 +1,6 @@
 {
 	"browsers": {
-		"ie": "6 - *",
-		"firefox": "*",
-		"opera": "11.5 - 12.1",
-		"op_mini": "*",
-		"op_mob": "*",
-		"android": "*",
-		"bb": "*",
-		"chrome": "1 - 33",
-		"ios_chr": "*",
-		"opera": "15",
-		"safari": "4 - *",
-		"ios_saf": "*"
+		"ie": "6 - 8",
 	},
 	"aliases": [
 		"caniuse:matchesselector"
