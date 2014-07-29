@@ -2,6 +2,6 @@
 	"browsers": {
 		"firefox": "3.6",
 		"safari": "4",
-		"safari ios": "4.3"
+		"ios_saf": "4.3"
 	}
 }

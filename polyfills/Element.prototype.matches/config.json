@@ -3,15 +3,15 @@
 		"ie": "6 - *",
 		"firefox": "*",
 		"opera": "11.5 - 12.1",
-		"opera mini": "*",
-		"opera mobile": "*",
+		"op_mini": "*",
+		"op_mob": "*",
 		"android": "*",
-		"blackberry": "*",
+		"bb": "*",
 		"chrome": "1 - 33",
-		"chrome iOS": "*",
+		"ios_chr": "*",
 		"opera": "15",
 		"safari": "4 - *",
-		"safari ios": "*"
+		"ios_saf": "*"
 	},
 	"dependencies": ["Window.polyfill.ie7"]
 }
