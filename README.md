@@ -109,6 +109,7 @@ support using the `browsers` key.
 | `ie`       | Internet Explorer        |
 | `ie_mob`   | Internet Explorer Mobile |
 | `chrome`   | Chrome                   |
+| `ios_chr`  | Chrome on iOS            |
 | `safari`   | Safari                   |
 | `ios_saf`  | Safari on iOS            |
 | `firefox`  | Firefox                  |
