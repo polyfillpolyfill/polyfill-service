@@ -66,7 +66,7 @@ All polyfills are located in the polyfills directory, with one subdirectory per 
 
 The config.json file may contain any of the following keys:
 
-* `browsers`: Object, one key per browser family, with the value forming either a range or a list of specific versions separated by double pipes.
+* `browsers`: Object, one key per browser family name (see [browser names](#browser-names)), with the value forming either a range or a list of specific versions separated by double pipes. See [node-semver ranges](https://github.com/npm/node-semver#ranges).
 * `aliases`: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.
 * `dependencies`: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.
 * `author`: Object, metadata about the author of the polyfill, following [NPM convention](https://www.npmjs.org/doc/json.html#people-fields-author-contributors)
@@ -98,3 +98,23 @@ Example:
 	"license": "Zlib"
 }
 ```
+
+### Browser names
+
+The short names should be used in the `config.json` to configure the browser
+support using the `browsers` key.
+
+| Short name | User Agent Name          |
+|:----------:|:-------------------------|
+| `ie`       | Internet Explorer        |
+| `ie_mob`   | Internet Explorer Mobile |
+| `chrome`   | Chrome                   |
+| `ios_chr`  | Chrome on iOS            |
+| `safari`   | Safari                   |
+| `ios_saf`  | Safari on iOS            |
+| `firefox`  | Firefox                  |
+| `android`  | Android Browser          |
+| `opera`    | Opera                    |
+| `op_mob`   | Opera Mobile             |
+| `op_mini`  | Opera Mini               |
+| `bb`       | Blackberry               |

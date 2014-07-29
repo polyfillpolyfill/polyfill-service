@@ -1,7 +1,7 @@
 {
 	"browsers": {
 		"opera": "11.5 - 12.1",
-		"opera mini": "*",
-		"opera mobile": "*"
+		"op_mini": "*",
+		"op_mob": "*"
 	}
 }

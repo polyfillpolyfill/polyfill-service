@@ -5,8 +5,8 @@
 		"ie": "6 - 9",
 		"firefox": "3.6 - 5",
 		"opera": "11.5 - 12.1",
-		"opera mini": "*",
-		"opera mobile": "10 - 12",
+		"op_mini": "*",
+		"op_mob": "10 - 12",
 		"safari": "4 - 5"
 	},
 	"dependencies": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]

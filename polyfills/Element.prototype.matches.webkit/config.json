@@ -1,11 +1,11 @@
 {
 	"browsers": {
 		"android": "*",
-		"blackBerry": "*",
+		"bb": "*",
 		"chrome": "1 - 33",
-		"chrome iOS": "*",
+		"ios_chr": "*",
 		"opera": "15",
 		"safari": "4 - *",
-		"safari iOS": "*"
+		"ios_saf": "*"
 	}
 }
