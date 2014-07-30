@@ -137,3 +137,4 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 });
 
 app.listen(port);
+console.log("Server listening on port: ", port);
