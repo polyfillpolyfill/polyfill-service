@@ -3,10 +3,11 @@
 	function spliceClassList(classList) {
 		Array.prototype.splice.call(classList, 0, classList.length);
 
-		if (classList.element.className.trim()) {
-			Array.prototype.push.apply(classList, classList.element.className.trim().split(/\s+/));
+		// We use getAttribute to normalise element.className implementations
+		var className = (classList.getAttribute('class') || '').replace(/^\s+|\s+$/g, '');
+		if (className) {
+			Array.prototype.push.apply(classList, className.split(/\s+/));
 		}
-
 		return classList;
 	}
 
