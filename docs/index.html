@@ -3,11 +3,10 @@
 <head>
     <meta charset=UTF8>
     <title>Polyfill service</title>
-    <link rel="stylesheet" href="http://build.origami.ft.com/bundles/css?modules=o-techdocs@^2.1.2" />
+    <link rel="stylesheet" href="http://build.origami.ft.com/bundles/css?modules=o-techdocs@^3.0.1" />
     <style>
     body { padding: 0; margin: 0; }
-    var { font-family: monospace; color: rgb(158, 47, 80); font-style: normal; }
-    .demo { width: 100%; height: 90px; border: 1px dotted #999; }
+    iframe.demo { width: 100%; height: 90px; border: 1px dotted #999; }
     </style>
 </head>
 <body class="o-techdocs">
@@ -26,7 +25,7 @@
         </div>
     </header>
 
-    <div class="o-techdocs-layout">
+    <div class="o-techdocs-layout o-techdocs-layout--full">
         <div class="o-techdocs-content">
 
             <p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.</p>
@@ -39,7 +38,7 @@
 
             <p>Fetch a polyfill bundle.</p>
 
-            <table class='o-techdocs-table__table'>
+            <table>
                 <tr>
                     <th>Param</th><th>Where</th><th>Description</th>
                 </tr><tr>
@@ -64,7 +63,7 @@
                             <dt><code>|always</code></dt>
                             <dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
                             <dt><code>|gated</code></dt>
-                            <dt>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dt>
+                            <dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
                         </dl>
                         <p>If not specified, all polyfills will be considered.</p>
                     </td>
@@ -112,10 +111,10 @@
 
         </div>
     </div>
-    <div class='o-techdocs-footer'>
-        <p>&copy; Jonathan Neal, The Financial Times Ltd and other <a style='float:none' href='https://github.com/Financial-Times/polyfill-service/graphs/contributors'>contributors</a>. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
-    </div>
-    <script src="http://build.origami.ft.com/bundles/js?modules=o-techdocs@^2.1.2"></script>
+    <footer>
+        <p>&copy; Jonathan Neal, The Financial Times Ltd and other <a href='https://github.com/Financial-Times/polyfill-service/graphs/contributors'>contributors</a>. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
+    </footer>
+    <script src="http://build.origami.ft.com/bundles/js?modules=o-techdocs@^3.0.1"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js'></script>
     <script>prettyPrint()</script>
 </body>
