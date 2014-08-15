@@ -113,12 +113,11 @@ app.use('/assets', express.static(__dirname + '/../docs/assets'));
 /* API endpoints */
 
 
-app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+app.get(/^\/v1\/polyfill(?:\.(min|map))?(\.\w+)/, function(req, res) {
 	var responseStartTime = Date.now();
 
-	var firstParameter = req.params[0].toLowerCase(),
-		minified =  firstParameter === '.min',
-		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
+	var minify = req.params[0],
+		fileExtension = req.params[1].toLowerCase(),
 		isGateForced = req.query.gated === "1",
 		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
@@ -126,9 +125,9 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var polyfill = polyfillio.getPolyfills({
 		polyfills: polyfills,
 		extension: fileExtension,
-		minify: minified,
+		minify: minify,
 		uaString: uaString,
-		url: req.originalUrl
+		mapUrl: req.originalUrl.replace(/^\/v1\/polyfill\.min/, '/v1/polyfill.map')
 	});
 
 	if (fileExtension === '.js') {
