@@ -4,7 +4,7 @@
 		Array.prototype.splice.call(classList, 0, classList.length);
 
 		// We use getAttribute to normalise element.className implementations
-		var className = (classList.getAttribute('class') || '').replace(/^\s+|\s+$/g, '');
+		var className = (classList.element.getAttribute('class') || '').replace(/^\s+|\s+$/g, '');
 		if (className) {
 			Array.prototype.push.apply(classList, className.split(/\s+/));
 		}
