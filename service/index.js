@@ -20,7 +20,7 @@ var port = argv.port || 3000,
  * compliant with FT Origami standard
  * http://origami.ft.com/docs/syntax/web-service-index/ */
 
-// Describe the available
+// Describe the available API versions
 app.get(/^\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
@@ -32,7 +32,7 @@ app.get(/^\/__about$/, function(req, res) {
 	res.send(JSON.stringify(info));
 });
 
-
+// Describe the active API version
 app.get(/^\/v1\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
@@ -47,12 +47,14 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 	res.send(JSON.stringify(info));
 });
 
+// "Good to go" endpoint
 app.get(/^\/__gtg$/, function(req, res) {
 	res.set("Content-Type", "text/plain");
 	res.set("Cache-Control", "no-store");
 	res.send("OK");
 });
 
+// Healthcheck
 app.get(/^\/__health$/, function(req, res) {
     var info = {
         "schemaVersion": 1,
