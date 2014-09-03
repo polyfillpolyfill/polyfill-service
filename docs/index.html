@@ -28,9 +28,17 @@
     <div class="o-techdocs-layout o-techdocs-layout--full">
         <div class="o-techdocs-content">
 
-            <p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.</p>
+            <p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.  Think of it like a pair of glasses for your aging browser.</p>
 
             <p>Not all features can be polyfilled, and they can usually only be polyfilled back a few versions prior to the version in which native support was added.  Currently support tables are not available in a convenient form, so please consult the <code>config.json</code> file for the appropriate polyfill in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project.</p>
+
+
+            <h2>Tl;DR</h2>
+
+            <p>Put this in the <code>&lt;head&gt;</code> of your HTML document and magic happens:</p>
+
+            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
+
 
             <h2>API reference</h2>
 
@@ -51,7 +59,7 @@
                     <td><code>type</code></td>
                     <td>URL</td>
                     <td>
-                        Set to <code>js</code> or <code>css</code>.
+                        Set to <code>js</code>.  Currently we only support JavaScript polyfills, but the <code>css</code> type is reserved for future use.
                     </td>
                 </tr><tr>
                     <td><code>features</code></td>
@@ -84,21 +92,21 @@
             <p>Consider all polyfills, bundle and return those which are required by the current browser:</p>
 
             <?prettify linenums=1?>
-            <pre><code>&lt;script src="/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
 
             <iframe class='demo' src='/v1/polyfill.js'></iframe>
 
             <p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
 
             <?prettify linenums=1?>
-            <pre><code>&lt;script src="/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
 
             <iframe class='demo' src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></iframe>
 
             <p>Consider all polyfills but for an IE7 user-agent:</p>
 
             <?prettify linenums=1?>
-            <pre><code>&lt;script src="/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
 
             <iframe class='demo' src='/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe>
 
@@ -108,6 +116,7 @@
 
             <p>Our <code>cdn.polyfill.io</code> domain routes traffic through <a href='http://www.fastly.com'>Fastly</a>, which makes it available with global high availability and superb performance no matter where your users are.  Our thanks go to Fastly for recognising the usefulness of this service to the web community and particularly to Steve Souders.  To use polyfill from a non-FT website, you must use the CDN.</p>
 
+            <p>FT developers, please use <code>polyfill.webservices.ft.com</code>.</p>
 
         </div>
     </div>
