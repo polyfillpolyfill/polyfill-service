@@ -12,7 +12,7 @@ var polyfillio = require('../lib'),
 
 var argv = parseArgs(process.argv.slice(2));
 
-var port = argv.port || 3000,
+var port = argv.port || Number(process.env.PORT) || 3000,
 	metrics = new ServiceMetrics();
 
 
