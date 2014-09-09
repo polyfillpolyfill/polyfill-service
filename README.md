@@ -66,7 +66,7 @@ All polyfills are located in the polyfills directory, with one subdirectory per 
 
 The config.json file may contain any of the following keys:
 
-* `browsers`: Object, one key per browser family name (see [browser names](#browser-names)), with the value forming either a range or a list of specific versions separated by double pipes. See [node-semver ranges](https://github.com/npm/node-semver#ranges).
+* `browsers`: Object, one key per browser family name (see [browser names](#browser-names)), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill *should be applied*. See [node-semver ranges](https://github.com/npm/node-semver#ranges).
 * `aliases`: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.
 * `dependencies`: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.
 * `author`: Object, metadata about the author of the polyfill, following [NPM convention](https://www.npmjs.org/doc/json.html#people-fields-author-contributors)
@@ -98,6 +98,8 @@ Example:
 	"license": "Zlib"
 }
 ```
+
+A request from IE7 would receive this polyfill, since it is targeted to IE 6-9.  It *may* also receive polyfills for `Object.defineProperties` and `Object.create`, since those are dependencies of the polyfill in this example, if those polyfills also apply in IE7.
 
 ### Browser names
 
