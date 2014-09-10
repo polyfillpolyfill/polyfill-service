@@ -10,7 +10,8 @@
         "chrome": "<36"
     },
     "dependencies": [
-        "Object.defineProperties"
+        "Object.defineProperties",
+        "Object.keys"
     ],
     "author": {
         "name" : "Jeremy Darling",
