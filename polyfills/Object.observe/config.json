@@ -1,0 +1,21 @@
+{
+    "browsers": {
+        "ie": "*",
+        "ie_mob": "*",
+        "firefox": "*",
+        "opera": "*",
+        "safari": "*",
+        "ios_saf": "*",
+        "android": "*",
+        "chrome": "<36"
+    },
+    "dependencies": [
+        "Object.defineProperties"
+    ],
+    "author": {
+        "name" : "Jeremy Darling",
+        "email" : "jeremy.darling@gmail.com",
+        "url" : "https://github.com/jdarling/Object.observe"
+    },
+    "license": "unlicense"
+}
