@@ -28,7 +28,7 @@ app.get(/^\/__about$/, function(req, res) {
 			"/v1/"
 		]
 	};
-	res.set("Content-Type", "application/json");
+	res.set("Content-Type", "application/json;charset=utf-8");
 	res.send(JSON.stringify(info));
 });
 
@@ -43,13 +43,13 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 		"supportStatus": "active"
 	};
 
-	res.set("Content-Type", "application/json");
+	res.set("Content-Type", "application/json;charset=utf-8");
 	res.send(JSON.stringify(info));
 });
 
 // "Good to go" endpoint
 app.get(/^\/__gtg$/, function(req, res) {
-	res.set("Content-Type", "text/plain");
+	res.set("Content-Type", "text/plain;charset=utf-8");
 	res.set("Cache-Control", "no-store");
 	res.send("OK");
 });
@@ -76,7 +76,7 @@ app.get(/^\/__health$/, function(req, res) {
     };
 
     res.set('Cache-Control', 'no-store');
-    res.set('Content-Type', 'application/json; charset=utf-8');
+    res.set('Content-Type', 'application/json;charset=utf-8');
     res.send(JSON.stringify(info));
 });
 
@@ -92,7 +92,7 @@ app.get(/^\/__metrics$/, function(req, res) {
 	};
 
 	res.set("Cache-Control", "no-store");
-	res.set("Content-Type", "application/json; charset=utf-8");
+	res.set("Content-Type", "application/json;charset=utf-8");
 	res.send(JSON.stringify(info));
 });
 
@@ -134,9 +134,9 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	});
 
 	if (fileExtension === '.js') {
-		res.set('Content-Type', 'application/javascript');
+		res.set('Content-Type', 'application/javascript;charset=utf-8');
 	} else {
-		res.set('Conent-Type', 'text/css');
+		res.set('Content-Type', 'text/css;charset=utf-8');
 	}
 
 	res.set('Vary', 'User-Agent');
