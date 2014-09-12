@@ -53,7 +53,7 @@
 		this.addListener.listeners.splice(this.addListener.listeners.indexof(listener), 1);
 	};
 
-	window.matchMedia = Window.prototype.matchMedia = function matchMedia(query) {
+	window.matchMedia = window.prototype.matchMedia = function matchMedia(query) {
 		var
 		window = this,
 		list = new MediaQueryList();
