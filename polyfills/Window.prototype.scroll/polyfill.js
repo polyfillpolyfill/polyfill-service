@@ -1,5 +1,5 @@
 // Window.prototype.scroll
-Object.defineProperties(Window.prototype, {
+Object.defineProperties(window.prototype, {
 	'scrollX': {
 		get: function () {
 			return this.pageXOffset;
