@@ -1,5 +1,9 @@
 // Array.prototype.reduce
 Array.prototype.reduce = function reduce(callback) {
+	if (typeof callback !== 'function') {
+		throw new TypeError(callback + ' is not a function');
+	}
+
 	var array = this, length = array.length, index = 0, previousValue;
 
 	while (index < length && !(index in array)) {
