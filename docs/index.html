@@ -4,9 +4,12 @@
     <meta charset=UTF8>
     <title>Polyfill service</title>
     <link rel="stylesheet" href="//build.origami.ft.com/bundles/css?modules=o-techdocs@^3.0.1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, inital-scale=1.0" />
     <style>
     body { padding: 0; margin: 0; }
-    iframe.demo { width: 100%; height: 90px; border: 1px dotted #999; }
+    .demo { width: 100%; height: 90px; max-height: 90px; border: 1px dotted #999; position: relative; overflow-y: auto;
+    overflow-x: hidden; -webkit-overflow-scrolling:touch; /* Fix IFRAME sizing bug on iOS */ }
+    .demo iframe { width:100%; height: 100%; border: 0; }
     </style>
 </head>
 <body class="o-techdocs">
@@ -37,6 +40,7 @@
 
             <p>Put this in the <code>&lt;head&gt;</code> of your HTML document and magic happens:</p>
 
+            <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 
 
@@ -91,24 +95,24 @@
 
             <p>Consider all polyfills, bundle and return those which are required by the current browser:</p>
 
-            <?prettify linenums=1?>
+            <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
 
-            <iframe class='demo' src='/v1/polyfill.js'></iframe>
+            <div class='demo'><iframe src='/v1/polyfill.js'></iframe></div>
 
             <p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
 
-            <?prettify linenums=1?>
+            <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
 
-            <iframe class='demo' src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></iframe>
+            <div class='demo'><iframe src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></iframe></div>
 
             <p>Consider all polyfills but for an IE7 user-agent:</p>
 
-            <?prettify linenums=1?>
+            <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
 
-            <iframe class='demo' src='/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe>
+            <div class='demo'><iframe src='/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></iframe></div>
 
             <h2>About</h2>
 
