@@ -1,7 +1,12 @@
 // Array.prototype.indexOf
-Array.prototype.indexOf = function indexOf(searchElement) {
-	for (var array = this, index = 0, length = array.length; index < length; ++index) {
-		if (array[index] === searchElement) {
+Array.prototype.indexOf = function indexOf(searchElement, index) {
+	var array = this, length = array.length;
+
+	index = parseInt(index) || 0;
+	index = index >= 0 ? index : Math.max(length + index, 0);
+
+	for (; index < length; ++index) {
+		if (index in array && array[index] === searchElement) {
 			return index;
 		}
 	}

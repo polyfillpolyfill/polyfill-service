@@ -1,9 +1,17 @@
 // Array.prototype.reduceRight
 Array.prototype.reduceRight = function reduceRight(callback, initialValue) {
-	var array = this, previousValue = initialValue || 0;
+	var array = this, index = array.length - 1, previousValue;
 
-	for (var index = array.length - 1; index > -1; --index) {
-		previousValue = callback.call(window, previousValue, array[index], index, array);
+	while (index >= 0 && !(index in array)) {
+		--index;
+	}
+
+	previousValue = 2 in arguments ? initialValue : array[index];
+
+	for (--index; index >= 0; --index) {
+		if (index in array) {
+			previousValue = callback(previousValue, array[index], index, array);
+		}
 	}
 
 	return previousValue;

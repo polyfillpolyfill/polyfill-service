@@ -1,7 +1,12 @@
 // Array.prototype.lastIndexOf
-Array.prototype.lastIndexOf = function lastIndexOf(searchElement) {
-	for (var array = this, index = array.length - 1; index > -1; --index) {
-		if (array[index] === searchElement) {
+Array.prototype.lastIndexOf = function lastIndexOf(searchElement, index) {
+	var array = this, length = array.length;
+
+	index = index === undefined ? length : parseInt(index) || 0;
+	index = index >= 0 ? index : Math.max(length + index, 0);
+
+	for (; index >= 0; --index) {
+		if (index in array && array[index] === searchElement) {
 			return index;
 		}
 	}
