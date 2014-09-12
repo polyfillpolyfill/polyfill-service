@@ -1,7 +1,7 @@
 // Object.create
 Object.create = function create(prototype, properties) {
-	if (typeof prototype !== 'object') {
-		throw new Error('Object prototype may only be an Object or null');
+	if (prototype !== Object(prototype)) {
+		throw new TypeError('Object prototype may only be an Object or null');
 	}
 
 	var object = document.createEventObject();
@@ -10,7 +10,9 @@ Object.create = function create(prototype, properties) {
 		object[property] = prototype[property];
 	}
 
-	Object.defineProperties(object, properties);
+	if (properties) {
+		Object.defineProperties(object, properties);
+	}
 
 	return object;
 };

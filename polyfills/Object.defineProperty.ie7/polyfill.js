@@ -1,5 +1,9 @@
 // Object.defineProperty
-Object.defineProperty = function (object, property, descriptor) {
+Object.defineProperty = function defineProperty(object, property, descriptor) {
+	if (object !== Object(object)) {
+		throw new TypeError('Object.defineProperty called on non-object');
+	}
+
 	var propertyValue = object[property];
 
 	function onPropertyChange(event) {
@@ -13,7 +17,7 @@ Object.defineProperty = function (object, property, descriptor) {
 			}
 
 			// restore the getter
-			object[property] = new String(propertyValue);
+			object[property] = String(propertyValue);
 
 			object[property].toString = function () {
 				return descriptor.get.call(object);
@@ -25,7 +29,7 @@ Object.defineProperty = function (object, property, descriptor) {
 	}
 
 	// assign the getter
-	object[property] = new String(propertyValue);
+	object[property] = String(propertyValue);
 
 	object[property].toString = function () {
 		return descriptor.get.call(object);

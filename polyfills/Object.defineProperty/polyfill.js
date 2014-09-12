@@ -1,5 +1,9 @@
 // Object.defineProperty
-Object.defineProperty = function (object, property, descriptor) {
+Object.defineProperty = function defineProperty(object, property, descriptor) {
+	if (object !== Object(object)) {
+		throw new TypeError('Object.defineProperty called on non-object');
+	}
+
 	if (descriptor.get) {
 		object.__defineGetter__(property, descriptor.get);
 	}

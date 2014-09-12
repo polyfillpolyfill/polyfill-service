@@ -1,16 +1,18 @@
 // Object.create
 Object.create = function create(prototype, properties) {
-	if (typeof prototype !== 'object') {
-		throw new Error('Object prototype may only be an Object or null');
+	/* jshint evil: true */
+
+	if (prototype !== Object(prototype)) {
+		throw new TypeError('Object prototype may only be an Object or null');
 	}
 
-	var Constructor = function () {};
+	var
+	name = typeof prototype === 'function' && Function.prototype.toString.call(prototype).match(/\s\w+/) || ' Object',
+	object = new Function('e', 'function' + name + '(e){}' + name + '.prototype=e;return new' + name)(prototype);
 
-	Constructor.prototype = prototype;
-
-	var object = new Constructor();
-
-	Object.defineProperties(object, properties);
+	if (properties) {
+		Object.defineProperties(object, properties);
+	}
 
 	return object;
 };
