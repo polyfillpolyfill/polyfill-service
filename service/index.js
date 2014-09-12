@@ -132,12 +132,16 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
 
-	if (req.header('polyfill-cache') === 'require-explicit' && uaString !== polyfillio.normalise(uaString)) {
-		res.status(302);
+	if (!uaString) {
+		res.status(400);
+		res.send('A user agent identifier is required, either via a User-Agent header or the ua query param.');
+
+	} else if (req.header('polyfill-cache').toLowerCase() === 'require-explicit' && uaString !== polyfillio.normalize(uaString)) {
+		res.status(301);
 		res.set('Location', 'TODO');
 		res.send();
-	} else {
 
+	} else {
 		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 		if (!req.query.ua) res.set('Vary', 'User-Agent');
 		res.set('Access-Control-Allow-Origin', '*');
