@@ -15,6 +15,12 @@ var argv = parseArgs(process.argv.slice(2));
 var port = argv.port || Number(process.env.PORT) || 3000,
 	metrics = new ServiceMetrics();
 
+// Default cache control policy
+app.use(function(req, res, next) {
+	res.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800, stale-if-error=604800');
+	return next();
+});
+
 
 /* Endpoints for health, application metadata and availability status
  * compliant with FT Origami standard
@@ -141,7 +147,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	res.set('Vary', 'User-Agent');
 	res.set('Access-Control-Allow-Origin', '*');
-	res.set('Cache-Control', 'public, max-age=86400');
 	res.send(polyfill);
 	metrics.addResponseTime(Date.now() - responseStartTime);
 	metrics.addResponseType(fileExtension);
