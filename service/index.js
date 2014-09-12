@@ -56,7 +56,7 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 // "Good to go" endpoint
 app.get(/^\/__gtg$/, function(req, res) {
 	res.set("Content-Type", "text/plain;charset=utf-8");
-	res.set("Cache-Control", "no-store");
+	res.set("Cache-Control", "no-cache");
 	res.send("OK");
 });
 
@@ -81,7 +81,7 @@ app.get(/^\/__health$/, function(req, res) {
         ],
     };
 
-    res.set('Cache-Control', 'no-store');
+    res.set('Cache-Control', 'no-cache');
     res.set('Content-Type', 'application/json;charset=utf-8');
     res.send(JSON.stringify(info));
 });
