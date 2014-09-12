@@ -1,4 +1,4 @@
 // Array.of
 Array.of = function of() {
-	return [].slice.call(arguments);
+	return Array.prototype.slice.call(arguments);
 };
