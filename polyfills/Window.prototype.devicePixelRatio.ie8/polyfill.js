@@ -1,5 +1,5 @@
 // Window.prototype.devicePixelRatio
-Object.defineProperty(Window.prototype, 'devicePixelRatio', {
+Object.defineProperty(window.prototype, 'devicePixelRatio', {
 	get: function () {
 		return screen.deviceXDPI / screen.logicalXDPI;
 	}
