@@ -97,7 +97,7 @@ app.get(/^\/__metrics$/, function(req, res) {
 		}
 	};
 
-	res.set("Cache-Control", "no-store");
+	res.set("Cache-Control", "no-cache");
 	res.set("Content-Type", "application/json;charset=utf-8");
 	res.send(JSON.stringify(info));
 });
