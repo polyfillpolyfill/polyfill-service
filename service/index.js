@@ -13,7 +13,8 @@ var polyfillio = require('../lib'),
 var argv = parseArgs(process.argv.slice(2));
 
 var port = argv.port || Number(process.env.PORT) || 3000,
-	metrics = new ServiceMetrics();
+	metrics = new ServiceMetrics(),
+	contentTypes = {js: 'application/javascript', css: 'text/css'};
 
 // Default cache control policy
 app.use(function(req, res, next) {
@@ -131,25 +132,26 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
 
-	var polyfill = polyfillio.getPolyfills({
-		polyfills: polyfills,
-		extension: fileExtension,
-		minify: minified,
-		uaString: uaString,
-		url: req.originalUrl
-	});
-
-	if (fileExtension === '.js') {
-		res.set('Content-Type', 'application/javascript;charset=utf-8');
+	if (req.header('polyfill-cache') === 'require-explicit' && uaString !== polyfillio.normalise(uaString)) {
+		res.status(302);
+		res.set('Location', 'TODO');
+		res.send();
 	} else {
-		res.set('Content-Type', 'text/css;charset=utf-8');
-	}
 
-	res.set('Vary', 'User-Agent');
-	res.set('Access-Control-Allow-Origin', '*');
-	res.send(polyfill);
-	metrics.addResponseTime(Date.now() - responseStartTime);
-	metrics.addResponseType(fileExtension);
+		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+		if (!req.query.ua) res.set('Vary', 'User-Agent');
+		res.set('Access-Control-Allow-Origin', '*');
+		res.set('Cache-Control', 'public, max-age=86400');
+		res.send(polyfillio.getPolyfills({
+			polyfills: polyfills,
+			extension: fileExtension,
+			minify: minified,
+			uaString: uaString,
+			url: req.originalUrl
+		}));
+		metrics.addResponseTime(Date.now() - responseStartTime);
+		metrics.addResponseType(fileExtension);
+	}
 });
 
 app.listen(port);
