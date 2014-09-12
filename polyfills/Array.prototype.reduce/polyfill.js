@@ -1,12 +1,12 @@
 // Array.prototype.reduce
-Array.prototype.reduce = function reduce(callback, initialValue) {
+Array.prototype.reduce = function reduce(callback) {
 	var array = this, length = array.length, index = 0, previousValue;
 
 	while (index < length && !(index in array)) {
 		++index;
 	}
 
-	previousValue = 2 in arguments ? initialValue : array[index];
+	previousValue = 2 in arguments ? arguments[2] : array[index];
 
 	for (++index; index < length; ++index) {
 		if (index in array) {

@@ -1,12 +1,12 @@
 // Array.prototype.reduceRight
-Array.prototype.reduceRight = function reduceRight(callback, initialValue) {
+Array.prototype.reduceRight = function reduceRight(callback) {
 	var array = this, index = array.length - 1, previousValue;
 
 	while (index >= 0 && !(index in array)) {
 		--index;
 	}
 
-	previousValue = 2 in arguments ? initialValue : array[index];
+	previousValue = 2 in arguments ? arguments[2] : array[index];
 
 	for (--index; index >= 0; --index) {
 		if (index in array) {
