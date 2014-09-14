@@ -70,7 +70,7 @@ app.get(/^\/__health$/, function(req, res) {
         "checks": [
             {
                 "name": "Server is up",
-                "ok": "true",
+                "ok": true,
                 "severity": 2,
                 "businessImpact": "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
                 "technicalSummary": "Tests that the Node JS process is up.",
