@@ -1,10 +1,10 @@
 // Object.defineProperty
-(function (defineProperty) {
+(function (nativeDefineProperty) {
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 		delete descriptor.configurable;
 		delete descriptor.enumerable;
 		delete descriptor.writable;
 
-		return defineProperty(object, property, descriptor);
+		return nativeDefineProperty(object, property, descriptor);
 	};
 })(Object.defineProperty);
