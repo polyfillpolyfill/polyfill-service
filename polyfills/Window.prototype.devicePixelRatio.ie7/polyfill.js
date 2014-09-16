@@ -1,29 +1,29 @@
 // Window.prototype.devicePixelRatio
-(function () {
-	var element = document.createElement('x-zoom');
-	element.style.cssText = 'clip:rect(0 0 0 0);display:block;font-size:1000px;position:absolute;width:1em';
+(function (document) {
+	var
+	element = document.createElement('-'),
+	fauxBody = document.createElement('body'),
+	nativeBody;
 
-	function updateDevicePixelRatio() {
-		var
-		hasBody = document.body,
-		body = hasBody || document.documentElement.appendChild(document.createElement('body'));
+	element.runtimeStyle.cssText = 'clip:rect(0 0 0 0);font-size:1000px;height:0;position:absolute;width:1em;zoom:1';
 
-		body.appendChild(element);
+	function setDevicePixelRatio(rect) {
+		nativeBody = nativeBody || document.body;
 
-		var rect = element.getBoundingClientRect();
+		rect = (nativeBody || document.documentElement.appendChild(fauxBody)).appendChild(element).getBoundingClientRect();
 
 		window.devicePixelRatio = Math.round((rect.right - rect.left) / element.clientWidth * 1000) / 1000;
 
-		element.parentNode.removeChild(element)
-
-		if (!hasBody) {
-			document.documentElement.removeChild(body);
+		if (nativeBody) {
+			element.parentNode.removeChild(element); // body must be referenced as parent for old IE
+		} else {
+			document.documentElement.removeChild(fauxBody);
 		}
 	}
 
-	window.attachEvent('onresize', updateDevicePixelRatio);
+	window.attachEvent('onresize', setDevicePixelRatio);
 
-	document.attachEvent('onkeyup', updateDevicePixelRatio);
+	document.attachEvent('onkeyup', setDevicePixelRatio);
 
-	updateDevicePixelRatio();
-})();
+	setDevicePixelRatio();
+})(document);
