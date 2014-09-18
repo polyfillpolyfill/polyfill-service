@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{feature}} - Mocha test suite for polyfill-service</title>
+
+  <!-- Test and expectation libraries -->
+  <link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
+  <script src="/test/libs/mocha/mocha.js"></script>
+  <script src="/test/libs/should/should.js"></script>
+
+  <!-- Initalise Mocha (overridden if running under Phantom with grunt-mocha) -->
+  <script>mocha.setup('bdd')</script>
+
+  {{#loadPolyfill}}
+    <!-- Code under test -->
+    <script src='/v1/polyfill.js?features={{feature}}'></script>
+  {{/loadPolyfill}}
+
+  <!-- Tests -->
+  {{#supportedBrowser}}
+    <script>
+    describe("Feature detect {{feature}}", function() {
+      it("returns true", function() {
+        var result = !!({{{detect}}});
+        result.should.be.true;
+      });
+    });
+    {{#tests}}
+    describe("{{../feature}} feature tests", function() {
+      {{{.}}}
+    });
+    {{/tests}}
+    </script>
+  {{/supportedBrowser}}
+
+</head>
+<body>
+
+  <div id="mocha"></div>
+
+  <script>
+    if (!("PHANTOMJS" in window)) mocha.run();
+  </script>
+</body>
+</html>

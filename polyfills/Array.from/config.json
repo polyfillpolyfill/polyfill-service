@@ -1,5 +1,10 @@
 {
-	"dependencies": ["Array.prototype.map"],
+	"browsers": {
+		"chrome": "*"
+	},
+	"dependencies": [
+		"Array.prototype.map"
+	],
 	"aliases": [
 		"modernizr:es6array"
 	]

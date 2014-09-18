@@ -8,4 +8,6 @@ env:
     - secure: GtX1bvvXYammVxJwBTj5l1aFiyUTW6pH5UBaJldDztlasq9Un4GCK/aLGzgaSeQ00mvc3MCQJTEH2y6vl0KEIYAsRnXCylITuoFKuYNNccpNYdr+E/XJPhbgVtlUel/STP8MgO+PV6iqwQvoL/B8835hIx9sUL82qrbopWHMZOQ=
 notifications:
   email: false
-before_script: npm install -g karma-cli
+before_script:
+  - npm install -g karma-cli
+  - npm install -g grunt-cli

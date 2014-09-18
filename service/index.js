@@ -5,6 +5,7 @@ var polyfillio = require('../lib'),
 	origamijson = require('../origami.json'),
 	PolyfillSet = require('./PolyfillSet'),
 	path = require('path'),
+	fs = require('fs'),
 	parseArgs = require('minimist'),
 	ServiceMetrics = require('./metrics');
 
@@ -24,6 +25,31 @@ var one_year = one_day * 365;
 app.use(function(req, res, next) {
 	res.set('Cache-Control', 'public, max-age='+one_day+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	return next();
+});
+
+
+/* Tests */
+
+app.use('/test/libs/mocha', express.static(__dirname+'/../node_modules/mocha'));
+app.use('/test/libs/should', express.static(__dirname+'/../node_modules/should'));
+app.get(/\/test\/tests\/([A-Za-z0-9\.]+)\/?$/, function(req, res, next) {
+	var polyfilldir = __dirname+'/../polyfills/'+req.params[0];
+	if (!fs.existsSync(polyfilldir)) {
+		return next();
+	}
+	var runner = require('handlebars').compile(fs.readFileSync(__dirname+'/../test/browser/runner.html', {encoding: 'UTF-8'}));
+	var runnerdata = {
+		loadPolyfill: !req.query.nopolyfill,
+		supportedBrowser: true,
+		feature: req.params[0]
+	};
+	['detect', 'tests'].forEach(function(name) {
+		var path = polyfilldir+'/'+name+'.js';
+		if (fs.existsSync(path)) {
+			runnerdata[name] = fs.readFileSync(path, {encoding: 'UTF-8'}).replace(/\s*$/, '');
+		}
+	});
+	res.send(runner(runnerdata));
 });
 
 
