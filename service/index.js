@@ -144,16 +144,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		res.status(400);
 		res.send('A user agent identifier is required, either via a User-Agent header or the ua query param.');
 
-	} else if (req.header('polyfill-cache') === 'require-explicit' && uaString !== polyfillio.normalizeUserAgent(uaString)) {
-
-		var normUrl = req.path + '?ua=' + polyfillio.normalizeUserAgent(uaString);
-		if (polyfills.get()) normUrl += '&features='+polyfills.stringify();
-
-		res.status(301);
-		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
-		res.set('Location', normUrl);
-		res.send();
-
 	} else {
 		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 		res.set('Access-Control-Allow-Origin', '*');
@@ -166,6 +156,19 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		}));
 		metrics.addResponseTime(Date.now() - responseStartTime);
 		metrics.addResponseType(fileExtension);
+	}
+});
+
+app.get("/v1/normalizeUa", function(req, res, next) {
+
+	if (req.query.ua) {
+		res.status(204);
+		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
+		res.set('Normalized-User-Agent', encodeURIComponent(polyfillio.normalizeUserAgent(req.query.ua)));
+		res.send();
+	} else {
+		res.status(400);
+		res.send('ua query param required');
 	}
 });
 
