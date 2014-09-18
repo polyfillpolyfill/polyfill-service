@@ -106,11 +106,11 @@ app.get(/^\/__metrics$/, function(req, res) {
 
 /* Documentation and version routing */
 
-app.get(/^\/$/, function(req, res) {
+app.get("/", function(req, res) {
 	res.redirect('/v1/');
 });
 
-app.get(/^\/v1$/, function(req, res) {
+app.get("/v1", function(req, res) {
 	res.redirect('/v1/');
 });
 
