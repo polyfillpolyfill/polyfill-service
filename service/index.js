@@ -1,6 +1,6 @@
 var polyfillio = require('../lib'),
 	express = require('express'),
-	app = express(),
+	app = express().enable("strict routing"),
 	packagejson = require('../package.json'),
 	origamijson = require('../origami.json'),
 	helpers = require('./helpers'),
