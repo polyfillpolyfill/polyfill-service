@@ -3,7 +3,7 @@ var polyfillio = require('../lib'),
 	app = express().enable("strict routing"),
 	packagejson = require('../package.json'),
 	origamijson = require('../origami.json'),
-	helpers = require('./helpers'),
+	PolyfillSet = require('./PolyfillSet'),
 	path = require('path'),
 	parseArgs = require('minimist'),
 	ServiceMetrics = require('./metrics');
@@ -13,11 +13,16 @@ var polyfillio = require('../lib'),
 var argv = parseArgs(process.argv.slice(2));
 
 var port = argv.port || Number(process.env.PORT) || 3000,
-	metrics = new ServiceMetrics();
+	metrics = new ServiceMetrics(),
+	contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+
+var one_day = 60 * 60 * 24;
+var one_week = one_day * 7;
+var one_year = one_day * 365;
 
 // Default cache control policy
 app.use(function(req, res, next) {
-	res.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800, stale-if-error=604800');
+	res.set('Cache-Control', 'public, max-age='+one_day+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	return next();
 });
 
@@ -64,7 +69,6 @@ app.get(/^\/__gtg$/, function(req, res) {
 app.get(/^\/__health$/, function(req, res) {
     var info = {
         "schemaVersion": 1,
-        // TODO: This should match a service name in CMDB
         "name": "polyfill-service",
         "description": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent.  More at http://github.com/Financial-Times/polyfill-service.",
         "checks": [
@@ -124,7 +128,6 @@ app.use('/assets', express.static(__dirname + '/../docs/assets'));
 
 /* API endpoints */
 
-
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var responseStartTime = Date.now();
 
@@ -132,28 +135,38 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
 		isGateForced = req.query.gated === "1",
-		polyfills   = helpers.parseRequestedPolyfills(req.query.features || '', isGateForced ? ["gated"] : []),
+		polyfills = PolyfillSet.fromQueryParam(req.query.features || '', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
 
-	var polyfill = polyfillio.getPolyfills({
-		polyfills: polyfills,
-		extension: fileExtension,
-		minify: minified,
-		uaString: uaString,
-		url: req.originalUrl
-	});
+	if (!req.query.ua) res.set('Vary', 'User-Agent');
 
-	if (fileExtension === '.js') {
-		res.set('Content-Type', 'application/javascript;charset=utf-8');
+	if (!uaString) {
+		res.status(400);
+		res.send('A user agent identifier is required, either via a User-Agent header or the ua query param.');
+
+	} else if (req.header('polyfill-cache') === 'require-explicit' && uaString !== polyfillio.normalizeUserAgent(uaString)) {
+
+		var normUrl = req.path + '?ua=' + polyfillio.normalizeUserAgent(uaString);
+		if (polyfills.get()) normUrl += '&features='+polyfills.stringify();
+
+		res.status(301);
+		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
+		res.set('Location', normUrl);
+		res.send();
+
 	} else {
-		res.set('Content-Type', 'text/css;charset=utf-8');
+		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+		res.set('Access-Control-Allow-Origin', '*');
+		res.send(polyfillio.getPolyfills({
+			polyfills: polyfills.get(),
+			extension: fileExtension,
+			minify: minified,
+			uaString: uaString,
+			url: req.originalUrl
+		}));
+		metrics.addResponseTime(Date.now() - responseStartTime);
+		metrics.addResponseType(fileExtension);
 	}
-
-	res.set('Vary', 'User-Agent');
-	res.set('Access-Control-Allow-Origin', '*');
-	res.send(polyfill);
-	metrics.addResponseTime(Date.now() - responseStartTime);
-	metrics.addResponseType(fileExtension);
 });
 
 app.listen(port);
