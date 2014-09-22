@@ -1,4 +1,14 @@
 {
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "3.6 - 17",
+		"opera": "10 - 18",
+		"safari": "*",
+		"ie": "6 - *",
+		"ios_saf": "*"
+	},
 	"aliases": [
 		"modernizr:es6string"
 	]
