@@ -1,4 +1,7 @@
 {
+	"browsers": {
+		"chrome": "*"
+	},
 	"aliases": [
 		"modernizr:es6array"
 	]

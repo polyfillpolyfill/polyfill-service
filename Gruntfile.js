@@ -1,56 +1,41 @@
+var port = 3000;
+
+var polyfilldir = __dirname+'/polyfills';
+var testUrls = [];
+require('fs').readdirSync(polyfilldir).forEach(function (polyfillName) {
+	testUrls.push('http://127.0.0.1:'+port+'/test/tests/'+polyfillName);
+});
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 
 		// Run the service, which generates its own test pages at /test/runner/, and sauce at the same time, so that sauce can load pages from the service
 		"concurrent": {
+			options: {
+				logConcurrentOutput: true
+			},
 			ci: {
-				tasks: ['nodemon', 'saucelabs-mocha'],
-				options: {
-					logConcurrentOutput: true
-				}
+				tasks: ['nodemon', 'delayedsauce']
 			},
 			dev: {
-				tasks: ['nodemon', 'mocha'],
-				options: {
-					logConcurrentOutput: true
-				}
+				tasks: ['nodemon', 'delayedmocha']
 			}
 		},
 		"nodemon": {
-			dev: {
-				script: 'service/index.js',
-				options: {
-					env: {
-						PORT: 3000
-					},
-					callback: function (nodemon) {
-						setTimeout(function() {
-
-							// TODO: How do you run a grunt task programmatically?
-							grunt.tasks(['mocha']);
-						}, 2500);
-					}
+			options: {
+				env: {
+					PORT: port
 				}
 			},
-			ci: {
-				script: 'service/index.js',
-				options: {
-					env: {
-						PORT: 3000
-					},
-					callback: function (nodemon) {
-						setTimeout(function() {
-							grunt.run('saucelabs-mocha');
-						}, 1000);
-					}
-				}
-			}
+			all: {
+				script: 'service/index.js'
+			},
 		},
 		"simplemocha": {
 			options: {
 				globals: ['should'],
-				timeout: 3000,
+				timeout: port,
 				ignoreLeaks: false,
 				ui: 'bdd',
 				reporter: 'spec'
@@ -61,19 +46,24 @@ module.exports = function(grunt) {
 		},
 		"mocha": {
 			all: {
-				reporter: 'spec',
-				urls: [
-					'http://localhost:3000/test/tests/Array.isArray',
-					'http://localhost:3000/test/tests/Array.from'
-				]
+				options: {
+					reporter: 'Spec',
+					run: true,
+					urls: testUrls
+				}
 			}
 		},
 		"saucelabs-mocha": {
 			all: {
 				options: {
-
-					// Using Sauce over Sauce connect tunnel, so local URLs will work
-					urls: 'http://127.0.0.1:3000/test/runner/'
+					urls: testUrls  // Using Sauce over Sauce connect tunnel, so local URLs will work
+				}
+			}
+		},
+		"wait": {
+			all: {
+				options: {
+					delay: 5000
 				}
 			}
 		}
@@ -81,14 +71,17 @@ module.exports = function(grunt) {
 
 
 	// Loading dependencies
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-saucelabs');
 	grunt.loadNpmTasks('grunt-simple-mocha');
-	grunt.loadNpmTasks('grunt-nodemon');
-	grunt.loadNpmTasks('grunt-concurrent');
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha');
+	grunt.loadNpmTasks('grunt-wait');
 
-	grunt.registerTask("dev", ["simplemocha", "nodemon:dev"]);
+	grunt.registerTask("delayedmocha", ["wait", "mocha"]);
+	grunt.registerTask("delayedsauce", ["wait", "saucelabs-mocha"]);
+
+	grunt.registerTask("dev", ["simplemocha", "concurrent:dev"]);
 	grunt.registerTask("ci", ["simplemocha", "nodemon:ci"]);
+
 };
