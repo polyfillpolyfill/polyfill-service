@@ -17,6 +17,10 @@ To install and run polyfill as a service:
 
 For an API reference for the service, see the [hosted service documentation](http://polyfill.webservices.ft.com).
 
+Alternatively, deploy straight to Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Financial-Times/polyfill-service)
+
 ## Using as a library
 
 Polyfill service can also be used as a library in NodeJS projects.  To do this:
