@@ -1,0 +1,7 @@
+{
+	"name": "polyfill-service",
+	"description": "Polyfill packaging service that selectively packages polyfills based on the browser's user agent string. See https://cdn.polyfill.io",
+	"repository": "https://github.com/Financial-Times/polyfill-service.git",
+	"logo": "http://build.origami.ft.com/files/o-ft-header@2.5.6/img/ft-logo.png",
+	"keywords": ["polyfill", "service", "express"]
+}
