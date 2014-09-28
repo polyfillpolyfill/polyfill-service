@@ -64,8 +64,11 @@ require('polyfill-service').getPolyfills({
 
 All polyfills are located in the polyfills directory, with one subdirectory per polyfill, named after the API method which is the subject of the polyfill.  Each polyfill folder may contain:
 
-* `polyfill.js`: Required. Code to apply the polyfill behaviour
-* `detect.js`: A single expression or IIFE that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  If not present, polyfill cannot be gated.
+* `polyfill.js`: Required. Code to apply the polyfill behaviour, meeting the following requirements:
+	* Must perfectly replicate the API of the feature
+	* Must not be wrapped in a feature detect (the service will add this)
+	* Must not contain polyfills for other features (instead, depend on those polyfills)
+* `detect.js`: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated.
 * `config.json`: A config file conforming to the spec below
 
 The config.json file may contain any of the following keys:
