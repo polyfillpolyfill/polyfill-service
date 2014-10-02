@@ -13,25 +13,25 @@
 
   {{#loadPolyfill}}
     <!-- Code under test -->
-    <script src='/v1/polyfill.js?features={{feature}}'></script>
+    <script src='/v1/polyfill.js{{#feature}}?features={{feature}}{{/feature}}'></script>
   {{/loadPolyfill}}
 
   <!-- Tests -->
-  {{#supportedBrowser}}
-    <script>
-    describe("Feature detect {{feature}}", function() {
-      it("returns true", function() {
-        var result = !!({{{detect}}});
-        result.should.be.true;
-      });
+  <script>
+  {{#features}}
+    describe("{{feature}}", function() {
+      {{#detect}}
+        it("passes a basic feature detect", function() {
+          var result = !!({{{.}}});
+          result.should.be.true;
+        });
+      {{/detect}}
+      {{#tests}}
+        {{{.}}}
+      {{/tests}}
     });
-    {{#tests}}
-    describe("{{../feature}} feature tests", function() {
-      {{{.}}}
-    });
-    {{/tests}}
-    </script>
-  {{/supportedBrowser}}
+  {{/features}}
+  </script>
 
 </head>
 <body>
@@ -39,7 +39,36 @@
   <div id="mocha"></div>
 
   <script>
-    if (!("PHANTOMJS" in window)) mocha.run();
+
+    // During the test run, surface the test results in Sauce Labs' preferred format
+    function run() {
+      var runner = mocha.run();
+      var results = { passed: 0, failed: 0, total: 0, duration: 0, tests: [] };
+
+      runner.on('pass', function(test) {
+        results.passed++;
+        results.total++;
+      });
+
+      runner.on('fail', function(test, err) {
+        results.failed++;
+        results.total++;
+        results.tests.push({
+          name: test.fullTitle(),
+          result: false,
+          message: err.message,
+          stack: err.stack
+        });
+      });
+
+      runner.on('end', function() {
+        window.global_test_results = results;
+      });
+    }
+
+    // If using Phantom, test is kicked off by remote code injection.  If not, run automatically on load.
+    if (!("PHANTOMJS" in window)) window.onload = run;
+
   </script>
 </body>
 </html>

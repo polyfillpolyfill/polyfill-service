@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 				logConcurrentOutput: true
 			},
 			ci: {
-				tasks: ['nodemon', 'delayedsauce']
+				tasks: ['nodemon', 'saucelabs']
 			},
 			dev: {
 				tasks: ['nodemon', 'delayedmocha']
@@ -53,10 +53,19 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		"saucelabs-mocha": {
+		"saucelabs": {
 			all: {
 				options: {
-					urls: testUrls  // Using Sauce over Sauce connect tunnel, so local URLs will work
+					username: 'polyfill-service',
+					key: 'xxxxxxxxxxxxxxxxxxxxxx',
+					url: 'http://127.0.0.1:3000/test/tests/',
+					name: 'grunt-test',
+					concurrency: 2,
+					browsers: [{
+						browserName: 'firefox',
+						version: '19',
+						platform: 'XP'
+					}]
 				}
 			}
 		},
@@ -69,19 +78,17 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadTasks('tasks');
 
-	// Loading dependencies
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-nodemon');
-	grunt.loadNpmTasks('grunt-saucelabs');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-wait');
 
 	grunt.registerTask("delayedmocha", ["wait", "mocha"]);
-	grunt.registerTask("delayedsauce", ["wait", "saucelabs-mocha"]);
 
 	grunt.registerTask("dev", ["simplemocha", "concurrent:dev"]);
-	grunt.registerTask("ci", ["simplemocha", "nodemon:ci"]);
+	grunt.registerTask("ci", ["simplemocha", "concurrent:ci"]);
 
 };

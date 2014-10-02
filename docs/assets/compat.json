@@ -1,0 +1,36 @@
+{
+	"Array.from": {
+		"ie": {
+			"6": "missing",
+			"7": "polyfilled",
+			"9": "polyfilled",
+			"11": "polyfilled"
+		},
+		"chrome": {
+			"20": "polyfilled",
+			"30": "polyfilled",
+			"36": "native"
+		}
+	},
+	"String.prototype.contains": {
+		"opera": {
+			"10": "missing"
+		}
+	},
+	"String.prototype.endsWith": {
+		"firefox": {
+			"17": "missing",
+			"24": "polyfilled",
+			"29": "native"
+		},
+		"chrome": {
+			"17": "missing",
+			"24": "native",
+			"29": "native"
+		},
+		"safari": {
+			"24": "missing",
+			"29": "missing"
+		}
+	}
+}

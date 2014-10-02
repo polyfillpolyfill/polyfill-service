@@ -32,24 +32,23 @@ app.use(function(req, res, next) {
 
 app.use('/test/libs/mocha', express.static(__dirname+'/../node_modules/mocha'));
 app.use('/test/libs/should', express.static(__dirname+'/../node_modules/should'));
-app.get(/\/test\/tests\/([A-Za-z0-9\.]+)\/?$/, function(req, res, next) {
-	var polyfilldir = __dirname+'/../polyfills/'+req.params[0];
-	if (!fs.existsSync(polyfilldir)) {
-		return next();
-	}
-	var runner = require('handlebars').compile(fs.readFileSync(__dirname+'/../test/browser/runner.html', {encoding: 'UTF-8'}));
-	var runnerdata = {
-		loadPolyfill: !req.query.nopolyfill,
-		supportedBrowser: true,
-		feature: req.params[0]
-	};
-	['detect', 'tests'].forEach(function(name) {
-		var path = polyfilldir+'/'+name+'.js';
-		if (fs.existsSync(path)) {
-			runnerdata[name] = fs.readFileSync(path, {encoding: 'UTF-8'}).replace(/\s*$/, '');
+app.get(/\/test\/tests\/?$/, function(req, res, next) {
+	var base = __dirname+'/../polyfills';
+	var polyfilldata = [];
+	fs.readdirSync(base).forEach(function (polyfillName) {
+		if (!req.query.feature || req.query.feature === polyfillName) {
+			polyfilldata.push({
+				feature: polyfillName,
+				detect: fs.existsSync(base+'/'+polyfillName+'/detect.js') ? fs.readFileSync(base+'/'+polyfillName+'/detect.js') : false,
+				tests: fs.existsSync(base+'/'+polyfillName+'/tests.js') ? fs.readFileSync(base+'/'+polyfillName+'/tests.js') : false
+			});
 		}
 	});
-	res.send(runner(runnerdata));
+	var runner = require('handlebars').compile(fs.readFileSync(__dirname+'/../test/browser/runner.html', {encoding: 'UTF-8'}));
+	res.send(runner({
+		loadPolyfill: !req.query.nopolyfill,
+		features: polyfilldata
+	}));
 });
 
 

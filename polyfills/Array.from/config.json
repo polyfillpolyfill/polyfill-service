@@ -1,7 +1,8 @@
 {
 	"browsers": {
 		"chrome": "*",
-		"phantomjs": "*"
+		"phantomjs": "^1.9",
+		"firefox": ">4"
 	},
 	"dependencies": [
 		"Array.prototype.map"
