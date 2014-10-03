@@ -59,7 +59,6 @@ module.exports = function(grunt) {
 					username: 'polyfill-service',
 					key: 'xxxxxxxxxxxxxxxxxxxxxx',
 					url: 'http://127.0.0.1:3000/test/tests/',
-					name: 'grunt-test',
 					concurrency: 2,
 					browsers: [{
 						browserName: 'firefox',
