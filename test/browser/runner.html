@@ -43,14 +43,29 @@
     // During the test run, surface the test results in Sauce Labs' preferred format
     function run() {
       var runner = mocha.run();
-      var results = { passed: 0, failed: 0, total: 0, duration: 0, tests: [] };
+	  var results = {
+		  passed: 0,
+		  failed: 0,
+		  total: 0,
+		  duration: 0,
+		  tests: [],
+		  failingSuites: {},
+		  passingSuites: {}
+	  };
 
       runner.on('pass', function(test) {
         results.passed++;
         results.total++;
+
       });
 
       runner.on('fail', function(test, err) {
+
+		// Get a set of all the suites with failing tests in them.
+		if (test.parent && test.parent.title) {
+			results.failingSuites[test.parent.title] = true;
+		}
+
         results.failed++;
         results.total++;
         results.tests.push({
