@@ -35,8 +35,11 @@ module.exports = function(grunt) {
 			all: {
 				options: {
 					username: 'polyfill-service',
-					key: 'xxxxxxxxxxxxxxxxxxxxxx',
-					url: 'http://127.0.0.1:3000/test/tests/',
+					key: process.env.SAUCE_API_KEY,
+					urls: {
+						polyfilled: 'http://127.0.0.1:3000/test/tests/',
+						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
+					},
 					concurrency: 2,
 					browsers: [{
 						browserName: 'firefox',
