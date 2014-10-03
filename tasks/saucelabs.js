@@ -6,6 +6,10 @@ module.exports = function(grunt) {
 	var Batch = require('batch');
 	var request = require('request');
 	var SauceTunnel = require('sauce-tunnel');
+	var mkdirp = require('mkdirp');
+	var path = require('path');
+	var fs = require('fs');
+	var testResultsPath = path.join(__dirname, '../test/results');
 
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var done = this.async();
@@ -84,13 +88,51 @@ module.exports = function(grunt) {
 										})
 									}, function (err, res, body) {
 
-										// TODO: write test data to disk, maybe /test/results/<browser>.json?
 										// TODO: Then another grunt task to read all the result data and output a single compatibility data file in /docs/assets/compat.json?  We then gitignore the test/results directory but commit the docs/assets dir.
-										grunt.log.writeln("Test data written to Sauce");
+										mkdirp(testResultsPath, function(err) {
+											if (err) {
+												done(false);
+											}
 
-										browser.quit();
-										tunnel.stop(function() {
-											done(!!err);
+											var file = path.join(testResultsPath, 'results.json')
+
+											fs.readFile(file, function(err, filedata) {
+												if (err) {
+													// If ENOENT, continue as
+													// writeFile will create
+													// it
+													if (err.code !== 'ENOENT') {
+														throw err;
+													}
+												}
+
+												var testResults  = filedata ? JSON.parse(filedata) : {};
+
+												if (!testResults[conf.browserName]) {
+													testResults[conf.browserName] = {};
+												}
+
+												if (!testResults[conf.browserName][conf.version]) {
+													testResults[conf.browserName][conf.version] = {};
+												}
+
+												var thisResult = testResults[conf.browserName][conf.version];
+												thisResult.passed = data.passed;
+												thisResult.failed = data.failed;
+												thisResult.failingSuites =	Object.keys(data.failingSuites);
+
+												fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
+													if (err) {
+														throw err;
+													}
+													grunt.log.writeln("Update test results file");
+												});
+											});
+
+
+											grunt.log.writeln("Test data written to Sauce");
+											browser.quit();
+											done(true);
 										});
 									});
 								});
@@ -101,7 +143,15 @@ module.exports = function(grunt) {
 				});
 			});
 
-			batch.end(done);
+			batch.on('progress', function(e) {
+				grunt.log.writeln(e);
+			});
+
+			batch.end(function(err) {
+				tunnel.stop(function() {
+					done(!!err);
+				});
+			});
 		});
 	});
 };
