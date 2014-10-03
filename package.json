@@ -33,11 +33,12 @@
     "caniuse-db": "1.0.20140710",
     "express": "^4.4.4",
     "forever": "^0.11.1",
+    "minimist": "^0.2.0",
+    "mkdirp": "^0.5.0",
     "semver": "^2.3.1",
-    "uglify-js": "^2.4.14",
-    "useragent": "^2.0.8",
     "tsort": "0.0.1",
-    "minimist": "^0.2.0"
+    "uglify-js": "^2.4.14",
+    "useragent": "^2.0.8"
   },
   "devDependencies": {
     "batch": "^0.5.1",
