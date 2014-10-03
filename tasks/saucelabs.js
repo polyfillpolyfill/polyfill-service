@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 		grunt.log.writeln('Opening tunnel to Sauce Labs');
 		tunnel.start(function(status) {
 
-			console.log("Tunnel Started");
+			grunt.log.writeln("Tunnel Started");
 			if (status !== true)  {
 				done(status);
 			}
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 									if (err) return done(err);
 
 
-									console.log("Setting job results on Sauce");
+									grunt.log.writeln("Setting job results on Sauce");
 									// Update Sauce Labs job with custom test data
 									request({
 										method: "PUT",
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 
 										// TODO: write test data to disk, maybe /test/results/<browser>.json?
 										// TODO: Then another grunt task to read all the result data and output a single compatibility data file in /docs/assets/compat.json?  We then gitignore the test/results directory but commit the docs/assets dir.
-										console.log("Test data written to Sauce");
+										grunt.log.writeln("Test data written to Sauce");
 
 										browser.quit();
 										tunnel.stop(function() {
