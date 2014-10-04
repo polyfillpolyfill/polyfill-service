@@ -3,7 +3,8 @@
 		"ie": "6 - 8"
 	},
 	"aliases": [
-		"caniuse:matchesselector"
+		"caniuse:matchesselector",
+		"default"
 	],
 	"dependencies": ["Window.polyfill.ie7"]
 }

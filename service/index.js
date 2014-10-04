@@ -135,7 +135,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
 		isGateForced = req.query.gated === "1",
-		polyfills = PolyfillSet.fromQueryParam(req.query.features || '', isGateForced ? ["gated"] : []),
+		polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
 
 	if (!req.query.ua) res.set('Vary', 'User-Agent');
