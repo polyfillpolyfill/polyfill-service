@@ -3,12 +3,10 @@
 # Store current branch and version
 BRANCH=`git symbolic-ref -q --short HEAD`
 VERSION=`git describe`
-
-# Delete any existing deploy branch
-git branch -D deploy
+DEPLOY="$BRANCH-$VERSION"
 
 # Create new deploy branch based on current branch
-git checkout -b deploy
+git checkout -b $DEPLOY
 
 ############################################
 # Perform pre-deploy build steps - could run a grunt task here
@@ -27,3 +25,6 @@ git push herokuqa -f deploy:master
 
 # Switch it back to the branch we were working on
 git checkout $BRANCH
+
+# Delete the deploy branch
+git branch -D $DEPLOY
