@@ -7,7 +7,7 @@ var polyfillio = require('../lib'),
 	path = require('path'),
 	parseArgs = require('minimist'),
 	ServiceMetrics = require('./metrics'),
-	appVersion = require('fs').readFileSync('./.semver');
+	appVersion = require('fs').readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '');
 
 'use strict';
 
