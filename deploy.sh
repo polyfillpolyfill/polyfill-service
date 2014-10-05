@@ -3,7 +3,7 @@
 # Store current branch and version
 BRANCH=`git symbolic-ref -q --short HEAD`
 VERSION=`git describe`
-DEPLOY="$BRANCH-$VERSION"
+DEPLOY="deploy-$BRANCH-$VERSION"
 
 # Create new deploy branch based on current branch
 git checkout -b $DEPLOY
@@ -21,7 +21,7 @@ git add -A
 git commit -m "Deploying $VERSION to Heroku"
 
 # Push it up to heroku, the -f ensures that heroku won't complain
-git push herokuqa -f deploy:master
+git push herokuqa -f $DEPLOY:master
 
 # Switch it back to the branch we were working on
 git checkout $BRANCH
