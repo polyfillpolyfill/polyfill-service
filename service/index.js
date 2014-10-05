@@ -6,7 +6,8 @@ var polyfillio = require('../lib'),
 	PolyfillSet = require('./PolyfillSet'),
 	path = require('path'),
 	parseArgs = require('minimist'),
-	ServiceMetrics = require('./metrics');
+	ServiceMetrics = require('./metrics'),
+	appVersion = require('fs').readFileSync('./.semver');
 
 'use strict';
 
@@ -48,7 +49,7 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
 		"apiVersion": 1,
-		"appVersion": packagejson.version,
+		"appVersion": appVersion,
 		"dateCreated": '2014-07-14T10:28:45Z',
 		"support": origamijson.support,
 		"supportStatus": "active"
