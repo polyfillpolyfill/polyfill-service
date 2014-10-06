@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -z "$1" ]
+  then
+    echo "Usage: deploy.sh <target-remote>"
+    exit
+fi
+
 # Store current branch and version
 BRANCH=`git symbolic-ref -q --short HEAD`
 VERSION=`git describe`
@@ -21,7 +27,7 @@ git add -A
 git commit -m "Deploying $VERSION to Heroku"
 
 # Push it up to heroku, the -f ensures that heroku won't complain
-git push herokuqa -f $DEPLOY:master
+git push $1 -f $DEPLOY:master
 
 # Switch it back to the branch we were working on
 git checkout $BRANCH
