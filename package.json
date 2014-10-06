@@ -1,7 +1,6 @@
 {
   "name": "polyfill-service",
   "description": "A polyfill combinator",
-  "version": "0.0.1",
   "contributors": [
     {
       "name": "Jonathan Neal",
