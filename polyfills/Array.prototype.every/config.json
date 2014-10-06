@@ -3,6 +3,7 @@
 		"ie": "6 - 8"
 	},
 	"aliases": [
-		"modernizr:es5array"
+		"modernizr:es5array",
+		"default"
 	]
 }

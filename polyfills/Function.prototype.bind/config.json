@@ -5,6 +5,7 @@
 		"safari": "4 - 5.1"
 	},
 	"aliases": [
-		"modernizr:es5function"
+		"modernizr:es5function",
+		"default"
 	]
 }

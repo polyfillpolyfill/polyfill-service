@@ -12,7 +12,8 @@
 	},
 	"aliases": [
 		"modernizr:requestanimationframe",
-		"caniuse:requestanimationframe"
+		"caniuse:requestanimationframe",
+		"default"
 	],
 	"license": "requestAnimationFrame polyfill by Erik Möller, fixes from Paul Irish, Tino Zijdel, and Jonathan Neal"
 }

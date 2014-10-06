@@ -10,6 +10,7 @@
 		"ios_saf": "*"
 	},
 	"aliases": [
-		"modernizr:es6string"
+		"modernizr:es6string",
+		"default"
 	]
 }
