@@ -1,118 +1,136 @@
 it('has proper length', function() {
-	Array.from.length.should.eql(1);
+	expect(Array.from.length).to.be(1);
 });
 
 it('is not enumerable', function() {
-	Array.propertyIsEnumerable('from').should.not.be.ok;
+	expect(Array.propertyIsEnumerable('from')).to.not.ok();
 });
 
 it('requires an array-like object', function() {
-	(function () { Array.from(); }).should.throw(TypeError);
-	(function () { Array.from(null); }).should.throw(TypeError);
+	expect(function () { Array.from(); }).to.throwException(function(e) {
+		expect(e).to.be.a(TypeError);
+	});
+
+	expect(function () { Array.from(null); }).to.throwException(function(e) {
+		expect(e).to.be.a(TypeError);
+	});
 });
+
 
 it('throws with invalid lengths', function() {
-	(function () { Array.from({ length: Infinity }); }).should.throw(RangeError);
-	(function () { Array.from({ length: Math.pow(2, 32) }); }).should.throw(RangeError);
+
+	function expectRangeError(e) {
+		expect(e).to.be.a(RangeError);
+	}
+
+	expect(function () { Array.from({ length: Infinity }); }).to.throwException(expectRangeError);
+	expect(function () { Array.from({ length: Math.pow(2, 32) }); }).to.throwException(expectRangeError);
 });
 
+
 it('swallows negative lengths', function() {
-	Array.from({ length: -1 }).length.should.eql(0);
-	Array.from({ length: -Infinity }).length.should.eql(0);
-	Array.from({ length: -0 }).length.should.eql(0);
-	Array.from({ length: -42}).length.should.eql(0);
+	expect(Array.from({ length: -1 }).length).to.be(0);
+	expect(Array.from({ length: -Infinity }).length).to.be(0);
+	expect(Array.from({ length: -0 }).length).to.be(0);
+	expect(Array.from({ length: -42}).length).to.be(0);
 });
 
 it('works with primitives', function() {
-	Array.from(false).should.eql([]);
-	Array.from(true).should.eql([]);
-	Array.from(-Infinity).should.eql([]);
-	Array.from(-0).should.eql([]);
-	Array.from(0).should.eql([]);
-	Array.from(1).should.eql([]);
-	Array.from(Infinity).should.eql([]);
+	expect(Array.from(false)).to.eql([]);
+	expect(Array.from(true)).to.eql([]);
+	expect(Array.from(-Infinity)).to.eql([]);
+	expect(Array.from(-0)).to.eql([]);
+	expect(Array.from(0)).to.eql([]);
+	expect(Array.from(1)).to.eql([]);
+	expect(Array.from(Infinity)).to.eql([]);
 });
 
 it('works with strings', function() {
-	Array.from('').should.eql([]);
-	Array.from('abc').should.eql('abc'.split(''));
+	expect(Array.from('')).to.eql([]);
+	expect(Array.from('abc')).to.eql(['a', 'b', 'c']);
 });
 
 it('works with objects', function() {
-	Array.from({}).should.eql([]);
-	Array.from({ a: 1 }).should.eql([]);
+	expect(Array.from({})).to.eql([]);
+	expect(Array.from({ a: 1 })).to.eql([]);
 });
 
 it('works with arrays', function() {
-	Array.from([]).should.eql([]);
-	Array.from([1, 2, 3]).should.eql([1, 2, 3]);
-	Array.from([4, 5, 6]).should.eql([4, 5, 6]);
+	expect(Array.from([])).to.eql([]);
+	expect(Array.from([1, 2, 3])).to.eql([1, 2, 3]);
+	expect(Array.from([4, 5, 6])).to.eql([4, 5, 6]);
 });
 
 it('fills holes in arrays', function() {
 	var arr = [1, 2, 3];
 	delete arr[1];
-	Array.from(arr).should.eql([1, undefined, 3]);
-	Array.from([4, , 6]).should.eql([4, undefined, 6]);
+	expect(Array.from(arr)).to.eql([1, undefined, 3]);
+	expect(Array.from([4, , 6])).to.eql([4, undefined, 6]);
 });
 
 it('includes Object.prototype values when it is polluted', function() {
-	Object.prototype[1] = 42;
-	Array.from({ length: 3, 0: 1, 2: 3 }).should.eql([1, 42, 3]);
-	delete Object.prototype[1];
+	Object.prototype['1'] = 42;
+	expect(Array.from({ length: 3, 0: 1, 2: 3 })).to.eql([1, 42, 3]);
+	delete Object.prototype['1'];
 });
 
 it('works with arraylike objects', function() {
-	Array.from({ length: 1 }).should.eql([void 0]);
-	Array.from({ 0: 'a', 1: 'b', length: 2 }).should.eql(['a', 'b']);
+	expect(Array.from({ length: 1 })).to.eql([void 0]);
+	expect(Array.from({ 0: 'a', 1: 'b', length: 2 })).to.eql(['a', 'b']);
 });
 
 it('throws with an invalid mapping function', function() {
-	(function () { Array.from([], undefined); }).should.throw(TypeError);
-	(function () { Array.from([], null); }).should.throw(TypeError);
-	(function () { Array.from([], false); }).should.throw(TypeError);
-	(function () { Array.from([], true); }).should.throw(TypeError);
-	(function () { Array.from([], {}); }).should.throw(TypeError);
-	(function () { Array.from([], /a/g); }).should.throw(TypeError);
-	(function () { Array.from([], 'foo'); }).should.throw(TypeError);
-	(function () { Array.from([], 42); }).should.throw(TypeError);
+
+	function expectTypeError(e) {
+		expect(e).to.be.a(TypeError);
+	}
+
+	expect(function () { Array.from([], undefined); }).to.throwException(TypeError);
+	expect(function () { Array.from([], null); }).to.throwException(TypeError);
+	expect(function () { Array.from([], false); }).to.throwException(TypeError);
+	expect(function () { Array.from([], true); }).to.throwException(TypeError);
+	expect(function () { Array.from([], {}); }).to.throwException(TypeError);
+	expect(function () { Array.from([], /a/g); }).to.throwException(TypeError);
+	expect(function () { Array.from([], 'foo'); }).to.throwException(TypeError);
+	expect(function () { Array.from([], 42); }).to.throwException(TypeError);
 });
 
 it('works with a mapping function', function() {
 	var original = [1, 2, 3];
 	var actual = Array.from(original, function (value, index) {
-		value.should.eql(original[index], 'value and index are correct');
-		arguments.length.should.eql(2, 'value and index are only arguments passed to the mapping function');
+		expect(value).to.eql(original[index]);
+		expect(arguments.length).to.eql(2);
 		return value * 2;
 	});
-	actual.should.eql([2, 4, 6]);
+
+	expect(actual).to.eql([2, 4, 6]);
 
 	it('accepts an object thisArg', function() {
 		var context = {};
 		Array.from(original, function (value, index) {
-			this.should.eql(context, 'given context is the actual context');
+			expect(this).to.eql(context);
 		}, context);
 	});
 
 	it('accepts a primitive thisArg', function() {
 		Array.from(original, function (value, index) {
-			this.valueOf().should.eql(42, 'context valueOf() is correct');
-			Object.prototype.toString.call(this).should.eql('[object Number]', 'context "[[Class]]" is correct');
+			expect(this.valueOf()).to.eql(42);
+			expect(Object.prototype.toString.call(this)).to.eql('[object Number]');
 		}, 42);
 	});
 
 	it('accepts a falsy thisArg', function() {
 		Array.from(original, function (value, index) {
-			this.valueOf().should.eql(false, 'context valueOf() is correct');
-			Object.prototype.toString.call(this).should.eql('[object Boolean]', 'context "[[Class]]" is correct');
+			expect(this.valueOf()).to.eql(false);
+			expect(Object.prototype.toString.call(this)).to.eql('[object Boolean]');
 		}, false);
 	});
 });
 
 it('works when called from a non-constructor context', function() {
 	var from = Array.from;
-	Array.from.call(null, { length: 1, 0: 'a' }).should.eql(['a']);
-	from({ length: 1, 0: 'a' }).should.eql(['a']);
+	expect(Array.from.call(null, { length: 1, 0: 'a' })).to.eql(['a']);
+	expect(from({ length: 1, 0: 'a' })).to.eql(['a']);
 });
 
 it('does not call setters for indexes', function() {
@@ -121,15 +139,9 @@ it('does not call setters for indexes', function() {
 		set: function (x) { throw new Error('setter called: ' + x); }
 	});
 	var myInstance = new MyType();
-	(function () { myInstance[0] = 'foo'; }).should.throw();
+	expect(function () { myInstance[0] = 'foo'; }).to.throwException();
 
 	var actual = Array.from.call(MyType, { 0: 'abc', length: 1 });
-	actual.should.eql({ 0: 'abc', length: 1 });
-	actual.should.be.an.instanceOf(MyType);
+	expect(actual).to.eql({ 0: 'abc', length: 1 });
+	expect(actual).to.be.a(MyType);
 });
-
-/*
-it('should fail this one', function() {
-	true.should.be.false;
-})
-*/

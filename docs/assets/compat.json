@@ -1,36 +1,1428 @@
 {
-	"Array.from": {
-		"ie": {
-			"6": "missing",
-			"7": "polyfilled",
-			"9": "polyfilled",
-			"11": "polyfilled"
-		},
-		"chrome": {
-			"20": "polyfilled",
-			"30": "polyfilled",
-			"36": "native"
-		}
-	},
-	"String.prototype.contains": {
-		"opera": {
-			"10": "missing"
-		}
-	},
-	"String.prototype.endsWith": {
-		"firefox": {
-			"17": "missing",
-			"24": "polyfilled",
-			"29": "native"
-		},
-		"chrome": {
-			"17": "missing",
-			"24": "native",
-			"29": "native"
-		},
-		"safari": {
-			"24": "missing",
-			"29": "missing"
-		}
-	}
+  "Array.isArray": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.every": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.filter": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.forEach": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.indexOf": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.lastIndexOf": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.map": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.reduce": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.reduceRight": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Array.prototype.some": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Date.now": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Date.prototype.toISOString": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Element.prototype.classList": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Element.prototype.placeholder": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Function.prototype.bind": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.create": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.create.ie7": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperties": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty.ie7": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getOwnPropertyNames": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getOwnPropertyNames.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getPrototypeOf": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.keys": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "String.prototype.contains": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.endsWith": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.startsWith": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.trim": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.CustomEvent": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.DOMTokenList": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.Event": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.Event.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.JSON": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.XMLHttpRequest.ie7": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "native",
+      "8": "native"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.XMLHttpRequest.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "native",
+      "8": "native"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.base64": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.ie7": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.iossafari6": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.safari6": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.getComputedStyle.ie8": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.matchMedia": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.scroll": {
+    "firefox": {
+      "19": "native"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Element.prototype.matches": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Array.from": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Element.prototype.matches.webkit": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "requestAnimationFrame.moz": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "Element.prototype.matches.ms": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "requestAnimationFrame": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "Object.is": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Element.prototype.mutation.blink": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "requestAnimationFrame.webkit": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "Element.prototype.mutation": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Element.prototype.matches.moz": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Element.prototype.matches.o": {
+    "firefox": {
+      "19": "polyfilled"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Array.of": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Window.prototype.viewport": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "missing",
+      "beta": "missing"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Element.prototype.closest": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "missing",
+      "beta": "missing"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Promise": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.repeat": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "iphone": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Object.assign": {
+    "firefox": {
+      "19": "missing"
+    },
+    "chrome": {
+      "37": "missing",
+      "beta": "missing"
+    },
+    "internet explorer": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "iphone": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  }
 }

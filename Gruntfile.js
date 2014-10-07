@@ -40,12 +40,8 @@ module.exports = function(grunt) {
 						polyfilled: 'http://127.0.0.1:3000/test/tests/',
 						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
 					},
-					concurrency: 2,
-					browsers: [{
-						browserName: 'firefox',
-						version: '19',
-						platform: 'XP'
-					}]
+					concurrency: 3,
+					browsers: browserList
 				}
 			}
 		}
@@ -66,5 +62,59 @@ module.exports = function(grunt) {
 		"simplemocha",
 		"polyfillservice",
 		"saucelabs",
+		"compattable"
 	]);
 };
+
+var browserList  = [
+	{
+		browserName: 'chrome',
+		version: '37',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'chrome',
+		version: 'beta',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '6',
+		platform: 'Windows XP'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '7',
+		platform: 'Windows XP'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '8',
+		platform: 'Windows XP'
+	},
+	{
+		browserName: 'opera',
+		version: '11',
+		platform: 'Windows XP'
+	},
+	{
+		browserName: 'opera',
+		version: '12',
+		platform: 'Windows XP'
+	},
+	{
+		browserName: 'iphone',
+		version: '7.1',
+		platform: 'OSX 10.9'
+	},
+	{
+		browserName: 'iphone',
+		version: '7.0',
+		platform: 'OSX 10.9'
+	},
+	{
+		browserName: 'iphone',
+		version: '6.1',
+		platform: 'OSX 10.8'
+	}
+];

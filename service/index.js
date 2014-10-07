@@ -30,8 +30,8 @@ app.use(function(req, res, next) {
 
 /* Tests */
 
-app.use('/test/libs/mocha', express.static(__dirname+'/../node_modules/mocha'));
-app.use('/test/libs/should', express.static(__dirname+'/../node_modules/should'));
+app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
+app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
 app.get(/\/test\/tests\/?$/, function(req, res, next) {
 	var base = __dirname+'/../polyfills';
 	var polyfilldata = [];
@@ -39,7 +39,7 @@ app.get(/\/test\/tests\/?$/, function(req, res, next) {
 		if (!req.query.feature || req.query.feature === polyfillName) {
 			polyfilldata.push({
 				feature: polyfillName,
-				detect: fs.existsSync(base+'/'+polyfillName+'/detect.js') ? fs.readFileSync(base+'/'+polyfillName+'/detect.js') : false,
+				detect: fs.existsSync(base+'/'+polyfillName+'/detect.js') ? fs.readFileSync(base+'/'+polyfillName+'/detect.js', {encoding: 'utf-8'}).trim() : false,
 				tests: fs.existsSync(base+'/'+polyfillName+'/tests.js') ? fs.readFileSync(base+'/'+polyfillName+'/tests.js') : false
 			});
 		}
