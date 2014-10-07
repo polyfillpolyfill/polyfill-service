@@ -10,6 +10,7 @@ module.exports = function(grunt) {
 	var path = require('path');
 	var fs = require('fs');
 	var testResultsPath = path.join(__dirname, '../test/results');
+	var UA = require('../lib/UA');
 
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var gruntDone = this.async();
@@ -104,16 +105,17 @@ module.exports = function(grunt) {
 											}
 
 											var testResults  = filedata ? JSON.parse(filedata) : {};
+											var browserName = UA.normalizeName(conf.browserName) || conf.browserName;
 
-											if (!testResults[conf.browserName]) {
-												testResults[conf.browserName] = {};
+											if (!testResults[browserName]) {
+												testResults[browserName] = {};
 											}
 
-											if (!testResults[conf.browserName][conf.version]) {
-												testResults[conf.browserName][conf.version]	= {};
+											if (!testResults[browserName][conf.version]) {
+												testResults[browserName][conf.version]	= {};
 											}
 
-											testResults[conf.browserName][conf.version][urlName] = {
+											testResults[browserName][conf.version][urlName] = {
 												passed: data.passed,
 												failed: data.failed,
 												failingSuites: Object.keys(data.failingSuites),
@@ -160,7 +162,7 @@ module.exports = function(grunt) {
 			grunt.log.writeln("Starting test jobs");
 			batch.end(function(err, status) {
 				tunnel.stop(function() {
-					gruntDone(!!err);
+					gruntDone(null, true);
 				});
 			});
 		});
