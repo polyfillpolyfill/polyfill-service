@@ -1,8 +1,6 @@
 {
   "Array.isArray": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -11,24 +9,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.every": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -37,24 +29,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.filter": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -63,24 +49,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.forEach": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -89,24 +69,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.indexOf": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -115,24 +89,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.lastIndexOf": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -141,24 +109,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.map": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -167,24 +129,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.reduce": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -193,24 +149,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.reduceRight": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -219,24 +169,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Array.prototype.some": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -245,24 +189,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Date.now": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -271,24 +209,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Date.prototype.toISOString": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -297,24 +229,18 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
     }
   },
   "Element.prototype.classList": {
-    "false": {
-      "11": "native",
-      "12": "native",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -322,1013 +248,19 @@
       "6": "missing",
       "7": "missing",
       "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
     },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Element.prototype.placeholder": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Function.prototype.bind": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.create": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.create.ie7": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.defineProperties": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.defineProperty": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.defineProperty.ie7": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.defineProperty.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.getOwnPropertyNames": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.getOwnPropertyNames.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.getPrototypeOf": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Object.keys": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "String.prototype.trim": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.CustomEvent": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.DOMTokenList": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.Event": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.Event.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.JSON": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.XMLHttpRequest.ie7": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "native",
-      "8": "native"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.XMLHttpRequest.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "native",
-      "8": "native"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.base64": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.devicePixelRatio.ie7": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.devicePixelRatio.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.devicePixelRatio.iossafari6": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.devicePixelRatio.safari6": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.getComputedStyle.ie8": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Window.prototype.scroll": {
-    "false": {
-      "11": "native",
-      "12": "native",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "native"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "native",
-      "12": "native"
-    }
-  },
-  "Element.prototype.mutation.blink": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
-    }
-  },
-  "Element.prototype.matches.ms": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
-    }
-  },
-  "String.prototype.startsWith": {
-    "false": {
-      "11": "polyfilled",
-      "12": "polyfilled",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "polyfilled"
-    }
-  },
-  "String.prototype.repeat": {
-    "false": {
-      "11": "polyfilled",
-      "12": "polyfilled",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "polyfilled"
-    }
-  },
-  "String.prototype.endsWith": {
-    "false": {
-      "11": "polyfilled",
-      "12": "polyfilled",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "polyfilled"
-    }
-  },
-  "Element.prototype.matches.o": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
-    }
-  },
-  "Element.prototype.matches.moz": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
-    }
-  },
-  "String.prototype.contains": {
-    "false": {
-      "11": "polyfilled",
-      "12": "polyfilled",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "polyfilled"
-    }
-  },
-  "Object.is": {
-    "false": {
-      "11": "polyfilled",
-      "12": "polyfilled",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "polyfilled"
-    }
-  },
-  "Element.prototype.mutation": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
-    }
-  },
-  "Element.prototype.matches.webkit": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled",
-      "7.0": "polyfilled",
-      "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "polyfilled",
-      "12": "missing"
     }
   },
   "Element.prototype.matches": {
-    "false": {
-      "11": "polyfilled",
-      "12": "missing",
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -1336,181 +268,39 @@
       "6": "missing",
       "7": "missing",
       "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
     },
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
       "6.1": "polyfilled"
-    },
+    }
+  },
+  "Element.prototype.matches.moz": {
     "chrome": {
       "37": "native",
       "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
     },
     "opera": {
       "11": "polyfilled",
       "12": "missing"
-    }
-  },
-  "Array.from": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "missing",
-      "7.0": "missing",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
-    }
-  },
-  "requestAnimationFrame": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
-    }
-  },
-  "Array.of": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "missing",
-      "7.0": "missing",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "polyfilled",
-      "beta": "polyfilled"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
-    }
-  },
-  "Window.prototype.viewport": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "missing",
-      "beta": "missing"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "missing",
-      "7.0": "missing",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "missing",
-      "beta": "missing"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
-    }
-  },
-  "Element.prototype.closest": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "missing",
-      "beta": "missing"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
-    },
-    "ios_saf": {
-      "7.1": "missing",
-      "7.0": "missing",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "missing",
-      "beta": "missing"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
-    }
-  },
-  "Promise": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
-      "37": "native",
-      "beta": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing"
     },
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
       "6.1": "polyfilled"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
     }
   },
-  "requestAnimationFrame.webkit": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
+  "Element.prototype.matches.ms": {
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -1518,25 +308,19 @@
       "6": "missing",
       "7": "missing",
       "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
     },
     "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
     }
   },
-  "requestAnimationFrame.moz": {
-    "false": {
-      "11": "missing",
-      "12": "missing",
+  "Element.prototype.matches.o": {
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -1544,25 +328,19 @@
       "6": "missing",
       "7": "missing",
       "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
     },
     "ios_saf": {
-      "7.1": "native",
-      "7.0": "native",
-      "6.1": "missing"
-    },
-    "chrome": {
-      "37": "native",
-      "beta": "native"
-    },
-    "opera": {
-      "11": "missing",
-      "12": "missing"
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
     }
   },
-  "Window.prototype.matchMedia": {
-    "false": {
-      "11": "missing",
-      "12": "native",
+  "Element.prototype.matches.webkit": {
+    "chrome": {
       "37": "native",
       "beta": "native"
     },
@@ -1570,25 +348,839 @@
       "6": "missing",
       "7": "missing",
       "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Element.prototype.placeholder": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
     },
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
       "6.1": "native"
-    },
+    }
+  },
+  "Function.prototype.bind": {
     "chrome": {
       "37": "native",
       "beta": "native"
     },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.create": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.create.ie7": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperties": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty.ie7": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.defineProperty.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getOwnPropertyNames": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getOwnPropertyNames.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.getPrototypeOf": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Object.is": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Object.keys": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Promise": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.trim": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.CustomEvent": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.DOMTokenList": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.Event": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.Event.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.JSON": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.XMLHttpRequest.ie7": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "native",
+      "8": "native"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.XMLHttpRequest.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "native",
+      "8": "native"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.base64": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.ie7": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.iossafari6": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.devicePixelRatio.safari6": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.getComputedStyle.ie8": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "Window.prototype.matchMedia": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
     "opera": {
       "11": "missing",
       "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
     }
   },
-  "Object.assign": {
-    "false": {
+  "Window.prototype.scroll": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "native",
+      "12": "native"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "native"
+    }
+  },
+  "requestAnimationFrame": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
       "11": "missing",
-      "12": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "requestAnimationFrame.moz": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "requestAnimationFrame.webkit": {
+    "chrome": {
+      "37": "native",
+      "beta": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "native",
+      "7.0": "native",
+      "6.1": "missing"
+    }
+  },
+  "Array.from": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Element.prototype.mutation.blink": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.contains": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Array.of": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "String.prototype.startsWith": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.repeat": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "String.prototype.endsWith": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Element.prototype.mutation": {
+    "chrome": {
+      "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "polyfilled",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled",
+      "7.0": "polyfilled",
+      "6.1": "polyfilled"
+    }
+  },
+  "Window.prototype.viewport": {
+    "chrome": {
       "37": "missing",
       "beta": "missing"
     },
@@ -1597,18 +1189,54 @@
       "7": "missing",
       "8": "missing"
     },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
       "6.1": "missing"
-    },
+    }
+  },
+  "Element.prototype.closest": {
     "chrome": {
       "37": "missing",
       "beta": "missing"
     },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
     "opera": {
       "11": "missing",
       "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
+    }
+  },
+  "Object.assign": {
+    "chrome": {
+      "37": "missing",
+      "beta": "missing"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing"
+    },
+    "opera": {
+      "11": "missing",
+      "12": "missing"
+    },
+    "ios_saf": {
+      "7.1": "missing",
+      "7.0": "missing",
+      "6.1": "missing"
     }
   }
 }
