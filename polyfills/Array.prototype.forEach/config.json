@@ -4,5 +4,6 @@
 	},
 	"aliases": [
 		"modernizr:es5array"
-	]
+	],
+	"licence": "MIT",
 }
