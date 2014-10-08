@@ -1,5 +1,5 @@
 {
 	"browsers": {
-		"safari": "4"
+		"safari": "<=4"
 	}
 }
