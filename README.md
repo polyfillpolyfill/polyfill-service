@@ -31,7 +31,7 @@ Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 ### Library API reference
 
-#### `getPolyfills(options)` (method)
+#### `getPolyfillString(options)` (method)
 
 Returns a bundle of polyfills as a string.  Options is an object with the following keys:
 
@@ -50,7 +50,7 @@ Flags that may be applied to polyfills are:
 Example:
 
 ```javascript
-require('polyfill-service').getPolyfills({
+require('polyfill-service').getPolyfillString({
 	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
 	minify: true,
 	polyfills: [
@@ -58,6 +58,28 @@ require('polyfill-service').getPolyfills({
 		{name:"modernizr:es5array"}
 	]
 }));
+```
+
+#### `getPolyfills(uaString, desiredPolyfills)` (method)
+
+Returns a list of polyfills whose configuration matches the given user agent string.
+Options is an object with the following keys:
+
+* `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
+* `polyfills`: Array, required. The list of polyfills that are to be considered for inclusion. Each polyfill must be in the form of an object with the following properties:
+	* `name`: String, required. Name of polyfill, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this polyfill (see below)
+
+Example:
+
+```javascript
+require('polyfill-service').getPolyfills({
+	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
+	polyfills: [
+		{name:"Element.prototype.matches", flags:['always', 'gated']},
+		{name:"modernizr:es5array"}
+	]
+});
 ```
 
 ## Polyfill configuration
