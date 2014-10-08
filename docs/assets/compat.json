@@ -1,7 +1,16 @@
 {
   "Array.isArray": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -16,12 +25,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.every": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -36,12 +63,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.filter": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -56,12 +101,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.forEach": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -76,12 +139,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.indexOf": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -96,12 +177,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.lastIndexOf": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -116,12 +215,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.map": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -136,12 +253,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.reduce": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -156,12 +291,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.reduceRight": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -176,12 +329,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Array.prototype.some": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -196,12 +367,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Date.now": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -216,12 +405,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Date.prototype.toISOString": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -236,12 +443,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Element.prototype.classList": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -256,13 +481,31 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Element.prototype.matches": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
       "beta": "native"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
+      "beta": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -276,13 +519,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.matches.moz": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
       "beta": "native"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
+      "beta": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -296,13 +557,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.matches.ms": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
       "beta": "native"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
+      "beta": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -316,13 +595,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.matches.o": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
       "beta": "native"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
+      "beta": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -336,13 +633,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.matches.webkit": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
       "beta": "native"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
+      "beta": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -356,12 +671,30 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.placeholder": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -376,12 +709,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Function.prototype.bind": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -396,12 +747,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.create": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -416,12 +785,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.create.ie7": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -436,12 +823,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.defineProperties": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -456,12 +861,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.defineProperty": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -476,12 +899,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.defineProperty.ie7": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -496,12 +937,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.defineProperty.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -516,12 +975,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.getOwnPropertyNames": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -536,12 +1013,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.getOwnPropertyNames.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -556,12 +1051,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.getPrototypeOf": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -576,12 +1089,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Object.is": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -596,12 +1127,30 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Object.keys": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -616,12 +1165,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Promise": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "missing",
+      "28": "missing",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -636,12 +1203,30 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "String.prototype.trim": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -656,12 +1241,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.CustomEvent": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -676,12 +1279,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.DOMTokenList": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -696,12 +1317,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.Event": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -716,12 +1355,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.Event.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -736,12 +1393,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.JSON": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -756,12 +1431,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.XMLHttpRequest.ie7": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -776,12 +1469,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.XMLHttpRequest.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -796,12 +1507,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.base64": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -816,12 +1545,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.devicePixelRatio.ie7": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -836,12 +1583,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.devicePixelRatio.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -856,12 +1621,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.devicePixelRatio.iossafari6": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -876,12 +1659,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.devicePixelRatio.safari6": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -896,12 +1697,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.getComputedStyle.ie8": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -916,12 +1735,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.matchMedia": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -936,12 +1773,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "Window.prototype.scroll": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -956,12 +1811,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "native"
+      "6.1": "native",
+      "6.0": "native",
+      "5.1": "native",
+      "5.0": "native",
+      "4.3": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
     }
   },
   "requestAnimationFrame": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -976,12 +1849,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "polyfilled",
+      "7": "native"
     }
   },
   "requestAnimationFrame.moz": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -996,12 +1887,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "polyfilled",
+      "7": "native"
     }
   },
   "requestAnimationFrame.webkit": {
     "chrome": {
+      "35": "native",
+      "36": "native",
       "37": "native",
+      "beta": "native"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
       "beta": "native"
     },
     "ie": {
@@ -1016,12 +1925,30 @@
     "ios_saf": {
       "7.1": "native",
       "7.0": "native",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "polyfilled",
+      "7": "native"
     }
   },
   "Array.from": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
       "beta": "polyfilled"
     },
     "ie": {
@@ -1036,12 +1963,30 @@
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     }
   },
   "Element.prototype.mutation.blink": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
       "beta": "polyfilled"
     },
     "ie": {
@@ -1056,13 +2001,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "String.prototype.contains": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
       "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
+      "beta": "native"
     },
     "ie": {
       "6": "missing",
@@ -1076,13 +2039,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Array.of": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
       "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
+      "beta": "native"
     },
     "ie": {
       "6": "missing",
@@ -1096,13 +2077,31 @@
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     }
   },
   "String.prototype.startsWith": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
       "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
+      "beta": "native"
     },
     "ie": {
       "6": "missing",
@@ -1116,13 +2115,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "String.prototype.repeat": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
       "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
+      "beta": "native"
     },
     "ie": {
       "6": "missing",
@@ -1136,13 +2153,31 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "String.prototype.endsWith": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
       "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "native",
+      "28": "native",
+      "30": "native",
+      "32": "native",
+      "beta": "native"
     },
     "ie": {
       "6": "missing",
@@ -1156,12 +2191,30 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Element.prototype.mutation": {
     "chrome": {
+      "35": "polyfilled",
+      "36": "polyfilled",
       "37": "polyfilled",
+      "beta": "polyfilled"
+    },
+    "firefox": {
+      "26": "polyfilled",
+      "28": "polyfilled",
+      "30": "polyfilled",
+      "32": "polyfilled",
       "beta": "polyfilled"
     },
     "ie": {
@@ -1176,12 +2229,30 @@
     "ios_saf": {
       "7.1": "polyfilled",
       "7.0": "polyfilled",
-      "6.1": "polyfilled"
+      "6.1": "polyfilled",
+      "6.0": "polyfilled",
+      "5.1": "polyfilled",
+      "5.0": "polyfilled",
+      "4.3": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     }
   },
   "Window.prototype.viewport": {
     "chrome": {
+      "35": "missing",
+      "36": "missing",
       "37": "missing",
+      "beta": "missing"
+    },
+    "firefox": {
+      "26": "missing",
+      "28": "missing",
+      "30": "missing",
+      "32": "missing",
       "beta": "missing"
     },
     "ie": {
@@ -1196,12 +2267,30 @@
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     }
   },
   "Element.prototype.closest": {
     "chrome": {
+      "35": "missing",
+      "36": "missing",
       "37": "missing",
+      "beta": "missing"
+    },
+    "firefox": {
+      "26": "missing",
+      "28": "missing",
+      "30": "missing",
+      "32": "missing",
       "beta": "missing"
     },
     "ie": {
@@ -1216,12 +2305,30 @@
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     }
   },
   "Object.assign": {
     "chrome": {
+      "35": "missing",
+      "36": "missing",
       "37": "missing",
+      "beta": "missing"
+    },
+    "firefox": {
+      "26": "missing",
+      "28": "missing",
+      "30": "missing",
+      "32": "missing",
       "beta": "missing"
     },
     "ie": {
@@ -1236,7 +2343,16 @@
     "ios_saf": {
       "7.1": "missing",
       "7.0": "missing",
-      "6.1": "missing"
+      "6.1": "missing",
+      "6.0": "missing",
+      "5.1": "missing",
+      "5.0": "missing",
+      "4.3": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     }
   }
 }

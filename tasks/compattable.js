@@ -54,6 +54,9 @@ module.exports = function(grunt) {
 				var versions = compat[browserName];
 				Object.keys(versions).forEach(function(version) {
 					var testResults = versions[version];
+					if (!testResults.native) {
+						throw new Error("No native test results for " + browserName + "/" + version);
+					}
 					var allTests = new Set(testResults.native.testedSuites);
 					var failedNative = new Set(testResults.native.failingSuites);
 					var failedPolyfilled = new Set(testResults.polyfilled.failingSuites);

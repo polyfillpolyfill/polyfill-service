@@ -1,7 +1,7 @@
-var port = 3000;
 
 var polyfilldir = __dirname+'/polyfills';
 var testUrls = [];
+var port = 3000;
 require('fs').readdirSync(polyfilldir).forEach(function (polyfillName) {
 	testUrls.push('http://127.0.0.1:'+port+'/test/tests/'+polyfillName);
 });
@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
 					},
 					concurrency: 3,
-					browsers: browserList
+					browsers: browserList,
+					screenshots: true
 				}
 			}
 		}
@@ -74,8 +75,43 @@ var browserList  = [
 	},
 	{
 		browserName: 'chrome',
+		version: '36',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'chrome',
+		version: '35',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'chrome',
 		version: 'beta',
 		platform: 'Windows 7'
+	},
+	{
+		browserName: 'firefox',
+		version: '32',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: '30',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: '28',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: '26',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: 'beta',
+		platform: 'Linux'
 	},
 	{
 		browserName: 'internet explorer',
@@ -116,5 +152,40 @@ var browserList  = [
 		browserName: 'iphone',
 		version: '6.1',
 		platform: 'OSX 10.8'
+	},
+	{
+		browserName: 'iphone',
+		version: '6.0',
+		platform: 'OSX 10.8'
+	},
+	{
+		browserName: 'iphone',
+		version: '5.1',
+		platform: 'OSX 10.6'
+	},
+	{
+		browserName: 'iphone',
+		version: '5.0',
+		platform: 'OSX 10.6'
+	},
+	{
+		browserName: 'iphone',
+		version: '4.3',
+		platform: 'OSX 10.6'
+	},
+	{
+		browserName: 'safari',
+		version: '5',
+		platform: 'OSX 10.6'
+	},
+	{
+		browserName: 'safari',
+		version: '6',
+		platform: 'OSX 10.8'
+	},
+	{
+		browserName: 'safari',
+		version: '7',
+		platform: 'OSX 10.9'
 	}
 ];
