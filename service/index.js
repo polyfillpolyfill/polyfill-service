@@ -150,7 +150,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 		res.set('Access-Control-Allow-Origin', '*');
 		res.send(polyfillio.getPolyfillString({
-			polyfills: polyfills.get(),
+			features: polyfills.get(),
 			extension: fileExtension,
 			minify: minified,
 			uaString: uaString,

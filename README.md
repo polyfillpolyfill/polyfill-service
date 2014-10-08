@@ -38,9 +38,9 @@ Returns a bundle of polyfills as a string.  Options is an object with the follow
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `type`: String, optional. 'js' or 'css', defaults to js
-* `polyfills`: Array, optional.  The list of polyfills that are to be considered for inclusion.  If not supplied, all polyfills will be considered.  Each polyfill must be in the form of an object with the following properties:
-	* `name`: String, required. Name of polyfill, matching a folder name in the polyfills directory, or a known alias
-	* `flags`: Array, optional. Array of flags to apply to this polyfill (see below)
+* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
+	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
 
 Flags that may be applied to polyfills are:
 
@@ -53,29 +53,29 @@ Example:
 require('polyfill-service').getPolyfillString({
 	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
 	minify: true,
-	polyfills: [
+	features: [
 		{name:"Element.prototype.matches", flags:['always', 'gated']},
 		{name:"modernizr:es5array"}
 	]
 }));
 ```
 
-#### `getPolyfills(uaString, desiredPolyfills)` (method)
+#### `getPolyfills(options)` (method)
 
-Returns a list of polyfills whose configuration matches the given user agent string.
+Returns a list of features whose configuration matches the given user agent string.
 Options is an object with the following keys:
 
-* `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
-* `polyfills`: Array, required. The list of polyfills that are to be considered for inclusion. Each polyfill must be in the form of an object with the following properties:
-	* `name`: String, required. Name of polyfill, matching a folder name in the polyfills directory, or a known alias
-	* `flags`: Array, optional. Array of flags to apply to this polyfill (see below)
+* `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
+* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
+	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this feature (see above in `getPolyfillString`)
 
 Example:
 
 ```javascript
 require('polyfill-service').getPolyfills({
 	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
-	polyfills: [
+	features: [
 		{name:"Element.prototype.matches", flags:['always', 'gated']},
 		{name:"modernizr:es5array"}
 	]
