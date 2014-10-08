@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 		var options = this.options({
 			name: 'grunt-test' + nameSuffix,
 			build: null,
-			user: process.env.SAUCE_USER_NAME,
+			username: process.env.SAUCE_USER_NAME,
 			key: process.env.SAUCE_API_KEY,
 			browsers: [],
 			url: {},
@@ -34,9 +34,8 @@ module.exports = function(grunt) {
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
 
-		var tunnel = new SauceTunnel(options.user, options.key, tunnelId, true);
+		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 
-		grunt.log.writeln('Opening tunnel to Sauce Labs');
 
 		// Create a new job to pass into the Batch runner, returns a function
 		function newTestJob(url, urlName, conf) {
@@ -44,7 +43,7 @@ module.exports = function(grunt) {
 
 				// initialize remote connection to Sauce Labs
 				var sauceConnectPort = 4445;
-				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.user, options.key);
+				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
 
 				grunt.log.writeln('Initialising browser %s %s %s', conf.browserName, conf.version, conf.platform);
 				browser.init(conf, function() {
@@ -52,28 +51,29 @@ module.exports = function(grunt) {
 
 					grunt.log.writeln('Open %s', url);
 					browser.get(url, function(err) {
-						var retries = 0;
-						if (err) return done(err);
+
+						if (err) {
+							console.log(err);
+							return done(err);
+						}
 
 						// Wait until results are available
 						(function waitOnResults() {
-							if (retries > 5) {
-								done('Could not run on browser ' + conf.browserName + ', ' + conf.version);
-								return;
-							}
 
 							browser.eval('window.global_test_results', function(err, data) {
 
 								if (!data) {
 									browser.refresh(function(err) {
-										retries++;
 										setTimeout(waitOnResults, 1500);
 									});
 
 									return;
 								}
 
-								if (err) return done(err);
+								if (err) {
+									console.log(err);
+									return done(err);
+								}
 
 								browser.quit();
 								process.nextTick(function() { done(null, true); });
@@ -124,6 +124,7 @@ module.exports = function(grunt) {
 
 											fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
 												if (err) {
+													console.log(err);
 													throw err;
 												}
 											});
@@ -137,6 +138,7 @@ module.exports = function(grunt) {
 			};
 		}
 
+		grunt.log.writeln('Opening tunnel to Sauce Labs');
 		tunnel.start(function(status) {
 
 			grunt.log.writeln("Tunnel Started");
