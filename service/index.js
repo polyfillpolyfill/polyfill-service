@@ -35,18 +35,40 @@ app.use(function(req, res, next) {
 app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
 app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
 app.get(/\/test\/tests\/?$/, function(req, res, next) {
-	var base = __dirname+'/../polyfills';
+	var base = path.join(__dirname, '/../polyfills');
 	var polyfilldata = [];
-	fs.readdirSync(base).forEach(function (polyfillName) {
-		if (!req.query.feature || req.query.feature === polyfillName) {
+	var uaString = req.query.ua || req.header('user-agent');
+	var features = [];
+
+	if (req.query.defaultonly) {
+		features =  [ { name: 'default', flags: [] } ];
+	} else {
+		features = polyfillio.getAllPolyfills().map(function(polyfillName) {
+			return { name: polyfillName, flags: [ 'always' ] };
+		});
+	}
+
+	var featureList = polyfillio.getPolyfills({
+		uaString: uaString,
+		features: features
+	});
+
+	featureList.forEach(function (feature) {
+		var featureName = feature.name;
+		var polyfillPath = path.join(base, featureName);
+
+		if (!req.query.feature || req.query.feature === featureName) {
+			var detectFile = path.join(polyfillPath, '/detect.js');
+			var testFile = path.join(polyfillPath, '/tests.js');
 			polyfilldata.push({
-				feature: polyfillName,
-				detect: fs.existsSync(base+'/'+polyfillName+'/detect.js') ? fs.readFileSync(base+'/'+polyfillName+'/detect.js', {encoding: 'utf-8'}).trim() : false,
-				tests: fs.existsSync(base+'/'+polyfillName+'/tests.js') ? fs.readFileSync(base+'/'+polyfillName+'/tests.js') : false
+				feature: featureName,
+				detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
+				tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
 			});
 		}
 	});
-	var runner = require('handlebars').compile(fs.readFileSync(__dirname+'/../test/browser/runner.html', {encoding: 'UTF-8'}));
+
+	var runner = require('handlebars').compile(fs.readFileSync(path.join(__dirname, '/../test/browser/runner.html'), {encoding: 'UTF-8'}));
 	res.send(runner({
 		loadPolyfill: !req.query.nopolyfill,
 		features: polyfilldata
