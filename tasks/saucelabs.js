@@ -49,6 +49,7 @@ module.exports = function(grunt) {
 				browser.init(conf, function() {
 
 					browser.get(url, function(err) {
+						var refreshed = false;
 
 						if (err) {
 							console.log(err);
@@ -56,16 +57,19 @@ module.exports = function(grunt) {
 						}
 
 						// Wait until results are available
-						setTimeout(function waitOnResults() {
+						(function waitOnResults() {
 
 							browser.eval('window.global_test_results', function(err, data) {
 
 								if (!data) {
-									browser.refresh(function(err) {
+									if (!refreshed) {
+										browser.refresh(function(err) {
+											refreshed = true;
+											setTimeout(waitOnResults, 1500);
+										});
+									} else {
 										setTimeout(waitOnResults, 1500);
-									});
-
-									return;
+									}
 								}
 
 								if (err) {
@@ -143,7 +147,7 @@ module.exports = function(grunt) {
 									}
 								});
 							});
-						}, 5000);
+						}());
 					});
 				});
 			};
