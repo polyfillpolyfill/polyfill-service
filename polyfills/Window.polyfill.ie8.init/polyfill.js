@@ -24,9 +24,6 @@
 
 											return clone;
 
-									case 3:
-											return document.createTextNode(this.data);
-
 									case 8:
 											return document.createComment(this.data);
 							}
