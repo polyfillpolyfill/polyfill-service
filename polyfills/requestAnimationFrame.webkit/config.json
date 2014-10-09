@@ -5,6 +5,7 @@
 	},
 	"aliases": [
 		"modernizr:requestanimationframe",
-		"caniuse:requestanimationframe"
+		"caniuse:requestanimationframe",
+		"default"
 	]
 }

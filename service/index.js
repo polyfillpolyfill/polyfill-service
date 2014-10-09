@@ -7,7 +7,9 @@ var polyfillio = require('../lib'),
 	path = require('path'),
 	fs = require('fs'),
 	parseArgs = require('minimist'),
-	ServiceMetrics = require('./metrics');
+	ServiceMetrics = require('./metrics'),
+	fs = require('fs'),
+	appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
 
 'use strict';
 
@@ -73,7 +75,7 @@ app.get(/^\/v1\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
 		"apiVersion": 1,
-		"appVersion": packagejson.version,
+		"appVersion": appVersion,
 		"dateCreated": '2014-07-14T10:28:45Z',
 		"support": origamijson.support,
 		"supportStatus": "active"
@@ -160,7 +162,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
 		isGateForced = req.query.gated === "1",
-		polyfills = PolyfillSet.fromQueryParam(req.query.features || '', isGateForced ? ["gated"] : []),
+		polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', isGateForced ? ["gated"] : []),
 		uaString = req.query.ua || req.header('user-agent');
 
 	if (!req.query.ua) res.set('Vary', 'User-Agent');
@@ -172,8 +174,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	} else {
 		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 		res.set('Access-Control-Allow-Origin', '*');
-		res.send(polyfillio.getPolyfills({
-			polyfills: polyfills.get(),
+		res.send(polyfillio.getPolyfillString({
+			features: polyfills.get(),
 			extension: fileExtension,
 			minify: minified,
 			uaString: uaString,

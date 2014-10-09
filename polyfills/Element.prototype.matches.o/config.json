@@ -5,6 +5,7 @@
 		"op_mob": "*"
 	},
 	"aliases": [
-		"caniuse:matchesselector"
+		"caniuse:matchesselector",
+		"default"
 	]
 }

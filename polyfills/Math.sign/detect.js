@@ -1,0 +1,1 @@
+typeof Math.sign === 'function'

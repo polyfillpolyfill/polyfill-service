@@ -146,7 +146,7 @@
                             <dt><code>|gated</code></dt>
                             <dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
                         </dl>
-                        <p>If not specified, all polyfills will be considered.</p>
+                        <p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.</p>
                     </td>
                 </tr><tr>
                     <td><code>gated</code></td>
@@ -162,7 +162,7 @@
 
             <h2>Examples</h2>
 
-            <p>Consider all polyfills, bundle and return those which are required by the current browser:</p>
+            <p>Consider default polyfills, bundle and return those which are required by the current browser:</p>
 
             <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
@@ -176,12 +176,12 @@
 
             <div class='demo' data-src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></div>
 
-            <p>Consider all polyfills but for an IE7 user-agent:</p>
+            <p>Consider default polyfills, plus Array.from, but for an IE7 user-agent:</p>
 
             <?prettify?>
-            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
 
-            <div class='demo' data-src='/v1/polyfill.min.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
+            <div class='demo' data-src='/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
 
             <h2>About</h2>
 

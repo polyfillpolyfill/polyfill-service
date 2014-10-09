@@ -5,6 +5,7 @@
 		"safari": "4"
 	},
 	"aliases": [
-		"modernizr:es5array"
+		"modernizr:es5array",
+		"default"
 	]
 }

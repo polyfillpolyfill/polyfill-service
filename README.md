@@ -31,16 +31,16 @@ Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 ### Library API reference
 
-#### `getPolyfills(options)` (method)
+#### `getPolyfillString(options)` (method)
 
 Returns a bundle of polyfills as a string.  Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `type`: String, optional. 'js' or 'css', defaults to js
-* `polyfills`: Array, optional.  The list of polyfills that are to be considered for inclusion.  If not supplied, all polyfills will be considered.  Each polyfill must be in the form of an object with the following properties:
-	* `name`: String, required. Name of polyfill, matching a folder name in the polyfills directory, or a known alias
-	* `flags`: Array, optional. Array of flags to apply to this polyfill (see below)
+* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
+	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
 
 Flags that may be applied to polyfills are:
 
@@ -50,27 +50,52 @@ Flags that may be applied to polyfills are:
 Example:
 
 ```javascript
-require('polyfill-service').getPolyfills({
+require('polyfill-service').getPolyfillString({
 	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
 	minify: true,
-	polyfills: [
+	features: [
 		{name:"Element.prototype.matches", flags:['always', 'gated']},
 		{name:"modernizr:es5array"}
 	]
 }));
 ```
 
+#### `getPolyfills(options)` (method)
+
+Returns a list of features whose configuration matches the given user agent string.
+Options is an object with the following keys:
+
+* `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
+* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
+	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
+	* `flags`: Array, optional. Array of flags to apply to this feature (see above in `getPolyfillString`)
+
+Example:
+
+```javascript
+require('polyfill-service').getPolyfills({
+	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
+	features: [
+		{name:"Element.prototype.matches", flags:['always', 'gated']},
+		{name:"modernizr:es5array"}
+	]
+});
+```
+
 ## Polyfill configuration
 
 All polyfills are located in the polyfills directory, with one subdirectory per polyfill, named after the API method which is the subject of the polyfill.  Each polyfill folder may contain:
 
-* `polyfill.js`: Required. Code to apply the polyfill behaviour
-* `detect.js`: A single expression or IIFE that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  If not present, polyfill cannot be gated.
+* `polyfill.js`: Required. Code to apply the polyfill behaviour, meeting the following requirements:
+	* Must perfectly replicate the API of the feature
+	* Must not be wrapped in a feature detect (the service will add this)
+	* Must not contain polyfills for other features (instead, depend on those polyfills)
+* `detect.js`: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated.
 * `config.json`: A config file conforming to the spec below
 
 The config.json file may contain any of the following keys:
 
-* `browsers`: Object, one key per browser family name (see [browser names](#browser-names)), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill *should be applied*. See [node-semver ranges](https://github.com/npm/node-semver#ranges).
+* `browsers`: Object, one key per browser family name (see [browsers](#browsers) for details), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill *should be applied*. See [node-semver ranges](https://github.com/npm/node-semver#ranges).  This range is subject to our [baseline support](#browsers).
 * `aliases`: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.
 * `dependencies`: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.
 * `author`: Object, metadata about the author of the polyfill, following [NPM convention](https://www.npmjs.org/doc/json.html#people-fields-author-contributors)
@@ -105,22 +130,24 @@ Example:
 
 A request from IE7 would receive this polyfill, since it is targeted to IE 6-9.  It *may* also receive polyfills for `Object.defineProperties` and `Object.create`, since those are dependencies of the polyfill in this example, if those polyfills also apply in IE7.
 
-### Browser names
 
-The short names should be used in the `config.json` to configure the browser
-support using the `browsers` key.
+### Browsers
 
-| Short name | User Agent Name          |
-|:----------:|:-------------------------|
-| `ie`       | Internet Explorer        |
-| `ie_mob`   | Internet Explorer Mobile |
-| `chrome`   | Chrome                   |
-| `ios_chr`  | Chrome on iOS            |
-| `safari`   | Safari                   |
-| `ios_saf`  | Safari on iOS            |
-| `firefox`  | Firefox                  |
-| `android`  | Android Browser          |
-| `opera`    | Opera                    |
-| `op_mob`   | Opera Mobile             |
-| `op_mini`  | Opera Mini               |
-| `bb`       | Blackberry               |
+The short names should be used in the `config.json` to configure the browser support using the `browsers` key.  All browsers are subject to a minimum version to be considered 'worth polyfilling'.  If a request for polyfills is received from an unidentifiable user-agent or one that is older than the minimum supported version, the polyfill bundle will be empty.
+
+
+| Short name | User Agent Name          | Min supported version |
+|:----------:|:-------------------------|:----------------------|
+| `ie`       | Internet Explorer        | 6                     |
+| `ie_mob`   | Internet Explorer Mobile | 8                     |
+| `chrome`   | Chrome                   | 1                     |
+| `safari`   | Safari                   | 3                     |
+| `ios_saf`  | Safari on iOS            | 3                     |
+| `firefox`  | Firefox                  | 3.6                   |
+| `android`  | Android Browser          | 2.3                   |
+| `opera`    | Opera                    | 11                    |
+| `op_mob`   | Opera Mobile             | 10                    |
+| `op_mini`  | Opera Mini               | 5                     |
+| `bb`       | Blackberry               | 6                     |
+
+The minimum supported version is intentionally lower than most developers will need, because *it cannot be safely lowered*.  We raise the minimum when testing on a particular browser becomes inconveniently hard.

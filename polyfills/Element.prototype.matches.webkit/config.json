@@ -9,6 +9,7 @@
 		"ios_saf": "*"
 	},
 	"aliases": [
-		"caniuse:matchesselector"
+		"caniuse:matchesselector",
+		"default"
 	]
 }
