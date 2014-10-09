@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-- '0.11'
 - '0.10'
 env:
   global:
@@ -11,3 +10,5 @@ notifications:
 before_script:
   - npm install -g karma-cli
   - npm install -g grunt-cli
+script:
+  - "npm run-script citest"
