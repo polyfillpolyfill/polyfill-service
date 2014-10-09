@@ -27,7 +27,8 @@ module.exports = function(grunt) {
 			concurrency: 3,
 			tags: [],
 			video: false,
-			screenshots: false
+			screenshots: false,
+			cibuild: false
 		});
 
 
@@ -45,11 +46,8 @@ module.exports = function(grunt) {
 				var sauceConnectPort = 4445;
 				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
 
-				grunt.log.writeln('Initialising browser %s %s %s', conf.browserName, conf.version, conf.platform);
 				browser.init(conf, function() {
-					grunt.log.writeln('Running %s %s %s', conf.browserName, conf.version, conf.platform);
 
-					grunt.log.writeln('Open %s', url);
 					browser.get(url, function(err) {
 
 						if (err) {
@@ -58,7 +56,7 @@ module.exports = function(grunt) {
 						}
 
 						// Wait until results are available
-						(function waitOnResults() {
+						setTimeout(function waitOnResults() {
 
 							browser.eval('window.global_test_results', function(err, data) {
 
@@ -76,63 +74,76 @@ module.exports = function(grunt) {
 								}
 
 								browser.quit();
-								process.nextTick(function() { done(null, true); });
+								process.nextTick(function() {
+									if (!options.cibuild) {
+										done(null, { status: 'ok' });
+									} else {
+										done(null, {
+											status: data.failed > 0 ? 'failed' : 'passed',
+											id: browser.sessionID,
+											name: conf.browserName,
+											version: conf.version
+										});
+									}
+								});
 
 								request({
 									method: "PUT",
-									uri: ["https://", options.user, ":", options.key, "@saucelabs.com/rest", "/v1/", options.user, "/jobs/", browser.sessionID].join(''),
+									uri: ["https://", options.username, ":", options.key, "@saucelabs.com/rest", "/v1/", options.username, "/jobs/", browser.sessionID].join(''),
 									headers: {'Content-Type': 'application/json'},
 									body: JSON.stringify({
 										'custom-data': { custom: data },
 										'passed': !data.failed
 									})
 								}, function (err, res, body) {
-									mkdirp(testResultsPath, function(err) {
-										if (err) {
-											throw err;
-										}
-
-										var file = path.join(testResultsPath, 'results.json')
-
-										fs.readFile(file, function(err, filedata) {
+									if (!options.cibuild) {
+										mkdirp(testResultsPath, function(err) {
 											if (err) {
-												// If ENOENT, continue as
-												// writeFile will create
-												// it
-												if (err.code !== 'ENOENT') {
-													throw err;
-												}
+												throw err;
 											}
 
-											var testResults  = filedata ? JSON.parse(filedata) : {};
-											var browserName = UA.normalizeName(conf.browserName) || conf.browserName;
+											var file = path.join(testResultsPath, 'results.json')
 
-											if (!testResults[browserName]) {
-												testResults[browserName] = {};
-											}
-
-											if (!testResults[browserName][conf.version]) {
-												testResults[browserName][conf.version]	= {};
-											}
-
-											testResults[browserName][conf.version][urlName] = {
-												passed: data.passed,
-												failed: data.failed,
-												failingSuites: Object.keys(data.failingSuites),
-												testedSuites: data.testedSuites
-											};
-
-											fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
+											fs.readFile(file, function(err, filedata) {
 												if (err) {
-													console.log(err);
-													throw err;
+													// If ENOENT, continue as
+													// writeFile will create
+													// it
+													if (err.code !== 'ENOENT') {
+														throw err;
+													}
 												}
+
+												var testResults  = filedata ? JSON.parse(filedata) : {};
+												var browserName = UA.normalizeName(conf.browserName) || conf.browserName;
+
+												if (!testResults[browserName]) {
+													testResults[browserName] = {};
+												}
+
+												if (!testResults[browserName][conf.version]) {
+													testResults[browserName][conf.version]	= {};
+												}
+
+												testResults[browserName][conf.version][urlName] = {
+													passed: data.passed,
+													failed: data.failed,
+													failingSuites: Object.keys(data.failingSuites),
+													testedSuites: data.testedSuites
+												};
+
+												fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
+													if (err) {
+														console.log(err);
+														throw err;
+													}
+												});
 											});
 										});
-									});
+									}
 								});
 							});
-						}());
+						}, 5000);
 					});
 				});
 			};
@@ -164,7 +175,20 @@ module.exports = function(grunt) {
 			grunt.log.writeln("Starting test jobs");
 			batch.end(function(err, status) {
 				tunnel.stop(function() {
-					gruntDone(null, true);
+					var failed = false;
+					console.log("Failed tests:")
+					status.forEach(function(state) {
+						if (state.status === 'failed') {
+							failed = true;
+							console.log(state.name, "/", state.version, ': https://saucelabs.com/tests/' + state.id);
+						}
+					});
+
+					if (!failed) {
+						console.log("No failed tests");
+					}
+
+					gruntDone(!failed, failed);
 				});
 			});
 		});

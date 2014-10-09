@@ -44,6 +44,19 @@ module.exports = function(grunt) {
 					browsers: browserList,
 					screenshots: true
 				}
+			},
+			ci: {
+				options: {
+					username: 'polyfill-service',
+					key: process.env.SAUCE_API_KEY,
+					cibuild: true,
+					urls: {
+						default: 'http://127.0.0.1:3000/test/tests/?defaultonly=1'
+					},
+					concurrency: 3,
+					browsers: browserList,
+					screenshots: true
+				}
 			}
 		}
 	});
@@ -59,11 +72,17 @@ module.exports = function(grunt) {
 		"mocha",
 	]);
 
-	grunt.registerTask("ci", [
+	grunt.registerTask("compatgen", [
 		"simplemocha",
 		"polyfillservice",
 		"saucelabs",
 		"compattable"
+	]);
+
+	grunt.registerTask("ci", [
+		"simplemocha",
+		"polyfillservice",
+		"saucelabs:ci"
 	]);
 };
 
