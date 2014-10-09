@@ -6,21 +6,30 @@
 	});
 
 	// Element.prototype.cloneNode
-	Object.defineProperty(Element.prototype, 'cloneNode', {
-		value: function (deep) {
-			var
-			element = this,
-			xElement = this.document.createElement('x');
+	(function (origCloneNode) {
+			Object.defineProperty(Element.prototype, 'cloneNode', {
 
-			xElement.innerHTML = element.outerHTML;
+					value: function (deep) {
+							switch (this.nodeType) {
+									case 1:
+											var i, len, child;
+											var clone = origCloneNode.call(this, false);
 
-			if (!deep) {
-				xElement.firstChild.innerHTML = '';
-			}
+											if (deep) {
+													for (i = 0, len = this.childNodes.length; i < len; i++) {
+															child = this.childNodes[i];
+															clone.appendChild(child.cloneNode(true));
+													}
+											}
 
-			return xElement.removeChild(xElement.firstChild);
-		}
-	});
+											return clone;
+
+									case 8:
+											return document.createComment(this.data);
+							}
+					}
+			});
+	})(Element.prototype.cloneNode);
 
 	// Element.prototype.innerHTML
 	var innerHTMLSetter = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML').set;
