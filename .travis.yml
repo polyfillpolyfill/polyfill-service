@@ -11,4 +11,4 @@ before_script:
   - npm install -g karma-cli
   - npm install -g grunt-cli
 script:
-  - "npm run-script citest"
+  - npm run-script citest
