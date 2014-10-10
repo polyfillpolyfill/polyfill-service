@@ -65,6 +65,7 @@ app.get(/\/test\/tests\/?$/, function(req, res, next) {
 	});
 
 	var runner = require('handlebars').compile(fs.readFileSync(path.join(__dirname, '/../test/browser/runner.html'), {encoding: 'UTF-8'}));
+	res.set('Cache-Control', 'no-cache');
 	res.send(runner({
 		loadPolyfill: !req.query.nopolyfill,
 		features: polyfilldata
