@@ -1,16 +1,26 @@
 {
-  "browsers": {
-    "firefox": "<=24",
-    "ie": "*",
-    "chrome": "*",
-    "ios_chr": "*",
-    "safari": "*",
-    "ios_saf": "*",
-    "firefox": "*",
-    "android": "*",
-    "opera": "*",
-    "op_mob": "*",
-    "op_mini": "*",
-    "bb": "*"
-  }
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "1 - 37",
+		"firefox": "1 - 24",
+		"ie": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"opera": "10 - 20",
+		"op_mob": "*",
+		"op_mini": "*",
+		"safari": "*"
+	},
+	"alternatives": {
+		"plus": {
+			"browsers": {
+				"ie": "*",
+				"safari": "*"
+			}
+		}
+	}
 }
