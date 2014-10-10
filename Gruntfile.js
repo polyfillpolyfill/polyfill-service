@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 			}
 		},
 		"saucelabs": {
-			all: {
+			compat: {
 				options: {
 					username: 'polyfill-service',
 					key: process.env.SAUCE_API_KEY,
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("compatgen", [
 		"simplemocha",
 		"polyfillservice",
-		"saucelabs",
+		"saucelabs:compat",
 		"compattable"
 	]);
 

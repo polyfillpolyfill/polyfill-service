@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 										if (retries > 10) {
 											browser.quit();
 											process.nextTick(function() {
-												done(null, { status: 'failed', uaString: data.uaString, id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'})
+												done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 											});
 											return;
 										}
@@ -188,7 +188,13 @@ module.exports = function(grunt) {
 
 			grunt.log.writeln("Starting test jobs");
 			batch.end(function(err, status) {
+				console.log("Jobs complete");
 				tunnel.stop(function() {
+					if (!options.cibuild) {
+						gruntDone(null, true);
+						return;
+					}
+
 					var failed = false;
 					console.log("Failed tests:")
 					status.forEach(function(state) {
