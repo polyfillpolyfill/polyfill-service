@@ -85,7 +85,9 @@ module.exports = function(grunt) {
 											status: data && (data.failed > 0) ? 'failed' : 'passed',
 											id: browser.sessionID,
 											name: conf.browserName,
-											version: conf.version
+											version: conf.version,
+											failed: data.failed || '??',
+											total: data.total
 										});
 									}
 								});
@@ -183,7 +185,7 @@ module.exports = function(grunt) {
 					status.forEach(function(state) {
 						if (state.status === 'failed') {
 							failed = true;
-							console.log(state.name, "/", state.version, ': https://saucelabs.com/tests/' + state.id);
+							console.log(state.name + "/" + state.version, ':', state.failed + '/' + state.total + ' failed - ' + 'https://saucelabs.com/tests/' + state.id);
 						}
 					});
 
