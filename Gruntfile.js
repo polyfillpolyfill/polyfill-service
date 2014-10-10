@@ -89,6 +89,16 @@ module.exports = function(grunt) {
 var browserList  = [
 	{
 		browserName: 'chrome',
+		version: 'beta',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'chrome',
+		version: '38',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'chrome',
 		version: '37',
 		platform: 'Windows 7'
 	},
@@ -98,14 +108,9 @@ var browserList  = [
 		platform: 'Windows 7'
 	},
 	{
-		browserName: 'chrome',
-		version: '35',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'chrome',
-		version: 'beta',
-		platform: 'Windows 7'
+		browserName: 'firefox',
+		version: '26',
+		platform: 'Linux'
 	},
 	{
 		browserName: 'firefox',
@@ -114,17 +119,12 @@ var browserList  = [
 	},
 	{
 		browserName: 'firefox',
+		version: '31',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
 		version: '30',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '28',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '26',
 		platform: 'Linux'
 	},
 	{
@@ -146,6 +146,21 @@ var browserList  = [
 		browserName: 'internet explorer',
 		version: '8',
 		platform: 'Windows XP'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '9',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '10',
+		platform: 'Windows 7'
+	},
+	{
+		browserName: 'internet explorer',
+		version: '11',
+		platform: 'Windows 7'
 	},
 	{
 		browserName: 'opera',
@@ -206,5 +221,30 @@ var browserList  = [
 		browserName: 'safari',
 		version: '7',
 		platform: 'OSX 10.9'
+	},
+	{
+		browserName: 'android',
+		version: '4.4',
+		platform: 'linux'
+	},
+	{
+		browserName: 'android',
+		version: '4.3',
+		platform: 'linux'
+	},
+	{
+		browserName: 'android',
+		version: '4.2',
+		platform: 'linux'
+	},
+	{
+		browserName: 'android',
+		version: '4.1',
+		platform: 'linux'
+	},
+	{
+		browserName: 'android',
+		version: '4.0',
+		platform: 'linux'
 	}
 ];
