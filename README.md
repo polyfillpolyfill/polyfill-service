@@ -10,10 +10,12 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master
 To install and run polyfill as a service:
 
 1. Install [git](http://git-scm.com/downloads) and [Node](http://nodejs.org) on your system
-2. Fork this repository.  You can do that [here](https://github.com/financial-times/polyfill-service/fork)
-3. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
-4. Run `npm install`
-5. Run `npm start` and navigate to `http://localhost:3000` in your browser
+2. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
+3. Run `npm install`
+4. Are you running it for production or development?
+	4a. **Development**: Install [nodemon](http://nodemon.io/), and run `nodemon -e js,json service/index.js` from the root of the working tree.  This will watch your filesystem and automatically restart if you make any changes to any of the app source code or polyfill config files.
+	4b. **Production**: Run `npm start`.  This will run the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
+5. Navigate to [http://localhost:3000](http://localhost:3000) in your browser
 
 For an API reference for the service, see the [hosted service documentation](http://polyfill.webservices.ft.com).
 
