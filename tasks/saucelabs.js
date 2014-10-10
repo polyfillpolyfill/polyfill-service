@@ -61,21 +61,20 @@ module.exports = function(grunt) {
 
 							browser.eval('window.global_test_results', function(err, data) {
 
+
 								if (!data) {
 									if (!refreshed) {
 										browser.refresh(function(err) {
 											refreshed = true;
 											setTimeout(waitOnResults, 1500);
 										});
+										return;
 									} else {
 										setTimeout(waitOnResults, 1500);
+										return;
 									}
 								}
 
-								if (err) {
-									console.log(err);
-									return done(err);
-								}
 
 								browser.quit();
 								process.nextTick(function() {
@@ -83,7 +82,7 @@ module.exports = function(grunt) {
 										done(null, { status: 'ok' });
 									} else {
 										done(null, {
-											status: data.failed > 0 ? 'failed' : 'passed',
+											status: data && (data.failed > 0) ? 'failed' : 'passed',
 											id: browser.sessionID,
 											name: conf.browserName,
 											version: conf.version
