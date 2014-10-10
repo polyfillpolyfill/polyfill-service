@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 
 					browser.get(url, function(err) {
 						var refreshed = false;
+						var retries = 0;
 
 						if (err) {
 							console.log(err);
@@ -70,7 +71,14 @@ module.exports = function(grunt) {
 										});
 										return;
 									} else {
-										setTimeout(waitOnResults, 1500);
+										if (retries > 10) {
+											browser.quit();
+											process.nextTick(function() {
+												done(null, { status: 'failed', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'})
+											});
+											return;
+										}
+										setTimeout(function() { retries++; waitOnResults(); }, 1500);
 										return;
 									}
 								}
