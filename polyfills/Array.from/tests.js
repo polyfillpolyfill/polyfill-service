@@ -69,9 +69,14 @@ it('fills holes in arrays', function() {
 });
 
 it('includes Object.prototype values when it is polluted', function() {
-	Object.prototype['1'] = 42;
-	expect(Array.from({ length: 3, 0: 1, 2: 3 })).to.eql([1, 42, 3]);
-	delete Object.prototype['1'];
+	function MyObject() {
+		this.length = 3;
+		this['0'] = 1;
+		this['2'] = 3;
+	};
+	MyObject.prototype = { 1: 42 };
+
+	expect(Array.from(new MyObject())).to.eql([1, 42, 3]);
 });
 
 it('works with arraylike objects', function() {
