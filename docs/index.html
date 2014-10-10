@@ -18,7 +18,8 @@
             font-size: 80%;
         }
         .status-polyfilled {
-            background-color: #D7FF57;
+            background-color: #E0EDE1;
+            border: 1px solid #6FFF9D;
         }
         .status-native {
             background-color: #6FFF9D;
@@ -43,15 +44,26 @@
             xhr.onload = function() {
                 var data = JSON.parse(this.responseText);
                 var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+                var msgs = {
+                    'native': 'Supported natively',
+                    'polyfilled': 'Supported with polyfill service',
+                    'missing': 'Not supported'
+                }
                 var html = '';
+                var laststatus = null;
                 for (feat in data) {
                     html += "<tr><td><a href='/test/tests?feature="+feat+"'>"+feat+"</a></td>";
                     browsers.forEach(function(browser) {
+                        laststatus = null;
                         html += "<td>";
                         if (data[feat][browser]) {
-                            for (version in data[feat][browser]) {
-                                html += "<span class='status-"+data[feat][browser][version]+"'>"+version+"</span> ";
-                            }
+                            Object.keys(data[feat][browser]).sort().forEach(function(version) {
+                                console.log(feat, browser, version, data[feat][browser][version]);
+                                if (laststatus !== data[feat][browser][version]) {
+                                    html += "<span class='status-"+data[feat][browser][version]+"' title='"+msgs[data[feat][browser][version]]+"'>"+version+"</span> ";
+                                    laststatus = data[feat][browser][version];
+                                }
+                            });
                         }
                         html += "</td>";
                     });
@@ -97,7 +109,7 @@
 
             <h2>Compatibility</h2>
 
-            <p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>.</p>
+            <p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/tests/docs/assets/compat.json'>compat.json</a>.</p>
 
             <table class='compatibility'>
                 <tr>
