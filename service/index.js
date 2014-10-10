@@ -40,13 +40,9 @@ app.get(/\/test\/tests\/?$/, function(req, res, next) {
 	var uaString = req.query.ua || req.header('user-agent');
 	var features = [];
 
-	if (req.query.defaultonly) {
-		features =  [ { name: 'default', flags: [] } ];
-	} else {
-		features = polyfillio.getAllPolyfills().map(function(polyfillName) {
-			return { name: polyfillName, flags: [ 'always' ] };
-		});
-	}
+	features = polyfillio.getAllPolyfills().map(function(polyfillName) {
+		return { name: polyfillName, flags: req.query.configuredonly ?  [] : ['always'] };
+	});
 
 	var featureList = polyfillio.getPolyfills({
 		uaString: uaString,

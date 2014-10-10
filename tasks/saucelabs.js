@@ -26,8 +26,8 @@ module.exports = function(grunt) {
 			url: {},
 			concurrency: 3,
 			tags: [],
-			video: false,
-			screenshots: false,
+			video: true,
+			screenshots: true,
 			cibuild: false
 		});
 

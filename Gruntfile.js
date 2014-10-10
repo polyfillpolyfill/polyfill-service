@@ -41,8 +41,7 @@ module.exports = function(grunt) {
 						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
 					},
 					concurrency: 3,
-					browsers: browserList,
-					screenshots: true
+					browsers: browserList
 				}
 			},
 			ci: {
@@ -51,11 +50,10 @@ module.exports = function(grunt) {
 					key: process.env.SAUCE_API_KEY,
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/tests/?defaultonly=1'
+						default: 'http://127.0.0.1:3000/test/tests/?configuredonly=1'
 					},
 					concurrency: 3,
-					browsers: browserList,
-					screenshots: true
+					browsers: browserList
 				}
 			}
 		}
