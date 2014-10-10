@@ -51,7 +51,8 @@
 		  duration: 0,
 		  tests: [],
 		  failingSuites: {},
-		  testedSuites: []
+		  testedSuites: [],
+		  uaString: window.navigator.userAgent || 'unknown'
 	  };
       runner.on('pass', function(test) {
         results.passed++;

@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 										if (retries > 10) {
 											browser.quit();
 											process.nextTick(function() {
-												done(null, { status: 'failed', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'})
+												done(null, { status: 'failed', uaString: data.uaString, id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'})
 											});
 											return;
 										}
@@ -95,7 +95,8 @@ module.exports = function(grunt) {
 											name: conf.browserName,
 											version: conf.version,
 											failed: data.failed || '??',
-											total: data.total
+											total: data.total,
+											uaString: data.uaString
 										});
 									}
 								});
@@ -193,6 +194,8 @@ module.exports = function(grunt) {
 					status.forEach(function(state) {
 						if (state.status === 'failed') {
 							failed = true;
+							console.log("--");
+							console.log("Useragent string: ", state.uaString);
 							console.log(state.name + "/" + state.version, ':', state.failed + '/' + state.total + ' failed - ' + 'https://saucelabs.com/tests/' + state.id);
 						}
 					});
