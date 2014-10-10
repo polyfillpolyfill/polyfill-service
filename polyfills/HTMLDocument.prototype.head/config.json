@@ -3,5 +3,7 @@
 		"ie": "8",
 		"safari": "4"
 	},
-	"dependencies": ["HTMLDocument"]
+	"dependencies": [
+		"HTMLDocument"
+	]
 }

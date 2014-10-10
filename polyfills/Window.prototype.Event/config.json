@@ -1,7 +1,12 @@
 {
 	"browsers": {
-		"firefox": "3.6 - *",
+		"firefox": "3.6 - 10",
 		"ie": "9 - 10",
-		"safari": "4"
-	}
+		"opera": "10 - 11.5",
+		"safari": "4 - *"
+	},
+	"dependencies": [
+		"Window",
+		"Window.chrome"
+	]
 }

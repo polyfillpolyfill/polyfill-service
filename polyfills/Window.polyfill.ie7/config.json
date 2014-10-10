@@ -1,5 +1,12 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
-		"ie": "7"
-	}
+		"ie": "6 - 7"
+	},
+	"dependencies": [
+		"Window",
+		"HTMLDocument"
+	]
 }

@@ -1,9 +1,14 @@
 {
-	"browsers": {
-		"ie": "6 - 8"
-	},
 	"aliases": [
 		"modernizr:es5object"
 	],
-	"dependencies": ["Object.defineProperty.ie7", "Object.defineProperty.ie8", "Object.defineProperty"]
+	"browsers": {
+		"ie": "6 - 8",
+		"safari": "4 - 4.1"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Object.defineProperty.ie7",
+		"Object.defineProperty.ie8"
+	]
 }

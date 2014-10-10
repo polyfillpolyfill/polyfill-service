@@ -1,7 +1,13 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
 		"ie": "8"
 	},
-	"dependencies": ["Window.polyfill.ie8"],
-	"order": -1
+	"dependencies": [
+		"Object.defineProperty.ie8",
+		"HTMLDocument.ie8",
+		"HTMLElement.ie8"
+	]
 }

@@ -1,10 +1,6 @@
 // Window.polyfill
 (function () {
 	var
-	// Window
-	Window = window.Window = function Window() {},
-	// Document / HTMLDocument
-	Document = window.Document = window.HTMLDocument = function Document() {},
 	// Element / HTMLElement
 	Element = window.Element = window.HTMLElement = function Element() {},
 	// NodeList

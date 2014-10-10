@@ -1,2 +1,2 @@
 // HTMLDocument
-window.HTMLDocument = window.Document;
+(this.HTMLDocument = this.Document = this.document.constructor = function HTMLDocument() {}).prototype = this.document;

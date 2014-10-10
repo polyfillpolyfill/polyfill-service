@@ -1,12 +1,12 @@
 // Element.prototype.addEventListener, Element.prototype.removeEventListener
 (function () {
-	Window.prototype.addEventListener = function (type, listener, capture) {
+	function addEventListener(type, listener, capture) {
 		originalAddEventListener.call(this, type, listener, capture || false);
-	};
+	}
 
-	Window.prototype.removeEventListener = function (type, listener, capture) {
+	function removeEventListener(type, listener, capture) {
 		originalRemoveEventListener.call(this, type, listener, capture || false);
-	};
+	}
 
 	var
 	originalAddEventListener = Element.prototype.addEventListener,

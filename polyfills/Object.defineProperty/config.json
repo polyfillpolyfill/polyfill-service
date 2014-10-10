@@ -1,7 +1,7 @@
 {
 	"browsers": {
 		"firefox": "3.6",
-		"safari": "4",
+		"safari": "4 - 4.1",
 		"ios_saf": "4.3"
 	},
 	"aliases": [

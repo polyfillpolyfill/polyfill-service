@@ -1,0 +1,10 @@
+{
+	"aliases": [
+		"default"
+	],
+	"browsers": {
+		"ie": "6 - 7",
+		"opera": "10 - 11.6",
+		"safari": "4 - 5"
+	}
+}

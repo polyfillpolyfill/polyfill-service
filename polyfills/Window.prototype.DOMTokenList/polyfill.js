@@ -19,7 +19,7 @@
 		}
 	}
 
-	var DOMTokenList = window.DOMTokenList = Window.prototype.DOMTokenList = function DOMTokenList() {
+	var DOMTokenList = Window.prototype.DOMTokenList = function DOMTokenList() {
 		throw new Error('Illegal constructor');
 	};
 

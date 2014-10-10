@@ -5,8 +5,8 @@
 		document.createElement(nodeName);
 	});
 
-	// Element.prototype.cloneNode
-	Object.defineProperty(Element.prototype, 'cloneNode', {
+	// HTMLElement.prototype.cloneNode
+	Object.defineProperty(HTMLElement.prototype, 'cloneNode', {
 		value: function (deep) {
 			var
 			element = this,
@@ -22,10 +22,10 @@
 		}
 	});
 
-	// Element.prototype.innerHTML
-	var innerHTMLSetter = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML').set;
+	// HTMLElement.prototype.innerHTML
+	var innerHTMLSetter = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML').set;
 
-	Object.defineProperty(Element.prototype, 'innerHTML', {
+	Object.defineProperty(HTMLElement.prototype, 'innerHTML', {
 		set: function (value) {
 			var element = this;
 

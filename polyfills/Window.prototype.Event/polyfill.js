@@ -1,5 +1,5 @@
 // Window.prototype.Event
-window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
+Window.prototype.Event = function Event(type, eventInitDict) {
 	if (!type) {
 		throw new Error('Not enough arguments');
 	}

@@ -1,8 +1,13 @@
 {
 	"browsers": {
-		"firefox": "3.6 - *",
+		"firefox": "3.6 - 10",
 		"ie": "9 - 10",
-		"safari": "4"
+		"opera": "10 - 11.5",
+		"safari": "4 - *"
 	},
-	"dependencies": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]
+	"dependencies": [
+		"Window.prototype.Event",
+		"Window.prototype.Event.firefox5",
+		"Window.prototype.Event.ie8"
+	]
 }

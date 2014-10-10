@@ -1,9 +1,15 @@
 {
 	"browsers": {
 		"ie": "8 - 9",
-		"safari": "4"
+		"safari": "4 - 4.1"
 	},
-	"dependencies": ["Window.polyfill.ie7", "Object.defineProperties", "Window.prototype.DOMTokenList"],
+	"dependencies": [
+		"Object.defineProperty",
+		"Object.defineProperty.ie7",
+		"Object.defineProperty.ie8",
+		"Window.polyfill.ie7",
+		"Window.prototype.DOMTokenList"
+	],
 	"aliases": [
 		"modernizr:classlist",
 		"default"

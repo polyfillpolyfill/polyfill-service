@@ -3,6 +3,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - 7"
+		"chrome": "14 - 18",
+		"safari": "5.1"
 	}
 }
