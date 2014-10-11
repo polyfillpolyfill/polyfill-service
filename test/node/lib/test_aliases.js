@@ -3,11 +3,11 @@ var AliasResolver = require('../../../lib/aliases');
 
 var configuredAliases = {};
 
-AliasResolver.addResolver(function expandAliasFromConfig(polyfillIdentifierName) {
-	return configuredAliases[polyfillIdentifierName] || undefined;
-});
+var resolver = new AliasResolver([function expandAliasFromConfig(feature) {
+	return configuredAliases[feature.name] || undefined;
+}]);
 
-describe("#resolvePolyfills(polyfills)", function() {
+describe("#resolve(polyfills)", function() {
 
 	it("should take a list of polyfill objects and resolve each to potentially many other polyfill objects based on a sequence of resolution functions", function() {
 
@@ -19,7 +19,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 			"alias_name_b": [ "resolved_name_c", "resolved_name_d" ]
 		};
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([{
+		var resolvedPolyfills = resolver.resolve([{
 			name: "alias_name_a",
 			flags: []
 		}]);
@@ -43,7 +43,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		};
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([{
+		var resolvedPolyfills = resolver.resolve([{
 			name: "alias_name_a",
 			flags: []
 		},
@@ -77,7 +77,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 			"alias_name_b": ["resolved_name_c", "resolved_name_d"]
 		};
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = resolver.resolve([
 			{
 				name: "alias_name_a",
 				flags: ["always"]
@@ -118,7 +118,7 @@ describe("#resolvePolyfills(polyfills)", function() {
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		};
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = resolver.resolve([
 			{
 				name: "alias_name_a",
 				flags: ["always"]
@@ -148,26 +148,28 @@ describe("#resolvePolyfills(polyfills)", function() {
 		], resolvedPolyfills);
 	});
 
-	it("should transfer only the first, specified alias to the final resolved polyfill identifier", function() {
+	it("should transfer all aliases to the final resolved polyfill identifier", function() {
 		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		};
 
-		AliasResolver.clearResolvers();
-		AliasResolver.addResolver(function(polyfillIdentifierName) {
+		var localresolver = new AliasResolver([
+			function(feature) {
 
-			// Map only first_alias_name_a to another alias
-			if (polyfillIdentifierName === "first_alias_name_a") {
-				return ["alias_name_a"];
+				// Map only first_alias_name_a to another alias
+				if (feature.name === "first_alias_name_a") {
+					return ["alias_name_a"];
+				}
+
+				return undefined;
+			},
+			function(feature) {
+				return configuredAliases[feature.name];
 			}
+		]);
 
-			return undefined;
-		}).addResolver(function(polyfillIdentifierName) {
-			return configuredAliases[polyfillIdentifierName];
-		});
-
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = localresolver.resolve([
 			{
 				name: "first_alias_name_a",
 				flags: ["always"]
@@ -178,12 +180,12 @@ describe("#resolvePolyfills(polyfills)", function() {
 			{
 				name: "resolved_name_a",
 				flags: ["always"],
-				aliasOf: ["first_alias_name_a"]
+				aliasOf: ["alias_name_a", "first_alias_name_a"]
 			},
 			{
 				name: "resolved_name_b",
 				flags: ["always"],
-				aliasOf: ["first_alias_name_a"]
+				aliasOf: ["alias_name_a", "first_alias_name_a"]
 			}
 		], resolvedPolyfills);
 	});
@@ -194,12 +196,11 @@ describe("#resolvePolyfills(polyfills)", function() {
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		};
 
-		AliasResolver.clearResolvers();
-		AliasResolver.addResolver(function(polyfillIdentifierName) {
-			return configuredAliases[polyfillIdentifierName] || undefined;
-		});
+		var localresolver = new AliasResolver([function(feature) {
+			return configuredAliases[feature.name] || undefined;
+		}]);
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = localresolver.resolve([
 			{
 				name: "resolved_name_a",
 				flags: ["always"]
@@ -228,26 +229,28 @@ describe("#resolvePolyfills(polyfills)", function() {
 		], resolvedPolyfills);
 	});
 
-	it("should handle cases where a resolver function can not resolve a name so returns undefined by passing the polyfill identifier to the next function", function() {
+	it("should handle cases where a resolver function cannot resolve a name so returns undefined by passing the polyfill identifier to the next function", function() {
 		configuredAliases = {
 			"alias_name_a": ["resolved_name_a", "resolved_name_b"],
 			"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 		};
 
-		AliasResolver.clearResolvers();
-		AliasResolver.addResolver(function(polyfillIdentifierName) {
+		var localresolver = new AliasResolver([
+			function(feature) {
 
-			// Map only first_alias_name_a to another alias
-			if (polyfillIdentifierName === "first_alias_name_a") {
-				return ["alias_name_a"];
+				// Map only first_alias_name_a to another alias
+				if (feature.name === "first_alias_name_a") {
+					return ["alias_name_a"];
+				}
+
+				return undefined;
+			},
+			function(feature) {
+				return configuredAliases[feature.name] || undefined;
 			}
+		]);
 
-			return undefined;
-		}).addResolver(function(polyfillIdentifierName) {
-			return configuredAliases[polyfillIdentifierName] || undefined;
-		});
-
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = localresolver.resolve([
 			{
 				name: "first_alias_name_a",
 				flags: ["always"]
@@ -262,12 +265,12 @@ describe("#resolvePolyfills(polyfills)", function() {
 			{
 				name: "resolved_name_a",
 				flags: ["always"],
-				aliasOf: ["first_alias_name_a"]
+				aliasOf: ["alias_name_a", "first_alias_name_a"]
 			},
 			{
 				name: "resolved_name_b",
 				flags: ["always", "gated"],
-				aliasOf: ["first_alias_name_a", "alias_name_b"]
+				aliasOf: ["alias_name_a", "first_alias_name_a", "alias_name_b"]
 			},
 			{
 				name: "resolved_name_c",
@@ -279,12 +282,11 @@ describe("#resolvePolyfills(polyfills)", function() {
 
 	it("should remove duplicate canonical polyfills, merge flags and not create an alias", function() {
 
-		AliasResolver.clearResolvers();
-		AliasResolver.addResolver(function(polyfillIdentifierName) {
+		var localresolver = new AliasResolver([function(feature) {
 			return undefined;
-		});
+		}]);
 
-		var resolvedPolyfills = AliasResolver.resolvePolyfills([
+		var resolvedPolyfills = localresolver.resolve([
 			{
 				name: "resolved_name_a",
 				flags: ["always"]
