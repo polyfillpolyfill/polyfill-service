@@ -1,11 +1,21 @@
 {
-	"browsers": {
-		"ie": "8",
-		"firefox": "3.6",
-		"safari": "4"
+	"variants": {
+		"default": {
+			"browsers": {
+				"ie": "8",
+				"firefox": "3.6",
+				"safari": "4"
+			},
+			"dependencies": ["Object.defineProperties"]
+		},
+		"ie7": {
+			"browsers": {
+				"ie": "6 - 7"
+			},
+			"dependencies": ["Object.defineProperties"]
+		}
 	},
 	"aliases": [
 		"modernizr:es5object"
-	],
-	"dependencies": ["Object.defineProperties"]
+	]
 }

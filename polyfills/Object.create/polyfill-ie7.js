@@ -1,4 +1,3 @@
-// Object.create
 Object.create = function create(prototype, properties) {
 	if (prototype !== Object(prototype)) {
 		throw new TypeError('Object prototype may only be an Object or null');

@@ -1,4 +1,3 @@
-// Element.prototype.classList
 (function (CLASSLIST) {
 	var descriptor = {
 		get: function () {

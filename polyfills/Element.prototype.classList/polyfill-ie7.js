@@ -1,4 +1,3 @@
-// Element.prototype.classList
 Element.polyfill.push(function () {
 	function DOMTokenList() {}
 
