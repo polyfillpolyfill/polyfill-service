@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('compattable', 'Create a compatibility table', function() {
 		var done = this.async();
-		console.log("Running task");
+		console.log("Running compattable task");
 		fs.readFile(file, function(err, filedata) {
 			console.log("Reading file");
 			if (err) {

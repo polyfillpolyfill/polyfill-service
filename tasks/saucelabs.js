@@ -206,8 +206,9 @@ module.exports = function(grunt) {
 
 			grunt.log.writeln("Starting test jobs");
 			batch.end(function(err, status) {
-				console.log("Jobs complete");
+				console.log("Jobs complete - stopping tunnel");
 				tunnel.stop(function() {
+					console.log('Sauce tunnel stopped');
 					if (!options.cibuild) {
 						gruntDone(null, true);
 						return;
