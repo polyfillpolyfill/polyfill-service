@@ -37,14 +37,17 @@ module.exports = function(grunt) {
 
 		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 
+		function getBrowserConnection() {
+			var sauceConnectPort = 4445;
+			return wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
+		}
+
 
 		// Create a new job to pass into the Batch runner, returns a function
 		function newTestJob(url, urlName, conf) {
 			return function testJob(done) {
 
-				// initialize remote connection to Sauce Labs
-				var sauceConnectPort = 4445;
-				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
+				var browser = getBrowserConnection();
 
 				browser.init(conf, function() {
 
