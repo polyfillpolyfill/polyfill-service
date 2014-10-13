@@ -8,12 +8,12 @@
 	<style>
 		* { box-sizing: border-box; }
 		html, body { width: 100%; height: 100%; padding:0; margin: 0; }
-		textarea { position: absolute; top: 0; left: 0; width: 100%; height:50px; resize: none; }
-		iframe { position: absolute; top: 50px; left: 0; right:100%; bottom: 100%; width: 100%; height:100%; }
+		textarea { position: absolute; bottom: 0; left: 0; width: 100%; height:196px; resize: none; z-index: 2; font-size: 14px; font-family: monospace; border: 0; background-color:rgba(255,255,255,0.7); padding: 3px 10px;}
+		iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index:1; }
 	</style>
 
 	<script>
-		var runner, rawqs, qs = {}, queue = [], i, x, timer,
+		var runner, rawqs, qs = {}, i, x, timer,
 			globalresults = {
 				passed: 0,
 				failed: 0,
@@ -24,23 +24,12 @@
 				testedSuites: [],
 				uaString: 'unknown'
 			},
-			remainingCount = -1
+			queue = {{{featuresList}}},
+			remainingCount = queue.length
 		;
 		window.onload = function() {
 			runner = document.getElementById('runner');
-			rawqs = location.search;
-
-			if (rawqs) {
-				rawqs = rawqs.substr(1).split('&');
-				for (i=0; i<rawqs.length; i++) {
-					x = rawqs[i].split('=');
-					qs[x[0]] = (x.length > 1) ? x[1] : null;
-				}
-			}
-
-			if (qs.features) {
-				queue = qs.features.split(',');
-				remainingCount = queue.length;
+			if (queue.length) {
 				executeTest();
 			} else {
 				log('No features to test');
@@ -74,15 +63,15 @@
 						}
 					}
 				}
-				log('Test data received for '+featureList.join(', '));
+				log('Test data received for '+featureList.join(', ')+': '+results.passed+' pass, '+results.failed+' fail.');
 			}
 			remainingCount = queue.length;
 
 			if (!remainingCount) {
-				log('All tests complete, result data populated');
+				log('All tests complete, result data populated.  Total: '+globalresults.passed+' pass, '+globalresults.failed+' fail.');
 				window.global_test_results = globalresults;
 			} else {
-				log(remainingCount + 'test(s) remain.');
+				log(remainingCount + ' test(s) remain.');
 				executeTest();
 			}
 		}
@@ -90,13 +79,13 @@
 		function log(str) {
 			var t = new Date();
 			var el = document.getElementById('log');
-			el.value += ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str + '\n';
+			el.value += '\n' + ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str;
 			el.scrollTop = 99999999;
 		}
 	</script>
 </head>
 <body>
-	<textarea id='log'></textarea>
 	<iframe id='runner'></iframe>
+	<textarea id='log'></textarea>
 </body>
 </html>

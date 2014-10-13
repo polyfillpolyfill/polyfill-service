@@ -35,8 +35,13 @@ app.use(function(req, res, next) {
 app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
 app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
 app.get(/\/test\/director\/?$/, function(req, res, next) {
+	var director = require('handlebars').compile(
+		fs.readFileSync(path.join(__dirname, '/../test/browser/director.html'), {encoding: 'UTF-8'})
+	);
 	res.set('Content-Type', 'text/html');
-	res.send(fs.readFileSync(path.join(__dirname, '/../test/browser/director.html')));
+	res.send(director({
+		featuresList:JSON.stringify(polyfillio.getAllPolyfills())
+	}));
 });
 app.get(/\/test\/tests\/?$/, function(req, res, next) {
 	var base = path.join(__dirname, '/../polyfills');
