@@ -102,13 +102,13 @@ var browserList  = [
 	},
 	{
 		browserName: 'chrome',
-		version: '36',
+		version: '32',
 		platform: 'Windows 7'
 	},
 	{
-		browserName: 'firefox',
-		version: '26',
-		platform: 'Linux'
+		browserName: 'chrome',
+		version: '28',
+		platform: 'Windows 7'
 	},
 	{
 		browserName: 'firefox',
@@ -123,6 +123,16 @@ var browserList  = [
 	{
 		browserName: 'firefox',
 		version: '30',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: '26',
+		platform: 'Linux'
+	},
+	{
+		browserName: 'firefox',
+		version: '20',
 		platform: 'Linux'
 	},
 	{
