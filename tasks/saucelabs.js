@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 				var browser = getBrowserConnection();
 
 				browser.init(conf, function() {
+					console.log("Browser ", conf.browserName + "/" + conf.version, " launched");
 
 					browser.get(url, function(err) {
 						var refreshed = false;
@@ -64,17 +65,23 @@ module.exports = function(grunt) {
 						(function waitOnResults() {
 
 							browser.eval('window.global_test_results', function(err, data) {
+								var retryLimit = 10;
 
-
+								// If we don't have data yet, we try again for
+								// a maximum of `retryLimit` times
 								if (!data) {
+
+									// If we don't have the data yet, refresh
+									// once, this is primarily because the iOS simulator seems to need a
+									// kick to continue
 									if (!refreshed) {
-										browser.refresh(function(err) {
+										browser.refresh(function() {
 											refreshed = true;
 											setTimeout(waitOnResults, 1500);
 										});
 										return;
 									} else {
-										if (retries > 10) {
+										if (retries > retryLimit) {
 											browser.quit();
 											process.nextTick(function() {
 												done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
@@ -86,22 +93,30 @@ module.exports = function(grunt) {
 									}
 								}
 
-
+								// Close the browser as soon as we have the
+								// results.  No need to keep it hanging around
+								// until the rest of the job is complete.
 								browser.quit();
+
 								process.nextTick(function() {
+									var status = 'passed';
+
+									// Always pass if not a cibuild
 									if (!options.cibuild) {
-										done(null, { status: 'ok' });
+										status = 'passed'
 									} else {
-										done(null, {
-											status: data && (data.failed > 0) ? 'failed' : 'passed',
-											id: browser.sessionID,
-											name: conf.browserName,
-											version: conf.version,
-											failed: data.failed || '??',
-											total: data.total,
-											uaString: data.uaString
-										});
+										status = data && (data.failed > 0) ? 'failed' : 'passed';
 									}
+
+									done(null, {
+										status: status,
+										id: browser.sessionID,
+										name: conf.browserName,
+										version: conf.version,
+										failed: data.failed || '??',
+										total: data.total,
+										uaString: data.uaString
+									});
 								});
 
 								request({
@@ -112,14 +127,14 @@ module.exports = function(grunt) {
 										'custom-data': { custom: data },
 										'passed': !data.failed
 									})
-								}, function (err, res, body) {
+								}, function (e, res, body) {
 									if (!options.cibuild) {
 										mkdirp(testResultsPath, function(err) {
 											if (err) {
 												throw err;
 											}
 
-											var file = path.join(testResultsPath, 'results.json')
+											var file = path.join(testResultsPath, 'results.json');
 
 											fs.readFile(file, function(err, filedata) {
 												if (err) {

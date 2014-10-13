@@ -58,15 +58,14 @@ module.exports = function(grunt) {
 						throw new Error("No native test results for " + browserName + "/" + version);
 					}
 
-					if (!testResults.native && !testResults.polyfilled) {
+					if (!testResults.native || !testResults.polyfilled) {
+						console.log("Could not get test results for " + browserName + "/" + version);
 						return;
 					}
 
-					console.log("AOK", testResults);
 					var allTests = new Set(testResults.native.testedSuites || []);
 					var failedNative = new Set(testResults.native.failingSuites || []);
 					var failedPolyfilled = new Set(testResults.polyfilled.failingSuites || []);
-					console.log("Still AOK");
 
 					var missing = failedNative.intersection(failedPolyfilled);
 					var polyfilled = failedPolyfilled.difference(failedNative);
