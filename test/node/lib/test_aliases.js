@@ -1,5 +1,5 @@
 var assert  = require('assert');
-var AliasResolver = require('../../lib/aliases');
+var AliasResolver = require('../../../lib/aliases');
 
 var configuredAliases = {};
 

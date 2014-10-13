@@ -21,24 +21,40 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "grunt test",
     "start": "forever  service/index.js",
     "restart": "forever restart service/index.js",
     "stop": "forever stop service/index.js",
-    "status": "forever list | grep -q service/index.js"
+    "status": "forever list | grep -q service/index.js",
+	"citest": "grunt ci"
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
     "caniuse-db": "1.0.20140710",
+    "es6-set": "^0.1.0",
     "express": "^4.4.4",
     "forever": "^0.11.1",
+    "minimist": "^0.2.0",
+    "mkdirp": "^0.5.0",
     "semver": "^2.3.1",
-    "uglify-js": "^2.4.14",
-    "useragent": "^2.0.8",
     "tsort": "0.0.1",
-    "minimist": "^0.2.0"
+    "uglify-js": "^2.4.14",
+    "useragent": "^2.0.8"
   },
   "devDependencies": {
-    "mocha": "^1.20.1"
+    "batch": "^0.5.1",
+    "chai": "^1.9.2",
+    "expect.js": "^0.3.1",
+    "grunt": "~0.4.0",
+    "grunt-cli": "~0.1.6",
+    "grunt-mocha": "^0.4.11",
+    "grunt-simple-mocha": "^0.4.0",
+    "handlebars": "^1.3.0",
+    "jshint": "^2.5.6",
+    "mocha": "^1.20.1",
+    "request": "^2.44.0",
+    "sauce-tunnel": "^2.1.0",
+    "should": "^4.0.4",
+    "wd": "^0.3.8"
   }
 }

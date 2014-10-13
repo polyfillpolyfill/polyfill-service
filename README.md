@@ -90,6 +90,17 @@ require('polyfill-service').getPolyfills({
 });
 ```
 
+#### `getAllPolyfills()` (method)
+
+Return a list of all the features with polyfills as an array of strings. This
+list corresponds to directories in the `/polyfills` directory.
+
+Example:
+
+```javascript
+require('polyfill-service').getAllPolyfills();
+```
+
 ## Polyfill configuration
 
 All polyfills are located in the polyfills directory, with one subdirectory per polyfill, named after the API method which is the subject of the polyfill.  Each polyfill folder may contain:

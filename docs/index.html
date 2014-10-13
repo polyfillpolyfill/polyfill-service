@@ -6,9 +6,28 @@
     <link rel="stylesheet" href="//build.origami.ft.com/bundles/css?modules=o-techdocs@^3.0.3" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, inital-scale=1.0" />
     <style>
-    body { padding: 0; margin: 0; }
-    .demo { width: 100%; height: 90px; max-height: 90px; border: 1px dotted #999; overflow-y: auto;
-    overflow-x: hidden; -webkit-overflow-scrolling:touch; padding: 10px; font-family: monospace; font-size: 11px; box-sizing: border-box; }
+        body { padding: 0; margin: 0; }
+        .demo { width: 100%; height: 90px; max-height: 90px; border: 1px dotted #999; overflow-y: auto;
+        overflow-x: hidden; -webkit-overflow-scrolling:touch; padding: 10px; font-family: monospace; font-size: 11px; box-sizing: border-box; }
+        .compatibility {
+            width: 100%;
+        }
+        [class^='status'],div[class*=' status']{
+            padding: 1px 4px;
+            display: inline-block;
+            font-size: 80%;
+        }
+        .status-polyfilled {
+            background-color: #E0EDE1;
+            border: 1px solid #6FFF9D;
+        }
+        .status-native {
+            background-color: #6FFF9D;
+        }
+        .status-missing {
+            background-color: #ECECEC;
+            color: #aaa;
+        }
     </style>
     <script>
         window.onload = function() {
@@ -20,7 +39,40 @@
                 }
                 xhr.send();
             });
-        }
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", "/assets/compat.json");
+            xhr.onload = function() {
+                var data = JSON.parse(this.responseText);
+                var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+                var msgs = {
+                    'native': 'Supported natively',
+                    'polyfilled': 'Supported with polyfill service',
+                    'missing': 'Not supported'
+                }
+                var html = '';
+                var laststatus = null;
+                for (feat in data) {
+                    html += "<tr><td><a href='/test/tests?feature="+feat+"'>"+feat+"</a></td>";
+                    browsers.forEach(function(browser) {
+                        laststatus = null;
+                        html += "<td>";
+                        if (data[feat][browser]) {
+                            Object.keys(data[feat][browser]).sort().forEach(function(version) {
+                                console.log(feat, browser, version, data[feat][browser][version]);
+                                if (laststatus !== data[feat][browser][version]) {
+                                    html += "<span class='status-"+data[feat][browser][version]+"' title='"+msgs[data[feat][browser][version]]+"'>"+version+"</span> ";
+                                    laststatus = data[feat][browser][version];
+                                }
+                            });
+                        }
+                        html += "</td>";
+                    });
+                    html += "</tr>";
+                }
+                document.querySelector('table.compatibility').innerHTML += html;
+            }
+            xhr.send();
+       }
     </script>
 </head>
 <body class="o-techdocs">
@@ -54,6 +106,24 @@
             <?prettify?>
             <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 
+
+            <h2>Compatibility</h2>
+
+            <p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/tests/docs/assets/compat.json'>compat.json</a>.</p>
+
+            <table class='compatibility'>
+                <tr>
+                    <th></th>
+                    <th>IE</th>
+                    <th>Firefox</th>
+                    <th>Chrome</th>
+                    <th>Safari</th>
+                    <th>Opera</th>
+                    <th>iOS Safari</th>
+                </tr>
+            </table>
+
+            <p style='text-align:right'>Key: <span class='status-missing'>Feature missing</span>, <span class='status-polyfilled'>Feature supported with Polyfill service</span>, <span class='status-native'>Feature supported natively</span></p>
 
             <h2>API reference</h2>
 
