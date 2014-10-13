@@ -57,9 +57,16 @@ module.exports = function(grunt) {
 					if (!testResults.native) {
 						throw new Error("No native test results for " + browserName + "/" + version);
 					}
-					var allTests = new Set(testResults.native.testedSuites);
-					var failedNative = new Set(testResults.native.failingSuites);
-					var failedPolyfilled = new Set(testResults.polyfilled.failingSuites);
+
+					if (!testResults.native && !testResults.polyfilled) {
+						return;
+					}
+
+					console.log("AOK", testResults);
+					var allTests = new Set(testResults.native.testedSuites || []);
+					var failedNative = new Set(testResults.native.failingSuites || []);
+					var failedPolyfilled = new Set(testResults.polyfilled.failingSuites || []);
+					console.log("Still AOK");
 
 					var missing = failedNative.intersection(failedPolyfilled);
 					var polyfilled = failedPolyfilled.difference(failedNative);
@@ -101,20 +108,4 @@ module.exports = function(grunt) {
 			});
 		});
 	});
-};
-
-/**
- * HACK: This is duplicated in lib/aliases.js
- * Apply a function to each element in the array and concatenate the result
- * of the function into a new array.
- *
- * @example The difference between map and flatMap
- * > [0, 1, 2].map(function(val) {return [val + 1, val + 2]; });
- * [ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] ]
- *
- * > flatMap([0, 1, 2], function(val) { return [val + 1, val + 2]; });
- * [ 1, 2, 2, 3, 3, 4 ]
- */
-function flatMap(array, func) {
-	return Array.prototype.concat.apply([], array.map(func));
 };
