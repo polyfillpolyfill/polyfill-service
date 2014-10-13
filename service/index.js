@@ -34,6 +34,10 @@ app.use(function(req, res, next) {
 
 app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
 app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
+app.get(/\/test\/director\/?$/, function(req, res, next) {
+	res.set('Content-Type', 'text/html');
+	res.send(fs.readFileSync(path.join(__dirname, '/../test/browser/director.html')));
+});
 app.get(/\/test\/tests\/?$/, function(req, res, next) {
 	var base = path.join(__dirname, '/../polyfills');
 	var polyfilldata = [];

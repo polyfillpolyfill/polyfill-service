@@ -82,6 +82,12 @@
 
       runner.on('end', function() {
         window.global_test_results = results;
+        if (parent && parent.receiveTestResults) {
+          parent.receiveTestResults([
+            {{#features}}"{{feature}}",{{/features}}
+            null
+          ], results);
+        }
       });
     }
 
