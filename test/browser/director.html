@@ -25,8 +25,9 @@
 				uaString: 'unknown'
 			},
 			queue = {{{featuresList}}},
-			remainingCount = queue.length
-		;
+			remainingCount = queue.length,
+			windowQueryString = window.location.search;
+
 		window.onload = function() {
 			runner = document.getElementById('runner');
 			if (queue.length) {
@@ -38,7 +39,7 @@
 
 		function executeTest() {
 			var feature = queue.pop();
-			var url = '/test/tests?feature='+feature;
+			var url = '/test/tests' + windowQueryString + '&feature=' + feature;
 			log('Loading '+url);
 			runner.src = url;
 			timer = setTimeout(receiveTestResults, 5000);

@@ -35,12 +35,27 @@ app.use(function(req, res, next) {
 app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
 app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
 app.get(/\/test\/director\/?$/, function(req, res, next) {
+	var uaString = req.query.ua || req.header('user-agent');
 	var director = require('handlebars').compile(
 		fs.readFileSync(path.join(__dirname, '/../test/browser/director.html'), {encoding: 'UTF-8'})
 	);
+
+	var allFeatures = polyfillio.getAllPolyfills().map(function(polyfillName) {
+		return { name: polyfillName, flags: req.query.configuredonly ?  [] : ['always'] };
+	});
+
+	var featureNameList = polyfillio.getPolyfills({
+		uaString: uaString,
+		features: allFeatures
+	}).map(function(feature) {
+		return feature.name;
+	});
+
 	res.set('Content-Type', 'text/html');
+	res.set('Cache-Control', 'no-cache');
+
 	res.send(director({
-		featuresList:JSON.stringify(polyfillio.getAllPolyfills())
+		featuresList: JSON.stringify(featureNameList)
 	}));
 });
 app.get(/\/test\/tests\/?$/, function(req, res, next) {
