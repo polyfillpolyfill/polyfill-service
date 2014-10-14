@@ -61,36 +61,30 @@ module.exports = function(grunt) {
 							return done(err);
 						}
 
+						browser.refresh(function() {
+							refreshed = true;
+							process.nextTick(waitOnResults);
+						});
+
 						// Wait until results are available
-						(function waitOnResults() {
+						function waitOnResults() {
 
 							browser.eval('window.global_test_results', function(err, data) {
-								var retryLimit = 10;
+								var retryLimit = 15;
 
 								// If we don't have data yet, we try again for
 								// a maximum of `retryLimit` times
 								if (!data) {
 
-									// If we don't have the data yet, refresh
-									// once, this is primarily because the iOS simulator seems to need a
-									// kick to continue
-									if (!refreshed) {
-										browser.refresh(function() {
-											refreshed = true;
-											setTimeout(waitOnResults, 1500);
+									if (retries > retryLimit) {
+										browser.quit();
+										process.nextTick(function() {
+											done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 										});
 										return;
-									} else {
-										if (retries > retryLimit) {
-											browser.quit();
-											process.nextTick(function() {
-												done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
-											});
-											return;
-										}
-										setTimeout(function() { retries++; waitOnResults(); }, 1500);
-										return;
 									}
+									setTimeout(function() { retries++; waitOnResults(); }, 5000);
+									return;
 								}
 
 								// Close the browser as soon as we have the
@@ -175,7 +169,7 @@ module.exports = function(grunt) {
 									}
 								});
 							});
-						}());
+						};
 					});
 				});
 			};
@@ -209,10 +203,15 @@ module.exports = function(grunt) {
 				console.log("Jobs complete - stopping tunnel");
 				tunnel.stop(function() {
 					console.log('Sauce tunnel stopped');
+					if (err) {
+						gruntDone(err);
+						return;
+					}
 					if (!options.cibuild) {
 						gruntDone(null, true);
 						return;
 					}
+
 
 					var failed = false;
 					console.log("Failed tests:")
