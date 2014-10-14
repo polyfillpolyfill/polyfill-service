@@ -37,8 +37,8 @@ module.exports = function(grunt) {
 					username: 'polyfill-service',
 					key: process.env.SAUCE_API_KEY,
 					urls: {
-						polyfilled: 'http://127.0.0.1:3000/test/tests/',
-						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
+						polyfilled: 'http://127.0.0.1:3000/test/director/',
+						native: 'http://127.0.0.1:3000/test/director/?nopolyfill=1'
 					},
 					concurrency: 3,
 					browsers: browserList
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 					key: process.env.SAUCE_API_KEY,
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/tests/?configuredonly=1'
+						default: 'http://127.0.0.1:3000/test/director/?configuredonly=1'
 					},
 					concurrency: 3,
 					browsers: browserList
