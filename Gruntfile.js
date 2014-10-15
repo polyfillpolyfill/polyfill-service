@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 	]);
 };
 
-var browserList  = [
+var browserList = [
 	{
 		browserName: 'chrome',
 		version: 'beta',
@@ -189,11 +189,6 @@ var browserList  = [
 		browserName: 'iphone',
 		version: '7.0',
 		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'iphone',
-		version: '6.1',
-		platform: 'OSX 10.8'
 	},
 	{
 		browserName: 'iphone',
