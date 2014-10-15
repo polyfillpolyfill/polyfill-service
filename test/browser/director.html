@@ -26,7 +26,7 @@
 			},
 			queue = {{{featuresList}}},
 			remainingCount = queue.length,
-			windowQueryString = window.location.search;
+			windowQueryString = window.location.search || "?null";
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
