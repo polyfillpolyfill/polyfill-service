@@ -6,8 +6,8 @@
 		"ie": "8"
 	},
 	"dependencies": [
-		"Object.defineProperty.ie8",
-		"HTMLDocument.ie8",
-		"HTMLElement.ie8"
+		"Object.defineProperty",
+		"HTMLDocument",
+		"HTMLElement"
 	]
 }
