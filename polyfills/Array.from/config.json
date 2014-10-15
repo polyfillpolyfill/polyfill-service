@@ -9,6 +9,12 @@
 		"Array.prototype.map"
 	],
 	"aliases": [
-		"modernizr:es6array"
-	]
+		"modernizr:es6array",
+		"es6"
+	],
+	"author": {
+		"name": "Mathias Bynens",
+		"url": "http://mathiasbynens.be/"
+	},
+	"license": "MIT"
 }

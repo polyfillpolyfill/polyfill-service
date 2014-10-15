@@ -1,3 +1,4 @@
+/*! http://mths.be/array-from v0.2.0 by @mathias */
 (function() {
 	'use strict';
 	var defineProperty = (function() {
