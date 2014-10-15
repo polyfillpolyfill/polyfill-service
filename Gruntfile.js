@@ -186,31 +186,6 @@ var browserList = [
 		platform: 'OSX 10.9'
 	},
 	{
-		browserName: 'iphone',
-		version: '7.0',
-		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'iphone',
-		version: '6.0',
-		platform: 'OSX 10.8'
-	},
-	{
-		browserName: 'iphone',
-		version: '5.1',
-		platform: 'OSX 10.6'
-	},
-	{
-		browserName: 'iphone',
-		version: '5.0',
-		platform: 'OSX 10.6'
-	},
-	{
-		browserName: 'iphone',
-		version: '4.3',
-		platform: 'OSX 10.6'
-	},
-	{
 		browserName: 'safari',
 		version: '5',
 		platform: 'OSX 10.6'
