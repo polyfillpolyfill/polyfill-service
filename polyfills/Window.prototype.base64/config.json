@@ -9,5 +9,6 @@
 		"Window",
 		"Window.chrome"
 	],
-	"license": "MIT David Lindquist (http://www.webtoolkit.info/javascript-base64.html), Andrew Dodson (drew81.com)"
+	"license": "MIT",
+	"author": "David Lindquist (http://www.webtoolkit.info/javascript-base64.html), Andrew Dodson (drew81.com)"
 }
