@@ -1,9 +1,0 @@
-{
-	"browsers": {
-		"firefox": "*"
-	},
-	"aliases": [
-		"caniuse:matchesselector",
-		"default"
-	]
-}

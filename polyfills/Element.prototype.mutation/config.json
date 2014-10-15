@@ -10,5 +10,14 @@
 		"safari": "4 - *",
 		"ios_saf": "*"
 	},
-	"dependencies": ["Window.polyfill.ie7"]
+	"dependencies": ["Window.polyfill"],
+
+	"variants": {
+		"blink": {
+			"browsers": {
+				"chrome": "*",
+				"opera": "15 - *"
+			}
+		}
+	}
 }
