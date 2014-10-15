@@ -1,0 +1,24 @@
+{
+	"browsers": {
+		"ie": "6 - 7"
+	},
+
+	"variants": {
+		"ie8": {
+			"browsers": {
+				"ie": "8"
+			},
+			"dependencies": ["Object.defineProperty"]
+		},
+		"ios": {
+			"browsers": {
+				"ios_saf": "*"
+			}
+		},
+		"safari": {
+			"browsers": {
+				"safari": "4 - *"
+			}
+		}
+	}
+}
