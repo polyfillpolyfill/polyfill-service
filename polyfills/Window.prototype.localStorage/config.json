@@ -6,5 +6,5 @@
 		"modernizr:localstorage",
 		"caniuse:namevalue-storage"
 	],
-	"dependencies": ["Window.polyfill.ie7"]
+	"dependencies": ["Window.polyfill"]
 }
