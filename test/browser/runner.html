@@ -15,7 +15,7 @@
 
 	{{#loadPolyfill}}
 		<!-- Code under test -->
-		<script src='/v1/polyfill.js?features={{#features}}{{feature}},{{/features}}'></script>
+		<script src='/v1/polyfill.js?features={{#polyfillFeatures}}{{.}},{{/polyfillFeatures}}'></script>
 	{{/loadPolyfill}}
 
 	<!-- Tests -->

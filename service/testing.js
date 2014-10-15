@@ -1,17 +1,29 @@
 var fs = require('fs'),
 	path = require('path');
 
+/**
+ * Modes:
+ *   control:  All test, no polyfills
+ *   all:      All tests, all polyfills
+ *   targeted: UA targeted tests, UA targeted polyfills
+ */
+
 function createDirectorEndpoint(polyfillio) {
 	return function (req, res) {
 		var uaString = req.query.ua || req.header('user-agent');
-		var mode = req.query.mode || 'control';
+		var mode = req.query.mode || 'all';
+		var sendAllTests = false;
+
+		if (mode === 'all' || mode === 'control') {
+			sendAllTests = true;
+		}
 
 		var director = require('handlebars').compile(
-			fs.readFileSync(path.join(__dirname, '/../test/browser/director.html'), {encoding: 'UTF-8'})
+			fs.readFileSync(path.join(__dirname, '/../test/browser/director.html'), { encoding: 'UTF-8' })
 		);
 
 		var allFeatures = polyfillio.getAllPolyfills().map(function(polyfillName) {
-			return { name: polyfillName, flags: req.query.configuredonly ?  [] : ['always'] };
+			return { name: polyfillName, flags: sendAllTests ?  ['always'] : [] };
 		});
 
 		var featureNameList = polyfillio.getPolyfills({
@@ -25,7 +37,7 @@ function createDirectorEndpoint(polyfillio) {
 		res.set('Cache-Control', 'no-cache');
 
 		res.send(director({
-			featuresList: JSON.stringify(featureNameList)
+			testFeaturesList: JSON.stringify(featureNameList)
 		}));
 	};
 }
@@ -33,12 +45,34 @@ function createDirectorEndpoint(polyfillio) {
 function createTestEndpoint(polyfillio) {
 	return function(req, res) {
 		var base = path.join(__dirname, '/../polyfills');
+		var mode = req.query.mode  || 'all';
 		var polyfilldata = [];
 		var uaString = req.query.ua || req.header('user-agent');
 		var features = [];
 
+		// if sendAllTests = false  tests are targeted by UA instead.
+		var sendAllTests = false;
+		var targetPolyfills = false;
+		var sendPolyfills = false;
+
+		switch (mode) {
+			case 'all':
+				sendAllTests = true;
+				sendPolyfills = true;
+				break;
+			case 'control':
+				sendAllTests = true;
+				sendPolyfills = false;
+				break;
+			case 'targeted':
+				targetPolyfills = true;
+				sendPolyfills = true;
+				break;
+		}
+
+		// Get all the tests that should be run.
 		features = polyfillio.getAllPolyfills().map(function(polyfillName) {
-			return { name: polyfillName, flags: req.query.configuredonly ?  [] : ['always'] };
+			return { name: polyfillName, flags: sendAllTests ? ['always']  : []};
 		});
 
 		var featureList = polyfillio.getPolyfills({
@@ -60,12 +94,40 @@ function createTestEndpoint(polyfillio) {
 				});
 			}
 		});
+		var polyfillFeatures = [];
+
+		if (sendPolyfills) {
+			// Polyfill data now contains all the tests that should be run. Next
+			// figure out what we should polyfill
+			var polyfillFlags = targetPolyfills ? [] : ['always'];
+			var stringFlags = "";
+
+			if (polyfillFlags.length > 0) {
+				stringFlags = "|" + polyfillFlags.join('|');
+			}
+
+			var featuresToPolyfill = polyfilldata.map(function(feature) {
+				return {
+					name: feature.feature,
+					flags: polyfillFlags
+				};
+			});
+
+			polyfillFeatures = polyfillio.getPolyfills({
+				uaString: uaString,
+				features: featuresToPolyfill
+			}).map(function(feature) {
+				return feature.name + stringFlags;
+			});
+
+		}
 
 		var runner = require('handlebars').compile(fs.readFileSync(path.join(__dirname, '/../test/browser/runner.html'), {encoding: 'UTF-8'}));
 		res.set('Cache-Control', 'no-cache');
 		res.send(runner({
-			loadPolyfill: !req.query.nopolyfill,
-			features: polyfilldata
+			loadPolyfill: sendPolyfills,
+			features: polyfilldata,
+			polyfillFeatures: polyfillFeatures
 		}));
 	};
 }
