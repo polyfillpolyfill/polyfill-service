@@ -1,8 +1,0 @@
-{
-	"browsers": {
-		"ie": "6 - 7"
-	},
-	"aliases": [
-		"modernizr:es5object"
-	]
-}
