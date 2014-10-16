@@ -1,11 +1,4 @@
 
-var polyfilldir = __dirname+'/polyfills';
-var testUrls = [];
-var port = 3000;
-require('fs').readdirSync(polyfilldir).forEach(function (polyfillName) {
-	testUrls.push('http://127.0.0.1:'+port+'/test/tests/'+polyfillName);
-});
-
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -13,7 +6,7 @@ module.exports = function(grunt) {
 		"simplemocha": {
 			options: {
 				globals: ['should'],
-				timeout: port,
+				timeout: 5000,
 				ignoreLeaks: false,
 				ui: 'bdd',
 				reporter: 'spec'
@@ -27,7 +20,7 @@ module.exports = function(grunt) {
 				options: {
 					reporter: 'Spec',
 					run: true,
-					urls: testUrls
+					urls: ['http://127.0.0.1:3000/test/director/?mode=targeted']
 				}
 			}
 		},
@@ -64,7 +57,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-mocha');
 
-	grunt.registerTask("dev", [
+	grunt.registerTask("test", [
 		"simplemocha",
 		"polyfillservice",
 		"mocha",
