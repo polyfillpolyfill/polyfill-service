@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 
 				// Variadic like console.log(...);
 				function log() {
-					var leader = conf.browserName + "/" + conf.version + ": ";
+					var leader = (new Date()).toString() + ' ' + conf.browserName + "/" + conf.version + ": ";
 					var args = Array.prototype.slice.call(arguments);
 					args.unshift(leader);
 					console.log.apply(null, args);
@@ -85,16 +85,16 @@ module.exports = function(grunt) {
 
 						// Wait until results are available
 						function waitOnResults() {
-							browser.eval('{ results: window.global_test_results, remainingCount: window.remainingCount }', function(err, data) {
+							browser.eval('window.global_test_results ||  window.remainingCount', function(err, data) {
 
-								if (!data.results) {
+								if (typeof data !== 'object') {
 									if (retryCount > retryLimit) {
-										browser.quit();
 										log('Timed out');
-										done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
+										browser.quit();
+										done(null, { status: 'failed', uaString: (typeof data == 'object') ? (data.uaString || '??') : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 									} else {
-										if (data.remainingCount !== remainingCount) {
-											remainingCount = data.remainingCount;
+										if (typeof data === 'number' && data !== remainingCount) {
+											remainingCount = data;
 											retryCount = 0;
 											log(remainingCount + ' test pages remaining');
 										} else {
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 									return;
 								}
 
-								log("Results received, closing remote browser");
+								log("results received, closing remote browser");
 
 								// Close the browser as soon as we have the
 								// results.  No need to keep it hanging around
@@ -114,23 +114,12 @@ module.exports = function(grunt) {
 								browser.quit();
 
 								process.nextTick(function() {
-									var status = 'passed';
-
-									// Always show on Sauce as passed if not a cibuild
-									if (!options.cibuild) {
-										status = 'passed'
-									} else {
-										status = data.results && (data.results.failed > 0) ? 'failed' : 'passed';
-									}
-
 									done(null, {
-										status: status,
 										id: browser.sessionID,
-										name: conf.browserName,
+										browserName: conf.browserName,
 										version: conf.version,
-										failed: data.results.failed || '??',
-										total: data.results.total,
-										uaString: data.results.uaString
+										urlName: urlName,
+										results: data
 									});
 								});
 
@@ -140,54 +129,8 @@ module.exports = function(grunt) {
 									headers: {'Content-Type': 'application/json'},
 									body: JSON.stringify({
 										'custom-data': { custom: data },
-										'passed': !data.results.failed
+										'passed': !data.failed
 									})
-								}, function (e, res, body) {
-									if (!options.cibuild) {
-										mkdirp(testResultsPath, function(err) {
-											if (err) {
-												throw err;
-											}
-
-											var file = path.join(testResultsPath, 'results.json');
-
-											fs.readFile(file, function(err, filedata) {
-												if (err) {
-													// If ENOENT, continue as
-													// writeFile will create
-													// it
-													if (err.code !== 'ENOENT') {
-														throw err;
-													}
-												}
-
-												var testResults  = filedata ? JSON.parse(filedata) : {};
-												var browserName = UA.normalizeName(conf.browserName) || conf.browserName;
-
-												if (!testResults[browserName]) {
-													testResults[browserName] = {};
-												}
-
-												if (!testResults[browserName][conf.version]) {
-													testResults[browserName][conf.version]	= {};
-												}
-
-												testResults[browserName][conf.version][urlName] = {
-													passed: data.results.passed,
-													failed: data.results.failed,
-													failingSuites: Object.keys(data.results.failingSuites),
-													testedSuites: data.results.testedSuites
-												};
-
-												fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
-													if (err) {
-														console.log(err);
-														throw err;
-													}
-												});
-											});
-										});
-									}
 								});
 							});
 						};
@@ -195,6 +138,38 @@ module.exports = function(grunt) {
 				});
 			};
 		}
+
+		function readResultsFile(cb) {
+			var file = path.join(testResultsPath, 'results.json');
+			mkdirp(testResultsPath, function(err) {
+				if (err) {
+					grunt.warn('Cannot write test results - '+testResultsPath+' cannot be written');
+					cb({});
+				} else {
+					fs.readFile(file, function(err, filedata) {
+						if (err) {
+							// If ENOENT, continue as writeFile will create it later
+							if (err.code !== 'ENOENT') {
+								throw err;
+							}
+						}
+						cb(filedata ? JSON.parse(filedata) : {});
+					});
+				}
+			});
+		}
+
+		function writeResultsFile(data) {
+			var file = path.join(testResultsPath, 'results.json');
+			fs.writeFile(file, JSON.stringify(data, null, 2), function(err) {
+				if (err) {
+					console.log(err);
+					throw err;
+				}
+			});
+		}
+
+
 
 		options.browsers.forEach(function(conf) {
 			conf['name'] = options.name;
@@ -211,45 +186,73 @@ module.exports = function(grunt) {
 			});
 		});
 
-		grunt.log.writeln('Opening tunnel to Sauce Labs');
-		tunnel.start(function(status) {
+		readResultsFile(function(testResults) {
 
-			grunt.log.writeln("Tunnel Started");
-			if (status !== true)  {
-				gruntDone(status);
-			}
+			grunt.log.writeln('Opening tunnel to Sauce Labs');
+			tunnel.start(function(status) {
 
-			grunt.log.writeln("Starting test jobs");
-			batch.end(function(err, status) {
-				console.log("Jobs complete - stopping tunnel");
-				tunnel.stop(function() {
-					console.log('Sauce tunnel stopped');
-					if (err) {
-						gruntDone(err);
-						return;
-					}
-					if (!options.cibuild) {
-						gruntDone(null, true);
-						return;
-					}
+				grunt.log.writeln("Tunnel Started");
+				if (status !== true)  {
+					gruntDone(status);
+				}
 
-
-					var failed = false;
-					console.log("Failed tests:")
-					status.forEach(function(state) {
-						if (state.status === 'failed') {
-							failed = true;
-							console.log("--");
-							console.log("Useragent string: ", state.uaString);
-							console.log(state.name + "/" + state.version, ':', state.failed + '/' + state.total + ' failed - ' + 'https://saucelabs.com/tests/' + state.id);
+				grunt.log.writeln("Starting test jobs");
+				batch.end(function(err, jobresults) {
+					tunnel.stop(function() {
+						var passingUAs = [];
+						var failed = false;
+						grunt.log.writeln('Sauce tunnel stopped');
+						if (err) {
+							gruntDone(err);
+							return;
 						}
+						grunt.log.writeln("Failed tests:")
+						jobresults.forEach(function(job) {
+							if (job.results.failed && job.results.failingSuites) {
+								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')')
+								Object.keys(job.results.failingSuites).forEach(function(feature) {
+									var url = options.urls[job.urlName].replace(/test\/director/, 'test/runner')+'&feature='+feature;
+									grunt.log.writeln('    -> '+feature);
+									grunt.log.writeln('       '+url);
+								});
+								failed = true;
+							} else {
+								passingUAs.push(job.browserName+'/'+job.version);
+							}
+
+							var browserName = UA.normalizeName(job.browserName) || job.browserName;
+
+							if (!testResults[browserName]) {
+								testResults[browserName] = {};
+							}
+
+							if (!testResults[browserName][job.version]) {
+								testResults[browserName][job.version]	= {};
+							}
+
+							testResults[browserName][job.version][job.urlName] = {
+								passed: job.results.passed,
+								failed: job.results.failed,
+								failingSuites: job.results.failingSuites ? Object.keys(job.results.failingSuites) : [],
+								testedSuites: job.results.testedSuites
+							};
+						});
+						if (passingUAs.length) {
+							console.log('No failures in: '+passingUAs.join(', '));
+						}
+
+						writeResultsFile(testResults);
+
+						process.nextTick(function() {
+
+							// Always report the grunt task as successful if not running as CI
+							if (!options.cibuild) {
+								gruntDone(null, true);
+							} else {
+								gruntDone(!failed, failed);
+							}
+						});
 					});
-
-					if (!failed) {
-						console.log("No failed tests");
-					}
-
-					gruntDone(!failed, failed);
 				});
 			});
 		});

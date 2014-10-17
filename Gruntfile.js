@@ -183,16 +183,6 @@ var browserList = [
 		platform: 'Windows 7'
 	},
 	{
-		browserName: 'opera',
-		version: '11',
-		platform: 'Windows XP'
-	},
-	{
-		browserName: 'opera',
-		version: '12',
-		platform: 'Windows XP'
-	},
-	{
 		browserName: 'iphone',
 		version: '7.1',
 		platform: 'OSX 10.9'

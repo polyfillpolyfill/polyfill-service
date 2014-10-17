@@ -2,3 +2,4 @@ node_modules
 npm-debug.log
 source/*/*.min.js
 source/*/*.min.js.map
+test/results
