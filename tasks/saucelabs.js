@@ -88,16 +88,19 @@ module.exports = function(grunt) {
 							browser.eval('{ results: window.global_test_results, remainingCount: window.remainingCount }', function(err, data) {
 
 								if (!data.results) {
-									if (data.remainingCount !== remainingCount) {
-										remainingCount = data.remainingCount;
-										retryCount = 0;
-										log(remainingCount + ' test pages remaining');
-									} else if (retryCount > retryLimit) {
+									if (retryCount > retryLimit) {
 										browser.quit();
 										log('Timed out');
 										done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 									} else {
-										retryCount++;
+										if (data.remainingCount !== remainingCount) {
+											remainingCount = data.remainingCount;
+											retryCount = 0;
+											log(remainingCount + ' test pages remaining');
+										} else {
+											retryCount++;
+											log('no changes, waiting');
+										}
 										setTimeout(waitOnResults, pollTick);
 									}
 									return;
