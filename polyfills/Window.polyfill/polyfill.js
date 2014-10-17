@@ -1,4 +1,3 @@
-// Window.polyfill
 (function () {
 	var
 	// Element / HTMLElement

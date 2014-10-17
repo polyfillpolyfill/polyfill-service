@@ -1,4 +1,3 @@
-// Element.prototype.placeholder
 Element.polyfill.push(function () {
 	var element = this, xInput, xPlaceholderTextNode;
 

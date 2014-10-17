@@ -1,4 +1,3 @@
-// Window.prototype.scroll
 Object.defineProperties(Window.prototype, {
 	'scrollX': {
 		get: function () {

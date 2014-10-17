@@ -1,4 +1,3 @@
-// Window.prototype.matchMedia
 (function () {
 	function evalQuery(window, query) {
 		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'

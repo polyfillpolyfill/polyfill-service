@@ -1,4 +1,3 @@
-// Object.keys
 Object.keys = function keys(object) {
 	if (object !== Object(object)) {
 		throw new TypeError('Object.keys called on non-object');

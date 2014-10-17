@@ -1,4 +1,3 @@
-// Array.prototype.reduceRight
 Array.prototype.reduceRight = function reduceRight(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

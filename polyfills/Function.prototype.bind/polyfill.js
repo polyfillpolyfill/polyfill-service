@@ -1,4 +1,3 @@
-// Function.prototype.bind
 Function.prototype.bind = function bind(scope) {
 	var
 	callback = this,

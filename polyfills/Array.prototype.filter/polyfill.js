@@ -1,4 +1,3 @@
-// Array.prototype.filter
 Array.prototype.filter = function filter(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

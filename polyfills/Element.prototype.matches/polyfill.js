@@ -1,4 +1,3 @@
-// Element.prototype.matches, Element.prototype.matchesSelector
 Element.prototype.matches = function matches(selector) {
 	var
 	element = this,

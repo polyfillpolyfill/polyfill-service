@@ -1,4 +1,3 @@
-// Window.prototype.devicePixelRatio
 (function (window) {
 	var devicePixelRatio = window.devicePixelRatio;
 

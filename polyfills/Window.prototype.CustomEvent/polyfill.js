@@ -1,4 +1,3 @@
-// Window.prototype.CustomEvent
 Window.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
 	var event = new Event(type, eventInitDict);
 

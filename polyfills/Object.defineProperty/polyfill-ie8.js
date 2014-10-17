@@ -1,4 +1,3 @@
-// Object.defineProperty
 (function (nativeDefineProperty) {
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 		delete descriptor.configurable;

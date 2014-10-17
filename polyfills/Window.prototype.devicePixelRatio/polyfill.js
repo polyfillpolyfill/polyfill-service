@@ -1,4 +1,3 @@
-// Window.prototype.devicePixelRatio
 (function (document) {
 	var
 	element = document.createElement('-'),

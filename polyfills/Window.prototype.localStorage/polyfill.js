@@ -1,4 +1,3 @@
-// Window.prototype.localStorage
 Window.polyfill.push(function () {
 	function Storage() {}
 

@@ -1,4 +1,3 @@
-// Array.prototype.lastIndexOf
 Array.prototype.lastIndexOf = function lastIndexOf(searchElement) {
 	var array = this, length = array.length, index = 1 in arguments ? length : parseInt(arguments[1]) || 0;
 

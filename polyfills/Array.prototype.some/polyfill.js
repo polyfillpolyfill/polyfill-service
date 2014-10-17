@@ -1,4 +1,3 @@
-// Array.prototype.some
 Array.prototype.some = function some(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

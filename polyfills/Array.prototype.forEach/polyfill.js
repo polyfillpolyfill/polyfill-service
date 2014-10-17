@@ -1,4 +1,3 @@
-// Array.prototype.forEach
 Array.prototype.forEach = function forEach(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

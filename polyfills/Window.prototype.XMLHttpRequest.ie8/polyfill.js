@@ -1,4 +1,3 @@
-// Window.prototype.XMLHttpRequest
 (function () {
 	var NativeXMLHttpRequest = window.XMLHttpRequest;
 

@@ -1,4 +1,3 @@
-// Window.prototype.getComputedStyle
 (function () {
 	function getComputedStylePixel(element, property, fontSize) {
 		element.document; // Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.

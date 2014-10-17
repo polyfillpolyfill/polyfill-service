@@ -1,4 +1,3 @@
-// Window.prototype.viewport
 Window.polyfill.push(function () {
 	var
 	window = this,

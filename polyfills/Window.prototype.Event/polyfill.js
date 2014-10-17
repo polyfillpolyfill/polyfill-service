@@ -1,4 +1,3 @@
-// Window.prototype.Event
 Window.prototype.Event = function Event(type, eventInitDict) {
 	if (!type) {
 		throw new Error('Not enough arguments');

@@ -1,4 +1,3 @@
-// Element.prototype.placeholder
 Object.defineProperty(Element.prototype, 'placeholder', {
 	set: function (value) {
 		if (!value || !/^(input|textarea)$/i.test(this.nodeName) || !/^(email|number|password|search|tel|text|url|)$/i.test(this.getAttribute('type'))) {
