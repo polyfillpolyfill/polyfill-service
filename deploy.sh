@@ -18,12 +18,12 @@ git checkout -b $DEPLOY
 # Perform pre-deploy build steps - could run a grunt task here
 
 echo $VERSION > .semver
+git add .semver
 
 #
 ############################################
 
 # Commit changes
-git add -A
 git commit -m "Deploying $VERSION to Heroku"
 
 # Push it up to heroku, the -f ensures that heroku won't complain
