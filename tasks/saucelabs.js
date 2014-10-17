@@ -12,10 +12,18 @@ module.exports = function(grunt) {
 	var testResultsPath = path.join(__dirname, '../test/results');
 	var UA = require('../lib/UA');
 
+	var pollTick = 1000;
+	var retryLimit = 10;
+	var sauceConnectPort = 4445;
+
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var gruntDone = this.async();
 		var nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
 		var tunnelId = 'SauceTunnel-' + nameSuffix;
+
+		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
+			gruntDone(new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment'));
+		}
 
 		var options = this.options({
 			name: 'grunt-test' + nameSuffix,
@@ -37,32 +45,32 @@ module.exports = function(grunt) {
 
 		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 
-		function getBrowserConnection() {
-			var sauceConnectPort = 4445;
-			return wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
-		}
-
-
 		// Create a new job to pass into the Batch runner, returns a function
 		function newTestJob(url, urlName, conf) {
 			return function testJob(done) {
 
-				var browser = getBrowserConnection();
+				// Variadic like console.log(...);
+				function log() {
+					var leader = conf.browserName + "/" + conf.version + ": ";
+					var args = Array.prototype.slice.call(arguments);
+					args.unshift(leader);
+					console.log.apply(null, args);
+				}
+
+				log("started job");
+
+				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
+
+				log("requested browser");
 
 				browser.init(conf, function() {
-					// Variadic like console.log(...);
-					function log() {
-						var leader = conf.browserName + "/" + conf.version + ": ";
-						var args = Array.prototype.slice.call(arguments);
-						args.unshift(leader);
-						console.log.apply(null, args);
-					}
 
-					log("launched");
+					log("browser launched");
 
 					browser.get(url, function(err) {
 						var refreshed = false;
-						var retries = 0;
+						var remainingCount = null;
+						var retryCount = 0;
 
 						if (err) {
 							log(err);
@@ -72,30 +80,26 @@ module.exports = function(grunt) {
 						browser.refresh(function() {
 							refreshed = true;
 							log("kicked");
-							waitOnResults();
+							setTimeout(waitOnResults, pollTick);
 						});
 
 						// Wait until results are available
 						function waitOnResults() {
-							log("Waiting on results");
+							browser.eval('{ results: window.global_test_results, remainingCount: window.remainingCount }', function(err, data) {
 
-							browser.eval('window.global_test_results', function(err, data) {
-								var retryLimit = 75;
-
-								// If we don't have data yet, we try again for
-								// a maximum of `retryLimit` times
-								if (!data) {
-									log("No result from remote yet");
-									if (retries > retryLimit) {
-										log("Retried too many times,  failing..");
+								if (!data.results) {
+									if (data.remainingCount !== remainingCount) {
+										remainingCount = data.remainingCount;
+										retryCount = 0;
+										log(remainingCount + ' test pages remaining');
+									} else if (retryCount > retryLimit) {
 										browser.quit();
+										log('Timed out');
 										done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 									} else {
-										retries++;
-										log("Retry in ~1 second");
-										setTimeout(waitOnResults, 1000);
+										retryCount++;
+										setTimeout(waitOnResults, pollTick);
 									}
-
 									return;
 								}
 
@@ -109,11 +113,11 @@ module.exports = function(grunt) {
 								process.nextTick(function() {
 									var status = 'passed';
 
-									// Always pass if not a cibuild
+									// Always show on Sauce as passed if not a cibuild
 									if (!options.cibuild) {
 										status = 'passed'
 									} else {
-										status = data && (data.failed > 0) ? 'failed' : 'passed';
+										status = data.results && (data.results.failed > 0) ? 'failed' : 'passed';
 									}
 
 									done(null, {
@@ -121,9 +125,9 @@ module.exports = function(grunt) {
 										id: browser.sessionID,
 										name: conf.browserName,
 										version: conf.version,
-										failed: data.failed || '??',
-										total: data.total,
-										uaString: data.uaString
+										failed: data.results.failed || '??',
+										total: data.results.total,
+										uaString: data.results.uaString
 									});
 								});
 
@@ -133,7 +137,7 @@ module.exports = function(grunt) {
 									headers: {'Content-Type': 'application/json'},
 									body: JSON.stringify({
 										'custom-data': { custom: data },
-										'passed': !data.failed
+										'passed': !data.results.failed
 									})
 								}, function (e, res, body) {
 									if (!options.cibuild) {
@@ -166,10 +170,10 @@ module.exports = function(grunt) {
 												}
 
 												testResults[browserName][conf.version][urlName] = {
-													passed: data.passed,
-													failed: data.failed,
-													failingSuites: Object.keys(data.failingSuites),
-													testedSuites: data.testedSuites
+													passed: data.results.passed,
+													failed: data.results.failed,
+													failingSuites: Object.keys(data.results.failingSuites),
+													testedSuites: data.results.testedSuites
 												};
 
 												fs.writeFile(file, JSON.stringify(testResults, null, 2), function(err) {
@@ -189,6 +193,21 @@ module.exports = function(grunt) {
 			};
 		}
 
+		options.browsers.forEach(function(conf) {
+			conf['name'] = options.name;
+			conf['record-video'] = options.video;
+			conf['record-screenshots'] = options.screenshots;
+			conf['tunnel-identifier'] = tunnelId;
+			if (options.tags) conf['tags'] = options.tags;
+			if (options.build) conf['build'] = options.build;
+
+			Object.keys(options.urls).forEach(function(urlName) {
+				var url = options.urls[urlName];
+				batch.push(newTestJob(url, urlName, conf));
+				console.log('Adding batch job for '+options.name+', '+urlName+' on '+conf.browserName+' '+conf.version);
+			});
+		});
+
 		grunt.log.writeln('Opening tunnel to Sauce Labs');
 		tunnel.start(function(status) {
 
@@ -196,21 +215,6 @@ module.exports = function(grunt) {
 			if (status !== true)  {
 				gruntDone(status);
 			}
-
-
-			options.browsers.forEach(function(conf) {
-				conf['name'] = options.name;
-				conf['record-video'] = options.video;
-				conf['record-screenshots'] = options.screenshots;
-				conf['tunnel-identifier'] = tunnelId;
-				if (options.tags) conf['tags'] = options.tags;
-				if (options.build) conf['build'] = options.build;
-
-				Object.keys(options.urls).forEach(function(urlName) {
-					var url = options.urls[urlName];
-					batch.push(newTestJob(url, urlName, conf));
-				});
-			});
 
 			grunt.log.writeln("Starting test jobs");
 			batch.end(function(err, status) {

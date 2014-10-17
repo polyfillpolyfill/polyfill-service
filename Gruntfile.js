@@ -27,26 +27,40 @@ module.exports = function(grunt) {
 		"saucelabs": {
 			compat: {
 				options: {
-					username: 'polyfill-service',
-					key: process.env.SAUCE_API_KEY,
 					urls: {
 						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
 						native: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
-					concurrency: 3,
 					browsers: browserList
 				}
 			},
 			ci: {
 				options: {
-					username: 'polyfill-service',
-					key: process.env.SAUCE_API_KEY,
 					cibuild: true,
 					urls: {
 						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
-					concurrency: 3,
 					browsers: browserList
+				}
+			},
+			quick: {
+				options: {
+					cibuild: true,
+					urls: {
+						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
+					},
+					browsers: 	[
+						{
+							browserName: 'chrome',
+							version: 'beta',
+							platform: 'Windows 7'
+						},
+						{
+							browserName: 'internet explorer',
+							version: '6',
+							platform: 'Windows XP'
+						}
+					]
 				}
 			}
 		}
@@ -61,6 +75,11 @@ module.exports = function(grunt) {
 		"simplemocha",
 		"polyfillservice",
 		"mocha",
+	]);
+
+	grunt.registerTask("saucedev", [
+		"polyfillservice",
+		"saucelabs:quick",
 	]);
 
 	grunt.registerTask("compatgen", [
