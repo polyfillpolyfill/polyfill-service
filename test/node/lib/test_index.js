@@ -26,12 +26,12 @@ describe("#getPolyfills(features)", function() {
 	it("should include dependencies", function() {
 		assert.deepEqual(polyfillio.getPolyfills({
 			features: {
-				'Array.from': { flags: [] }
+				'Element.prototype.placeholder': { flags: [] }
 			},
-			uaString: 'ie/7'
+			uaString: 'ie/8'
 		}), {
-			'Array.from': { flags:[], polyfillVariant:'default' },
-			'Array.prototype.map': { flags:[], aliasOf: ['Array.from'], polyfillVariant:'default' }
+			'Element.prototype.placeholder': { flags:[], polyfillVariant:'default' },
+			'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'ie8' }
 		});
 	});
 
