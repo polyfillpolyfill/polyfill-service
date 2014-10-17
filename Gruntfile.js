@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 				options: {
 					reporter: 'Spec',
 					run: true,
-					urls: ['http://127.0.0.1:3000/test/director/?mode=targeted']
+					urls: ['http://127.0.0.1:3000/test/director?mode=targeted']
 				}
 			}
 		},
@@ -30,8 +30,8 @@ module.exports = function(grunt) {
 					username: 'polyfill-service',
 					key: process.env.SAUCE_API_KEY,
 					urls: {
-						polyfilled: 'http://127.0.0.1:3000/test/director/?mode=all',
-						native: 'http://127.0.0.1:3000/test/director/?mode=control'
+						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
+						native: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
 					concurrency: 3,
 					browsers: browserList
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 					key: process.env.SAUCE_API_KEY,
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/director/?mode=targeted'
+						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					concurrency: 3,
 					browsers: browserList

@@ -15,7 +15,7 @@
 
 	{{#loadPolyfill}}
 		<!-- Code under test -->
-		<script src='/v1/polyfill.js?features={{#polyfillFeatures}}{{.}},{{/polyfillFeatures}}'></script>
+		<script src='/v1/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
 	{{/loadPolyfill}}
 
 	<!-- Tests -->
@@ -84,12 +84,15 @@
 		});
 
 		runner.on('end', function() {
+
+			// Discount one for the 'running the test suite' test
+			results.passed--;
+
 			window.global_test_results = results;
 			if (parent && parent.receiveTestResults) {
-				parent.receiveTestResults([
-					{{#features}}"{{feature}}",{{/features}}
-					null
-				], results);
+				parent.receiveTestResults(
+					"{{#features}}{{feature}},{{/features}}".split(",").slice(0, -1)
+				, results);
 			}
 		});
 	}

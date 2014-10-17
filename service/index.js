@@ -36,8 +36,8 @@ app.use(function(req, res, next) {
 app.use('/test/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
 app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
 
-app.get(/\/test\/director\/?$/, testing.createDirectorEndpoint(polyfillio));
-app.get(/\/test\/tests\/?$/, testing.createTestEndpoint(polyfillio));
+app.get(/\/test\/director\/?$/, testing.createEndpoint('director', polyfillio));
+app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
 
 
 /* Endpoints for health, application metadata and availability status
@@ -147,9 +147,14 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
 		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
-		isGateForced = req.query.gated === "1",
-		polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', isGateForced ? ["gated"] : []),
-		uaString = req.query.ua || req.header('user-agent');
+		uaString = req.query.ua || req.header('user-agent'),
+		flags = req.query.flags ? req.query.flags.split(',') : [];
+
+	// Backwards compatibility
+	if (req.query.gated) flags.push('gated');
+
+	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
+	console.log(polyfills.get());
 
 	if (!req.query.ua) res.set('Vary', 'User-Agent');
 

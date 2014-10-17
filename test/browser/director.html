@@ -7,9 +7,12 @@
 
 	<style>
 		* { box-sizing: border-box; }
-		html, body { width: 100%; height: 100%; padding:0; margin: 0; }
-		textarea { position: absolute; bottom: 0; left: 0; width: 100%; height:196px; resize: none; z-index: 2; font-size: 14px; font-family: monospace; border: 0; background-color:rgba(255,255,255,0.7); padding: 3px 10px;}
-		iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index:1; }
+		html, body { width: 100%; height: 100%; padding:0; margin: 0; overflow: hidden; }
+		#runner { width: 100%; height: 70%; z-index:1; overflow: auto; border: 0; }
+		#log { width: 100%; height:30%; z-index: 2; font-size: 14px; font-family: monospace; border: 0; background: white; background: rgba(255,255,255,0.8); padding: 3px 10px; overflow-y: auto; }
+		#log p { margin: 0.2em 0; }
+		.pass { color: #6b6;}
+		.fail { color: white; background: red; display: inline-block; padding: 1px 4px; }
 	</style>
 
 	<script>
@@ -24,9 +27,9 @@
 				testedSuites: [],
 				uaString: 'unknown'
 			},
-			queue = {{{testFeaturesList}}},
+			queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
 			remainingCount = queue.length,
-			windowQueryString = window.location.search || "?null";
+			windowQueryString = "?mode={{{mode}}}";
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
@@ -40,13 +43,16 @@
 		function executeTest() {
 			var feature = queue.pop();
 			var url = '/test/tests' + windowQueryString + '&feature=' + feature;
-			log('Loading '+url);
+			log('Loading <a target="runner" href="'+url+'">'+url+'</a>...');
 			runner.src = url;
 			timer = setTimeout(receiveTestResults, 5000);
 		}
 
 		function receiveTestResults(featureList, results) {
+			var resultsummary;
 			clearTimeout(timer);
+			if (!remainingCount) return;
+
 			if (!featureList) {
 				log("Timeout");
 			} else {
@@ -64,13 +70,24 @@
 						}
 					}
 				}
-				log('Test data received for '+featureList.join(', ')+': '+results.passed+' pass, '+results.failed+' fail.');
+
+				resultsummary = [];
+				if (results.passed) resultsummary.push('<span class="pass">'+results.passed+' pass</span>');
+				if (results.failed) resultsummary.push('<span class="fail">'+results.failed+' fail</span>');
+				if (!resultsummary.length) resultsummary.push('No tests to run');
+				log('Completed '+featureList.join(', ')+': '+resultsummary.join(', '));
 			}
 			remainingCount = queue.length;
 
 			if (!remainingCount) {
-				log('All tests complete, result data populated.  Total: '+globalresults.passed+' pass, '+globalresults.failed+' fail.');
+
 				window.global_test_results = globalresults;
+
+				resultsummary = [];
+				if (globalresults.passed) resultsummary.push('<span class="pass">'+globalresults.passed+' pass</span>');
+				if (globalresults.failed) resultsummary.push('<span class="fail">'+globalresults.failed+' fail</span>');
+				if (!resultsummary.length) resultsummary.push('No tests to run');
+				log('<strong>All tests complete, result data populated into global_test_results.  Total: '+resultsummary.join(', ')+'.</strong>');
 			} else {
 				log(remainingCount + ' test(s) remain.');
 				executeTest();
@@ -80,13 +97,13 @@
 		function log(str) {
 			var t = new Date();
 			var el = document.getElementById('log');
-			el.value += '\n' + ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str;
+			el.innerHTML += '<p>' + ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str + '</p>';
 			el.scrollTop = 99999999;
 		}
 	</script>
 </head>
 <body>
-	<iframe id='runner'></iframe>
-	<textarea id='log'></textarea>
+	<iframe name='runner' id='runner' frameborder='0'></iframe>
+	<div id='log'></div>
 </body>
 </html>

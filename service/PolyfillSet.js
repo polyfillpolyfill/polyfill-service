@@ -8,8 +8,9 @@ var PolyfillSet = function(polyfillset) {
 };
 
 PolyfillSet.prototype.stringify = function() {
-	return this.data.map(function(polyfill) {
-		return polyfill.name + (polyfill.flags.length ? '|' + polyfill.flags.join('|') : '');
+	return Object.keys(this.data).map(function(featureName) {
+		var flags = this.data[featureName].flags;
+		return featureName + (flags.length ? '|' + flags.join('|') : '');
 	}).join(',');
 };
 PolyfillSet.prototype.get = function() {
@@ -21,13 +22,13 @@ PolyfillSet.fromQueryParam = function(polyfillList, additionalFlags) {
 	var list = polyfillList.split(',').filter(function(x) { return x.length; });
 	additionalFlags = additionalFlags || [];
 
-	return new PolyfillSet(list.sort().map(function parsePolyfillInfo(name) {
+	return new PolyfillSet(list.sort().reduce(function parsePolyfillInfo(obj, name) {
 		var nameAndFlags = name.split('|');
-		return {
-			flags:   nameAndFlags.slice(1).concat(additionalFlags),
-			name:    nameAndFlags[0]
+		obj[nameAndFlags[0]] = {
+			flags:   nameAndFlags.slice(1).concat(additionalFlags)
 		};
-	}));
+		return obj;
+	}, {}));
 };
 
 module.exports = PolyfillSet;

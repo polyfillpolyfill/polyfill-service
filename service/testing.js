@@ -3,46 +3,12 @@ var fs = require('fs'),
 
 /**
  * Modes:
- *   control:  All test, no polyfills
- *   all:      All tests, all polyfills
- *   targeted: UA targeted tests, UA targeted polyfills
+ *   control:  All features are allowed, tests served, no polyfills
+ *   all:      All features are allowed, tests and polyfills both served
+ *   targeted: Only targeted features are allowed, tests and polyfills both served
  */
 
-function createDirectorEndpoint(polyfillio) {
-	return function (req, res) {
-		var uaString = req.query.ua || req.header('user-agent');
-		var mode = req.query.mode || 'all';
-		var sendAllTests = false;
-
-		if (mode === 'all' || mode === 'control') {
-			sendAllTests = true;
-		}
-
-		var director = require('handlebars').compile(
-			fs.readFileSync(path.join(__dirname, '/../test/browser/director.html'), { encoding: 'UTF-8' })
-		);
-
-		var allFeatures = polyfillio.getAllPolyfills().map(function(polyfillName) {
-			return { name: polyfillName, flags: sendAllTests ?  ['always'] : [] };
-		});
-
-		var featureNameList = polyfillio.getPolyfills({
-			uaString: uaString,
-			features: allFeatures
-		}).map(function(feature) {
-			return feature.name;
-		});
-
-		res.set('Content-Type', 'text/html');
-		res.set('Cache-Control', 'no-cache');
-
-		res.send(director({
-			testFeaturesList: JSON.stringify(featureNameList)
-		}));
-	};
-}
-
-function createTestEndpoint(polyfillio) {
+function createEndpoint(type, polyfillio) {
 	return function(req, res) {
 		var base = path.join(__dirname, '/../polyfills');
 		var mode = req.query.mode  || 'all';
@@ -50,89 +16,42 @@ function createTestEndpoint(polyfillio) {
 		var uaString = req.query.ua || req.header('user-agent');
 		var features = [];
 
-		// if sendAllTests = false  tests are targeted by UA instead.
-		var sendAllTests = false;
-		var targetPolyfills = false;
-		var sendPolyfills = false;
-
-		switch (mode) {
-			case 'all':
-				sendAllTests = true;
-				sendPolyfills = true;
-				break;
-			case 'control':
-				sendAllTests = true;
-				sendPolyfills = false;
-				break;
-			case 'targeted':
-				targetPolyfills = true;
-				sendPolyfills = true;
-				break;
-		}
-
-		// Get all the tests that should be run.
-		features = polyfillio.getAllPolyfills().map(function(polyfillName) {
-			return { name: polyfillName, flags: sendAllTests ? ['always']  : []};
+		// Get the feature set for this test runner.  If in 'targeted' mode, allow filtering on UA, else force the feature to be included
+		var features = {};
+		polyfillio.getAllPolyfills().forEach(function(featureName) {
+			if (!req.query.feature || req.query.feature === featureName) {
+				features[featureName] = {flags: (mode !== 'targeted') ?  ['always'] : [] };
+			}
 		});
-
-		var featureList = polyfillio.getPolyfills({
+		features = polyfillio.getPolyfills({
 			uaString: uaString,
 			features: features
 		});
 
-		featureList.forEach(function (feature) {
-			var featureName = feature.name;
+		Object.keys(features).forEach(function(featureName) {
 			var polyfillPath = path.join(base, featureName);
+			var detectFile = path.join(polyfillPath, '/detect.js');
+			var testFile = path.join(polyfillPath, '/tests.js');
 
-			if (!req.query.feature || req.query.feature === featureName) {
-				var detectFile = path.join(polyfillPath, '/detect.js');
-				var testFile = path.join(polyfillPath, '/tests.js');
-				polyfilldata.push({
-					feature: featureName,
-					detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
-					tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
-				});
-			}
+			polyfilldata.push({
+				feature: featureName,
+				detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
+				tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
+			});
 		});
-		var polyfillFeatures = [];
 
-		if (sendPolyfills) {
-			// Polyfill data now contains all the tests that should be run. Next
-			// figure out what we should polyfill
-			var polyfillFlags = targetPolyfills ? [] : ['always'];
-			var stringFlags = "";
-
-			if (polyfillFlags.length > 0) {
-				stringFlags = "|" + polyfillFlags.join('|');
-			}
-
-			var featuresToPolyfill = polyfilldata.map(function(feature) {
-				return {
-					name: feature.feature,
-					flags: polyfillFlags
-				};
-			});
-
-			polyfillFeatures = polyfillio.getPolyfills({
-				uaString: uaString,
-				features: featuresToPolyfill
-			}).map(function(feature) {
-				return feature.name + stringFlags;
-			});
-
-		}
-
-		var runner = require('handlebars').compile(fs.readFileSync(path.join(__dirname, '/../test/browser/runner.html'), {encoding: 'UTF-8'}));
+		var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/' + type + '.html'), {encoding: 'UTF-8'});
+		var template = require('handlebars').compile(templateSrc);
 		res.set('Cache-Control', 'no-cache');
-		res.send(runner({
-			loadPolyfill: sendPolyfills,
+		res.send(template({
+			loadPolyfill: (mode !== 'control'),
+			forceAlways: (mode !== 'targeted'),
 			features: polyfilldata,
-			polyfillFeatures: polyfillFeatures
+			mode: mode
 		}));
 	};
 }
 
 module.exports = {
-	createDirectorEndpoint: createDirectorEndpoint,
-	createTestEndpoint: createTestEndpoint
+	createEndpoint: createEndpoint
 };
