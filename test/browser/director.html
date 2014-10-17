@@ -7,13 +7,16 @@
 
 	<style>
 		* { box-sizing: border-box; }
-		html, body { width: 100%; height: 100%; padding:0; margin: 0; }
-		textarea { position: absolute; top: 0; left: 0; width: 100%; height:50px; resize: none; }
-		iframe { position: absolute; top: 50px; left: 0; right:100%; bottom: 100%; width: 100%; height:100%; }
+		html, body { width: 100%; height: 100%; padding:0; margin: 0; overflow: hidden; }
+		#runner { width: 100%; height: 70%; z-index:1; overflow: auto; border: 0; }
+		#log { width: 100%; height:30%; z-index: 2; font-size: 14px; font-family: monospace; border: 0; background: white; background: rgba(255,255,255,0.8); padding: 3px 10px; overflow-y: auto; }
+		#log p { margin: 0.2em 0; }
+		.pass { color: #6b6;}
+		.fail { color: white; background: red; display: inline-block; padding: 1px 4px; }
 	</style>
 
 	<script>
-		var runner, rawqs, qs = {}, queue = [], i, x, timer,
+		var runner, rawqs, qs = {}, i, x, timer,
 			globalresults = {
 				passed: 0,
 				failed: 0,
@@ -24,23 +27,13 @@
 				testedSuites: [],
 				uaString: 'unknown'
 			},
-			remainingCount = -1
-		;
+			queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
+			remainingCount = queue.length,
+			windowQueryString = "?mode={{{mode}}}";
+
 		window.onload = function() {
 			runner = document.getElementById('runner');
-			rawqs = location.search;
-
-			if (rawqs) {
-				rawqs = rawqs.substr(1).split('&');
-				for (i=0; i<rawqs.length; i++) {
-					x = rawqs[i].split('=');
-					qs[x[0]] = (x.length > 1) ? x[1] : null;
-				}
-			}
-
-			if (qs.features) {
-				queue = qs.features.split(',');
-				remainingCount = queue.length;
+			if (queue.length) {
 				executeTest();
 			} else {
 				log('No features to test');
@@ -49,14 +42,17 @@
 
 		function executeTest() {
 			var feature = queue.pop();
-			var url = '/test/tests?feature='+feature;
-			log('Loading '+url);
+			var url = '/test/tests' + windowQueryString + '&feature=' + feature;
+			log('Loading <a target="runner" href="'+url+'">'+url+'</a>...');
 			runner.src = url;
 			timer = setTimeout(receiveTestResults, 5000);
 		}
 
 		function receiveTestResults(featureList, results) {
+			var resultsummary;
 			clearTimeout(timer);
+			if (!remainingCount) return;
+
 			if (!featureList) {
 				log("Timeout");
 			} else {
@@ -74,15 +70,26 @@
 						}
 					}
 				}
-				log('Test data received for '+featureList.join(', '));
+
+				resultsummary = [];
+				if (results.passed) resultsummary.push('<span class="pass">'+results.passed+' pass</span>');
+				if (results.failed) resultsummary.push('<span class="fail">'+results.failed+' fail</span>');
+				if (!resultsummary.length) resultsummary.push('No tests to run');
+				log('Completed '+featureList.join(', ')+': '+resultsummary.join(', '));
 			}
 			remainingCount = queue.length;
 
 			if (!remainingCount) {
-				log('All tests complete, result data populated');
+
 				window.global_test_results = globalresults;
+
+				resultsummary = [];
+				if (globalresults.passed) resultsummary.push('<span class="pass">'+globalresults.passed+' pass</span>');
+				if (globalresults.failed) resultsummary.push('<span class="fail">'+globalresults.failed+' fail</span>');
+				if (!resultsummary.length) resultsummary.push('No tests to run');
+				log('<strong>All tests complete, result data populated into global_test_results.  Total: '+resultsummary.join(', ')+'.</strong>');
 			} else {
-				log(remainingCount + 'test(s) remain.');
+				log(remainingCount + ' test(s) remain.');
 				executeTest();
 			}
 		}
@@ -90,13 +97,13 @@
 		function log(str) {
 			var t = new Date();
 			var el = document.getElementById('log');
-			el.value += ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str + '\n';
+			el.innerHTML += '<p>' + ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str + '</p>';
 			el.scrollTop = 99999999;
 		}
 	</script>
 </head>
 <body>
-	<textarea id='log'></textarea>
-	<iframe id='runner'></iframe>
+	<iframe name='runner' id='runner' frameborder='0'></iframe>
+	<div id='log'></div>
 </body>
 </html>

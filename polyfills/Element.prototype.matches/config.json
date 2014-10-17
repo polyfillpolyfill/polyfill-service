@@ -1,10 +1,42 @@
 {
-	"browsers": {
-		"ie": "6 - 8"
+	"variants": {
+		"default": {
+			"browsers": {
+				"ie": "6 - 8"
+			},
+			"dependencies": ["Window.polyfill"]
+		},
+		"moz": {
+			"browsers": {
+				"firefox": "*"
+			}
+		},
+		"ms": {
+			"browsers": {
+				"ie": ">=9"
+			}
+		},
+		"o": {
+			"browsers": {
+				"opera": "11.5 - 12.1",
+				"op_mini": "*",
+				"op_mob": "*"
+			}
+		},
+		"webkit": {
+			"browsers": {
+				"android": "*",
+				"bb": "*",
+				"chrome": "1 - 33",
+				"ios_chr": "*",
+				"opera": "15",
+				"safari": "4 - *",
+				"ios_saf": "*"
+			}
+		}
 	},
 	"aliases": [
 		"caniuse:matchesselector",
 		"default"
-	],
-	"dependencies": ["Window.polyfill.ie7"]
+	]
 }

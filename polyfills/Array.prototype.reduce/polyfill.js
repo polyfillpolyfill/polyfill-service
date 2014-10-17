@@ -1,4 +1,3 @@
-// Array.prototype.reduce
 Array.prototype.reduce = function reduce(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

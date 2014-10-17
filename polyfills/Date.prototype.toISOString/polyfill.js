@@ -1,4 +1,3 @@
-// Date.prototype.toISOString
 Date.prototype.toISOString = function toISOString() {
 	var date = this;
 

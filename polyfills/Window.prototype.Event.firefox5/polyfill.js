@@ -1,4 +1,3 @@
-// Element.prototype.addEventListener, Element.prototype.removeEventListener
 (function () {
 	function addEventListener(type, listener, capture) {
 		originalAddEventListener.call(this, type, listener, capture || false);

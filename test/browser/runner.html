@@ -1,99 +1,105 @@
 <html>
 <head>
 </script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta charset="utf-8">
-  <title>{{feature}} - Mocha test suite for polyfill-service</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<title>{{feature}} - Mocha test suite for polyfill-service</title>
 
-  <!-- Test and expectation libraries -->
-  <link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
-  <script src="/test/libs/mocha/mocha.js"></script>
-  <script src="/test/libs/expect/index.js"></script>
+	<!-- Test and expectation libraries -->
+	<link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
+	<script src="/test/libs/mocha/mocha.js"></script>
+	<script src="/test/libs/expect/index.js"></script>
 
-  <!-- Initalise Mocha (overridden if running under Phantom with grunt-mocha) -->
-  <script>mocha.setup('bdd')</script>
+	<!-- Initalise Mocha (overridden if running under Phantom with grunt-mocha) -->
+	<script>mocha.setup('bdd')</script>
 
-  {{#loadPolyfill}}
-    <!-- Code under test -->
-	<script src='/v1/polyfill.js?features={{#features}}{{feature}},{{/features}}'></script>
-  {{/loadPolyfill}}
+	{{#loadPolyfill}}
+		<!-- Code under test -->
+		<script src='/v1/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
+	{{/loadPolyfill}}
 
-  <!-- Tests -->
-  <script>
-	  {{#features}}
-	  describe("{{feature}}", function() {
-		  {{#detect}}
-		  it("passes a basic feature detect", function() {
-			  var result = !!({{{.}}});
-			  expect(result).to.be(true);
-		  });
-		  {{/detect}}
-		  {{#tests}}
-			  {{{.}}}
-		  {{/tests}}
-	  });
-	  {{/features}}
-  </script>
+	<!-- Tests -->
+	<script>
+	{{#features}}
+	describe("{{feature}}", function() {
+		it("is running the test suite", function() {
+			expect(true).to.be(true);
+		});
+		{{#detect}}
+		it("passes a basic feature detect", function() {
+			var result = !!({{{.}}});
+			expect(result).to.be(true);
+		});
+		{{/detect}}
+		{{#tests}}
+			{{{.}}}
+		{{/tests}}
+	});
+	{{/features}}
+	</script>
 </head>
 <body>
 
-  <div id="mocha"></div>
+	<div id="mocha"></div>
 
-  <script>
+	<script>
 
-    // During the test run, surface the test results in Sauce Labs' preferred format
-    function run() {
-      var runner = mocha.run();
-	  var results = {
-		  passed: 0,
-		  failed: 0,
-		  total: 0,
-		  duration: 0,
-		  tests: [],
-		  failingSuites: {},
-		  testedSuites: [],
-		  uaString: window.navigator.userAgent || 'unknown'
-	  };
-      runner.on('pass', function(test) {
-        results.passed++;
-        results.total++;
-      });
+	// During the test run, surface the test results in Sauce Labs' preferred format
+	function run() {
+		var runner = mocha.run();
+		var results = {
+			passed: 0,
+			failed: 0,
+			total: 0,
+			duration: 0,
+			tests: [],
+			failingSuites: {},
+			testedSuites: [],
+			uaString: window.navigator.userAgent || 'unknown'
+		};
+		runner.on('pass', function(test) {
+			results.passed++;
+			results.total++;
+		});
 
-      runner.on('fail', function(test, err) {
+		runner.on('fail', function(test, err) {
 
-		// Get a set of all the suites with failing tests in them.
-		if (test.parent && test.parent.title) {
-			results.failingSuites[test.parent.title] = true;
-		}
+			// Get a set of all the suites with failing tests in them.
+			if (test.parent && test.parent.title) {
+				results.failingSuites[test.parent.title] = true;
+			}
 
-        results.failed++;
-        results.total++;
-        results.tests.push({
-          name: test.fullTitle(),
-          result: false,
-          message: err.message,
-          stack: err.stack
-        });
-      });
+			results.failed++;
+			results.total++;
+			results.tests.push({
+				name: test.fullTitle(),
+				result: false,
+				message: err.message,
+				stack: err.stack
+			});
+		});
 
-	  runner.on('suite', function(suite) {
-		  results.testedSuites.push(suite.title);
-	  });
+		runner.on('suite', function(suite) {
+			results.testedSuites.push(suite.title);
+		});
 
-      runner.on('end', function() {
-        window.global_test_results = results;
-        if (parent && parent.receiveTestResults) {
-          parent.receiveTestResults([
-            {{#features}}"{{feature}}",{{/features}}
-            null
-          ], results);
-        }
-      });
-    }
+		runner.on('end', function() {
 
-    // If using Phantom, test is kicked off by remote code injection.  If not, run automatically on load.
+			// Discount one for the 'running the test suite' test
+			results.passed--;
+
+			window.global_test_results = results;
+			if (parent && parent.receiveTestResults) {
+				parent.receiveTestResults(
+					"{{#features}}{{feature}},{{/features}}".split(",").slice(0, -1)
+				, results);
+			}
+		});
+	}
+
+	// If using Phantom, test is kicked off by remote code injection.  If not, run automatically on load.
 	if (!("PHANTOMJS" in window)) window.onload = run;
 
-  </script>
+	</script>
 </body>
 </html>

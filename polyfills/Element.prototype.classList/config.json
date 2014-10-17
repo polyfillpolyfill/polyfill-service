@@ -1,15 +1,29 @@
 {
-	"browsers": {
-		"ie": "8 - 9",
-		"safari": "4 - 4.1"
+	"variants": {
+		"default": {
+			"browsers": {
+				"ie": "8 - 9",
+				"safari": "4 - 4.1"
+			},
+			"dependencies": [
+				"Object.defineProperty",
+				"Object.defineProperty.ie7",
+				"Object.defineProperty.ie8",
+				"Window.polyfill.ie7",
+				"Window.prototype.DOMTokenList"
+			]
+		},
+		"ie7": {
+			"browsers": {
+				"ie": "6 - 7"
+			},
+			"dependencies": [
+				"Window",
+				"Window.polyfill.ie7",
+				"Window.prototype.DOMTokenList"
+			]
+		}
 	},
-	"dependencies": [
-		"Object.defineProperty",
-		"Object.defineProperty.ie7",
-		"Object.defineProperty.ie8",
-		"Window.polyfill.ie7",
-		"Window.prototype.DOMTokenList"
-	],
 	"aliases": [
 		"modernizr:classlist",
 		"default"

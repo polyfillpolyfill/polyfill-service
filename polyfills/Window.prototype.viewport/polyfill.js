@@ -1,4 +1,3 @@
-// Window.prototype.viewport
 (function () {
 	function scrollX() {
 		var document = this.document, documentElement = document.documentElement, body = document.body || document.createElement('body');

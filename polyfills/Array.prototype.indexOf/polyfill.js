@@ -1,4 +1,3 @@
-// Array.prototype.indexOf
 Array.prototype.indexOf = function indexOf(searchElement) {
 	var array = this, length = array.length, index = parseInt(arguments[1]) || 0;
 

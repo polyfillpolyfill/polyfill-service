@@ -1,4 +1,3 @@
-// Window.prototype.Event
 (function () {
 	window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
 		if (!type) {

@@ -1,4 +1,3 @@
-// Array.prototype.every
 Array.prototype.every = function every(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');

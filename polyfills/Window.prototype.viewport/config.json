@@ -2,5 +2,12 @@
 	"browsers": {
 		"ie": "8"
 	},
-	"dependencies": ["Object.defineProperties"]
+	"dependencies": ["Object.defineProperties"],
+
+	"variants": {
+		"browsers": {
+			"ie": "6 - 7"
+		},
+		"dependencies": ["Window.polyfill"]
+	}
 }

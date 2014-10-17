@@ -1,4 +1,3 @@
-// Array.prototype.map
 Array.prototype.map = function map(callback) {
 	if (typeof callback !== 'function') {
 		throw new TypeError(callback + ' is not a function');
@@ -12,4 +11,3 @@ Array.prototype.map = function map(callback) {
 
 	return result;
 };
-

@@ -5,7 +5,7 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
+		"chrome": "1 - 37",
 		"firefox": "1 - 24",
 		"ie": "*",
 		"ios_chr": "*",

@@ -1,4 +1,3 @@
-// Navigator.prototype.geolocation
 (function () {
 	function Geolocation() {
 		this.getCurrentPosition = getCurrentPosition;

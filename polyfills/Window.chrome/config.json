@@ -1,9 +1,0 @@
-{
-	"aliases": [
-		"default"
-	],
-	"browsers": {
-		"chrome": "14 - 18",
-		"safari": "5.1"
-	}
-}

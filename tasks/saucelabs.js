@@ -50,48 +50,56 @@ module.exports = function(grunt) {
 				var browser = getBrowserConnection();
 
 				browser.init(conf, function() {
-					console.log("Browser ", conf.browserName + "/" + conf.version, " launched");
+					// Variadic like console.log(...);
+					function log() {
+						var leader = conf.browserName + "/" + conf.version + ": ";
+						var args = Array.prototype.slice.call(arguments);
+						args.unshift(leader);
+						console.log.apply(null, args);
+					}
+
+					log("launched");
 
 					browser.get(url, function(err) {
 						var refreshed = false;
 						var retries = 0;
 
 						if (err) {
-							console.log(err);
+							log(err);
 							return done(err);
 						}
 
+						browser.refresh(function() {
+							refreshed = true;
+							log("kicked");
+							waitOnResults();
+						});
+
 						// Wait until results are available
-						(function waitOnResults() {
+						function waitOnResults() {
+							log("Waiting on results");
 
 							browser.eval('window.global_test_results', function(err, data) {
-								var retryLimit = 10;
+								var retryLimit = 75;
 
 								// If we don't have data yet, we try again for
 								// a maximum of `retryLimit` times
 								if (!data) {
-
-									// If we don't have the data yet, refresh
-									// once, this is primarily because the iOS simulator seems to need a
-									// kick to continue
-									if (!refreshed) {
-										browser.refresh(function() {
-											refreshed = true;
-											setTimeout(waitOnResults, 1500);
-										});
-										return;
+									log("No result from remote yet");
+									if (retries > retryLimit) {
+										log("Retried too many times,  failing..");
+										browser.quit();
+										done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
 									} else {
-										if (retries > retryLimit) {
-											browser.quit();
-											process.nextTick(function() {
-												done(null, { status: 'failed', uaString: data ? data.uaString || '??' : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
-											});
-											return;
-										}
-										setTimeout(function() { retries++; waitOnResults(); }, 1500);
-										return;
+										retries++;
+										log("Retry in ~1 second");
+										setTimeout(waitOnResults, 1000);
 									}
+
+									return;
 								}
+
+								log("Results received, closing remote browser");
 
 								// Close the browser as soon as we have the
 								// results.  No need to keep it hanging around
@@ -175,7 +183,7 @@ module.exports = function(grunt) {
 									}
 								});
 							});
-						}());
+						};
 					});
 				});
 			};
@@ -209,10 +217,15 @@ module.exports = function(grunt) {
 				console.log("Jobs complete - stopping tunnel");
 				tunnel.stop(function() {
 					console.log('Sauce tunnel stopped');
+					if (err) {
+						gruntDone(err);
+						return;
+					}
 					if (!options.cibuild) {
 						gruntDone(null, true);
 						return;
 					}
+
 
 					var failed = false;
 					console.log("Failed tests:")

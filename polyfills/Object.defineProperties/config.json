@@ -7,8 +7,6 @@
 		"safari": "4 - 4.1"
 	},
 	"dependencies": [
-		"Object.defineProperty",
-		"Object.defineProperty.ie7",
-		"Object.defineProperty.ie8"
+		"Object.defineProperty"
 	]
 }

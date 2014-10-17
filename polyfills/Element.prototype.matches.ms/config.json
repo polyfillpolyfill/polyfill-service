@@ -1,9 +1,0 @@
-{
-	"browsers": {
-		"ie": "9 - *"
-	},
-	"aliases": [
-		"caniuse:matchesselector",
-		"default"
-	]
-}

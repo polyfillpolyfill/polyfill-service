@@ -6,5 +6,18 @@
 	},
 	"aliases": [
 		"modernizr:es5object"
-	]
+	],
+
+	"variants": {
+		"ie7": {
+			"browsers": {
+				"ie": "6 - 7"
+			}
+		},
+		"ie8": {
+			"browsers": {
+				"ie": "8"
+			}
+		}
+	}
 }

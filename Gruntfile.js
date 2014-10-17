@@ -1,11 +1,4 @@
 
-var polyfilldir = __dirname+'/polyfills';
-var testUrls = [];
-var port = 3000;
-require('fs').readdirSync(polyfilldir).forEach(function (polyfillName) {
-	testUrls.push('http://127.0.0.1:'+port+'/test/tests/'+polyfillName);
-});
-
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -13,7 +6,7 @@ module.exports = function(grunt) {
 		"simplemocha": {
 			options: {
 				globals: ['should'],
-				timeout: port,
+				timeout: 5000,
 				ignoreLeaks: false,
 				ui: 'bdd',
 				reporter: 'spec'
@@ -27,7 +20,7 @@ module.exports = function(grunt) {
 				options: {
 					reporter: 'Spec',
 					run: true,
-					urls: testUrls
+					urls: ['http://127.0.0.1:3000/test/director?mode=targeted']
 				}
 			}
 		},
@@ -37,8 +30,8 @@ module.exports = function(grunt) {
 					username: 'polyfill-service',
 					key: process.env.SAUCE_API_KEY,
 					urls: {
-						polyfilled: 'http://127.0.0.1:3000/test/tests/',
-						native: 'http://127.0.0.1:3000/test/tests/?nopolyfill=1'
+						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
+						native: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
 					concurrency: 3,
 					browsers: browserList
@@ -50,7 +43,7 @@ module.exports = function(grunt) {
 					key: process.env.SAUCE_API_KEY,
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/tests/?configuredonly=1'
+						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					concurrency: 3,
 					browsers: browserList
@@ -64,7 +57,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 	grunt.loadNpmTasks('grunt-mocha');
 
-	grunt.registerTask("dev", [
+	grunt.registerTask("test", [
 		"simplemocha",
 		"polyfillservice",
 		"mocha",
@@ -84,7 +77,7 @@ module.exports = function(grunt) {
 	]);
 };
 
-var browserList  = [
+var browserList = [
 	{
 		browserName: 'chrome',
 		version: 'beta',
@@ -184,36 +177,6 @@ var browserList  = [
 		browserName: 'iphone',
 		version: '7.1',
 		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'iphone',
-		version: '7.0',
-		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'iphone',
-		version: '6.1',
-		platform: 'OSX 10.8'
-	},
-	{
-		browserName: 'iphone',
-		version: '6.0',
-		platform: 'OSX 10.8'
-	},
-	{
-		browserName: 'iphone',
-		version: '5.1',
-		platform: 'OSX 10.6'
-	},
-	{
-		browserName: 'iphone',
-		version: '5.0',
-		platform: 'OSX 10.6'
-	},
-	{
-		browserName: 'iphone',
-		version: '4.3',
-		platform: 'OSX 10.6'
 	},
 	{
 		browserName: 'safari',

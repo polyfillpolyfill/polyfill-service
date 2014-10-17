@@ -1,4 +1,3 @@
-// Window.prototype.DOMTokenList
 (function () {
 	function spliceClassList(classList) {
 		Array.prototype.splice.call(classList, 0, classList.length);

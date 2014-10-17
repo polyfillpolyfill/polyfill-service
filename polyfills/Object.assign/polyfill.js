@@ -1,4 +1,3 @@
-// Object.assign
 Object.assign = function assign(target, source) {
 	for (var index = 1, key; index in arguments; ++index) {
 		source = arguments[index];

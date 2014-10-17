@@ -1,4 +1,3 @@
-// Window.prototype.Event.hashchange
 (function () {
 	var
 	hash = window.location.hash,

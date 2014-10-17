@@ -6,6 +6,6 @@
 		"ie": "7"
 	},
 	"dependencies": [
-		"Window.polyfill.ie7"
+		"Window.polyfill"
 	]
 }
