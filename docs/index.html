@@ -52,14 +52,17 @@
                 }
                 var html = '';
                 var laststatus = null;
-                for (feat in data) {
+                Object.keys(data).sort().forEach(function(feat) {
                     html += "<tr><td><a href='/test/tests?feature="+feat+"'>"+feat+"</a></td>";
                     browsers.forEach(function(browser) {
                         laststatus = null;
                         html += "<td>";
                         if (data[feat][browser]) {
-                            Object.keys(data[feat][browser]).sort().forEach(function(version) {
-                                console.log(feat, browser, version, data[feat][browser][version]);
+                            Object.keys(data[feat][browser]).sort(function(a, b) {
+                                if (isNaN(a)) return 1;
+                                if (isNaN(b)) return -1;
+                                return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+                            }).forEach(function(version) {
                                 if (laststatus !== data[feat][browser][version]) {
                                     html += "<span class='status-"+data[feat][browser][version]+"' title='"+msgs[data[feat][browser][version]]+"'>"+version+"</span> ";
                                     laststatus = data[feat][browser][version];
@@ -69,7 +72,7 @@
                         html += "</td>";
                     });
                     html += "</tr>";
-                }
+                });
                 document.querySelector('table.compatibility').innerHTML += html;
             }
             xhr.send();
