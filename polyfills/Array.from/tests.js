@@ -3,7 +3,7 @@ it('has proper length', function() {
 });
 
 it('is not enumerable', function() {
-	expect(Array.propertyIsEnumerable('from')).to.not.ok();
+	expect(Array.propertyIsEnumerable('from')).to.not.be.ok();
 });
 
 it('requires an array-like object', function() {
