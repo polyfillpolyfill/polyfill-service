@@ -5,9 +5,6 @@
 		"firefox": ">4",
 		"ie": ">=6"
 	},
-	"dependencies": [
-		"Array.prototype.map"
-	],
 	"aliases": [
 		"modernizr:es6array",
 		"es6"
