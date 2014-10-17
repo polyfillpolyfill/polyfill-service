@@ -154,7 +154,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	if (req.query.gated) flags.push('gated');
 
 	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
-	console.log(polyfills.get());
 
 	if (!req.query.ua) res.set('Vary', 'User-Agent');
 
