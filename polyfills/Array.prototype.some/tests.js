@@ -52,3 +52,8 @@ it("Should not iterate over elements appended to the array after the call to som
 	// in the range covered by some at the start of its invocation
 	expect(array).to.eql([1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5]);
 });
+
+it("Should return false if the array is empty", function() {
+	var a = [];
+	expect(a.some(function(value) { return true; })).to.be(false);
+});
