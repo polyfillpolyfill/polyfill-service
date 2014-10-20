@@ -1,3 +1,4 @@
+// See: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.some
 
 beforeEach(function() {
 	this.array = [0, 2, 4, 6, 8, 10, 12, 14];
