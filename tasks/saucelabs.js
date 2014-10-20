@@ -211,7 +211,7 @@ module.exports = function(grunt) {
 							if (job.results.failed && job.results.failingSuites) {
 								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')')
 								Object.keys(job.results.failingSuites).forEach(function(feature) {
-									var url = options.urls[job.urlName].replace(/test\/director/, 'test/runner')+'&feature='+feature;
+									var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
 									grunt.log.writeln('    -> '+feature);
 									grunt.log.writeln('       '+url);
 								});
