@@ -80,3 +80,14 @@ it("Should not visit elements that are deleted after the call to some begins and
 	// Should only visit the first 5 indices
 	expect(visited).to.eql([0, 1, 2, 3, 4]);
 });
+
+it("Should return true as soon as the callback returns true", function() {
+	var a = [0, 1, 2, 3, 4];
+	var visited = [];
+	expect(a.some(function(value) {
+		visited.push(value);
+		return value > 2;
+	})).to.be(true);
+
+	expect(visited).to.eql([0, 1, 2, 3]);
+});
