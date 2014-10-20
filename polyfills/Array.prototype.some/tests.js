@@ -3,6 +3,15 @@ beforeEach(function() {
 	this.array = [0, 2, 4, 6, 8, 10, 12, 14];
 });
 
+it("Should not accept a function argument that is not callable", function() {
+	function assertTypeError(e) {
+		expect(e).to.be.a(TypeError);
+	}
+
+	var array = this.array;
+	expect(function() { array.some({}); }).to.throwException(assertTypeError);
+});
+
 it("Should accept a function with three parameters: the value of the element, the index of the element and the object being traversed", function() {
 	var array = this.array;
 
