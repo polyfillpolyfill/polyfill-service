@@ -57,3 +57,17 @@ it("Should return false if the array is empty", function() {
 	var a = [];
 	expect(a.some(function(value) { return true; })).to.be(false);
 });
+
+it("Should not visit elements that are deleted after the call to some begins and before being visited", function() {
+	var a = [1, 2, 3, 4, 5, 6];
+	var visited = [];
+
+	a.some(function(value, index, object) {
+		delete object[5];
+		visited.push(index);
+		return false;
+	});
+
+	// Should only visit the first 5 indices
+	expect(visited).to.eql([0, 1, 2, 3, 4]);
+});
