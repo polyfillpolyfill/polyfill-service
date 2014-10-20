@@ -91,3 +91,14 @@ it("Should return true as soon as the callback returns true", function() {
 
 	expect(visited).to.eql([0, 1, 2, 3]);
 });
+
+it("Should return false if the callback never returns true", function() {
+	var a = [0, 1, 2, 3, 4];
+	var visited = [];
+	expect(a.some(function(value) {
+		visited.push(value);
+		return false;
+	})).to.be(false);
+
+	expect(visited).to.eql(a);
+});
