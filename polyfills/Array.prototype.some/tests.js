@@ -34,3 +34,21 @@ it("Should pass a reference to the array as the third parameter to the function 
 
 	expect(array[0]).to.be(100);
 });
+
+it("Should not iterate over elements appended to the array after the call to some.  The range is fixed before the first call to the callback", function() {
+	var array = [1, 2, 3, 4, 5, 6];
+	var visited = [];
+
+	array.some(function(value, index, object) {
+		array.push(index);
+		visited[index] = value;
+		return false;
+	});
+
+	expect(visited).to.eql([1, 2, 3, 4, 5, 6]);
+
+	// Expect the original array to be the same for the first 6 elements, with
+	// the additional 0, 1, .. 5 appended (the indices of the first 6 elements
+	// in the range covered by some at the start of its invocation
+	expect(array).to.eql([1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5]);
+});
