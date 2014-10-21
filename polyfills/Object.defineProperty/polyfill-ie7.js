@@ -3,40 +3,28 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 		throw new TypeError('Object.defineProperty called on non-object');
 	}
 
-	var propertyValue = object[property];
+	if ('value' in descriptor) {
+		object[property] = descriptor.value;
+	} else {
+		if ('get' in descriptor) {
+			object[property] = descriptor.get.call(object);
+		}
 
-	function onPropertyChange(event) {
-		if (event.propertyName == property) {
-			// temporarily remove the event so it doesn't fire again and create a loop
-			object.detachEvent('onpropertychange', onPropertyChange);
+		if ('set' in descriptor && 'attachEvent' in object) {
+			object.attachEvent('onpropertychange', function (event) {
+				var
+				callee = arguments.callee;
 
-			// set the value using the setter
-			if (descriptor.set) {
-				propertyValue = descriptor.set.call(object, object[property]);
-			}
+				object.detachEvent('onpropertychange', callee);
 
-			// restore the getter
-			object[property] = String(propertyValue);
+				if (event.propertyName === property) {
+					object[property] = descriptor.set.call(object, object[property]);
+				}
 
-			object[property].toString = function () {
-				return descriptor.get.call(object);
-			};
-
-			// restore the event
-			object.attachEvent('onpropertychange', onPropertyChange);
+				object.attachEvent('onpropertychange', callee);
+			});
 		}
 	}
 
-	// assign the getter
-	object[property] = String(propertyValue);
-
-	object[property].toString = function () {
-		return descriptor.get.call(object);
-	};
-
-	// assign the event
-	object.attachEvent('onpropertychange', onPropertyChange);
-
-	// return the object
 	return object;
 };
