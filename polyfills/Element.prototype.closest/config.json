@@ -1,1 +1,19 @@
-{}
+{
+	"variants": {
+		"default": {
+			"browsers": {
+				"bb": "*",
+				"android": "*",
+				"chrome": "*",
+				"ie": "*",
+				"ie_mob": "*",
+				"ios_saf": "*",
+				"firefox": "*",
+				"opera": "*",
+				"op_mini": "*",
+				"op_mob": "*",
+				"safari": "*"
+			}
+		}
+	}
+}
