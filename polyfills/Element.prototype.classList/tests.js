@@ -30,6 +30,32 @@ it("Should force add a class using toggle if the second argument is true", funct
 	expect(classList.contains("classA")).to.be(true);
 });
 
+it("Should be indexable", function() {
+	var el = document.createElement("p");
+	var classList = el.classList;
+	el.className = "a b";
+
+	expect(classList[0]).to.be('a');
+	expect(classList[1]).to.be('b');
+});
+
+it("Should be indexable using the #item method", function() {
+	var el = document.createElement("p");
+	var classList = el.classList;
+	el.className = "a b";
+
+	expect(classList.item(0)).to.be('a');
+	expect(classList.item(1)).to.be('b');
+});
+
+it("Should return the length using the #length method", function() {
+	var el = document.createElement("p");
+	var classList = el.classList;
+	el.className = "a b";
+
+	expect(classList.length).to.be(2);
+});
+
 it("Should remove duplicate instances of class", function() {
 	var el = document.createElement("p");
 	var classList = el.classList;
