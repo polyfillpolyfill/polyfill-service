@@ -1,17 +1,18 @@
 
-it("Should be able to add a class and returns true when a class is added", function() {
+it("Should be able to add a class using #toggle", function() {
 	var el = document.createElement("p");
 	var classList = el.classList;
 	classList.toggle("classA");
 	expect(classList.contains("classA")).to.be(true);
 });
 
-it("Should be able to remove a class and return false when a class is removed", function() {
+it("Should be able to remove a class using #toggle and return false when indicating class is removed", function() {
 	var el = document.createElement("p");
 	var classList = el.classList;
 	el.className = "classA";
 
 	expect(classList.toggle("classA")).to.be(false);
+	expect(classList.contains("classA")).to.be(false);
 });
 
 it("Should allow classes to be added using #add", function() {
