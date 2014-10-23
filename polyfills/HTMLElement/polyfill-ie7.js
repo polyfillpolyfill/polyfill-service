@@ -1,4 +1,4 @@
-(function () {
+(function (hasOwnProperty) {
 	var
 	// create HTMLElement constructor
 	HTMLElement = window.HTMLElement = window.Element = function HTMLElement() {},
@@ -12,16 +12,27 @@
 	prototype = HTMLElement.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
 	cache = HTMLElement.__prototype__ = {},
 
+	// getter to assist in Object.defineProperty({ set: Function });
+	Getter = HTMLElement.__getter__ = function Getter(getter) {
+		this.get = function (scope) {
+			return getter.call(scope);
+		};
+	},
+
 	// polyfill HTMLElement.prototype on an element
 	shiv = HTMLElement.__shiv__ = function (element, deep) {
 		var
 		childNodes = element.childNodes || [],
 		index = -1,
-		key, childNode;
+		key, value, childNode;
 
 		if (element.nodeType === 1 && element.constructor !== HTMLElement) {
+			element.constructor = HTMLElement;
+
 			for (key in cache) {
-				element[key] = cache[key];
+				value = cache[key];
+
+				element[key] = value instanceof Getter ? value.get(element) : value;
 			}
 		}
 
@@ -37,22 +48,24 @@
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
 		propertyName = event.propertyName,
-		nonValue = !(propertyName in cache),
+		nonValue = !hasOwnProperty.call(cache, propertyName),
 		newValue = prototype[propertyName],
 		oldValue = cache[propertyName],
 		index = -1,
 		element;
 
 		while (element = elements[++index]) {
-			if (nonValue || element[propertyName] === oldValue) {
-				element[propertyName] = newValue;
+			if (element.nodeType === 1) {
+				if (nonValue || element[propertyName] === oldValue || oldValue instanceof Getter) {
+					element[propertyName] = newValue instanceof Getter ? newValue.get(element) : newValue;
+				}
 			}
 		}
 
 		cache[propertyName] = newValue;
 	});
 
-	prototype.constructor = cache.constructor = HTMLElement;
+	prototype.constructor = HTMLElement;
 
 	// <HTMLElement>.cloneNode
 	prototype.cloneNode = function cloneNode(deep) {
@@ -65,8 +78,7 @@
 			var
 			outerHTML = self.outerHTML.slice(nodeName.length + 1, - 3 - nodeName.length),
 			regex = /^\s+(.+?)=(['"])(.+?)\2/,
-			matches,
-			pieces = [];
+			matches;
 
 			while (matches = outerHTML.match(regex)) {
 				element.setAttribute(matches[1], matches[3]);
@@ -91,7 +103,6 @@
 		}, true) : false;
 	};
 
-
 	if (!prototype.hasAttribute) {
 		// <HTMLElement>.hasAttribute
 		prototype.hasAttribute = function hasAttribute(name) {
@@ -101,4 +112,4 @@
 
 	// remove sandboxed iframe
 	document.removeChild(vbody);
-})();
+})(Object.prototype.hasOwnProperty);
