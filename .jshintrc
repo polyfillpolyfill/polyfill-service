@@ -1,4 +1,6 @@
 {
+	"-W058": true,
+	"boss": true,
 	"strict": false,
-	"predef": ["Window", "Document", "Element"]
+	"predef": ["Window", "HTMLDocument", "HTMLElement"]
 }
