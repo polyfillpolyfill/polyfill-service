@@ -1,3 +1,5 @@
-Array.of = function of() {
-	return Array.prototype.slice.call(arguments);
-};
+(function (slice) {
+	Array.of = function of() {
+		return slice.call(arguments);
+	};
+})(Array.prototype.slice);
