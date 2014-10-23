@@ -1,1 +1,1 @@
-window.getComputedStyle
+'getComputedStyle' in window

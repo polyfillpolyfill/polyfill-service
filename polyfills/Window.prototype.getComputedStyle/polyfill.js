@@ -1,9 +1,8 @@
 (function () {
 	function getComputedStylePixel(element, property, fontSize) {
-		element.document; // Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
-
 		var
-		value = element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
+		// Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
+		value = element.document && element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
 		size = value[1],
 		suffix = value[2],
 		rootSize;
@@ -110,7 +109,7 @@
 	};
 
 	// <window>.getComputedStyle
-	window.getComputedStyle = Window.prototype.getComputedStyle = function (element) {
+	Window.prototype.getComputedStyle = function (element) {
 		return new CSSStyleDeclaration(element);
 	};
 })();
