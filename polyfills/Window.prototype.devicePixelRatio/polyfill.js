@@ -1,28 +1,17 @@
-(function (document) {
-	var
-	element = document.createElement('-'),
-	fauxBody = document.createElement('body'),
-	nativeBody;
+(function () {
+	var element = document.createElement('x-zoom');
 
-	element.runtimeStyle.cssText = 'clip:rect(0 0 0 0);font-size:1000px;height:0;position:absolute;width:1em;zoom:1';
+	element.style.cssText = 'clip:rect(0 0 0 0);display:block;font-size:1000px;position:absolute;-webkit-text-size-adjust:none;width:1em';
 
-	function setDevicePixelRatio(rect) {
-		nativeBody = nativeBody || document.body;
+	function updateDevicePixelRatio() {
+		document.documentElement.appendChild(element);
 
-		rect = (nativeBody || document.documentElement.appendChild(fauxBody)).appendChild(element).getBoundingClientRect();
+		window.devicePixelRatio = Math.round(100000 / element.clientWidth) / 100;
 
-		window.devicePixelRatio = Math.round((rect.right - rect.left) / element.clientWidth * 1000) / 1000;
-
-		if (nativeBody) {
-			element.parentNode.removeChild(element); // body must be referenced as parent for old IE
-		} else {
-			document.documentElement.removeChild(fauxBody);
-		}
+		document.documentElement.removeChild(element);
 	}
 
-	window.attachEvent('onresize', setDevicePixelRatio);
+	window.addEventListener('resize', updateDevicePixelRatio);
 
-	document.attachEvent('onkeyup', setDevicePixelRatio);
-
-	setDevicePixelRatio();
-})(document);
+	updateDevicePixelRatio();
+})();

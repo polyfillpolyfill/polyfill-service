@@ -1,1 +1,1 @@
-window.devicePixelRatio
+'devicePixelRatio' in window
