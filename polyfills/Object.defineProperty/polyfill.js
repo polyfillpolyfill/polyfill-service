@@ -1,4 +1,4 @@
-Object.defineProperty = function defineProperty(object, property, descriptor) {
+Object.defineProperty = Object.defineProperty || function defineProperty(object, property, descriptor) {
 	if (object !== Object(object)) {
 		throw new TypeError('Object.defineProperty called on non-object');
 	}

@@ -1,1 +1,1 @@
-Object.defineProperty
+false
