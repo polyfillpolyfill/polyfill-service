@@ -42,9 +42,14 @@ it('should throw correctly if no callback is given', function () {
 	}).to.throwException();
 });
 it('should return the expected result', function () {
-	expect([1,2,3].reduce(function (a, b) {
+	expect([1,2,3,4,5,6,7].reduce(function (a, b) {
 		return String(a || '') + String(b || '');
-	})).to.eql([1,2,3].join(''));
+	})).to.eql([1,2,3,4,5,6,7].join(''));
+});
+it('should return the expected result with a string', function () {
+	expect(Array.prototype.reduce.call('1234567', function (a, b) {
+		return String(a || '') + String(b || '');
+	})).to.eql([1,2,3,4,5,6,7].join(''));
 });
 it('should not directly affect the passed array', function () {
 	var test = [1,2,3];

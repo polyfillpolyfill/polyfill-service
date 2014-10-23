@@ -10,21 +10,29 @@ Array.prototype.reduce = function reduce(callback) {
 	var
 	array = Object(this),
 	arrayIsString = array instanceof String,
-	length = array.length,
+	length = Number(array.length) || 0,
 	index = 0,
 	previousValue;
 
-	while (index < length && !(arrayIsString || index in array)) {
+	if (1 in arguments) {
+		previousValue = arguments[1];
+	} else {
+		if (!arrayIsString) {
+			while (index < length && !(index in array)) {
+				++index;
+			}
+		}
+
+		if (!length || index === length) {
+			throw new TypeError('Reduce of empty array with no initial value');
+		}
+
+		previousValue = arrayIsString ? array.charAt(index) : array[index];
+
 		++index;
 	}
 
-	previousValue = 1 in arguments ? arguments[1] : arrayIsString ? array.charAt(index) : array[index];
-
-	if (!length || index === length) {
-		throw new TypeError('Reduce of empty array with no initial value');
-	}
-
-	for (++index; index < length; ++index) {
+	for (; index < length; ++index) {
 		if (arrayIsString || index in array) {
 			previousValue = callback(previousValue, arrayIsString ? array.charAt(index) : array[index], index, array);
 		}
