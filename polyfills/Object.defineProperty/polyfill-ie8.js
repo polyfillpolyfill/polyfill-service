@@ -1,6 +1,10 @@
 (function (nativeDefineProperty) {
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
-		if (object instanceof Window || object instanceof HTMLDocument || object instanceof Element) {
+		if (
+			object === Window.prototype || object instanceof Window ||
+			object === HTMLDocument.prototype || object instanceof HTMLDocument ||
+			object === Element.prototype || object instanceof Element
+		) {
 			delete descriptor.configurable;
 			delete descriptor.enumerable;
 			delete descriptor.writable;
