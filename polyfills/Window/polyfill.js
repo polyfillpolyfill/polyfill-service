@@ -1,1 +1,1 @@
-(this.Window = this.constructor = function Window() {}).prototype = this;
+(this.Window = this.constructor = new Function('return function Window() {}')()).prototype = this;
