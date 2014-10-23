@@ -24,7 +24,7 @@ The config.json file may contain any of the following keys:
 * `dependencies`: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.
 * `author`: Object, metadata about the author of the polyfill, following [NPM convention](https://www.npmjs.org/doc/json.html#people-fields-author-contributors)
 * `licence`: String, an [SPDX](https://spdx.org/licenses/) identifier for an [OSI Approved](http://opensource.org/licenses/alphabetical) license  (Or CC0 which is GPL compatible)
-* `variants`: Object, mapping variant names to objects with individual `browser`, `licence`, `author` and `dependencies` properties.
+* `variants`: Object, mapping variant names to objects with individual `browsers`, `licence`, `author` and `dependencies` properties.
 
 Where a config file contains `browsers`, `licence`, `author` or `dependencies` properties outside of a `variants` object, those properties are interpreted as belonging to the `default` variant, and apply to the `polyfil.js` implementation.  Placing them inside `variants.default` is allowed, but optional.
 
