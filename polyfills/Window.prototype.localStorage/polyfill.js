@@ -1,4 +1,4 @@
-Window.polyfill.push(function () {
+(function () {
 	function Storage() {}
 
 	Storage.prototype = {
@@ -70,12 +70,12 @@ Window.polyfill.push(function () {
 		element.save(userdata);
 	}
 
-	if (!this.localStorage) {
+	if (!Window.prototype.localStorage) {
 		var
 		// set window
 		window = this,
 		// set localStorage
-		localStorage = window.localStorage = new Storage(),
+		localStorage = Window.prototype.localStorage = new Storage(),
 		// set storage element
 		element = window.document.lastChild.lastChild.appendChild(window.document.createElement('x-local-storage')),
 		// set userdata key and prefix

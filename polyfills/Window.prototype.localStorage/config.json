@@ -1,10 +1,10 @@
 {
-	"browsers": {
-		"ie": "6 - 7"
-	},
 	"aliases": [
 		"modernizr:localstorage",
 		"caniuse:namevalue-storage"
 	],
-	"dependencies": ["Window.polyfill"]
+	"browsers": {
+		"ie": "6 - 7"
+	},
+	"dependencies": ["Window"]
 }
