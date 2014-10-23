@@ -6,17 +6,14 @@
 		"ie7": {
 			"browsers": {
 				"ie": "6 - 7"
-			}
+			},
+			"dependencies": ["HTMLDocument"]
 		},
 		"ie8": {
 			"browsers": {
 				"ie": "8"
-			}
-		},
-		"ie9": {
-			"browsers": {
-				"ie": "9"
-			}
+			},
+			"dependencies": ["HTMLDocument"]
 		}
 	}
 }
