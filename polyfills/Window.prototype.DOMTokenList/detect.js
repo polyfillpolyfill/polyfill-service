@@ -1,1 +1,1 @@
-window.DOMTokenList
+this.DOMTokenList
