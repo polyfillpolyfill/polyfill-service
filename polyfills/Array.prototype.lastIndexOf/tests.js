@@ -13,10 +13,10 @@ it('takes 1 argument', function() {
 it('throws a TypeError when applied to non-array-like types', function() {
 	expect(function() {
 		Array.prototype.lastIndexOf.call(undefined);
-	}).to.throwException(expectTypeError);
+	}).to.throwException();
 	expect(function() {
 		Array.prototype.lastIndexOf.call(null);
-	}).to.throwException(expectTypeError);
+	}).to.throwException();
 });
 
 it('returns -1 when no match is found', function() {

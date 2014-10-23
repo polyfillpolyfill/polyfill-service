@@ -1,10 +1,22 @@
 Array.prototype.lastIndexOf = function lastIndexOf(searchElement) {
-	var array = this, length = array.length, index = 1 in arguments ? length : parseInt(arguments[1]) || 0;
+	if (!(this instanceof Object)) {
+		throw new TypeError(this + 'is not an object');
+	}
+
+	var
+	array = this,
+	arrayIsString = array instanceof String,
+	length = array.length,
+	index = 1 in arguments ? Number(arguments[1]) || 0 : length - 1;
 
 	index = index >= 0 ? index : Math.max(length + index, 0);
 
 	for (; index >= 0; --index) {
-		if (index in array && array[index] === searchElement) {
+		if ((
+			arrayIsString && array.charAt(index) === searchElement
+		) || (
+			index in array && array[index] === searchElement
+		)) {
 			return index;
 		}
 	}
