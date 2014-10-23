@@ -1,1 +1,1 @@
-window.btoa && window.atob
+'atob' in window
