@@ -5,7 +5,7 @@
 		}
 
 		var
-		sourceIsString = source instanceof String,
+		sourceIsString = typeof source === 'string',
 		object = Object(source),
 		map = arguments[1],
 		scope = arguments[2],
