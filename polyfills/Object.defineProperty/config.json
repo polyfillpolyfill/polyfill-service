@@ -1,13 +1,12 @@
 {
+	"aliases": [
+		"modernizr:es5object"
+	],
 	"browsers": {
 		"firefox": "3.6",
 		"safari": "4 - 4.1",
 		"ios_saf": "4.3"
 	},
-	"aliases": [
-		"modernizr:es5object"
-	],
-
 	"variants": {
 		"ie7": {
 			"browsers": {
