@@ -1,19 +1,47 @@
-(function (CLASSLIST) {
-	var descriptor = {
+(function (originalDOMTokenList, splice) {
+	Object.defineProperty(HTMLElement.prototype, 'classList', {
 		get: function () {
-			function DOMTokenList() {}
+			function pull(self) {
+				splice.apply(self, [0, self.length].concat((element.className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));
+			}
 
-			DOMTokenList.prototype = window.DOMTokenList.prototype;
+			function push(self) {
+				element.className = original.toString.call(self);
+			}
 
-			var classList = new DOMTokenList();
+			var
+			element = this,
+			original = originalDOMTokenList.prototype,
+			ClassList = function DOMTokenList() {},
+			prototype = {
+				item: function item(index) {
+					return pull(this), original.item.call(this, index);
+				},
+				toString: function toString() {
+					return pull(this), original.toString.apply(this);
+				},
+				add: function add() {
+					return pull(this), original.add.apply(this, arguments), push(this);
+				},
+				contains: function contains(token) {
+					return pull(this), original.contains.call(this, token);
+				},
+				remove: function remove() {
+					return pull(this), original.remove.apply(this, arguments), push(this);
+				},
+				toggle: function toggle(token) {
+					return pull(this), token = original.toggle.call(this, token), push(this), token;
+				}
+			},
+			key;
 
-			classList.element = this;
+			ClassList.prototype = new originalDOMTokenList;
 
-			classList.toString();
+			for (key in prototype) {
+				ClassList.prototype[key] = prototype[key];
+			}
 
-			return classList;
+			return new ClassList;
 		}
-	};
-
-	Object.defineProperty(HTMLElement.prototype, CLASSLIST, descriptor);
-})('classList');
+	});
+})(window.DOMTokenList, Array.prototype.splice);

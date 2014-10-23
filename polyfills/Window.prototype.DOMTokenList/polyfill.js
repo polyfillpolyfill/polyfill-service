@@ -1,74 +1,79 @@
-(function () {
-	function spliceClassList(classList) {
-		Array.prototype.splice.call(classList, 0, classList.length);
+(function (ARRAY) {
+	function DOMTokenList() {}
 
-		// We use getAttribute to normalise element.className implementations
-		var className = (classList.element.getAttribute('class') || '').replace(/^\s+|\s+$/g, '');
-		if (className) {
-			Array.prototype.push.apply(classList, className.split(/\s+/));
-		}
-		return classList;
-	}
-
-	function getStringTokenIndex(classList, token) {
+	function tokenize(token) {
 		if (/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(token)) {
-			return Array.prototype.indexOf.call(classList, token);
+			return String(token);
 		} else {
 			throw new Error('InvalidCharacterError: DOM Exception 5');
 		}
 	}
 
-	var DOMTokenList = Window.prototype.DOMTokenList = function DOMTokenList() {
-		throw new Error('Illegal constructor');
-	};
+	function toObject(self) {
+		for (var index = -1, object = {}, element; element = self[++index];) {
+			object[element] = true;
+		}
 
-	DOMTokenList.prototype = {
+		return object;
+	}
+
+	function fromObject(self, object) {
+		var array = [], token;
+
+		for (token in object) {
+			if (object[token]) {
+				array.push(token);
+			}
+		}
+
+		splice.apply(self, [0, self.length].concat(array));
+	}
+
+	var
+	join = ARRAY.join,
+	splice = ARRAY.splice;
+
+	(Window.prototype.DOMTokenList = DOMTokenList).prototype = {
 		constructor: DOMTokenList,
-		'length': Array.prototype.length,
-		'item': function () {
-			return spliceClassList(this)[arguments[0]] || null;
+		item: function item(index) {
+			return this[parseFloat(index)] || null;
 		},
-		'contains': function () {
-			return getStringTokenIndex(spliceClassList(this), String(arguments[0])) !== -1;
+		length: Array.prototype.length,
+		toString: function toString() {
+			return join.call(this, ' ');
 		},
-		'add': function () {
-			var token = String(arguments[0]);
 
-			if (getStringTokenIndex(spliceClassList(this), token) === -1) {
-				Array.prototype.push.call(this, token);
+		add: function add() {
+			for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
+				token = tokenize(arguments[index]);
 
-				this.element.setAttribute('class', Array.prototype.join.call(this, ' '));
+				object[token] = true;
 			}
+
+			fromObject(this, object);
 		},
-		'remove': function () {
+		contains: function contains(token) {
+			return token in toObject(this);
+		},
+		remove: function remove() {
+			for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
+				token = tokenize(arguments[index]);
+
+				object[token] = false;
+			}
+
+			fromObject(this, object);
+		},
+		toggle: function toggle(token) {
 			var
-			token = String(arguments[0]),
-			index = getStringTokenIndex(spliceClassList(this), token);
+			object = toObject(this),
+			contains = tokenize(token) in object;
 
-			if (index !== -1) {
-				Array.prototype.splice.call(this, index, 1);
+			object[token] = !contains;
 
-				this.element.setAttribute('class', Array.prototype.join.call(this, ' '));
-			}
-		},
-		'toggle': function () {
-			var
-			token = String(arguments[0]),
-			index = getStringTokenIndex(spliceClassList(this), token),
-			hasnt = index === -1;
+			fromObject(this, object);
 
-			if (hasnt) {
-				Array.prototype.push.call(this, token);
-			} else {
-				Array.prototype.splice.call(this, index, 1);
-			}
-
-			this.element.setAttribute('class', Array.prototype.join.call(this, ' '));
-
-			return hasnt;
-		},
-		'toString': function () {
-			return spliceClassList(this).element.getAttribute('class');
+			return !contains;
 		}
 	};
-})();
+})(Array.prototype);

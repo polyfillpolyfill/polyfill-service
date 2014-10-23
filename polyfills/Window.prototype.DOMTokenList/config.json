@@ -4,8 +4,6 @@
 		"safari": "4"
 	},
 	"dependencies": [
-		"Array.prototype.indexOf",
-		"Window",
-		"Window.chrome"
+		"Window"
 	]
 }
