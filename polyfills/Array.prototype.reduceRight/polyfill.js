@@ -7,23 +7,30 @@ Array.prototype.reduceRight = function reduceRight(callback) {
 		throw new TypeError(callback + ' is not a function');
 	}
 
-	var
-	array = Object(this),
-	arrayIsString = array instanceof String,
-	index = array.length - 1,
-	previousValue;
+    var array = Object(this),
+        len = array.length >>> 0,
+		index = len - 1,
+        previousValue;
 
-	while (index >= 0 && !(arrayIsString || index in array)) {
-		--index;
-	}
-
-	previousValue = 1 in arguments ? arguments[1] : array[index];
-
-	for (--index; index >= 0; --index) {
-		if (arrayIsString || index in array) {
-			previousValue = callback(previousValue, arrayIsString ? array.charAt(index) : array[index], index, array);
+	if (arguments.length >= 2) {
+		previousValue = arguments[1];
+	} else {
+		while (index >= 0 && !(index in array)) {
+			--index;
 		}
+
+		if (index < 0) {
+			throw new TypeError('Reduce of empty array with no initial value');
+		}
+
+		previousValue = array[index--];
 	}
+
+	for (; index >= 0; index--) {
+      if (index in array) {
+        previousValue = callback(previousValue, array[index], index, array);
+      }
+    }
 
 	return previousValue;
 };
