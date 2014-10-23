@@ -1,17 +1,11 @@
 {
-	"browsers": {
-		"chrome": "*",
-		"phantomjs": "^1.9",
-		"firefox": ">4",
-		"ie": ">=6"
-	},
 	"aliases": [
 		"modernizr:es6array",
 		"es6"
 	],
-	"author": {
-		"name": "Mathias Bynens",
-		"url": "http://mathiasbynens.be/"
-	},
-	"license": "MIT"
+	"browsers": {
+		"chrome": "*",
+		"firefox": "4 - *",
+		"ie": "6 - *"
+	}
 }
