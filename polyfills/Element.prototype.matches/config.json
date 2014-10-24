@@ -1,10 +1,23 @@
 {
+	"aliases": [
+		"caniuse:matchesselector",
+		"default"
+	],
+	"browsers": {
+		"ie": "8"
+	},
+	"dependencies": [
+		"HTMLElement"
+	],
 	"variants": {
-		"default": {
+		"ie7": {
 			"browsers": {
-				"ie": "6 - 8"
+				"ie": "6 - 7"
 			},
-			"dependencies": ["Window.polyfill"]
+			"dependencies": [
+				"HTMLDocument",
+				"HTMLElement"
+			]
 		},
 		"moz": {
 			"browsers": {
@@ -13,7 +26,7 @@
 		},
 		"ms": {
 			"browsers": {
-				"ie": ">=9"
+				"ie": "9 - *"
 			}
 		},
 		"o": {
@@ -34,9 +47,5 @@
 				"ios_saf": "*"
 			}
 		}
-	},
-	"aliases": [
-		"caniuse:matchesselector",
-		"default"
-	]
+	}
 }

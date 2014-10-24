@@ -1,4 +1,4 @@
-Element.prototype.matches = function matches(selector) {
+HTMLElement.prototype.matches = function matches(selector) {
 	var
 	element = this,
 	elements = (element.document || element.ownerDocument).querySelectorAll(selector),
@@ -8,5 +8,5 @@ Element.prototype.matches = function matches(selector) {
 		++index;
 	}
 
-	return elements[index] ? true : false;
+	return !!elements[index];
 };

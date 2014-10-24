@@ -92,17 +92,6 @@
 		return element;
 	};
 
-	// <HTMLElement>.matches
-	prototype.matches = function matches(selector) {
-		var
-		self = this,
-		currentStyle = self.currentStyle;
-
-		return window.HTMLDocument ? window.HTMLDocument.__querySelectorAll__(self.document, selector, function (node, id) {
-			return currentStyle.qsa === id;
-		}, true) : false;
-	};
-
 	if (!prototype.hasAttribute) {
 		// <HTMLElement>.hasAttribute
 		prototype.hasAttribute = function hasAttribute(name) {

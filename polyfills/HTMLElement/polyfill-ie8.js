@@ -28,21 +28,4 @@
 
 		return clone;
 	};
-
-	// <HTMLElement>.matches
-	prototype.matches = function matches(selector) {
-		var
-		self = this,
-		matches = self.document.querySelectorAll(selector),
-		index = -1,
-		match;
-
-		while (match = matches[++index]) {
-			if (match === self) {
-				return true;
-			}
-		}
-
-		return false;
-	};
 })();
