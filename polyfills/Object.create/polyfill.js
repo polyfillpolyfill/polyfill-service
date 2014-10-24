@@ -1,20 +1,20 @@
-(function (toString) {
-	// Object.create
+(function () {
 	Object.create = function create(prototype, properties) {
 		/* jshint evil: true */
 
-		if (prototype !== null && prototype !== Object(prototype)) {
-			throw new TypeError('Object prototype may only be an Object or null');
+		if (typeof prototype !== 'object') {
+			throw TypeError('Argument must be an object');
 		}
 
 		var
-		name = typeof prototype === 'function' && toString.call(prototype).match(/\s\w+/) || ' Object',
-		object = new Function('e', 'function' + name + '(e){}' + name + '.prototype=e;return new' + name)(prototype);
+		object = new Function('e', 'function Object() {}Object.prototype=e;return new Object')(prototype);
 
-		if (properties) {
+		object.constructor.prototype = prototype;
+
+		if (1 in arguments) {
 			Object.defineProperties(object, properties);
 		}
 
 		return object;
 	};
-})(Object.prototype.toString);
+})();
