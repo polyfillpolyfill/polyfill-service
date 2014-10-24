@@ -18,7 +18,7 @@
 			ClassList.prototype = new originalDOMTokenList;
 
 			ClassList.prototype.item = function item(index) {
-				return pull(), original.item.arguments(classList, arguments);
+				return pull(), original.item.apply(classList, arguments);
 			};
 
 			ClassList.prototype.toString = function toString() {
@@ -42,6 +42,10 @@
 			};
 
 			classList = new ClassList;
+
+			if (element.attachEvent) {
+				element.attachEvent('onpropertychange', pull);
+			}
 
 			return classList;
 		}
