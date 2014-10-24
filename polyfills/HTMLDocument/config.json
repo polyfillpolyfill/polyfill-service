@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"default"
+		"default",
+		"html5shiv"
 	],
 	"variants": {
 		"ie7": {
