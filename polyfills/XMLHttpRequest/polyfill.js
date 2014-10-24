@@ -1,4 +1,12 @@
 (function () {
+
+	// IE < 8 lacks an XMLHttpRequest constructor
+	if (!('XMLHttpRequest' in window)) {
+		window.XMLHttpRequest = function XMLHttpRequest() {
+			return new ActiveXObject('MSXML2.XMLHTTP.3.0');
+		};
+	}
+
 	var NativeXMLHttpRequest = window.XMLHttpRequest;
 
 	function XMLHttpRequest() {
