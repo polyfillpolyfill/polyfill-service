@@ -5,5 +5,5 @@
 	"aliases": [
 		"caniuse:domcontentloaded"
 	],
-	"dependencies": ["Window.prototype.Event.ie8"]
+	"dependencies": ["Window.prototype.Event"]
 }
