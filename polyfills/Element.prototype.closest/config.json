@@ -13,7 +13,10 @@
 				"op_mini": "*",
 				"op_mob": "*",
 				"safari": "*"
-			}
+			},
+			"dependencies": [
+				"Element.prototype.matches"
+			]
 		}
 	}
 }
