@@ -1,47 +1,49 @@
 (function (originalDOMTokenList, splice) {
 	Object.defineProperty(HTMLElement.prototype, 'classList', {
 		get: function () {
-			function pull(self) {
-				splice.apply(self, [0, self.length].concat((element.className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));
+			function pull() {
+				splice.apply(classList, [0, classList.length].concat((element.className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));
 			}
 
-			function push(self) {
-				element.className = original.toString.call(self);
+			function push() {
+				element.className = original.toString.call(classList);
 			}
 
 			var
 			element = this,
 			original = originalDOMTokenList.prototype,
 			ClassList = function DOMTokenList() {},
-			prototype = {
-				item: function item(index) {
-					return pull(this), original.item.call(this, index);
-				},
-				toString: function toString() {
-					return pull(this), original.toString.apply(this);
-				},
-				add: function add() {
-					return pull(this), original.add.apply(this, arguments), push(this);
-				},
-				contains: function contains(token) {
-					return pull(this), original.contains.call(this, token);
-				},
-				remove: function remove() {
-					return pull(this), original.remove.apply(this, arguments), push(this);
-				},
-				toggle: function toggle(token) {
-					return pull(this), token = original.toggle.call(this, token), push(this), token;
-				}
-			},
-			key;
+			classList;
 
 			ClassList.prototype = new originalDOMTokenList;
 
-			for (key in prototype) {
-				ClassList.prototype[key] = prototype[key];
-			}
+			ClassList.prototype.item = function item(index) {
+				return pull(), original.item.arguments(classList, arguments);
+			};
 
-			return new ClassList;
+			ClassList.prototype.toString = function toString() {
+				return pull(), original.toString.apply(classList, arguments);
+			};
+
+			ClassList.prototype.add = function add() {
+				return pull(), original.add.apply(classList, arguments), push();
+			};
+
+			ClassList.prototype.contains = function contains(token) {
+				return pull(), original.contains.apply(classList, arguments);
+			};
+
+			ClassList.prototype.remove = function remove() {
+				return pull(), original.remove.apply(classList, arguments), push();
+			};
+
+			ClassList.prototype.toggle = function toggle(token) {
+				return pull(), token = original.toggle.apply(classList, arguments), push(), token;
+			};
+
+			classList = new ClassList;
+
+			return classList;
 		}
 	});
 })(window.DOMTokenList, Array.prototype.splice);

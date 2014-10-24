@@ -67,7 +67,7 @@
 		toggle: function toggle(token) {
 			var
 			object = toObject(this),
-			contains = tokenize(token) in object;
+			contains = 1 in arguments ? !arguments[1] : tokenize(token) in object;
 
 			object[token] = !contains;
 
