@@ -101,7 +101,20 @@
 		}
 
 		return document;
-	};
+	},
+
+	shivStyle = document.createElement();
+
+	shivStyle.innerHTML = 'x<style>' +
+	// corrects block display not defined in IE6/7/8/9
+	'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}' +
+	// adds styling not present in IE6/7/8/9
+	'mark{background:#FF0;color:#000}' +
+	// hides non-rendered elements
+	'template{display:none}' +
+	'[hidden]{display:none}';
+
+	document.documentElement.appendChild(shivStyle.lastChild);
 
 	HTMLDocument.prototype = shiv(document);
 })();
