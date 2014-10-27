@@ -1,1 +1,1 @@
-window.CustomEvent
+'CustomEvent' in window && typeof window.CustomEvent === 'function'

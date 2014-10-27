@@ -8,15 +8,7 @@
 
 		event.type = type;
 		event.bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false;
-		event.cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : true;
-
-		return event;
-	};
-
-	window.CustomEvent = Window.prototype.CustomEvent = function CustomEvent(type, eventInitDict) {
-		var event = new Event(type, eventInitDict);
-
-		event.detail = eventInitDict && eventInitDict.detail || {};
+		event.cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : false;
 
 		return event;
 	};

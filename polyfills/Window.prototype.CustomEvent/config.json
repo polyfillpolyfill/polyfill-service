@@ -1,13 +1,30 @@
 {
+	"aliases": ["default"],
 	"browsers": {
 		"firefox": "3.6 - 10",
-		"ie": "9 - 10",
+		"ie": "9 - *",
 		"opera": "10 - 11.5",
-		"safari": "4 - *"
+		"safari": "4 - *",
+		"chrome": "1 - 14"
 	},
 	"dependencies": [
-		"Window.prototype.Event",
-		"Window.prototype.Event.firefox5",
-		"Window.prototype.Event.ie8"
-	]
+		"Window.prototype.Event"
+	],
+	"variants": {
+		"ie8": {
+			"browsers": {
+				"ie": "6 - 8"
+			},
+			"dependencies": [
+				"Window.prototype.Event"
+			]
+		}
+	},
+	"author": {
+		"name": "Jonathan Neal"
+	},
+	"aliases": [
+		"modernizr:customevent"
+	],
+	"license": "CC0"
 }
