@@ -1,23 +1,27 @@
+// <Array>.filter
 Array.prototype.filter = function filter(callback) {
-	if (!(this instanceof Object)) {
+	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
 	}
 
-	if (typeof callback !== 'function') {
+	if (!(callback instanceof Function)) {
 		throw new TypeError(callback + ' is not a function');
 	}
 
 	var
-	array = Object(this),
-	arrayIsString = array instanceof String,
+	object = Object(this),
 	scope = arguments[1],
-	length = array.length,
-	index = 0,
-	result = [];
+	arraylike = object instanceof String ? object.split('') : object,
+	length = Number(arraylike.length) || 0,
+	index = -1,
+	result = [],
+	element;
 
-	for (; index < length; ++index) {
-		if (index in array && callback.call(scope, arrayIsString ? array.charAt(index) : array[index], index, array)) {
-			result.push(array[index]);
+	while (++index < length) {
+		element = arraylike[index];
+
+		if (index in arraylike && callback.call(scope, element, index, object)) {
+			result.push(element);
 		}
 	}
 

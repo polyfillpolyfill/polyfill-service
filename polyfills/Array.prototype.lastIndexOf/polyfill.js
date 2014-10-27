@@ -1,22 +1,18 @@
+// <Array>.lastIndexOf
 Array.prototype.lastIndexOf = function lastIndexOf(searchElement) {
-	if (!(this instanceof Object)) {
+	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
 	}
 
 	var
-	array = this,
-	arrayIsString = array instanceof String,
-	length = array.length,
-	index = 1 in arguments ? Number(arguments[1]) || 0 : length - 1;
+	arraylike = this instanceof String ? this.split('') : this,
+	length = Number(arraylike.length) || 0,
+	index = Number(arguments[1]) || 0;
 
-	index = index >= 0 ? index : Math.max(length + index, 0);
+	index = 1 in arguments ? (index < 0 ? Math.max(length + index, 0) : index) + 1 : length;
 
-	for (; index >= 0; --index) {
-		if ((
-			arrayIsString && array.charAt(index) === searchElement
-		) || (
-			index in array && array[index] === searchElement
-		)) {
+	while (--index >= 0) {
+		if (index in arraylike && arraylike[index] === searchElement) {
 			return index;
 		}
 	}

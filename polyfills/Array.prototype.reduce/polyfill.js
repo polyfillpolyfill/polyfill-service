@@ -1,40 +1,36 @@
+// <Array>.reduce
 Array.prototype.reduce = function reduce(callback) {
-	if (!(this instanceof Object)) {
+	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
 	}
 
-	if (typeof callback !== 'function') {
+	if (!(callback instanceof Function)) {
 		throw new TypeError(callback + ' is not a function');
 	}
 
 	var
-	array = Object(this),
-	arrayIsString = array instanceof String,
-	length = Number(array.length) || 0,
-	index = 0,
+	object = Object(this),
+	scope = arguments[1],
+	arraylike = object instanceof String ? object.split('') : object,
+	length = Number(arraylike.length) || 0,
+	index = -1,
 	previousValue;
 
 	if (1 in arguments) {
 		previousValue = arguments[1];
 	} else {
-		if (!arrayIsString) {
-			while (index < length && !(index in array)) {
-				++index;
-			}
-		}
+		while (++index < length && !(index in arraylike)) {}
 
-		if (!length || index === length) {
+		if (index >= length) {
 			throw new TypeError('Reduce of empty array with no initial value');
 		}
 
-		previousValue = arrayIsString ? array.charAt(index) : array[index];
-
-		++index;
+		previousValue = arraylike[index];
 	}
 
-	for (; index < length; ++index) {
-		if (arrayIsString || index in array) {
-			previousValue = callback(previousValue, arrayIsString ? array.charAt(index) : array[index], index, array);
+	while (++index < length) {
+		if (index in arraylike) {
+			previousValue = callback(previousValue, arraylike[index], index, object);
 		}
 	}
 

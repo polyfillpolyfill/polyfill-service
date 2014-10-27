@@ -1,41 +1,33 @@
-(function () {
-	Array.from = function from(source) {
-		if (source === undefined || source === null) {
-			throw new TypeError(source + ' is not an object');
+// Array.from
+Array.from = function from(source) {
+	// handle non-objects
+	if (source === undefined || source === null) {
+		throw new TypeError(source + ' is not an object');
+	}
+
+	// handle maps that are not functions
+	if (1 in arguments && !(arguments[1] instanceof Function)) {
+		throw new TypeError(arguments[1] + ' is not a function');
+	}
+
+	var
+	arraylike = typeof source === 'string' ? source.split('') : Object(source),
+	map = arguments[1],
+	scope = arguments[2],
+	array = [],
+	index = -1,
+	length = Math.min(Math.max(Number(arraylike.length) || 0, 0), Math.pow(2, 53) - 1),
+	value;
+
+	while (++index < length) {
+		if (index in arraylike) {
+			value = arraylike[index];
+
+			array[index] = map ? map.call(scope, value, index) : value;
 		}
+	}
 
-		var
-		sourceIsString = typeof source === 'string',
-		object = Object(source),
-		map = arguments[1],
-		scope = arguments[2],
-		index = -1,
-		array = [],
-		length, value;
+	array.length = length;
 
-		// handle maps that are not functions (or RegExp functions in older Safari)
-		if (1 in arguments && typeof map !== 'function' || map instanceof RegExp) {
-			throw new TypeError(map + ' is not a function');
-		}
-
-		length = Number(object.length) || 0;
-
-		if (length === Infinity) {
-			throw new RangeError(length + ' is not a valid length');
-		}
-
-		length = Math.min(Math.max(length, 0), Math.pow(2, 53) - 1);
-
-		while (++index < length) {
-			if (sourceIsString || index in object) {
-				value = sourceIsString ? object.charAt(index) : object[index];
-
-				array[index] = map ? map.call(scope, value, index) : value;
-			}
-		}
-
-		array.length = length;
-
-		return array;
-	};
-})();
+	return array;
+};

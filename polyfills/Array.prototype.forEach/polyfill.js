@@ -1,22 +1,25 @@
+// <Array>.forEach
 Array.prototype.forEach = function forEach(callback) {
-	if (!(this instanceof Object)) {
+	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
 	}
 
-	if (typeof callback !== 'function') {
+	if (!(callback instanceof Function)) {
 		throw new TypeError(callback + ' is not a function');
 	}
 
 	var
-	array = Object(this),
-	arrayIsString = array instanceof String,
+	object = Object(this),
 	scope = arguments[1],
-	length = array.length,
-	index = 0;
+	arraylike = object instanceof String ? object.split('') : object,
+	length = Number(arraylike.length) || 0,
+	index = -1,
+	result = [],
+	element;
 
-	for (; index < length; ++index) {
-		if (arrayIsString || index in array) {
-			callback.call(scope, arrayIsString ? array.charAt(index) : array[index], index, array);
+	while (++index < length) {
+		if (index in arraylike) {
+			callback.call(scope, arraylike[index], index, object);
 		}
 	}
 };
