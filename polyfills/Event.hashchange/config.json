@@ -7,5 +7,5 @@
 		"modernizr:hashchange",
 		"caniuse:hashchange"
 	],
-	"dependencies": ["Window.prototype.Event"]
+	"dependencies": ["Event"]
 }

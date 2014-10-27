@@ -10,6 +10,6 @@
 	"dependencies": [
 		"HTMLElement",
 		"Object.defineProperty",
-		"Window.prototype.DOMTokenList"
+		"DOMTokenList"
 	]
 }

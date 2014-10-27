@@ -12,5 +12,5 @@
 	"aliases": [
 		"caniuse:matchmedia"
 	],
-	"dependencies": ["Window.prototype.Event.firefox5", "Window.prototype.Event.ie8", "Window.prototype.Event"]
+	"dependencies": ["Event", "Event.firefox5", "Event.ie8"]
 }

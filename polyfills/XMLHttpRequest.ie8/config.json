@@ -2,5 +2,5 @@
 	"browsers": {
 		"ie": "6 - 8"
 	},
-	"dependencies": ["Window.prototype.XMLHttpRequest.ie7"]
+	"dependencies": ["XMLHttpRequest.ie7"]
 }

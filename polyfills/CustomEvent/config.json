@@ -8,7 +8,7 @@
 		"chrome": "1 - 14"
 	},
 	"dependencies": [
-		"Window.prototype.Event"
+		"Event"
 	],
 	"variants": {
 		"ie8": {
@@ -16,7 +16,7 @@
 				"ie": "6 - 8"
 			},
 			"dependencies": [
-				"Window.prototype.Event"
+				"Event"
 			]
 		}
 	},
