@@ -1,1 +1,1 @@
-Array.from
+'from' in Array

@@ -13,7 +13,8 @@
 		array = [],
 		length, value;
 
-		if (1 in arguments && typeof map !== 'function') {
+		// handle maps that are not functions (or RegExp functions in older Safari)
+		if (1 in arguments && typeof map !== 'function' || map instanceof RegExp) {
 			throw new TypeError(map + ' is not a function');
 		}
 
