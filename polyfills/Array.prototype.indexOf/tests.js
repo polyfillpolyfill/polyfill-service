@@ -1,22 +1,13 @@
 var expectTypeError = function (e) {
   expect(e).to.be.a(TypeError);
-}
+};
 
 it('is a function', function() {
-	expect(Array.prototype.indexOf).to.be.a('function')
+	expect(Array.prototype.indexOf).to.be.a('function');
 });
 
 it('takes 1 argument', function() {
-	expect(Array.prototype.indexOf.length).to.be(1)
-});
-
-it('throws an Error when applied to non-array-like types', function() {
-	expect(function() {
-		Array.prototype.indexOf.call(undefined);
-	}).to.throwException();
-	expect(function() {
-		Array.prototype.indexOf.call(null);
-	}).to.throwException();
+	expect(Array.prototype.indexOf.length).to.be(1);
 });
 
 it('returns -1 when no match is found', function() {
