@@ -4,7 +4,8 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "8"
+		"ie": "8",
+		"safari": "4"
 	},
 	"dependencies": [
 		"HTMLElement"
@@ -43,7 +44,7 @@
 				"chrome": "1 - 33",
 				"ios_chr": "*",
 				"opera": "15",
-				"safari": "4 - *",
+				"safari": "5 - *",
 				"ios_saf": "*"
 			}
 		}

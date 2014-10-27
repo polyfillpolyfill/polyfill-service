@@ -1,1 +1,1 @@
-Element.prototype.matches
+'matches' in HTMLElement.prototype
