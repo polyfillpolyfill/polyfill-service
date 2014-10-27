@@ -198,6 +198,7 @@ module.exports = function(grunt) {
 
 				grunt.log.writeln("Starting test jobs");
 				batch.end(function(err, jobresults) {
+					grunt.log.writeln('Jobs complete');
 					tunnel.stop(function() {
 						var passingUAs = [];
 						var failed = false;
