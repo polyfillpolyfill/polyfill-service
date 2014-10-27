@@ -4,8 +4,10 @@ it('should have an initCustomEvent function', function() {
 });
 */
 
-it('should through exception when instantiated with no parameters', function() {
-	expect(function() {new CustomEvent()}).to.throwException();
+it('should throw exception when instantiated with no parameters', function() {
+	expect(function() {
+		new CustomEvent()
+	}).to.throwException();
 });
 
 it('should have correct default properties', function() {
