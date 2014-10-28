@@ -36,6 +36,9 @@ it("Should be indexable", function() {
 	var classList = el.classList;
 	el.className = "a b";
 
+	// for old ie
+	classList.toString();
+
 	expect(classList[0]).to.be('a');
 	expect(classList[1]).to.be('b');
 });
@@ -45,6 +48,9 @@ it("Should be indexable using the #item method", function() {
 	var classList = el.classList;
 	el.className = "a b";
 
+	// for old ie
+	classList.toString();
+
 	expect(classList.item(0)).to.be('a');
 	expect(classList.item(1)).to.be('b');
 });
@@ -53,6 +59,9 @@ it("Should return the length using the #length method", function() {
 	var el = document.createElement("p");
 	var classList = el.classList;
 	el.className = "a b";
+
+	// for old ie
+	classList.toString();
 
 	expect(classList.length).to.be(2);
 });
