@@ -1,0 +1,1 @@
+'querySelector' in document

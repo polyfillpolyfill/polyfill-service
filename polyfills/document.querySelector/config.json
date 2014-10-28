@@ -1,0 +1,11 @@
+{
+	"aliases": [
+		"default"
+	],
+	"browsers": {
+		"ie": "6 - 7"
+	},
+	"dependencies": [
+		"HTMLElement"
+	]
+}
