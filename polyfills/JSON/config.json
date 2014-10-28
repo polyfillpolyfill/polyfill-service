@@ -7,6 +7,5 @@
 		"caniuse:json",
 		"default"
 	],
-	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)",
-	"dependencies": ["Window.polyfill.ie7"]
+	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)"
 }

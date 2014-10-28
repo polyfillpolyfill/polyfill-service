@@ -10,8 +10,7 @@
 		"safari": "4 - *",
 		"ios_saf": "*"
 	},
-	"dependencies": ["Window.polyfill"],
-
+	"dependencies": ["Element"],
 	"variants": {
 		"blink": {
 			"browsers": {

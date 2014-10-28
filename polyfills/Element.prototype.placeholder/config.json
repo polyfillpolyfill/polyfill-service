@@ -10,7 +10,7 @@
 			"browsers": {
 				"ie": "6 - 7"
 			},
-			"dependencies": ["Window.polyfill"]
+			"dependencies": ["Element"]
 		}
 	},
 	"aliases": [
