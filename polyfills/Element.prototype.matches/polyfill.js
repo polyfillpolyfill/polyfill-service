@@ -1,3 +1,4 @@
+// <Element>.matches
 Element.prototype.matches = function matches(selector) {
 	var
 	element = this,
