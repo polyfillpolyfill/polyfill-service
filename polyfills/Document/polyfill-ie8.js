@@ -1,7 +1,7 @@
 (function () {
 	var
-	HTMLDocument = window.Document = window.HTMLDocument,
-	prototype = HTMLDocument.prototype,
+	Document = window.Document = window.HTMLDocument,
+	prototype = Document.prototype,
 
 	// cache native methods
 	__createDocumentFragment__ = prototype.createDocumentFragment,

@@ -1,1 +1,1 @@
-"classList" in document.createElement("_")
+"classList" in document.documentElement

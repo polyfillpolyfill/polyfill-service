@@ -13,7 +13,7 @@
 		return event;
 	};
 
-	window.addEventListener = Window.prototype.addEventListener = HTMLDocument.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener(type, listener) {
+	window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener(type, listener) {
 		var element = this;
 
 		if (!element._events) {
@@ -63,7 +63,7 @@
 		element._events[type].list.push(listener);
 	};
 
-	window.removeEventListener = Window.prototype.removeEventListener = HTMLDocument.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener(type, listener) {
+	window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener(type, listener) {
 		var element = this;
 
 		if (element._events && element._events[type] && element._events[type].list) {
@@ -79,7 +79,7 @@
 		}
 	};
 
-	window.dispatchEvent = Window.prototype.dispatchEvent = HTMLDocument.prototype.dispatchEvent = Element.prototype.dispatchEvent = function dispatchEvent(event) {
+	window.dispatchEvent = Window.prototype.dispatchEvent = Document.prototype.dispatchEvent = Element.prototype.dispatchEvent = function dispatchEvent(event) {
 		if (!arguments.length) {
 			throw new Error('Not enough arguments');
 		}

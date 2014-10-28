@@ -18,6 +18,6 @@
 		}
 	}
 
-	Window.prototype.addEventListener = HTMLDocument.prototype.addEventListener = addEventListener;
-	Window.prototype.removeEventListener = HTMLDocument.prototype.removeEventListener = removeEventListener;
+	Window.prototype.addEventListener = Document.prototype.addEventListener = addEventListener;
+	Window.prototype.removeEventListener = Document.prototype.removeEventListener = removeEventListener;
 })();

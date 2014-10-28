@@ -4,6 +4,6 @@
 		"safari": "4"
 	},
 	"dependencies": [
-		"HTMLDocument"
+		"Document"
 	]
 }

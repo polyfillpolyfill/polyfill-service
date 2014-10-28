@@ -7,13 +7,13 @@
 			"browsers": {
 				"ie": "6 - 7"
 			},
-			"dependencies": ["HTMLDocument"]
+			"dependencies": ["Document"]
 		},
 		"ie8": {
 			"browsers": {
 				"ie": "8"
 			},
-			"dependencies": ["HTMLDocument"]
+			"dependencies": ["Document"]
 		}
 	}
 }
