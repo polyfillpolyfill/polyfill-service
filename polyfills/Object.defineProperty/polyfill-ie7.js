@@ -15,7 +15,7 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 
 	// handle descriptor.get
 	if ('get' in descriptor) {
-		object[propertyString] = object === Element.prototype ? Element.__defineGetter__(propertyString, descriptor.get) : descriptor.get.call(object);
+		object[propertyString] = object === Element.prototype ? new Element.__getter__(descriptor.get) : descriptor.get.call(object);
 	}
 	// handle descriptor.value
 	else {
