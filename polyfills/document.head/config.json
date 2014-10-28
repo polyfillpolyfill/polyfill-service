@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"ie": "8",
+		"ie": "6 - 8",
 		"safari": "4"
 	},
 	"dependencies": [
