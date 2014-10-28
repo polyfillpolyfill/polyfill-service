@@ -14,11 +14,7 @@
 		"ie7": {
 			"browsers": {
 				"ie": "6 - 7"
-			},
-			"dependencies": [
-				"HTMLDocument",
-				"HTMLElement"
-			]
+			}
 		},
 		"moz": {
 			"browsers": {
