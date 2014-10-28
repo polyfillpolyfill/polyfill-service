@@ -1,15 +1,15 @@
-(function () {
+(function (global) {
 	var
-	hash = window.location.hash,
+	hash = global.location.hash,
 	func = function () {
-		if (hash !== window.location.hash) {
-			hash = window.location.hash;
+		if (hash !== global.location.hash) {
+			hash = global.location.hash;
 
-			window.dispatchEvent(new Event('hashchange'));
+			global.dispatchEvent(new Event('hashchange'));
 		}
 
 		setTimeout(func, 200);
 	};
 
 	func();
-})();
+})(this);

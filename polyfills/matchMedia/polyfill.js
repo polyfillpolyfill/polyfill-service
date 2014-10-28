@@ -1,5 +1,5 @@
-(function () {
-	function evalQuery(window, query) {
+(function (global) {
+	function evalQuery(query) {
 		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
 			.replace('%s', query||'true')
 			.replace(/^only\s+/, '')
@@ -28,13 +28,13 @@
 				);
 			})
 		)({
-			width: window.innerWidth,
-			height: window.innerHeight,
-			orientation: window.orientation || 'landscape',
+			width: global.innerWidth,
+			height: global.innerHeight,
+			orientation: global.orientation || 'landscape',
 			device: {
-				width: window.screen.width,
-				height: window.screen.height,
-				orientation: window.screen.orientation || window.orientation || 'landscape'
+				width: global.screen.width,
+				height: global.screen.height,
+				orientation: global.screen.orientation || global.orientation || 'landscape'
 			}
 		});
 	}
@@ -52,30 +52,30 @@
 		this.addListener.listeners.splice(this.addListener.listeners.indexof(listener), 1);
 	};
 
-	window.matchMedia = Window.prototype.matchMedia = function matchMedia(query) {
+	// <Global>.matchMedia
+	global.matchMedia = function matchMedia(query) {
 		var
-		window = this,
 		list = new MediaQueryList();
 
-		if (0===arguments.length) {
-			throw new TypeError('Not enough arguments to window.matchMedia');
+		if (0 === arguments.length) {
+			throw new TypeError('Not enough arguments to matchMedia');
 		}
 
 		list.media = String(query);
-		list.matches = evalQuery(window, list.media);
+		list.matches = evalQuery(list.media);
 		list.addListener.listeners = [];
 
-		window.addEventListener('resize', function () {
-			var listeners = [].concat(list.addListener.listeners), matches = evalQuery(window, list.media);
+		global.addEventListener('resize', function () {
+			var listeners = [].concat(list.addListener.listeners), matches = evalQuery(list.media);
 
 			if (matches != list.matches) {
 				list.matches = matches;
 				for (var index = 0, length = listeners.length; index < length; ++index) {
-					listeners[index].call(window, list);
+					listeners[index].call(global, list);
 				}
 			}
 		});
 
 		return list;
 	};
-})();
+})(this);

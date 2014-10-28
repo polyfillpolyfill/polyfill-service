@@ -1,4 +1,5 @@
-var CustomEvent = function(type, eventInitDict) {
+// <Global>.CustomEvent
+this.CustomEvent = function CustomEvent(type, eventInitDict) {
 	if (!type) {
 		throw Error('TypeError: Failed to construct "CustomEvent": An event name must be provided.');
 	}
@@ -19,6 +20,4 @@ var CustomEvent = function(type, eventInitDict) {
 	return event;
 };
 
-CustomEvent.prototype = window.Event.prototype;
-
-window.CustomEvent = CustomEvent;
+CustomEvent.prototype = Event.prototype;

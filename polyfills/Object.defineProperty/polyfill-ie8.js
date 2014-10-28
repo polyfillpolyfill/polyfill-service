@@ -11,11 +11,10 @@
 		}
 
 		var
-		propertyString = String(property),
-		constructor = object.constructor;
+		propertyString = String(property);
 
 		// handle native support
-		if (constructor === Window || constructor === HTMLDocument || constructor === Element) {
+		if (object === window || object === document || object === Element.prototype || object instanceof Element) {
 			return nativeDefineProperty(object, propertyString, descriptor);
 		}
 

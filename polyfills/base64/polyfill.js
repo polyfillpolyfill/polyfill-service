@@ -1,8 +1,8 @@
-(function () {
+(function (global) {
 	var keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=', keysRe = new RegExp('[^' + keys + ']');
 
-	// Window.prototype.atob
-	Window.prototype.atob = function atob(input) {
+	// <Global>.atob
+	global.atob = function atob(input) {
 		var output = [], buffer, bufferB, chrs, index = 0, indexB, length = input.length;
 
 		if ((length % 4 > 0) || (keysRe.test(input)) || (/=/.test(input) && (/=[^=]/.test(input) || /={3}/.test(input)))) {
@@ -28,8 +28,8 @@
 		return output.join('');
 	};
 
-	// Window.prototype.btoa
-	Window.prototype.btoa = function btoa(input) {
+	// <Global>.btoa
+	global.btoa = function btoa(input) {
 		var output = [], buffer, chrs, index = 0, length = input.length;
 
 		while (index < length) {
@@ -47,4 +47,4 @@
 
 		return output.join('');
 	};
-})();
+})(this);

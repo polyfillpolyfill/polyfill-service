@@ -1,6 +1,4 @@
-(function (ARRAY) {
-	function DOMTokenList() {}
-
+(function (global, join, splice) {
 	function tokenize(token) {
 		if (/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(token)) {
 			return String(token);
@@ -29,11 +27,10 @@
 		splice.apply(self, [0, self.length].concat(array));
 	}
 
-	var
-	join = ARRAY.join,
-	splice = ARRAY.splice;
+	// <Global>.DOMTokenlist
+	global.DOMTokenList = function DOMTokenList() {};
 
-	(Window.prototype.DOMTokenList = DOMTokenList).prototype = {
+	global.DOMTokenList.prototype = {
 		constructor: DOMTokenList,
 		item: function item(index) {
 			return this[parseFloat(index)] || null;
@@ -76,4 +73,4 @@
 			return !contains;
 		}
 	};
-})(Array.prototype);
+})(this, Array.prototype.join, Array.prototype.splice);

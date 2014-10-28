@@ -1,4 +1,4 @@
-(function () {
+(function (global) {
 	var
 	toString = Object.prototype.toString,
 	hasOwnProperty = Object.prototype.hasOwnProperty,
@@ -259,7 +259,8 @@
 		return value.length >= length ? value : new Array(length - value.length + 1).join('0') + value;
 	}
 
-	Window.prototype.JSON = {
+	// <Global>.JSON
+	global.JSON = {
 		parse: function (JSONStr, reviver) {
 			var jsVal = new JSONParser(new JSONLexer(JSONStr)).parse();
 
@@ -341,4 +342,4 @@
 			}
 		}
 	};
-})();
+})(this);

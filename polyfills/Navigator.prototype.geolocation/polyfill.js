@@ -1,4 +1,4 @@
-(function () {
+(function (global) {
 	function Geolocation() {
 		this.getCurrentPosition = getCurrentPosition;
 	}
@@ -26,11 +26,11 @@
 	}
 
 	function getCurrentPosition(success, error, options) {
-		confirmed = confirmed || window.confirm(request);
+		confirmed = confirmed || confirm(request);
 
 		if (!confirmed) {
 			setTimeout(function () {
-				error.call(window, new PositionError(1));
+				error.call(global, new PositionError(1));
 			});
 
 			return;
@@ -47,7 +47,7 @@
 
 			delete geolocation.callback;
 
-			error.call(window, new PositionError(3));
+			error.call(global, new PositionError(3));
 		}, positionOptions.timeout);
 
 		geolocation.callback = function (response) {
@@ -59,7 +59,7 @@
 
 			delete geolocation.callback;
 
-			success.call(window, new Position(response));
+			success.call(global, new Position(response));
 		};
 
 		script.addEventListener('error', function () {
@@ -69,7 +69,7 @@
 
 			delete geolocation.callback;
 
-			error.call(window, new PositionError(2));
+			error.call(global, new PositionError(2));
 		});
 
 		script.src = url_geoip + url_geoip_callback;
@@ -81,11 +81,11 @@
 
 	var
 	url_geoip = 'http://freegeoip.net/',
-	url_geoip_callback = 'json/?callback=window.navigator.geolocation.callback',
+	url_geoip_callback = 'json/?callback=navigator.geolocation.callback',
 	errors = ['Permission denied', 'Position undetermined', 'Timeout elapsed'],
 	timeout = 1000 * 60,
 	request = 'This page wants to track your physical location.\nDo you allow it?',
 	confirmed = false,
-	navigator = window.navigator.constructor && window.navigator.constructor !== Object ? window.navigator.constructor.prototype : window.navigator,
+	// navigator.geolocation
 	geolocation = navigator.geolocation = new Geolocation();
-})();
+})(this);

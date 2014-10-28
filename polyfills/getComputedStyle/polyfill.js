@@ -1,4 +1,4 @@
-(function () {
+(function (global) {
 	function getComputedStylePixel(element, property, fontSize) {
 		var
 		// Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
@@ -108,8 +108,8 @@
 		}
 	};
 
-	// <window>.getComputedStyle
-	Window.prototype.getComputedStyle = function (element) {
+	// <Global>.getComputedStyle
+	global.getComputedStyle = function getComputedStyle(element) {
 		return new CSSStyleDeclaration(element);
 	};
-})();
+})(this);

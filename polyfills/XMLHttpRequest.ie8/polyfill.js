@@ -1,7 +1,6 @@
-(function () {
-	var NativeXMLHttpRequest = window.XMLHttpRequest;
-
-	function XMLHttpRequest() {
+(function (global, NativeXMLHttpRequest) {
+	// <Global>.XMLHttpRequest
+	global.XMLHttpRequest = function XMLHttpRequest() {
 		var request = this, nativeRequest = request._request = new NativeXMLHttpRequest();
 
 		nativeRequest.onreadystatechange = function () {
@@ -25,11 +24,11 @@
 				request.dispatchEvent(new Event('error'));
 			};
 		}
-	}
+	};
 
-	XMLHttpRequest.prototype.addEventListener = Window.prototype.addEventListener;
-	XMLHttpRequest.prototype.removeEventListener = Window.prototype.removeEventListener;
-	XMLHttpRequest.prototype.dispatchEvent = Window.prototype.dispatchEvent;
+	XMLHttpRequest.prototype.addEventListener = global.addEventListener;
+	XMLHttpRequest.prototype.removeEventListener = global.removeEventListener;
+	XMLHttpRequest.prototype.dispatchEvent = global.dispatchEvent;
 
 	XMLHttpRequest.prototype.abort = function abort() {
 		return this._request(abort);
@@ -52,6 +51,4 @@
 	XMLHttpRequest.prototype.setRequestHeader = function setRequestHeader(header, value) {
 		this._request.setRequestHeader(header, value);
 	};
-
-	window.XMLHttpRequest = Window.prototype.XMLHttpRequest = XMLHttpRequest;
-})();
+})(this, this.XMLHttpRequest);

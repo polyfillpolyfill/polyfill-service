@@ -1,4 +1,5 @@
-window.Event = function Event(type, eventInitDict) {
+// <Global>.Event
+this.Event = function Event(type, eventInitDict) {
 	if (!type) {
 		throw new Error('Not enough arguments');
 	}

@@ -1,4 +1,4 @@
-(function (originalDOMTokenList, splice) {
+(function (global, splice) {
 	Object.defineProperty(HTMLElement.prototype, 'classList', {
 		get: function () {
 			function pull() {
@@ -6,16 +6,21 @@
 			}
 
 			function push() {
+				element.detachEvent('onpropertychange', pull);
+
 				element.className = original.toString.call(classList);
+
+				element.attachEvent('onpropertychange', pull);
 			}
 
 			var
 			element = this,
-			original = originalDOMTokenList.prototype,
+			NativeDOMTokenList = global.DOMTokenList,
+			original = NativeDOMTokenList.prototype,
 			ClassList = function DOMTokenList() {},
 			classList;
 
-			ClassList.prototype = new originalDOMTokenList;
+			ClassList.prototype = new NativeDOMTokenList;
 
 			ClassList.prototype.item = function item(index) {
 				return pull(), original.item.apply(classList, arguments);
@@ -50,4 +55,4 @@
 			return classList;
 		}
 	});
-})(window.DOMTokenList, Array.prototype.splice);
+})(this, Array.prototype.splice);

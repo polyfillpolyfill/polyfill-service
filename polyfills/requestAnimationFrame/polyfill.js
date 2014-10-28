@@ -1,27 +1,27 @@
-(function () {
+(function (global) {
 	'use strict';
 
 	var
 	startTime = (new Date()).getTime(),
 	lastTime = startTime;
 
-	// window.requestAnimationFrame
-	window.requestAnimationFrame = function (callback) {
+	// <Global>.requestAnimationFrame
+	global.requestAnimationFrame = function (callback) {
 		var
 		currentTime = (new Date()).getTime(),
 		delay = Math.max(0, 16 - (currentTime - lastTime));
 
 		lastTime = currentTime;
 
-		return window.setTimeout(function () {
+		return setTimeout(function () {
 			lastTime = (new Date()).getTime();
 
 			callback(lastTime - startTime);
 		}, delay);
 	};
 
-	// window.cancelAnimationFrame
-	window.cancelAnimationFrame = function (id) {
+	// <Global>.cancelAnimationFrame
+	global.cancelAnimationFrame = function (id) {
 		clearTimeout(id);
 	};
-})();
+})(this);
