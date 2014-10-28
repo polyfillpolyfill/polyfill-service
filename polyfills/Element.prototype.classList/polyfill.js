@@ -1,5 +1,5 @@
 (function (global, splice) {
-	Object.defineProperty(HTMLElement.prototype, 'classList', {
+	Object.defineProperty(Element.prototype, 'classList', {
 		get: function () {
 			function pull() {
 				splice.apply(classList, [0, classList.length].concat((element.className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));

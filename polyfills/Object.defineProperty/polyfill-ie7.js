@@ -11,11 +11,11 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 
 	var
 	propertyString = String(property),
-	HTMLElement = window.HTMLElement || {};
+	Element = window.Element || {};
 
 	// handle descriptor.get
 	if ('get' in descriptor) {
-		object[propertyString] = object === HTMLElement.prototype ? HTMLElement.__defineGetter__(propertyString, descriptor.get) : descriptor.get.call(object);
+		object[propertyString] = object === Element.prototype ? Element.__defineGetter__(propertyString, descriptor.get) : descriptor.get.call(object);
 	}
 	// handle descriptor.value
 	else {
@@ -23,7 +23,7 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 	}
 
 	// handle descriptor.set
-	if ('set' in descriptor && object.constructor === HTMLElement) {
+	if ('set' in descriptor && object.constructor === Element) {
 		object.attachEvent('onpropertychange', function callee(event) {
 			object.detachEvent('onpropertychange', callee);
 

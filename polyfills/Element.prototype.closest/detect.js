@@ -1,1 +1,1 @@
-'closest' in HTMLElement.prototype
+'closest' in document.documentElement

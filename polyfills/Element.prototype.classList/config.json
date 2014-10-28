@@ -8,8 +8,8 @@
 		"safari": "4 - 4.1"
 	},
 	"dependencies": [
-		"HTMLElement",
 		"Object.defineProperty",
-		"DOMTokenList"
+		"DOMTokenList",
+		"Element"
 	]
 }

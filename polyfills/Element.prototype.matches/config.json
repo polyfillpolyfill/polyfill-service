@@ -8,7 +8,7 @@
 		"safari": "4"
 	},
 	"dependencies": [
-		"HTMLElement"
+		"Element"
 	],
 	"variants": {
 		"ie7": {

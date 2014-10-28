@@ -36,8 +36,8 @@
 		if (document.body || /c/.test(document.readyState)) {
 			clearInterval(interval);
 
-			if (window.HTMLElement && window.HTMLElement.__shiv__) {
-				window.HTMLElement.__shiv__(document, true);
+			if (window.Element && window.Element.__shiv__) {
+				window.Element.__shiv__(document, true);
 			}
 		}
 	}),

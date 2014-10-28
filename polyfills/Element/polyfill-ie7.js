@@ -1,33 +1,33 @@
 (function (hasOwnProperty) {
 	var
-	// create HTMLElement constructor
-	HTMLElement = window.HTMLElement = window.Element = function HTMLElement() {},
+	// create Element constructor
+	Element = window.Element = window.HTMLElement = function Element() {},
 
 	// generate sandboxed iframe
 	vbody = document.appendChild(document.createElement('body')),
 	frame = vbody.appendChild(document.createElement('iframe')),
 
-	// use sandboxed iframe to replicate HTMLElement functionality
+	// use sandboxed iframe to replicate Element functionality
 	frameDocument = frame.contentWindow.document,
-	prototype = HTMLElement.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
-	cache = HTMLElement.__prototype__ = {},
+	prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
+	cache = Element.__prototype__ = {},
 
 	// getter to assist in Object.defineProperty({ set: Function });
-	Getter = HTMLElement.__getter__ = function Getter(getter) {
+	Getter = Element.__getter__ = function Getter(getter) {
 		this.get = function (scope) {
 			return getter.call(scope);
 		};
 	},
 
-	// polyfill HTMLElement.prototype on an element
-	shiv = HTMLElement.__shiv__ = function (element, deep) {
+	// polyfill Element.prototype on an element
+	shiv = Element.__shiv__ = function (element, deep) {
 		var
 		childNodes = element.childNodes || [],
 		index = -1,
 		key, value, childNode;
 
-		if (element.nodeType === 1 && element.constructor !== HTMLElement) {
-			element.constructor = HTMLElement;
+		if (element.nodeType === 1 && element.constructor !== Element) {
+			element.constructor = Element;
 
 			for (key in cache) {
 				value = cache[key];
@@ -65,9 +65,9 @@
 		cache[propertyName] = newValue;
 	});
 
-	prototype.constructor = HTMLElement;
+	prototype.constructor = Element;
 
-	// <HTMLElement>.cloneNode
+	// <Element>.cloneNode
 	prototype.cloneNode = function cloneNode(deep) {
 		var
 		self = this,
@@ -93,7 +93,7 @@
 	};
 
 	if (!prototype.hasAttribute) {
-		// <HTMLElement>.hasAttribute
+		// <Element>.hasAttribute
 		prototype.hasAttribute = function hasAttribute(name) {
 			return this.getAttribute(name) !== null;
 		};
