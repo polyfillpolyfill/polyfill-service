@@ -1,4 +1,5 @@
-Element.prototype.closest = function (selector) {
+// <Element>.closest
+Element.prototype.closest = function closest(selector) {
 	var node = this;
 
 	while (node) {
