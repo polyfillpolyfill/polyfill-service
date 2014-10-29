@@ -16,6 +16,8 @@ module.exports = function(grunt) {
 	var retryLimit = 10;
 	var sauceConnectPort = 4445;
 
+	var jobsCalledDone = [];
+
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var gruntDone = this.async();
 		var nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
@@ -112,8 +114,11 @@ module.exports = function(grunt) {
 								// results.  No need to keep it hanging around
 								// until the rest of the job is complete.
 								browser.quit();
+								log("Browser closing");
 
 								process.nextTick(function() {
+									log('calling done');
+									jobsCalledDone.push(conf.browserName + '/' + conf.version);
 									done(null, {
 										id: browser.sessionID,
 										browserName: conf.browserName,
@@ -123,6 +128,7 @@ module.exports = function(grunt) {
 									});
 								});
 
+								log("updating sauce with the test results");
 								request({
 									method: "PUT",
 									uri: ["https://", options.username, ":", options.key, "@saucelabs.com/rest", "/v1/", options.username, "/jobs/", browser.sessionID].join(''),
@@ -196,7 +202,13 @@ module.exports = function(grunt) {
 					gruntDone(status);
 				}
 
+				batch.on('progress', function(e){
+					console.log("Pending: " + e.pending);
+					console.log("Job Completed: " + jobsCalledDone.length);
+				});
+
 				grunt.log.writeln("Starting test jobs");
+
 				batch.end(function(err, jobresults) {
 					grunt.log.writeln('Jobs complete');
 					tunnel.stop(function() {
