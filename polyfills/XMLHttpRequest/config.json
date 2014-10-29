@@ -1,0 +1,11 @@
+{
+	"browsers": {
+		"ie": "6 - 8"
+	},
+	"aliases": [
+		"default"
+	],
+	"dependencies": [
+		"Window.prototype.Event"
+	]
+}
