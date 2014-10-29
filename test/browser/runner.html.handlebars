@@ -46,6 +46,18 @@
 
 	<script>
 
+	// Given a test, get the first level suite that it is contained within
+	// Not the top level, the first one down.
+	function getFirstLevelSuite(test) {
+		var parent = test.parent;
+
+		while (parent && parent.parent.parent) {
+			parent = parent.parent;
+		}
+
+		return parent.title;
+	}
+
 	// During the test run, surface the test results in Sauce Labs' preferred format
 	function run() {
 		var runner = mocha.run();
@@ -67,8 +79,8 @@
 		runner.on('fail', function(test, err) {
 
 			// Get a set of all the suites with failing tests in them.
-			if (test.parent && test.parent.title) {
-				results.failingSuites[test.parent.title] = true;
+			if (test.parent) {
+				results.failingSuites[getFirstLevelSuite(test)] = true;
 			}
 
 			results.failed++;
