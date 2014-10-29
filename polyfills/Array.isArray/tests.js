@@ -20,8 +20,6 @@ describe('returns true with', function () {
 });
 
 describe('returns false with', function () {
-	var args;
-
 	it('empty, null, or undefined', function () {
 		expect(Array.isArray()).to.be(false);
 		expect(Array.isArray(undefined)).to.be(false);
@@ -29,16 +27,25 @@ describe('returns false with', function () {
 	});
 
 	it('arguments', function () {
-		args = (function () {
+		var args = (function () {
 			return arguments;
 		})('a', 'b', 'c');
 
 		expect(Array.isArray(args)).to.be(false);
 	});
 
-	it('booleans', function () {
-		expect(Array.isArray(false)).to.be(false);
+	it('primatives', function () {
 		expect(Array.isArray(true)).to.be(false);
+		expect(Array.isArray('abc')).to.be(false);
+		expect(Array.isArray(123)).to.be(false);
+	});
+
+	it('instances', function () {
+		expect(Array.isArray(new Date)).to.be(false);
+		expect(Array.isArray(new Object)).to.be(false);
+		expect(Array.isArray(new Function)).to.be(false);
+		expect(Array.isArray(new Number)).to.be(false);
+		expect(Array.isArray(new String)).to.be(false);
 	});
 
 	it('constructors', function () {
@@ -48,25 +55,14 @@ describe('returns false with', function () {
 		expect(Array.isArray(String)).to.be(false);
 	});
 
-	it('functions', function () {
-		expect(Array.isArray(function () {})).to.be(false);
-	});
-
-	it('new instances', function () {
-		expect(Array.isArray(new Date)).to.be(false);
-		expect(Array.isArray(new Object)).to.be(false);
-		expect(Array.isArray(new Function)).to.be(false);
-		expect(Array.isArray(new Number)).to.be(false);
-		expect(Array.isArray(new String)).to.be(false);
-	});
-
-	it('numbers', function () {
-		expect(Array.isArray(3)).to.be(false);
-	});
-
 	it('objects', function () {
 		expect(Array.isArray({})).to.be(false);
-		expect(Array.isArray({ length: 3 })).to.be(false);
+		expect(Array.isArray({
+			0: 'a',
+			1: 'b',
+			2: 'c',
+			length: 3
+		})).to.be(false);
 	});
 
 	it('objects as array subclasses', function () {
@@ -77,11 +73,13 @@ describe('returns false with', function () {
 		expect(Array.isArray(new NotArray)).to.be(false);
 	});
 
-	it('regular expressions', function () {
-		expect(Array.isArray(/abc/)).to.be(false);
+	it('functions', function () {
+		expect(Array.isArray(function () {
+			return [];
+		})).to.be(false);
 	});
 
-	it('strings', function () {
-		expect(Array.isArray('')).to.be(false);
+	it('regular expressions', function () {
+		expect(Array.isArray(/abc/)).to.be(false);
 	});
 });
