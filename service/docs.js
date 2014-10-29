@@ -186,6 +186,13 @@ function route(req, res, next) {
 		res.send(template({
 			section: 'examples'
 		}));
+	} else if (req.params[0] === 'contributing') {
+		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/contributing.html'), {encoding: 'UTF-8'}),
+		template = Handlebars.compile(templateSrc);
+		res.send(template({
+			section: 'contributing',
+			baselines: require('../lib/UA').getBaselines()
+		}));
 	} else {
 		next();
 	}

@@ -1,0 +1,163 @@
+{{>header}}
+
+{{>nav this}}
+
+	<div class="o-techdocs-main o-techdocs-content">
+
+		<h1>Contributors' guide</h1>
+
+		<p>The polyfill service is a community resource, designed for everyone, and welcomes contributions from everyone.</p>
+
+		<h2 id="contribution-rewards">Contribution rewards</h2>
+
+		<p>We want to encourage more people to get involved in the polyfill service, so the Financial Times is pleased to offer one month's free premium access to all FT content (normally $50) to anyone who has a pull request merged in this repository.  <a href="https://docs.google.com/a/ft.com/forms/d/1aykPiYBwqKpKY6nvGVi43wOU_5epr3XLgE00Vi52SMQ/viewform">Claim your free access</a>.</p>
+
+		<h2 id="contributing-to-polyfills">Contributing to polyfills</h2>
+
+		<p>Polyfills are located in the <code>/polyfills</code> directory and organised by feature name.  Each polyfill directory is structured like this:</p>
+
+		<ul>
+			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#polyfill-authoring-guidelines">polyfill authoring guidelines</a>.</li>
+			<li><code>polyfill-{variant}.js</code>: Optional alternative polyfills, to be used where different browsers require different polyfill implementations in order to produce the same result.  Often this is because some browsers have a prefixed or part-implemented/buggy version of the feature which can be normalised more easily and efficiently than recreating it from lower level primitives.  The variant name is arbitrary, but conventionally it is the short form of the browser name and version, if applicable, eg <code>polyfill-ie7.js</code>.  The variant name 'default' is reserved for <code>polyfill.js</code>.</li>
+			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).</li>
+			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
+			<li><code>config.json</code>: A config file conforming to the spec below</li>
+		</ul>
+
+		<p>The config.json file may contain any of the following keys:</p>
+
+		<ul>
+			<li><code>browsers</code>: Object, one key per browser family name (see <a href="#browser-support">browser support</a>), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill <em>should be applied</em>. See <a href="https://github.com/npm/node-semver#ranges">node-semver ranges</a>.</li>
+			<li><code>aliases</code>: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.</li>
+			<li><code>dependencies</code>: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.</li>
+			<li><code>author</code>: Object, metadata about the author of the polyfill, following <a href="https://www.npmjs.org/doc/json.html#people-fields-author-contributors">NPM convention</a></li>
+			<li><code>licence</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
+			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>licence</code>, <code>author</code> and <code>dependencies</code> properties.</li>
+		</ul>
+
+		<p>Where a config file contains <code>browsers</code>, <code>licence</code>, <code>author</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
+
+		<p>Example:</p>
+
+		<pre><code>{
+    "browsers": {
+        "ie": "6 - 9",
+        "firefox": "&lt;=20",
+        "opera": "11 || 14",
+        "safari": "&lt;=4",
+        "ios_saf" "&lt;=6"
+    },
+    "aliases": [
+        "modernizr:es5array"
+    ],
+    "dependencies": [
+        "Object.defineProperties",
+        "Object.create"
+    ],
+    "author": {
+        "name" : "Person B",
+        "email" : "b@example.com",
+        "url" : "http://person.example.com"
+    },
+    "license": "Zlib"
+}</code></pre>
+
+		<p>A request from IE7 would receive this polyfill, since it is targeted to IE 6-9.  It <em>may</em> also receive polyfills for <code>Object.defineProperties</code> and <code>Object.create</code>, since those are dependencies of the polyfill in this example, if those polyfills also apply in IE7.</p>
+
+		<h3 id="polyfill-authoring-guidelines">Polyfill authoring guidelines</h3>
+
+		<p>Polyfill source files (<code>polyfill[-variant].js</code>) are not expected to always be perfect implementations of the features they are filling.  However, it's important that we observe some strict guidelines to avoid making native implementations harder to ship. Therefore polyfill sources must meet the following requirements:</p>
+
+		<ul>
+			<li>Must only make changes that create conformance with a published specification</li>
+			<li>Must not be wrapped in a feature detect (the service will add this)</li>
+			<li>Must not contain polyfills for other features (instead, express a dependency on those polyfills, see below)</li>
+		</ul>
+
+		<h3 id="test-authoring-guidelines">Test authoring guidelines</h3>
+
+		<p>Polyfill service tests use Mocha and Expect, both chosen because they work in legacy browsers down to our <a href="#baseline-support">baseline</a>.  The tests must assert the behaviour that the polyfill makes consistent across browsers, which is not necessarily the entire published spec.</p>
+
+		<p>Specifically, if part of a feature is not polyfillable in a particular browser, and yet the polyfill is still usable in that browser, omit tests for the part which cannot be polyfilled.  This ensures that the polyfill is still targeted at that browser, and consumers are able to get an accurate understanding of which parts of the feature are covered by the polyfill.  However, a comment in the test file listing aspects of the feature that are not supported is always appreciated.</p>
+
+		<h3 id="running-tests">Running tests</h3>
+
+		<p>You can run tests in three modes:</p>
+
+		<ul>
+			<li><strong>control</strong>: All features qualify to be tested, but no polyfills will be loaded</li>
+			<li><strong>all</strong>: All features qualify to be tested, and polyfills will always be loaded</li>
+			<li><strong>targeted</strong>: Only those features with polyfills targeted for the current browser will be tested, and polyfills will be loaded conditionally.</li>
+		</ul>
+
+		<p>The <strong>control</strong> and <strong>all</strong> modes are used to map the compatibility of polyfills, and build the <a href="docs/assets/compat.json">compat.json</a> file. The <strong>targeted</strong> mode is used to test that the current configuration works, and is therefore used for continuous integration tests on Travis CI.</p>
+
+		<p>Your polyfill should pass cleanly in targeted mode in all browsers.  To run the entire test suite in a local browser, run the service, and then load the test director in the browser you're testing:</p>
+
+		<p><a href="http://127.0.0.1:3000/test/director?mode=targeted">http://127.0.0.1:3000/test/director?mode=targeted</a></p>
+
+		<p>To run just one feature, use the test runner:</p>
+
+		<p><a href="http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted">http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted</a></p>
+
+		<p>The gruntfile contains tasks to run the tests on Sauce Labs, but these require API keys that are not public.  If you have your own Sauce Labs account you can run the tests by setting the <code>SAUCE_API_KEY</code> and <code>SAUCE_USER_NAME</code> environment variables, and then run:</p>
+
+		<pre><code>grunt ci</code></pre>
+
+		<h3 id="checklist">Checklist</h3>
+
+		<p>When contributing to polyfills, please follow this checklist to avoid lots of iteration on your pull request:</p>
+
+		<ul>
+			<li>Make sure that the polyfill correctly implements the aspects of the spec that it seeks to emulate</li>
+			<li>Write a well defined config.json:<ul>
+				<li>If you do not include a licence or author, we will likely ask that you do</li>
+				<li>Check whether there is a Modernizr feature-detect that detects this feature.  If so, add a <code>modernizr:</code>-prefixed alias</li>
+				<li>Make sure you write valid semver ranges for each browser (if defining a range, you need spaces around the dash) and use the correct browser name key</li>
+			</ul></li>
+			<li>Provide a feature detect if it's possible to detect the feature via a JavaScript expression</li>
+			<li>Make sure you write a reasonably comprehensive set of tests, and that they pass in all the browsers you have targeted</li>
+		</ul>
+
+		<h2 id="contributing-to-the-application">Contributing to the application</h2>
+
+		<p>The service part of the project is pretty simple, and there are few strict conventions.  In lieu of any formal standards, try to take care to follow existing conventions.  Some of these are defined in an <code>.editorconfig</code> file.</p>
+
+		<h2 id="browser-support">Browser support</h2>
+
+		<p>The short names should be used in the <code>config.json</code> to configure the browser support using the <code>browsers</code> key.</p>
+
+		<table>
+			<thead>
+			<tr><th>Short name</th><th>User Agent Name</th><th>Baseline</th></tr>
+			</thead>
+			<tbody>
+			<tr><td><code>ie</code></td><td>Internet Explorer</td><td>{{baselines.ie}}</td></tr>
+			<tr><td><code>ie_mob</code></td><td>Internet Explorer Mobile</td><td>{{baselines.ie_mob}}</td></tr>
+			<tr><td><code>chrome</code></td><td>Chrome</td><td>{{baselines.chrome}}</td></tr>
+			<tr><td><code>ios_chr</code></td><td>Chrome on iOS</td><td>{{baselines.ios_chr}}</td></tr>
+			<tr><td><code>safari</code></td><td>Safari</td><td>{{baselines.safari}}</td></tr>
+			<tr><td><code>ios_saf</code></td><td>Safari on iOS</td><td>{{baselines.ios_saf}}</td></tr>
+			<tr><td><code>firefox</code></td><td>Firefox</td><td>{{baselines.firefox}}</td></tr>
+			<tr><td><code>android</code></td><td>Android Browser</td><td>{{baselines.android}}</td></tr>
+			<tr><td><code>opera</code></td><td>Opera</td><td>{{baselines.opera}}</td></tr>
+			<tr><td><code>op_mob</code></td><td>Opera Mobile</td><td>{{baselines.op_mob}}</td></tr>
+			<tr><td><code>op_mini</code></td><td>Opera Mini</td><td>{{baselines.op_mini}}</td></tr>
+			<tr><td><code>bb</code></td><td>Blackberry</td><td>{{baselines.bb}}</td></tr>
+			</tbody>
+		</table>
+
+		<h3 id="baseline-support">Baseline support</h3>
+
+		<p>The polyfill service does not attempt to serve polyfills to very old browsers.  We maintain a movable baseline of browser support, which is shown in the table above and configured in <a href="lib/UA.js">the UA module</a>.  If a request for a polyfill bundle comes from a UA that is below the baseline or unknown, the response will be:</p>
+
+		<pre><code>/* Unsupported UA detected: ie/4.0.0
+ * Version range for polyfill support in this family is: &gt;=6 */</code></pre>
+
+		<p>In practice this means that in some cases, where polyfills have configurations targeting all versions of a browser (eg <code>"ie": "*"</code>), the polyfill will actually only be available in versions of that browser above the baseline.</p>
+
+		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p></div>
+
+	</div>
+
+{{>footer}}
