@@ -19,12 +19,5 @@
 				"Event"
 			]
 		}
-	},
-	"author": {
-		"name": "Jonathan Neal"
-	},
-	"aliases": [
-		"modernizr:customevent"
-	],
-	"license": "CC0"
+	}
 }
