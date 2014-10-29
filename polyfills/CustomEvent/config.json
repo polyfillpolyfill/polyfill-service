@@ -10,6 +10,9 @@
 	"dependencies": [
 		"Event"
 	],
+	"aliases": [
+		"modernizr:customevent"
+	],
 	"variants": {
 		"ie8": {
 			"browsers": {
