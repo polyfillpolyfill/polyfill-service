@@ -13,8 +13,11 @@
 		return event;
 	};
 
-	window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener(type, listener) {
-		var element = this;
+	window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {
+		var
+		element = this,
+		type = arguments[1],
+		listener = arguments[2];
 
 		if (!element._events) {
 			element._events = {};
@@ -63,8 +66,11 @@
 		element._events[type].list.push(listener);
 	};
 
-	window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener(type, listener) {
-		var element = this;
+	window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener() {
+		var
+		element = this,
+		type = arguments[1],
+		listener = arguments[2];
 
 		if (element._events && element._events[type] && element._events[type].list) {
 			var index = element._events[type].list.indexOf(listener);
