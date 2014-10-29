@@ -1,6 +1,6 @@
-(function () {
+(function (global) {
 	var
-	Document = window.Document = window.HTMLDocument,
+	Document = global.Document = global.HTMLDocument,
 	prototype = Document.prototype,
 
 	// cache native methods
@@ -42,4 +42,4 @@
 	};
 
 	shiv(document);
-})();
+})(this);
