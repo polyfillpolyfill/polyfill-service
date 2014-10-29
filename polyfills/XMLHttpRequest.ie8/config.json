@@ -1,6 +1,0 @@
-{
-	"browsers": {
-		"ie": "6 - 8"
-	},
-	"dependencies": ["XMLHttpRequest.ie7"]
-}

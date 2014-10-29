@@ -1,0 +1,11 @@
+{
+	"aliases": [
+		"default"
+	],
+	"browsers": {
+		"ie": "6 - 8"
+	},
+	"dependencies": [
+		"Event"
+	]
+}
