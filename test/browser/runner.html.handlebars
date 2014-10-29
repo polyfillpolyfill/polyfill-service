@@ -49,7 +49,7 @@
 	// Given a test, get the first level suite that it is contained within
 	// Not the top level, the first one down.
 	function getFirstLevelSuite(test) {
-		var parent = test.parent;
+		var parent = test;
 
 		while (parent && parent.parent && parent.parent.parent) {
 			parent = parent.parent;
