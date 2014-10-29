@@ -51,7 +51,7 @@
 	function getFirstLevelSuite(test) {
 		var parent = test.parent;
 
-		while (parent && parent.parent.parent) {
+		while (parent && parent.parent && parent.parent.parent) {
 			parent = parent.parent;
 		}
 
@@ -94,7 +94,7 @@
 		});
 
 		runner.on('suite', function(suite) {
-			results.testedSuites.push(suite.title);
+			results.testedSuites.push(getFirstLevelSuite(suite));
 		});
 
 		runner.on('end', function() {
