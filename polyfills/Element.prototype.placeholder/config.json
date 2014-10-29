@@ -1,20 +1,14 @@
 {
-	"variants": {
-		"default": {
-			"browsers": {
-				"ie": "8"
-			},
-			"dependencies": ["Object.defineProperty"]
-		},
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			},
-			"dependencies": ["Element"]
-		}
-	},
 	"aliases": [
 		"modernizr:placeholder",
 		"caniuse:input-placeholder"
+	],
+	"browsers": {
+		"ie": "8"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"document.querySelector",
+		"Element"
 	]
 }
