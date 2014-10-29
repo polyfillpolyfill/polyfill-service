@@ -8,30 +8,37 @@
 
 		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/tests/docs/assets/compat.json'>compat.json</a>.</p>
 
+		
 		<table class='compatibility'>
-			<tr>
-				<th></th>
-				<th>IE</th>
-				<th>Firefox</th>
-				<th>Chrome</th>
-				<th>Safari</th>
-				<th>Opera</th>
-				<th>iOS Safari</th>
-			</tr>
+			<caption>
+				<p style='text-align:right'>Key: <span class='status-missing'>Feature missing</span>, <span class='status-polyfilled'>Feature supported with Polyfill service</span>, <span class='status-native'>Feature supported natively</span></p>
+			</caption>
+			<thead>
+				<tr>
+					<th></th>
+					<th>IE</th>
+					<th>Firefox</th>
+					<th>Chrome</th>
+					<th>Safari</th>
+					<th>Opera</th>
+					<th>iOS Safari</th>
+				</tr>
+			</thead>
+			<tbody>
 			{{#compat}}
-			<tr>
-				<td><a href='/test/tests?feature={{feature}}'>{{feature}}</a></td>
-				<td>{{#ie}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ie}}</td>
-				<td>{{#firefox}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/firefox}}</td>
-				<td>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
-				<td>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
-				<td>{{#opera}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/opera}}</td>
-				<td>{{#ios_saf}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ios_saf}}</td>
-			</tr>
-			{{/compat}}
+				<tr>
+					<td><a href='/test/tests?feature={{feature}}'>{{feature}}</a></td>
+					<td>{{#ie}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ie}}</td>
+					<td>{{#firefox}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/firefox}}</td>
+					<td>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
+					<td>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
+					<td>{{#opera}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/opera}}</td>
+					<td>{{#ios_saf}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ios_saf}}</td>
+				</tr>
+				{{/compat}}
+			</tbody>
 		</table>
 
-		<p style='text-align:right'>Key: <span class='status-missing'>Feature missing</span>, <span class='status-polyfilled'>Feature supported with Polyfill service</span>, <span class='status-native'>Feature supported natively</span></p>
 	</div>
 
 {{>footer}}
