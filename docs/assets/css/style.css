@@ -1,0 +1,61 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+.demo {
+	width: 100%;
+	height: 90px;
+	max-height: 90px;
+	border: 1px dotted #999;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling:touch;
+	padding: 10px;
+	font-family: monospace;
+	font-size: 11px;
+	box-sizing: border-box;
+}
+
+.compatibility {
+	width: 100%;
+}
+[class^='status'],div[class*=' status']{
+	padding: 1px 4px;
+	display: inline-block;
+	font-size: 80%;
+	border-radius: 3px;
+	margin-right: 2px;
+}
+.status-polyfilled {
+	background-color: #00FF14;
+	border: 1px dashed black;
+	font-weight: bold;
+}
+.status-native {
+	background-color: #6FFF9D;
+	border: 1px solid #999;
+}
+.status-missing {
+	background-color: #ECECEC;
+	color: #aaa;
+}
+
+#chart-requests, #chart-hitratio {
+	width: 100%;
+	height: 200px;
+}
+.chart-data {
+	display: none;
+}
+
+.outages {
+	width: 100%;
+}
+.outages tr th,
+.outages tr td {
+	padding: 5px;
+}
+
+pre.bigcode code {
+	font-size: 150%;
+}

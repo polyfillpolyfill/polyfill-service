@@ -1,219 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset=UTF8>
-    <title>Polyfill service</title>
-    <script src='/v1/polyfill.min.js'></script>
-    <link rel="stylesheet" href="//build.origami.ft.com/bundles/css?modules=o-techdocs@^3.0.3" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, inital-scale=1.0" />
-    <style>
-        body { padding: 0; margin: 0; }
-        .demo { width: 100%; height: 90px; max-height: 90px; border: 1px dotted #999; overflow-y: auto;
-        overflow-x: hidden; -webkit-overflow-scrolling:touch; padding: 10px; font-family: monospace; font-size: 11px; box-sizing: border-box; }
-        .compatibility {
-            width: 100%;
-        }
-        [class^='status'],div[class*=' status']{
-            padding: 1px 4px;
-            display: inline-block;
-            font-size: 80%;
-        }
-        .status-polyfilled {
-            background-color: #E0EDE1;
-            border: 1px solid #6FFF9D;
-        }
-        .status-native {
-            background-color: #6FFF9D;
-        }
-        .status-missing {
-            background-color: #ECECEC;
-            color: #aaa;
-        }
-    </style>
-    <script>
-        window.onload = function() {
-            [].slice.call(document.querySelectorAll('.demo')).forEach(function(el) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("get", el.getAttribute('data-src'));
-                xhr.onload = function() {
-                  el.innerText = this.responseText;
-                }
-                xhr.send();
-            });
-            var xhr = new XMLHttpRequest();
-            xhr.open("get", "/assets/compat.json");
-            xhr.onload = function() {
-                var data = JSON.parse(this.responseText);
-                var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
-                var msgs = {
-                    'native': 'Supported natively',
-                    'polyfilled': 'Supported with polyfill service',
-                    'missing': 'Not supported'
-                }
-                var html = '';
-                var laststatus = null;
-                Object.keys(data).sort().forEach(function(feat) {
-                    html += "<tr><td><a href='/test/tests?feature="+feat+"'>"+feat+"</a></td>";
-                    browsers.forEach(function(browser) {
-                        laststatus = null;
-                        html += "<td>";
-                        if (data[feat][browser]) {
-                            Object.keys(data[feat][browser]).sort(function(a, b) {
-                                if (isNaN(a)) return 1;
-                                if (isNaN(b)) return -1;
-                                return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
-                            }).forEach(function(version) {
-                                if (laststatus !== data[feat][browser][version]) {
-                                    html += "<span class='status-"+data[feat][browser][version]+"' title='"+msgs[data[feat][browser][version]]+"'>"+version+"</span> ";
-                                    laststatus = data[feat][browser][version];
-                                }
-                            });
-                        }
-                        html += "</td>";
-                    });
-                    html += "</tr>";
-                });
-                document.querySelector('table.compatibility').innerHTML += html;
-            }
-            xhr.send();
-       }
-    </script>
-</head>
-<body class="o-techdocs">
+{{>header}}
 
-    <header data-o-component="o-ft-header" data-o-version="" class="o-ft-header">
-        <div class="o-ft-header__container">
-            <div class="o-ft-header__primary">
-                <div class="o-ft-header__primary__left">
-                    <div class="o-ft-header__logo o-ft-header__logo--ft">
-                        <a href="http://www.ft.com"><abbr title="Financial Times">FT</abbr></a>
-                    </div>
-                    <h1 class="o-ft-header__title">Polyfill service</h1>
-                </div>
-            </div>
-            <div class="o-ft-header__secondary"></div>
-        </div>
-    </header>
+{{>nav this}}
 
-    <div class="o-techdocs-layout o-techdocs-layout--full">
-        <div class="o-techdocs-content">
+	<div class="o-techdocs-main o-techdocs-content">
 
-            <p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.  Think of it like a pair of glasses for your aging browser.</p>
+		<p class='o-techdocs-leadbody'>Upgrade the web.  Automatically.</p>
 
-            <p>Not all features can be polyfilled, and they can usually only be polyfilled back a few versions prior to the version in which native support was added.  Currently support tables are not available in a convenient form, so please consult the <code>config.json</code> file for the appropriate polyfill in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project.</p>
+		<p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.  Think of it like a pair of glasses for your aging browser.</p>
 
+		<p>Put this in the <code>&lt;head&gt;</code> of your HTML document:</p>
 
-            <h2>TL;DR</h2>
+		<?prettify?>
+		<pre class='bigcode'><code>&lt;script src="https://cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 
-            <p>Put this in the <code>&lt;head&gt;</code> of your HTML document and magic happens:</p>
+		<p>The polyfill service is developed and maintained by a community of contributors led by a team at the <a href='http://www.ft.com'>Financial Times</a>.  It evolved from a previous service developed by <a href='http://www.jonathantneal.com/'>Jonathan Neal</a>, and our <code>cdn.polyfill.io</code> domain routes traffic through <a href='http://www.fastly.com'>Fastly</a>, which makes it available with global high availability and superb performance no matter where your users are.</p>
 
-            <?prettify?>
-            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
+		<p>
+			<a href='http://labs.ft.com'><img src='http://build.origami.ft.com/files/o-ft-header@2.5.13/img/ft-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='FT logo' title='The polyfill service is hosted and developed by the Financial Times'></a>
+			<a href='http://www.fastly.com'><img src='/v1/docs/assets/images/fastly-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='Fastly logo' title='The polyfill service is supported by Fastly'></a>
+		</p>
 
+	</div>
 
-            <h2>Compatibility</h2>
-
-            <p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/tests/docs/assets/compat.json'>compat.json</a>.</p>
-
-            <table class='compatibility'>
-                <tr>
-                    <th></th>
-                    <th>IE</th>
-                    <th>Firefox</th>
-                    <th>Chrome</th>
-                    <th>Safari</th>
-                    <th>Opera</th>
-                    <th>iOS Safari</th>
-                </tr>
-            </table>
-
-            <p style='text-align:right'>Key: <span class='status-missing'>Feature missing</span>, <span class='status-polyfilled'>Feature supported with Polyfill service</span>, <span class='status-native'>Feature supported natively</span></p>
-
-            <h2>API reference</h2>
-
-            <h3>GET /v1/polyfill<var>:minify</var>.<var>:type</var></h3>
-
-            <p>Fetch a polyfill bundle.</p>
-
-            <table>
-                <tr>
-                    <th>Param</th><th>Where</th><th>Description</th>
-                </tr><tr>
-                    <td><code>minify</code></td>
-                    <td>URL</td>
-                    <td>
-                        Whether to minify the result.  If omitted, output will include the full polyfill source, and a header comment with debug information about the user agent and which polyfills have been included in the bundle.  If set to <code>.min</code>, the output will be minified.
-                    </td>
-                </tr><tr>
-                    <td><code>type</code></td>
-                    <td>URL</td>
-                    <td>
-                        Set to <code>js</code>.  Currently we only support JavaScript polyfills, but the <code>css</code> type is reserved for future use.
-                    </td>
-                </tr><tr>
-                    <td><code>features</code></td>
-                    <td>Querystring</td>
-                    <td>
-                        <p>Comma-separated list of features which should be considered when building the polyfill bundle.  Available feature names are directory names in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project, along with aliases defined in the polyfills' config.json files.</p>
-                        <p>Each feature may optionally be appended with zero or more of the following flags:</p>
-                        <dl>
-                            <dt><code>|always</code></dt>
-                            <dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
-                            <dt><code>|gated</code></dt>
-                            <dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
-                        </dl>
-                        <p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.</p>
-                    </td>
-                </tr><tr>
-                    <td><code>flags</code></td>
-                    <td>Querystring</td>
-                    <td>Comma separated list of flags to apply to <strong>all</strong> features.  For available options see <code>features</code> parameter.  Equivalent to adding <code>|<em>flagname</em></code> to every feature in the <code>features</code> argument.</td>
-                </tr><tr>
-                    <td><code>ua</code></td>
-                    <td>Querystring</td>
-                    <td>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a false <code>User-Agent</code> header.</td>
-                </tr>
-            </table>
-
-
-            <h2>Examples</h2>
-
-            <p>Consider default polyfills, bundle and return those which are required by the current browser:</p>
-
-            <?prettify?>
-            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
-
-            <div class='demo' data-src='/v1/polyfill.js'></div>
-
-            <p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
-
-            <?prettify?>
-            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
-
-            <div class='demo' data-src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></div>
-
-            <p>Consider default polyfills, plus Array.from, but for an IE7 user-agent:</p>
-
-            <?prettify?>
-            <pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
-
-            <div class='demo' data-src='/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
-
-            <h2>About</h2>
-
-            <p><img src='/assets/images/fastly-logo.png' class='transparent' style='float:right; margin-left:10px' alt='Fastly logo' title='The polyfill service is supported by Fastly'>The polyfill service is developed and maintained by a community of contributors led by a team at the <a href='http://www.ft.com'>Financial Times</a>.  It evolved from a previous service developed by <a href='http://www.jonathantneal.com/'>Jonathan Neal</a>.</p>
-
-            <p>Our <code>cdn.polyfill.io</code> domain routes traffic through <a href='http://www.fastly.com'>Fastly</a>, which makes it available with global high availability and superb performance no matter where your users are.  Our thanks go to Fastly for recognising the usefulness of this service to the web community and particularly to Steve Souders.  To use polyfill from a non-FT website, you must use the CDN.</p>
-
-            <p>FT developers, please use <code>polyfill.webservices.ft.com</code>.</p>
-
-        </div>
-    </div>
-    <footer>
-        <p>&copy; Jonathan Neal, The Financial Times Ltd and other <a href='https://github.com/Financial-Times/polyfill-service/graphs/contributors'>contributors</a>. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
-    </footer>
-    <script src="//build.origami.ft.com/bundles/js?modules=o-techdocs@^3.0.1"></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js'></script>
-    <script>prettyPrint()</script>
-</body>
-</html>
+{{>footer}}

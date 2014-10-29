@@ -10,6 +10,7 @@ var polyfillio = require('../lib'),
 	ServiceMetrics = require('./metrics'),
 	fs = require('fs'),
 	testing = require('./testing'),
+	docs = require('./docs'),
 	appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
 
 'use strict';
@@ -38,6 +39,12 @@ app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modul
 
 app.get(/\/test\/director\/?$/, testing.createEndpoint('director', polyfillio));
 app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
+
+/* Documentation and version routing */
+
+app.get(/^\/(?:v1(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
+app.use('/v1/docs/assets', express.static(__dirname + '/../docs/assets'));
+
 
 
 /* Endpoints for health, application metadata and availability status
@@ -118,24 +125,6 @@ app.get(/^\/__metrics$/, function(req, res) {
 	res.set("Content-Type", "application/json;charset=utf-8");
 	res.send(JSON.stringify(info));
 });
-
-
-
-/* Documentation and version routing */
-
-app.get("/", function(req, res) {
-	res.redirect('/v1/');
-});
-
-app.get("/v1", function(req, res) {
-	res.redirect('/v1/');
-});
-
-app.get("/v1/", function(req, res) {
-	res.sendfile(path.join(__dirname, '/../docs/index.html'));
-});
-
-app.use('/assets', express.static(__dirname + '/../docs/assets'));
 
 
 

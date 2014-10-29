@@ -1,0 +1,54 @@
+{{>header}}
+
+{{>nav}}
+
+		<div class="o-techdocs-main o-techdocs-content">
+
+			<h1>API reference</h1>
+
+			<h2>GET /v1/polyfill<var>:minify</var>.<var>:type</var></h2>
+
+			<p>Fetch a polyfill bundle.</p>
+
+			<table>
+				<tr>
+					<th>Param</th><th>Where</th><th>Description</th>
+				</tr><tr>
+					<td><code>minify</code></td>
+					<td>URL</td>
+					<td>
+						Whether to minify the result.  If omitted, output will include the full polyfill source, and a header comment with debug information about the user agent and which polyfills have been included in the bundle.  If set to <code>.min</code>, the output will be minified.
+					</td>
+				</tr><tr>
+					<td><code>type</code></td>
+					<td>URL</td>
+					<td>
+						Set to <code>js</code>.  Currently we only support JavaScript polyfills, but the <code>css</code> type is reserved for future use.
+					</td>
+				</tr><tr>
+					<td><code>features</code></td>
+					<td>Querystring</td>
+					<td>
+						<p>Comma-separated list of features which should be considered when building the polyfill bundle.  Available feature names are directory names in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project, along with aliases defined in the polyfills' config.json files.</p>
+						<p>Each feature may optionally be appended with zero or more of the following flags:</p>
+						<dl>
+							<dt><code>|always</code></dt>
+							<dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
+							<dt><code>|gated</code></dt>
+							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
+						</dl>
+						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.</p>
+					</td>
+				</tr><tr>
+					<td><code>flags</code></td>
+					<td>Querystring</td>
+					<td>Comma separated list of flags to apply to <strong>all</strong> features.  For available options see <code>features</code> parameter.  Equivalent to adding <code>|<em>flagname</em></code> to every feature in the <code>features</code> argument.</td>
+				</tr><tr>
+					<td><code>ua</code></td>
+					<td>Querystring</td>
+					<td>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a false <code>User-Agent</code> header.</td>
+				</tr>
+			</table>
+		</div>
+
+{{>footer}}

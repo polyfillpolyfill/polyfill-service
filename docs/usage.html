@@ -1,0 +1,65 @@
+{{>header}}
+
+{{>nav}}
+
+	<div class="o-techdocs-main o-techdocs-content">
+
+		<h1>Usage and performance</h1>
+
+		<p>The public instance of the polyfill service is hosted by the Financial Times, with the generous support of Fastly, who provide CDN distribution.  This chart shows the number of requests we have served per hour, over the last 7 days:</p>
+
+		<div id="chart-requests">
+			<table class='chart-data'>
+			<thead><tr><th>Date</th><th>Requests</th></tr></thead>
+			<tbody>
+			{{#requestsData}}
+				<tr><td>{{prettifyDate date}}</td><td>{{requests}}</td></tr>
+			{{/requestsData}}
+			</tbody>
+			</table>
+		</div>
+
+		<div class='o-grid-row' style='margin: 0 -10px'>
+			<div data-o-grid-colspan='4 S12 M12'>
+				<h3>Mean global response time (ms)</h3>
+				<div id="chart-resptime">
+					<table class='chart-data'>
+						<thead><tr><th>Date</th><th>Response time (ms)</th></tr></thead>
+						<tbody>
+						{{#respTimes}}
+							<tr><td>{{prettifyDate date}}</td><td>{{respTime}}</td></tr>
+						{{/respTimes}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div data-o-grid-colspan='4 S12 M6'>
+				<h3>Cache performance</h3>
+				<div id="chart-hitratio">
+					<table class='chart-data'>
+						<thead><tr><th>Cache result</th><th>Requests</th></tr></thead>
+						<tbody>
+							<tr><td>Hits</td><td>{{hitCount}}</td></tr>
+							<tr><td>Misses</td><td>{{missCount}}</td></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div data-o-grid-colspan='4 S12 M6'>
+				<h3>Uptime</h3>
+				<div class='o-techdocs-content'>
+				<table class='outages o-techdocs-table'>
+					<tr><th>Starting at</th><th>Service was</th><th>For</th></tr>
+					{{#outages}}
+						<tr><td>{{prettifyDate date}}</td><td>{{status}}</td><td>{{prettifyDuration duration}}</td></tr>
+					{{/outages}}
+				</table>
+				</div>
+			</div>
+		</div>
+
+		<p>Caching responses that vary by <code>User-Agent</code> is very hard to do with good cache performance. We use a <a href='http://labs.ft.com/2014/10/caching-user-agent-specific-responses-with-fastly/'>custom Fastly VCL configuration</a> that separates the UA normalisation from the polyfill bundle.</p>
+
+	</div>
+
+{{>footer}}

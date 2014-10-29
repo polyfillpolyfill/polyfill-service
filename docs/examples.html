@@ -1,0 +1,32 @@
+{{>header}}
+
+{{>nav}}
+
+		<div class="o-techdocs-main o-techdocs-content">
+
+			<h1>Examples</h1>
+
+			<p>Consider default polyfills, bundle and return those which are required by the current browser:</p>
+
+			<?prettify?>
+			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
+
+			<div class='demo' data-src='/v1/polyfill.js'></div>
+
+			<p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
+
+			<?prettify?>
+			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
+
+			<div class='demo' data-src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></div>
+
+			<p>Consider default polyfills, plus Array.from, but for an IE7 user-agent:</p>
+
+			<?prettify?>
+			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
+
+			<div class='demo' data-src='/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
+
+		</div>
+
+{{>footer}}
