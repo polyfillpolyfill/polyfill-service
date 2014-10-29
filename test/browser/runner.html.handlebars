@@ -19,15 +19,18 @@
 
 	<!-- Tests -->
 	<script>
+	function nameOf(fn) {
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+	}
+
 	{{#features}}
-	describe("{{feature}}", function() {
-		it("is running the test suite", function() {
+	describe('{{feature}}', function() {
+		it('has testing suite', function() {
 			expect(true).to.be(true);
 		});
 		{{#detect}}
-		it("passes a basic feature detect", function() {
-			var result = !!({{{.}}});
-			expect(result).to.be(true);
+		it('has feature detection', function() {
+			expect({{{.}}}).to.be.ok();
 		});
 		{{/detect}}
 		{{#tests}}

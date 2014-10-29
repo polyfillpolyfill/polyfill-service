@@ -40,7 +40,7 @@ function createEndpoint(type, polyfillio) {
 			});
 		});
 
-		var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/' + type + '.html'), {encoding: 'UTF-8'});
+		var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/' + type + '.html.handlebars'), {encoding: 'UTF-8'});
 		var template = require('handlebars').compile(templateSrc);
 		res.set('Cache-Control', 'no-cache');
 		res.send(template({
