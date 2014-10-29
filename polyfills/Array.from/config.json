@@ -6,6 +6,7 @@
 	"browsers": {
 		"chrome": "*",
 		"firefox": "4 - *",
-		"ie": "6 - *"
+		"ie": "6 - *",
+		"safari": "7 - *"
 	}
 }
