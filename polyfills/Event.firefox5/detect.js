@@ -1,1 +1,0 @@
-!('HTMLAnchorElement' in window) || ('HTMLElement' in window && 'HTMLAnchorElement' in window && HTMLElement.prototype.addEventListener === HTMLAnchorElement.prototype.addEventListener)
