@@ -9,6 +9,9 @@ var fs = require('fs'),
  */
 
 function createEndpoint(type, polyfillio) {
+	var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/', type + '.html.handlebars'), {encoding: 'UTF-8'});
+	var template = require('handlebars').compile(templateSrc);
+
 	return function(req, res) {
 		var base = path.join(__dirname, '/../polyfills');
 		var mode = req.query.mode  || 'all';
@@ -40,8 +43,6 @@ function createEndpoint(type, polyfillio) {
 			});
 		});
 
-		var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/' + type + '.html.handlebars'), {encoding: 'UTF-8'});
-		var template = require('handlebars').compile(templateSrc);
 		res.set('Cache-Control', 'no-cache');
 		res.send(template({
 			loadPolyfill: (mode !== 'control'),
