@@ -6,11 +6,15 @@
 			}
 
 			function push() {
-				element.detachEvent('onpropertychange', pull);
+				if (element.attachEvent) {
+					element.detachEvent('onpropertychange', pull);
+				}
 
 				element.className = original.toString.call(classList);
 
-				element.attachEvent('onpropertychange', pull);
+				if (element.attachEvent) {
+					element.attachEvent('onpropertychange', pull);
+				}
 			}
 
 			var
