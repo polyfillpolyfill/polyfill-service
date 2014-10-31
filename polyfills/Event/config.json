@@ -17,8 +17,7 @@
 			"dependencies": [
 				"Window",
 				"Document",
-				"Element",
-				"Array.prototype.indexOf"
+				"Element"
 			]
 		},
 		"firefox5": {

@@ -1,4 +1,18 @@
 (function () {
+	function indexOf(array, element) {
+		var
+		index = -1,
+		length = array.length;
+
+		while (++index < length) {
+			if (index in array && array[index] === element) {
+				return index;
+			}
+		}
+
+		return -1;
+	}
+
 	window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
 		if (!type) {
 			throw new Error('Not enough arguments');
@@ -16,8 +30,8 @@
 	window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {
 		var
 		element = this,
-		type = arguments[1],
-		listener = arguments[2];
+		type = arguments[0],
+		listener = arguments[1];
 
 		if (!element._events) {
 			element._events = {};
@@ -25,7 +39,12 @@
 
 		if (!element._events[type]) {
 			element._events[type] = function (event) {
-				var list = element._events[event.type].list, events = Array.prototype.concat.call([], list);
+				var
+				list = element._events[event.type].list,
+				events = list.slice(),
+				index = -1,
+				length = events.length,
+				eventElement;
 
 				event.preventDefault = function preventDefault() {
 					if (event.cancelable !== false) {
@@ -52,15 +71,22 @@
 					event.pageY = event.clientY + document.documentElement.scrollTop;
 				}
 
-				for (var index = 0, length = events.length; index < length && !event.cancelImmediate; ++index) {
-					if (list.indexOf(events[index]) > -1) {
-						events[index].call(element, event);
+				while (++index < length && !event.cancelImmediate) {
+					if (index in events) {
+						eventElement = events[index];
+
+						if (indexOf(list, eventElement) !== -1) {
+							eventElement.call(element, event);
+						}
 					}
 				}
 			};
+
 			element._events[type].list = [];
 
-			element.attachEvent && element.attachEvent('on' + type, element._events[type]);
+			if (element.attachEvent) {
+				element.attachEvent('on' + type, element._events[type]);
+			}
 		}
 
 		element._events[type].list.push(listener);
@@ -69,17 +95,20 @@
 	window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener() {
 		var
 		element = this,
-		type = arguments[1],
-		listener = arguments[2];
+		type = arguments[0],
+		listener = arguments[1].
+		index;
 
 		if (element._events && element._events[type] && element._events[type].list) {
-			var index = element._events[type].list.indexOf(listener);
+			index = indexOf(element._events[type].list, listener);
 
-			if (index > -1) {
+			if (index !== -1) {
 				element._events[type].list.splice(index, 1);
 
 				if (!element._events[type].list.length) {
-					element.detachEvent && element.detachEvent('on' + type, element._events[type]);
+					if (element.detachEvent) {
+						element.detachEvent('on' + type, element._events[type]);
+					}
 				}
 			}
 		}
@@ -116,11 +145,11 @@
 			do {
 				event.currentTarget = element;
 
-				if (element._events && element._events[type]) {
+				if ('_events' in element && typeof element._events[type] === 'function') {
 					element._events[type].call(element, event);
 				}
 
-				if (element['on' + type]) {
+				if (typeof element['on' + type] === 'function') {
 					element['on' + type].call(element, event);
 				}
 
