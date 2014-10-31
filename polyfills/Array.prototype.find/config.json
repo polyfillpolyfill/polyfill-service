@@ -9,5 +9,8 @@
 		"ie": "*",
 		"opera": "* - 16",
 		"safari": "* - 7"
-	}
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	]
 }

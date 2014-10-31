@@ -1,6 +1,9 @@
 (function (slice) {
-	// Array.of
-	Array.of = function of() {
-		return slice.call(arguments);
-	};
+	Object.defineProperty(Array, 'of', {
+		configurable: true,
+		value: function of() {
+			return slice.call(arguments);
+		},
+		writable: true
+	});
 })(Array.prototype.slice);
