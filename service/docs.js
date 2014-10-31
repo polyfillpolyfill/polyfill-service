@@ -13,6 +13,9 @@ var indexTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html
 var usageTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
 	usageTemplate    = Handlebars.compile(usageTemplateSrc);
 
+var compatTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/compat.html'), {encoding: 'UTF-8'}),
+	compatTemplate = Handlebars.compile(compatTemplateSrc);
+
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
@@ -170,9 +173,7 @@ function route(req, res, next) {
 			});
 		});
 	} else if (req.params[0] === 'features') {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/compat.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({
+		res.send(compatTemplate({
 			section: 'features',
 			compat: getCompat()
 		}));
