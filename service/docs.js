@@ -7,6 +7,9 @@ var fs = require('fs'),
 var cache = {fastly:{}, outages:{}, respTimes:{}},
 	cachettl = 1800;
 
+var indexTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
+	indexTemplate    = Handlebars.compile(indexTemplateSrc);
+
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
@@ -147,9 +150,7 @@ function route(req, res, next) {
 	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
 
 	if (!req.params || !req.params[0]) {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({section: 'index'}));
+		res.send(indexTemplate({section: 'index'}));
 	} else if (req.params[0] === 'usage') {
 		getData('fastly', function(fastlyData) {
 			getData('outages', function(outages) {
