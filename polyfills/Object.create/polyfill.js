@@ -1,4 +1,3 @@
-// Object.create
 Object.create = function create(prototype, properties) {
 	/* jshint evil: true */
 

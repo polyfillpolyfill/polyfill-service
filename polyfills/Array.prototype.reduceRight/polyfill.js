@@ -1,4 +1,3 @@
-// <Array>.reduceRight
 Array.prototype.reduceRight = function reduceRight(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');

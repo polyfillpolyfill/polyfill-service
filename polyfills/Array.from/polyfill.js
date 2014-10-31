@@ -1,4 +1,3 @@
-// Array.from
 Array.from = function from(source) {
 	// handle non-objects
 	if (source === undefined || source === null) {

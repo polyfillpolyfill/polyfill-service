@@ -1,4 +1,3 @@
-// <Array>.find
 Array.prototype.find = function find(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');

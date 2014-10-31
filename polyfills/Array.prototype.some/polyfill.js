@@ -1,4 +1,3 @@
-// <Array>.some
 Array.prototype.some = function some(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');

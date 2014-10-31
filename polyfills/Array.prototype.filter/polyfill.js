@@ -1,4 +1,3 @@
-// <Array>.filter
 Array.prototype.filter = function filter(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');

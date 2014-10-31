@@ -1,4 +1,3 @@
-// <Element>.closest
 Element.prototype.closest = function closest(selector) {
 	var node = this;
 
