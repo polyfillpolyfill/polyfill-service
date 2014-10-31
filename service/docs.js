@@ -10,6 +10,9 @@ var cache = {fastly:{}, outages:{}, respTimes:{}},
 var indexTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
 	indexTemplate    = Handlebars.compile(indexTemplateSrc);
 
+var usageTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
+	usageTemplate    = Handlebars.compile(usageTemplateSrc);
+
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
@@ -155,9 +158,7 @@ function route(req, res, next) {
 		getData('fastly', function(fastlyData) {
 			getData('outages', function(outages) {
 				getData('respTimes', function(respTimes) {
-					templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
-					template = Handlebars.compile(templateSrc);
-					res.send(template({
+					res.send(usageTemplate({
 						section: 'usage',
 						requestsData: fastlyData.byhour,
 						outages: outages,
