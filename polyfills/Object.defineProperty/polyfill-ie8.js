@@ -1,12 +1,12 @@
 (function (nativeDefineProperty) {
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 		// handle object
-		if (object === null || typeof object !== 'object') {
+		if (object === null || !(object instanceof Object || typeof object === 'object')) {
 			throw new TypeError('Object must be an object');
 		}
 
 		// handle descriptor
-		if (descriptor === null || typeof descriptor !== 'object') {
+		if (!(descriptor instanceof Object)) {
 			throw new TypeError('Descriptor must be an object');
 		}
 
