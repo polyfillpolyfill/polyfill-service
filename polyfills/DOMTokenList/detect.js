@@ -1,5 +1,3 @@
 window.DOMTokenList && (function (x) {
-	x.classList.toggle('x', false);
-
-	return !x.className;
+	return 'classList' in x ? !x.classList.toggle('x', false) && !x.className : true;
 })(document.createElement('x'))

@@ -6,9 +6,6 @@
 		"ie": "6 - 9",
 		"safari": "4 - 5.0"
 	},
-	"dependencies": [
-		"Window"
-	],
 	"variants": {
 		"toggle": {
 			"browsers": {
