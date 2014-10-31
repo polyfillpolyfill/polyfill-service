@@ -1,1 +1,1 @@
-'from' in Array
+Array.from

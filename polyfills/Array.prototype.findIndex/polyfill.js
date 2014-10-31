@@ -1,5 +1,5 @@
-// <Array>.map
-Array.prototype.map = function map(callback) {
+// <Array>.findIndex
+Array.prototype.findIndex = function findIndex(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
 	}
@@ -13,15 +13,15 @@ Array.prototype.map = function map(callback) {
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
 	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
-	index = -1,
-	result = [],
-	element;
+	index = -1;
 
 	while (++index < length) {
 		if (index in arraylike) {
-			result[index] = callback.call(scope, arraylike[index], index, object);
+			if (callback.call(scope, arraylike[index], index, object)) {
+				return index;
+			}
 		}
 	}
 
-	return result;
+	return -1;
 };

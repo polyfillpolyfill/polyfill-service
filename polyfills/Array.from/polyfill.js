@@ -16,7 +16,7 @@ Array.from = function from(source) {
 	scope = arguments[2],
 	array = [],
 	index = -1,
-	length = Math.min(Math.max(Number(arraylike.length) || 0, 0), Math.pow(2, 53) - 1),
+	length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991),
 	value;
 
 	while (++index < length) {

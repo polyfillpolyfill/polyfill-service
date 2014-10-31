@@ -1,8 +1,10 @@
 {
+	"aliases": [
+		"default",
+		"es5",
+		"modernizr:es5array"
+	],
 	"browsers": {
 		"ie": "6 - 8"
-	},
-	"aliases": [
-		"modernizr:es5array"
-	]
+	}
 }

@@ -12,7 +12,7 @@ Array.prototype.reduce = function reduce(callback) {
 	object = Object(this),
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
-	length = Number(arraylike.length) || 0,
+	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 	index = -1,
 	previousValue;
 
