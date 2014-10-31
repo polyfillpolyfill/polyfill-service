@@ -1,0 +1,15 @@
+{
+	"aliases": [
+		"es7",
+		"modernizr:es7array"
+	],
+	"browsers": {
+		"chrome": "*",
+		"firefox": "*",
+		"ie": "*",
+		"safari": "*"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	]
+}
