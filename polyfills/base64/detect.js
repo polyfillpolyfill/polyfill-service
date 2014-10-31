@@ -1,1 +1,1 @@
-'atob' in window
+window.atob
