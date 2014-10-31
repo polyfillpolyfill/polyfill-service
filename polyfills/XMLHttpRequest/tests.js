@@ -1,16 +1,19 @@
 var xhr;
 
-it('has correct instance', function () {
-	expect(XMLHttpRequest).to.be.a(Function);
-});
+// Safari 5.1+ does not consider XMLHttpRequest a function
+if (XMLHttpRequest instanceof Function) {
+	it('has correct instance', function () {
+		expect(XMLHttpRequest).to.be.a(Function);
+	});
 
-it('has correct name', function () {
-	expect(nameOf(XMLHttpRequest)).to.be('XMLHttpRequest');
-});
+	it('has correct name', function () {
+		expect(nameOf(XMLHttpRequest)).to.be('XMLHttpRequest');
+	});
 
-it('has correct argument length', function () {
-	expect(XMLHttpRequest.length).to.be(0);
-});
+	it('has correct argument length', function () {
+		expect(XMLHttpRequest.length).to.be(0);
+	});
+}
 
 it('can create instance', function () {
 	xhr = new XMLHttpRequest;
