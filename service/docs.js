@@ -151,6 +151,11 @@ function route(req, res, next) {
 		template = Handlebars.compile(templateSrc);
 		res.send(template({section: 'index'}));
 	} else if (req.params[0] === 'usage') {
+		// Set the ttl to one hour for the usage page so the graphs are
+		// updated.
+		var one_hour = 60 * 60;
+		var one_week = one_hour * 24 * 7;
+		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		getData('fastly', function(fastlyData) {
 			getData('outages', function(outages) {
 				getData('respTimes', function(respTimes) {
