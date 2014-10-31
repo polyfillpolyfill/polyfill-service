@@ -1,5 +1,6 @@
 (function (global) {
 	function evalQuery(query) {
+		/* jshint evil: true */
 		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
 			.replace('%s', query||'true')
 			.replace(/^only\s+/, '')
