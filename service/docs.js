@@ -7,6 +7,24 @@ var fs = require('fs'),
 var cache = {fastly:{}, outages:{}, respTimes:{}},
 	cachettl = 1800;
 
+var indexTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
+	indexTemplate    = Handlebars.compile(indexTemplateSrc);
+
+var usageTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
+	usageTemplate    = Handlebars.compile(usageTemplateSrc);
+
+var compatTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/compat.html'), {encoding: 'UTF-8'}),
+	compatTemplate    = Handlebars.compile(compatTemplateSrc);
+
+var apiTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/api.html'), {encoding: 'UTF-8'}),
+	apiTemplate    = Handlebars.compile(apiTemplateSrc);
+
+var examplesTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/examples.html'), {encoding: 'UTF-8'}),
+    examplesTemplate = Handlebars.compile(examplesTemplateSrc);
+
+var contribTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/contributing.html'), {encoding: 'UTF-8'}),
+    contribTemplate = Handlebars.compile(contribTemplateSrc);
+
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
@@ -147,16 +165,12 @@ function route(req, res, next) {
 	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
 
 	if (!req.params || !req.params[0]) {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({section: 'index'}));
+		res.send(indexTemplate({section: 'index'}));
 	} else if (req.params[0] === 'usage') {
 		getData('fastly', function(fastlyData) {
 			getData('outages', function(outages) {
 				getData('respTimes', function(respTimes) {
-					templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
-					template = Handlebars.compile(templateSrc);
-					res.send(template({
+					res.send(usageTemplate({
 						section: 'usage',
 						requestsData: fastlyData.byhour,
 						outages: outages,
@@ -168,28 +182,20 @@ function route(req, res, next) {
 			});
 		});
 	} else if (req.params[0] === 'features') {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/compat.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({
+		res.send(compatTemplate({
 			section: 'features',
 			compat: getCompat()
 		}));
 	} else if (req.params[0] === 'api') {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/api.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({
+		res.send(apiTemplate({
 			section: 'api'
 		}));
 	} else if (req.params[0] === 'examples') {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/examples.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({
+		res.send(examplesTemplate({
 			section: 'examples'
 		}));
 	} else if (req.params[0] === 'contributing') {
-		templateSrc = fs.readFileSync(path.join(__dirname, '/../docs/contributing.html'), {encoding: 'UTF-8'}),
-		template = Handlebars.compile(templateSrc);
-		res.send(template({
+		res.send(contribTemplate({
 			section: 'contributing',
 			baselines: require('../lib/UA').getBaselines()
 		}));
