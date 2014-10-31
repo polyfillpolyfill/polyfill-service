@@ -1,1 +1,1 @@
-window.XMLHttpRequest
+window.XMLHttpRequest && XMLHttpRequest.prototype.addEventListener
