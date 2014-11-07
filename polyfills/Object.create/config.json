@@ -1,5 +1,6 @@
 {
 	"aliases": [
+		"es5",
 		"modernizr:es5object"
 	],
 	"browsers": {

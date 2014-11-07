@@ -10,7 +10,9 @@
 		"safari": "4 - *",
 		"ios_saf": "*"
 	},
-	"dependencies": ["Element"],
+	"dependencies": [
+		"Element"
+	],
 	"variants": {
 		"blink": {
 			"browsers": {

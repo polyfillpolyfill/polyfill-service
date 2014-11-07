@@ -1,6 +1,6 @@
 {
 	"aliases": [
-		"modernizr:webaudio",
-		"caniuse:audio-api"
+		"caniuse:audio-api",
+		"modernizr:webaudio"
 	]
 }

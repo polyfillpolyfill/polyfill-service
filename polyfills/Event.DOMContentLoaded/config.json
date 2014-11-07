@@ -1,9 +1,11 @@
 {
-	"browsers": {
-		"ie": "6 - 8"
-	},
 	"aliases": [
 		"caniuse:domcontentloaded"
 	],
-	"dependencies": ["Event"]
+	"browsers": {
+		"ie": "6 - 8"
+	},
+	"dependencies": [
+		"Event"
+	]
 }

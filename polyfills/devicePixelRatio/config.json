@@ -12,7 +12,9 @@
 			"browsers": {
 				"ie": "8"
 			},
-			"dependencies": ["Object.defineProperty"]
+			"dependencies": [
+				"Object.defineProperty"
+			]
 		},
 		"ios": {
 			"browsers": {

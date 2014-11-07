@@ -2,7 +2,9 @@
 	"browsers": {
 		"ie": "8"
 	},
-	"dependencies": ["Object.defineProperties"],
+	"dependencies": [
+		"Object.defineProperties"
+	],
 	"variants": {
 		"ie7": {
 			"browsers": {

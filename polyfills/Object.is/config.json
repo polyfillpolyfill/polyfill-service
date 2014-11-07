@@ -1,4 +1,8 @@
 {
+	"aliases": [
+		"es6",
+		"modernizr:es6object"
+	],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -10,8 +14,5 @@
 		"op_mob": "*",
 		"safari": "*",
 		"ios_saf": "*"
-	},
-	"aliases": [
-		"modernizr:es6object"
-	]
+	}
 }
