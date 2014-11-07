@@ -1,7 +1,7 @@
 {
 	"aliases": [
-		"caniuse:matchesselector",
-		"default"
+		"default",
+		"caniuse:matchesselector"
 	],
 	"browsers": {
 		"ie": "6 - 8",

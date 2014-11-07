@@ -1,7 +1,7 @@
 {
 	"aliases": [
-		"modernizr:placeholder",
-		"caniuse:input-placeholder"
+		"caniuse:input-placeholder",
+		"modernizr:placeholder"
 	],
 	"browsers": {
 		"ie": "8"

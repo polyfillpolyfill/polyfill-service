@@ -1,10 +1,11 @@
 {
+	"aliases": [
+		"default",
+		"es5",
+		"modernizr:es5string"
+	],
 	"browsers": {
 		"ie": "6 - 8",
 		"safari": "4"
-	},
-	"aliases": [
-		"modernizr:es5string",
-		"default"
-	]
+	}
 }

@@ -1,11 +1,13 @@
 {
+	"aliases": [
+		"caniuse:hashchange",
+		"modernizr:hashchange"
+	],
 	"browsers": {
 		"ie": "6 - 8",
 		"safari": "4"
 	},
-	"aliases": [
-		"modernizr:hashchange",
-		"caniuse:hashchange"
-	],
-	"dependencies": ["Event"]
+	"dependencies": [
+		"Event"
+	]
 }

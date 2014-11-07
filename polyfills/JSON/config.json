@@ -1,11 +1,11 @@
 {
+	"aliases": [
+		"default",
+		"caniuse:json",
+		"modernizr:json"
+	],
 	"browsers": {
 		"ie": "6 - 7"
 	},
-	"aliases": [
-		"modernizr:json",
-		"caniuse:json",
-		"default"
-	],
 	"license": "MIT Asen Bozhilov JSON.parse (https://github.com/abozhilov/json)"
 }

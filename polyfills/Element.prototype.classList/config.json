@@ -1,7 +1,7 @@
 {
 	"aliases": [
-		"modernizr:classlist",
-		"default"
+		"default",
+		"modernizr:classlist"
 	],
 	"browsers": {
 		"ie": "6 - 9",

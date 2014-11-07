@@ -1,5 +1,8 @@
 {
-	"aliases": ["default", "modernizr:customevent"],
+	"aliases": [
+		"default",
+		"modernizr:customevent"
+	],
 	"browsers": {
 		"firefox": "3.6 - 10",
 		"ie": "9 - *",
