@@ -1,8 +1,16 @@
 {
-	"browsers": {
-		"chrome": "*"
-	},
 	"aliases": [
+		"es6",
 		"modernizr:es6array"
+	],
+	"browsers": {
+		"chrome": "* - 38",
+		"firefox": "* - 24",
+		"ie": "*",
+		"opera": "*",
+		"safari": "*"
+	},
+	"dependencies": [
+		"Object.defineProperty"
 	]
 }

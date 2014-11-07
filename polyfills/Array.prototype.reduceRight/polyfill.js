@@ -1,4 +1,3 @@
-// <Array>.reduceRight
 Array.prototype.reduceRight = function reduceRight(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
@@ -13,7 +12,7 @@ Array.prototype.reduceRight = function reduceRight(callback) {
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
 	length = -1,
-	index = Number(arraylike.length) || 0,
+	index = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 	previousValue;
 
 	if (1 in arguments) {

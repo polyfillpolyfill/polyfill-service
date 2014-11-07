@@ -11,5 +11,7 @@
 		setTimeout(func, 200);
 	};
 
+	global.onhashchange = undefined;
+
 	func();
 })(this);

@@ -1,6 +1,9 @@
 (function (toString) {
-	// Array.isArray
-	Array.isArray = function isArray(object) {
-		return toString.call(object) === '[object Array]';
-	};
+	Object.defineProperty(Array, 'isArray', {
+		configurable: true,
+		value: function isArray(object) {
+			return toString.call(object) === '[object Array]';
+		},
+		writable: true
+	});
 })(Object.prototype.toString);

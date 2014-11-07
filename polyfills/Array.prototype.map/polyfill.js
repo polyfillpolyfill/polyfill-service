@@ -1,4 +1,3 @@
-// <Array>.map
 Array.prototype.map = function map(callback) {
 	if (this === undefined || this === null) {
 		throw new TypeError(this + 'is not an object');
@@ -12,7 +11,7 @@ Array.prototype.map = function map(callback) {
 	object = Object(this),
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
-	length = Number(arraylike.length) || 0,
+	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 	index = -1,
 	result = [],
 	element;

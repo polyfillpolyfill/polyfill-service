@@ -1,31 +1,43 @@
-function callbackfn1(val, idx, obj) {
-	return val > 10;
-}
-
-function callbackfn2(val, idx, obj) {
-	return val > 11;
-}
-
-
-it('is a function', function() {
-	expect(Array.prototype.every).to.be.a('function')
+it('has correct instance', function () {
+	expect(Array.prototype.every).to.be.a(Function);
 });
 
-it('applies test correctly for an array-like objects', function() {
-
-	var obj = {
-		0: 12,
-		1: 11,
-		2: 1,  // Not considered since length indicates an array that doesn't include this element
-		length: 2
-	};
-
-	expect(Array.prototype.every.call(obj, callbackfn1)).to.be(true);
-	expect(Array.prototype.every.call(obj, callbackfn2)).to.be(false);
+it('has correct name', function () {
+	expect(nameOf(Array.prototype.every)).to.be('every');
 });
 
-it('applies test correctly to arrays', function() {
-	var obj = [12, 11];
-	expect(Array.prototype.every.call(obj, callbackfn1)).to.be(true);
-	expect(Array.prototype.every.call(obj, callbackfn2)).to.be(false);
+it('has correct argument length', function () {
+	expect(Array.prototype.every.length).to.be(1);
+});
+
+describe('callback', function () {
+	it('has correct argument length', function () {
+		[10, 11, 12].every(function () {
+			expect(arguments.length).to.be(3);
+		});
+	});
+});
+
+describe('applies callback correctly with', function () {
+	function elementIsGreaterThan9(element) {
+		return element > 9;
+	}
+
+	function elementIsGreaterThan10(element) {
+		return element > 10;
+	}
+
+	it('arrays', function () {
+		expect([10, 11, 12].every(elementIsGreaterThan9)).to.be(true);
+		expect([10, 11, 12].every(elementIsGreaterThan10)).to.be(false);
+	});
+
+	it('array-like objects', function () {
+		var
+		// 3: 0 is ignored because length omits it
+		object = { 0: 10, 1: 11, 2: 12, 3: 0, length: 3 };
+
+		expect(Array.prototype.every.call(object, elementIsGreaterThan9)).to.be(true);
+		expect(Array.prototype.every.call(object, elementIsGreaterThan10)).to.be(false);
+	});
 });
