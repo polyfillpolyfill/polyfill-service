@@ -4,13 +4,15 @@
 		"bb": "*",
 		"ios_chr": "*",
 		"firefox": "3.6 - *",
-		"ie": "9 - *",
+		"ie": "6 - *",
 		"opera": "11.5 - 12.1",
 		"op_mini": "*",
 		"safari": "4 - *",
 		"ios_saf": "*"
 	},
-	"dependencies": ["Element"],
+	"dependencies": [
+		"Element"
+	],
 	"variants": {
 		"blink": {
 			"browsers": {
