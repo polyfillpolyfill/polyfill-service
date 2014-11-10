@@ -6,10 +6,14 @@
 		} else if (nodes.length === 1) {
 			return typeof nodes[0] === 'string' ? document.createTextNode(nodes[0]) : nodes[0];
 		} else {
-			var fragment = document.createDocumentFragment(), index, node;
+			var
+			fragment = document.createDocumentFragment(),
+			length = nodes.length,
+			index = -1,
+			node;
 
-			for (index in arguments) {
-				node = arguments[index];
+			while (++index < length) {
+				node = nodes[index];
 
 				fragment.appendChild(typeof node === 'string' ? document.createTextNode(node) : node);
 			}
