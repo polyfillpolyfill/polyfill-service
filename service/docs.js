@@ -192,6 +192,12 @@ function route(req, res, next) {
 	if (!req.params || !req.params[0]) {
 		res.send(indexTemplate({section: 'index'}));
 	} else if (req.params[0] === 'usage') {
+		// Set the ttl to one hour for the usage page so the graphs are
+		// updated more frequently, overriding the default cache-control
+		// behaviour set in index.js
+		var one_hour = 60 * 60;
+		var one_week = one_hour * 24 * 7;
+		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		getData('fastly', function(fastlyData) {
 			getData('outages', function(outages) {
 				getData('respTimes', function(respTimes) {
