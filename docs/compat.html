@@ -26,7 +26,15 @@
 			<tbody>
 			{{#compat}}
 				<tr>
-					<td><a href='/test/tests?feature={{feature}}'>{{feature}}</a></td>
+					<td>
+						<h3>{{feature}}</h3>
+						<ul class='feature-meta'>
+							<li title="Maximum size, minifed, before gzip">{{dispBytes size}}</li>
+							{{#if isDefault}}<li><i title='Part of the default set' class="fa fa-star"></i></li>{{/if}}
+							{{#if hasTests}}<li><a href='/test/tests?feature={{feature}}'>Tests</a></li>{{/if}}
+							<li><a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/{{feature}}'>Source</a></li>
+						</ul>
+					</td>
 					<td>{{#ie}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ie}}</td>
 					<td>{{#firefox}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/firefox}}</td>
 					<td>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
@@ -37,6 +45,16 @@
 			</tbody>
 		</table>
 
+		<h2 id='understanding-polyfill-sizes'>Understanding polyfill sizes</h2>
+
+		<p>The table above lists a data size for each polyfill, which is the size of the polyfill including a feature detect, after minification, and before gzip.  Two very important things to remember about these sizes are:</p>
+
+		<ul>
+			<li>Gzip gets more effective the larger the data is, so the more polyfills you include in the bundle you request, the smaller each individual polyfill is likely to be, once the bundle is gzipped.</li>
+			<li>Some polyfills have multiple variants.  In these cases, the size of the largest variant is shown.</li>
+		</ul>
+
 	</div>
+
 
 {{>footer}}

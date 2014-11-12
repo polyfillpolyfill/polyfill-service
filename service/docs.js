@@ -34,6 +34,16 @@ Handlebars.registerHelper("prettifyDuration", function(seconds) {
 Handlebars.registerHelper('sectionHighlight', function(section, options) {
 	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
 });
+Handlebars.registerHelper('dispBytes', function(bytes) {
+	var i = 0;
+	var byteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	do {
+		bytes /= 1024;
+		i++;
+	} while (bytes > 1024);
+
+	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
+});
 
 Handlebars.registerPartial('header', Handlebars.compile(
 	fs.readFileSync(path.join(__dirname, '/../docs/header.html'), {encoding: 'UTF-8'})
@@ -131,32 +141,47 @@ function getData(type, cb) {
 
 function getCompat() {
 	var data = require('../docs/assets/compat.json');
+	var sources = require('../lib/sources');
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	}
-	return Object.keys(data).sort().map(function(feat) {
-		var fdata = {feature: feat};
-		browsers.forEach(function(browser) {
-			if (data[feat][browser]) {
-				fdata[browser] = [];
-				Object.keys(data[feat][browser]).sort(function(a, b) {
-					if (isNaN(a)) return 1;
-					if (isNaN(b)) return -1;
-					return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
-				}).forEach(function(version) {
-					fdata[browser].push({
-						status: data[feat][browser][version],
-						statusMsg: msgs[data[feat][browser][version]],
-						version: version
+	return Object.keys(data)
+		.filter(function(feature) {
+			return sources.polyfillExists(feature);
+		})
+		.sort()
+		.map(function(feat) {
+			var polyfill = sources.getPolyfill(feat);
+			var fdata = {
+				feature: feat,
+				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
+					return Math.max(size, polyfill.variants[variantName].minGatedSource.length);
+				}, 0),
+				isDefault: (polyfill.aliases.indexOf('default') !== -1),
+				hasTests: polyfill.hasTests
+			};
+			browsers.forEach(function(browser) {
+				if (data[feat][browser]) {
+					fdata[browser] = [];
+					Object.keys(data[feat][browser]).sort(function(a, b) {
+						if (isNaN(a)) return 1;
+						if (isNaN(b)) return -1;
+						return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+					}).forEach(function(version) {
+						fdata[browser].push({
+							status: data[feat][browser][version],
+							statusMsg: msgs[data[feat][browser][version]],
+							version: version
+						});
 					});
-				});
-			}
+				}
+			});
+			return fdata;
 		});
-		return fdata;
-	});
+	;
 }
 
 

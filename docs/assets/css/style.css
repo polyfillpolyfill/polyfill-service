@@ -20,6 +20,20 @@ body {
 .compatibility {
 	width: 100%;
 }
+.compatibility h3 {
+	margin: 0;
+	font-size: 15px;
+}
+.compatibility .feature-meta {
+	font-size: 12px;
+	list-style-type: none;
+	margin: 3px 0 0 0;
+	padding: 0;
+}
+.compatibility .feature-meta li {
+	margin-right: 6px;
+	display: inline-block;
+}
 [class^='status'],div[class*=' status']{
 	padding: 1px 4px;
 	display: inline-block;
