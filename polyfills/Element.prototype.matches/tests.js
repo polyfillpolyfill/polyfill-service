@@ -1,4 +1,4 @@
-it("Should return true if the element matches the tag selector", function() {
+it("should return true if the element matches the tag selector", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	expect(el.matches("p")).to.be(true);
@@ -6,7 +6,7 @@ it("Should return true if the element matches the tag selector", function() {
 	document.body.removeChild(el);
 });
 
-it("Should return true if the element matches the class selector", function() {
+it("should return true if the element matches the class selector", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	el.className = "foo";
@@ -16,7 +16,7 @@ it("Should return true if the element matches the class selector", function() {
 	document.body.removeChild(el);
 });
 
-it("Should return true for more complex selectors", function() {
+it("should return true for more complex selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	el.className = "foo";
@@ -24,7 +24,7 @@ it("Should return true for more complex selectors", function() {
 	expect(el.matches("p.foo")).to.be(true);
 });
 
-it("Should not match non-matching selectors", function() {
+it("should not match non-matching selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	el.className = "bar";
@@ -34,7 +34,7 @@ it("Should not match non-matching selectors", function() {
 	document.body.removeChild(el);
 });
 
-it("Should not match inner elements", function() {
+it("should not match inner elements", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	var innerEl = document.createElement("a");
@@ -46,7 +46,10 @@ it("Should not match inner elements", function() {
 	document.body.removeChild(el);
 });
 
-it("Should throw an exception with an invalid selector", function() {
+/* Skipped: This exception is actually thrown by querySelector, and cannot be thrown by
+ * the polyfill, so this test will fail in some UAs. For more info see querySelector polyfill.
+ *
+it("should throw an exception with an invalid selector", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
 	expect(function () {
@@ -55,3 +58,4 @@ it("Should throw an exception with an invalid selector", function() {
 
 	document.body.removeChild(el);
 });
+ */
