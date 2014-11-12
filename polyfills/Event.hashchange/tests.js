@@ -1,10 +1,12 @@
 it('Should dispatch the hashchange event', function(done) {
-	window.location.hash = '';
 
-	window.addEventListener('hashchange', function(e) {
+	var listener = function(e) {
 		expect(e.type).to.be('hashchange');
+		window.removeEventListener('hashchange', listener);
 		done();
-	});
+	}
 
-	window.location.hash = 'test';
+	window.addEventListener('hashchange', listener);
+
+	window.location.hash = 'hashchange-test-'+Math.floor(Math.random()*1000000);
 });
