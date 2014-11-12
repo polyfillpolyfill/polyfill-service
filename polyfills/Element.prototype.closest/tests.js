@@ -1,4 +1,4 @@
-it("Should return the first ancestor that matches selectors", function() {
+it("should return the first ancestor that matches selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 	var firstInnerEl = document.createElement("a");
 	el.className = "baz";
@@ -12,7 +12,7 @@ it("Should return the first ancestor that matches selectors", function() {
 	document.body.removeChild(el);
 });
 
-it("Should return the first inclusive ancestor that matches selectors", function() {
+it("should return the first inclusive ancestor that matches selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 	var firstInnerEl = document.createElement("a");
 	el.className = "baz";
@@ -27,7 +27,7 @@ it("Should return the first inclusive ancestor that matches selectors", function
 	document.body.removeChild(el);
 });
 
-it("Should return null if there are no matches", function() {
+it("should return null if there are no matches", function() {
 	var el = document.body.appendChild(document.createElement("a"));
 
 	expect(el.closest("p")).to.be(null);
@@ -35,7 +35,11 @@ it("Should return null if there are no matches", function() {
 	document.body.removeChild(el);
 });
 
-it("Should throw an error if the selector syntax is incorrect", function() {
+
+/* Skipped: This exception is actually thrown by querySelector, and cannot be thrown by
+ * the polyfill, so this test will fail in some UAs. For more info see querySelector polyfill.
+ *
+it("should throw an error if the selector syntax is incorrect", function() {
 	var el = document.body.appendChild(document.createElement("a"));
 
 	expect(function () {
@@ -44,3 +48,4 @@ it("Should throw an error if the selector syntax is incorrect", function() {
 
 	document.body.removeChild(el);
 });
+ */
