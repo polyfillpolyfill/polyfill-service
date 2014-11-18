@@ -8,7 +8,7 @@
 
 		<p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.  Think of it like a pair of glasses for your aging browser.</p>
 
-		<p>Put this in the <code>&lt;head&gt;</code> of your HTML document:</p>
+		<p>Load the service before you load or parse your own JavaScript:</p>
 
 		<?prettify?>
 		<pre class='bigcode'><code>&lt;script src="https://cdn.polyfill.io/v1/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
