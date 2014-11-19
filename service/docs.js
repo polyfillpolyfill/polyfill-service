@@ -112,7 +112,7 @@ function getData(type, cb) {
 		});
 	} else if (type === 'outages') {
 		var to = ((new Date()).getTime()/1000) - 3600;
-		var from = to - (60*60*24*7);
+		var from = to - (60*60*24*365*5);
 		request({
 			url: 'https://api.pingdom.com/api/2.0/summary.outage/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&order=desc',
 			headers: {
