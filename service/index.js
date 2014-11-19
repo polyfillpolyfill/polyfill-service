@@ -3,7 +3,6 @@ var polyfillio = require('../lib'),
 	app = express().enable("strict routing"),
 	packagejson = require('../package.json'),
 	origamijson = require('../origami.json'),
-	legacyhosts = require('./legacyhosts.json'),
 	PolyfillSet = require('./PolyfillSet'),
 	path = require('path'),
 	fs = require('fs'),
@@ -31,22 +30,6 @@ app.use(function(req, res, next) {
 	res.set('Cache-Control', 'public, max-age='+one_day+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.removeHeader("x-powered-by");
 	return next();
-});
-
-
-/* Legacy redirect */
-
-app.get('*', function(req, res, next) {
-	if (!req.headers.referer || req.hostname !== 'polyfill.io') return next();
-	var host = req.headers.referer.replace(/https?\:\/\/([^\/]+)(\/.*)?$/, '$1');
-	if (legacyhosts.indexOf(host) !== -1) {
-		res.status(301);
-		res.set('Location', 'http://legacy.polyfill.io'+req.path);
-		res.set('Content-Type', 'text/plain');
-		res.send("The hostname "+host+" is known to be a user of the previous version of polyfill.io, so for backwards compatibility we're redirecting you to legacy.polyfill.io which will handle your request using the old version of the service.  The legacy version will be discontinued in the future, so please update to the new version, and then let us know by raising an issue in our repo at https://github.com/financial-times/polyfill-service.");
-	} else {
-		next();
-	}
 });
 
 
