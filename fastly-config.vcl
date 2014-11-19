@@ -75,7 +75,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "www.worcesterpromotions.co.uk" ||
 		req.http.X-Referer-Host == "www.asmwall.com" ||
 		req.http.X-Referer-Host == "training.mulesoft.com" ||
-		req.http.X-Referer-Host == "localhost" ||
 		req.http.X-Referer-Host == "exhilarateme.com" ||
 		req.http.X-Referer-Host == "www.kommentatorskampen.viasatsport.se" ||
 		req.http.X-Referer-Host == "www.golfgearselect.com" ||
@@ -85,7 +84,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "giffffr.giphy.com" ||
 		req.http.X-Referer-Host == "mccall.co.uk" ||
 		req.http.X-Referer-Host == "kommentatorskampen.viasatsport.se" ||
-		req.http.X-Referer-Host == "bpharm.localhost" ||
 		req.http.X-Referer-Host == "miraclebodyandpaint.com" ||
 		req.http.X-Referer-Host == "www.tymprozdravi.cz" ||
 		req.http.X-Referer-Host == "delicius.it" ||
@@ -111,14 +109,12 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "armourselfstorage.com" ||
 		req.http.X-Referer-Host == "www.dezrezblog.com" ||
 		req.http.X-Referer-Host == "goodpeople.com" ||
-		req.http.X-Referer-Host == "survey-project.localhost" ||
 		req.http.X-Referer-Host == "www.eden-houlgate.com" ||
 		req.http.X-Referer-Host == "www.patiovirtual.com.br" ||
 		req.http.X-Referer-Host == "stats.egzaminatorius.lt" ||
 		req.http.X-Referer-Host == "www.movieville.org" ||
 		req.http.X-Referer-Host == "secure.watchguard.com" ||
 		req.http.X-Referer-Host == "nationalsecurities.com" ||
-		req.http.X-Referer-Host == "timepad.localhost" ||
 		req.http.X-Referer-Host == "www.snaponindustrial.eu" ||
 		req.http.X-Referer-Host == "www.fangear.com" ||
 		req.http.X-Referer-Host == "www.scribbleshop.com" ||
@@ -150,7 +146,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "lemouvementassociatif.org" ||
 		req.http.X-Referer-Host == "www.ey.com" ||
 		req.http.X-Referer-Host == "cuterunslive.com" ||
-		req.http.X-Referer-Host == "taxes-in-serbia.localhost" ||
 		req.http.X-Referer-Host == "blog.odynia.org" ||
 		req.http.X-Referer-Host == "solarenaymar.com.ar" ||
 		req.http.X-Referer-Host == "www.aispaitalia.it" ||
