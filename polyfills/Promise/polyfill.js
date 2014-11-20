@@ -71,12 +71,14 @@
 
 	// Promise.resolve
 	function resolve(value) {
+		if (value instanceof Promise) {
+			return value;
+		}
+
 		var
 		promise = new Promise(empty);
 
-		if (value instanceof Promise) {
-			return value;
-		} else if (value && value.then instanceof Function) {
+		if (value && value.then instanceof Function) {
 			var
 			promiseFulfill = createResolver(promise, FULFILLED),
 			promiseReject = createResolver(promise, REJECTED);
@@ -100,9 +102,9 @@
 	function all(iterable) {
 		var
 		promise = new Promise(empty),
-		array = slice.call(iterable),
-		length = array.length,
+		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
+		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991),
 		values = [];
 
 		function createOnFulfilled(index) {
@@ -130,10 +132,9 @@
 	function race(iterable) {
 		var
 		promise = new Promise(empty),
-		array = slice.call(iterable),
-		length = array.length,
+		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
-		values = [];
+		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991);
 
 		function createOnFulfilled() {
 			return function (value) {
@@ -141,12 +142,10 @@
 			};
 		}
 
-		if (length) {
-			while (++index < length) {
-				(array[index] instanceof Promise ? array[index] : resolve(array[index])).then(createOnFulfilled());
-			}
-		} else {
-			resolvePromise(promise, FULFILLED);
+		while (++index < length) {
+			if (index in arraylike) {
+				resolve(array[index]).then(createOnFulfilled());
+			}	
 		}
 
 		return promise;
