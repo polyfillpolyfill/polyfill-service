@@ -71,7 +71,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "colortile.github.io" ||
 		req.http.X-Referer-Host == "brasstacksmadras.com" ||
 		req.http.X-Referer-Host == "hotelcasadomingo.com.mx" ||
-		req.http.X-Referer-Host == "client.local" ||
 		req.http.X-Referer-Host == "www.worcesterpromotions.co.uk" ||
 		req.http.X-Referer-Host == "www.asmwall.com" ||
 		req.http.X-Referer-Host == "training.mulesoft.com" ||
@@ -139,7 +138,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "forum.tales-of-pikohan.de" ||
 		req.http.X-Referer-Host == "small.mu" ||
 		req.http.X-Referer-Host == "crisp.toucan" ||
-		req.http.X-Referer-Host == "www.fosterdenovo.local" ||
 		req.http.X-Referer-Host == "dev1776.nationalsecurities.com" ||
 		req.http.X-Referer-Host == "byose.net" ||
 		req.http.X-Referer-Host == "www.eurodiary.ie" ||
@@ -254,7 +252,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "teachersdunet.com" ||
 		req.http.X-Referer-Host == "livesmartswmo.com" ||
 		req.http.X-Referer-Host == "javiblog.com" ||
-		req.http.X-Referer-Host == "portal.com.local" ||
 		req.http.X-Referer-Host == "mi.etoilemedia.com" ||
 		req.http.X-Referer-Host == "www.lens.org" ||
 		req.http.X-Referer-Host == "blacknet.co.uk" ||
@@ -333,7 +330,6 @@ sub vcl_recv {
 		req.http.X-Referer-Host == "www.cafelatincaen.com" ||
 		req.http.X-Referer-Host == "togume.com" ||
 		req.http.X-Referer-Host == "connect.mulesoft.com" ||
-		req.http.X-Referer-Host == "che.local" ||
 		req.http.X-Referer-Host == "nataktivisterna.lo" ||
 		req.http.X-Referer-Host == "livelean.co.uk" ||
 		req.http.X-Referer-Host == "copyprint.nl" ||
