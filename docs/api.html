@@ -10,7 +10,7 @@
 
 			<p>Fetch a polyfill bundle.</p>
 
-			<table>
+			<table class='apidoc'>
 				<tr>
 					<th>Param</th><th>Where</th><th>Description</th>
 				</tr><tr>
@@ -47,6 +47,10 @@
 					<td><code>ua</code></td>
 					<td>Querystring</td>
 					<td>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a false <code>User-Agent</code> header.</td>
+				</tr><tr>
+					<td><code>callback</code></td>
+					<td>Querystring</td>
+					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asyncronously with <code>async</code> and <code>defer</code> attributes.</td>
 				</tr>
 			</table>
 		</div>
