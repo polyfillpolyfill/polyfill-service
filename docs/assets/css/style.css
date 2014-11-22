@@ -76,3 +76,12 @@ body {
 pre.bigcode code {
 	font-size: 150%;
 }
+
+.apidoc td,
+.apidoc th {
+	vertical-align: top;
+}
+.apidoc td :first-child,
+.apidoc th :first-child {
+	margin-top: 0;
+}
