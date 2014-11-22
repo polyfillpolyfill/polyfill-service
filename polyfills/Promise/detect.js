@@ -1,1 +1,1 @@
-"Promise" in window
+window.Promise
