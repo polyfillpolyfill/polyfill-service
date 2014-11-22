@@ -1,0 +1,15 @@
+{
+	"browsers": {
+		"chrome": "*",
+		"firefox": "*",
+		"opera": "*",
+		"safari": "*"
+	},
+	"variants": {
+		"onreadystatechange": {
+			"browsers": {
+				"ie": "* - 9"
+			}
+		}
+	}
+}
