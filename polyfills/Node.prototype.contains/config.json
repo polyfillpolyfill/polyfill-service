@@ -1,0 +1,24 @@
+{
+	"aliases": [
+		"dom4"
+	],
+	"browsers": {
+		"firefox": "* - 8",
+		"safari": "* - 2"
+	},
+	"variants": {
+		"document": {
+			"browsers": {
+				"ie": "* - 8"
+			},
+			"dependencies": [
+				"Element"
+			]
+		},
+		"HTMLElement": {
+			"browsers": {
+				"ie": "9 - *"
+			}
+		}
+	}
+}
