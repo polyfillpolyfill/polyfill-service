@@ -42,8 +42,9 @@ body {
 	margin-right: 2px;
 }
 .status-polyfilled {
-	background-color: #00FF14;
-	border: 1px dashed black;
+	background-color: #2BA5FC;
+	color: white;
+	border: 1px dashed white;
 	font-weight: bold;
 }
 .status-native {
@@ -53,6 +54,7 @@ body {
 .status-missing {
 	background-color: #ECECEC;
 	color: #aaa;
+	font-style: italic;
 }
 
 #chart-requests, #chart-hitratio {
