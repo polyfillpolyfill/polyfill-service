@@ -152,15 +152,19 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		res.send('A user agent identifier is required, either via a User-Agent header or the ua query param.');
 
 	} else {
-		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
-		res.set('Access-Control-Allow-Origin', '*');
-		res.send(polyfillio.getPolyfillString({
+		var op = polyfillio.getPolyfillString({
 			features: polyfills.get(),
 			extension: fileExtension,
 			minify: minified,
 			uaString: uaString,
 			url: req.originalUrl
-		}));
+		});
+		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
+		}
+		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+		res.set('Access-Control-Allow-Origin', '*');
+		res.send(op);
 		metrics.addResponseTime(Date.now() - responseStartTime);
 		metrics.addResponseType(fileExtension);
 	}
