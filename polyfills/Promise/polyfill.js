@@ -176,11 +176,13 @@
 
 	function defineValues(object, properties) {
 		for (var key in properties) {
-			Object.defineProperty(object, key, {
-				configurable: true,
-				value: properties[key],
-				writable: true
-			});
+			if (properties.hasOwnProperty(key)) {
+				Object.defineProperty(object, key, {
+					configurable: true,
+					value: properties[key],
+					writable: true
+				});
+			}
 		}
 
 		return object;
