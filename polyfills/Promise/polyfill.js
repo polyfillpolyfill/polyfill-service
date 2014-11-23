@@ -145,7 +145,7 @@
 		}
 
 		while (++index < length) {
-			if (index in arraylike) {
+			if (index in iterable) {
 				resolve(array[index]).then(createOnFulfilled());
 			}	
 		}
