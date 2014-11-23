@@ -77,27 +77,16 @@
 			return value;
 		}
 
-		var
-		promise = new Promise(empty);
+		return new Promise(function (res) {
+			res(value);
+		});
+	}
 
-		if (value && value.then instanceof Function) {
-			var
-			promiseFulfill = createResolver(promise, FULFILLED),
-			promiseReject = createResolver(promise, REJECTED);
-
-			setImmediate(function () {
-				try {
-					value.then(promiseFulfill, promiseReject);
-				} catch (error) {
-					resolvePromise(promise, REJECTED, error);
-				}
-			});
-		} else {
-			promise.PromiseState = FULFILLED;
-			promise.PromiseValue = value;
-		}
-
-		return promise;
+	// Promise.reject
+	function reject(reason) {
+		return new Promise(function (resolve, reject) {
+			reject(reason);
+		});
 	}
 
 	// Promise.all
@@ -191,7 +180,8 @@
 	defineValues(Promise, {
 		all: all,
 		race: race,
-		resolve: resolve
+		resolve: resolve,
+		reject: reject
 	});
 
 	defineValues(Promise.prototype, {
