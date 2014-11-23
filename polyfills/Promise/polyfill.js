@@ -1,4 +1,6 @@
-(function (global, setImmediate, slice, empty, PENDING, FULFILLED, REJECTED) {
+(function (global, slice, empty, PENDING, FULFILLED, REJECTED) {
+	var setImmediate;
+
 	function resolvePromise(promise, state, value, defer) {
 		if (promise.PromiseState === PENDING) {
 			promise.PromiseState = state;
@@ -199,11 +201,11 @@
 		Promise: Promise
 	});
 
-	setImmediate = setImmediate || function (func) {
+	setImmediate = global.setImmediate || function (func) {
 		var args = slice.call(arguments, 1);
 
 		return setTimeout(function () {
 			func.apply(null, args);
 		});
 	};
-})(this, window.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
+})(typeof global !== 'undefined' ? global : this, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
