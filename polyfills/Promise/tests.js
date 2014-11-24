@@ -541,7 +541,7 @@ describe('Promise combinators', function () {
         });
 
         it('should turn into a rejected promise with a non array argument', function (done) {
-            isRejected(Promise.all('foo'), done, function (error) {
+            isRejected(Promise.all(5), done, function (error) {
                 expect(error).to.be.a(TypeError);
                 done();
             });
