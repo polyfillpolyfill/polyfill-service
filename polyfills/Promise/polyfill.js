@@ -127,15 +127,16 @@
 		index = -1,
 		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991);
 
-		function createOnFulfilled() {
-			return function (value) {
-				resolvePromise(promise, FULFILLED, value);
-			};
+		function onFulfilled(value) {
+			resolvePromise(promise, FULFILLED, value);
+		}
+		function onRejected(reason) {
+			resolvePromise(promise, REJECTED, reason);
 		}
 
 		while (++index < length) {
-			if (index in iterable) {
-				resolve(array[index]).then(createOnFulfilled());
+			if (index in array) {
+				resolve(array[index]).then(onFulfilled, onRejected);
 			}	
 		}
 
@@ -200,4 +201,4 @@
 			func.apply(null, args);
 		});
 	};
-})(typeof global !== 'undefined' ? global : this, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
+})(this, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
