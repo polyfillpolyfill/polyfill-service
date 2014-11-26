@@ -143,7 +143,7 @@
 		}
 
 		while (++index < length) {
-			if (index in arraylike) {
+			if (index in array) {
 				resolve(array[index]).then(createOnFulfilled());
 			}	
 		}

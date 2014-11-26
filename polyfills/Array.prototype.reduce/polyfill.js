@@ -10,26 +10,26 @@ Array.prototype.reduce = function reduce(callback) {
 	var
 	object = Object(this),
 	scope = arguments[1],
-	arraylike = object instanceof String ? object.split('') : object,
-	length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
+	iterable = object instanceof String ? object.split('') : object,
+	length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 	index = -1,
 	previousValue;
 
 	if (1 in arguments) {
 		previousValue = arguments[1];
 	} else {
-		while (++index < length && !(index in arraylike)) {}
+		while (++index < length && !(index in iterable)) {}
 
 		if (index >= length) {
 			throw new TypeError('Reduce of empty array with no initial value');
 		}
 
-		previousValue = arraylike[index];
+		previousValue = iterable[index];
 	}
 
 	while (++index < length) {
-		if (index in arraylike) {
-			previousValue = callback(previousValue, arraylike[index], index, object);
+		if (index in iterable) {
+			previousValue = callback(previousValue, iterable[index], index, object);
 		}
 	}
 

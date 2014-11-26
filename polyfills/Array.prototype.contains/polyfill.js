@@ -6,15 +6,15 @@ Object.defineProperty(Array.prototype, 'contains', {
 		}
 
 		var
-		arraylike = this instanceof String ? this.split('') : this,
-		length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
+		iterable = this instanceof String ? this.split('') : this,
+		length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 		index = Number(arguments[1]) || 0,
 		isANaN = isNaN(searchElement);
 
 		index = (index < 0 ? max(length + index, 0) : index) - 1;
 
 		while (++index < length) {
-			if (index in arraylike && (isANaN ? isNaN(arraylike[index]) : arraylike[index] === searchElement)) {
+			if (index in iterable && (isANaN ? isNaN(iterable[index]) : iterable[index] === searchElement)) {
 				return true;
 			}
 		}

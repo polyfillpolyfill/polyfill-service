@@ -10,12 +10,12 @@ Array.prototype.every = function every(callback) {
 	var
 	object = Object(this),
 	scope = arguments[1],
-	arraylike = object instanceof String ? object.split('') : object,
-	length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
+	iterable = object instanceof String ? object.split('') : object,
+	length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 	index = -1;
 
 	while (++index < length) {
-		if (index in arraylike && !callback.call(scope, arraylike[index], index, object)) {
+		if (index in iterable && !callback.call(scope, iterable[index], index, object)) {
 			return false;
 		}
 	}

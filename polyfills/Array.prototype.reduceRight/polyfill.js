@@ -10,26 +10,26 @@ Array.prototype.reduceRight = function reduceRight(callback) {
 	var
 	object = Object(this),
 	scope = arguments[1],
-	arraylike = object instanceof String ? object.split('') : object,
+	iterable = object instanceof String ? object.split('') : object,
 	length = -1,
-	index = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
+	index = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 	previousValue;
 
 	if (1 in arguments) {
 		previousValue = arguments[1];
 	} else {
-		while (--index > length && !(index in arraylike)) {}
+		while (--index > length && !(index in iterable)) {}
 
 		if (index <= length) {
 			throw new TypeError('Reduce of empty array with no initial value');
 		}
 
-		previousValue = arraylike[index];
+		previousValue = iterable[index];
 	}
 
 	while (--index > length) {
-		if (index in arraylike) {
-			previousValue = callback(previousValue, arraylike[index], index, object);
+		if (index in iterable) {
+			previousValue = callback(previousValue, iterable[index], index, object);
 		}
 	}
 
