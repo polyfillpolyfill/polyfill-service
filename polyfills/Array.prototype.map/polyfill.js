@@ -11,7 +11,7 @@ Array.prototype.map = function map(callback) {
 	object = Object(this),
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
-	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+	length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
 	index = -1,
 	result = [],
 	element;

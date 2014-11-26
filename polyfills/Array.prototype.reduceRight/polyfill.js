@@ -12,7 +12,7 @@ Array.prototype.reduceRight = function reduceRight(callback) {
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
 	length = -1,
-	index = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+	index = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
 	previousValue;
 
 	if (1 in arguments) {

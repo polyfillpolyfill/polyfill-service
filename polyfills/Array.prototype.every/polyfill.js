@@ -11,7 +11,7 @@ Array.prototype.every = function every(callback) {
 	object = Object(this),
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
-	length = Number(arraylike.length) || 0,
+	length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
 	index = -1;
 
 	while (++index < length) {

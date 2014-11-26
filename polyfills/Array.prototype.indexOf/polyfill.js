@@ -5,7 +5,7 @@ Array.prototype.indexOf = function indexOf(searchElement) {
 
 	var
 	arraylike = this instanceof String ? this.split('') : this,
-	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+	length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
 	index = Number(arguments[1]) || 0;
 
 	index = (index < 0 ? Math.max(length + index, 0) : index) - 1;

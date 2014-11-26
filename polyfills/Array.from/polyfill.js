@@ -17,7 +17,7 @@ Object.defineProperty(Array, 'from', {
 		scope = arguments[2],
 		array = [],
 		index = -1,
-		length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991),
+		length = Math.min(Math.max(parseInt(arraylike.length, 10) || 0, 0), 9007199254740991),
 		value;
 
 		while (++index < length) {
