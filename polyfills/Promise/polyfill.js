@@ -1,8 +1,17 @@
 (function (global, setImmediate, slice, empty, PENDING, FULFILLED, REJECTED) {
 	function resolvePromise(promise, state, value, defer) {
 		if (promise.PromiseState === PENDING) {
-			promise.PromiseState = state;
-			promise.PromiseValue = value;
+			if (value instanceof Promise) {
+				if (promise === value) {
+					promise.PromiseState = REJECTED;
+					promise.PromiseValue = new TypeError('Chaining cycle detected for promise');
+				} else {
+					value.PromiseChain.push(promise);
+				}
+			} else {
+				promise.PromiseState = state;
+				promise.PromiseValue = value;
+			}
 		}
 
 		if (defer) {
