@@ -69,6 +69,13 @@
 		}
 	}
 
+	// Promise.reject
+	function reject(reason) {
+		return new Promise(function (resolve, reject) {
+			reject(reason);
+		});
+	}
+
 	// Promise.resolve
 	function resolve(value) {
 		if (value instanceof Promise) {
@@ -136,16 +143,18 @@
 		index = -1,
 		length = Math.min(Math.max(parseInt(array.length, 10) || 0, 0), 9007199254740991);
 
-		function createOnFulfilled() {
-			return function (value) {
-				resolvePromise(promise, FULFILLED, value);
-			};
+		function onFulfilled(value) {
+			resolvePromise(promise, FULFILLED, value);
+		}
+
+		function onRejected(reason) {
+			resolvePromise(promise, REJECTED, reason);
 		}
 
 		while (++index < length) {
 			if (index in array) {
-				resolve(array[index]).then(createOnFulfilled());
-			}	
+				resolve(array[index]).then(onFulfilled, onRejected);
+			}
 		}
 
 		return promise;
@@ -187,6 +196,7 @@
 	defineValues(Promise, {
 		all: all,
 		race: race,
+		reject: reject,
 		resolve: resolve
 	});
 
@@ -206,4 +216,4 @@
 			func.apply(null, args);
 		});
 	};
-})(this, window.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
+})(this, this.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
