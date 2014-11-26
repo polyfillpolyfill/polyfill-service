@@ -6,7 +6,7 @@ it('Should dispatch the focusin event', function(done) {
 		done();
 	});
 	document.body.appendChild(testEl);
-	testEl.dispatchEvent(new Event('focus'));
+	testEl.dispatchEvent(new Event('focusin', {bubbles:true}));
 });
 
 it('Should dispatch the focusout event', function(done) {
@@ -17,5 +17,5 @@ it('Should dispatch the focusout event', function(done) {
 		done();
 	});
 	document.body.appendChild(testEl);
-	testEl.dispatchEvent(new Event('blur'));
+	testEl.dispatchEvent(new Event('focusout', {bubbles:true}));
 });

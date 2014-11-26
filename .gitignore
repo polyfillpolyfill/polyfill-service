@@ -4,3 +4,5 @@ source/*/*.min.js
 source/*/*.min.js.map
 test/results
 /dev.sh
+.idea/
+.editorconfig
