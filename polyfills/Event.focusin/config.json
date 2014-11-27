@@ -1,4 +1,7 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
 		"firefox": "3.6 - *"
 	},
