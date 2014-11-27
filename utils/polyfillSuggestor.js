@@ -6,8 +6,9 @@ var polyfillsUnder1k = polyfillsBySize.filter(function(polyfill){
 });
 
 function hasTest(polyfill){
+	var name = polyfill.name.replace(/\s\(.+\)/, '');
 	for(var i= 0, l=testReport.hasTests.length; i<l; i++){
-		if(testReport.hasTests[i].name === polyfill.name.trim()){
+		if(testReport.hasTests[i].name === name.trim()){
 			return true;
 		}
 	}

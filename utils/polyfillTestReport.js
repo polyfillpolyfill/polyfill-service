@@ -1,8 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var UglifyJS = require('uglify-js');
-
-//
 
 function getAllPolyfills(polyfillRootPath){
 	try{
