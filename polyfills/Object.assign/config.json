@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"es6",
-		"modernizr:es6object"
+		"modernizr:es6object",
+		"default"
 	],
 	"browsers": {
 		"android": "*",

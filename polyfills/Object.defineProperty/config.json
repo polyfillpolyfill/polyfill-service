@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"es5",
-		"modernizr:es5object"
+		"modernizr:es5object",
+		"default"
 	],
 	"browsers": {
 		"firefox": "3.6",

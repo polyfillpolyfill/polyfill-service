@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"caniuse:hashchange",
-		"modernizr:hashchange"
+		"modernizr:hashchange",
+		"default"
 	],
 	"browsers": {
 		"ie": "6 - 7",

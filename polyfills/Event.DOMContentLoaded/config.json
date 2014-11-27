@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"caniuse:domcontentloaded"
+		"caniuse:domcontentloaded",
+		"default"
 	],
 	"browsers": {
 		"ie": "6 - 8"
