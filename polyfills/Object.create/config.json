@@ -1,14 +1,15 @@
 {
-	"aliases": [
-		"es5",
-		"modernizr:es5object"
-	],
-	"browsers": {
-		"ie": "6 - 8",
-		"firefox": "3.6",
-		"safari": "4"
-	},
-	"dependencies": [
-		"Object.defineProperties"
-	]
+  "aliases": [
+    "es5",
+    "modernizr:es5object",
+    "default"
+  ],
+  "browsers": {
+    "ie": "6 - 8",
+    "firefox": "3.6",
+    "safari": "4"
+  },
+  "dependencies": [
+    "Object.defineProperties"
+  ]
 }

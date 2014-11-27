@@ -1,26 +1,26 @@
 {
-	"aliases": [
-		"default",
-		"modernizr:customevent"
-	],
-	"browsers": {
-		"firefox": "3.6 - 10",
-		"ie": "9 - *",
-		"opera": "10 - 11.5",
-		"safari": "4 - *",
-		"chrome": "1 - 14"
-	},
-	"dependencies": [
-		"Event"
-	],
-	"variants": {
-		"ie8": {
-			"browsers": {
-				"ie": "6 - 8"
-			},
-			"dependencies": [
-				"Event"
-			]
-		}
-	}
+  "aliases": [
+    "modernizr:customevent",
+    "default"
+  ],
+  "browsers": {
+    "firefox": "3.6 - 10",
+    "ie": "9 - *",
+    "opera": "10 - 11.5",
+    "safari": "4 - *",
+    "chrome": "1 - 14"
+  },
+  "dependencies": [
+    "Event"
+  ],
+  "variants": {
+    "ie8": {
+      "browsers": {
+        "ie": "6 - 8"
+      },
+      "dependencies": [
+        "Event"
+      ]
+    }
+  }
 }

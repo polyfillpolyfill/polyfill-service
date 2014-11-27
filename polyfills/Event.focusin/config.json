@@ -1,8 +1,11 @@
 {
-	"browsers": {
-		"firefox": "3.6 - *"
-	},
-	"dependencies": [
-		"Event"
-	]
+  "browsers": {
+    "firefox": "3.6 - *"
+  },
+  "dependencies": [
+    "Event"
+  ],
+  "aliases": [
+    "default"
+  ]
 }

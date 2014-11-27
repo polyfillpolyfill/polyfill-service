@@ -1,22 +1,22 @@
 {
-	"aliases": [
-		"default"
-	],
-	"variants": {
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			}
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			}
-		},
-		"ie9": {
-			"browsers": {
-				"ie": "9"
-			}
-		}
-	}
+  "aliases": [
+    "default"
+  ],
+  "variants": {
+    "ie7": {
+      "browsers": {
+        "ie": "6 - 7"
+      }
+    },
+    "ie8": {
+      "browsers": {
+        "ie": "8"
+      }
+    },
+    "ie9": {
+      "browsers": {
+        "ie": "9"
+      }
+    }
+  }
 }

@@ -1,23 +1,23 @@
 {
-	"aliases": [
-		"default"
-	],
-	"variants": {
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			},
-			"dependencies": [
-				"Document"
-			]
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			},
-			"dependencies": [
-				"Document"
-			]
-		}
-	}
+  "aliases": [
+    "default"
+  ],
+  "variants": {
+    "ie7": {
+      "browsers": {
+        "ie": "6 - 7"
+      },
+      "dependencies": [
+        "Document"
+      ]
+    },
+    "ie8": {
+      "browsers": {
+        "ie": "8"
+      },
+      "dependencies": [
+        "Document"
+      ]
+    }
+  }
 }
