@@ -1,15 +1,15 @@
 {
-	"aliases": [
-		"default",
-		"modernizr:classlist"
-	],
-	"browsers": {
-		"ie": "6 - 9",
-		"safari": "4 - 4.1"
-	},
-	"dependencies": [
-		"Object.defineProperty",
-		"DOMTokenList",
-		"Element"
-	]
+  "aliases": [
+    "modernizr:classlist",
+    "default"
+  ],
+  "browsers": {
+    "ie": "6 - 9",
+    "safari": "4 - 4.1"
+  },
+  "dependencies": [
+    "Object.defineProperty",
+    "DOMTokenList",
+    "Element"
+  ]
 }

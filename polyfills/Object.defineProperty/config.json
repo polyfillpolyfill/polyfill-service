@@ -1,23 +1,24 @@
 {
-	"aliases": [
-		"es5",
-		"modernizr:es5object"
-	],
-	"browsers": {
-		"firefox": "3.6",
-		"safari": "4 - 4.1",
-		"ios_saf": "4.3"
-	},
-	"variants": {
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			}
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			}
-		}
-	}
+  "aliases": [
+    "es5",
+    "modernizr:es5object",
+    "default"
+  ],
+  "browsers": {
+    "firefox": "3.6",
+    "safari": "4 - 4.1",
+    "ios_saf": "4.3"
+  },
+  "variants": {
+    "ie7": {
+      "browsers": {
+        "ie": "6 - 7"
+      }
+    },
+    "ie8": {
+      "browsers": {
+        "ie": "8"
+      }
+    }
+  }
 }

@@ -1,17 +1,18 @@
 {
-	"aliases": [
-		"es5",
-		"modernizr:es5object"
-	],
-	"browsers": {
-		"firefox": "3.6",
-		"safari": "4"
-	},
-	"variants": {
-		"ie8": {
-			"browsers": {
-				"ie": "6 - 8"
-			}
-		}
-	}
+  "aliases": [
+    "es5",
+    "modernizr:es5object",
+    "default"
+  ],
+  "browsers": {
+    "firefox": "3.6",
+    "safari": "4"
+  },
+  "variants": {
+    "ie8": {
+      "browsers": {
+        "ie": "6 - 8"
+      }
+    }
+  }
 }

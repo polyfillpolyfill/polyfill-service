@@ -1,17 +1,17 @@
 {
-	"aliases": [
-		"default"
-	],
-	"browsers": {
-		"ie": "6 - 9",
-		"safari": "4 - 5.0"
-	},
-	"variants": {
-		"toggle": {
-			"browsers": {
-				"ie": "10 - *",
-				"safari": "5.1 - 6.0"
-			}
-		}
-	}
+  "aliases": [
+    "default"
+  ],
+  "browsers": {
+    "ie": "6 - 9",
+    "safari": "4 - 5.0"
+  },
+  "variants": {
+    "toggle": {
+      "browsers": {
+        "ie": "10 - *",
+        "safari": "5.1 - 6.0"
+      }
+    }
+  }
 }
