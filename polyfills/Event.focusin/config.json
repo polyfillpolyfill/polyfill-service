@@ -3,7 +3,7 @@
 		"default"
 	],
 	"browsers": {
-		"firefox": "3.6 - *"
+		"firefox": "6 - *"
 	},
 	"dependencies": [
 		"Event"

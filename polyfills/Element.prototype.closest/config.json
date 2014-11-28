@@ -9,7 +9,7 @@
 		"ie": "*",
 		"ie_mob": "*",
 		"ios_saf": "*",
-		"firefox": "*",
+		"firefox": "6 - *",
 		"opera": "*",
 		"op_mini": "*",
 		"op_mob": "*",
