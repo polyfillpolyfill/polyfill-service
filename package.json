@@ -55,5 +55,6 @@
     "grunt-simple-mocha": "^0.4.0",
     "sauce-tunnel": "^2.1.0",
     "wd": "^0.3.8"
-  }
+  },
+  "version": "1.0.2"
 }
