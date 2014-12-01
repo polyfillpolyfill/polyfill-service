@@ -3,12 +3,10 @@
 
 	if(typeof window.Event === 'function') return true;
 
-	var result = true;
 	try{
 		new Event('click');
+		return true;
 	}catch(e){
-		result = false;
+		return false;
 	}
-
-	return result;
-}())
+}());
