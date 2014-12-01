@@ -33,8 +33,8 @@ For an HTTP API reference, see the [hosted service documentation](http://polyfil
 
 Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
-1. Add this repo as a dependency in your package.json
-   e.g. `npm install "git+https://github.com/Financial-Times/polyfill-service.git#master" --save-dev`
+1. Add this repo as a dependency in your package.json  
+   e.g. `npm install "Financial-Times/polyfill-service" --save-dev`
 2. Rebuild your project using `npm install`
 3. Use the API from your code
 
