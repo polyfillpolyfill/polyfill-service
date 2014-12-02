@@ -1,5 +1,5 @@
 (function (global, slice, documentElement, script, messages) {
-	// setImmediate
+
 	global.setImmediate = function setImmediate(func) {
 		/* use strict */
 
@@ -20,7 +20,6 @@
 		return id;
 	};
 
-	// clearImmediate
 	global.clearImmediate = function clearImmediate(id) {
 		if (messages[id]) {
 			documentElement.removeChild(messages[id]);
