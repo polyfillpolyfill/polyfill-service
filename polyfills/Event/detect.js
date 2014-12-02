@@ -9,4 +9,4 @@
 	}catch(e){
 		return false;
 	}
-}());
+}())
