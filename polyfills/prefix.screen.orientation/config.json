@@ -1,0 +1,20 @@
+{
+	"browsers": {
+		"ie": "11",
+		"ie_mob": "11",
+		"firefox": "31 - 36"
+	},
+	"variants": {
+		"moz": {
+			"browsers": {
+				"firefox": "31 - 36"
+			}
+		},
+		"ms": {
+			"browsers": {
+				"ie": "11",
+				"ie_mob": "11"
+			}
+		}
+	}
+}
