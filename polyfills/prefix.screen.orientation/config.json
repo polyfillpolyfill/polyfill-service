@@ -1,5 +1,8 @@
 {
 	"variants": {
+		"default": { 
+			"browers": {}
+		},
 		"moz": {
 			"browsers": {
 				"firefox": "31 - 36"
