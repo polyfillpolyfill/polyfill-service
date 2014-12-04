@@ -1,7 +1,7 @@
 {
 	"variants": {
 		"default": { 
-			"browers": {}
+			"browsers": {}
 		},
 		"moz": {
 			"browsers": {
