@@ -1,12 +1,12 @@
 (function(){
-	if(!'Event' in window) return false;
 
-	if(typeof window.Event === 'function') return true;
+	if (!('Event' in window)) return false;
+	if (typeof window.Event === 'function') return true;
 
-	try{
+	try {
 		new Event('click');
 		return true;
-	}catch(e){
+	} catch(e) {
 		return false;
 	}
 }())

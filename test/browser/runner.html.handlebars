@@ -20,10 +20,6 @@
 
 	<!-- Tests -->
 	<script>
-	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
-	}
-
 	{{#features}}
 	describe('{{feature}}', function() {
 		it('has testing suite', function() {

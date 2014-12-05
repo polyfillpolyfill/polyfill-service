@@ -3,7 +3,7 @@
 // it doesn't cause any problem
 it.skip('should throw exception when instantiated with no parameters', function() {
 	expect(function() {
-		new Event()
+		new Event();
 	}).to.throwException();
 });
 
