@@ -1,5 +1,9 @@
 var element, child;
 
+function nameOf(fn) {
+	return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+}
+
 beforeEach(function () {
 	element = document.createElement('div');
 	child = document.createElement('div');

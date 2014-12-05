@@ -3,6 +3,9 @@ it('has correct instance', function () {
 });
 
 it('has correct name', function () {
+	function nameOf(fn) {
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+	}
 	expect(nameOf(Array.of)).to.be('of');
 });
 
