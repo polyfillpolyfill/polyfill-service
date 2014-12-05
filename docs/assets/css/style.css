@@ -17,9 +17,10 @@ body {
 	white-space: pre-wrap;
 }
 
-.compatibility {
+table {
 	width: 100%;
 }
+
 .compatibility h3 {
 	margin: 0;
 	font-size: 15px;
