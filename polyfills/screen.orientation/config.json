@@ -2,8 +2,8 @@
 	"variants": {
 		"default": { 
 			"browsers": {
-				"ie": "6 - 10",
-				"ie_mob": "8 - 10",
+				"ie": "9 - 10",
+				"ie_mob": "9 - 10",
 				"chrome": "4 - 37",
 				"safari": "*",
 				"ios_saf": "*",
