@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 var browserList = [
 	{
 		browserName: 'chrome',
-		version: 'beta',
+		version: '39',
 		platform: 'Windows 7'
 	},
 	{
@@ -109,12 +109,7 @@ var browserList = [
 	},
 	{
 		browserName: 'chrome',
-		version: '37',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'chrome',
-		version: '32',
+		version: '34',
 		platform: 'Windows 7'
 	},
 	{
@@ -124,22 +119,17 @@ var browserList = [
 	},
 	{
 		browserName: 'firefox',
-		version: 'beta',
+		version: '34',
 		platform: 'Linux'
 	},
 	{
 		browserName: 'firefox',
-		version: '32',
+		version: '33',
 		platform: 'Linux'
 	},
 	{
 		browserName: 'firefox',
-		version: '31',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '25',
+		version: '29',
 		platform: 'Linux'
 	},
 	{
