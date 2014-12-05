@@ -1,0 +1,1 @@
+window.screen.orientation = window.screen.width > window.screen.height ? 'landscape-primary' : 'portrait-primary';

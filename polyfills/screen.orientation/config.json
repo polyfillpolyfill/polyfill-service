@@ -1,0 +1,30 @@
+{
+	"variants": {
+		"default": { 
+			"browsers": {
+				"ie": "6 - 10",
+				"ie_mob": "8 - 10",
+				"chrome": "4 - 37",
+				"safari": "*",
+				"ios_saf": "*",
+				"firefox": "3.6 - 17",
+				"android": "*",
+				"opera": "11 - 24",
+				"op_mob": "*",
+				"op_mini": "*",
+				"bb": "*"
+			}
+		},
+		"moz": {
+			"browsers": {
+				"firefox": "18 - *"
+			}
+		},
+		"ms": {
+			"browsers": {
+				"ie": "11 - *",
+				"ie_mob": "11 - *"
+			}
+		}
+	}
+}
