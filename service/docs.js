@@ -184,6 +184,51 @@ function getCompat() {
 	;
 }
 
+function getSizes(cb) {
+	var sizes = [];
+	var zlib = require('zlib');
+	var PolyfillSet = require('./PolyfillSet');
+	var polyfillservice = require('../lib');
+	var data = require('../docs/assets/compat.json');
+	var firstfeature = data[Object.keys(data)[0]];
+	Object.keys(firstfeature).forEach(function(family) {
+		Object.keys(firstfeature[family]).forEach(function(version) {
+			var minsrc = polyfillservice.getPolyfillString({
+				features: PolyfillSet.fromQueryParam('default').get(),
+				uaString:family+'/'+version,
+				minify: true
+			});
+			sizes.push({
+				family: family,
+				ver: version,
+				minsrc: minsrc,
+				rawbytes: polyfillservice.getPolyfillString({
+					features: PolyfillSet.fromQueryParam('default').get(),
+					uaString:family+'/'+version,
+					minify: false
+				}).length,
+				minbytes: minsrc.length
+			});
+		});
+	});
+
+	// TODO: Do this with some kind of parallelised promisey voodoo
+	var withgzip = [];
+	function addgzip() {
+		var item = sizes.pop();
+		zlib.gzip(item.minsrc, function(err, gzipsrc) {
+			if (!err) item.gzipbytes = gzipsrc.length;
+			withgzip.push(item);
+			if (sizes.length) {
+				addgzip();
+			} else {
+				cb(withgzip);
+			}
+		});
+	}
+	addgzip();
+}
+
 
 function route(req, res, next) {
 	var template, templateSrc;
@@ -213,10 +258,13 @@ function route(req, res, next) {
 			});
 		});
 	} else if (req.params[0] === 'features') {
-		res.send(compatTemplate({
-			section: 'features',
-			compat: getCompat()
-		}));
+		getSizes(function(sizes) {
+			res.send(compatTemplate({
+				section: 'features',
+				compat: getCompat(),
+				sizes: sizes
+			}));
+		});
 	} else if (req.params[0] === 'api') {
 		res.send(apiTemplate({
 			section: 'api'

@@ -6,7 +6,9 @@
 
 		<h1>Features and browsers supported</h1>
 
-		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the feature name.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/master/docs/assets/compat.json'>compat.json</a>.</p>
+		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the Tests link in the feature list.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>, and show only the lowest version tested with a given result (for full test results see <a href='https://github.com/Financial-Times/polyfill-service/blob/master/docs/assets/compat.json'>compat.json</a>.</p>
+
+		<h2 id='feature-list'>Feature list</h2>
 
 
 		<table class='compatibility'>
@@ -45,7 +47,7 @@
 			</tbody>
 		</table>
 
-		<h2 id='understanding-polyfill-sizes'>Understanding polyfill sizes</h2>
+		<h2 id='understanding-polyfill-sizes'>Bundle sizes</h2>
 
 		<p>The table above lists a data size for each polyfill, which is the size of the polyfill including a feature detect, after minification, and before gzip.  Two very important things to remember about these sizes are:</p>
 
@@ -53,6 +55,19 @@
 			<li>Gzip gets more effective the larger the data is, so the more polyfills you include in the bundle you request, the smaller each individual polyfill is likely to be, once the bundle is gzipped.</li>
 			<li>Some polyfills have multiple variants.  In these cases, the size of the largest variant is shown.</li>
 		</ul>
+
+		<p>The following table shows the total size of the polyfill bundle for the <strong>default</strong> set, in all our test browsers:</p>
+
+		<table>
+			<thead>
+				<tr><th>Browser</th><th>Version</th><th>Size (raw)</th><th>Size (min)</th><th>Size (gzip)</th></tr>
+			</thead>
+			<tbody>
+				{{#sizes}}
+				<tr><td>{{family}}</td><td>{{ver}}</td><td>{{dispBytes rawbytes}}</td><td>{{dispBytes minbytes}}</td><td>{{dispBytes gzipbytes}}</td></tr>
+				{{/sizes}}
+			</tbody>
+		</table>
 
 	</div>
 
