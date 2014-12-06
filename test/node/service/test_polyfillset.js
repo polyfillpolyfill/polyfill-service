@@ -2,7 +2,7 @@ var assert = require('assert');
 var PolyfillSet = require('../../../service/PolyfillSet');
 
 describe('PolyfillSet', function () {
-	describe("#fromQueryParam(polyfillList, additionalFlags)", function() {
+	describe(".fromQueryParam(polyfillList, additionalFlags)", function() {
 
 		it("should transform a simple querystring, contaning comma separated values to a list of polyfills with flags", function() {
 			var querystring = "poly1|gated,poly2|always";
