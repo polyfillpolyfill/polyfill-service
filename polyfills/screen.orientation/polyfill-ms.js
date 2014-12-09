@@ -1,0 +1,1 @@
+window.screen.orientation = window.screen.msOrientation;

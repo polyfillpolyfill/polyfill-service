@@ -1,0 +1,1 @@
+/* This polyfill has no generic implementation */
