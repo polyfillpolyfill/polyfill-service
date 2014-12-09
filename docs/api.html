@@ -29,15 +29,21 @@
 					<td><code>features</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>Comma-separated list of features which should be considered when building the polyfill bundle.  Available feature names are directory names in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project, along with aliases defined in the polyfills' config.json files.</p>
-						<p>Each feature may optionally be appended with zero or more of the following flags:</p>
-						<dl>
-							<dt><code>|always</code></dt>
-							<dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
-							<dt><code>|gated</code></dt>
-							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
-						</dl>
-						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.</p>
+						<p>Use this when you only want specific browser features polyfilled. Accepts a comma-seperated list of feature names.</p>
+						<p>For example:</p>
+						<code>?features=Array.from,Array.isArray</code>
+						<p>This will only bundle the two Array polyfills listed when the user-agent requires them. See the <a href="features/">features page</a> for the list of available fetures</a>.</p>
+						<p><strong>Defaults</strong><p>
+						<p>Some of the available polyfills are too large (eg XXX) or used less frequently (eg YYY) so they are not included in the bundle by default. If you want to add features to the default set you can do this...</p>
+						<p><code>?features=default,XXX,YYY</code></p>
+						<p><strong>The <code>always</code> option</strong></p>
+						<p>For example:</p>
+						<p><code>?features=Array.from,Array.isArray|always</code></p>
+						<p>The bundle will always include the <code>Array.from</code> and <code>Array.isArray</code> polyfills, regardless of whether the features are natively supported. i.e. the user-agent is ignored when you add <code>|always</code> to the end.</p>
+						<p><strong>The <code>gated</code> option</p>
+						<p>For example:</p>
+						<p><code>?features=Array.from,Array.isArray|gated</code></p>
+						<p>Like <code>always</code>, this will bundle the polyfills listed regardless of whether the featured a supported natvely. However features checks are also added to the bundle so that the polyfills are applied if there is native suuport.</p>
 					</td>
 				</tr><tr>
 					<td><code>flags</code></td>
