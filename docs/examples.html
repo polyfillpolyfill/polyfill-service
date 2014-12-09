@@ -6,26 +6,48 @@
 
 			<h1>Examples</h1>
 
-			<p>Consider default polyfills, bundle and return those which are required by the current browser:</p>
+			<p>Here are some common recipes and advice for constructing polyfill requests.  This isn't a substitute for the full API reference, and is not intended to show all possible permutations.</p>
 
-			<?prettify?>
-			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js"&gt;&lt;/script&gt;</code></pre>
 
-			<div class='demo' data-src='/v1/polyfill.js'></div>
+			<h2 id='basic'>Basic case</h2>
 
-			<p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent:</p>
+			<p>The simplest use: consider default polyfills, bundle, minfy and and return those which are required by the current browser:</p>
+			<div class='demo' data-src='/v1/polyfill.min.js'></div>
+			<p>This example is minified by including <code>.min</code> in the URL.  All the other examples on this page are not minified, so you can see the metadata included at the top of the response, but any response can be minified by adding <code>.min</code> in the same way as shown above.</p>
 
-			<?prettify?>
-			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always"&gt;&lt;/script&gt;</code></pre>
 
+			<h2 id='aliases'>Using aliases</h2>
+
+			<p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent.  No <code>.min</code> here so the result is not minified.</p>
 			<div class='demo' data-src='/v1/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'></div>
 
-			<p>Consider default polyfills, plus Array.from, but for an IE7 user-agent:</p>
+			<p>If you don't specify any <code>features</code>, 'default' is assumed, but you can also specify default explicitly if you want to combine it with something else.  This example uses the default set plus Array.from:</p>
+			<div class='demo' data-src='/v1/polyfill.js?features=default,Array.from'></div>
 
-			<?prettify?>
-			<pre><code>&lt;script src="//cdn.polyfill.io/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)"&gt;&lt;/script&gt;</code></pre>
+			<p>Use the <code>es6</code> alias to include all features that are part of ECMAScript 6 (for which we currently have polyfills):</p>
+			<div class='demo' data-src='/v1/polyfill.js?features=es6'></div>
 
-			<div class='demo' data-src='/v1/polyfill.min.js?features=default,Array.from&amp;ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
+
+
+			<h2 id='override-ua'>Overriding the user-agent</h2>
+
+			<p>Consider default polyfills, but for an IE7 user-agent:</p>
+			<div class='demo' data-src='/v1/polyfill.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'></div>
+
+
+			<h2 id='flags'>Using flags</h2>
+
+			<p>It's often a good idea to use the <code>gated</code> flag to wrap polyfills in a feature-detect.  Some people prefer not to do this and instead just trust the browser targeting, but to guard against mistargeting, incorrect user agent interpretation, and conflicts with other polyfills that may be on the same page, you can apply feature-detect gating to all features in the bundle at once:</p>
+			<div class='demo' data-src='/v1/polyfill.js?features=Element.prototype.classList,Array.from,Document&amp;gated=1'></div>
+
+			<p>Use the <code>always</code> flag to force a polyfill to be returned regardless of whether the user-agent requires it:</p>
+			<div class='demo' data-src='/v1/polyfill.js?features=Element.prototype.classList|always,Array.from,Document|always&amp;ua=chrome/37'></div>
+			<p>This example uses a useragent override of chrome/37 to demonstrate one of the problems of using <code>always</code>: in Chrome, there is no polyfill for Document that makes sense, because even in those browsers that do need the polyfill, no two browsers use the same one.  As a result, even if you specify <code>always</code> on this feature, you'll get no polyfill in chrome.</p>
+			<p>With both <code>gated</code> and <code>always</code>, you can apply them either at the feature-level using the pipe delimiter or to the whole request using the <code>flags</code> parameter.  This example applies both flags to one feature but neither to the other:
+			<div class='demo' data-src='/v1/polyfill.js?features=Element.prototype.classList|always|gated,Array.from'></div>
+
+			<p>And this example applies both flags to the whole request:</p>
+			<div class='demo' data-src='/v1/polyfill.js?features=Element.prototype.classList,Array.from&amp;flags=always,gated'></div>
 
 		</div>
 
