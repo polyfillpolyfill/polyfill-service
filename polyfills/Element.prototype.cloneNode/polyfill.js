@@ -6,7 +6,7 @@ Element.prototype.cloneNode = function(deep) {
 
 	if ('checked' in this) clone.checked = this.checked;
 
-	if (!deep && clone.innerHTML) {
+	if (deep === false && clone.innerHTML) {
 		clone.innerHTML = '';
 	}
 
