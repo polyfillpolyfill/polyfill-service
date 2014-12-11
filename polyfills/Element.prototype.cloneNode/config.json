@@ -4,12 +4,12 @@
 	],
 	"browsers": {},
 	"variants": {
-		"ie7": {
+		"ie8": {
 			"browsers": {
-				"ie": "6 - 7"
+				"ie": "8"
 			},
 			"dependencies": [
-				"Document"
+				"Element"
 			]
 		}
 	}
