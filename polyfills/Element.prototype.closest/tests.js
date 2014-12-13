@@ -38,8 +38,8 @@ it("should return null if there are no matches", function() {
 
 /* Skipped: This exception is actually thrown by querySelector, and cannot be thrown by
  * the polyfill, so this test will fail in some UAs. For more info see querySelector polyfill.
- *
-it("should throw an error if the selector syntax is incorrect", function() {
+ */
+it.skip("should throw an error if the selector syntax is incorrect", function() {
 	var el = document.body.appendChild(document.createElement("a"));
 
 	expect(function () {
@@ -48,4 +48,4 @@ it("should throw an error if the selector syntax is incorrect", function() {
 
 	document.body.removeChild(el);
 });
- */
+
