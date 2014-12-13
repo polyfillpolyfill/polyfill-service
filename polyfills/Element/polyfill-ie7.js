@@ -67,31 +67,6 @@
 
 	prototype.constructor = Element;
 
-	// <Element>.cloneNode
-	prototype.cloneNode = function cloneNode(deep) {
-		var
-		self = this,
-		nodeName = self.nodeName,
-		element = self.document.createElement(nodeName);
-
-		if (deep) {
-			var
-			outerHTML = self.outerHTML.slice(nodeName.length + 1, - 3 - nodeName.length),
-			regex = /^\s+(.+?)=(['"])(.+?)\2/,
-			matches;
-
-			while (matches = outerHTML.match(regex)) {
-				element.setAttribute(matches[1], matches[3]);
-
-				outerHTML = outerHTML.slice(matches[0].length);
-			}
-
-			element.innerHTML = outerHTML.slice(1);
-		}
-
-		return element;
-	};
-
 	if (!prototype.hasAttribute) {
 		// <Element>.hasAttribute
 		prototype.hasAttribute = function hasAttribute(name) {

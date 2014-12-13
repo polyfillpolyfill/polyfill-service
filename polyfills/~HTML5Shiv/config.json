@@ -1,0 +1,12 @@
+{
+	"browsers": {
+		"ie": "6 - 9",
+		"safari": "4",
+		"firefox": "3"
+	},
+	"aliases": [
+		"default"
+	],
+	"author": "HTML5Shiv contributors (https://github.com/aFarkas/html5shiv/graphs/contributors)",
+	"licence": "MIT"
+}
