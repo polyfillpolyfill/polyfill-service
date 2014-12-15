@@ -5,7 +5,8 @@
 		"firefox": "3"
 	},
 	"aliases": [
-		"default"
+		"default",
+		"html5shiv"
 	],
 	"author": "HTML5Shiv contributors (https://github.com/aFarkas/html5shiv/graphs/contributors)",
 	"licence": "MIT"
