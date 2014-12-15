@@ -1,5 +1,6 @@
+/* The detect and tests for the focusin/focusout polyfill have been shown to not work reliably. See https://github.com/Financial-Times/polyfill-service/issues/213 for details.  The polyfill itself appears to work fine, but events progrmamatically fired during page load while dev tools is open appear not to be observable by the polyfill, which makes the test and detect unreliable.  We're continuing to serve the polyfill as it's pretty simple but would love to get some better insight into this problem. */
 
-it('should dispatch the focusin event', function(done) {
+it.skip('should dispatch the focusin event', function(done) {
 	var testEl = document.createElement('input');
 	testEl.id = 'test1';
 	document.body.appendChild(testEl);
@@ -15,7 +16,7 @@ it('should dispatch the focusin event', function(done) {
 	}
 });
 
-it('should dispatch the focusout event', function(done) {
+it.skip('should dispatch the focusout event', function(done) {
 	var testEl2 = document.createElement('input');
 	testEl2.id = 'test2';
 	document.body.appendChild(testEl2);
