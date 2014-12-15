@@ -1,4 +1,4 @@
-Math.imul = function imul(x) {
+Math.imul = function imul(a, b) {
 	var
 	ah  = (a >>> 16) & 0xffff,
 	al = a & 0xffff,
