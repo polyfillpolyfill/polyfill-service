@@ -1,4 +1,4 @@
-(function (hasOwnProperty) {
+(function () {
 	var
 	// create Element constructor
 	Element = window.Element = window.HTMLElement = new Function('return function Element() {}')(),
@@ -49,7 +49,7 @@
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
 		propertyName = event.propertyName,
-		nonValue = !hasOwnProperty.call(cache, propertyName),
+		nonValue = !cache.hasOwnProperty(propertyName),
 		newValue = prototype[propertyName],
 		oldValue = cache[propertyName],
 		index = -1,
@@ -82,4 +82,4 @@
 
 	// remove sandboxed iframe
 	document.removeChild(vbody);
-})(Object.prototype.hasOwnProperty);
+})();
