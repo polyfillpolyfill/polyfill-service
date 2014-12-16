@@ -10,7 +10,7 @@
 	// use sandboxed iframe to replicate Element functionality
 	frameDocument = frame.contentWindow.document,
 	prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
-	cache = Element.__prototype__ = {},
+	cache = {},
 
 	// getter to assist in Object.defineProperty({ set: Function });
 	Getter = Element.__getter__ = function Getter(getter) {
