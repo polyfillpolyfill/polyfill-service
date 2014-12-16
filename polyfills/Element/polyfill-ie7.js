@@ -1,7 +1,7 @@
 (function (hasOwnProperty) {
 	var
 	// create Element constructor
-	Element = window.Element = window.HTMLElement = function Element() {},
+	Element = window.Element = window.HTMLElement = new Function('return function Element() {}')(),
 
 	// generate sandboxed iframe
 	vbody = document.appendChild(document.createElement('body')),
