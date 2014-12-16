@@ -1,1 +1,1 @@
-HTMLDocument
+"HTMLDocument" in window

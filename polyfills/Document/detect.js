@@ -1,1 +1,1 @@
-Document
+"Document" in window
