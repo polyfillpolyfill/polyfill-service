@@ -5,6 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{feature}} - Mocha test suite for polyfill-service</title>
 
+	{{#loadPolyfill}}
+		<!-- Code under test -->
+		<script src='/v1/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
+	{{/loadPolyfill}}
+
 	<!-- Test and expectation libraries -->
 	<link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
 	<script src="/test/libs/mocha/mocha.js"></script>
@@ -12,11 +17,6 @@
 
 	<!-- Initalise Mocha (overridden if running under Phantom with grunt-mocha) -->
 	<script>mocha.setup('bdd')</script>
-
-	{{#loadPolyfill}}
-		<!-- Code under test -->
-		<script src='/v1/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
-	{{/loadPolyfill}}
 
 	<!-- Tests -->
 	<script>
