@@ -10,6 +10,7 @@
 		"chrome": "*",
 		"firefox": "1 - 33",
 		"ie": "*",
+		"ie_mob": "*",
 		"ios_chr": "*",
 		"ios_saf": "*",
 		"opera": "*",

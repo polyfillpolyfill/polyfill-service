@@ -29,11 +29,11 @@
 					<td><code>features</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>Comma-separated list of features which should be considered when building the polyfill bundle.  Available feature names are directory names in the <a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills'>polyfills</a> directory of the project, along with aliases defined in the polyfills' config.json files.</p>
-						<p>Each feature may optionally be appended with zero or more of the following flags:</p>
+						<p>List of browser features to polyfill. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v1/docs/features/'>Browsers and Features</a> page, though group aliases such as 'es5' and 'es6' are also accepted (these are defined in the polyfills' config.json files - [here's an example](https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Array.from/config.json)).</p>
+						<p>Each feature name may optionally be appended with zero or more of the following flags:</p>
 						<dl>
 							<dt><code>|always</code></dt>
-							<dd>Polyfill should be included regardless of whether it is required by the user-agent making the request</dd>
+							<dd>Polyfill should be included regardless of whether it is required by the user-agent making the request.  If there are multiple browser-specific variants of the polyfill, the default one will be used for browser that doesn't actually require the polyfill.  In some cases where the only way of implementing a polyfill is to use browser-specific proprietary technology, the default variant may be empty.</dd>
 							<dt><code>|gated</code></dt>
 							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
 						</dl>
@@ -42,11 +42,14 @@
 				</tr><tr>
 					<td><code>flags</code></td>
 					<td>Querystring</td>
-					<td>Comma separated list of flags to apply to <strong>all</strong> features.  For available options see <code>features</code> parameter.  Equivalent to adding <code>|<em>flagname</em></code> to every feature in the <code>features</code> argument.</td>
+					<td><p>Comma separated list of flags to apply to <strong>all</strong> features.  For available options see the list in the <code>features</code> parameter documented above.  Equivalent to adding <code>|<em>flagname</em></code> to every feature in the <code>features</code> argument.</p><p>For example, <code>&amp;flags=always,gated</code> will apply both the <code>always</code> and the <code>gated</code> flag to all features requested in the <code>features</code> parameter.</td>
 				</tr><tr>
 					<td><code>ua</code></td>
 					<td>Querystring</td>
-					<td>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a false <code>User-Agent</code> header.</td>
+					<td>
+						<p>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a inaccurate <code>User-Agent</code> header (the User-Agent header should properly be set to a string identifying the client you are using to make the request - for server side requests that might be cURL, for example).</p>
+						<p>Normally, responses from the service will Vary on User-Agent. Setting the <code>ua</code> parameter means responses no longer differ between user agents, so the <code>Vary</code> header will not list User-Agent as a vary value.</p>
+					</td>
 				</tr><tr>
 					<td><code>callback</code></td>
 					<td>Querystring</td>
