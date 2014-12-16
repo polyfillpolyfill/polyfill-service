@@ -20,7 +20,7 @@
 	},
 
 	// polyfill Element.prototype on an element
-	shiv = Element.__shiv__ = function (element, deep) {
+	shiv = function (element, deep) {
 		var
 		childNodes = element.childNodes || [],
 		index = -1,
@@ -43,7 +43,8 @@
 		return element;
 	},
 
-	elements = document.getElementsByTagName('*');
+	elements = document.getElementsByTagName('*'),
+	nativeCreateElement = document.createElement;
 
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
@@ -73,6 +74,11 @@
 			return this.getAttribute(name) !== null;
 		};
 	}
+
+	document.createElement = function createElement(nodeName) {
+		var element = nativeCreateElement(String(nodeName).toLowerCase());
+		return shiv(element);
+	};
 
 	// remove sandboxed iframe
 	document.removeChild(vbody);
