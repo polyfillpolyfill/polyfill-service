@@ -44,7 +44,8 @@
 	},
 
 	elements = document.getElementsByTagName('*'),
-	nativeCreateElement = document.createElement;
+	nativeCreateElement = document.createElement,
+	interval;
 
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
@@ -75,6 +76,21 @@
 		};
 	}
 
+	// Apply Element prototype to the pre-existing DOM as soon as the body element appears.
+	function bodyCheck(e) {
+		if (document.body && !document.body.prototype && /(complete|interactive)/.test(document.readyState)) {
+			shiv(document, true);
+			if (interval && document.body.prototype) clearTimeout(interval);
+			return (!!document.body.prototype);
+		}
+		return false;
+	}
+	if (!bodyCheck(true)) {
+		document.onreadystatechange = bodyCheck;
+		interval = setInterval(bodyCheck, 1);
+	}
+
+	// Apply to any new elements created after load
 	document.createElement = function createElement(nodeName) {
 		var element = nativeCreateElement(String(nodeName).toLowerCase());
 		return shiv(element);
