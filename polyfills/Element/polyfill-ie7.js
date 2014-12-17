@@ -1,7 +1,7 @@
-(function (hasOwnProperty) {
+(function () {
 	var
 	// create Element constructor
-	Element = window.Element = window.HTMLElement = function Element() {},
+	Element = window.Element = window.HTMLElement = new Function('return function Element() {}')(),
 
 	// generate sandboxed iframe
 	vbody = document.appendChild(document.createElement('body')),
@@ -10,7 +10,7 @@
 	// use sandboxed iframe to replicate Element functionality
 	frameDocument = frame.contentWindow.document,
 	prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
-	cache = Element.__prototype__ = {},
+	cache = {},
 
 	// getter to assist in Object.defineProperty({ set: Function });
 	Getter = Element.__getter__ = function Getter(getter) {
@@ -20,7 +20,7 @@
 	},
 
 	// polyfill Element.prototype on an element
-	shiv = Element.__shiv__ = function (element, deep) {
+	shiv = function (element, deep) {
 		var
 		childNodes = element.childNodes || [],
 		index = -1,
@@ -43,12 +43,14 @@
 		return element;
 	},
 
-	elements = document.getElementsByTagName('*');
+	elements = document.getElementsByTagName('*'),
+	nativeCreateElement = document.createElement,
+	interval;
 
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
 		propertyName = event.propertyName,
-		nonValue = !hasOwnProperty.call(cache, propertyName),
+		nonValue = !cache.hasOwnProperty(propertyName),
 		newValue = prototype[propertyName],
 		oldValue = cache[propertyName],
 		index = -1,
@@ -67,31 +69,6 @@
 
 	prototype.constructor = Element;
 
-	// <Element>.cloneNode
-	prototype.cloneNode = function cloneNode(deep) {
-		var
-		self = this,
-		nodeName = self.nodeName,
-		element = self.document.createElement(nodeName);
-
-		if (deep) {
-			var
-			outerHTML = self.outerHTML.slice(nodeName.length + 1, - 3 - nodeName.length),
-			regex = /^\s+(.+?)=(['"])(.+?)\2/,
-			matches;
-
-			while (matches = outerHTML.match(regex)) {
-				element.setAttribute(matches[1], matches[3]);
-
-				outerHTML = outerHTML.slice(matches[0].length);
-			}
-
-			element.innerHTML = outerHTML.slice(1);
-		}
-
-		return element;
-	};
-
 	if (!prototype.hasAttribute) {
 		// <Element>.hasAttribute
 		prototype.hasAttribute = function hasAttribute(name) {
@@ -99,6 +76,26 @@
 		};
 	}
 
+	// Apply Element prototype to the pre-existing DOM as soon as the body element appears.
+	function bodyCheck(e) {
+		if (document.body && !document.body.prototype && /(complete|interactive)/.test(document.readyState)) {
+			shiv(document, true);
+			if (interval && document.body.prototype) clearTimeout(interval);
+			return (!!document.body.prototype);
+		}
+		return false;
+	}
+	if (!bodyCheck(true)) {
+		document.onreadystatechange = bodyCheck;
+		interval = setInterval(bodyCheck, 1);
+	}
+
+	// Apply to any new elements created after load
+	document.createElement = function createElement(nodeName) {
+		var element = nativeCreateElement(String(nodeName).toLowerCase());
+		return shiv(element);
+	};
+
 	// remove sandboxed iframe
 	document.removeChild(vbody);
-})(Object.prototype.hasOwnProperty);
+})();

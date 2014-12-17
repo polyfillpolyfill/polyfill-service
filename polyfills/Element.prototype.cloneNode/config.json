@@ -2,14 +2,15 @@
 	"aliases": [
 		"default"
 	],
-	"browsers": {
-		"ie": "6 - 7"
-	},
+	"browsers": {},
 	"variants": {
 		"ie8": {
 			"browsers": {
 				"ie": "8"
-			}
+			},
+			"dependencies": [
+				"Element"
+			]
 		}
 	}
 }

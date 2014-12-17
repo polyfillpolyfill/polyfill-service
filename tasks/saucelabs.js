@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 					var leader = (new Date()).toString() + ' ' + conf.browserName + "/" + conf.version + ": ";
 					var args = Array.prototype.slice.call(arguments);
 					args.unshift(leader);
-					console.log.apply(null, args);
+					grunt.log.writeln.apply(null, args);
 				}
 
 				log("started job");
@@ -169,14 +169,14 @@ module.exports = function(grunt) {
 			var file = path.join(testResultsPath, 'results.json');
 			fs.writeFile(file, JSON.stringify(data, null, 2), function(err) {
 				if (err) {
-					console.log(err);
+					grunt.warn(err);
 					throw err;
 				}
 			});
 		}
 
 
-
+		grunt.log.writeln("travis_fold:start:Sauce test progress");
 		options.browsers.forEach(function(conf) {
 			conf['name'] = options.name;
 			conf['record-video'] = options.video;
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
 			Object.keys(options.urls).forEach(function(urlName) {
 				var url = options.urls[urlName];
 				batch.push(newTestJob(url, urlName, conf));
-				console.log('Adding batch job for '+options.name+', '+urlName+' on '+conf.browserName+' '+conf.version);
+				grunt.log.writeln('Adding batch job for '+options.name+', '+urlName+' on '+conf.browserName+' '+conf.version);
 			});
 		});
 
@@ -203,8 +203,8 @@ module.exports = function(grunt) {
 				}
 
 				batch.on('progress', function(e){
-					console.log("Pending: " + e.pending);
-					console.log("Job Completed: " + jobsCalledDone.length);
+					grunt.log.writeln("Pending: " + e.pending);
+					grunt.log.writeln("Job Completed: " + jobsCalledDone.length);
 				});
 
 				grunt.log.writeln("Starting test jobs");
@@ -215,6 +215,7 @@ module.exports = function(grunt) {
 						var passingUAs = [];
 						var failed = false;
 						grunt.log.writeln('Sauce tunnel stopped');
+						grunt.log.writeln("travis_fold:end:Sauce test progress");
 						if (err) {
 							gruntDone(err);
 							return;
@@ -251,7 +252,7 @@ module.exports = function(grunt) {
 							};
 						});
 						if (passingUAs.length) {
-							console.log('No failures in: '+passingUAs.join(', '));
+							grunt.log.writeln('No failures in: '+passingUAs.join(', '));
 						}
 
 						writeResultsFile(testResults);

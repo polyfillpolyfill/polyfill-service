@@ -23,24 +23,29 @@ function createEndpoint(type, polyfillio) {
 		var features = {};
 		polyfillio.getAllPolyfills().forEach(function(featureName) {
 			if (!req.query.feature || req.query.feature === featureName) {
-				features[featureName] = {flags: (mode !== 'targeted') ?  ['always'] : [] };
+				features[featureName] = {flags:[]};
 			}
 		});
-		features = polyfillio.getPolyfills({
-			uaString: uaString,
-			features: features
-		});
+
+		// If in targeted mode, reduce the set of features to those for which polyfills are available, otherwise pretend all of them apply
+		if (mode === 'targeted') {
+			targeted = polyfillio.getPolyfills({ uaString: uaString, features: require('util')._extend({}, features) });
+		} else {
+			targeted = features;
+		}
 
 		Object.keys(features).forEach(function(featureName) {
 			var polyfillPath = path.join(base, featureName);
 			var detectFile = path.join(polyfillPath, '/detect.js');
 			var testFile = path.join(polyfillPath, '/tests.js');
 
-			polyfilldata.push({
-				feature: featureName,
-				detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
-				tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
-			});
+			if (targeted[featureName]) {
+				polyfilldata.push({
+					feature: featureName,
+					detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
+					tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
+				});
+			}
 		});
 
 		res.set('Cache-Control', 'no-cache');

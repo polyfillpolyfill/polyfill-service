@@ -170,7 +170,7 @@ var browserList = [
 	{
 		browserName: 'internet explorer',
 		version: '11',
-		platform: 'Windows 7'
+		platform: 'Windows 8.1'
 	},
 	{
 		browserName: 'iphone',

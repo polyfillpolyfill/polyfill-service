@@ -1,31 +1,38 @@
-(function (hasOwnProperty, objectEnumerables) {
-	Object.keys = function keys(object) {
-		if (object !== Object(object)) {
-			throw new TypeError(object + ' is not an object');
+Object.keys = (function() {
+	'use strict';
+	var hasOwnProperty = Object.prototype.hasOwnProperty,
+	hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+	dontEnums = [
+		'toString',
+		'toLocaleString',
+		'valueOf',
+		'hasOwnProperty',
+		'isPrototypeOf',
+		'propertyIsEnumerable',
+		'constructor'
+	],
+	dontEnumsLength = dontEnums.length;
+
+	return function(obj) {
+		if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+			throw new TypeError('Object.keys called on non-object');
 		}
 
-		var buffer = [], key;
+		var result = [], prop, i;
 
-		for (key in object) {
-			if (hasOwnProperty.call(object, key)) {
-				buffer.push(key);
+		for (prop in obj) {
+			if (hasOwnProperty.call(obj, prop)) {
+				result.push(prop);
 			}
 		}
 
-		for (key in objectEnumerables) {
-			if (hasOwnProperty.call(object, key.slice(1))) {
-				buffer.push(key);
+		if (hasDontEnumBug) {
+			for (i = 0; i < dontEnumsLength; i++) {
+				if (hasOwnProperty.call(obj, dontEnums[i])) {
+					result.push(dontEnums[i]);
+				}
 			}
 		}
-
-		return buffer;
+		return result;
 	};
-})(Object.prototype.hasOwnProperty, {
-	_constructor: 0,
-	_hasOwnProperty: 0,
-	_isPrototypeOf: 0,
-	_propertyIsEnumerable: 0,
-	_toString: 0,
-	_toLocaleString: 0,
-	_valueOf: 0
-});
+}());
