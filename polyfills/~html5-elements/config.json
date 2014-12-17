@@ -1,8 +1,7 @@
 {
 	"browsers": {
 		"ie": "6 - 9",
-		"safari": "4",
-		"firefox": "3"
+		"safari": "4"
 	},
 	"aliases": [
 		"default",
