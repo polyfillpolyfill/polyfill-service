@@ -21,14 +21,6 @@
 				"Document",
 				"Element"
 			]
-		},
-		"firefox5": {
-			"browsers": {
-				"firefox": "3.6 - 5"
-			},
-			"dependencies": [
-				"Window"
-			]
 		}
 	}
 }
