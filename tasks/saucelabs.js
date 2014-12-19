@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 	var UA = require('../lib/UA');
 
 	var pollTick = 1000;
-	var retryLimit = 10;
+	var retryLimit = 50;
 	var sauceConnectPort = 4445;
 
 	var jobsCalledDone = [];
@@ -44,6 +44,7 @@ module.exports = function(grunt) {
 
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
+		batch.throws(false);
 
 		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 
@@ -93,7 +94,7 @@ module.exports = function(grunt) {
 									if (retryCount > retryLimit) {
 										log('Timed out');
 										browser.quit();
-										done(null, { status: 'failed', uaString: (typeof data == 'object') ? (data.uaString || '??') : '??', id: browser.sessionID, name: conf.browserName, version: conf.version, failed: '??', total: '??'});
+										done(new Error('Timeout waiting on '+conf.browserName+'/'+conf.version));
 									} else {
 										if (typeof data === 'number' && data !== remainingCount) {
 											remainingCount = data;
@@ -101,6 +102,7 @@ module.exports = function(grunt) {
 											log(remainingCount + ' test pages remaining');
 										} else {
 											retryCount++;
+											console.log(data);
 											log('no changes, waiting');
 										}
 										setTimeout(waitOnResults, pollTick);
@@ -159,7 +161,7 @@ module.exports = function(grunt) {
 								throw err;
 							}
 						}
-						cb(filedata ? JSON.parse(filedata) : {});
+						cb((filedata && filedata.length) ? JSON.parse(filedata) : {});
 					});
 				}
 			});
@@ -167,7 +169,9 @@ module.exports = function(grunt) {
 
 		function writeResultsFile(data) {
 			var file = path.join(testResultsPath, 'results.json');
-			fs.writeFile(file, JSON.stringify(data, null, 2), function(err) {
+			var output = JSON.stringify(data, null, 2);
+			console.log('Wrote '+output.length+' bytes to result file');
+			fs.writeFile(file, output, function(err) {
 				if (err) {
 					grunt.warn(err);
 					throw err;
@@ -177,22 +181,29 @@ module.exports = function(grunt) {
 
 
 		grunt.log.writeln("travis_fold:start:Sauce test progress");
-		options.browsers.forEach(function(conf) {
-			conf['name'] = options.name;
-			conf['record-video'] = options.video;
-			conf['record-screenshots'] = options.screenshots;
-			conf['tunnel-identifier'] = tunnelId;
-			if (options.tags) conf['tags'] = options.tags;
-			if (options.build) conf['build'] = options.build;
-
-			Object.keys(options.urls).forEach(function(urlName) {
-				var url = options.urls[urlName];
-				batch.push(newTestJob(url, urlName, conf));
-				grunt.log.writeln('Adding batch job for '+options.name+', '+urlName+' on '+conf.browserName+' '+conf.version);
-			});
-		});
-
+		grunt.log.writeln("Sauce job name: "+options.name);
 		readResultsFile(function(testResults) {
+
+			options.browsers.forEach(function(conf) {
+				conf['name'] = options.name;
+				conf['record-video'] = options.video;
+				conf['record-screenshots'] = options.screenshots;
+				conf['tunnel-identifier'] = tunnelId;
+				if (options.tags) conf['tags'] = options.tags;
+				if (options.build) conf['build'] = options.build;
+
+				Object.keys(options.urls).forEach(function(urlName) {
+					var url = options.urls[urlName], state;
+					try {
+						testResults[UA.normalizeName(conf.browserName)][conf.version][urlName].length;
+						state = 'skipped - data already in result file';
+					} catch(e) {
+						batch.push(newTestJob(url, urlName, conf));
+						state = 'queued';
+					}
+					grunt.log.writeln(conf.browserName+' '+conf.version+' ('+urlName+' mode): '+state);
+				});
+			});
 
 			grunt.log.writeln('Opening tunnel to Sauce Labs');
 			tunnel.start(function(status) {
@@ -202,15 +213,36 @@ module.exports = function(grunt) {
 					gruntDone(status);
 				}
 
-				batch.on('progress', function(e){
-					grunt.log.writeln("Pending: " + e.pending);
-					grunt.log.writeln("Job Completed: " + jobsCalledDone.length);
-				});
-
 				grunt.log.writeln("Starting test jobs");
 
+				batch.on('progress', function(e) {
+					if (e.value.browserName) {
+						var browserName = UA.normalizeName(e.value.browserName) || e.value.browserName;
+
+						if (!testResults[browserName]) {
+							testResults[browserName] = {};
+						}
+
+						if (!testResults[browserName][e.value.version]) {
+							testResults[browserName][e.value.version]	= {};
+						}
+
+						testResults[browserName][e.value.version][e.value.urlName] = {
+							passed: e.value.results.passed,
+							failed: e.value.results.failed,
+							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
+							testedSuites: e.value.results.testedSuites
+						};
+						writeResultsFile(testResults);
+					}
+
+					// Pending count appears to have an off by one error
+					grunt.log.writeln("Progress: " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' remaining)');
+				});
+
+
 				batch.end(function(err, jobresults) {
-					grunt.log.writeln('Jobs complete');
+					grunt.log.writeln('All jobs complete');
 					tunnel.stop(function() {
 						var passingUAs = [];
 						var failed = false;
@@ -222,6 +254,10 @@ module.exports = function(grunt) {
 						}
 						grunt.log.writeln("Failed tests:")
 						jobresults.forEach(function(job) {
+							if (!job.results) {
+								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
+								return true;
+							}
 							if (job.results.failed && job.results.failingSuites) {
 								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')')
 								Object.keys(job.results.failingSuites).forEach(function(feature) {
@@ -233,29 +269,13 @@ module.exports = function(grunt) {
 							} else {
 								passingUAs.push(job.browserName+'/'+job.version);
 							}
-
-							var browserName = UA.normalizeName(job.browserName) || job.browserName;
-
-							if (!testResults[browserName]) {
-								testResults[browserName] = {};
-							}
-
-							if (!testResults[browserName][job.version]) {
-								testResults[browserName][job.version]	= {};
-							}
-
-							testResults[browserName][job.version][job.urlName] = {
-								passed: job.results.passed,
-								failed: job.results.failed,
-								failingSuites: job.results.failingSuites ? Object.keys(job.results.failingSuites) : [],
-								testedSuites: job.results.testedSuites
-							};
 						});
-						if (passingUAs.length) {
-							grunt.log.writeln('No failures in: '+passingUAs.join(', '));
+						if (!failed) {
+							grunt.log.writeln(' - None!');
 						}
-
-						writeResultsFile(testResults);
+						if (passingUAs.length) {
+							grunt.log.writeln('Browsers tested with no failures: '+passingUAs.join(', '));
+						}
 
 						process.nextTick(function() {
 
