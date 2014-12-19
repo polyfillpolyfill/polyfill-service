@@ -1,30 +1,27 @@
 var fs = require('fs'),
 	path = require('path'),
-	request = require('request'),
+	request = require('request-promise'),
 	Handlebars = require('handlebars'),
-	Moment = require('moment');
+	Moment = require('moment'),
+	Q = require('q');
 
-var cache = {fastly:{}, outages:{}, respTimes:{}},
+var cache = {},
 	cachettl = 1800;
 
-var indexTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/index.html'), {encoding: 'UTF-8'}),
-	indexTemplate    = Handlebars.compile(indexTemplateSrc);
+// Pre-cache page templates and partials
+var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
+	map[temName] = Handlebars.compile(
+		fs.readFileSync(path.join(__dirname, '/../docs/' + temName + '.html'), {encoding: 'UTF-8'})
+	);
+	return map;
+}, {});
+['header', 'footer', 'nav'].forEach(function(partialName) {
+	Handlebars.registerPartial(partialName, Handlebars.compile(
+		fs.readFileSync(path.join(__dirname, '/../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
+	));
+});
 
-var usageTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/usage.html'), {encoding: 'UTF-8'}),
-	usageTemplate    = Handlebars.compile(usageTemplateSrc);
-
-var compatTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/compat.html'), {encoding: 'UTF-8'}),
-	compatTemplate    = Handlebars.compile(compatTemplateSrc);
-
-var apiTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/api.html'), {encoding: 'UTF-8'}),
-	apiTemplate    = Handlebars.compile(apiTemplateSrc);
-
-var examplesTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/examples.html'), {encoding: 'UTF-8'}),
-    examplesTemplate = Handlebars.compile(examplesTemplateSrc);
-
-var contribTemplateSrc = fs.readFileSync(path.join(__dirname, '/../docs/contributing.html'), {encoding: 'UTF-8'}),
-    contribTemplate = Handlebars.compile(contribTemplateSrc);
-
+// Register template helpers
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
@@ -45,37 +42,16 @@ Handlebars.registerHelper('dispBytes', function(bytes) {
 	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
 });
 
-Handlebars.registerPartial('header', Handlebars.compile(
-	fs.readFileSync(path.join(__dirname, '/../docs/header.html'), {encoding: 'UTF-8'})
-));
-Handlebars.registerPartial('footer', Handlebars.compile(
-	fs.readFileSync(path.join(__dirname, '/../docs/footer.html'), {encoding: 'UTF-8'})
-));
-Handlebars.registerPartial('nav', Handlebars.compile(
-	fs.readFileSync(path.join(__dirname, '/../docs/nav.html'), {encoding: 'UTF-8'})
-));
 
-function getData(type, cb) {
-	var data = [];
-	if (cache[type].data && cache[type].timeLoaded > ((new Date()).getTime() - (cachettl*1000)) ) {
-		return cb(cache[type].data);
-	}
-	function saveAndReturn(data) {
-		cache[type] = {
-			timeLoaded: (new Date()).getTime(),
-			data: data
-		};
-		cb(cache[type].data);
-	}
-	if (type === 'fastly') {
-		request({
-			url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
-			headers: { 'fastly-key': process.env.FASTLY_API_KEY },
-		}, function (err, response, body) {
-			var byhour = [], rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-			try {
-				data = JSON.parse(body);
-				if (!data.data) data.data = [];
+function getData(type) {
+	var handlers = {
+		fastly: function() {
+			return request({
+				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
+				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
+			}).then(function (response) {
+				var byhour = [], rollup = {requests:0, hits:0, miss:0, bandwidth:0};
+				data = (response && JSON.parse(response)) || {data:[]};
 				byhour = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
@@ -83,59 +59,95 @@ function getData(type, cb) {
 					rollup.bandwidth += result.bandwidth;
 					return {date: result.start_time, requests:result.requests, hits:result.hits, miss:result.miss};
 				});
-			} catch (er) { }
-			saveAndReturn({byhour:byhour, rollup:rollup});
-		});
-	} else if (type === 'respTimes') {
-		var to = ((new Date()).getTime()/1000) - 3600;
-		var from = to - (60*60*24*7);
-		request({
-			url: 'https://api.pingdom.com/api/2.0/summary.performance/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&resolution=hour',
-			headers: {
-				'app-key': process.env.PINGDOM_API_KEY,
-				'Account-Email': process.env.PINGDOM_ACCOUNT
-			},
-			auth: {
-				user: process.env.PINGDOM_USERNAME,
-				pass: process.env.PINGDOM_PASSWORD
-			}
-		}, function (err, response, body) {
-			try {
-				data = JSON.parse(body);
-			} catch (er) {
-				data = [];
-			}
-			if (!data.summary) data = {summary:{hours:[]}};
-			saveAndReturn(data.summary.hours.map(function(result) {
-				return {date: result.starttime, respTime: result.avgresponse};
+				return {byhour:byhour, rollup:rollup};
+			});
+		},
+		respTimes: function() {
+			var to = ((new Date()).getTime()/1000) - 3600;
+			var from = to - (60*60*24*7);
+			return request({
+				url: 'https://api.pingdom.com/api/2.0/summary.performance/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&resolution=hour',
+				headers: {
+					'app-key': process.env.PINGDOM_API_KEY,
+					'Account-Email': process.env.PINGDOM_ACCOUNT
+				},
+				auth: {
+					user: process.env.PINGDOM_USERNAME,
+					pass: process.env.PINGDOM_PASSWORD
+				}
+			}).then(function (response) {
+				data = (response && JSON.parse(response)) || [];
+				if (!data.summary) data = {summary:{hours:[]}};
+				return data.summary.hours.map(function(result) {
+					return {date: result.starttime, respTime: result.avgresponse};
+				});
+			});
+		},
+		outages: function() {
+			var to = ((new Date()).getTime()/1000) - 3600;
+			var from = to - (60*60*24*365*5);
+			return request({
+				url: 'https://api.pingdom.com/api/2.0/summary.outage/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&order=desc',
+				headers: {
+					'app-key': process.env.PINGDOM_API_KEY,
+					'Account-Email': process.env.PINGDOM_ACCOUNT
+				},
+				auth: {
+					user: process.env.PINGDOM_USERNAME,
+					pass: process.env.PINGDOM_PASSWORD
+				}
+			}).then(function (response) {
+				data = (response && JSON.parse(response)) || {summary:{states:[]}};
+				return data.summary.states.filter(function(result) {
+					return (result.status !== 'unknown');
+				}).map(function(result) {
+					return {date:result.timefrom, status: result.status.toUpperCase(), duration: result.timeto-result.timefrom};
+				}).slice(0,5);
+			});
+		},
+		sizes: function() {
+			var sizes = [];
+			var zlib = require('zlib');
+			var PolyfillSet = require('./PolyfillSet');
+			var polyfillservice = require('../lib');
+			var data = require('../docs/assets/compat.json');
+			var firstfeature = data[Object.keys(data)[0]];
+			Object.keys(firstfeature).forEach(function(family) {
+				Object.keys(firstfeature[family]).forEach(function(version) {
+					var minsrc = polyfillservice.getPolyfillString({
+						features: PolyfillSet.fromQueryParam('default').get(),
+						uaString:family+'/'+version,
+						minify: true
+					});
+					sizes.push({
+						family: family,
+						ver: version,
+						minsrc: minsrc,
+						rawbytes: polyfillservice.getPolyfillString({
+							features: PolyfillSet.fromQueryParam('default').get(),
+							uaString:family+'/'+version,
+							minify: false
+						}).length,
+						minbytes: minsrc.length
+					});
+				});
+			});
+			return Q.all(sizes.map(function(item) {
+				var def = Q.defer();
+				zlib.gzip(item.minsrc, function(err, gzipsrc) {
+					if (!err) item.gzipbytes = gzipsrc.length;
+					def.resolve(item);
+				});
+				return def.promise;
 			}));
-		});
-	} else if (type === 'outages') {
-		var to = ((new Date()).getTime()/1000) - 3600;
-		var from = to - (60*60*24*365*5);
-		request({
-			url: 'https://api.pingdom.com/api/2.0/summary.outage/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&order=desc',
-			headers: {
-				'app-key': process.env.PINGDOM_API_KEY,
-				'Account-Email': process.env.PINGDOM_ACCOUNT
-			},
-			auth: {
-				user: process.env.PINGDOM_USERNAME,
-				pass: process.env.PINGDOM_PASSWORD
-			}
-		}, function (err, response, body) {
-			try {
-				data = JSON.parse(body);
-			} catch (er) {
-				data = [];
-			}
-			if (!data.summary) data = {summary:{states:[]}};
-			saveAndReturn(data.summary.states.filter(function(result) {
-				return (result.status !== 'unknown');
-			}).map(function(result) {
-				return {date:result.timefrom, status: result.status.toUpperCase(), duration: result.timeto-result.timefrom};
-			}).slice(0,5));
-		});
+		}
+	};
+
+	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
+		return cache[type].promise;
+	} else {
+		cache[type] = {creationTime: (new Date()).getTime()};
+		return cache[type].promise = handlers[type]();
 	}
 }
 
@@ -184,58 +196,13 @@ function getCompat() {
 	;
 }
 
-function getSizes(cb) {
-	var sizes = [];
-	var zlib = require('zlib');
-	var PolyfillSet = require('./PolyfillSet');
-	var polyfillservice = require('../lib');
-	var data = require('../docs/assets/compat.json');
-	var firstfeature = data[Object.keys(data)[0]];
-	Object.keys(firstfeature).forEach(function(family) {
-		Object.keys(firstfeature[family]).forEach(function(version) {
-			var minsrc = polyfillservice.getPolyfillString({
-				features: PolyfillSet.fromQueryParam('default').get(),
-				uaString:family+'/'+version,
-				minify: true
-			});
-			sizes.push({
-				family: family,
-				ver: version,
-				minsrc: minsrc,
-				rawbytes: polyfillservice.getPolyfillString({
-					features: PolyfillSet.fromQueryParam('default').get(),
-					uaString:family+'/'+version,
-					minify: false
-				}).length,
-				minbytes: minsrc.length
-			});
-		});
-	});
-
-	// TODO: Do this with some kind of parallelised promisey voodoo
-	var withgzip = [];
-	function addgzip() {
-		var item = sizes.pop();
-		zlib.gzip(item.minsrc, function(err, gzipsrc) {
-			if (!err) item.gzipbytes = gzipsrc.length;
-			withgzip.push(item);
-			if (sizes.length) {
-				addgzip();
-			} else {
-				cb(withgzip);
-			}
-		});
-	}
-	addgzip();
-}
-
 
 function route(req, res, next) {
-	var template, templateSrc;
 	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
 
 	if (!req.params || !req.params[0]) {
-		res.send(indexTemplate({section: 'index'}));
+		res.send(templates.index({section: 'index'}));
+
 	} else if (req.params[0] === 'usage') {
 		// Set the ttl to one hour for the usage page so the graphs are
 		// updated more frequently, overriding the default cache-control
@@ -243,41 +210,36 @@ function route(req, res, next) {
 		var one_hour = 60 * 60;
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-		getData('fastly', function(fastlyData) {
-			getData('outages', function(outages) {
-				getData('respTimes', function(respTimes) {
-					res.send(usageTemplate({
-						section: 'usage',
-						requestsData: fastlyData.byhour,
-						outages: outages,
-						respTimes: respTimes,
-						hitCount: fastlyData.rollup.hits,
-						missCount: fastlyData.rollup.miss
-					}));
-				});
-			});
+		Q.all([getData('fastly'), getData('outages'), getData('respTimes')]).spread(function(fastly, outages, respTimes) {
+			res.send(templates.usage({
+				section: 'usage',
+				requestsData: fastly.byhour,
+				outages: outages,
+				respTimes: respTimes,
+				hitCount: fastly.rollup.hits,
+				missCount: fastly.rollup.miss
+			}));
 		});
+
 	} else if (req.params[0] === 'features') {
-		getSizes(function(sizes) {
-			res.send(compatTemplate({
+		getData('sizes').then(function(sizes) {
+			res.send(templates.compat({
 				section: 'features',
 				compat: getCompat(),
 				sizes: sizes
 			}));
 		});
+
 	} else if (req.params[0] === 'api') {
-		res.send(apiTemplate({
-			section: 'api'
-		}));
+		res.send(templates.api({section: 'api'}));
+
 	} else if (req.params[0] === 'examples') {
-		res.send(examplesTemplate({
-			section: 'examples'
-		}));
+
+		res.send(templates.examples({section: 'examples'}));
+
 	} else if (req.params[0] === 'contributing') {
-		res.send(contribTemplate({
-			section: 'contributing',
-			baselines: require('../lib/UA').getBaselines()
-		}));
+		res.send(templates.contributing({section: 'contributing', baselines: require('../lib/UA').getBaselines()}));
+
 	} else {
 		next();
 	}
