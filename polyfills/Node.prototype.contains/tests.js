@@ -5,7 +5,9 @@ describe('on an element', function () {
 	detached = document.createElement('div');
 
 	it('is a function', function () {
-		expect(documentElement.contains).to.be.a('function');
+
+		// Asserting using to.be.a('function') in this case causes a hard browser crash in IE6
+		expect(typeof documentElement.contains).to.be('function');
 	});
 
 	it('expects one argument', function () {
