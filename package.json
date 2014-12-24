@@ -31,6 +31,7 @@
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
+    "6to5": "^1.15.0",
     "caniuse-db": "1.0.20140710",
     "es6-set": "^0.1.0",
     "expect.js": "^0.3.1",
