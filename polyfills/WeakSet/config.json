@@ -1,0 +1,18 @@
+{
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"ie": "7 - *",
+		"safari": "*",
+		"chrome": "<38",
+		"firefox": "<34",
+		"ios_saf": "*",
+		"opera": "<25"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"author": "https://github.com/webcomponents/webcomponentsjs/blob/master/src/WeakMap/WeakMap.js",
+	"licence": "TBC, see https://github.com/webcomponents/webcomponentsjs/issues/137"
+}
