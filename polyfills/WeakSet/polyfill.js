@@ -12,21 +12,19 @@
 		}
 	};
 
-	WeakSet.prototype = {
-		"add": function(obj) {
-			var name = this.name;
-			if (!obj[name]) Object.defineProperty(obj, name, {value: true, writable: true});
-			return this;
-		},
-		"delete": function(obj) {
-			if (!obj[this.name]) return false;
-			obj[this.name] = undefined;
-			return true;
-		},
-		"has": function(obj) {
-			return !!obj[this.name];
-		}
-	}
+	WeakSet.prototype["add"] = function(obj) {
+		var name = this.name;
+		if (!obj[name]) Object.defineProperty(obj, name, {value: true, writable: true});
+		return this;
+	};
+	WeakSet.prototype["delete"] = function(obj) {
+		if (!obj[this.name]) return false;
+		obj[this.name] = undefined;
+		return true;
+	};
+	WeakSet.prototype["has"] = function(obj) {
+		return !!obj[this.name];
+	};
 
 	window.WeakSet = WeakSet;
 })();
