@@ -11,7 +11,8 @@
 		"opera": "<25"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Object.defineProperty",
+		"Array.prototype.forEach"
 	],
 	"author": "https://github.com/webcomponents/webcomponentsjs/blob/master/src/WeakMap/WeakMap.js",
 	"licence": "TBC, see https://github.com/webcomponents/webcomponentsjs/issues/137"

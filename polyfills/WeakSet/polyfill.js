@@ -3,13 +3,7 @@
 
 	var WeakSet = function WeakSet(data) {
 		this.name = '__st' + (Math.random() * 1e9 >>> 0) + (counter++ + '__');
-		if (data && data.length) {
-			for (i=0, s=data.length; i<s; i++) {
-				if (typeof data[i] === 'object' || typeof data[i] === 'function') {
-					this.add(data[i]);
-				}
-			}
-		}
+		data && data.forEach && data.forEach(this.add, this);
 	};
 
 	WeakSet.prototype["add"] = function(obj) {
