@@ -20,31 +20,29 @@
 		}
 	};
 
-	WeakMap.prototype = {
-		"set": function(key, value) {
-			var entry = key[this.name];
-			if (entry && entry[0] === key)
-				entry[1] = value;
-			else
-				defineProperty(key, this.name, {value: [key, value], writable: true});
-			return this;
-		},
-		"get": function(key) {
-			var entry;
-			return (entry = key[this.name]) && entry[0] === key ?
-					entry[1] : undefined;
-		},
-		"delete": function(key) {
-			var entry = key[this.name];
-			if (!entry || entry[0] !== key) return false;
-			entry[0] = entry[1] = undefined;
-			return true;
-		},
-		"has": function(key) {
-			var entry = key[this.name];
-			if (!entry) return false;
-			return entry[0] === key;
-		}
+	WeakMap.prototype["set"] = function(key, value) {
+		var entry = key[this.name];
+		if (entry && entry[0] === key)
+			entry[1] = value;
+		else
+			defineProperty(key, this.name, {value: [key, value], writable: true});
+		return this;
+	};
+	WeakMap.prototype["get"] = function(key) {
+		var entry;
+		return (entry = key[this.name]) && entry[0] === key ?
+				entry[1] : undefined;
+	};
+	WeakMap.prototype["delete"] = function(key) {
+		var entry = key[this.name];
+		if (!entry || entry[0] !== key) return false;
+		entry[0] = entry[1] = undefined;
+		return true;
+	};
+	WeakMap.prototype["has"] = function(key) {
+		var entry = key[this.name];
+		if (!entry) return false;
+		return entry[0] === key;
 	};
 
 	window.WeakMap = WeakMap;
