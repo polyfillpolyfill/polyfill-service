@@ -13,6 +13,6 @@
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"author": "https://github.com/webcomponents/webcomponentsjs/blob/master/src/WeakMap/WeakMap.js",
-	"licence": "TBC, see https://github.com/webcomponents/webcomponentsjs/issues/137"
+	"author": "Andrew Betts, The Polymer Project Authors",
+	"licence": "BSD"
 }

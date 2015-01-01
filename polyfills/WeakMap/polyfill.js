@@ -1,26 +1,34 @@
-(function() {
+/**
+ * @license
+ *
+ * Portions of this polyfill are a derivative work of the Polymer project, which requires the following licence notice:
+ *
+ * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+
+ (function() {
 	var defineProperty = Object.defineProperty;
 	var counter = Date.now() % 1e9;
 
 	var WeakMap = function(data) {
 		var i, s;
 		this.name = '__st' + (Math.random() * 1e9 >>> 0) + (counter++ + '__');
-		if (data && data.length) {
-			for (i=0, s=data.length; i<s; i++) {
-				if (typeof data[i] === 'object' && data[i].length) {
-					if (typeof data[i][0] === 'object' || typeof data[i][0] === 'function') {
-						this.set(data[i][0], data[i][1]);
-					} else {
-						throw new TypeError('Invalid value used as weak map key');
-					}
-				} else {
-					throw new TypeError('Iterator value '+data[i]+' is not an entry object');
-				}
-			}
-		}
+
+		// If data is iterable (indicated by presence of a forEach method), pre-populate the map
+		data && data.forEach && data.forEach(function (item) {
+			this.set.apply(this, item);
+		}, this);
 	};
 
 	WeakMap.prototype["set"] = function(key, value) {
+		if (typeof key !== 'object' && typeof key !== 'function')
+			throw new TypeError('Invalid value used as weak map key');
+
 		var entry = key[this.name];
 		if (entry && entry[0] === key)
 			entry[1] = value;
