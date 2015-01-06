@@ -13,6 +13,10 @@
 
 	// <Global>.requestAnimationFrame
 	global.requestAnimationFrame = function (callback) {
+		if (typeof callback !== 'function') {
+			throw new TypeError(callback + 'is not a function');
+		}
+		
 		var
 		currentTime = now(),
 		delay = 16 + lastTime - currentTime;
