@@ -2,14 +2,21 @@
 	'use strict';
 
 	var
-	startTime = (new Date()).getTime(),
+	now = Date.now || function () {
+		return new Date().getTime();
+	},
+	startTime = now(),
 	lastTime = startTime;
 
 	// <Global>.requestAnimationFrame
 	global.requestAnimationFrame = function (callback) {
 		var
-		currentTime = (new Date()).getTime(),
-		delay = Math.max(0, 16 - (currentTime - lastTime));
+		currentTime = now(),
+		delay = 16 + lastTime - currentTime;
+
+		if (delay < 0) {
+			delay = 0;
+		}
 
 		lastTime = currentTime;
 
