@@ -6,7 +6,10 @@
 		return new Date().getTime();
 	},
 	startTime = now(),
-	lastTime = startTime;
+	lastTime = startTime,
+	getElapsed = (window.performance && window.performance.now) || function () {
+		return lastTime - startTime;
+	};
 
 	// <Global>.requestAnimationFrame
 	global.requestAnimationFrame = function (callback) {
@@ -21,9 +24,9 @@
 		lastTime = currentTime;
 
 		return setTimeout(function () {
-			lastTime = (new Date()).getTime();
+			lastTime = now();
 
-			callback(lastTime - startTime);
+			callback(getElapsed());
 		}, delay);
 	};
 
