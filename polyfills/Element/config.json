@@ -11,6 +11,11 @@
 			"dependencies": [
 				"Document"
 			]
+		},
+		"ie8": {
+			"browsers": {
+				"ie": "8"
+			}
 		}
 	}
 }
