@@ -1,5 +1,13 @@
+(function (global) {
+
 // window.requestAnimationFrame
-window.requestAnimationFrame = mozRequestAnimationFrame;
+global.requestAnimationFrame = function (callback) {
+    return mozRequestAnimationFrame(function () {
+        callback(performance.now());
+    });
+};
 
 // window.cancelAnimationFrame
-window.cancelAnimationFrame = mozCancelAnimationFrame;
+global.cancelAnimationFrame = mozCancelAnimationFrame;
+
+}(this));

@@ -2,21 +2,28 @@
 	'use strict';
 
 	var
-	startTime = (new Date()).getTime(),
-	lastTime = startTime;
+	lastTime = Date.now();
 
 	// <Global>.requestAnimationFrame
 	global.requestAnimationFrame = function (callback) {
+		if (typeof callback !== 'function') {
+			throw new TypeError(callback + 'is not a function');
+		}
+		
 		var
-		currentTime = (new Date()).getTime(),
-		delay = Math.max(0, 16 - (currentTime - lastTime));
+		currentTime = Date.now(),
+		delay = 16 + lastTime - currentTime;
+
+		if (delay < 0) {
+			delay = 0;
+		}
 
 		lastTime = currentTime;
 
 		return setTimeout(function () {
-			lastTime = (new Date()).getTime();
+			lastTime = Date.now();
 
-			callback(lastTime - startTime);
+			callback(performance.now());
 		}, delay);
 	};
 
