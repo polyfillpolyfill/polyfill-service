@@ -15,15 +15,6 @@ module.exports = function(grunt) {
 				src: ['test/node/**/*.js']
 			}
 		},
-		"mocha": {
-			all: {
-				options: {
-					reporter: 'Spec',
-					run: true,
-					urls: ['http://127.0.0.1:3000/test/director?mode=targeted']
-				}
-			}
-		},
 		"saucelabs": {
 			compat: {
 				options: {
@@ -69,15 +60,9 @@ module.exports = function(grunt) {
 	grunt.loadTasks('tasks');
 
 	grunt.loadNpmTasks('grunt-simple-mocha');
-	grunt.loadNpmTasks('grunt-mocha');
 
 	grunt.registerTask("test", [
 		"simplemocha",
-		"polyfillservice",
-		"mocha",
-	]);
-
-	grunt.registerTask("saucedev", [
 		"polyfillservice",
 		"saucelabs:quick",
 	]);

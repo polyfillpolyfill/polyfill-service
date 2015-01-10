@@ -15,7 +15,7 @@
 	<script src="/test/libs/mocha/mocha.js"></script>
 	<script src="/test/libs/expect/index.js"></script>
 
-	<!-- Initalise Mocha (overridden if running under Phantom with grunt-mocha) -->
+	<!-- Initalise Mocha -->
 	<script>mocha.setup('bdd')</script>
 
 	<!-- Tests -->
@@ -108,8 +108,7 @@
 		});
 	}
 
-	// If using Phantom, test is kicked off by remote code injection.  If not, run automatically on load.
-	if (!("PHANTOMJS" in window)) window.onload = run;
+	window.onload = run;
 
 	</script>
 </body>
