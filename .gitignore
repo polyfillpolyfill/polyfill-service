@@ -4,4 +4,5 @@ source/*/*.min.js
 source/*/*.min.js.map
 test/results
 /dev.sh
+/polyfills/__*
 .DS_Store
