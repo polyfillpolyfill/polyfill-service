@@ -1,3 +1,4 @@
+
 'use strict';
 
 var fs = require('fs');
@@ -27,9 +28,9 @@ module.exports = function(grunt) {
 			grunt.log.writeln('Cloning polyfill service source from '+repourl);
 			return exec('git clone '+ repourl +' '+ repodir);
 		})
-		.then(versions.reduce.bind(versions, function(soFar, version) {
+		.then(versions.reduce.bind(versions, function(asYouWere, version) {
 			var dest = path.join(versionsdir, version);
-			return soFar
+			return asYouWere
 			.then(function() {
 				grunt.log.writeln('Installing version '+version);
 				return exec('cd '+repodir+'; git checkout ' + version);
@@ -42,10 +43,7 @@ module.exports = function(grunt) {
 			})
 			.catch(grunt.warn);
 		}, Promise.resolve(1)))
-		.then(function() {
-			grunt.log.writeln("Removing local repo");
-			return exec('rm -rf '+repodir);
-		})
+		.then(exec.bind(this, 'rm -rf '+repodir))
 		.then(done)
 		.catch(grunt.warn);
 
