@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 			return asYouWere
 			.then(function() {
 				grunt.log.writeln('Installing version '+version);
-				return exec('cd '+repodir+'; git checkout ' + version);
+				return exec('git checkout ' + version, {cwd: repodir});
 			})
 			.then(function() {
 				return mkdir(dest);
