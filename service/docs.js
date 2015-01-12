@@ -153,7 +153,7 @@ function getData(type) {
 
 function getCompat() {
 	var data = require('../docs/assets/compat.json');
-	var sources = require('../lib/sources');
+	var sources = require('../lib/sources').latest;
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',

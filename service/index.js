@@ -157,7 +157,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 			extension: fileExtension,
 			minify: minified,
 			uaString: uaString,
-			url: req.originalUrl
+			url: req.originalUrl,
+			libVersion: req.query.libVersion
 		});
 		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
 			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
