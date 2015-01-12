@@ -237,7 +237,10 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[0] === 'api') {
-		res.send(templates.api({section: 'api'}));
+		res.send(templates.api({
+			versions: require(path.join(__dirname, '../tasks/installcollections-versions.json')),
+			section: 'api'
+		}));
 
 	} else if (req.params[0] === 'examples') {
 
