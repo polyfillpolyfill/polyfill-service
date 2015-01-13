@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var Promise = require('es6-promise').Promise;
 var denodeify = require('denodeify');
 var exec = denodeify(require('child_process').exec, function(err, stdout, stderr) { return [err, stdout]; });
 var write = denodeify(fs.writeFile);

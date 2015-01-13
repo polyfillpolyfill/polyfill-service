@@ -2,8 +2,7 @@ var fs = require('fs'),
 	path = require('path'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
-	Moment = require('moment'),
-	Promise = require('es6-promise').Promise;
+	Moment = require('moment');
 
 var cache = {},
 	cachettl = 1800;

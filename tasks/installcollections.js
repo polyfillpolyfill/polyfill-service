@@ -3,7 +3,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var Promise = require('es6-promise').Promise;
 var denodeify = require('denodeify');
 var copy = denodeify(require('ncp').ncp);
 var mkdir = denodeify(require('mkdirp'));
