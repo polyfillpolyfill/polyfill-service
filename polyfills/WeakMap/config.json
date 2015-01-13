@@ -11,7 +11,8 @@
 		"opera": "<25"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Object.defineProperty",
+		"Array.prototype.forEach"
 	],
 	"author": "Andrew Betts, The Polymer Project Authors",
 	"licence": "BSD"
