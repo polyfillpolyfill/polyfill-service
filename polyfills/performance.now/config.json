@@ -1,0 +1,15 @@
+{
+	"browsers": {
+		"bb": "<10",
+		"chrome": "<24",
+		"ie": "<10",
+		"ios_saf": "<8 || 8.1",
+		"firefox": "<15",
+		"opera": "<15",
+		"op_mob": "<24",
+		"safari": "<8"
+	},
+	"dependencies": [
+		"Date.now"
+	]
+}

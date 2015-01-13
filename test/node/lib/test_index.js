@@ -32,7 +32,8 @@ describe("polyfillio", function() {
 				uaString: 'ie/8'
 			}), {
 				'Element.prototype.placeholder': { flags:[], polyfillVariant:'default' },
-				'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'ie8' }
+				'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'ie8' },
+				'Element': { flags: [], aliasOf: ['Element.prototype.placeholder'], polyfillVariant: 'ie8' }
 			});
 		});
 

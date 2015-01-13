@@ -3,7 +3,7 @@ var fs = require('fs'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
 	Moment = require('moment'),
-	Q = require('q');
+	Promise = require('es6-promise').Promise;
 
 var cache = {},
 	cachettl = 1800;
@@ -132,13 +132,13 @@ function getData(type) {
 					});
 				});
 			});
-			return Q.all(sizes.map(function(item) {
-				var def = Q.defer();
-				zlib.gzip(item.minsrc, function(err, gzipsrc) {
-					if (!err) item.gzipbytes = gzipsrc.length;
-					def.resolve(item);
+			return Promise.all(sizes.map(function(item) {
+				return new Promise(function(resolve, reject) {
+					zlib.gzip(item.minsrc, function(err, gzipsrc) {
+						if (!err) item.gzipbytes = gzipsrc.length;
+						resolve(item);
+					});
 				});
-				return def.promise;
 			}));
 		}
 	};
@@ -196,6 +196,12 @@ function getCompat() {
 	;
 }
 
+// Quick helper for Promise.all to spread results over separate arguments rather than an array
+function spread(fn) {
+	return function(results) {
+		fn.apply(fn, results);
+	};
+}
 
 function route(req, res, next) {
 	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
@@ -210,7 +216,7 @@ function route(req, res, next) {
 		var one_hour = 60 * 60;
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-		Q.all([getData('fastly'), getData('outages'), getData('respTimes')]).spread(function(fastly, outages, respTimes) {
+		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
 			res.send(templates.usage({
 				section: 'usage',
 				requestsData: fastly.byhour,
@@ -219,7 +225,7 @@ function route(req, res, next) {
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}));
-		});
+		}));
 
 	} else if (req.params[0] === 'features') {
 		getData('sizes').then(function(sizes) {
