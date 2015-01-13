@@ -1,0 +1,19 @@
+{
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"ie": "7 - 11",
+		"safari": "*",
+		"chrome": "<38",
+		"firefox": "<36",
+		"ios_saf": "*",
+		"opera": "<25"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Array.prototype.forEach"
+	],
+	"author": "Andrew Betts, The Polymer Project Authors",
+	"licence": "BSD"
+}
