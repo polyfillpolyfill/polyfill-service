@@ -253,6 +253,11 @@
       "from": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.20140710.tgz",
       "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.20140710.tgz"
     },
+    "denodeify": {
+      "version": "1.2.0",
+      "from": "denodeify@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/denodeify/-/denodeify-1.2.0.tgz"
+    },
     "es6-promise": {
       "version": "2.0.1",
       "from": "es6-promise@>=2.0.1 <3.0.0",
