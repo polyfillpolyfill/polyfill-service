@@ -11,7 +11,8 @@
 		setTimeout(func, 200);
 	};
 
-	global.onhashchange = undefined;
+	// Make sure a check for 'onhashchange' in window will pass (note: setting to undefined IE<9 causes 'Not implemented' error)
+	global.onhashchange = function() {};
 
 	func();
 })(this);
