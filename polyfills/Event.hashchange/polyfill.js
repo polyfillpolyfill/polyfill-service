@@ -11,7 +11,8 @@
 		setTimeout(func, 200);
 	};
 
-	global.onhashchange = undefined;
+	// Can't set window properties to undefined in IE7/8: "Not implemented"
+	global.onhashchange = function() {};
 
 	func();
 })(this);
