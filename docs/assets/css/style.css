@@ -86,3 +86,7 @@ pre.bigcode code {
 .apidoc th :first-child {
 	margin-top: 0;
 }
+
+.versionlist code:not(:last-child):after {
+	content: ", ";
+}
