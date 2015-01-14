@@ -1,0 +1,22 @@
+{
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"ie": "*",
+		"firefox": "*",
+		"opera": "*",
+		"safari": "*",
+		"chrome": "*",
+		"ios_saf": "*"
+	},
+	"dependencies": [
+		"Array.prototype.forEach",
+		"Object.getOwnPropertyNames",
+		"Promise",
+		"XMLHttpRequest"
+	],
+	"notes": [
+		"Uses FileReader and Blob if they exist, and depends on FormData"
+	]
+}
