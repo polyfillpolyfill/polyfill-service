@@ -172,7 +172,7 @@ function getCompat() {
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
 					return Math.max(size, polyfill.variants[variantName].minGatedSource.length);
 				}, 0),
-				isDefault: (polyfill.aliases.indexOf('default') !== -1),
+				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 				hasTests: polyfill.hasTests
 			};
 			browsers.forEach(function(browser) {
