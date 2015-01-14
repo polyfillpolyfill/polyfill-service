@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 						return mkdir(dest);
 					})
 					.then(function() {
-						return execCmd('cp -r ' + path.join(repodir, 'polyfills') + ' ' + dest);
+						return execCmd('cp -r ' + path.join(repodir, 'polyfills/*') + ' ' + dest);
 					});
 				} else {
 
