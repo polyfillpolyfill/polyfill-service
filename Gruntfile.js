@@ -79,6 +79,11 @@ module.exports = function(grunt) {
 		"polyfillservice",
 		"saucelabs:ci"
 	]);
+
+	grunt.registerTask("deploy", [
+		'installcollections',
+		'shipit'
+	]);
 };
 
 var browserList = [
