@@ -58,7 +58,6 @@
     "grunt-cli": "~0.1.6",
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
-    "ncp": "^1.0.1",
     "sauce-tunnel": "^2.1.0",
     "wd": "^0.3.8"
   },
