@@ -58,9 +58,15 @@
 					<td><code>libVersion</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>Version of the polyfill collection to use. Accepts any valid <a href='https://semver.org'>semver</a> expression.  This is useful if you wish to synronise releases in the polyfill service with your own release process, to ensure that incompatibilities cannot cause errors in your applications without warning.  The following versions are available:</p>
-						<p>{{#versions}}<code>{{.}}</code>, {{/versions}}<code>latest</code></p>
+						<p>Version of the polyfill collection to use. Accepts any valid <a href='https://semver.org'>semver</a> expression.  This is useful if you wish to synronise releases in the polyfill service with your own release process, to ensure that incompatibilities cannot cause errors in your applications without warning.</p>
+						{{#hasVersions}}
+						<p>The following versions are available:</p>
+						<p class='versionlist'>{{#versions}}<code>{{.}}</code>{{/versions}}</p>
 						<p>If not specified, the latest version of the library will be used.</p>
+						{{/hasVersions}}
+						{{^hasVersions}}
+						<p><em>Historic polyfill collections are not installed.  To install run <code>grunt installcollections</code>.  Only the `latest` collection is available.</code></em></p>
+						{{/hasVersions}}
 					</td>
 				</tr>
 			</table>

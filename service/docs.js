@@ -2,7 +2,8 @@ var fs = require('fs'),
 	path = require('path'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
-	Moment = require('moment');
+	Moment = require('moment'),
+	sources = require('../lib/sources');
 
 var cache = {},
 	cachettl = 1800;
@@ -152,7 +153,7 @@ function getData(type) {
 
 function getCompat() {
 	var data = require('../docs/assets/compat.json');
-	var sources = require('../lib/sources').latest;
+	var sourceslib = sources.latest;
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
@@ -161,11 +162,11 @@ function getCompat() {
 	}
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sources.polyfillExists(feature);
+			return sourceslib.polyfillExists(feature);
 		})
 		.sort()
 		.map(function(feat) {
-			var polyfill = sources.getPolyfill(feat);
+			var polyfill = sourceslib.getPolyfill(feat);
 			var fdata = {
 				feature: feat,
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
@@ -224,7 +225,7 @@ function route(req, res, next) {
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}));
-		}));
+		})).catch(console.error);
 
 	} else if (req.params[0] === 'features') {
 		getData('sizes').then(function(sizes) {
@@ -233,11 +234,12 @@ function route(req, res, next) {
 				compat: getCompat(),
 				sizes: sizes
 			}));
-		});
+		}).catch(console.error);
 
 	} else if (req.params[0] === 'api') {
 		res.send(templates.api({
-			versions: require(path.join(__dirname, '../tasks/installcollections-versions.json')),
+			hasVersions: sources.listVersions().length > 1,
+			versions: sources.listVersions(),
 			section: 'api'
 		}));
 
