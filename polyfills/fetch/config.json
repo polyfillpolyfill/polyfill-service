@@ -16,6 +16,8 @@
 		"Promise",
 		"XMLHttpRequest"
 	],
+	"author": "https://github.com/github/fetch/graphs/contributors",
+	"licence": "https://github.com/github/fetch/blob/master/LICENSE",
 	"notes": [
 		"Uses FileReader and Blob if they exist, and depends on FormData"
 	]
