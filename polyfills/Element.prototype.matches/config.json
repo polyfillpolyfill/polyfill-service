@@ -22,6 +22,11 @@
 				"ie": "9 - *"
 			}
 		},
+		"ie_mob": {
+			"browsers": {
+				"ie": "*"
+			}
+		}
 		"o": {
 			"browsers": {
 				"opera": "11.5 - 12.1",
