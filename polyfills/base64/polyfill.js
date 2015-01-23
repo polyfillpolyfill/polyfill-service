@@ -5,8 +5,13 @@
 	global.atob = function atob(input) {
 		var output = [], buffer, bufferB, chrs, index = 0, indexB, length = input.length;
 
-		if ((length % 4 > 0) || (keysRe.test(input)) || (/=/.test(input) && (/=[^=]/.test(input) || /={3}/.test(input)))) {
+		if ((length % 4 === 1) || (keysRe.test(input)) || (/=/.test(input) && (/=[^=]/.test(input) || /={3}/.test(input)))) {
 			throw new Error('Invalid base64 data');
+		}
+
+		if (length % 4 > 0) {
+			input += Array(4 - length % 4 + 1).join("=");
+			length = input.length;
 		}
 
 		while (index < length) {
