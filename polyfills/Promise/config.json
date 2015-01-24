@@ -15,7 +15,6 @@
 		"opera": "* - 19",
 		"safari": "* - 7"
 	},
-	"dependencies": [
-		"Object.defineProperty"
-	]
+	"license": "MIT",
+	"author": "Dmitry Korobkin (https://github.com/Octane/Promise)"
 }
