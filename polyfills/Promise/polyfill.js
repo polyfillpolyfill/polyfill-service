@@ -1,28 +1,17 @@
-(function (global) {'use strict';
-
-	var STATUS = '[[PromiseStatus]]';
-	var VALUE = '[[PromiseValue]]';
-	var ON_FUlFILLED = '[[OnFulfilled]]';
-	var ON_REJECTED = '[[OnRejected]]';
-	var ORIGINAL_ERROR = '[[OriginalError]]';
-	var PENDING = 'pending';
-	var INTERNAL_PENDING = 'internal pending';
-	var FULFILLED = 'fulfilled';
-	var REJECTED = 'rejected';
-	var NOT_ARRAY = 'not an array.';
-	var REQUIRES_NEW = 'constructor Promise requires "new".';
-	var CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.';
-
-	var setImmediate = global.setImmediate || function (func) {
-		var args = slice.call(arguments, 1);
-
-		return setTimeout(function () {
-			func.apply(null, args);
-		});
-	};
-	var isArray = Array.isArray || function (anything) {
-		return Object.prototype.toString.call(anything) == '[object Array]';
-	};
+(function (global, setImmediate, isArray) {
+	var
+	STATUS = '[[PromiseStatus]]',
+	VALUE = '[[PromiseValue]]',
+	ON_FUlFILLED = '[[OnFulfilled]]',
+	ON_REJECTED = '[[OnRejected]]',
+	ORIGINAL_ERROR = '[[OriginalError]]',
+	PENDING = 'pending',
+	INTERNAL_PENDING = 'internal pending',
+	FULFILLED = 'fulfilled',
+	REJECTED = 'rejected',
+	NOT_ARRAY = 'not an array.',
+	REQUIRES_NEW = 'constructor Promise requires "new".',
+	CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.';
 
 	function InternalError(originalError) {
 		this[ORIGINAL_ERROR] = originalError;
@@ -38,7 +27,7 @@
 	}
 
 	function isCallable(anything) {
-		return typeof anything == 'function';
+		return typeof anything === 'function';
 	}
 
 	function isPromise(anything) {
@@ -58,6 +47,7 @@
 			promise[ON_FUlFILLED] = [];
 			promise[ON_REJECTED] = [];
 		}
+
 		promise[ON_FUlFILLED].push(onFulfilled);
 		promise[ON_REJECTED].push(onRejected);
 	}
@@ -68,15 +58,18 @@
 	}
 
 	function callEach(queue) {
-		var i;
-		var length = queue.length;
-		for (i = 0; i < length; i++) {
-			queue[i]();
+		var
+		length = queue.length,
+		index = -1;
+
+		while (++index < length) {
+			queue[index]();
 		}
 	}
 
 	function call(resolve, reject, value) {
 		var anything = toPromise(value);
+
 		if (isPromise(anything)) {
 			anything.then(resolve, reject);
 		} else if (isInternalError(anything)) {
@@ -88,15 +81,18 @@
 
 	function toPromise(anything) {
 		var then;
+
 		if (isPromise(anything)) {
 			return anything;
 		}
+
 		if(isObject(anything)) {
 			try {
 				then = anything.then;
 			} catch (error) {
 				return new InternalError(error);
 			}
+
 			if (isCallable(then)) {
 				return new Promise(function (resolve, reject) {
 					setImmediate(function () {
@@ -114,27 +110,32 @@
 
 	function resolvePromise(promise, resolver) {
 		function resolve(value) {
-			if (promise[STATUS] == PENDING) {
+			if (promise[STATUS] === PENDING) {
 				fulfillPromise(promise, value);
 			}
 		}
+
 		function reject(reason) {
-			if (promise[STATUS] == PENDING) {
+			if (promise[STATUS] === PENDING) {
 				rejectPromise(promise, reason);
 			}
 		}
+
 		try {
 			resolver(resolve, reject);
-		} catch(error) {
+		} catch (error) {
 			reject(error);
 		}
 	}
 
 	function fulfillPromise(promise, value) {
-		var queue;
-		var anything = toPromise(value);
+		var
+		anything = toPromise(value),
+		queue;
+
 		if (isPromise(anything)) {
 			promise[STATUS] = INTERNAL_PENDING;
+
 			anything.then(
 				function (value) {
 					fulfillPromise(promise, value);
@@ -148,9 +149,12 @@
 		} else {
 			promise[STATUS] = FULFILLED;
 			promise[VALUE] = value;
+
 			queue = promise[ON_FUlFILLED];
+
 			if (queue && queue.length) {
 				clearAllQueues(promise);
+
 				callEach(queue);
 			}
 		}
@@ -158,32 +162,42 @@
 
 	function rejectPromise(promise, reason) {
 		var queue = promise[ON_REJECTED];
+
 		promise[STATUS] = REJECTED;
 		promise[VALUE] = reason;
+
 		if (queue && queue.length) {
 			clearAllQueues(promise);
+
 			callEach(queue);
 		}
 	}
 
 	function Promise(resolver) {
 		var promise = this;
+
 		if (!isPromise(promise)) {
 			throw new TypeError(REQUIRES_NEW);
 		}
+
 		promise[STATUS] = PENDING;
 		promise[VALUE] = undefined;
+
 		resolvePromise(promise, resolver);
 	}
 
 	Promise.prototype.then = function (onFulfilled, onRejected) {
-		var promise = this;
-		var nextPromise;
+		var
+		promise = this,
+		nextPromise;
+
 		onFulfilled = isCallable(onFulfilled) ? onFulfilled : identity;
 		onRejected = isCallable(onRejected) ? onRejected : thrower;
+
 		nextPromise = new Promise(function (resolve, reject) {
 			function tryCall(func) {
 				var value;
+
 				try {
 					value = func(promise[VALUE]);
 				} catch (error) {
@@ -196,23 +210,29 @@
 					call(resolve, reject, value);
 				}
 			}
+
 			function asyncOnFulfilled() {
 				setImmediate(tryCall, onFulfilled);
 			}
+
 			function asyncOnRejected() {
 				setImmediate(tryCall, onRejected);
 			}
+
 			switch (promise[STATUS]) {
 				case FULFILLED:
 					asyncOnFulfilled();
 					break;
+
 				case REJECTED:
 					asyncOnRejected();
 					break;
+
 				default:
 					enqueue(promise, asyncOnFulfilled, asyncOnRejected);
 			}
 		});
+
 		return nextPromise;
 	};
 
@@ -222,9 +242,11 @@
 
 	Promise.resolve = function (value) {
 		var anything = toPromise(value);
+
 		if (isPromise(anything)) {
 			return anything;
 		}
+
 		return new Promise(function (resolve, reject) {
 			if (isInternalError(anything)) {
 				reject(anything[ORIGINAL_ERROR]);
@@ -242,12 +264,15 @@
 
 	Promise.race = function (values) {
 		return new Promise(function (resolve, reject) {
-			var i;
-			var length;
+			var
+			index = -1,
+			length;
+
 			if (isArray(values)) {
 				length = values.length;
-				for (i = 0; i < length; i++) {
-					call(resolve, reject, values[i]);
+
+				while (++index < length) {
+					call(resolve, reject, values[index]);
 				}
 			} else {
 				reject(new TypeError(NOT_ARRAY));
@@ -257,39 +282,42 @@
 
 	Promise.all = function (values) {
 		return new Promise(function (resolve, reject) {
-			var fulfilledCount = 0;
-			var promiseCount = 0;
-			var anything;
-			var length;
-			var value;
-			var i;
+			var
+			fulfilledCount = 0,
+			promiseCount = 0,
+			index = -1,
+			anything, length, value;
+
 			if (isArray(values)) {
 				values = values.slice(0);
 				length = values.length;
-				for (i = 0; i < length; i++) {
-					value = values[i];
+
+				while (++index < length) {
+					value = values[index];
 					anything = toPromise(value);
+
 					if (isPromise(anything)) {
-						promiseCount++;
-						anything.then(
-							function (index) {
-								return function (value) {
-									values[index] = value;
-									fulfilledCount++;
-									if (fulfilledCount == promiseCount) {
-										resolve(values);
-									}
-								};
-							}(i),
-							reject
-						);
+						++promiseCount;
+
+						anything.then(function (index) {
+							return function (value) {
+								values[index] = value;
+
+								++fulfilledCount;
+
+								if (fulfilledCount === promiseCount) {
+									resolve(values);
+								}
+							};
+						}(index), reject);
 					} else if (isInternalError(anything)) {
 						reject(anything[ORIGINAL_ERROR]);
 					} else {
 						//[1, , 3] → [1, undefined, 3]
-						values[i] = value;
+						values[index] = value;
 					}
 				}
+
 				if (!promiseCount) {
 					resolve(values);
 				}
@@ -299,10 +327,17 @@
 		});
 	};
 
-	if (typeof module != 'undefined' && module.exports) {
-		module.exports = global.Promise || Promise;
-	} else if (!global.Promise) {
-		global.Promise = Promise;
-	}
+	global.Promise = Promise;
 
-}(this));
+	setImmediate = setImmediate || function (func) {
+		var args = slice.call(arguments, 1);
+
+		return setTimeout(function () {
+			func.apply(null, args);
+		});
+	};
+
+	isArray = Array.isArray || function () {
+		return toString.call(object) === '[object Array]';
+	};
+})(this, this.setImmediate, Array.isArray);
