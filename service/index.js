@@ -15,6 +15,8 @@ var polyfillio = require('../lib'),
 
 'use strict';
 
+require('es6-promise').polyfill();
+
 var argv = parseArgs(process.argv.slice(2));
 
 var port = argv.port || Number(process.env.PORT) || 3000,
@@ -157,7 +159,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 			extension: fileExtension,
 			minify: minified,
 			uaString: uaString,
-			url: req.originalUrl
+			url: req.originalUrl,
+			libVersion: req.query.libVersion
 		});
 		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
 			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";

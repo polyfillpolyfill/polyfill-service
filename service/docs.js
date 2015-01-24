@@ -3,7 +3,7 @@ var fs = require('fs'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
 	Moment = require('moment'),
-	Promise = require('es6-promise').Promise;
+	sources = require('../lib/sources');
 
 var cache = {},
 	cachettl = 1800;
@@ -153,7 +153,7 @@ function getData(type) {
 
 function getCompat() {
 	var data = require('../docs/assets/compat.json');
-	var sources = require('../lib/sources');
+	var sourceslib = sources.latest;
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
@@ -162,17 +162,17 @@ function getCompat() {
 	}
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sources.polyfillExists(feature);
+			return sourceslib.polyfillExists(feature);
 		})
 		.sort()
 		.map(function(feat) {
-			var polyfill = sources.getPolyfill(feat);
+			var polyfill = sourceslib.getPolyfill(feat);
 			var fdata = {
 				feature: feat,
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
 					return Math.max(size, polyfill.variants[variantName].minGatedSource.length);
 				}, 0),
-				isDefault: (polyfill.aliases.indexOf('default') !== -1),
+				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 				hasTests: polyfill.hasTests
 			};
 			browsers.forEach(function(browser) {
@@ -225,7 +225,7 @@ function route(req, res, next) {
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}));
-		}));
+		})).catch(console.error);
 
 	} else if (req.params[0] === 'features') {
 		getData('sizes').then(function(sizes) {
@@ -234,10 +234,14 @@ function route(req, res, next) {
 				compat: getCompat(),
 				sizes: sizes
 			}));
-		});
+		}).catch(console.error);
 
 	} else if (req.params[0] === 'api') {
-		res.send(templates.api({section: 'api'}));
+		res.send(templates.api({
+			hasVersions: sources.listVersions().length > 1,
+			versions: sources.listVersions(),
+			section: 'api'
+		}));
 
 	} else if (req.params[0] === 'examples') {
 
