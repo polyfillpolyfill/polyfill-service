@@ -1,4 +1,6 @@
-(function (global, setImmediate, slice, empty, PENDING, FULFILLED, REJECTED) {
+(function (global, slice, empty, PENDING, FULFILLED, REJECTED) {
+	var setImmediate;
+
 	function resolvePromise(promise, state, value, defer) {
 		if (promise.PromiseState === PENDING) {
 			promise.PromiseState = state;
@@ -75,27 +77,16 @@
 			return value;
 		}
 
-		var
-		promise = new Promise(empty);
+		return new Promise(function (res) {
+			res(value);
+		});
+	}
 
-		if (value && value.then instanceof Function) {
-			var
-			promiseFulfill = createResolver(promise, FULFILLED),
-			promiseReject = createResolver(promise, REJECTED);
-
-			setImmediate(function () {
-				try {
-					value.then(promiseFulfill, promiseReject);
-				} catch (error) {
-					resolvePromise(promise, REJECTED, error);
-				}
-			});
-		} else {
-			promise.PromiseState = FULFILLED;
-			promise.PromiseValue = value;
-		}
-
-		return promise;
+	// Promise.reject
+	function reject(reason) {
+		return new Promise(function (resolve, reject) {
+			reject(reason);
+		});
 	}
 
 	// Promise.all
@@ -136,15 +127,16 @@
 		index = -1,
 		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991);
 
-		function createOnFulfilled() {
-			return function (value) {
-				resolvePromise(promise, FULFILLED, value);
-			};
+		function onFulfilled(value) {
+			resolvePromise(promise, FULFILLED, value);
+		}
+		function onRejected(reason) {
+			resolvePromise(promise, REJECTED, reason);
 		}
 
 		while (++index < length) {
-			if (index in arraylike) {
-				resolve(array[index]).then(createOnFulfilled());
+			if (index in array) {
+				resolve(array[index]).then(onFulfilled, onRejected);
 			}	
 		}
 
@@ -174,11 +166,13 @@
 
 	function defineValues(object, properties) {
 		for (var key in properties) {
-			Object.defineProperty(object, key, {
-				configurable: true,
-				value: properties[key],
-				writable: true
-			});
+			if (properties.hasOwnProperty(key)) {
+				Object.defineProperty(object, key, {
+					configurable: true,
+					value: properties[key],
+					writable: true
+				});
+			}
 		}
 
 		return object;
@@ -187,7 +181,8 @@
 	defineValues(Promise, {
 		all: all,
 		race: race,
-		resolve: resolve
+		resolve: resolve,
+		reject: reject
 	});
 
 	defineValues(Promise.prototype, {
@@ -199,11 +194,11 @@
 		Promise: Promise
 	});
 
-	setImmediate = setImmediate || function (func) {
+	setImmediate = global.setImmediate || function (func) {
 		var args = slice.call(arguments, 1);
 
 		return setTimeout(function () {
 			func.apply(null, args);
 		});
 	};
-})(this, window.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
+})(this, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
