@@ -104,7 +104,7 @@
 		promise = new Promise(empty),
 		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
-		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991),
+		length = Math.min(Math.max(parseInt(array.length, 10) || 0, 0), 9007199254740991),
 		values = [];
 
 		function createOnFulfilled(index) {
@@ -134,7 +134,7 @@
 		promise = new Promise(empty),
 		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
-		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991);
+		length = Math.min(Math.max(parseInt(array.length, 10) || 0, 0), 9007199254740991);
 
 		function createOnFulfilled() {
 			return function (value) {
@@ -143,7 +143,7 @@
 		}
 
 		while (++index < length) {
-			if (index in arraylike) {
+			if (index in array) {
 				resolve(array[index]).then(createOnFulfilled());
 			}	
 		}

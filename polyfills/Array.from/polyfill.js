@@ -12,17 +12,17 @@ Object.defineProperty(Array, 'from', {
 		}
 
 		var
-		arraylike = typeof source === 'string' ? source.split('') : Object(source),
+		iterable = typeof source === 'string' ? source.split('') : Object(source),
 		map = arguments[1],
 		scope = arguments[2],
 		array = [],
 		index = -1,
-		length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991),
+		length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 		value;
 
 		while (++index < length) {
-			if (index in arraylike) {
-				value = arraylike[index];
+			if (index in iterable) {
+				value = iterable[index];
 
 				array[index] = map ? map.call(scope, value, index) : value;
 			}
