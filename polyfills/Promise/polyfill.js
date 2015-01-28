@@ -1,8 +1,17 @@
 (function (global, setImmediate, slice, empty, PENDING, FULFILLED, REJECTED) {
 	function resolvePromise(promise, state, value, defer) {
 		if (promise.PromiseState === PENDING) {
-			promise.PromiseState = state;
-			promise.PromiseValue = value;
+			if (value instanceof Promise) {
+				if (promise === value) {
+					promise.PromiseState = REJECTED;
+					promise.PromiseValue = new TypeError('Chaining cycle detected for promise');
+				} else {
+					value.PromiseChain.push(promise);
+				}
+			} else {
+				promise.PromiseState = state;
+				promise.PromiseValue = value;
+			}
 		}
 
 		if (defer) {
@@ -69,6 +78,13 @@
 		}
 	}
 
+	// Promise.reject
+	function reject(reason) {
+		return new Promise(function (resolve, reject) {
+			reject(reason);
+		});
+	}
+
 	// Promise.resolve
 	function resolve(value) {
 		if (value instanceof Promise) {
@@ -104,7 +120,7 @@
 		promise = new Promise(empty),
 		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
-		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991),
+		length = Math.min(Math.max(parseInt(array.length, 10) || 0, 0), 9007199254740991),
 		values = [];
 
 		function createOnFulfilled(index) {
@@ -134,18 +150,20 @@
 		promise = new Promise(empty),
 		array = iterable === undefined || iterable === null ? [] : typeof iterable === 'string' ? iterable.split('') : Object(iterable),
 		index = -1,
-		length = Math.min(Math.max(Number(array.length) || 0, 0), 9007199254740991);
+		length = Math.min(Math.max(parseInt(array.length, 10) || 0, 0), 9007199254740991);
 
-		function createOnFulfilled() {
-			return function (value) {
-				resolvePromise(promise, FULFILLED, value);
-			};
+		function onFulfilled(value) {
+			resolvePromise(promise, FULFILLED, value);
+		}
+
+		function onRejected(reason) {
+			resolvePromise(promise, REJECTED, reason);
 		}
 
 		while (++index < length) {
-			if (index in arraylike) {
-				resolve(array[index]).then(createOnFulfilled());
-			}	
+			if (index in array) {
+				resolve(array[index]).then(onFulfilled, onRejected);
+			}
 		}
 
 		return promise;
@@ -187,6 +205,7 @@
 	defineValues(Promise, {
 		all: all,
 		race: race,
+		reject: reject,
 		resolve: resolve
 	});
 
@@ -206,4 +225,4 @@
 			func.apply(null, args);
 		});
 	};
-})(this, window.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');
+})(this, this.setImmediate, Array.prototype.slice, function () {}, 'pending', 'fulfilled', 'rejected');

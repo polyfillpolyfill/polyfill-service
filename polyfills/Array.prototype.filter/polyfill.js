@@ -10,16 +10,16 @@ Array.prototype.filter = function filter(callback) {
 	var
 	object = Object(this),
 	scope = arguments[1],
-	arraylike = object instanceof String ? object.split('') : object,
-	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+	iterable = object instanceof String ? object.split('') : object,
+	length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 	index = -1,
 	result = [],
 	element;
 
 	while (++index < length) {
-		element = arraylike[index];
+		element = iterable[index];
 
-		if (index in arraylike && callback.call(scope, element, index, object)) {
+		if (index in iterable && callback.call(scope, element, index, object)) {
 			result.push(element);
 		}
 	}

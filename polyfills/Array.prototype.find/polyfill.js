@@ -12,14 +12,14 @@ Object.defineProperty(Array.prototype, 'find', {
 		var
 		object = Object(this),
 		scope = arguments[1],
-		arraylike = object instanceof String ? object.split('') : object,
-		length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
+		iterable = object instanceof String ? object.split('') : object,
+		length = Math.min(Math.max(parseInt(iterable.length, 10) || 0, 0), 9007199254740991),
 		index = -1,
 		element;
 
 		while (++index < length) {
-			if (index in arraylike) {
-				element = arraylike[index];
+			if (index in iterable) {
+				element = iterable[index];
 
 				if (callback.call(scope, element, index, object)) {
 					return element;
