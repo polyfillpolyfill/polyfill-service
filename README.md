@@ -33,7 +33,7 @@ For an HTTP API reference, see the [hosted service documentation](http://polyfil
 
 Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
-1. Add this repo as a dependency in your package.json  
+1. Add this repo as a dependency in your package.json
    e.g. `npm install "Financial-Times/polyfill-service" --save-dev`
 2. Rebuild your project using `npm install`
 3. Use the API from your code
@@ -47,8 +47,7 @@ Returns a bundle of polyfills as a string.  Options is an object with the follow
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `type`: String, optional. 'js' or 'css', defaults to js
-* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
-	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
+* `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, all default features will be considered. Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
 
 Flags that may be applied to polyfills are:
@@ -60,12 +59,12 @@ Example:
 
 ```javascript
 require('polyfill-service').getPolyfillString({
-	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
+	uaString: 'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)',
 	minify: true,
-	features: [
-		{name:"Element.prototype.matches", flags:['always', 'gated']},
-		{name:"modernizr:es5array"}
-	]
+	features: {
+		'Element.prototype.matches': { flags: ['always', 'gated'] },
+		'modernizr:es5array': {}
+	}
 });
 ```
 
@@ -75,19 +74,18 @@ Returns a list of features whose configuration matches the given user agent stri
 Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
-* `features`: Array, optional.  The list of features that are to be considered for polyfill inclusion.  If not supplied, all default features will be considered.  Each feature must be in the form of an object with the following properties:
-	* `name`: String, required. Name of features, matching a folder name in the polyfills directory, or a known alias
-	* `flags`: Array, optional. Array of flags to apply to this feature (see above in `getPolyfillString`)
+* `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, all default features will be considered. Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
+	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
 
 Example:
 
 ```javascript
 require('polyfill-service').getPolyfills({
-	uaString: "Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)",
-	features: [
-		{name:"Element.prototype.matches", flags:['always', 'gated']},
-		{name:"modernizr:es5array"}
-	]
+	uaString: 'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)',
+	features: {
+		'Element.prototype.matches': { flags: ['always', 'gated'] },
+		'modernizr:es5array': {}
+	}
 });
 ```
 
