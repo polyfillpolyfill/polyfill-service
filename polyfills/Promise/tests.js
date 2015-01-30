@@ -200,3 +200,12 @@ describe('2.2.1: Both `onFulfilled` and `onRejected` are optional arguments.', f
 		});
 	});
 });
+
+it('should resolve inside then (test case from @matthew-andrews)', function(done) {
+	Promise.resolve().then(function() {
+		return Promise.resolve('[true]').then(JSON.parse);
+	}).then(function(a) {
+		expect(a[0]).to.be(true);
+		done();
+	});
+})
