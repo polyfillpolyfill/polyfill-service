@@ -1,3 +1,4 @@
+require('es6-promise').polyfill();
 
 module.exports = function(grunt) {
 
@@ -63,6 +64,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("test", [
 		"simplemocha",
+		"buildsources",
 		"polyfillservice",
 		"saucelabs:quick",
 	]);
@@ -70,6 +72,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("compatgen", [
 		"simplemocha",
 		"polyfillservice",
+		"buildsources",
 		"saucelabs:compat",
 		"compattable"
 	]);
@@ -82,6 +85,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("deploy", [
 		'installcollections',
+		'buildsources',
 		'shipit'
 	]);
 };

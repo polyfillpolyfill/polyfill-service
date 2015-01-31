@@ -15,8 +15,6 @@ var polyfillio = require('../lib'),
 
 'use strict';
 
-require('es6-promise').polyfill();
-
 var argv = parseArgs(process.argv.slice(2));
 
 var port = argv.port || Number(process.env.PORT) || 3000,
