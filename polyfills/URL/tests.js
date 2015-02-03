@@ -1,5 +1,5 @@
 it('URL IDL', function () {
-	var url = new URL("http://example.com:8080/foo/bar?a=1&b=2#p1");
+	var url = new URL('http://example.com:8080/foo/bar?a=1&b=2#p1');
 
 	expect(typeof url.protocol).to.be('string');
 	expect(typeof url.hostname).to.be('string');
@@ -18,7 +18,7 @@ it('URL Stringifying', function () {
 });
 
 it('URL Parsing', function () {
-	var url = new URL("http://example.com:8080/foo/bar?a=1&b=2#p1");
+	var url = new URL('http://example.com:8080/foo/bar?a=1&b=2#p1');
 
 	expect(url.protocol).to.be('http:');
 	expect(url.hostname).to.be('example.com');
@@ -32,40 +32,40 @@ it('URL Parsing', function () {
 });
 
 it('URL Mutation', function () {
-	var url = new URL("http://example.com");
+	var url = new URL('http://example.com');
 
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 	expect(url.host).to.be('example.com');
 
-	url.protocol = "ftp";
+	url.protocol = 'ftp';
 
 	expect(url.protocol).to.be('ftp:');
 	expect(url.href).to.be('ftp://example.com/');
 	expect(url.origin).to.be('ftp://example.com');
 	expect(url.host).to.be('example.com');
 
-	url.protocol = "http";
+	url.protocol = 'http';
 
 	expect(url.protocol).to.be('http:');
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 	expect(url.host).to.be('example.com');
 
-	url = new URL("http://example.com")
-	url.hostname = "example.org";
+	url = new URL('http://example.com')
+	url.hostname = 'example.org';
 
 	expect(url.href).to.be('http://example.org/');
 	expect(url.origin).to.be('http://example.org');
 	expect(url.host).to.be('example.org');
 
-	url.hostname = "example.com";
+	url.hostname = 'example.com';
 
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 	expect(url.host).to.be('example.com');
 
-	url = new URL("http://example.com");
+	url = new URL('http://example.com');
 	url.port = 8080;
 
 	expect(url.href).to.be('http://example.com:8080/');
@@ -78,84 +78,84 @@ it('URL Mutation', function () {
 	expect(url.origin).to.be('http://example.com');
 	expect(url.host).to.be('example.com');
 
-	url = new URL("http://example.com");
-	url.pathname = "foo";
+	url = new URL('http://example.com');
+	url.pathname = 'foo';
 
 	expect(url.href).to.be('http://example.com/foo');
 	expect(url.origin).to.be('http://example.com');
 
-	url.pathname = "foo/bar";
+	url.pathname = 'foo/bar';
 
 	expect(url.href).to.be('http://example.com/foo/bar');
 	expect(url.origin).to.be('http://example.com');
 
-	url.pathname = "";
+	url.pathname = '';
 
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 
-	url = new URL("http://example.com");
-	url.search = "a=1&b=2";
+	url = new URL('http://example.com');
+	url.search = 'a=1&b=2';
 
 	expect(url.href).to.be('http://example.com/?a=1&b=2');
 	expect(url.origin).to.be('http://example.com');
 
-	url.search = "";
+	url.search = '';
 
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 
-	url = new URL("http://example.com");
-	url.hash = "p1";
+	url = new URL('http://example.com');
+	url.hash = 'p1';
 
 	expect(url.href).to.be('http://example.com/#p1');
 	expect(url.origin).to.be('http://example.com');
 
-	url.hash = "";
+	url.hash = '';
 
 	expect(url.href).to.be('http://example.com/');
 	expect(url.origin).to.be('http://example.com');
 });
 
 it('Parameter Mutation', function () {
-	var url = new URL("http://example.com");
+	var url = new URL('http://example.com');
 
-	expect(url.href).to.be("http://example.com/");
-	expect(url.search).to.be("");
-	expect(url.searchParams.get("a")).to.be(null);
-	expect(url.searchParams.get("b")).to.be(null);
+	expect(url.href).to.be('http://example.com/');
+	expect(url.search).to.be('');
+	expect(url.searchParams.get('a')).to.be(null);
+	expect(url.searchParams.get('b')).to.be(null);
 
-	url.searchParams.append("a", "1");
+	url.searchParams.append('a', '1');
 
-	expect(url.searchParams.get("a")).to.be("1");
-	expect(url.searchParams.getAll("a")).to.eql(["1"]);
-	expect(url.search).to.be("?a=1");
-	expect(url.href).to.be("http://example.com/?a=1");
+	expect(url.searchParams.get('a')).to.be('1');
+	expect(url.searchParams.getAll('a')).to.eql(['1']);
+	expect(url.search).to.be('?a=1');
+	expect(url.href).to.be('http://example.com/?a=1');
 
-	url.searchParams.append("b", "2");
+	url.searchParams.append('b', '2');
 
-	expect(url.searchParams.get("b")).to.be("2");
-	expect(url.searchParams.getAll("b")).to.be.eql(["2"]);
-	expect(url.search).to.be("?a=1&b=2")
-	expect(url.href).to.be("http://example.com/?a=1&b=2");
+	expect(url.searchParams.get('b')).to.be('2');
+	expect(url.searchParams.getAll('b')).to.be.eql(['2']);
+	expect(url.search).to.be('?a=1&b=2')
+	expect(url.href).to.be('http://example.com/?a=1&b=2');
 
-	url.searchParams.append("a", "3");
+	url.searchParams.append('a', '3');
 
-	expect(url.searchParams.get("a")).to.be("1");
-	expect(url.searchParams.getAll("a")).to.be.eql(["1", "3"]);
-	expect(url.search).to.be("?a=1&b=2&a=3");
-	expect(url.href).to.be("http://example.com/?a=1&b=2&a=3");
+	expect(url.searchParams.get('a')).to.be('1');
+	expect(url.searchParams.getAll('a')).to.be.eql(['1', '3']);
+	expect(url.search).to.be('?a=1&b=2&a=3');
+	expect(url.href).to.be('http://example.com/?a=1&b=2&a=3');
 
-	url.searchParams['delete']("a");
+	url.searchParams['delete']('a');
 
-	expect(url.search).to.be("?b=2")
-	expect(url.searchParams.getAll("a")).to.be.eql([]);
-	expect(url.href).to.be("http://example.com/?b=2");
+	expect(url.search).to.be('?b=2')
+	expect(url.searchParams.getAll('a')).to.be.eql([]);
+	expect(url.href).to.be('http://example.com/?b=2');
 
-	url.searchParams['delete']("b");
+	url.searchParams['delete']('b');
 
-	expect(url.searchParams.getAll("b")).to.be.eql([]);
-	expect(url.href).to.be("http://example.com/");
+	expect(url.searchParams.getAll('b')).to.be.eql([]);
+	expect(url.href).to.be('http://example.com/');
 
 	url.href = 'http://example.com?m=9&n=3';
 
@@ -179,91 +179,91 @@ it('Parameter Mutation', function () {
 });
 
 it('Parameter Encoding', function () {
-	var url = new URL("http://example.com");
+	var url = new URL('http://example.com');
 
-	expect(url.href).to.be("http://example.com/");
-	expect(url.search).to.be("");
+	expect(url.href).to.be('http://example.com/');
+	expect(url.search).to.be('');
 
-	url.searchParams.append("this\x00&that\x7f\xff", "1+2=3");
+	url.searchParams.append('this\x00&that\x7f\xff', '1+2=3');
 
-	expect(url.searchParams.get("this\x00&that\x7f\xff"))
-		.to.be("1+2=3");
+	expect(url.searchParams.get('this\x00&that\x7f\xff'))
+		.to.be('1+2=3');
 
 	expect(url.search)
-		.to.be("?this%00%26that%7F%C3%BF=1%2B2%3D3");
+		.to.be('?this%00%26that%7F%C3%BF=1%2B2%3D3');
 
 	expect(url.href)
-		.to.be("http://example.com/?this%00%26that%7F%C3%BF=1%2B2%3D3");
+		.to.be('http://example.com/?this%00%26that%7F%C3%BF=1%2B2%3D3');
 
-	url.search = "";
-	url.searchParams.append("a  b", "a  b");
+	url.search = '';
+	url.searchParams.append('a  b', 'a  b');
 
-	expect(url.search).to.be("?a++b=a++b");
-	expect(url.searchParams.get("a  b")).to.be("a  b");
+	expect(url.search).to.be('?a++b=a++b');
+	expect(url.searchParams.get('a  b')).to.be('a  b');
 });
 
 it('Base URL', function () {
 	// fully qualified URL
-	expect(new URL("http://example.com", "https://example.org").href)
-		.to.be("http://example.com/");
+	expect(new URL('http://example.com', 'https://example.org').href)
+		.to.be('http://example.com/');
 
-	expect(new URL("http://example.com/foo/bar", "https://example.org").href)
-		.to.be("http://example.com/foo/bar");
+	expect(new URL('http://example.com/foo/bar', 'https://example.org').href)
+		.to.be('http://example.com/foo/bar');
 
 	// protocol relative
-	expect(new URL("//example.com", "https://example.org").href)
-		.to.be("https://example.com/");
+	expect(new URL('//example.com', 'https://example.org').href)
+		.to.be('https://example.com/');
 
 	// path relative
-	expect(new URL("/foo/bar", "https://example.org").href)
-		.to.be("https://example.org/foo/bar");
+	expect(new URL('/foo/bar', 'https://example.org').href)
+		.to.be('https://example.org/foo/bar');
 
-	expect(new URL("/foo/bar", "https://example.org/baz/bat").href)
-		.to.be("https://example.org/foo/bar");
+	expect(new URL('/foo/bar', 'https://example.org/baz/bat').href)
+		.to.be('https://example.org/foo/bar');
 
-	expect(new URL("./bar", "https://example.org").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('./bar', 'https://example.org').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("./bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/foo/bar");
+	expect(new URL('./bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/foo/bar');
 
-	expect(new URL("bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/foo/bar");
+	expect(new URL('bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/foo/bar');
 
-	expect(new URL("../bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("../bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("../../bar", "https://example.org/foo/baz/bat/").href)
-		.to.be("https://example.org/foo/bar");
+	expect(new URL('../../bar', 'https://example.org/foo/baz/bat/').href)
+		.to.be('https://example.org/foo/bar');
 
-	expect(new URL("../../bar", "https://example.org/foo/baz/bat").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../../bar', 'https://example.org/foo/baz/bat').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("../../bar", "https://example.org/foo/baz/").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../../bar', 'https://example.org/foo/baz/').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("../../bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../../bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/bar');
 
-	expect(new URL("../../bar", "https://example.org/foo/").href)
-		.to.be("https://example.org/bar");
+	expect(new URL('../../bar', 'https://example.org/foo/').href)
+		.to.be('https://example.org/bar');
 
 	// search/hash relative
-	expect(new URL("bar?ab#cd", "https://example.org/foo/").href)
-		.to.be("https://example.org/foo/bar?ab#cd");
+	expect(new URL('bar?ab#cd', 'https://example.org/foo/').href)
+		.to.be('https://example.org/foo/bar?ab#cd');
 
-	expect(new URL("bar?ab#cd", "https://example.org/foo").href)
-		.to.be("https://example.org/bar?ab#cd");
+	expect(new URL('bar?ab#cd', 'https://example.org/foo').href)
+		.to.be('https://example.org/bar?ab#cd');
 
-	expect(new URL("?ab#cd", "https://example.org/foo").href)
-		.to.be("https://example.org/foo?ab#cd");
+	expect(new URL('?ab#cd', 'https://example.org/foo').href)
+		.to.be('https://example.org/foo?ab#cd');
 
-	expect(new URL("?ab", "https://example.org/foo").href)
-		.to.be("https://example.org/foo?ab");
+	expect(new URL('?ab', 'https://example.org/foo').href)
+		.to.be('https://example.org/foo?ab');
 
-	expect(new URL("#cd", "https://example.org/foo").href)
-		.to.be("https://example.org/foo#cd");
+	expect(new URL('#cd', 'https://example.org/foo').href)
+		.to.be('https://example.org/foo#cd');
 });
