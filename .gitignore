@@ -5,3 +5,4 @@ source/*/*.min.js.map
 test/results
 /dev.sh
 .DS_Store
+.idea
