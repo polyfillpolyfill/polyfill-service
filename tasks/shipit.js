@@ -9,7 +9,7 @@ var write = denodeify(fs.writeFile);
 
 module.exports = function(grunt) {
 
-	grunt.registerTask('shipit', "Save current file tree as a build branch and push to production", function() {
+	grunt.registerMultiTask('shipit', 'Save current file tree as a build branch and push to production', function() {
 
 		var done = this.async();
 		var options = this.options({

@@ -55,6 +55,10 @@ module.exports = function(grunt) {
 					]
 				}
 			}
+		},
+		"shipit": {
+			"qa": { targetremote: "herokuqa" },
+			"prod": { targetremote: "heroku" }
 		}
 	});
 
@@ -83,10 +87,16 @@ module.exports = function(grunt) {
 		"saucelabs:ci"
 	]);
 
-	grunt.registerTask("deploy", [
+	grunt.registerTask("deployqa", [
 		'installcollections',
 		'buildsources',
-		'shipit'
+		'shipit:qa'
+	]);
+
+	grunt.registerTask("deployprod", [
+		'installcollections',
+		'buildsources',
+		'shipit:prod'
 	]);
 };
 
