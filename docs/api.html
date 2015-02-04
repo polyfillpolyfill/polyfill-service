@@ -37,7 +37,7 @@
 							<dt><code>|gated</code></dt>
 							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
 						</dl>
-						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.</p>
+						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.  Setting the value "all" will select every feature in the library (take care when using this, the resulting bundle may be very large)</p>
 					</td>
 				</tr><tr>
 					<td><code>flags</code></td>
