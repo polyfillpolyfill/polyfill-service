@@ -68,6 +68,10 @@
 						<p><em>Historic polyfill collections are not installed.  To install run <code>grunt installcollections</code>.  Only the `latest` collection is available.</code></em></p>
 						{{/hasVersions}}
 					</td>
+				</tr><tr>
+					<td><code>unknown</code></td>
+					<td>Querystring</td>
+					<td>What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Use caution when setting this argument to 'polyfill' on large feature sets, since huge polyfill bundles may cause crashes or lockups in extremely old or underpowered user agents.  Defaults to `ignore`.</td>
 				</tr>
 			</table>
 		</div>
