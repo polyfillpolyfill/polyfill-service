@@ -1,7 +1,8 @@
-node_modules
-npm-debug.log
-source/*/*.min.js
-source/*/*.min.js.map
-test/results
+/node_modules
+/npm-debug.log
+/polyfills/__versions
+/polyfills/aliases.json
+/polyfills/sources.json
+/test/results
 /dev.sh
 .DS_Store

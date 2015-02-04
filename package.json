@@ -22,11 +22,12 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "test": "grunt test",
     "start": "forever  service/index.js",
     "restart": "forever restart service/index.js",
     "stop": "forever stop service/index.js",
     "status": "forever list | grep -q service/index.js",
+    "prepublish": "grunt installcollections buildsources",
+    "test": "grunt test",
     "citest": "grunt ci"
   },
   "license": "CC0 1.0 Universal License",
