@@ -86,18 +86,6 @@ module.exports = function(grunt) {
 		"polyfillservice",
 		"saucelabs:ci"
 	]);
-
-	grunt.registerTask("deployqa", [
-		'installcollections',
-		'buildsources',
-		'shipit:qa'
-	]);
-
-	grunt.registerTask("deployprod", [
-		'installcollections',
-		'buildsources',
-		'shipit:prod'
-	]);
 };
 
 var browserList = [
