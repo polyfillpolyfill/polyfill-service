@@ -32,10 +32,6 @@ module.exports = function(grunt) {
 			srcbranch = stdout[0];
 			version = stdout[1];
 
-			if (!/^v\d+\.\d+\.\d+$/.test(version)) {
-				throw Error('Cannot deploy an untagged commit.  First apply a version tag in the format v0.0.0 then run deploy again.  Current HEAD is described as '+version);
-			}
-
 			var deploybranch = 'deploy-'+srcbranch+'-'+version;
 
 			var cmds = [
