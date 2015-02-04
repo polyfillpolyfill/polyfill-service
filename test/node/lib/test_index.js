@@ -47,6 +47,32 @@ describe("polyfillio", function() {
 				'Math.sign': { flags:[], polyfillVariant:'plus' }
 			});
 		});
+
+		it("should return no polyfills for unknown UA unless unknown is set", function() {
+
+			// Without unknown, no polyfills
+			assert.deepEqual(polyfillio.getPolyfills({
+				features: {'Math.sign': { flags: [] }},
+				uaString: ''
+			}), {});
+
+			// With unknown=polyfill, default variant polyfills
+			assert.deepEqual(polyfillio.getPolyfills({
+				features: {'Math.sign': { flags: [] }},
+				unknown: 'polyfill',
+				uaString: ''
+			}), {
+				'Math.sign': { flags:[], polyfillVariant:'default' }
+			});
+
+			// With unknown=polyfill, default variant polyfills (UA not specified)
+			assert.deepEqual(polyfillio.getPolyfills({
+				features: {'Math.sign': { flags: [] }},
+				unknown: 'polyfill',
+			}), {
+				'Math.sign': { flags:[], polyfillVariant:'default' }
+			});
+		});
 	});
 
 	/*

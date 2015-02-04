@@ -143,32 +143,36 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	// Backwards compatibility
 	if (req.query.gated) flags.push('gated');
 
+	// Currently don't support CSS
+	if (fileExtension !== '.js') {
+		res.status(404);
+		res.set('Content-Type', 'text/plain;charset=utf-8');
+		res.send('/* Type not supported.  Only .js is supported at the moment */');
+		return;
+	}
+
 	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
 
 	if (!req.query.ua) res.set('Vary', 'User-Agent');
 
-	if (!uaString) {
-		res.status(400);
-		res.send('A user agent identifier is required, either via a User-Agent header or the ua query param.');
+	var params = {
+		features: polyfills.get(),
+		minify: minified
+	};
+	if (req.query.libVersion) params.libVersion = req.query.libVersion;
+	if (req.query.unknown) params.unknown = req.query.unknown;
+	if (uaString) params.uaString = uaString;
 
-	} else {
-		var op = polyfillio.getPolyfillString({
-			features: polyfills.get(),
-			extension: fileExtension,
-			minify: minified,
-			uaString: uaString,
-			url: req.originalUrl,
-			libVersion: req.query.libVersion
-		});
-		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
-			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
-		}
-		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
-		res.set('Access-Control-Allow-Origin', '*');
-		res.send(op);
-		metrics.addResponseTime(Date.now() - responseStartTime);
-		metrics.addResponseType(fileExtension);
+	var op = polyfillio.getPolyfillString(params);
+
+	if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+		op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
 	}
+	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+	res.set('Access-Control-Allow-Origin', '*');
+	res.send(op);
+	metrics.addResponseTime(Date.now() - responseStartTime);
+	metrics.addResponseType(fileExtension);
 });
 
 app.get("/v1/normalizeUa", function(req, res, next) {
