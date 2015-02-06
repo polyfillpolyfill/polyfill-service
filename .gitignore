@@ -5,4 +5,7 @@
 /polyfills/sources.json
 /test/results
 /dev.sh
+/.semver
+/.haikro-cache
+/node-*
 .DS_Store

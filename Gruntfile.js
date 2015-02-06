@@ -91,18 +91,6 @@ module.exports = function(grunt) {
 		"installcollections",
 		"buildsources"
 	]);
-
-	grunt.registerTask("deployqa", [
-		'installcollections',
-		'buildsources',
-		'shipit:qa'
-	]);
-
-	grunt.registerTask("deployprod", [
-		'installcollections',
-		'buildsources',
-		'shipit:prod'
-	]);
 };
 
 var browserList = [

@@ -22,12 +22,12 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "start": "forever  service/index.js",
-    "restart": "forever restart service/index.js",
-    "stop": "forever stop service/index.js",
+    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
+    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
+    "stop": "forever stop --plain service/index.js",
     "status": "forever list | grep -q service/index.js",
     "prepublish": "grunt build",
-    "deploy": "haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
+    "deploy": "git describe --tags > .semver && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
