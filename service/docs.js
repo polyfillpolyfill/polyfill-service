@@ -170,7 +170,7 @@ function getCompat() {
 			var fdata = {
 				feature: feat,
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-					return Math.max(size, polyfill.variants[variantName].minGatedSource.length);
+					return Math.max(size, polyfill.variants[variantName].minSource.length);
 				}, 0),
 				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 				hasTests: polyfill.hasTests
