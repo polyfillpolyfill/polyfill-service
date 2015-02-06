@@ -10,8 +10,7 @@
       "20": "native",
       "29": "native",
       "33": "native",
-      "34": "native",
-      "3.6": "missing"
+      "34": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -24,15 +23,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "viewport": {
@@ -62,15 +61,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "setImmediate": {
@@ -100,15 +99,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "requestAnimationFrame": {
@@ -135,8 +134,11 @@
     },
     "safari": {
       "5": "polyfilled",
-      "6": "polyfilled",
+      "6": "missing",
       "7": "native"
+    },
+    "ios_saf": {
+      "7.1": "native"
     },
     "android": {
       "4.4": "native",
@@ -144,9 +146,44 @@
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
+    }
+  },
+  "performance.now": {
+    "chrome": {
+      "26": "native",
+      "34": "native",
+      "38": "native",
+      "39": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "29": "native",
+      "33": "native",
+      "34": "native",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "native",
+      "11": "native"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     },
     "ios_saf": {
-      "7.1": "native"
+      "7.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
     }
   },
   "matchMedia": {
@@ -176,15 +213,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "localStorage": {
@@ -214,15 +251,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "getComputedStyle": {
@@ -252,15 +289,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "document.querySelector": {
@@ -290,15 +327,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "document.head": {
@@ -328,15 +365,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "devicePixelRatio": {
@@ -366,43 +403,8 @@
       "6": "native",
       "7": "native"
     },
-    "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native",
-      "4.0": "native"
-    },
     "ios_saf": {
       "7.1": "native"
-    }
-  },
-  "base64": {
-    "chrome": {
-      "26": "native",
-      "34": "native",
-      "38": "native",
-      "39": "native"
-    },
-    "firefox": {
-      "20": "native",
-      "29": "native",
-      "33": "native",
-      "34": "native",
-      "3.6": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "native",
-      "11": "native"
-    },
-    "safari": {
-      "5": "native",
-      "6": "native",
-      "7": "native"
     },
     "android": {
       "4.4": "native",
@@ -410,9 +412,6 @@
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "XMLHttpRequest": {
@@ -442,15 +441,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Window": {
@@ -480,15 +479,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "String.prototype.trim": {
@@ -518,15 +517,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.keys": {
@@ -556,15 +555,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.is": {
@@ -594,15 +593,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Object.getPrototypeOf": {
@@ -632,15 +631,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.getOwnPropertyNames": {
@@ -670,15 +669,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.defineProperty": {
@@ -708,15 +707,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.defineProperties": {
@@ -746,15 +745,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Object.create": {
@@ -784,15 +783,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Navigator.prototype.geolocation": {
@@ -822,15 +821,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "JSON": {
@@ -860,15 +859,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "HTMLDocument": {
@@ -898,15 +897,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Function.prototype.bind": {
@@ -936,15 +935,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Event.hashchange": {
@@ -974,15 +973,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Event.focusin": {
@@ -1012,15 +1011,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Event.DOMContentLoaded": {
@@ -1050,15 +1049,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Event": {
@@ -1088,15 +1087,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "missing",
       "4.2": "missing",
       "4.1": "missing",
       "4.0": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Element.prototype.placeholder": {
@@ -1126,15 +1125,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Element.prototype.cloneNode": {
@@ -1164,15 +1163,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Element.prototype.classList": {
@@ -1202,15 +1201,15 @@
       "6": "polyfilled",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "missing",
       "4.2": "missing",
       "4.1": "missing",
       "4.0": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Element": {
@@ -1240,15 +1239,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Document": {
@@ -1278,15 +1277,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Date.prototype.toISOString": {
@@ -1316,15 +1315,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Date.now": {
@@ -1354,15 +1353,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "DOMTokenList": {
@@ -1392,15 +1391,15 @@
       "6": "polyfilled",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "missing",
       "4.2": "missing",
       "4.1": "missing",
       "4.0": "missing"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "AudioContext": {
@@ -1430,15 +1429,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.some": {
@@ -1468,15 +1467,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.reduceRight": {
@@ -1506,15 +1505,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.reduce": {
@@ -1544,15 +1543,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.map": {
@@ -1582,15 +1581,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.lastIndexOf": {
@@ -1620,15 +1619,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.indexOf": {
@@ -1658,15 +1657,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.forEach": {
@@ -1696,15 +1695,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.filter": {
@@ -1734,15 +1733,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.prototype.every": {
@@ -1772,15 +1771,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "Array.isArray": {
@@ -1810,15 +1809,53 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "native",
       "4.2": "native",
       "4.1": "native",
       "4.0": "native"
+    }
+  },
+  "WeakMap": {
+    "chrome": {
+      "26": "polyfilled",
+      "34": "polyfilled",
+      "38": "native",
+      "39": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "29": "polyfilled",
+      "33": "polyfilled",
+      "34": "polyfilled",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     },
     "ios_saf": {
-      "7.1": "native"
+      "7.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
     }
   },
   "Math.atanh": {
@@ -1848,15 +1885,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "String.prototype.contains": {
@@ -1886,15 +1923,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "String.prototype.startsWith": {
@@ -1924,15 +1961,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.log10": {
@@ -1962,15 +1999,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Array.prototype.find": {
@@ -2000,15 +2037,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "String.prototype.repeat": {
@@ -2038,15 +2075,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.imul": {
@@ -2076,53 +2113,15 @@
       "6": "polyfilled",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "native"
-    }
-  },
-  "WeakSet": {
-    "chrome": {
-      "26": "polyfilled",
-      "34": "polyfilled",
-      "38": "native",
-      "39": "native"
-    },
-    "firefox": {
-      "20": "polyfilled",
-      "29": "polyfilled",
-      "33": "polyfilled",
-      "34": "native",
-      "3.6": "polyfilled"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled"
-    },
-    "safari": {
-      "5": "polyfilled",
-      "6": "polyfilled",
-      "7": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled",
-      "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.log2": {
@@ -2152,15 +2151,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Array.of": {
@@ -2190,15 +2189,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.asinh": {
@@ -2228,15 +2227,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.trunc": {
@@ -2266,15 +2265,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "String.prototype.endsWith": {
@@ -2304,15 +2303,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.sinh": {
@@ -2342,15 +2341,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Array.from": {
@@ -2380,15 +2379,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Array.prototype.findIndex": {
@@ -2418,15 +2417,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.tanh": {
@@ -2456,15 +2455,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.sign": {
@@ -2494,15 +2493,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.expm1": {
@@ -2532,15 +2531,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.log1p": {
@@ -2570,15 +2569,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Element.prototype.mutation": {
@@ -2608,15 +2607,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.clz32": {
@@ -2642,8 +2641,12 @@
       "11": "polyfilled"
     },
     "safari": {
+      "5": "polyfilled",
       "6": "polyfilled",
       "7": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled"
     },
     "android": {
       "4.4": "polyfilled",
@@ -2651,9 +2654,6 @@
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Element.prototype.matches": {
@@ -2683,15 +2683,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.cosh": {
@@ -2721,15 +2721,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.cbrt": {
@@ -2755,8 +2755,12 @@
       "11": "polyfilled"
     },
     "safari": {
+      "5": "polyfilled",
       "6": "polyfilled",
       "7": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled"
     },
     "android": {
       "4.4": "polyfilled",
@@ -2764,9 +2768,6 @@
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Array.prototype.contains": {
@@ -2796,15 +2797,53 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
+    }
+  },
+  "fetch": {
+    "chrome": {
+      "26": "polyfilled",
+      "34": "polyfilled",
+      "38": "polyfilled",
+      "39": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "29": "polyfilled",
+      "33": "polyfilled",
+      "34": "polyfilled",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     },
     "ios_saf": {
       "7.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
     }
   },
   "Element.prototype.closest": {
@@ -2834,15 +2873,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Promise": {
@@ -2860,8 +2899,8 @@
       "3.6": "polyfilled"
     },
     "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
+      "6": "missing",
+      "7": "missing",
       "8": "polyfilled",
       "9": "polyfilled",
       "10": "polyfilled",
@@ -2872,15 +2911,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.acosh": {
@@ -2906,8 +2945,12 @@
       "11": "polyfilled"
     },
     "safari": {
+      "5": "polyfilled",
       "6": "polyfilled",
       "7": "polyfilled"
+    },
+    "ios_saf": {
+      "7.1": "polyfilled"
     },
     "android": {
       "4.4": "polyfilled",
@@ -2915,9 +2958,6 @@
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Object.assign": {
@@ -2947,15 +2987,15 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "polyfilled"
     }
   },
   "Math.hypot": {
@@ -2976,6 +3016,7 @@
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
+      "9": "polyfilled",
       "10": "polyfilled",
       "11": "polyfilled"
     },
@@ -2984,15 +3025,53 @@
       "6": "polyfilled",
       "7": "polyfilled"
     },
+    "ios_saf": {
+      "7.1": "polyfilled"
+    },
     "android": {
       "4.4": "polyfilled",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
+    }
+  },
+  "String.prototype.includes": {
+    "chrome": {
+      "26": "polyfilled",
+      "34": "polyfilled",
+      "38": "polyfilled",
+      "39": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "29": "polyfilled",
+      "33": "polyfilled",
+      "34": "polyfilled",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     },
     "ios_saf": {
       "7.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
     }
   },
   "CustomEvent": {
@@ -3022,15 +3101,15 @@
       "6": "native",
       "7": "native"
     },
+    "ios_saf": {
+      "7.1": "native"
+    },
     "android": {
       "4.4": "native",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled",
       "4.0": "polyfilled"
-    },
-    "ios_saf": {
-      "7.1": "native"
     }
   },
   "screen.orientation": {
@@ -3060,15 +3139,53 @@
       "6": "missing",
       "7": "missing"
     },
+    "ios_saf": {
+      "7.1": "missing"
+    },
     "android": {
       "4.4": "missing",
       "4.3": "missing",
       "4.2": "missing",
       "4.1": "missing",
       "4.0": "missing"
+    }
+  },
+  "base64": {
+    "chrome": {
+      "26": "missing",
+      "34": "missing",
+      "38": "missing",
+      "39": "missing"
+    },
+    "firefox": {
+      "20": "missing",
+      "29": "missing",
+      "33": "missing",
+      "34": "missing",
+      "3.6": "missing"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "missing",
+      "10": "missing",
+      "11": "missing"
+    },
+    "safari": {
+      "5": "missing",
+      "6": "missing",
+      "7": "missing"
     },
     "ios_saf": {
       "7.1": "missing"
+    },
+    "android": {
+      "4.4": "missing",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing",
+      "4.0": "missing"
     }
   },
   "Node.prototype.contains": {
@@ -3098,15 +3215,52 @@
       "6": "missing",
       "7": "missing"
     },
+    "ios_saf": {
+      "7.1": "missing"
+    },
     "android": {
       "4.4": "missing",
       "4.3": "missing",
       "4.2": "missing",
       "4.1": "missing",
       "4.0": "missing"
+    }
+  },
+  "WeakSet": {
+    "chrome": {
+      "34": "polyfilled",
+      "38": "native",
+      "39": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "29": "polyfilled",
+      "33": "polyfilled",
+      "34": "native",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled"
     },
     "ios_saf": {
-      "7.1": "missing"
+      "7.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
     }
   }
 }
