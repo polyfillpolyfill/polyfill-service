@@ -1,17 +1,16 @@
-var polyfillio = require('../lib'),
-	express = require('express'),
-	app = express().enable("strict routing"),
-	packagejson = require('../package.json'),
-	origamijson = require('../origami.json'),
-	PolyfillSet = require('./PolyfillSet'),
-	path = require('path'),
-	fs = require('fs'),
-	parseArgs = require('minimist'),
-	ServiceMetrics = require('./metrics'),
-	fs = require('fs'),
-	testing = require('./testing'),
-	docs = require('./docs'),
-	appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
+var polyfillio = require('../lib');
+var express = require('express');
+var app = express().enable("strict routing");
+var origamijson = require('../origami.json');
+var PolyfillSet = require('./PolyfillSet');
+var path = require('path');
+var fs = require('fs');
+var parseArgs = require('minimist');
+var ServiceMetrics = require('./metrics');
+var fs = require('fs');
+var testing = require('./testing');
+var docs = require('./docs');
+var appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
 
 'use strict';
 

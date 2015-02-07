@@ -50,9 +50,9 @@ function getData(type) {
 				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 			}).then(function (response) {
-				var byhour = [], rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				data = (response && JSON.parse(response)) || {data:[]};
-				byhour = data.data.map(function(result) {
+				var rollup = {requests:0, hits:0, miss:0, bandwidth:0};
+				var data = (response && JSON.parse(response)) || {data:[]};
+				var byhour = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
@@ -76,7 +76,7 @@ function getData(type) {
 					pass: process.env.PINGDOM_PASSWORD
 				}
 			}).then(function (response) {
-				data = (response && JSON.parse(response)) || [];
+				var data = (response && JSON.parse(response)) || [];
 				if (!data.summary) data = {summary:{hours:[]}};
 				return data.summary.hours.map(function(result) {
 					return {date: result.starttime, respTime: result.avgresponse};
@@ -97,7 +97,7 @@ function getData(type) {
 					pass: process.env.PINGDOM_PASSWORD
 				}
 			}).then(function (response) {
-				data = (response && JSON.parse(response)) || {summary:{states:[]}};
+				var data = (response && JSON.parse(response)) || {summary:{states:[]}};
 				return data.summary.states.filter(function(result) {
 					return (result.status !== 'unknown');
 				}).map(function(result) {
@@ -159,7 +159,7 @@ function getCompat() {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
-	}
+	};
 	return Object.keys(data)
 		.filter(function(feature) {
 			return sourceslib.polyfillExists(feature);
@@ -192,7 +192,7 @@ function getCompat() {
 				}
 			});
 			return fdata;
-		});
+		})
 	;
 }
 
