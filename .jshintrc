@@ -12,5 +12,6 @@
 	"sub": true,
 	"node": true,
 	"strict": false,
-	"globalstrict": true
+	"globalstrict": true,
+	"curly": false
 }
