@@ -46,8 +46,8 @@
 		}
 	};
 
-	// http://dom.spec.whatwg.org/#dom-childnode-replace
-	Element.prototype.replace = function replace() {
+	// http://dom.spec.whatwg.org/#dom-childnode-replacewith
+	Element.prototype.replaceWith = function replaceWith() {
 		if (this.parentNode) {
 			this.parentNode.replaceChild(mutation(arguments), this);
 		}
