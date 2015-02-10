@@ -11,7 +11,7 @@
 			.replace(/all|screen/g, '1')
 			.replace(/print/g, '0')
 			.replace(/,/g, '||')
-			.replace(/and/g, '&&')
+			.replace(/\band\b/g, '&&')
 			.replace(/dpi/g, '')
 			.replace(/(\d+)(cm|em|in|mm|pc|pt|px|rem)/, function ($0, $1, $2) {
 				return $1 * (
