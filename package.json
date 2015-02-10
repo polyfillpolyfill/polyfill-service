@@ -31,7 +31,8 @@
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
-    "citest": "grunt ci"
+    "citest": "grunt ci",
+    "watch": "forever --watch --minUptime=1000 --spinSleepTime=1000 service/index.js --watchIngore \"/polyfills/*/*\""
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
