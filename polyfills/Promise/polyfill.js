@@ -96,7 +96,7 @@
 
 			if (isCallable(then)) {
 				return new Promise(function (resolve, reject) {
-					enqueueMicrotask(function () {
+					_enqueueMicrotask(function () {
 						try {
 							then.call(anything, resolve, reject);
 						} catch (error) {
@@ -213,13 +213,13 @@
 			}
 
 			function asyncOnFulfilled() {
-				enqueueMicrotask(function () {
+				_enqueueMicrotask(function () {
 					tryCall(onFulfilled);
 				});
 			}
 
 			function asyncOnRejected() {
-				enqueueMicrotask(function () {
+				_enqueueMicrotask(function () {
 					tryCall(onRejected);
 				});
 			}
