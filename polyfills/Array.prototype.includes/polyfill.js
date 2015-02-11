@@ -1,7 +1,7 @@
 (function (max, min) {
-	Object.defineProperty(Array.prototype, 'contains', {
+	Object.defineProperty(Array.prototype, 'includes', {
 		configurable: true,
-		value: function contains(searchElement) {
+		value: function includes(searchElement) {
 			if (this === undefined || this === null) {
 				throw new TypeError(this + 'is not an object');
 			}
