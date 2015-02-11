@@ -7,7 +7,7 @@ var polyfillio = require('../lib'),
 	path = require('path'),
 	fs = require('fs'),
 	parseArgs = require('minimist'),
-	ServiceMetrics = require('./metrics'),
+	StatsD = require('node-statsd'),
 	fs = require('fs'),
 	testing = require('./testing'),
 	docs = require('./docs'),
@@ -17,9 +17,13 @@ var polyfillio = require('../lib'),
 
 var argv = parseArgs(process.argv.slice(2));
 
-var port = argv.port || Number(process.env.PORT) || 3000,
-	metrics = new ServiceMetrics(),
-	contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+var port = argv.port || Number(process.env.PORT) || 3000;
+var metrics = new StatsD({
+	host: process.env.STATSD_HOST,
+	prefix: 'polyfill.' + (process.env.ENV_NAME || "unknown") + '.',
+	mock: !process.env.STATSD_HOST
+});
+var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
@@ -111,28 +115,10 @@ app.get(/^\/__health$/, function(req, res) {
     res.send(JSON.stringify(info));
 });
 
-app.get(/^\/__metrics$/, function(req, res) {
-	var info = {
-		"schemaVersion": 1,
-		"metrics": {
-			"responsetime": metrics.getResponseTimeMetric(),
-			"uptime": metrics.getUptimeMetric(),
-			"servedjsresponsecount": metrics.getJavascriptResponseCountMetric(),
-			"servedcssresponsecount": metrics.getCSSResponseCountMetric()
-		}
-	};
-
-	res.set("Cache-Control", "no-cache");
-	res.set("Content-Type", "application/json;charset=utf-8");
-	res.send(JSON.stringify(info));
-});
-
-
 
 /* API endpoints */
 
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	var responseStartTime = Date.now();
 
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
@@ -161,7 +147,10 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	};
 	if (req.query.libVersion) params.libVersion = req.query.libVersion;
 	if (req.query.unknown) params.unknown = req.query.unknown;
-	if (uaString) params.uaString = uaString;
+	if (uaString) {
+		params.uaString = uaString;
+		metrics.increment('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)\..*$/, '$1.$2'));
+	}
 
 	var op = polyfillio.getPolyfillString(params);
 
@@ -171,8 +160,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
 	res.send(op);
-	metrics.addResponseTime(Date.now() - responseStartTime);
-	metrics.addResponseType(fileExtension);
 });
 
 app.get("/v1/normalizeUa", function(req, res, next) {
