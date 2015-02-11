@@ -24,7 +24,10 @@ Metrics.prototype.send = function() {
 			ret[this.options.prefix+key] = this.data.counters[key];
 			return ret;
 		}.bind(this), {});
-		this.graphite.write(data);
+		console.log(this.graphite);
+		this.graphite.write(data, function(err) {
+			if (err) console.error(err);
+		});
 	}.bind(this);
 
 	if (!this.graphite) return;
