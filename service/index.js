@@ -7,7 +7,7 @@ var polyfillio = require('../lib'),
 	path = require('path'),
 	fs = require('fs'),
 	parseArgs = require('minimist'),
-	StatsD = require('node-statsd'),
+	Metrics = require('./metrics'),
 	fs = require('fs'),
 	testing = require('./testing'),
 	docs = require('./docs'),
@@ -18,10 +18,9 @@ var polyfillio = require('../lib'),
 var argv = parseArgs(process.argv.slice(2));
 
 var port = argv.port || Number(process.env.PORT) || 3000;
-var metrics = new StatsD({
-	host: process.env.STATSD_HOST,
+var metrics = new Metrics({
+	url: process.env.GRAPHITE_URL,
 	prefix: 'polyfill.' + (process.env.ENV_NAME || "unknown") + '.',
-	mock: !process.env.STATSD_HOST
 });
 var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
@@ -149,7 +148,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	if (req.query.unknown) params.unknown = req.query.unknown;
 	if (uaString) {
 		params.uaString = uaString;
-		metrics.increment('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)\..*$/, '$1.$2'));
+		metrics.increment('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2'));
 	}
 
 	var op = polyfillio.getPolyfillString(params);
