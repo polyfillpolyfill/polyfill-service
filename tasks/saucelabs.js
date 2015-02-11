@@ -41,6 +41,10 @@ module.exports = function(grunt) {
 			cibuild: false
 		});
 
+		options.browsers = options.browsers.map(function(b) {
+			return {browserName:b[0], version:b[1], platform:b[2]};
+		});
+
 
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
@@ -102,7 +106,6 @@ module.exports = function(grunt) {
 											log(remainingCount + ' test pages remaining');
 										} else {
 											retryCount++;
-											console.log(data);
 											log('no changes, waiting');
 										}
 										setTimeout(waitOnResults, pollTick);

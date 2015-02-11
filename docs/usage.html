@@ -8,6 +8,8 @@
 
 		<p>The public instance of the polyfill service is hosted by the Financial Times, with the generous support of Fastly, who provide CDN distribution.  <a href='http://www.fastly.com/network/'>View Fastly network map</a></p>
 
+		{{#if requestsData}}
+
 		<h3>Traffic volume</h3>
 
 		<p>This chart shows the number of requests we have served per hour, over the last 7 days:</p>
@@ -63,6 +65,15 @@
 		</div>
 
 		<p>Caching responses that vary by <code>User-Agent</code> is very hard to do with good cache performance. We use a <a href='http://labs.ft.com/2014/10/caching-user-agent-specific-responses-with-fastly/'>custom Fastly VCL configuration</a> that separates the UA normalisation from the polyfill bundle.</p>
+
+		{{else}}
+
+		<p><em>Usage stats cannot be shown, probably because you need to configure the environment variables needed to get data from the Fastly and Pingdom APIs.  The specific error thrown by the service is shown below:</em></p>
+
+		<pre><code>{{msg}}</code></pre>
+
+		{{/if}}
+
 
 	</div>
 
