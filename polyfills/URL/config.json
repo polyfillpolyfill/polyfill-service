@@ -1,0 +1,17 @@
+{
+	"browsers": {
+		"chrome" : "5 - *",
+		"firefox": "4 - 29",
+		"ie"     : ">=8",
+		"opera"  : "11.60 - *",
+		"safari" : "5.1 - *"
+	},
+
+	"dependencies": [
+		"Object.defineProperties",
+		"Array.prototype.forEach"
+	],
+
+	"license": "Public Domain, https://github.com/inexorabletash/polyfill/blob/master/LICENSE.md",
+	"author" : "Joshua Bell (https://github.com/inexorabletash)"
+}
