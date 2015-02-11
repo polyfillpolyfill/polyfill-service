@@ -3262,5 +3262,27 @@
       "4.1": "polyfilled",
       "4.0": "polyfilled"
     }
+  },
+
+  "URL": {
+    "chrome": {
+      "40": "polyfilled"
+    },
+    "firefox": {
+      "4": "polyfilled",
+      "29": "native"
+    },
+    "ie": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5": "polyfilled",
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled"
+    }
   }
 }
