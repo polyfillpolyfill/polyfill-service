@@ -13,7 +13,6 @@ var Metrics = function(options) {
 };
 
 Metrics.prototype.increment = function(key, amount) {
-	console.log('Logged metric', key, amount);
 	this.data.counters[key] = (this.data.counters[key] || 0) + (amount || 1);
 	this.send();
 };
@@ -24,9 +23,12 @@ Metrics.prototype.send = function() {
 			ret[this.options.prefix+key] = this.data.counters[key];
 			return ret;
 		}.bind(this), {});
-		console.log(this.graphite);
 		this.graphite.write(data, function(err) {
-			if (err) console.error(err);
+			if (err) {
+				console.error(err);
+			} else {
+				console.log('Sent metrics');
+			}
 		});
 	}.bind(this);
 
