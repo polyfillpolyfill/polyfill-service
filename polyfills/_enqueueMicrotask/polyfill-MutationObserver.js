@@ -1,4 +1,4 @@
-_enqueueMicrotask = function () {
+var _enqueueMicrotask = function () {
 	function flush() {
 		activeCallbacks = callbacks.splice(0, 1024);
 		index = -1;
