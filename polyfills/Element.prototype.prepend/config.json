@@ -14,6 +14,6 @@
 	"dependencies": [
 		"Document",
 		"Element",
-		"mutation"
+		"_mutation"
 	]
 }

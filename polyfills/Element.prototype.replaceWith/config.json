@@ -15,6 +15,6 @@
 		"Document",
 		"Element",
 		"Text",
-		"mutation"
+		"_mutation"
 	]
 }

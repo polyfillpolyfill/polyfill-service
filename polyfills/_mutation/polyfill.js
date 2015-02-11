@@ -1,5 +1,5 @@
 // http://dom.spec.whatwg.org/#mutation-method-macro
-function mutation(nodes) {
+function _mutation(nodes) {
 	if (!nodes.length) {
 		throw new Error('DOM Exception 8');
 	} else if (nodes.length === 1) {
