@@ -18,6 +18,9 @@ if (process.env.GRAPHITE_URL) {
 	}, reportInterval);
 }
 
+// This could be added to node-measured, perhaps as a static 
+// Measured.flattenMetrics(instance.getJSON()), or by adding a 
+// boolean arg to getJSON(). Consider making a PR.
 function flatten(obj, prefix, root) {
 	prefix = prefix || '';
 	root = root || {};
