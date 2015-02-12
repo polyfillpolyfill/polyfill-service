@@ -1,4 +1,4 @@
-(function (global, setImmediate, isArray) {
+(function (global) {
 	var
 	STATUS = '[[PromiseStatus]]',
 	VALUE = '[[PromiseValue]]',
@@ -11,7 +11,8 @@
 	REJECTED = 'rejected',
 	NOT_ARRAY = 'not an array.',
 	REQUIRES_NEW = 'constructor Promise requires "new".',
-	CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.';
+	CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.',
+	TO_STRING = String.prototype.toString;
 
 	function InternalError(originalError) {
 		this[ORIGINAL_ERROR] = originalError;
@@ -95,7 +96,7 @@
 
 			if (isCallable(then)) {
 				return new Promise(function (resolve, reject) {
-					setImmediate(function () {
+					_enqueueMicrotask(function () {
 						try {
 							then.call(anything, resolve, reject);
 						} catch (error) {
@@ -212,11 +213,15 @@
 			}
 
 			function asyncOnFulfilled() {
-				setImmediate(tryCall, onFulfilled);
+				_enqueueMicrotask(function () {
+					tryCall(onFulfilled);
+				});
 			}
 
 			function asyncOnRejected() {
-				setImmediate(tryCall, onRejected);
+				_enqueueMicrotask(function () {
+					tryCall(onRejected);
+				});
 			}
 
 			switch (promise[STATUS]) {
@@ -268,7 +273,7 @@
 			index = -1,
 			length;
 
-			if (isArray(values)) {
+			if (TO_STRING.call(values) === '[object Array]') {
 				length = values.length;
 
 				while (++index < length) {
@@ -288,7 +293,7 @@
 			index = -1,
 			anything, length, value;
 
-			if (isArray(values)) {
+			if (TO_STRING.call(values) === '[object Array]') {
 				values = values.slice(0);
 				length = values.length;
 
@@ -328,16 +333,4 @@
 	};
 
 	global.Promise = Promise;
-
-	setImmediate = setImmediate || function (func) {
-		var args = Array.prototype.slice.call(arguments, 1);
-
-		return setTimeout(function () {
-			func.apply(null, args);
-		});
-	};
-
-	isArray = Array.isArray || function () {
-		return toString.call(object) === '[object Array]';
-	};
-})(this, this.setImmediate, Array.isArray);
+})(this);

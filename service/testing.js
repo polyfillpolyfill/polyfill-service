@@ -39,7 +39,7 @@ function createEndpoint(type, polyfillio) {
 			var detectFile = path.join(polyfillPath, '/detect.js');
 			var testFile = path.join(polyfillPath, '/tests.js');
 
-			if (targeted[featureName]) {
+			if (targeted[featureName] && featureName.indexOf('_') !== 0) {
 				polyfilldata.push({
 					feature: featureName,
 					detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,

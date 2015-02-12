@@ -169,7 +169,7 @@ function getCompat() {
 	}
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sourceslib.polyfillExists(feature);
+			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0
 		})
 		.sort()
 		.map(function(feat) {
