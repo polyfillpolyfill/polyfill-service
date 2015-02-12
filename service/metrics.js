@@ -1,6 +1,5 @@
 var Graphite = require('graphite');
 var Measured = require('measured');
-var _ = require('lodash');
 
 var data = Measured.createCollection('polyfill.' + (process.env.ENV_NAME || "unknown"));
 var reportInterval = 5000;
