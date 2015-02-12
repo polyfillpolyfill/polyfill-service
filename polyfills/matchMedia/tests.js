@@ -7,3 +7,9 @@ it("should return a MediaQueryList that has a media property representing the me
 	var mql = window.matchMedia('screen');
 	expect(mql.media).to.be('screen');
 });
+
+it("should generate valid Javascript for multiple dimensions", function() {
+	expect(function() {
+		window.matchMedia('(min-width: 1px) and (max-width: 1000px)');
+	}).not.to.throwException();
+});

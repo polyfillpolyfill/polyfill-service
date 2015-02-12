@@ -1,8 +1,4 @@
 {
-	"aliases": [
-		"es7",
-		"modernizr:es7array"
-	],
 	"browsers": {
 		"chrome": "*",
 		"firefox": "*",
@@ -11,6 +7,6 @@
 		"safari": "*"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Array.prototype.includes"
 	]
 }

@@ -31,7 +31,8 @@
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
-    "citest": "grunt ci"
+    "citest": "grunt ci",
+    "watch": "forever --watch --minUptime=1000 --spinSleepTime=1000 service/index.js --watchIngore \"/polyfills/*/*\""
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
@@ -43,7 +44,6 @@
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
     "forever": "^0.11.1",
-    "haikro": "^1.11.0",
     "handlebars": "^1.3.0",
     "lodash": "^2.4.1",
     "minimist": "^0.2.0",

@@ -12,6 +12,12 @@
 
 		<p>We want to encourage more people to get involved in the polyfill service, so the Financial Times is pleased to offer one month's free premium access to all FT content (normally $50) to anyone who has a pull request merged in this repository.  <a href="https://docs.google.com/a/ft.com/forms/d/1aykPiYBwqKpKY6nvGVi43wOU_5epr3XLgE00Vi52SMQ/viewform">Claim your free access</a>.</p>
 
+		<h2 id='building-and-running'>Building and running</h2>
+
+		<p>To get set up, install the module with <code>npm install polyfill-service</code>.  This will also run the grunt <code>build</code> task, to collate and minify the polyfill sources, creating the <code>/polyfills/sources.json</code> and <code>/polyfills/aliases.json</code> files.</p>
+		<p>You can run the service as a daemon (using forever) with <code>npm start</code>, but for development you will probably prefer to run it in the foreground.  You can do that using `npm run watch`, which will configure forever to show console output and restart the app when source changes are detected.</p>
+		<p>If you make changes to anything within the <code>polyfills</code> directory, run <code>grunt buildsources</code> to regenerate the <code>/polyfills/sources.json</code> and <code>/polyfills/aliases.json</code> files, otherwise you will not see any effect of your changes.</p>
+
 		<h2 id="contributing-to-polyfills">Contributing to polyfills</h2>
 
 		<p>Polyfills are located in the <code>/polyfills</code> directory and organised by feature name.  Each polyfill directory is structured like this:</p>
