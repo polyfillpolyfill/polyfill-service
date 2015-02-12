@@ -22,7 +22,7 @@ function flatten(obj, prefix, root) {
 	prefix = prefix || '';
 	root = root || {};
 	Object.keys(obj).forEach(function(key) {
-		if (typeof obj[key] === 'object') {
+		if (obj[key] instanceof Object) {
 			flatten(obj[key], prefix+key+'.', root);
 		} else {
 			root[prefix+key] = obj[key];
