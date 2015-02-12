@@ -7,7 +7,7 @@ var polyfillio = require('../lib'),
 	path = require('path'),
 	fs = require('fs'),
 	parseArgs = require('minimist'),
-	Metrics = require('./metrics'),
+	metrics = require('./metrics'),
 	fs = require('fs'),
 	testing = require('./testing'),
 	docs = require('./docs'),
@@ -16,17 +16,17 @@ var polyfillio = require('../lib'),
 'use strict';
 
 var argv = parseArgs(process.argv.slice(2));
-
 var port = argv.port || Number(process.env.PORT) || 3000;
-var metrics = new Metrics({
-	url: process.env.GRAPHITE_URL,
-	prefix: 'polyfill.' + (process.env.ENV_NAME || "unknown") + '.',
+
+metrics.gauge('memory', function() {
+	return process.memoryUsage().rss;
 });
-var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
 var one_year = one_day * 365;
+var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+
 
 // Default cache control policy
 app.use(function(req, res, next) {
@@ -119,6 +119,8 @@ app.get(/^\/__health$/, function(req, res) {
 /* API endpoints */
 
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+	metrics.meter('hits').mark();
+	var respTimeTimer = metrics.timer('respTime').start();
 
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
@@ -149,7 +151,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	if (req.query.unknown) params.unknown = req.query.unknown;
 	if (uaString) {
 		params.uaString = uaString;
-		metrics.increment('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2'));
+		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
 	}
 
 	var op = polyfillio.getPolyfillString(params);
@@ -160,6 +162,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
 	res.send(op);
+	respTimeTimer.end();
 });
 
 app.get("/v1/normalizeUa", function(req, res, next) {
