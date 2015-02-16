@@ -27,7 +27,7 @@
     "stop": "forever stop --plain service/index.js",
     "status": "forever list | grep -q service/index.js",
     "prepublish": "grunt build",
-    "deploy": "grunt build && git describe --tags > .semver && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app && rm -rf node-* .haikro-cache .semver",
+    "deploy": "grunt build && git describe --tags > .semver && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
