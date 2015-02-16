@@ -2,7 +2,7 @@ var fs = require('fs'),
 	path = require('path'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
-	Moment = require('moment'),
+	moment = require('moment'),
 	sources = require('../lib/sources');
 
 var cache = {},
@@ -23,10 +23,10 @@ var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].
 
 // Register template helpers
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
-     return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
+     return moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
 Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return Moment.duration(seconds*1000).humanize();
+     return moment.duration(seconds*1000).humanize();
 });
 Handlebars.registerHelper('sectionHighlight', function(section, options) {
 	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
@@ -77,7 +77,9 @@ function getData(type) {
 				}
 			}).then(function (response) {
 				var data = (response && JSON.parse(response)) || [];
-				if (!data.summary) data = {summary:{hours:[]}};
+				if (!data.summary) {
+					data = {summary:{hours:[]}};
+				}
 				return data.summary.hours.map(function(result) {
 					return {date: result.starttime, respTime: result.avgresponse};
 				});
@@ -135,7 +137,9 @@ function getData(type) {
 			return Promise.all(sizes.map(function(item) {
 				return new Promise(function(resolve, reject) {
 					zlib.gzip(item.minsrc, function(err, gzipsrc) {
-						if (!err) item.gzipbytes = gzipsrc.length;
+						if (!err) {
+							item.gzipbytes = gzipsrc.length;
+						}
 						resolve(item);
 					});
 				});
@@ -179,9 +183,13 @@ function getCompat() {
 				if (data[feat][browser]) {
 					fdata[browser] = [];
 					Object.keys(data[feat][browser]).sort(function(a, b) {
-						if (isNaN(a)) return 1;
-						if (isNaN(b)) return -1;
-						return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						if (isNaN(a)) {
+							return 1;
+						} else if (isNaN(b)) {
+							return -1;
+						} else {
+							return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						}
 					}).forEach(function(version) {
 						fdata[browser].push({
 							status: data[feat][browser][version],
@@ -204,7 +212,9 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
+	if (req.path.length < "/v1/docs/".length) {
+		return res.redirect('/v1/docs/');
+	}
 
 	if (!req.params || !req.params[0]) {
 		res.send(templates.index({section: 'index'}));

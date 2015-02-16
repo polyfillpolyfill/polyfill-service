@@ -140,7 +140,9 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		flags = req.query.flags ? req.query.flags.split(',') : [];
 
 	// Backwards compatibility
-	if (req.query.gated) flags.push('gated');
+	if (req.query.gated) {
+		flags.push('gated');
+	}
 
 	// Currently don't support CSS
 	if (fileExtension !== '.js') {
@@ -152,15 +154,23 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
 
-	if (!req.query.ua) res.set('Vary', 'User-Agent');
+	if (!req.query.ua) {
+		res.set('Vary', 'User-Agent');
+	}
 
 	var params = {
 		features: polyfills.get(),
 		minify: minified
 	};
-	if (req.query.libVersion) params.libVersion = req.query.libVersion;
-	if (req.query.unknown) params.unknown = req.query.unknown;
-	if (uaString) params.uaString = uaString;
+	if (req.query.libVersion) {
+		params.libVersion = req.query.libVersion;
+	}
+	if (req.query.unknown) {
+		params.unknown = req.query.unknown;
+	}
+	if (uaString) {
+		params.uaString = uaString;
+	}
 
 	var op = polyfillio.getPolyfillString(params);
 
