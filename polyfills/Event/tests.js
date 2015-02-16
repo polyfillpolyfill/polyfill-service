@@ -1,3 +1,5 @@
+/* global expect,it */
+
 // Safari fails this test.  However, no-one would ever do this
 // as it would just create an event that can never be dispatched/listened for
 // it doesn't cause any problem
@@ -55,5 +57,20 @@ it('should bubble the event', function(done) {
 		expect(ev.cancelable).to.be(true);
 		done();
 	});
+	testEl.dispatchEvent(testEvent);
+});
+
+it('should should not trigger an event handler once removed', function() {
+	var testEvent = new Event('test', {
+		bubbles: true,
+		cancelable: true
+	});
+	var listener = function() {
+		throw new Error('listener was fired, but should have been removed');
+	};
+
+	var testEl = document.createElement('div');
+	testEl.addEventListener('test', listener);
+	testEl.removeEventListener('test', listener);
 	testEl.dispatchEvent(testEvent);
 });

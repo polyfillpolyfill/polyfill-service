@@ -96,7 +96,7 @@
 		var
 		element = this,
 		type = arguments[0],
-		listener = arguments[1].
+		listener = arguments[1],
 		index;
 
 		if (element._events && element._events[type] && element._events[type].list) {
