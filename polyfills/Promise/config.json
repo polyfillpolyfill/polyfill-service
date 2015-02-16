@@ -15,6 +15,9 @@
 		"opera": "* - 19",
 		"safari": "* - 7"
 	},
+	"dependencies": [
+		"_enqueueMicrotask"
+	],
 	"license": "MIT",
 	"author": "Dmitry Korobkin (https://github.com/Octane/Promise)"
 }

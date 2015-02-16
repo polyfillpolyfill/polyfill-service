@@ -46,6 +46,7 @@ Handlebars.registerHelper('dispBytes', function(bytes) {
 function getData(type) {
 	var handlers = {
 		fastly: function() {
+			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
 			return request({
 				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
@@ -63,6 +64,7 @@ function getData(type) {
 			});
 		},
 		respTimes: function() {
+			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
 			var to = ((new Date()).getTime()/1000) - 3600;
 			var from = to - (60*60*24*7);
 			return request({
@@ -86,6 +88,7 @@ function getData(type) {
 			});
 		},
 		outages: function() {
+			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
 			var to = ((new Date()).getTime()/1000) - 3600;
 			var from = to - (60*60*24*365*5);
 			return request({
@@ -151,7 +154,11 @@ function getData(type) {
 		return cache[type].promise;
 	} else {
 		cache[type] = {creationTime: (new Date()).getTime()};
-		return cache[type].promise = handlers[type]();
+		try {
+			return cache[type].promise = handlers[type]();
+		} catch(err) {
+			return cache[type].promise = Promise.reject(err.toString());
+		};
 	}
 }
 
@@ -166,7 +173,7 @@ function getCompat() {
 	};
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sourceslib.polyfillExists(feature);
+			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0
 		})
 		.sort()
 		.map(function(feat) {
@@ -235,7 +242,12 @@ function route(req, res, next) {
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}));
-		})).catch(console.error);
+		})).catch(function(rejectReason) {
+			res.send(templates.usage({
+				section: 'usage',
+				msg: rejectReason.toString()
+			}));
+		});
 
 	} else if (req.params[0] === 'features') {
 		getData('sizes').then(function(sizes) {

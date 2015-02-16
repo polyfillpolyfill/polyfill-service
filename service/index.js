@@ -6,7 +6,7 @@ var PolyfillSet = require('./PolyfillSet');
 var path = require('path');
 var fs = require('fs');
 var parseArgs = require('minimist');
-var ServiceMetrics = require('./metrics');
+var metrics = require('./metrics');
 var fs = require('fs');
 var testing = require('./testing');
 var docs = require('./docs');
@@ -15,18 +15,22 @@ var appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {enco
 'use strict';
 
 var argv = parseArgs(process.argv.slice(2));
+var port = argv.port || Number(process.env.PORT) || 3000;
 
-var port = argv.port || Number(process.env.PORT) || 3000,
-	metrics = new ServiceMetrics(),
-	contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+metrics.gauge('memory', function() {
+	return process.memoryUsage().rss;
+});
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
 var one_year = one_day * 365;
+var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+
 
 // Default cache control policy
 app.use(function(req, res, next) {
 	res.set('Cache-Control', 'public, max-age='+one_day+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
+	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
 	return next();
 });
@@ -110,28 +114,12 @@ app.get(/^\/__health$/, function(req, res) {
     res.send(JSON.stringify(info));
 });
 
-app.get(/^\/__metrics$/, function(req, res) {
-	var info = {
-		"schemaVersion": 1,
-		"metrics": {
-			"responsetime": metrics.getResponseTimeMetric(),
-			"uptime": metrics.getUptimeMetric(),
-			"servedjsresponsecount": metrics.getJavascriptResponseCountMetric(),
-			"servedcssresponsecount": metrics.getCSSResponseCountMetric()
-		}
-	};
-
-	res.set("Cache-Control", "no-cache");
-	res.set("Content-Type", "application/json;charset=utf-8");
-	res.send(JSON.stringify(info));
-});
-
-
 
 /* API endpoints */
 
 app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	var responseStartTime = Date.now();
+	metrics.meter('hits').mark();
+	var respTimeTimer = metrics.timer('respTime').start();
 
 	var firstParameter = req.params[0].toLowerCase(),
 		minified =  firstParameter === '.min',
@@ -162,6 +150,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		features: polyfills.get(),
 		minify: minified
 	};
+<<<<<<< HEAD
 	if (req.query.libVersion) {
 		params.libVersion = req.query.libVersion;
 	}
@@ -170,6 +159,13 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	}
 	if (uaString) {
 		params.uaString = uaString;
+=======
+	if (req.query.libVersion) params.libVersion = req.query.libVersion;
+	if (req.query.unknown) params.unknown = req.query.unknown;
+	if (uaString) {
+		params.uaString = uaString;
+		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
+>>>>>>> 8a05b21bbc01dfba428a79d5ee2ecbcc042f361c
 	}
 
 	var op = polyfillio.getPolyfillString(params);
@@ -180,8 +176,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
 	res.send(op);
-	metrics.addResponseTime(Date.now() - responseStartTime);
-	metrics.addResponseType(fileExtension);
+	respTimeTimer.end();
 });
 
 app.get("/v1/normalizeUa", function(req, res, next) {
