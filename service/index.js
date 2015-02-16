@@ -150,7 +150,6 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		features: polyfills.get(),
 		minify: minified
 	};
-<<<<<<< HEAD
 	if (req.query.libVersion) {
 		params.libVersion = req.query.libVersion;
 	}
@@ -159,13 +158,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	}
 	if (uaString) {
 		params.uaString = uaString;
-=======
-	if (req.query.libVersion) params.libVersion = req.query.libVersion;
-	if (req.query.unknown) params.unknown = req.query.unknown;
-	if (uaString) {
-		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
->>>>>>> 8a05b21bbc01dfba428a79d5ee2ecbcc042f361c
 	}
 
 	var op = polyfillio.getPolyfillString(params);
