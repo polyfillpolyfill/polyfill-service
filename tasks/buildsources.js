@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
-			if (!fs.lstatSync(versionBasePath).isDirectory()) {
+			if (!fs.lstatSync(versionBasePath).isDirectory() && !fs.lstatSync(versionBasePath).isSymbolicLink()) {
 				return true;
 			}
 
