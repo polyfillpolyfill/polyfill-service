@@ -7,8 +7,6 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master
 
 ## Installing as a service
 
-To install polyfill as a service:
-
 1. Install [git](http://git-scm.com/downloads) and [Node](http://nodejs.org) on your system
 2. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
 3. Run `npm install` (this will also run `grunt build` which you will need to do again if you edit any polyfills)
@@ -29,12 +27,23 @@ Alternatively, deploy straight to Heroku:
 
 For an HTTP API reference, see the [hosted service documentation](http://polyfill.webservices.ft.com).
 
+### Environment configuration
+
+The service reads a number of environment variables when started as a service:
+
+* `PORT`: The port on which to listen for HTTP requests (default 3000)
+* `FASTLY_SERVICE_ID`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
+* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
+* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
+* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+
+
 ## Using as a library
 
 Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 1. Add this repo as a dependency in your package.json
-   e.g. `npm install "Financial-Times/polyfill-service" --save-dev`
+   e.g. `npm install polyfill-service --save`
 2. Rebuild your project using `npm install`
 3. Use the API from your code
 
