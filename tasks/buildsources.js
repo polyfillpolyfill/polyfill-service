@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 	var fs = require('fs');
 	var path = require('path');
 	var uglify = require('uglify-js');
-	var to5 = require("6to5")
+	var to5 = require("6to5");
 
 	grunt.registerTask('buildsources', 'Build minified polyfill sources', function() {
 
@@ -31,15 +31,18 @@ module.exports = function(grunt) {
 			versions = versions.concat(prevVersions);
 		} catch(e) {
 			grunt.log.writeln('To install historic polyfill collections, run `grunt installcollections` (see docs for the `libVersion` argument for more details)');
-		};
+		}
 
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
-			if (!fs.lstatSync(versionBasePath).isDirectory()) return true;
+			if (!fs.lstatSync(versionBasePath).isDirectory()) {
+				return true;
+			}
 
 			sources[version] = {};
 			configuredAliases[version] = {};
 			fs.readdirSync(versionBasePath).forEach(function(featureName) {
+				var config;
 				try {
 
 					// Load the polyfill's configuration
@@ -49,7 +52,7 @@ module.exports = function(grunt) {
 						return;
 					}
 					try {
-						var config = require(configPath);
+						config = require(configPath);
 					} catch (e) {
 						throw {name:"Missing or invalid config", message:"Unable to read config from "+configPath};
 					}
@@ -65,7 +68,7 @@ module.exports = function(grunt) {
 							dependencies: config.dependencies || [],
 							licence: config.licence || "",
 							esversion: config.esversion || undefined
-						}
+						};
 						delete config.browsers;
 						delete config.dependencies;
 						delete config.licence;
@@ -78,18 +81,19 @@ module.exports = function(grunt) {
 							dependencies: [],
 							licence: "",
 							rawSource: "/* This polyfill has no generic form, and no browser specific variant applies to the current user agent. */"
-						}
+						};
 					}
 
 					// Read each variant's source into memory, and minify
 					Object.keys(config.variants).forEach(function(polyfillVariant) {
+						var detectPath, v, polyfillFile, polyfillSourcePath;
 						try {
-							var detectPath = path.join(polyfillPath, 'detect.js');
-							var v = config.variants[polyfillVariant];
+							detectPath = path.join(polyfillPath, 'detect.js');
+							v = config.variants[polyfillVariant];
 
 							if (!v.rawSource) {
-								var polyfillFile = 'polyfill' + ((polyfillVariant !== 'default') ? '-'+polyfillVariant : '') + '.js';
-								var polyfillSourcePath = path.join(polyfillPath, polyfillFile);
+								polyfillFile = 'polyfill' + ((polyfillVariant !== 'default') ? '-'+polyfillVariant : '') + '.js';
+								polyfillSourcePath = path.join(polyfillPath, polyfillFile);
 
 								if (!fs.existsSync(polyfillSourcePath)) {
 									throw {name:"Missing polyfill source file", message:"Path "+polyfillSourcePath+" not found"};
@@ -124,7 +128,9 @@ module.exports = function(grunt) {
 							v.rawSource = '\n// '+featureName + '\n' + v.rawSource;
 						} catch (ex) {
 							console.error(ex);
-							if (version === 'latest') errors.push(ex);
+							if (version === 'latest') {
+								errors.push(ex);
+							}
 						}
 					});
 
@@ -145,7 +151,9 @@ module.exports = function(grunt) {
 					}
 				} catch (ex) {
 					console.error(ex);
-					if (version === 'latest') errors.push(ex);
+					if (version === 'latest') {
+						errors.push(ex);
+					}
 				}
 			});
 		});
