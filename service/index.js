@@ -1,17 +1,16 @@
-var polyfillio = require('../lib'),
-	express = require('express'),
-	app = express().enable("strict routing"),
-	packagejson = require('../package.json'),
-	origamijson = require('../origami.json'),
-	PolyfillSet = require('./PolyfillSet'),
-	path = require('path'),
-	fs = require('fs'),
-	parseArgs = require('minimist'),
-	metrics = require('./metrics'),
-	fs = require('fs'),
-	testing = require('./testing'),
-	docs = require('./docs'),
-	appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
+var polyfillio = require('../lib');
+var express = require('express');
+var app = express().enable("strict routing");
+var origamijson = require('../origami.json');
+var PolyfillSet = require('./PolyfillSet');
+var path = require('path');
+var fs = require('fs');
+var parseArgs = require('minimist');
+var metrics = require('./metrics');
+var fs = require('fs');
+var testing = require('./testing');
+var docs = require('./docs');
+var appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
 
 'use strict';
 
@@ -129,7 +128,9 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		flags = req.query.flags ? req.query.flags.split(',') : [];
 
 	// Backwards compatibility
-	if (req.query.gated) flags.push('gated');
+	if (req.query.gated) {
+		flags.push('gated');
+	}
 
 	// Currently don't support CSS
 	if (fileExtension !== '.js') {
@@ -141,14 +142,20 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
 
-	if (!req.query.ua) res.set('Vary', 'User-Agent');
+	if (!req.query.ua) {
+		res.set('Vary', 'User-Agent');
+	}
 
 	var params = {
 		features: polyfills.get(),
 		minify: minified
 	};
-	if (req.query.libVersion) params.libVersion = req.query.libVersion;
-	if (req.query.unknown) params.unknown = req.query.unknown;
+	if (req.query.libVersion) {
+		params.libVersion = req.query.libVersion;
+	}
+	if (req.query.unknown) {
+		params.unknown = req.query.unknown;
+	}
 	if (uaString) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();

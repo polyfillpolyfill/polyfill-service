@@ -2,7 +2,7 @@ var fs = require('fs'),
 	path = require('path'),
 	request = require('request-promise'),
 	Handlebars = require('handlebars'),
-	Moment = require('moment'),
+	moment = require('moment'),
 	sources = require('../lib/sources');
 
 var cache = {},
@@ -23,10 +23,10 @@ var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].
 
 // Register template helpers
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
-     return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
+     return moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
 Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return Moment.duration(seconds*1000).humanize();
+     return moment.duration(seconds*1000).humanize();
 });
 Handlebars.registerHelper('sectionHighlight', function(section, options) {
 	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
@@ -51,9 +51,9 @@ function getData(type) {
 				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 			}).then(function (response) {
-				var byhour = [], rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				data = (response && JSON.parse(response)) || {data:[]};
-				byhour = data.data.map(function(result) {
+				var rollup = {requests:0, hits:0, miss:0, bandwidth:0};
+				var data = (response && JSON.parse(response)) || {data:[]};
+				var byhour = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
@@ -78,8 +78,10 @@ function getData(type) {
 					pass: process.env.PINGDOM_PASSWORD
 				}
 			}).then(function (response) {
-				data = (response && JSON.parse(response)) || [];
-				if (!data.summary) data = {summary:{hours:[]}};
+				var data = (response && JSON.parse(response)) || [];
+				if (!data.summary) {
+					data = {summary:{hours:[]}};
+				}
 				return data.summary.hours.map(function(result) {
 					return {date: result.starttime, respTime: result.avgresponse};
 				});
@@ -100,7 +102,7 @@ function getData(type) {
 					pass: process.env.PINGDOM_PASSWORD
 				}
 			}).then(function (response) {
-				data = (response && JSON.parse(response)) || {summary:{states:[]}};
+				var data = (response && JSON.parse(response)) || {summary:{states:[]}};
 				return data.summary.states.filter(function(result) {
 					return (result.status !== 'unknown');
 				}).map(function(result) {
@@ -138,7 +140,9 @@ function getData(type) {
 			return Promise.all(sizes.map(function(item) {
 				return new Promise(function(resolve, reject) {
 					zlib.gzip(item.minsrc, function(err, gzipsrc) {
-						if (!err) item.gzipbytes = gzipsrc.length;
+						if (!err) {
+							item.gzipbytes = gzipsrc.length;
+						}
 						resolve(item);
 					});
 				});
@@ -166,7 +170,7 @@ function getCompat() {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
-	}
+	};
 	return Object.keys(data)
 		.filter(function(feature) {
 			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0
@@ -186,9 +190,13 @@ function getCompat() {
 				if (data[feat][browser]) {
 					fdata[browser] = [];
 					Object.keys(data[feat][browser]).sort(function(a, b) {
-						if (isNaN(a)) return 1;
-						if (isNaN(b)) return -1;
-						return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						if (isNaN(a)) {
+							return 1;
+						} else if (isNaN(b)) {
+							return -1;
+						} else {
+							return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						}
 					}).forEach(function(version) {
 						fdata[browser].push({
 							status: data[feat][browser][version],
@@ -199,7 +207,7 @@ function getCompat() {
 				}
 			});
 			return fdata;
-		});
+		})
 	;
 }
 
@@ -211,7 +219,9 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
+	if (req.path.length < "/v1/docs/".length) {
+		return res.redirect('/v1/docs/');
+	}
 
 	if (!req.params || !req.params[0]) {
 		res.send(templates.index({section: 'index'}));
