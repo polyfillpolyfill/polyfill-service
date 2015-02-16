@@ -1,0 +1,11 @@
+{
+	"browsers": {
+		"ie": "*",
+		"firefox": "<10",
+		"safari": "*",
+		"opera": "<15",
+		"ios_saf": "*"
+	},
+	"author": "Parashuram N <github@nparashuram.com>",
+	"licence": "MIT"
+}
