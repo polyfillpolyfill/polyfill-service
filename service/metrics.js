@@ -1,36 +1,25 @@
 var Graphite = require('graphite');
 var Measured = require('measured');
 
-var data = Measured.createCollection('polyfill.' + (process.env.ENV_NAME || "unknown"));
 var reportInterval = 5000;
+var graphiteHost = process.env.GRAPHITE_HOST || null;
+var graphitePort = process.env.GRAPHITE_PORT || 2002;
+var envName = process.env.ENV_NAME || "unknown";
+
 var timer = null;
 var graphite = null;
+var data = Measured.createCollection('polyfill.' + envName);
 
-if (process.env.GRAPHITE_URL) {
-	graphite = Graphite.createClient(process.env.GRAPHITE_URL);
+if (graphiteHost) {
+	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
 	timer = setInterval(function() {
-		graphite.write(flatten(data.toJSON()), function(err) {
+		graphite.write(data.toJSON(), function(err) {
 			if (err) {
 				console.error(err);
 			}
 		});
 	}, reportInterval);
-}
-
-// This could be added to node-measured, perhaps as a static 
-// Measured.flattenMetrics(instance.getJSON()), or by adding a 
-// boolean arg to getJSON(). Consider making a PR.
-function flatten(obj, prefix, root) {
-	prefix = prefix || '';
-	root = root || {};
-	Object.keys(obj).forEach(function(key) {
-		if (obj[key] instanceof Object) {
-			flatten(obj[key], prefix+key+'.', root);
-		} else {
-			root[prefix+key] = obj[key];
-		}
-	});
-	return root;
+	timer.unref();
 }
 
 module.exports = data;
