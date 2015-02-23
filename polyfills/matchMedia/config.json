@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"caniuse:matchmedia"
+		"caniuse:matchmedia",
+		"modernizr:matchmedia"
 	],
 	"browsers": {
 		"android": "2.1 - 2.3",
