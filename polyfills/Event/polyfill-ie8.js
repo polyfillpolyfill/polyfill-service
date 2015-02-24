@@ -109,6 +109,7 @@
 					if (element.detachEvent) {
 						element.detachEvent('on' + type, element._events[type]);
 					}
+					delete element._events[type];
 				}
 			}
 		}
