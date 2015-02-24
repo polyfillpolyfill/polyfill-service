@@ -74,3 +74,22 @@ it('should should not trigger an event handler once removed', function() {
 	testEl.removeEventListener('test', listener);
 	testEl.dispatchEvent(testEvent);
 });
+
+it('should trigger an event handler once added, removed, and added again', function () {
+	// NOTE: The event must be a real DOM event or the
+	// dispatchEvent polyfill will catch the fireEvent
+	// error, simulate firing the event by running the
+	// event listeners.
+	var fired = false;
+	var listener = function() {
+		fired = true;
+		document.removeEventListener('click', listener);
+	};
+
+	document.addEventListener('click', listener);
+	document.removeEventListener('click', listener);
+	document.addEventListener('click', listener);
+	// click the document
+	document.dispatchEvent(new Event('click'));
+	expect(fired).to.be.(true);
+});
