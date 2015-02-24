@@ -60,7 +60,7 @@ it('should bubble the event', function(done) {
 	testEl.dispatchEvent(testEvent);
 });
 
-it('should should not trigger an event handler once removed', function() {
+it('should not trigger an event handler once removed', function() {
 	var testEvent = new Event('test', {
 		bubbles: true,
 		cancelable: true
