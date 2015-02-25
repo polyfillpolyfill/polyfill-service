@@ -12,7 +12,7 @@
 	NOT_ARRAY = 'not an array.',
 	REQUIRES_NEW = 'constructor Promise requires "new".',
 	CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.',
-	TO_STRING = String.prototype.toString;
+	TO_STRING = Object.prototype.toString;
 
 	function InternalError(originalError) {
 		this[ORIGINAL_ERROR] = originalError;
