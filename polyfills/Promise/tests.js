@@ -209,3 +209,15 @@ it('should resolve inside then (test case from @matthew-andrews)', function(done
 		done();
 	});
 })
+
+it('should resolve Promise.all when all promises resolve', function(done) {
+	Promise.all([
+		Promise.resolve(3),
+		Promise.resolve(5)
+	]).then(function(results) {
+		expect(results).to.eql([3,5]);
+		done();
+	}).catch(function(e) {
+		done(e);
+	});
+});
