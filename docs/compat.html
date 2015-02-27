@@ -23,6 +23,7 @@
 					<th>Chrome</th>
 					<th>Safari</th>
 					<th>iOS Safari</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,15 +34,22 @@
 						<ul class='feature-meta'>
 							<li title="Maximum size, minifed, before gzip">{{dispBytes size}}</li>
 							{{#if isDefault}}<li><i title='Part of the default set' class="fa fa-star"></i></li>{{/if}}
-							{{#if hasTests}}<li><a href='/test/tests?feature={{feature}}'>Tests</a></li>{{/if}}
-							<li><a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/{{feature}}'>Source</a></li>
 						</ul>
+						<script type="text/template" id="overlay-src-{{slug}}">
+							<ul class='hover-menu o-techdocs-content'>
+								{{#if hasTests}}<li><a href='/test/tests?feature={{feature}}'>Run tests</a></li>{{/if}}
+								{{#if spec}}<li><a href='{{spec}}'>Specification</a></li>{{/if}}
+								{{#if docs}}<li><a href='{{docs}}'>Documentation</a></li>{{/if}}
+								<li><a href='https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/{{feature}}'>Polyfill source</a></li>
+							</ul>
+						</script>
 					</td>
 					<td>{{#ie}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ie}}</td>
 					<td>{{#firefox}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/firefox}}</td>
 					<td>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
 					<td>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
 					<td>{{#ios_saf}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/ios_saf}}</td>
+					<td><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
 				</tr>
 				{{/compat}}
 			</tbody>

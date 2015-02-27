@@ -90,3 +90,22 @@ pre.bigcode code {
 .versionlist code:not(:last-child):after {
 	content: ", ";
 }
+
+.o-overlay-trigger {
+	cursor: pointer;
+}
+.hover-menu {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.hover-menu a {
+	display: block;
+	font-size: 13px;
+	text-decoration: none;
+	color: black;
+	padding: 5px;
+}
+.hover-menu a:hover {
+	background-color: #f0f0f0;
+}
