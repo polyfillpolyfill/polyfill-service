@@ -2,5 +2,6 @@
 	"aliases": [
 		"caniuse:audio-api",
 		"modernizr:webaudio"
-	]
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext"
 }

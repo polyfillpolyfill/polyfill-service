@@ -15,5 +15,6 @@
 		"Document",
 		"Element",
 		"_mutation"
-	]
+	],
+	"spec": "http://dom.spec.whatwg.org/#dom-parentnode-append"
 }

@@ -11,5 +11,6 @@
 				"ie": "8"
 			}
 		}
-	}
+	},
+	"spec": "http://dom.spec.whatwg.org/#interface-document"
 }

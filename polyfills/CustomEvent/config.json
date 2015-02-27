@@ -22,5 +22,7 @@
 				"Event"
 			]
 		}
-	}
+	},
+	"spec": "http://dom.spec.whatwg.org/#interface-customevent",
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent"
 }

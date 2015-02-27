@@ -13,5 +13,7 @@
 				"safari": "5.1 - 6.0"
 			}
 		}
-	}
+	},
+	"spec": "http://www.whatwg.org/specs/web-apps/current-work/#domtokenlist",
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList"
 }

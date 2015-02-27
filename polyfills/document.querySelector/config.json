@@ -8,5 +8,7 @@
 	"dependencies": [
 		"Element",
 		"Document"
-	]
+	],
+	"spec": "http://www.w3.org/TR/selectors-api/",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector"
 }
