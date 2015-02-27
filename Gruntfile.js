@@ -1,9 +1,14 @@
+'use strict';
+
 require('es6-promise').polyfill();
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-
+		"clean": {
+			repo: ['polyfills/__repo'],
+			versions: ['polyfills/__versions']
+		},
 		"simplemocha": {
 			options: {
 				globals: ['should'],
@@ -48,6 +53,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadTasks('tasks');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
@@ -72,8 +78,11 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("build", [
+		"clean:repo",
+		"clean:versions",
 		"installcollections",
-		"buildsources"
+		"buildsources",
+		"clean:repo"
 	]);
 };
 

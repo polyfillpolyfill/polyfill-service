@@ -1,5 +1,6 @@
 /node_modules
 /npm-debug.log
+/polyfills/__repo
 /polyfills/__versions
 /polyfills/aliases.json
 /polyfills/sources.json
