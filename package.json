@@ -63,6 +63,7 @@
     "batch": "^0.5.1",
     "grunt": "~0.4.0",
     "grunt-cli": "~0.1.6",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "sauce-tunnel": "^2.1.0",
