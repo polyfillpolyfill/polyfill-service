@@ -1292,6 +1292,23 @@
         }
       }
     },
+    "graphite": {
+      "version": "0.0.6",
+      "from": "graphite@*",
+      "resolved": "https://registry.npmjs.org/graphite/-/graphite-0.0.6.tgz",
+      "dependencies": {
+        "request": {
+          "version": "2.1.1",
+          "from": "request@2.1.1",
+          "resolved": "https://registry.npmjs.org/request/-/request-2.1.1.tgz"
+        },
+        "lazy-socket": {
+          "version": "0.0.3",
+          "from": "lazy-socket@0.0.3",
+          "resolved": "https://registry.npmjs.org/lazy-socket/-/lazy-socket-0.0.3.tgz"
+        }
+      }
+    },
     "handlebars": {
       "version": "1.3.0",
       "from": "https://registry.npmjs.org/handlebars/-/handlebars-1.3.0.tgz",
@@ -1339,6 +1356,17 @@
       "version": "2.4.1",
       "from": "https://registry.npmjs.org/lodash/-/lodash-2.4.1.tgz",
       "resolved": "https://registry.npmjs.org/lodash/-/lodash-2.4.1.tgz"
+    },
+    "measured": {
+      "version": "1.0.0",
+      "from": "measured@*",
+      "resolved": "https://registry.npmjs.org/measured/-/measured-1.0.0.tgz",
+      "dependencies": {
+        "inherits": {
+          "version": "2.0.1",
+          "from": "inherits@>=2.0.0 <3.0.0"
+        }
+      }
     },
     "minimist": {
       "version": "0.2.0",
