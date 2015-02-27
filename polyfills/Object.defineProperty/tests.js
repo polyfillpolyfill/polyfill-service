@@ -1,3 +1,4 @@
+/*global describe, it, expect*/
 describe('Basic functionality', function () {
 	var
 	object = {},
@@ -80,5 +81,57 @@ describe('Error handling', function () {
 		expect(function () {
 			Object.defineProperty(object, property, '');
 		});
+	});
+
+	it('Throws an error when both an accessor and a value are specified', function () {
+		expect(function () {
+			Object.defineProperty(object, property, {
+				value: value,
+				writable: true,
+				enumerable: true,
+				configurable: true,
+				get: function () {}
+			});
+		}).to.throwException();
+
+		expect(function () {
+			Object.defineProperty(object, property, {
+				value: value,
+				writable: true,
+				enumerable: true,
+				configurable: true,
+				set: function () {}
+			});
+		}).to.throwException();
+	});
+
+	it('Throws an error when an accessor is specified and writable is set', function () {
+		expect(function () {
+			Object.defineProperty(object, property, {
+				get: function () {},
+				writable: false
+			});
+		}).to.throwException();
+
+		expect(function () {
+			Object.defineProperty(object, property, {
+				get: function () {},
+				writable: true
+			});
+		}).to.throwException();
+
+		expect(function () {
+			Object.defineProperty(object, property, {
+				set: function () {},
+				writable: false
+			});
+		}).to.throwException();
+
+		expect(function () {
+			Object.defineProperty(object, property, {
+				set: function () {},
+				writable: true
+			});
+		}).to.throwException();
 	});
 });
