@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 	var fs = require('fs');
 	var path = require('path');
 	var uglify = require('uglify-js');
-	var to5 = require("6to5");
+	var to5 = require("babel-core");
 
 	grunt.registerTask('buildsources', 'Build minified polyfill sources', function() {
 
