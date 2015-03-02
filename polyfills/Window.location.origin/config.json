@@ -8,11 +8,5 @@
     },
     "dependencies": [
         "Object.defineProperties"
-    ],
-    "author": {
-        "name" : "Colin Ewen",
-        "email" : "colin@colinewen.com",
-        "url" : "http://github.com/casao"
-    },
-    "license": "MIT"
+    ]
 }
