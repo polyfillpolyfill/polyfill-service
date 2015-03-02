@@ -1,0 +1,17 @@
+{
+    "browsers": {
+        "ie": "6 - 9",
+        "firefox": "<=20",
+        "safari": "<=4",
+        "ios_saf": "<=6"
+    },
+    "dependencies": [
+        "Object.defineProperties"
+    ],
+    "author": {
+        "name" : "Colin Ewen",
+        "email" : "colin@colinewen.com",
+        "url" : "http://github.com/casao"
+    },
+    "license": "MIT"
+}
