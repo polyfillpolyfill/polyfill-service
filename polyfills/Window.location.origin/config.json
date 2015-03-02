@@ -1,9 +1,10 @@
 {
     "browsers": {
-        "ie": "6 - 9",
+        "ie": "6 - 10",
         "firefox": "<=20",
-        "safari": "<=4",
-        "ios_saf": "<=6"
+        "safari": "<=6",
+        "ios_saf": "<=6",
+        "chrome": "<=29"
     },
     "dependencies": [
         "Object.defineProperties"
