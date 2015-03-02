@@ -1,10 +1,1 @@
-(function(global) {
-	'use strict';
-
-	try {
-		if (global.window) {
-			return window.location.origin
-		}
-	}
-	catch (error) { }
-}(this))
+'origin' in window.location
