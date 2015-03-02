@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 		var configuredAliases = {};
 		var sources = {};
 		var errors = [];
+		var ignoredErrors = 0;
 
 		grunt.log.writeln('Loading sources...');
 
@@ -127,9 +128,11 @@ module.exports = function(grunt) {
 							// Add start-of-module marker comments to unminifed source
 							v.rawSource = '\n// '+featureName + '\n' + v.rawSource;
 						} catch (ex) {
-							console.error(ex);
 							if (version === 'latest') {
+								console.error(ex);
 								errors.push(ex);
+							} else {
+								ignoredErrors++;
 							}
 						}
 					});
@@ -150,9 +153,11 @@ module.exports = function(grunt) {
 						});
 					}
 				} catch (ex) {
-					console.error(ex);
 					if (version === 'latest') {
+						console.error(ex);
 						errors.push(ex);
+					} else {
+						ignoredErrors++;
 					}
 				}
 			});
@@ -162,6 +167,11 @@ module.exports = function(grunt) {
 			console.error(errors.length + ' error(s) encountered in current polyfill sources.');
 			process.exit(1);
 		} else {
+
+			// Ignore errors in historic versions, because they can't be fixed
+			if (ignoredErrors) {
+				grunt.log.writeln('Ignored '+ignoredErrors+' error(s) in historic polyfill versions');
+			}
 			grunt.log.writeln('Sources built successfully');
 			fs.writeFileSync(path.join(__dirname, '../polyfills/sources.json'), JSON.stringify(sources));
 			fs.writeFileSync(path.join(__dirname, '../polyfills/aliases.json'), JSON.stringify(configuredAliases));
