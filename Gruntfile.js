@@ -133,7 +133,6 @@ var browsers = {
 		['android', '4.3', 'linux'],
 		['android', '4.2', 'linux'],
 		['android', '4.1', 'linux'],
-		['android', '4.0', 'linux'],
-		['iphone', '7.1', 'OSX 10.9']
+		['android', '4.0', 'linux']
 	]
 };
