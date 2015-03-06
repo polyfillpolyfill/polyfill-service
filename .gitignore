@@ -5,7 +5,7 @@
 /polyfills/aliases.json
 /polyfills/sources.json
 /test/results
-/dev.sh
+/.env.json
 /.semver
 /.haikro-cache
 /node-*

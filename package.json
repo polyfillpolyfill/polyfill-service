@@ -31,8 +31,7 @@
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
-    "citest": "grunt ci",
-    "watch": "forever --watch --minUptime=1000 --spinSleepTime=1000 service/index.js --watchIngore \"/polyfills/*/*\""
+    "citest": "grunt ci"
   },
   "license": "CC0 1.0 Universal License",
   "dependencies": {
@@ -64,6 +63,7 @@
     "grunt": "~0.4.0",
     "grunt-cli": "~0.1.6",
     "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "sauce-tunnel": "^2.1.0",

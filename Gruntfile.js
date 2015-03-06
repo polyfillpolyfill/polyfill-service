@@ -2,6 +2,11 @@
 
 require('es6-promise').polyfill();
 
+var fs = require('fs');
+if (fs.existsSync('./.env.json')) {
+	require('lodash').extend(process.env, require('./.env.json'));
+}
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -49,29 +54,35 @@ module.exports = function(grunt) {
 					browsers: browsers.quick
 				}
 			}
+		},
+		"watch": {
+			files: ['service/**', 'lib/**', 'polyfills/**', '!polyfills/__versions/**'],
+			tasks: ['buildsources', 'polyfillservice']
 		}
 	});
 
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"simplemocha",
 		"buildsources",
+		"simplemocha",
 		"polyfillservice",
 		"saucelabs:quick",
 	]);
 
 	grunt.registerTask("compatgen", [
+		"buildsources",
 		"simplemocha",
 		"polyfillservice",
-		"buildsources",
 		"saucelabs:compat",
 		"compattable"
 	]);
 
 	grunt.registerTask("ci", [
+		"buildsources",
 		"simplemocha",
 		"polyfillservice",
 		"saucelabs:ci"
@@ -83,6 +94,14 @@ module.exports = function(grunt) {
 		"installcollections",
 		"buildsources",
 		"clean:repo"
+	]);
+
+	grunt.registerTask('dev', [
+		"clean:repo",
+		"clean:versions",
+		"buildsources",
+		"polyfillservice",
+		"watch"
 	]);
 };
 
