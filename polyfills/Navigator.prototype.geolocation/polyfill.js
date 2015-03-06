@@ -1,3 +1,6 @@
+/*
+* For ie8 and lte neen polyfill https://gist.github.com/jonathantneal/3748027
+*/
 (function (global) {
 	function Geolocation() {
 		this.getCurrentPosition = getCurrentPosition;
