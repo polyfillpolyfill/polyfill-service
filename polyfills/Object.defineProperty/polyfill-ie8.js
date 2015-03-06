@@ -1,4 +1,7 @@
 (function (nativeDefineProperty) {
+	var ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine';
+	var ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
+
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 		// handle object
 		if (object === null || !(object instanceof Object || typeof object === 'object')) {
@@ -11,21 +14,35 @@
 		}
 
 		var
-		propertyString = String(property);
+		propertyString = String(property),
+		hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
 
 		// handle native support
 		if (object === window || object === document || object === Element.prototype || object instanceof Element) {
 			return nativeDefineProperty(object, propertyString, descriptor);
 		}
 
-		// handle descriptor.get
 		if ('get' in descriptor) {
-			object[propertyString] = descriptor.get.call(object);
+			if (typeof descriptor.get !== 'function') {
+				throw new TypeError('Getter expected a function');
+			}
+			if (hasValueOrWritable) {
+				throw new TypeError(ERR_VALUE_ACCESSORS);
+			}
+			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
 		}
-		// handle descriptor.value
-		else {
-			object[propertyString] = descriptor.value;
+
+		if ('set' in descriptor) {
+			if (typeof descriptor.set !== 'function') {
+				throw new TypeError('Setter expected a function');
+			}
+			if (hasValueOrWritable) {
+				throw new TypeError(ERR_VALUE_ACCESSORS);
+			}
+			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
 		}
+
+		object[propertyString] = descriptor.value;
 
 		// return object
 		return object;

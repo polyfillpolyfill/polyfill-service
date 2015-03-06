@@ -1,9 +1,19 @@
+'use strict';
+
 require('es6-promise').polyfill();
+
+var fs = require('fs');
+if (fs.existsSync('./.env.json')) {
+	require('lodash').extend(process.env, require('./.env.json'));
+}
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-
+		"clean": {
+			repo: ['polyfills/__repo'],
+			versions: ['polyfills/__versions']
+		},
 		"simplemocha": {
 			options: {
 				globals: ['should'],
@@ -44,36 +54,54 @@ module.exports = function(grunt) {
 					browsers: browsers.quick
 				}
 			}
+		},
+		"watch": {
+			files: ['service/**', 'lib/**', 'polyfills/**', '!polyfills/__versions/**'],
+			tasks: ['buildsources', 'polyfillservice']
 		}
 	});
 
 	grunt.loadTasks('tasks');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"simplemocha",
 		"buildsources",
+		"simplemocha",
 		"polyfillservice",
 		"saucelabs:quick",
 	]);
 
 	grunt.registerTask("compatgen", [
+		"buildsources",
 		"simplemocha",
 		"polyfillservice",
-		"buildsources",
 		"saucelabs:compat",
 		"compattable"
 	]);
 
 	grunt.registerTask("ci", [
+		"buildsources",
 		"simplemocha",
 		"polyfillservice",
 		"saucelabs:ci"
 	]);
 
 	grunt.registerTask("build", [
+		"clean:repo",
+		"clean:versions",
 		"installcollections",
-		"buildsources"
+		"buildsources",
+		"clean:repo"
+	]);
+
+	grunt.registerTask('dev', [
+		"clean:repo",
+		"clean:versions",
+		"buildsources",
+		"polyfillservice",
+		"watch"
 	]);
 };
 
@@ -124,7 +152,6 @@ var browsers = {
 		['android', '4.3', 'linux'],
 		['android', '4.2', 'linux'],
 		['android', '4.1', 'linux'],
-		['android', '4.0', 'linux'],
-		['iphone', '7.1', 'OSX 10.9']
+		['android', '4.0', 'linux']
 	]
 };

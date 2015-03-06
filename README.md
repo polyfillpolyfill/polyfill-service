@@ -13,7 +13,9 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master
 
 To run the app for **development**:
 
-Run `npm run watch` from the root of the working tree (or, if you have nodemon installed, you may prefer to use that).  This will watch your filesystem and automatically restart if you make any changes to any of the app source code.  If you change *polyfill* code, you will need to recompile the polyfills by manually running `grunt buildsources`, because it takes a few seconds.
+Run `grunt dev` from the root of the working tree (or, if you have nodemon installed, you may prefer to use that).  This will watch your filesystem and automatically rebuild sources and restart if you make any changes to any of the app source code or polyfills.
+
+By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  If you want to run the service with the historic polyfill collections installed, run `grunt installcollections buildsources polyfillservice watch` instead.
 
 To run the app for **production**:
 
@@ -29,13 +31,16 @@ For an HTTP API reference, see the [hosted service documentation](http://polyfil
 
 ### Environment configuration
 
-The service reads a number of environment variables when started as a service:
+The service reads a number of environment variables when started as a service, all of which are optional:
 
 * `PORT`: The port on which to listen for HTTP requests (default 3000)
 * `FASTLY_SERVICE_ID`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
 * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
 * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: Sauce Labs credentials for grunt test tasks (not used by the service itself)
+
+When running a grunt task, including running the service via `grunt dev` or `grunt polyfillservice`, you can optionally read environment config from a `.env.json` file in the root of the working tree.  This is a convenient way of maintaining the environment config that you need for development.  The `.env.json` file is gitignored so will not be accidentally committed.
 
 
 ## Using as a library

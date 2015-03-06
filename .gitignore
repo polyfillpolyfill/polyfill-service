@@ -1,10 +1,11 @@
 /node_modules
 /npm-debug.log
+/polyfills/__repo
 /polyfills/__versions
 /polyfills/aliases.json
 /polyfills/sources.json
 /test/results
-/dev.sh
+/.env.json
 /.semver
 /.haikro-cache
 /node-*

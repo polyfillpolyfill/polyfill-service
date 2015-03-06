@@ -113,7 +113,7 @@ module.exports = function(grunt) {
 									return;
 								}
 
-								log("results received, closing remote browser");
+								log("results received ("+data.passed+" passed, "+data.failed+" failed), closing remote browser");
 
 								// Close the browser as soon as we have the
 								// results.  No need to keep it hanging around
@@ -251,10 +251,6 @@ module.exports = function(grunt) {
 						var failed = false;
 						grunt.log.writeln('Sauce tunnel stopped');
 						grunt.log.writeln("travis_fold:end:Sauce test progress");
-						if (err) {
-							gruntDone(err);
-							return;
-						}
 						grunt.log.writeln("Failed tests:")
 						jobresults.forEach(function(job) {
 							if (!job.results) {
