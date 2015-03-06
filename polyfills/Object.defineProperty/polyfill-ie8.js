@@ -1,5 +1,5 @@
 (function (nativeDefineProperty) {
-	var ERR_ACCESSORS_NOT_SUPPORTED = 'getters & setters can not be defined on this javascript engine';
+	var ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine';
 	var ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
 
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
@@ -31,7 +31,7 @@
 			}
 			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
 		}
-		
+
 		if ('set' in descriptor) {
 			if (typeof descriptor.set !== 'function') {
 				throw new TypeError('Setter expected a function');

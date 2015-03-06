@@ -10,7 +10,7 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 	}
 
 	var
-	ERR_ACCESSORS_NOT_SUPPORTED = 'getters & setters can not be defined on this javascript',
+	ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
 	ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value',
 	hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor,
 	propertyString = String(property),
@@ -33,7 +33,7 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 	// handle descriptor.set
 	if ('set' in descriptor) {
 		if (typeof descriptor.get !== 'function') {
-			throw new TypeError('Getter expected a function');
+			throw new TypeError('Setter expected a function');
 		}
 		if (hasValueOrWritable) {
 			throw new TypeError(ERR_VALUE_ACCESSORS);

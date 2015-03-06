@@ -28,14 +28,20 @@ describe('Basic functionality', function () {
 		expect(object[property]).to.equal(value);
 	});
 
-	it('Assigns a property with a getter', function () {
-		Object.defineProperty(object, property, {
-			configurable: true,
-			enumerable: true,
-			get: function () {
-				return value;
+	it('Assigns a property with a getter if getters are supported by the engine, else throws', function () {
+		try {
+			Object.defineProperty(object, property, {
+				configurable: true,
+				enumerable: true,
+				get: function () {
+					return value;
+				}
+			});
+		} catch (e) {
+			if (e.message !== "Getters & setters cannot be defined on this javascript engine") {
+				throw e;
 			}
-		});
+		}
 
 		expect(object[property]).to.equal(value);
 	});

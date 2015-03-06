@@ -2,9 +2,9 @@
 	if (Object.defineProperty) {
 		return;
 	}
-	
+
 	var supportsAccessors = Object.prototype.hasOwnProperty('__defineGetter__');
-	var ERR_ACCESSORS_NOT_SUPPORTED = 'getters & setters can not be defined on this javascript engine';
+	var ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine';
 	var ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
 
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
