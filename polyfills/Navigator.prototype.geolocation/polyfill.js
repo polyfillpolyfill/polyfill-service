@@ -1,3 +1,6 @@
+/*
+ * For ie8 and lte need polyfill https://gist.github.com/jonathantneal/3748027
+*/
 (function (global) {
 	function Geolocation() {
 		this.getCurrentPosition = getCurrentPosition;
@@ -37,7 +40,7 @@
 		}
 
 		var
-		script = document.head.appendChild(document.createElement('script')),
+		script = document.getElementsByTagName('head')[0].appendChild(document.createElement('script')),
 		positionOptions = new PositionOptions(options || {});
 
 		geolocation.timeout = setTimeout(function () {
