@@ -17,5 +17,7 @@
 				"ie": "8"
 			}
 		}
-	}
+	},
+	"spec": "https://dom.spec.whatwg.org/#interface-element",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element"
 }

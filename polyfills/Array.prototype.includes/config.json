@@ -14,5 +14,7 @@
 		"Object.defineProperty"
 	],
 	"author": "Mozilla contributors",
-	"licence": "CC0"
+	"licence": "CC0",
+	"spec": "https://github.com/tc39/Array.prototype.includes",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"
 }

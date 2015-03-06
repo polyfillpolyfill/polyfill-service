@@ -19,5 +19,6 @@
 		"_enqueueMicrotask"
 	],
 	"license": "MIT",
-	"author": "Dmitry Korobkin (https://github.com/Octane/Promise)"
+	"author": "Dmitry Korobkin",
+	"repo": "https://github.com/Octane/Promise"
 }

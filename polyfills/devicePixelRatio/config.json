@@ -21,5 +21,7 @@
 				"ios_saf": "*"
 			}
 		}
-	}
+	},
+	"spec": "http://dev.w3.org/csswg/cssom-view/#dom-window-devicepixelratio",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio"
 }

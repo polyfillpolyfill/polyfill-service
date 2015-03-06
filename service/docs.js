@@ -173,18 +173,21 @@ function getCompat() {
 	};
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0
+			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0;
 		})
 		.sort()
 		.map(function(feat) {
 			var polyfill = sourceslib.getPolyfill(feat);
 			var fdata = {
 				feature: feat,
+				slug: feat.replace(/\./g, '_'),
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
 					return Math.max(size, polyfill.variants[variantName].minSource.length);
 				}, 0),
 				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-				hasTests: polyfill.hasTests
+				hasTests: polyfill.hasTests,
+				docs: polyfill.docs,
+				spec: polyfill.spec
 			};
 			browsers.forEach(function(browser) {
 				if (data[feat][browser]) {

@@ -36,7 +36,11 @@
 			<li><code>dependencies</code>: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.</li>
 			<li><code>author</code>: Object, metadata about the author of the polyfill, following <a href="https://www.npmjs.org/doc/json.html#people-fields-author-contributors">NPM convention</a></li>
 			<li><code>licence</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
-			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>licence</code>, <code>author</code> and <code>dependencies</code> properties.</li>
+			<li><code>repo</code>: String, the URL of the repository containing the canonical version of the polyfill, of which the version stored in the polyfills library is a copy.</li>
+			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
+			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
+			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
+			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>licence</code>, <code>author</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
 		</ul>
 
 		<p>Where a config file contains <code>browsers</code>, <code>licence</code>, <code>author</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
