@@ -45,7 +45,7 @@
 
 		geolocation.timeout = setTimeout(function () {
 			setTimeout(function () {
-				document.head.removeChild(script);
+				document.getElementsByTagName('head')[0].removeChild(script);
 			});
 
 			delete geolocation.callback;
@@ -57,7 +57,7 @@
 			clearTimeout(geolocation.timeout);
 
 			setTimeout(function () {
-				document.head.removeChild(script);
+				document.getElementsByTagName('head')[0].removeChild(script);
 			});
 
 			delete geolocation.callback;
@@ -67,7 +67,7 @@
 
 		script.addEventListener('error', function () {
 			setTimeout(function () {
-				document.head.removeChild(script);
+				document.getElementsByTagName('head')[0].removeChild(script);
 			});
 
 			delete geolocation.callback;
