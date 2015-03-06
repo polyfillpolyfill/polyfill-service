@@ -3,18 +3,10 @@
 		"safari": "4 - *"
 	},
 	"variants": {
-		"ie7": {
+		"oldie": {
 			"browsers": {
-				"ie": "6 - 7"
+				"ie": "6 - 8"
 			}
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			},
-			"dependencies": [
-				"Object.defineProperty"
-			]
 		},
 		"ios": {
 			"browsers": {
