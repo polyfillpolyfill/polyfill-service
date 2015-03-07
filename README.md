@@ -3,7 +3,7 @@
 [![Build
 Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master)](https://travis-ci.org/Financial-Times/polyfill-service)
 
-**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](http://cdn.polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
+Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](https://cdn.polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
 ## Installing as a service
 
@@ -13,15 +13,15 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master
 
 To run the app for **development**:
 
-Run `grunt dev` from the root of the working tree (or, if you have nodemon installed, you may prefer to use that).  This will watch your filesystem and automatically rebuild sources and restart if you make any changes to any of the app source code or polyfills.
+Run `grunt dev` from the root of the working tree.  This will watch your filesystem and automatically rebuild sources and restart if you make any changes to any of the app source code or polyfills.  If you change the docs, library or service (`docs`, `lib` and `service` directories) the service will be restarted.  If you change the polyfills or polyfill configs (`polyfills` directory), the polyfill sources will be recompiled before the service restarts, which makes the restart slightly slower.
 
-By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  If you want to run the service with the historic polyfill collections installed, run `grunt installcollections buildsources polyfillservice watch` instead.
+By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  If you want to run the service with the historic polyfill collections installed, run `grunt installcollections buildsources service watch` instead.
 
 To run the app for **production**:
 
-Run `npm start`.  This will run the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
+Run `npm start`.  This will start the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
 
-In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser
+In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser (you can configure the port, see environment configuration below).
 
 Alternatively, deploy straight to Heroku:
 
@@ -40,7 +40,7 @@ The service reads a number of environment variables when started as a service, a
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
 * `SAUCE_USER_NAME` and `SAUCE_API_KEY`: Sauce Labs credentials for grunt test tasks (not used by the service itself)
 
-When running a grunt task, including running the service via `grunt dev` or `grunt polyfillservice`, you can optionally read environment config from a `.env.json` file in the root of the working tree.  This is a convenient way of maintaining the environment config that you need for development.  The `.env.json` file is gitignored so will not be accidentally committed.
+When running a grunt task, including running the service via `grunt dev` or `grunt service`, you can optionally read environment config from a file called `.env.json` in the root of the working tree.  This is a convenient way of maintaining the environment config that you need for development.  The `.env.json` file is gitignored so will not be accidentally committed.
 
 
 ## Using as a library

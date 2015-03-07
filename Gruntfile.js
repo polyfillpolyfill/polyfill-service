@@ -113,18 +113,16 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("build", [
-		"clean:repo",
-		"clean:versions",
+		"clean",
 		"installcollections",
 		"buildsources",
 		"clean:repo"
 	]);
 
 	grunt.registerTask('dev', [
-		"clean:repo",
-		"clean:versions",
+		"clean",
 		"buildsources",
-		"service:polyfillservice",
+		"service",
 		"watch"
 	]);
 };
