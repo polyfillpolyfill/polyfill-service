@@ -5,7 +5,8 @@
 	"variants": {
 		"oldie": {
 			"browsers": {
-				"ie": "6 - 8"
+				"ie": "6 - 8",
+				"firefox": "<=17"
 			}
 		},
 		"ios": {
@@ -17,6 +18,6 @@
 	"spec": "http://dev.w3.org/csswg/cssom-view/#dom-window-devicepixelratio",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
 	"notes": [
-		"Not technically a polyfill, since it simply assumes that any UA that does not support DPR has a DPR of 1, which is likely to be accurate in almost all cases."
+		"On very old browsers, this polyfill just sets `devicePixelRatio` to 1 without attempting to measure it."
 	]
 }
