@@ -15,5 +15,8 @@
 		}
 	},
 	"spec": "http://dev.w3.org/csswg/cssom-view/#dom-window-devicepixelratio",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
+	"notes": [
+		"Not technically a polyfill, since it simply assumes that any UA that does not support DPR has a DPR of 1, which is likely to be accurate in almost all cases."
+	]
 }
