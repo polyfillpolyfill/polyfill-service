@@ -93,23 +93,26 @@ module.exports = function(grunt) {
 	grunt.registerTask("test", [
 		"buildsources",
 		"simplemocha",
-		"service:polyfillservice",
+		"service",
 		"saucelabs:quick",
+		"service:polyfillservice:stop"
 	]);
 
 	grunt.registerTask("compatgen", [
 		"buildsources",
 		"simplemocha",
-		"service:polyfillservice",
+		"service",
 		"saucelabs:compat",
-		"compattable"
+		"compattable",
+		"service:polyfillservice:stop"
 	]);
 
 	grunt.registerTask("ci", [
 		"buildsources",
 		"simplemocha",
-		"service:polyfillservice",
-		"saucelabs:ci"
+		"service",
+		"saucelabs:ci",
+		"service:polyfillservice:stop"
 	]);
 
 	grunt.registerTask("build", [
