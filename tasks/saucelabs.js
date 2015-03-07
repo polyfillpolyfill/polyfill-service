@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var gruntDone = this.async();
 		var nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
+		var tunnel;
 		var tunnelId = 'SauceTunnel-' + nameSuffix;
 
 		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
@@ -49,8 +50,6 @@ module.exports = function(grunt) {
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
 		batch.throws(false);
-
-		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 
 		// Create a new job to pass into the Batch runner, returns a function
 		function newTestJob(url, urlName, conf) {
@@ -186,6 +185,7 @@ module.exports = function(grunt) {
 		grunt.log.writeln("travis_fold:start:Sauce test progress");
 		grunt.log.writeln("Sauce job name: "+options.name);
 		readResultsFile(function(testResults) {
+			var noop = true;
 
 			options.browsers.forEach(function(conf) {
 				conf['name'] = options.name;
@@ -203,12 +203,19 @@ module.exports = function(grunt) {
 					} catch(e) {
 						batch.push(newTestJob(url, urlName, conf));
 						state = 'queued';
+						noop = false;
 					}
 					grunt.log.writeln(conf.browserName+' '+conf.version+' ('+urlName+' mode): '+state);
 				});
 			});
 
+			if (noop) {
+				grunt.log.writeln("Nothing to do");
+				return gruntDone();
+			}
+
 			grunt.log.writeln('Opening tunnel to Sauce Labs');
+			tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 			tunnel.start(function(status) {
 
 				grunt.log.writeln("Tunnel Started");
