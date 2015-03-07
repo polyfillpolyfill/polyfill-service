@@ -12,7 +12,8 @@
 	},
 	"dependencies": [
 		"Object.defineProperty",
-		"Array.prototype.forEach"
+		"Array.prototype.forEach",
+		"Date.now"
 	],
 	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md"
 }
