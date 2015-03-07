@@ -12,6 +12,6 @@
 		"Array.prototype.forEach"
 	],
 
-	"license": "Public Domain, https://github.com/inexorabletash/polyfill/blob/master/LICENSE.md",
+	"license": "CC0",
 	"repo" : "https://github.com/inexorabletash/polyfill"
 }
