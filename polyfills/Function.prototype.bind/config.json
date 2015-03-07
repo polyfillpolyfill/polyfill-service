@@ -14,5 +14,7 @@
 		"Object.defineProperty"
 	],
 	"repo": "https://github.com/es-shims/es5-shim",
-	"licence": "MIT"
+	"licence": "MIT",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind",
+	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-function.prototype.bind"
 }
