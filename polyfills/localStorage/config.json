@@ -8,5 +8,7 @@
 	},
 	"dependencies": [
 		"Window"
-	]
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+	"spec": "http://dev.w3.org/html5/webstorage/#dom-localstorage"
 }
