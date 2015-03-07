@@ -2,9 +2,11 @@
 
 require('es6-promise').polyfill();
 
+var ENV = {};
 var fs = require('fs');
 if (fs.existsSync('./.env.json')) {
-	require('lodash').extend(process.env, require('./.env.json'));
+	ENV = require('./.env.json');
+	require('lodash').extend(process.env, ENV);
 }
 
 module.exports = function(grunt) {
@@ -56,27 +58,49 @@ module.exports = function(grunt) {
 			}
 		},
 		"watch": {
-			files: ['service/**', 'lib/**', 'polyfills/**', '!polyfills/__versions/**'],
-			tasks: ['buildsources', 'polyfillservice']
+			options: {
+				spawn: false
+			},
+			js: {
+				files: ['!*', 'docs/**/*', 'service/**/*', 'lib/**/*'],
+				tasks: ['service:polyfillservice:restart']
+			},
+			polyfills: {
+				files: ['!*', 'polyfills/**/*', '!polyfills/__versions/**', '!polyfills/*.json'],
+				tasks: ['buildsources', 'service:polyfillservice:restart']
+			}
+		},
+		"service": {
+			polyfillservice: {
+				shellCommand: process.argv[0] + ' ' + __dirname + '/service/index.js',
+				pidFile: __dirname + '/service-process.pid',
+				generatePID: true,
+				options: {
+					env: ENV,
+					cwd: __dirname,
+					failOnError: true
+				}
+			}
 		}
 	});
 
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-service');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
 		"buildsources",
 		"simplemocha",
-		"polyfillservice",
+		"service:polyfillservice",
 		"saucelabs:quick",
 	]);
 
 	grunt.registerTask("compatgen", [
 		"buildsources",
 		"simplemocha",
-		"polyfillservice",
+		"service:polyfillservice",
 		"saucelabs:compat",
 		"compattable"
 	]);
@@ -84,7 +108,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("ci", [
 		"buildsources",
 		"simplemocha",
-		"polyfillservice",
+		"service:polyfillservice",
 		"saucelabs:ci"
 	]);
 
@@ -100,7 +124,7 @@ module.exports = function(grunt) {
 		"clean:repo",
 		"clean:versions",
 		"buildsources",
-		"polyfillservice",
+		"service:polyfillservice",
 		"watch"
 	]);
 };

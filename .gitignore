@@ -9,4 +9,5 @@
 /.semver
 /.haikro-cache
 /node-*
+/service-process.pid
 .DS_Store
