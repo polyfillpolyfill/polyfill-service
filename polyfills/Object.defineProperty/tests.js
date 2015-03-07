@@ -14,6 +14,11 @@ describe('Basic functionality', function () {
 	});
 
 	it('Assigns a property', function () {
+		Object.defineProperty(object, property, {
+			configurable: true,
+			enumerable: true,
+			writable: true
+		});
 		expect(property in object).to.equal(true);
 	});
 

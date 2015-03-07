@@ -52,9 +52,7 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 		});
 	}
 
-	if ('value' in descriptor) {
-		object[propertyString] = descriptor.value;
-	}
+	object[propertyString] = descriptor.value;
 
 	// return object
 	return object;
