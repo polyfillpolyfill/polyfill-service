@@ -14,6 +14,8 @@
 		"XMLHttpRequest"
 	],
 	"license": "https://github.com/github/fetch/blob/master/LICENSE",
+	"spec": "https://fetch.spec.whatwg.org/",
+	"repo": "https://github.com/github/fetch",
 	"notes": [
 		"Uses FileReader and Blob if they exist, and depends on FormData"
 	]
