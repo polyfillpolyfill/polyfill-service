@@ -12,7 +12,8 @@
 	},
 	"dependencies": [
 		"Object.defineProperty",
-		"Array.prototype.forEach"
+		"Array.prototype.forEach",
+		"Date.now"
 	],
 	"repo": "https://github.com/webcomponents/webcomponentsjs",
 	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md"
