@@ -29,10 +29,14 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 		}
 		object[propertyString] = new Element.__getter__(descriptor.get);
 	}
+	// handle descriptor.value (must not overwrite getter but if no getter is defined, property must be set, even if only to undefined)
+	else {
+		object[propertyString] = descriptor.value;
+	}
 
 	// handle descriptor.set
 	if ('set' in descriptor) {
-		if (typeof descriptor.get !== 'function') {
+		if (typeof descriptor.set !== 'function') {
 			throw new TypeError('Setter expected a function');
 		}
 		if (hasValueOrWritable) {
@@ -51,8 +55,6 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 			object.attachEvent('onpropertychange', callee);
 		});
 	}
-
-	object[propertyString] = descriptor.value;
 
 	// return object
 	return object;

@@ -36,6 +36,8 @@
 				throw new TypeError(ERR_VALUE_ACCESSORS);
 			}
 			object.__defineGetter__(propertyString, descriptor.get);
+		} else {
+			object[propertyString] = descriptor.value;
 		}
 
 		// handle descriptor.set
@@ -51,8 +53,6 @@
 			}
 			object.__defineSetter__(propertyString, descriptor.set);
 		}
-
-		object[propertyString] = descriptor.value;
 
 		// return object
 		return object;

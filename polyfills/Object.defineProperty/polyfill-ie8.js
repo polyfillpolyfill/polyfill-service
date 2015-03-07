@@ -42,6 +42,7 @@
 			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
 		}
 
+		// OK to define value unconditionally, since all supported getter/accessor use cases are handled natively
 		object[propertyString] = descriptor.value;
 
 		// return object
