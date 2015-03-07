@@ -14,5 +14,5 @@
 		}
 	},
 	"spec": "http://w3.org/TR/DOM-Level-3-Core/core.html#ID-3A0ED0A4",
-	"docs": "https://github.com/Financial-Times/ft-origami/pull/324"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode"
 }

@@ -7,7 +7,6 @@
 		"default",
 		"html5shiv"
 	],
-	"author": "HTML5Shiv contributors",
-	"licence": "MIT",
+	"license": "MIT",
 	"repo": "https://github.com/aFarkas/html5shiv"
 }

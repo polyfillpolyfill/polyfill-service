@@ -67,12 +67,15 @@ module.exports = function(grunt) {
 						config.variants['default'] = {
 							browsers: config.browsers,
 							dependencies: config.dependencies || [],
-							licence: config.licence || "",
+							license: config.license || "",
 							esversion: config.esversion || undefined
 						};
 						delete config.browsers;
 						delete config.dependencies;
-						delete config.licence;
+						delete config.license;
+					}
+					if (config.licence) {
+						throw 'Incorrect spelling of license property in '+featureName;
 					}
 
 					// If there is still no default variant, create one
@@ -80,7 +83,7 @@ module.exports = function(grunt) {
 						config.variants.default = {
 							browsers: {},
 							dependencies: [],
-							licence: "",
+							license: "",
 							rawSource: "/* This polyfill has no generic form, and no browser specific variant applies to the current user agent. */"
 						};
 					}
@@ -91,6 +94,10 @@ module.exports = function(grunt) {
 						try {
 							detectPath = path.join(polyfillPath, 'detect.js');
 							v = config.variants[polyfillVariant];
+
+							if (v.licence) {
+								throw 'Incorrect spelling of license property in '+featureName;
+							}
 
 							if (!v.rawSource) {
 								polyfillFile = 'polyfill' + ((polyfillVariant !== 'default') ? '-'+polyfillVariant : '') + '.js';
@@ -172,9 +179,10 @@ module.exports = function(grunt) {
 			if (ignoredErrors) {
 				grunt.log.writeln('Ignored '+ignoredErrors+' error(s) in historic polyfill versions');
 			}
-			grunt.log.writeln('Sources built successfully');
 			fs.writeFileSync(path.join(__dirname, '../polyfills/sources.json'), JSON.stringify(sources));
 			fs.writeFileSync(path.join(__dirname, '../polyfills/aliases.json'), JSON.stringify(configuredAliases));
+
+			grunt.log.writeln('Sources built successfully');
 		}
 	});
 };

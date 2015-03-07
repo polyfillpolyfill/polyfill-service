@@ -17,5 +17,7 @@
 	},
 	"dependencies": [
 		"Element.prototype.matches"
-	]
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/closest",
+	"spec": "http://dom.spec.whatwg.org/#dom-element-closest"
 }

@@ -19,6 +19,6 @@
 		"_enqueueMicrotask"
 	],
 	"license": "MIT",
-	"author": "Dmitry Korobkin",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
 	"repo": "https://github.com/Octane/Promise"
 }

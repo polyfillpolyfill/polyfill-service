@@ -34,16 +34,15 @@
 			<li><code>browsers</code>: Object, one key per browser family name (see <a href="#browser-support">browser support</a>), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill <em>should be applied</em>. See <a href="https://github.com/npm/node-semver#ranges">node-semver ranges</a>.</li>
 			<li><code>aliases</code>: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.</li>
 			<li><code>dependencies</code>: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.</li>
-			<li><code>author</code>: Object, metadata about the author of the polyfill, following <a href="https://www.npmjs.org/doc/json.html#people-fields-author-contributors">NPM convention</a></li>
-			<li><code>licence</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
+			<li><code>license</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
 			<li><code>repo</code>: String, the URL of the repository containing the canonical version of the polyfill, of which the version stored in the polyfills library is a copy.</li>
 			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
-			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>licence</code>, <code>author</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
+			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>author</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
 		</ul>
 
-		<p>Where a config file contains <code>browsers</code>, <code>licence</code>, <code>author</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
+		<p>Where a config file contains <code>browsers</code>, <code>license</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
 
 		<p>Example:</p>
 
@@ -62,12 +61,7 @@
         "Object.defineProperties",
         "Object.create"
     ],
-    "author": {
-        "name" : "Person B",
-        "email" : "b@example.com",
-        "url" : "http://person.example.com"
-    },
-    "license": "Zlib"
+    "license": "MIT"
 }</code></pre>
 
 		<p>A request from IE7 would receive this polyfill, since it is targeted to IE 6-9.  It <em>may</em> also receive polyfills for <code>Object.defineProperties</code> and <code>Object.create</code>, since those are dependencies of the polyfill in this example, if those polyfills also apply in IE7.</p>
@@ -119,7 +113,7 @@
 		<ul>
 			<li>Make sure that the polyfill correctly implements the aspects of the spec that it seeks to emulate</li>
 			<li>Write a well defined config.json:<ul>
-				<li>If you do not include a licence or author, we will likely ask that you do</li>
+				<li>If you do not include a license or repo, we will likely ask that you do</li>
 				<li>Check whether there is a Modernizr feature-detect that detects this feature.  If so, add a <code>modernizr:</code>-prefixed alias</li>
 				<li>Make sure you write valid semver ranges for each browser (if defining a range, you need spaces around the dash) and use the correct browser name key</li>
 			</ul></li>
