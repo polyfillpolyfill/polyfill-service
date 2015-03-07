@@ -35,6 +35,10 @@ table {
 	margin-right: 6px;
 	display: inline-block;
 }
+.compatibility tr.has-notes td {
+	border-bottom: none;
+}
+
 [class^='status'],div[class*=' status']{
 	padding: 1px 4px;
 	display: inline-block;
@@ -108,4 +112,36 @@ pre.bigcode code {
 }
 .hover-menu a:hover {
 	background-color: #f0f0f0;
+}
+
+.license a {
+	color: green;
+	font-weight: bold;
+}
+.license-proprietary a {
+	color: #a50000;
+	font-weight: bold;
+}
+
+.notes td {
+	padding-top: 0 !important;
+}
+.notes ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	font-size: 12px;
+	line-height: 14px;
+	color: #777;
+}
+.notes td p {
+	padding: 0;
+	margin: 0;
+}
+
+
+/* Committed into techdocs, this can be removed once it's been released in the module */
+.o-techdocs__permalink {
+	margin-left: 0.5em !important;
+	line-height: 1;
 }

@@ -27,15 +27,22 @@
 			</thead>
 			<tbody>
 			{{#compat}}
-				<tr>
+				<tr id='{{slug}}' class='{{#if notes}}has-notes{{/if}}'>
 					<td>
-						<h3>{{feature}}</h3>
+						<h3>{{feature}}<a class='o-techdocs__permalink' href='#{{slug}}'>¶</a></h3>
 						<ul class='feature-meta'>
 							<li title="Maximum size, minifed, before gzip">{{dispBytes size}}</li>
 							{{#if isDefault}}<li><i title='Part of the default set' class="fa fa-star"></i></li>{{/if}}
 						</ul>
 						<script type="text/template" id="overlay-src-{{slug}}">
 							<ul class='hover-menu o-techdocs-content'>
+								{{#if license}}
+									{{#if licenseIsUrl }}
+									<li class='license license-proprietary'><a title='This polyfill has a specific licence' href='{{license}}'><i class='fa fa-warning'></i> Proprietary license</a></li>
+									{{else}}
+									<li class='license'><a title='This polyfill has a specific licence' href='http://choosealicense.com/licenses/{{lower license}}'>License: {{license}}</a></li>
+									{{/if}}
+								{{/if}}
 								{{#if hasTests}}<li><a href='/test/tests?feature={{feature}}'>Run tests</a></li>{{/if}}
 								{{#if spec}}<li><a href='{{spec}}'>Specification</a></li>{{/if}}
 								{{#if docs}}<li><a href='{{docs}}'>Documentation</a></li>{{/if}}
@@ -49,7 +56,16 @@
 					<td>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
 					<td><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
 				</tr>
-				{{/compat}}
+				{{#if notes}}
+					<tr class='notes'><td></td><td colspan='5'>
+						<ul>
+						{{#notes}}
+						<li>{{{.}}}</li>
+						{{/notes}}
+						</ul>
+					</td></tr>
+				{{/if}}
+			{{/compat}}
 			</tbody>
 		</table>
 

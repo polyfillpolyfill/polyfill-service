@@ -1,12 +1,13 @@
-var fs = require('fs'),
-	path = require('path'),
-	request = require('request-promise'),
-	Handlebars = require('handlebars'),
-	moment = require('moment'),
-	sources = require('../lib/sources');
+var fs = require('fs');
+var path = require('path');
+var request = require('request-promise');
+var Handlebars = require('handlebars');
+var moment = require('moment');
+var sources = require('../lib/sources');
+var marked = require('marked');
 
-var cache = {},
-	cachettl = 1800;
+var cache = {};
+var cachettl = 1800;
 
 // Pre-cache page templates and partials
 var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
@@ -40,6 +41,9 @@ Handlebars.registerHelper('dispBytes', function(bytes) {
 	} while (bytes > 1024);
 
 	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
+});
+Handlebars.registerHelper('lower', function(str) {
+	return str.toLowerCase();
 });
 
 
@@ -187,7 +191,10 @@ function getCompat() {
 				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 				hasTests: polyfill.hasTests,
 				docs: polyfill.docs,
-				spec: polyfill.spec
+				spec: polyfill.spec,
+				notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+				license: polyfill.variants.default.license,
+				licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
 			};
 			browsers.forEach(function(browser) {
 				if (data[feat][browser]) {
