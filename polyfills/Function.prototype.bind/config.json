@@ -9,5 +9,10 @@
 		"firefox": "3.6",
 		"safari": "4 - 5.1",
 		"ios_saf": "<=5"
-	}
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"repo": "https://github.com/es-shims/es5-shim",
+	"licence": "MIT"
 }
