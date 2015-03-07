@@ -10,5 +10,7 @@
 	},
 	"dependencies": [
 		"Object.defineProperties"
-	]
+	],
+	"license": "MIT",
+	"author": "by contributors (https://github.com/es-shims/es5-shim/blob/v4.0.6/LICENSE)"
 }
