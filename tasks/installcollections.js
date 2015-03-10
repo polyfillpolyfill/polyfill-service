@@ -56,7 +56,9 @@ module.exports = function(grunt) {
 					})
 					.then(function() {
 						grunt.file.recurse(path.join(repodir, 'polyfills/'), function (abspath, rootdir, subdir, filename) {
-							grunt.file.copy(abspath, path.join(dest, subdir, filename));
+							if (subdir) {
+								grunt.file.copy(abspath, path.join(dest, subdir, filename));
+							}
 						});
 					});
 			}, Promise.resolve(1));
