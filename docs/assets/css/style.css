@@ -138,10 +138,3 @@ pre.bigcode code {
 	padding: 0;
 	margin: 0;
 }
-
-
-/* Committed into techdocs, this can be removed once it's been released in the module */
-.o-techdocs__permalink {
-	margin-left: 0.5em !important;
-	line-height: 1;
-}
