@@ -19,13 +19,19 @@
 		"moz": {
 			"browsers": {
 				"firefox": "4 - 22"
-			}
+			},
+			"dependencies": [
+				"performance.now"
+			]
 		},
 		"webkit": {
 			"browsers": {
 				"chrome": "10 - 23",
 				"safari": "6"
-			}
+			},
+			"dependencies": [
+				"performance.now"
+			]
 		}
 	},
 	"dependencies": [
