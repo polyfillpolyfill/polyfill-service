@@ -4,13 +4,13 @@
 		"caniuse:promises"
 	],
 	"browsers": {
-		"android": "* - 4.3",
-		"chrome": "* - 17",
-		"firefox": "* - 13",
-		"ie": "* - 10",
-		"ios": "* - 5.1",
-		"opera": "* - 12.1",
-		"safari": "* - 5.1"
+		"android": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ie": "*",
+		"ios": "*",
+		"opera": "*",
+		"safari": "*"
 	},
 	"variants": {
 		"MutationObserver": {
