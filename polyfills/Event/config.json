@@ -22,5 +22,6 @@
 				"Element"
 			]
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event"
 }

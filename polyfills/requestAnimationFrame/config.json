@@ -32,5 +32,6 @@
 		"Date.now",
 		"performance.now"
 	],
-	"license": "requestAnimationFrame polyfill by Erik Möller, fixes from Paul Irish, Tino Zijdel, and Jonathan Neal"
+	"license": "requestAnimationFrame polyfill by Erik Möller, fixes from Paul Irish, Tino Zijdel, and Jonathan Neal",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame"
 }

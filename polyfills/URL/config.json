@@ -13,5 +13,6 @@
 	],
 
 	"license": "CC0",
-	"repo" : "https://github.com/inexorabletash/polyfill"
+	"repo" : "https://github.com/inexorabletash/polyfill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
 }

@@ -16,5 +16,6 @@
 		"Date.now"
 	],
 	"repo": "https://github.com/webcomponents/webcomponentsjs",
-	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md"
+	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet"
 }
