@@ -14,5 +14,6 @@
 				"safari": "5.1"
 			}
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/Window"
 }

@@ -17,5 +17,6 @@
 		"op_mob": "*",
 		"op_mini": "*",
 		"safari": "*"
-	}
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
 }

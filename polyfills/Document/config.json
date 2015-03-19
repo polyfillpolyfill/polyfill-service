@@ -12,5 +12,6 @@
 			}
 		}
 	},
-	"spec": "http://dom.spec.whatwg.org/#interface-document"
+	"spec": "http://dom.spec.whatwg.org/#interface-document",
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/Document"
 }

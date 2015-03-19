@@ -18,5 +18,6 @@
 	"repo": "https://github.com/github/fetch",
 	"notes": [
 		"Uses FileReader and Blob if they exist, and depends on FormData"
-	]
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
 }
