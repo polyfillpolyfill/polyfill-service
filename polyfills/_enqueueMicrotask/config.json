@@ -1,3 +1,4 @@
+
 {
 	"aliases": [
 		"modernizr:promises",
@@ -15,13 +16,13 @@
 	"variants": {
 		"MutationObserver": {
 			"browsers": {
-				"android": "4.4",
-				"chrome": "18",
-				"firefox": "14",
-				"ie": "11",
-				"ios": "6.1",
-				"opera": "15",
-				"safari": "6"
+				"android": "4.4 - *",
+				"chrome": "18 - *",
+				"firefox": "14 - *",
+				"ie": "11 - *",
+				"ios": "5.2 - *",
+				"opera": "12.2 - *",
+				"safari": "5.2 - *"
 			},
 			"dependencies": [
 				"MutationObserver"

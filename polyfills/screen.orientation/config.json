@@ -14,5 +14,6 @@
 				"ie_mob": "11 - *"
 			}
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation"
 }

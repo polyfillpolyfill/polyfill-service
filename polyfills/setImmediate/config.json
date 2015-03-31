@@ -11,5 +11,6 @@
 				"ie": "* - 9"
 			}
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
 }

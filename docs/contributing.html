@@ -23,7 +23,7 @@
 		<ul>
 			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#polyfill-authoring-guidelines">polyfill authoring guidelines</a>.</li>
 			<li><code>polyfill-{variant}.js</code>: Optional alternative polyfills, to be used where different browsers require different polyfill implementations in order to produce the same result.  Often this is because some browsers have a prefixed or part-implemented/buggy version of the feature which can be normalised more easily and efficiently than recreating it from lower level primitives.  The variant name is arbitrary, but conventionally it is the short form of the browser name and version, if applicable, eg <code>polyfill-ie7.js</code>.  The variant name 'default' is reserved for <code>polyfill.js</code>.</li>
-			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).</li>
+			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  Must not have a trailing semicolon.</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
 			<li><code>config.json</code>: A config file conforming to the spec below</li>
 		</ul>
@@ -39,10 +39,10 @@
 			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
-			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>author</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
+			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
 		</ul>
 
-		<p>Where a config file contains <code>browsers</code>, <code>license</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
+		<p>Where a config file contains <code>browsers</code>, <code>license</code>, <code>dependencies</code> or <code>repo</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
 
 		<p>Example:</p>
 
@@ -68,13 +68,24 @@
 
 		<h3 id="polyfill-authoring-guidelines">Polyfill authoring guidelines</h3>
 
-		<p>Polyfill source files (<code>polyfill[-variant].js</code>) are not expected to always be perfect implementations of the features they are filling.  However, it's important that we observe some strict guidelines to avoid making native implementations harder to ship. Therefore polyfill sources must meet the following requirements:</p>
+		<p>We are always glad to accept contributions of original polyfills as well as copies of third party polyfills maintained elsewhere.  It's important to distinguish between these, because:</p>
 
 		<ul>
-			<li>Must only make changes that create conformance with a published specification</li>
-			<li>Must not be wrapped in a feature detect (the service will add this)</li>
-			<li>Must not contain polyfills for other features (instead, express a dependency on those polyfills, see below)</li>
+		<li><strong>original polyfills</strong> are those where the polyfill service is the canonical source of the code.  They do not have a <code>repo</code> or <code>license</code> property in their config.  Original polyfills:<ul>
+			<li>inherit the license terms of the polyfill service project as a whole, and all contributions are accepted subject to the committer's agreement to our <a href='#contribution-terms'>contribution terms</a>;</li>
+			<li>can be modified, tweaked and improved within the polyfill service repo;</li>
+			<li>must not be wrapped in a feature detect (this is a runtime option);</li>
+			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on `Object.defineProperty`, but *must not* embed a polyfill for it</li>
+		</ul></li>
+		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presense of a <code>repo</code> property in their config.  Third party polyfills:<ul>
+			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
+			<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
+			<li>may contain embedded polyfills for things for which we already have polyfills in the service, and in general, these should be left as they are in order to maintain sync with the upstream repo, even though we could make the polyfill smaller.  Ideally, we should encourage the polyfill author to remove the embedded dependencies;</li>
+			<li>may contain a feature detect.  Ideally they wouldn't, because the service will wrap the polyfill in a detect, but we'll tolerate a redundant detect in order to maintain sync with the upstream source.</li>
+		</ul></li>
 		</ul>
+
+		In addition, whether original or third party, if the polyfill targeting is open ended (ie it targets current versions of browsers), it <em>must</em> only make changes that create conformance with a published specification.  If it is targeted <em>only</em> at older versions of browsers, it <em>may</em> be OK to exhibit any behaviour that is likely to satisfy the needs of applications that depend on the feature.  For example, our <code>devicePixelRatio</code> polyfill in very old browsers simply returns <code>1</code> without actually measuring anything.
 
 		<h3 id="test-authoring-guidelines">Test authoring guidelines</h3>
 
@@ -158,8 +169,13 @@
 
 		<p>In practice this means that in some cases, where polyfills have configurations targeting all versions of a browser (eg <code>"ie": "*"</code>), the polyfill will actually only be available in versions of that browser above the baseline.</p>
 
-		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p></div>
+		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p>
 
+		<h2 id='contribution-terms'>Contribution terms</h2>
+
+		<p><em>Work in progress - see <a href='https://github.com/Financial-Times/polyfill-service/issues/327'>#327</a></em></p>
+
+		</div>
 	</div>
 
 {{>footer}}
