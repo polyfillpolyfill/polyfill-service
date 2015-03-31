@@ -6,7 +6,7 @@
 		"firefox": "*",
 		"ios_chr": "*",
 		"ios_saf": "*",
-		"ie": "6 - *",
+		"ie": "*",
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "*"

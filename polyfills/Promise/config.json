@@ -16,7 +16,8 @@
 		"safari": "* - 7"
 	},
 	"dependencies": [
-		"_enqueueMicrotask"
+		"_enqueueMicrotask",
+		"Array.isArray"
 	],
 	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",

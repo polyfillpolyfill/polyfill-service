@@ -22,6 +22,8 @@ var _enqueueMicrotask = function () {
 	});
 
 	return function (callback) {
+		var args = [].slice.call(arguments, 1);
+		if (args) callback = callback.bind.apply(callback, [this].concat(args));
 		callbacks[callbacks.length] = callback;
 
 		if (!flushing) {
