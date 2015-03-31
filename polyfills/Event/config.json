@@ -23,5 +23,8 @@
 			]
 		}
 	},
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event",
+	"notes": [
+		"This includes the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) methods `addEventListener`, `removeEventListener` and `dispatchEvent` for IE6-8."
+	]
 }
