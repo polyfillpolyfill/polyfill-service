@@ -1,0 +1,1 @@
+'setImmediate' in window
