@@ -1,27 +1,28 @@
+
 {
 	"aliases": [
 		"modernizr:promises",
 		"caniuse:promises"
 	],
 	"browsers": {
-		"android": "*",
-		"chrome": "*",
-		"firefox": "*",
-		"ie": "*",
-		"ios": "*",
-		"opera": "*",
-		"safari": "*"
+		"android": "* - 4.3",
+		"chrome": "* - 17",
+		"firefox": "* - 13",
+		"ie": "* - 10",
+		"ios": "* - 5.1",
+		"opera": "* - 12.1",
+		"safari": "* - 5.1"
 	},
 	"variants": {
 		"MutationObserver": {
 			"browsers": {
-				"android": "4.4",
-				"chrome": "18",
-				"firefox": "14",
-				"ie": "11",
-				"ios": "6.1",
-				"opera": "15",
-				"safari": "6"
+				"android": "4.4 - *",
+				"chrome": "18 - *",
+				"firefox": "14 - *",
+				"ie": "11 - *",
+				"ios": "5.2 - *",
+				"opera": "12.2 - *",
+				"safari": "5.2 - *"
 			},
 			"dependencies": [
 				"MutationObserver"
