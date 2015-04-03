@@ -93,6 +93,16 @@
 
 		<p>Specifically, if part of a feature is not polyfillable in a particular browser, and yet the polyfill is still usable in that browser, omit tests for the part which cannot be polyfilled.  This ensures that the polyfill is still targeted at that browser, and consumers are able to get an accurate understanding of which parts of the feature are covered by the polyfill.  However, a comment in the test file listing aspects of the feature that are not supported is always appreciated.</p>
 
+		<h3 id='detect-authoring-guidelines'>Detect authoring guidelines</h3>
+
+		<p>Since polyfills are loaded in an environment with a <code>this</code> value guaranteed to be an object, detects should lean heavily on the <code>in</code> operator and build from <code>this</code>, eg:
+
+		<pre><code>'navigator' in this &amp;&amp; 'geolocation' in this.navigator</code></pre>
+
+		<p>Objects defined as part of ECMAScript and present in all browsers above our baseline may be assumed to be present, so this is fine:</p>
+
+		<pre><code>'imul' in Math</code></pre>
+
 		<h3 id="running-tests">Running tests</h3>
 
 		<p>You can run tests in three modes:</p>
