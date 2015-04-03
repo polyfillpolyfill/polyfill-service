@@ -87,6 +87,16 @@
 
 		In addition, whether original or third party, if the polyfill targeting is open ended (ie it targets current versions of browsers), it <em>must</em> only make changes that create conformance with a published specification.  If it is targeted <em>only</em> at older versions of browsers, it <em>may</em> be OK to exhibit any behaviour that is likely to satisfy the needs of applications that depend on the feature.  For example, our <code>devicePixelRatio</code> polyfill in very old browsers simply returns <code>1</code> without actually measuring anything.
 
+		<h3 id="binding">Binding to global scope</h3>
+
+		<p>Polyfill bundles produced by the service are wrapped in the following IIFE:</p>
+
+		<pre><code>(function(undefined) {
+	// Polyfills go here
+).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
+
+		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`.</p>
+
 		<h3 id="test-authoring-guidelines">Test authoring guidelines</h3>
 
 		<p>Polyfill service tests use Mocha and Expect, both chosen because they work in legacy browsers down to our <a href="#baseline-support">baseline</a>.  The tests must assert the behaviour that the polyfill makes consistent across browsers, which is not necessarily the entire published spec.</p>
