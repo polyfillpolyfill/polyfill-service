@@ -1,1 +1,1 @@
-Element.prototype.append
+'Element' in this && 'append' in Element.prototype

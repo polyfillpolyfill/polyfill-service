@@ -1,1 +1,1 @@
-Array.prototype.contains
+'contains' in Array.prototype

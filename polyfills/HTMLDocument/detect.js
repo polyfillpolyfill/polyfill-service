@@ -1,1 +1,1 @@
-"HTMLDocument" in window
+"HTMLDocument" in this

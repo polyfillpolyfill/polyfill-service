@@ -1,1 +1,1 @@
-Date.now && Date.prototype.getTime
+'Date' in this && 'now' in this.Date && 'getTime' in this.Date.prototype

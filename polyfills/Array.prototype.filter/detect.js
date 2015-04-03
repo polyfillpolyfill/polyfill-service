@@ -1,1 +1,1 @@
-Array.prototype.filter
+'filter' in Array.prototype

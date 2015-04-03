@@ -1,1 +1,1 @@
-Array.prototype.every
+'every' in Array.prototype

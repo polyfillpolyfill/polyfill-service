@@ -1,1 +1,1 @@
-Element.prototype.before
+'Element' in this && 'before' in Element.prototype

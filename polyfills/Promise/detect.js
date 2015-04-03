@@ -1,1 +1,1 @@
-window.Promise
+'Promise' in this

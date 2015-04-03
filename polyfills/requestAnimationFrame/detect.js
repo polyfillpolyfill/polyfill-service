@@ -1,1 +1,1 @@
-window.requestAnimationFrame
+'requestAnimationFrame' in this

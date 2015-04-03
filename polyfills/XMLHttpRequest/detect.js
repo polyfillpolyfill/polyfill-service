@@ -1,1 +1,1 @@
-window.XMLHttpRequest && window.XMLHttpRequest.prototype && window.XMLHttpRequest.prototype.addEventListener
+'XMLHttpRequest' in this && 'addEventListener' in this.XMLHttpRequest.prototype

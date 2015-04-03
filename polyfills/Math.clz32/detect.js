@@ -1,1 +1,1 @@
-Math.clz32
+'clz32' in Math

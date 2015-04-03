@@ -1,1 +1,1 @@
-Array.isArray
+'isArray' in Array

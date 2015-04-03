@@ -1,1 +1,1 @@
-Math.sinh
+'sinh' in Math

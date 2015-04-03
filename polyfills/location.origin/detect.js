@@ -1,1 +1,1 @@
-'origin' in window.location
+'location' in this && 'origin' in this.location

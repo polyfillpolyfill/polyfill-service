@@ -1,1 +1,1 @@
-document.contains
+'Node' in this && 'contains' in Node.prototype

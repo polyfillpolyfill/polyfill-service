@@ -1,1 +1,1 @@
-Object.defineProperties
+'defineProperties' in Object

@@ -1,1 +1,1 @@
-'getComputedStyle' in window
+'getComputedStyle' in this

@@ -18,4 +18,4 @@
 		}
 	}
 	catch (error) { }
-}(window))
+}(this))

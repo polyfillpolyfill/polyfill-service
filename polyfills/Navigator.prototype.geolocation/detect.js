@@ -1,1 +1,1 @@
-navigator.geolocation
+'navigator' in this && 'geolocation' in navigator

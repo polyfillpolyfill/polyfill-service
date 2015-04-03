@@ -1,1 +1,1 @@
-Element.prototype.prepend
+'Element' in this && 'prepend' in Element.prototype

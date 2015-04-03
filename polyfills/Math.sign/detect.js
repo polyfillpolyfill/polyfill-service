@@ -1,1 +1,1 @@
-Math.sign
+'sign' in Math

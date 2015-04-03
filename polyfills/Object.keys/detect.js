@@ -1,1 +1,1 @@
-Object.keys
+'keys' in Object

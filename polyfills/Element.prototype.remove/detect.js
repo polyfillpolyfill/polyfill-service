@@ -1,1 +1,1 @@
-Element.prototype.remove
+'Element' in this && 'remove' in Element.prototype

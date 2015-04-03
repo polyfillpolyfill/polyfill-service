@@ -1,1 +1,1 @@
-Math.asinh
+'asinh' in Math

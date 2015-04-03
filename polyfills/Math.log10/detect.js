@@ -1,1 +1,1 @@
-Math.log10
+'log10' in Math

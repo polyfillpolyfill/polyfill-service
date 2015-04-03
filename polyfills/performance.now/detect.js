@@ -1,1 +1,1 @@
-window.performance && window.performance.now
+'performance' in this && 'now' in this.performance

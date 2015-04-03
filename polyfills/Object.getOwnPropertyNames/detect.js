@@ -1,1 +1,1 @@
-Object.getOwnPropertyNames
+'getOwnPropertyNames' in Object

@@ -1,1 +1,1 @@
-'onhashchange' in window
+'onhashchange' in this
