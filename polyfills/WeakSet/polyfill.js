@@ -9,7 +9,7 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-(function() {
+(function(global) {
 	var counter = Date.now() % 1e9;
 
 	var WeakSet = function WeakSet(data) {
@@ -31,5 +31,5 @@
 		return !!obj[this.name];
 	};
 
-	window.WeakSet = WeakSet;
-})();
+	global.WeakSet = WeakSet;
+})(this);
