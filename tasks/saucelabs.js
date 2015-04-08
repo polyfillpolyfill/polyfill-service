@@ -93,7 +93,7 @@ module.exports = function(grunt) {
 						function waitOnResults() {
 							browser.eval('window.global_test_results ||  window.remainingCount', function(err, data) {
 
-								if (typeof data !== 'object') {
+								if (typeof data !== 'object' || data === null) {
 									if (retryCount > retryLimit) {
 										log('Timed out');
 										browser.quit();
