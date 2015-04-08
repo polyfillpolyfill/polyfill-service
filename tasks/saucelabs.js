@@ -143,7 +143,7 @@ module.exports = function(grunt) {
 									})
 								});
 							});
-						};
+						}
 					});
 				});
 			};
@@ -258,14 +258,14 @@ module.exports = function(grunt) {
 						var failed = false;
 						grunt.log.writeln('Sauce tunnel stopped');
 						grunt.log.writeln("travis_fold:end:Sauce test progress");
-						grunt.log.writeln("Failed tests:")
+						grunt.log.writeln("Failed tests:");
 						jobresults.forEach(function(job) {
 							if (!job.results) {
 								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
 								return true;
 							}
 							if (job.results.failed && job.results.failingSuites) {
-								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')')
+								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
 								Object.keys(job.results.failingSuites).forEach(function(feature) {
 									var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
 									grunt.log.writeln('    -> '+feature);
