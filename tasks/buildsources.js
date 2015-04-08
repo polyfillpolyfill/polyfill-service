@@ -36,18 +36,33 @@ module.exports = function(grunt) {
 
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
+			var dirs = [];
+
+			// Ignore non-directories at the root of a version (ie existing sources.json and aliases.json files)
 			if (!fs.lstatSync(versionBasePath).isDirectory() && !fs.lstatSync(versionBasePath).isSymbolicLink()) {
 				return true;
 			}
 
+			// recursively discover all subfolders and build into a list (ignore the __versions dir if this is the latest version)
+			function scanDir(dir) {
+				fs.readdirSync(dir).forEach(function(item) {
+					var d = path.join(dir, item);
+					if (fs.lstatSync(d).isDirectory() && item.indexOf('__') !== 0) {
+						scanDir(d);
+						dirs.push(d);
+					}
+				});
+			}
+			scanDir(versionBasePath);
+
 			sources[version] = {};
 			configuredAliases[version] = {};
-			fs.readdirSync(versionBasePath).forEach(function(featureName) {
+			dirs.forEach(function(polyfillPath) {
 				var config;
+				var featureName = polyfillPath.substr(versionBasePath.length+1).replace(/\//g, '.');
 				try {
 
 					// Load the polyfill's configuration
-					var polyfillPath = path.join(versionBasePath, featureName);
 					var configPath = path.join(polyfillPath, 'config.json');
 					if (!fs.existsSync(polyfillPath) || !fs.existsSync(configPath)) {
 						return;
