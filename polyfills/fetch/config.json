@@ -17,7 +17,7 @@
 	"spec": "https://fetch.spec.whatwg.org/",
 	"repo": "https://github.com/github/fetch",
 	"notes": [
-		"Uses FileReader and Blob if they exist, and depends on FormData"
+		"Makes use of FormData, FileReader and Blob if they exist"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
 }
