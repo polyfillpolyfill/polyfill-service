@@ -13,7 +13,7 @@
 		"Promise",
 		"XMLHttpRequest"
 	],
-	"license": "https://github.com/github/fetch/blob/master/LICENSE",
+	"license": "MIT",
 	"spec": "https://fetch.spec.whatwg.org/",
 	"repo": "https://github.com/github/fetch",
 	"notes": [
