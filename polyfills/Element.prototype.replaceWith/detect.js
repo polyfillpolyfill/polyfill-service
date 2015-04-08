@@ -1,1 +1,1 @@
-Element.prototype.replaceWith
+'Element' in this && 'replaceWith' in Element.prototype

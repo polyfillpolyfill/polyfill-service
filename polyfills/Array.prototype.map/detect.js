@@ -1,1 +1,1 @@
-Array.prototype.map
+'map' in Array.prototype

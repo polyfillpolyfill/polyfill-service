@@ -1,1 +1,1 @@
-Date.prototype.toISOString
+'Date' in this && 'toISOString' in Date.prototype

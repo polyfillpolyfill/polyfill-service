@@ -1,5 +1,5 @@
-'CustomEvent' in window &&
+'CustomEvent' in this &&
 
 // In Safari, typeof CustomEvent == 'object' but it otherwise works fine
-(typeof window.CustomEvent === 'function' ||
-(window.CustomEvent.toString().indexOf('CustomEventConstructor')>-1))
+(typeof this.CustomEvent === 'function' ||
+(this.CustomEvent.toString().indexOf('CustomEventConstructor')>-1))

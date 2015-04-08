@@ -11,7 +11,7 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
- (function() {
+ (function(global) {
 	var defineProperty = Object.defineProperty;
 	var counter = Date.now() % 1e9;
 
@@ -53,5 +53,5 @@
 		return entry[0] === key;
 	};
 
-	window.WeakMap = WeakMap;
-})();
+	this.WeakMap = WeakMap;
+})(this);

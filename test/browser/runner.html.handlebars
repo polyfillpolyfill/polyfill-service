@@ -27,7 +27,9 @@
 		});
 		{{#detect}}
 		it('has feature detection', function() {
-			expect({{{.}}}).to.be.ok();
+			expect((function() {
+				return ({{{.}}});
+			}).call(window)).to.be.ok();
 		});
 		{{/detect}}
 		{{#tests}}

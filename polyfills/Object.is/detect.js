@@ -1,1 +1,1 @@
-Object.is
+'is' in Object

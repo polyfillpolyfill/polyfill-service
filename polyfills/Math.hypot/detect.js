@@ -1,1 +1,1 @@
-Math.hypot
+'hypot' in Math

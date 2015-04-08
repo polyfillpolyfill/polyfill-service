@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"caniuse:geolocation",
-		"modernizr:geolocation"
+		"modernizr:geolocation",
+		"Navigator.prototype.geolocation"
 	],
 	"browsers": {
 		"ie": "6 - 8",

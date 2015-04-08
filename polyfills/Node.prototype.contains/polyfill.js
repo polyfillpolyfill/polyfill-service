@@ -1,3 +1,8 @@
+// IE
+if ('HTMLElement' in this && 'contains' in HTMLElement.prototype) {
+	delete HTMLElement.prototype.contains;
+}
+
 Node.prototype.contains = function contains(node) {
 	if (!(0 in arguments)) {
 		throw new TypeError('1 argument is required');

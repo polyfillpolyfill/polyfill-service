@@ -1,1 +1,1 @@
-Math.imul
+'imul' in Math

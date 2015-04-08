@@ -1,1 +1,1 @@
-Math.tanh
+'tanh' in Math

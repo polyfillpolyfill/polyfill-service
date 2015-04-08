@@ -1,1 +1,1 @@
-window.fetch
+'fetch' in this
