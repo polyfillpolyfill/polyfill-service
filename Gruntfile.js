@@ -84,6 +84,9 @@ module.exports = function(grunt) {
 		}
 	});
 
+	console.log("PROCESS ARGV[0]: ", process.argv[0]);
+	console.log("$PATH=", ENV.PATH);
+
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
