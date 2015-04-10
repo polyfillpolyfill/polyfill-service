@@ -2,12 +2,14 @@
 
 require('es6-promise').polyfill();
 
-var ENV = {};
+var ENV = process.env;
+
 var fs = require('fs');
 if (fs.existsSync('./.env.json')) {
-	ENV = require('./.env.json');
-	require('lodash').extend(process.env, ENV);
+	var environmentOverrides = require('./.env.json');
+	ENV = require('lodash').extend(ENV, environmentOverrides);
 }
+
 
 module.exports = function(grunt) {
 
@@ -83,9 +85,6 @@ module.exports = function(grunt) {
 			}
 		}
 	});
-
-	console.log("PROCESS ARGV[0]: ", process.argv[0]);
-	console.log("$PATH=", ENV.PATH);
 
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-contrib-clean');
