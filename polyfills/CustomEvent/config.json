@@ -4,6 +4,7 @@
 		"modernizr:customevent"
 	],
 	"browsers": {
+		"android": "*",
 		"firefox": "6 - 10",
 		"ie": "9 - *",
 		"opera": "10 - 11.5",
