@@ -12,6 +12,16 @@ it("Should create inherited object", function() {
 	expect(child.obj).to.be(parent.obj);
 });
 
+it("Should create inherited object from an API instance", function() {
+	var parent = HTMLElement;
+	var child = Object.create(parent);
+
+	expect(typeof child).to.be('object');
+	expect(parent).to.not.be(child);
+	expect(child.window).to.be(parent.window);
+	expect(child.ELEMENT_NODE).to.be(parent.ELEMENT_NODE);
+});
+
 it("Should throw a TypeError if called with undefined", function() {
 	expect(function() { Object.create(undefined); }).to.throwException(assertTypeError);
 });
