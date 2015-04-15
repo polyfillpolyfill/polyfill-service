@@ -28,21 +28,21 @@
 	};
 
 	var unlistenableWindowEvents = {
-		storage: 1,
-		storagecommit: 1,
+		click: 1,
+		dblclick: 1,
 		keyup: 1,
 		keypress: 1,
 		keydown: 1,
-		textinput: 1,
 		mousedown: 1,
 		mouseup: 1,
 		mousemove: 1,
 		mouseover: 1,
-		mouseout: 1,
 		mouseenter: 1,
 		mouseleave: 1,
-		click: 1,
-		dblclick: 1
+		mouseout: 1,
+		storage: 1,
+		storagecommit: 1,
+		textinput: 1
 	};
 
 	window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {
@@ -52,7 +52,7 @@
 		listener = arguments[1];
 
 		if (element instanceof Window && type in unlistenableWindowEvents) {
-			throw Error('In IE8 the event: ' + type + ' is not available on the window object. Please see https://github.com/Financial-Times/polyfill-service/issues/317 for more information.');
+			throw new Error('In IE8 the event: ' + type + ' is not available on the window object. Please see https://github.com/Financial-Times/polyfill-service/issues/317 for more information.');
 		}
 
 		if (!element._events) {
