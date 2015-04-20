@@ -8,7 +8,7 @@
 		"android": "*",
 		"bb": "*",
 		"chrome": "*",
-		"firefox": "3.6 - 17",
+		"firefox": "*",
 		"opera": "10 - 18",
 		"safari": "*",
 		"ie": "6 - *",
