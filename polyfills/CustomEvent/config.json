@@ -8,7 +8,8 @@
 		"ie": "9 - *",
 		"opera": "10 - 11.5",
 		"safari": "4 - 7",
-		"chrome": "1 - 14"
+		"chrome": "1 - 14",
+		"android": "<=4.3"
 	},
 	"dependencies": [
 		"Event"
