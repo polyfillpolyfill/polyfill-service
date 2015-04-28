@@ -13,3 +13,9 @@ it("should generate valid Javascript for multiple dimensions", function() {
 		window.matchMedia('(min-width: 1px) and (max-width: 1000px)');
 	}).not.to.throwException();
 });
+
+it("should generate valid Javascript for dppx", function() {
+	expect(function() {
+		window.matchMedia('(min-resolution: 2dppx)');
+	}).not.to.throwException();
+});
