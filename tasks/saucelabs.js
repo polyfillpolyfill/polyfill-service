@@ -276,13 +276,15 @@ module.exports = function(grunt) {
 								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
 								return true;
 							}
-							if (job.results.failed && job.results.failingSuites) {
+							if (job.results.failed) {
 								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
-								Object.keys(job.results.failingSuites).forEach(function(feature) {
-									var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-									grunt.log.writeln('    -> '+feature);
-									grunt.log.writeln('       '+url);
-								});
+								if (job.results.failingSuites) {
+									Object.keys(job.results.failingSuites).forEach(function(feature) {
+										var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
+										grunt.log.writeln('    -> '+feature);
+										grunt.log.writeln('       '+url);
+									});
+								}
 								failed = true;
 							} else {
 								passingUAs.push(job.browserName+'/'+job.version);
