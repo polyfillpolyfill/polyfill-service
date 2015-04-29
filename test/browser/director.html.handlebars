@@ -31,6 +31,7 @@
 		var remainingCount = queue.length;
 		var totalCount = queue.length;
 		var windowQueryString = "?mode={{{mode}}}";
+		var timeout = 10000;
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
@@ -48,7 +49,7 @@
 			runner.src = url;
 			timer = setTimeout(function() {
 				receiveTestResults([feature]);
-			}, 5000);
+			}, timeout);
 		}
 
 		function receiveTestResults(featureList, results) {
@@ -58,6 +59,9 @@
 			if (!results) {
 				globalresults.failed++;
 				globalresults.total++;
+				for (var i=0,s=featureList.length; i<s; i++) {
+					globalresults.failingSuites[featureList[i]+' (timeout)'] = true;
+				}
 				resultsummary.push('<span class="fail">Timeout waiting for results</span>');
 			} else {
 				if (results.passed) globalresults.passed += results.passed;
