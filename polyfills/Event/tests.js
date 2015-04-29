@@ -91,5 +91,5 @@ it('should trigger an event handler once added, removed, and added again', funct
 	document.addEventListener('click', listener);
 	// click the document
 	document.dispatchEvent(new Event('click'));
-	expect(fired).to.be.(true);
+	expect(fired).to.be(true);
 });
