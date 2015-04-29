@@ -16,20 +16,20 @@
 	</style>
 
 	<script>
-		var runner, rawqs, qs = {}, i, x, timer,
-			globalresults = {
-				passed: 0,
-				failed: 0,
-				total: 0,
-				duration: 0,
-				tests: [],
-				failingSuites: {},
-				testedSuites: [],
-				uaString: 'unknown'
-			},
-			queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
-			remainingCount = queue.length,
-			windowQueryString = "?mode={{{mode}}}";
+		var runner, rawqs, qs = {}, x, timer;
+		var globalresults = {
+			passed: 0,
+			failed: 0,
+			total: 0,
+			duration: 0,
+			tests: [],
+			failingSuites: {},
+			testedSuites: [],
+			uaString: 'unknown'
+		};
+		var queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
+		var remainingCount = queue.length;
+		var windowQueryString = "?mode={{{mode}}}";
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
