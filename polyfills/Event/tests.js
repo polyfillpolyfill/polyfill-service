@@ -96,7 +96,7 @@ it('should trigger an event handler once added, removed, and added again', funct
 
 it('should have the correct target when using delegation', function () {
 	var fired = false;
-	var el = document.querySelector('div');
+	var el = document.body.firstChild;
 	var listener = function(e) {
 		if (e.target === el) fired = true;
 		document.removeEventListener('click', listener);
