@@ -28,5 +28,7 @@
 				"MutationObserver"
 			]
 		}
-	}
+	},
+	"license": "MIT",
+	"repo": "https://github.com/Octane/setImmediate"
 }
