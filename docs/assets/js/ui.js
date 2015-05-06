@@ -9,7 +9,7 @@ Array.from(document.querySelectorAll('.demo')).forEach(function(el) {
 	});
 	xhr.send();
 	code.classList.add('prettyprint');
-	code.innerHTML = '<code>&lt;script src="//cdn.polyfill.io'+el.getAttribute('data-src')+'"&gt;&lt;/script&gt;</code>';
+	code.innerHTML = '<code>&lt;script src="https://cdn.polyfill.io'+el.getAttribute('data-src')+'"&gt;&lt;/script&gt;</code>';
 	el.parentNode.insertBefore(code, el);
 });
 
