@@ -8,7 +8,8 @@
 		"ie": "6 - 8",
 		"safari": "4",
 		"chrome": "<5",
-		"opera": "<12"
+		"opera": "<12",
+		"firefox": "<4"
 	},
 	"author": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys",
 	"license": "CC0",
