@@ -63,7 +63,7 @@
 
 				event.currentTarget = element;
 				event.relatedTarget = event.fromElement || null;
-				event.target = event.srcElement || element;
+				event.target = event.target || event.srcElement || element;
 				event.timeStamp = new Date().getTime();
 
 				if (event.clientX) {
