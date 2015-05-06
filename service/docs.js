@@ -27,7 +27,7 @@ Handlebars.registerHelper("prettifyDate", function(timestamp) {
      return moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
 Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return moment.duration(seconds*1000).humanize();
+     return seconds ? moment.duration(seconds*1000).humanize() : 'None';
 });
 Handlebars.registerHelper('sectionHighlight', function(section, options) {
 	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
@@ -93,25 +93,35 @@ function getData(type) {
 		},
 		outages: function() {
 			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
-			var to = ((new Date()).getTime()/1000) - 3600;
-			var from = to - (60*60*24*365*5);
-			return request({
-				url: 'https://api.pingdom.com/api/2.0/summary.outage/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&order=desc',
-				headers: {
-					'app-key': process.env.PINGDOM_API_KEY,
-					'Account-Email': process.env.PINGDOM_ACCOUNT
-				},
-				auth: {
-					user: process.env.PINGDOM_USERNAME,
-					pass: process.env.PINGDOM_PASSWORD
-				}
-			}).then(function (response) {
-				var data = (response && JSON.parse(response)) || {summary:{states:[]}};
-				return data.summary.states.filter(function(result) {
-					return (result.status !== 'unknown');
-				}).map(function(result) {
-					return {date:result.timefrom, status: result.status.toUpperCase(), duration: result.timeto-result.timefrom};
-				}).slice(0,5);
+			var data = {};
+			var periods = {
+				"30d": 60*60*24*30,
+				"3m": (60*60*24*365) / 4,
+				"12m": (60*60*24*365)
+			}
+			var end = ((new Date()).getTime()/1000) - 3600;  // Ignore the last hour (Pingdom data processing delay)
+			return Promise.all(Object.keys(periods).map(function(period) {
+				var start = end - periods[period];
+				return request({
+					url: 'https://api.pingdom.com/api/2.0/summary.average/' + process.env.PINGDOM_CHECK_ID + '?from='+start+'&to='+end+'&includeuptime=true',
+					headers: {
+						'app-key': process.env.PINGDOM_API_KEY,
+						'Account-Email': process.env.PINGDOM_ACCOUNT
+					},
+					auth: {
+						user: process.env.PINGDOM_USERNAME,
+						pass: process.env.PINGDOM_PASSWORD
+					}
+				}).then(function (response) {
+					response = JSON.parse(response);
+					console.log(response);
+					data[period] = response.summary.status.totaldown;
+				});
+			})).then(function() {
+				console.log(data);
+				return data;
+			}).catch(function(e) {
+				console.log('error', e);
 			});
 		},
 		sizes: function() {
@@ -244,10 +254,11 @@ function route(req, res, next) {
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
+			console.log(outages);
 			res.send(templates.usage({
 				section: 'usage',
 				requestsData: fastly.byhour,
-				outages: outages,
+				downtime: outages,
 				respTimes: respTimes,
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss

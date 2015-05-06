@@ -12,10 +12,10 @@
 
 		<h3>Traffic volume</h3>
 
-		<p>This chart shows the number of requests we have served per hour, over the last 7 days:</p>
+		<p>This shows the number of requests we have served per hour, over the last 7 days, measured by <strong>Fastly</strong>:</p>
 
-		<div id="chart-requests">
-			<table class='chart-data'>
+		<div id="chart-requests" class='o-techdocs-content'>
+			<table class='chart-data o-techdocs-table'>
 			<thead><tr><th>Date</th><th>Requests</th></tr></thead>
 			<tbody>
 			{{#requestsData}}
@@ -26,10 +26,11 @@
 		</div>
 
 		<div class='o-grid-row' style='margin: 0 -10px'>
-			<div data-o-grid-colspan='4 S12 M12'>
-				<h3>Mean global response time (ms)</h3>
-				<div id="chart-resptime">
-					<table class='chart-data'>
+			<div data-o-grid-colspan='S12 L4'>
+				<h3>Performance</h3>
+				<p>Mean global response time, ms, from <strong>Pingdom</strong>:</p>
+				<div id="chart-resptime" class='o-techdocs-content'>
+					<table class='chart-data o-techdocs-table'>
 						<thead><tr><th>Date</th><th>Response time (ms)</th></tr></thead>
 						<tbody>
 						{{#respTimes}}
@@ -39,10 +40,11 @@
 					</table>
 				</div>
 			</div>
-			<div data-o-grid-colspan='4 S12 M6'>
-				<h3>Cache performance</h3>
-				<div id="chart-hitratio">
-					<table class='chart-data'>
+			<div data-o-grid-colspan='S12 M6 L4'>
+				<h3>Caching</h3>
+				<p>Hit ratio, last 7 days, from <strong>Fastly</strong>:</p>
+				<div id="chart-hitratio" class='o-techdocs-content'>
+					<table class='chart-data o-techdocs-table'>
 						<thead><tr><th>Cache result</th><th>Requests</th></tr></thead>
 						<tbody>
 							<tr><td>Hits</td><td>{{hitCount}}</td></tr>
@@ -51,14 +53,14 @@
 					</table>
 				</div>
 			</div>
-			<div data-o-grid-colspan='4 S12 M6'>
-				<h3>Uptime</h3>
+			<div data-o-grid-colspan='S12 M6 L4'>
+				<h3>Availability</h3>
+				<p>Total downtime, according to <strong>Pingdom</strong>:</p>
 				<div class='o-techdocs-content'>
 				<table class='outages o-techdocs-table'>
-					<tr><th>Starting at</th><th>Service was</th><th>For</th></tr>
-					{{#outages}}
-						<tr><td>{{prettifyDate date}}</td><td>{{status}}</td><td>{{prettifyDuration duration}}</td></tr>
-					{{/outages}}
+					<tr><th>Last 30 days</th><td>{{prettifyDuration downtime.30d}}</td></tr>
+					<tr><th>Last 3 months</th><td>{{prettifyDuration downtime.3m}}</td></tr>
+					<tr><th>Last 12 months</th><td>{{prettifyDuration downtime.12m}}</td></tr>
 				</table>
 				</div>
 			</div>
