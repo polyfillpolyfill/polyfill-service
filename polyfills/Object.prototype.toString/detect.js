@@ -1,0 +1,1 @@
+Object.prototype.toString.call(null) === "[object Null]" && Object.prototype.toString.call(undefined) === "[object Undefined]"
