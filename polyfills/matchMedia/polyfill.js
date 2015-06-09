@@ -1,8 +1,7 @@
 (function (global) {
 	function evalQuery(query) {
 		/* jshint evil: true */
-		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
-			.replace('%s', query||'true')
+		query = (query || 'true')
 			.replace(/^only\s+/, '')
 			.replace(/(device)-([\w.]+)/g, '$1.$2')
 			.replace(/([\w.]+)\s*:/g, 'media.$1 ===')
@@ -27,7 +26,9 @@
 						)
 					)
 				);
-			})
+			});
+		return new Function('media', 'try{ return !!(%s) }catch(e){ return false }'
+			.replace('%s', query)
 		)({
 			width: global.innerWidth,
 			height: global.innerHeight,
