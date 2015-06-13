@@ -16,20 +16,22 @@
 	</style>
 
 	<script>
-		var runner, rawqs, qs = {}, i, x, timer,
-			globalresults = {
-				passed: 0,
-				failed: 0,
-				total: 0,
-				duration: 0,
-				tests: [],
-				failingSuites: {},
-				testedSuites: [],
-				uaString: 'unknown'
-			},
-			queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
-			remainingCount = queue.length,
-			windowQueryString = "?mode={{{mode}}}";
+		var runner, rawqs, qs = {}, x, timer;
+		var globalresults = {
+			passed: 0,
+			failed: 0,
+			total: 0,
+			duration: 0,
+			tests: [],
+			failingSuites: {},
+			testedSuites: [],
+			uaString: 'unknown'
+		};
+		var queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
+		var remainingCount = queue.length;
+		var totalCount = queue.length;
+		var windowQueryString = "?mode={{{mode}}}";
+		var timeout = 10000;
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
@@ -43,18 +45,24 @@
 		function executeTest() {
 			var feature = queue.pop();
 			var url = '/test/tests' + windowQueryString + '&feature=' + feature;
-			log('Loading <a target="runner" href="'+url+'">'+url+'</a>...');
+			log('['+(totalCount-remainingCount+1)+'/'+totalCount+'] Testing <a target="runner" href="'+url+'">'+feature+'</a>...');
 			runner.src = url;
-			timer = setTimeout(receiveTestResults, 5000);
+			timer = setTimeout(function() {
+				receiveTestResults([feature]);
+			}, timeout);
 		}
 
 		function receiveTestResults(featureList, results) {
-			var resultsummary;
+			var resultsummary = [];
 			clearTimeout(timer);
-			if (!remainingCount) return;
 
-			if (!featureList) {
-				log("Timeout");
+			if (!results) {
+				globalresults.failed++;
+				globalresults.total++;
+				for (var i=0,s=featureList.length; i<s; i++) {
+					globalresults.failingSuites[featureList[i]+' (timeout)'] = true;
+				}
+				resultsummary.push('<span class="fail">Timeout waiting for results</span>');
 			} else {
 				if (results.passed) globalresults.passed += results.passed;
 				if (results.failed) globalresults.failed += results.failed;
@@ -71,15 +79,15 @@
 					}
 				}
 
-				resultsummary = [];
 				if (results.passed) resultsummary.push('<span class="pass">'+results.passed+' pass</span>');
 				if (results.failed) resultsummary.push('<span class="fail">'+results.failed+' fail</span>');
 				if (!resultsummary.length) resultsummary.push('No tests to run');
-				log('Completed '+featureList.join(', ')+': '+resultsummary.join(', '));
 			}
+
+			log(resultsummary.join(', ') + ' ('+featureList.join(', ')+')');
 			remainingCount = queue.length;
 
-			if (!remainingCount) {
+			if (!queue.length) {
 
 				window.global_test_results = globalresults;
 
@@ -89,7 +97,6 @@
 				if (!resultsummary.length) resultsummary.push('No tests to run');
 				log('<strong>All tests complete, result data populated into global_test_results.  Total: '+resultsummary.join(', ')+'.</strong>');
 			} else {
-				log(remainingCount + ' test(s) remain.');
 				executeTest();
 			}
 		}

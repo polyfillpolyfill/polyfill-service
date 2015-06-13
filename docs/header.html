@@ -1,15 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html class="core">
 <head>
-	<meta charset=UTF8>
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, inital-scale=1.0" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Polyfill service</title>
-	<script src='/v1/polyfill.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent'></script>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="//build.origami.ft.com/bundles/css?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script>
+		var cutsTheMustard = ('querySelector' in document && 'localStorage' in window && 'addEventListener' in window);
+		if (cutsTheMustard) {
+			document.documentElement.className = document.documentElement.className.replace(/\bcore\b/g, 'enhanced');
+		}
+	</script>
+
+	<style>
+		/* Hide any enhanced experience content when in core mode, and vice versa. */
+		.core .o--if-js,
+		.enhanced .o--if-no-js { display: none !important; }
+	</style>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://build.origami.ft.com/bundles/css?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0" />
 	<link rel="stylesheet" href="/v1/docs/assets/css/style.css" />
+
+	<!-- Polyfills must load sync, since they need to be active before other script runs -->
+	<script src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent"></script>
+
+	<!-- Other scripts can be loaded async -->
+	<script>
+		(function(srces, fn) {
+			if (!cutsTheMustard) return;
+			var firstScript = document.getElementsByTagName('script')[0];
+			var re = /ded|co/;
+			var onload = 'onload';
+			var onreadystatechange = 'onreadystatechange';
+			var readyState = 'readyState';
+			var count = 0;
+
+			if (typeof srces === 'string') srces = [srces];
+			srces.forEach(function(src) {
+				var script = document.createElement('script');
+				script[onload] = script[onreadystatechange] = function(){
+					if(!this[readyState] || re.test(this[readyState])){
+						script[onload] = script[onreadystatechange] = null;
+						if (++count === srces.length) {
+							console.log('all loaded');
+							fn && fn();
+						}
+					}
+				};
+				script.async = true;
+				script.src = src;
+				firstScript.parentNode.insertBefore(script, firstScript);
+			});
+		})([
+			'https://build.origami.ft.com/bundles/js?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0',
+			'https://www.google.com/jsapi',
+			'/v1/docs/assets/js/ui.js'
+		], function() { charts(); });
+	</script>
 </head>
-<body class="o-techdocs">
+<body class='o-techdocs'>
 
 	<header data-o-component="o-header" class="o-header">
 		<div class="o-header__container">

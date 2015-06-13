@@ -217,7 +217,7 @@ it('should resolve Promise.all when all promises resolve', function(done) {
 	]).then(function(results) {
 		expect(results).to.eql([3,5]);
 		done();
-	}).catch(function(e) {
+	})['catch'](function(e) {
 		done(e);
 	});
 });

@@ -2,12 +2,14 @@
 
 require('es6-promise').polyfill();
 
-var ENV = {};
+var ENV = process.env;
+
 var fs = require('fs');
 if (fs.existsSync('./.env.json')) {
-	ENV = require('./.env.json');
-	require('lodash').extend(process.env, ENV);
+	var environmentOverrides = require('./.env.json');
+	ENV = require('lodash').extend(ENV, environmentOverrides);
 }
+
 
 module.exports = function(grunt) {
 
@@ -87,7 +89,6 @@ module.exports = function(grunt) {
 	grunt.loadTasks('tasks');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-service');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
