@@ -179,8 +179,15 @@ module.exports = function(grunt) {
 			if (ignoredErrors) {
 				grunt.log.writeln('Ignored '+ignoredErrors+' error(s) in historic polyfill versions');
 			}
-			fs.writeFileSync(path.join(__dirname, '../polyfills/sources.json'), JSON.stringify(sources));
-			fs.writeFileSync(path.join(__dirname, '../polyfills/aliases.json'), JSON.stringify(configuredAliases));
+
+			var sourcesFD = fs.openSync(path.join(__dirname, '../polyfills/sources.json'), 'w');
+			fs.writeSync(sourcesFD, JSON.stringify(sources));
+			fs.fsyncSync(sourcesFD);
+			fs.closeSync(sourcesFD);
+			var aliasesFD = fs.openSync(path.join(__dirname, '../polyfills/aliases.json'), 'w');
+			fs.writeSync(aliasesFD, JSON.stringify(configuredAliases));
+			fs.fsyncSync(aliasesFD);
+			fs.closeSync(aliasesFD);
 
 			grunt.log.writeln('Sources built successfully');
 		}
