@@ -3,6 +3,11 @@ it("should match screen", function() {
 	expect(mql.matches).to.be(true);
 });
 
+it("should ignore 'only'", function() {
+	var mql = window.matchMedia('only screen');
+	expect(mql.matches).to.be(true);
+});
+
 it("should return a MediaQueryList that has a media property representing the media query string", function() {
 	var mql = window.matchMedia('screen');
 	expect(mql.media).to.be('screen');

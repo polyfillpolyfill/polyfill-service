@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 						return;
 					}
 					try {
-						config = require(configPath);
+						config = JSON.parse(fs.readFileSync(configPath));
 					} catch (e) {
 						throw {name:"Missing or invalid config", message:"Unable to read config from "+configPath};
 					}

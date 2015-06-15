@@ -16,7 +16,7 @@
 	</style>
 
 	<script>
-		var runner, rawqs, qs = {}, x, timer;
+		var runner, timer;
 		var globalresults = {
 			passed: 0,
 			failed: 0,
@@ -32,6 +32,8 @@
 		var totalCount = queue.length;
 		var windowQueryString = "?mode={{{mode}}}";
 		var timeout = 10000;
+		var timeoutMaxRetries = 2;
+		var timeoutRetryCount = 0;
 
 		window.onload = function() {
 			runner = document.getElementById('runner');
@@ -57,12 +59,19 @@
 			clearTimeout(timer);
 
 			if (!results) {
-				globalresults.failed++;
-				globalresults.total++;
-				for (var i=0,s=featureList.length; i<s; i++) {
-					globalresults.failingSuites[featureList[i]+' (timeout)'] = true;
-				}
 				resultsummary.push('<span class="fail">Timeout waiting for results</span>');
+				if (timeoutRetryCount < timeoutMaxRetries) {
+					timeoutRetryCount++;
+					resultsummary.push('Scheduling retry ('+timeoutRetryCount+'/'+timeoutMaxRetries+')');
+					queue = queue.concat(featureList);
+				} else {
+					globalresults.failed++;
+					globalresults.total++;
+					for (var i=0,s=featureList.length; i<s; i++) {
+						globalresults.failingSuites[featureList[i]+' (timeout after '+timeout+'ms, '+timeoutMaxRetries+' retries)'] = true;
+					}
+					resultsummary.push('No more retries left');
+				}
 			} else {
 				if (results.passed) globalresults.passed += results.passed;
 				if (results.failed) globalresults.failed += results.failed;
@@ -78,6 +87,8 @@
 						}
 					}
 				}
+
+				timeoutRetryCount = 0;
 
 				if (results.passed) resultsummary.push('<span class="pass">'+results.passed+' pass</span>');
 				if (results.failed) resultsummary.push('<span class="fail">'+results.failed+' fail</span>');

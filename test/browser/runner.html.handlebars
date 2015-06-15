@@ -103,9 +103,8 @@
 
 			window.global_test_results = results;
 			if (parent && parent.receiveTestResults) {
-				parent.receiveTestResults(
-					"{{#features}}{{feature}},{{/features}}".split(",").slice(0, -1)
-				, results);
+				var flist = "{{#features}}{{feature}},{{/features}}".split(",").slice(0, -1);
+				parent.receiveTestResults(flist, results);
 			}
 		});
 	}

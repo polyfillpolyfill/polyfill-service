@@ -69,7 +69,7 @@ module.exports = function(grunt) {
 			},
 			polyfills: {
 				files: ['!*', 'polyfills/**/*', '!polyfills/__versions/**', '!polyfills/*.json'],
-				tasks: ['buildsources', 'service:polyfillservice:restart']
+				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
 			}
 		},
 		"service": {
