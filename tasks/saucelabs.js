@@ -129,22 +129,7 @@ module.exports = function(grunt) {
 
 						// Once refreshed, wait `pollTick` before continuing
 						return promiseTimeout(pollTick);
-					}).then(waitOnResults).then(processResults).then(function(data) {
-						log("updating sauce with the test results");
-
-						// Fire and forget request
-						request({
-							method: "PUT",
-							uri: ["https://", options.username, ":", options.key, "@saucelabs.com/rest", "/v1/", options.username, "/jobs/", data.id].join(''),
-							headers: {'Content-Type': 'application/json'},
-							body: JSON.stringify({
-								'custom-data': { custom: data },
-								'passed': !data.results.failed
-							})
-						});
-
-						return data;
-					});
+					}).then(waitOnResults).then(processResults);
 				});
 			};
 		}
