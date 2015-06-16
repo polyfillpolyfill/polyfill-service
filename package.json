@@ -68,7 +68,8 @@
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "sauce-tunnel": "^2.2.3",
-    "wd": "^0.3.8"
+    "wd": "^0.3.8",
+    "intl": "~1.0.0-rc-1"
   },
   "version": "1.4.0"
 }
