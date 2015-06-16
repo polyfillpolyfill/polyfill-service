@@ -43,7 +43,7 @@
 	// For completeness, but no browser above our baseline lacks the screen property
 	if (!('screen' in window)) window.screen = {};
 
-	// If the value is not a string, the feature either doesn't exist or is incorrectly implemented
+	// If the value is not an object, the feature either doesn't exist or is incorrectly implemented
 	if (typeof window.screen.orientation !== 'object') {
 
 		// Attempt to use a dynamic getter, otherwise just set it to the initial value on load
