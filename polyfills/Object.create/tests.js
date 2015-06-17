@@ -12,8 +12,8 @@ it("Should create inherited object", function() {
 	expect(child.obj).to.be(parent.obj);
 });
 
-it("Should create inherited object from a DOM node", function() {
-	var parent = document.body;
+it("Should create inherited object from a Native Object", function() {
+	var parent = Element;
 	var child = Object.create(parent);
 
 	expect(typeof child).to.be('object');

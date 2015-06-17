@@ -1,6 +1,6 @@
 Object.create = function create(prototype, properties) {
 	/* jshint evil: true */
-    if (typeof prototype != 'object') {
+    if (typeof prototype !== 'object' && prototype !== null) {
       throw TypeError('Object prototype may only be an Object or null');
     }
 
