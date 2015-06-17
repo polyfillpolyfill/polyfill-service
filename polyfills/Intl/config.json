@@ -8,6 +8,7 @@
 		"ios_saf": "*"
 	},
 	"dependencies": [],
+	"external": true,
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-402/1.0/",
 	"repo": "https://github.com/andyearnshaw/Intl.js",

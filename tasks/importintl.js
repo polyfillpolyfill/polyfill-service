@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var IntlSourcePath = require.resolve('intl/dist/Intl.js');
+var IntlSourcePath = require.resolve('intl/dist/Intl.min.js');
 var LocalesPath = path.dirname(require.resolve('intl/locale-data/jsonp/en.js'));
 var IntlPolyfillOutput = path.resolve('polyfills/Intl');
 var LocalesPolyfillOutput = path.resolve('polyfills/Intl/~locale');
