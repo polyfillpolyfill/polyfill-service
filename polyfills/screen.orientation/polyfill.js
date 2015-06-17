@@ -3,16 +3,6 @@
 	var propName, nativeGetter;
 	var err = ' not supported in the screen.orientation polyfill';
 
-	if ('orientation' in screen) propName = 'orientation';
-	else if ('mozOrientation' in screen) propName = 'mozOrientation';
-	else if ('msOrientation' in screen) propName = 'msOrientation';
-
-	if ('getOwnPropertyDescriptor' in Object && Object.getOwnPropertyDescriptor(window.screen, propName)) {
-		nativeGetter = Object.getOwnPropertyDescriptor(window.screen, propName).get;
-	} else if ('__lookupGetter__' in window.screen && window.screen.__lookupGetter__(propName)) {
-		nativeGetter = window.screen.__lookupGetter__(propName);
-	}
-
 	function getVal() {
 		var val;
 
@@ -38,6 +28,17 @@
 				throw new Error('unlock method'+err);
 			}
 		};
+	}
+
+	// Find a native impl if it exists
+	if ('orientation' in screen) propName = 'orientation';
+	else if ('mozOrientation' in screen) propName = 'mozOrientation';
+	else if ('msOrientation' in screen) propName = 'msOrientation';
+
+	if ('getOwnPropertyDescriptor' in Object && Object.getOwnPropertyDescriptor(window.screen, propName)) {
+		nativeGetter = Object.getOwnPropertyDescriptor(window.screen, propName).get;
+	} else if ('__lookupGetter__' in window.screen && window.screen.__lookupGetter__(propName)) {
+		nativeGetter = window.screen.__lookupGetter__(propName);
 	}
 
 	// For completeness, but no browser above our baseline lacks the screen property
