@@ -83,7 +83,8 @@ module.exports = function(grunt) {
 							browsers: config.browsers,
 							dependencies: config.dependencies || [],
 							license: config.license || "",
-							esversion: config.esversion || undefined
+							esversion: config.esversion || undefined,
+							external: config.external || undefined
 						};
 						delete config.browsers;
 						delete config.dependencies;
@@ -136,9 +137,14 @@ module.exports = function(grunt) {
 								}
 							}
 
-							validateSource(v.rawSource, featureName+' from '+polyfillSourcePath);
-
-							v.minSource = uglify.minify(v.rawSource, {fromString: true}).code;
+							if (v.external) {
+								// skipping any validation or minification process since
+								// the raw source is suppose to be production ready.
+								v.minSource = v.rawSource;
+							} else {
+								validateSource(v.rawSource, featureName+' from '+polyfillSourcePath);
+								v.minSource = uglify.minify(v.rawSource, {fromString: true}).code;
+							}
 
 							if (fs.existsSync(detectPath)) {
 								v.detectSource = fs.readFileSync(detectPath, 'utf8').replace(/\s*$/, '') || null;
