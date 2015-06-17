@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 
 	var wd = require('wd');
 	var Batch = require('batch');
-	var request = require('request');
 	var SauceTunnel = require('sauce-tunnel');
 	var mkdirp = require('mkdirp');
 	var path = require('path');
@@ -211,6 +210,8 @@ module.exports = function(grunt) {
 			tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 			tunnel.start(function(status) {
 
+				var cumFailCount = 0;
+
 				grunt.log.writeln("Tunnel Started");
 				if (status !== true)  {
 					gruntDone(status);
@@ -240,11 +241,12 @@ module.exports = function(grunt) {
 							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
 							testedSuites: e.value.results.testedSuites
 						};
+						cumFailCount += e.value.results.failed;
 						writeResultsFile(testResults);
 					}
 
 					// Pending count appears to have an off by one error
-					grunt.log.writeln("Progress: " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' remaining)');
+					grunt.log.writeln("Progress (browsers): " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' browsers remaining, ' + cumFailCount + ' test failures so far)');
 				});
 
 
