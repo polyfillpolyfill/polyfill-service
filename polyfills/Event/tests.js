@@ -91,5 +91,20 @@ it('should trigger an event handler once added, removed, and added again', funct
 	document.addEventListener('click', listener);
 	// click the document
 	document.dispatchEvent(new Event('click'));
-	expect(fired).to.be.(true);
+	expect(fired).to.be(true);
+});
+
+it('should have the correct target when using delegation', function () {
+	var fired = false;
+	var el = document.body.firstChild;
+	var listener = function(e) {
+		if (e.target === el) fired = true;
+		document.removeEventListener('click', listener);
+	};
+
+	document.addEventListener('click', listener);
+	el.dispatchEvent(new Event('click', {
+		bubbles: true
+	}));
+	expect(fired).to.be(true);
 });

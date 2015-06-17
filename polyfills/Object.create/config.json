@@ -6,7 +6,8 @@
 	],
 	"browsers": {
 		"ie": "6 - 8",
-		"safari": "4"
+		"safari": "4",
+		"firefox": "<4"
 	},
 	"dependencies": [
 		"Object.defineProperties"

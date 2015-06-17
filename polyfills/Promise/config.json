@@ -7,8 +7,8 @@
 		"android": "* - 4.4",
 		"bb": "* - 10",
 		"chrome": "* - 31",
-		"firefox": "* - 28",
-		"ie": "*",
+		"firefox": "6 - 28",
+		"ie": "8 - *",
 		"ie_mob": "* - 10",
 		"ios_saf": "* - 7.1",
 		"op_mini": "*",
@@ -18,6 +18,9 @@
 	"dependencies": [
 		"_enqueueMicrotask",
 		"Array.isArray"
+	],
+	"notes": [
+		"In IE8, the `catch` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"catch\"]` if intend to run your code in IE8"
 	],
 	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",

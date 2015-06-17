@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 
 	var wd = require('wd');
 	var Batch = require('batch');
-	var request = require('request');
 	var SauceTunnel = require('sauce-tunnel');
 	var mkdirp = require('mkdirp');
 	var path = require('path');
@@ -129,22 +128,7 @@ module.exports = function(grunt) {
 
 						// Once refreshed, wait `pollTick` before continuing
 						return promiseTimeout(pollTick);
-					}).then(waitOnResults).then(processResults).then(function(data) {
-						log("updating sauce with the test results");
-
-						// Fire and forget request
-						request({
-							method: "PUT",
-							uri: ["https://", options.username, ":", options.key, "@saucelabs.com/rest", "/v1/", options.username, "/jobs/", data.id].join(''),
-							headers: {'Content-Type': 'application/json'},
-							body: JSON.stringify({
-								'custom-data': { custom: data },
-								'passed': !data.results.failed
-							})
-						});
-
-						return data;
-					});
+					}).then(waitOnResults).then(processResults);
 				});
 			};
 		}
@@ -226,6 +210,8 @@ module.exports = function(grunt) {
 			tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 			tunnel.start(function(status) {
 
+				var cumFailCount = 0;
+
 				grunt.log.writeln("Tunnel Started");
 				if (status !== true)  {
 					gruntDone(status);
@@ -255,11 +241,12 @@ module.exports = function(grunt) {
 							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
 							testedSuites: e.value.results.testedSuites
 						};
+						cumFailCount += e.value.results.failed;
 						writeResultsFile(testResults);
 					}
 
 					// Pending count appears to have an off by one error
-					grunt.log.writeln("Progress: " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' remaining)');
+					grunt.log.writeln("Progress (browsers): " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' browsers remaining, ' + cumFailCount + ' test failures so far)');
 				});
 
 
@@ -276,13 +263,15 @@ module.exports = function(grunt) {
 								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
 								return true;
 							}
-							if (job.results.failed && job.results.failingSuites) {
+							if (job.results.failed) {
 								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
-								Object.keys(job.results.failingSuites).forEach(function(feature) {
-									var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-									grunt.log.writeln('    -> '+feature);
-									grunt.log.writeln('       '+url);
-								});
+								if (job.results.failingSuites) {
+									Object.keys(job.results.failingSuites).forEach(function(feature) {
+										var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
+										grunt.log.writeln('    -> '+feature);
+										grunt.log.writeln('       '+url);
+									});
+								}
 								failed = true;
 							} else {
 								passingUAs.push(job.browserName+'/'+job.version);
