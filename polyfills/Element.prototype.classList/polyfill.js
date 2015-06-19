@@ -2,7 +2,8 @@
 	Object.defineProperty(Element.prototype, 'classList', {
 		get: function () {
 			function pull() {
-				splice.apply(classList, [0, classList.length].concat((element.className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));
+				var className = (typeof element.className === "object" ? element.className.baseVal : element.className);
+				splice.apply(classList, [0, classList.length].concat((className || '').replace(/^\s+|\s+$/g, '').split(/\s+/)));
 			}
 
 			function push() {
@@ -10,7 +11,11 @@
 					element.detachEvent('onpropertychange', pull);
 				}
 
-				element.className = original.toString.call(classList);
+				if (typeof element.className === "object") {
+					element.className.baseVal = original.toString.call(classList);
+				} else {
+					element.className = original.toString.call(classList);
+				}
 
 				if (element.attachEvent) {
 					element.attachEvent('onpropertychange', pull);
