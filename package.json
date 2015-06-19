@@ -67,9 +67,10 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
+    "intl": "~1.0.0-rc-4",
+    "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
-    "wd": "^0.3.8",
-    "intl": "~1.0.0-rc-1"
+    "wd": "^0.3.8"
   },
   "version": "1.4.0"
 }

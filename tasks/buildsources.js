@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 							dependencies: config.dependencies || [],
 							license: config.license || "",
 							esversion: config.esversion || undefined,
-							external: config.external || undefined
+							build: config.build || {}
 						};
 						delete config.browsers;
 						delete config.dependencies;
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 								}
 							}
 
-							if (v.external) {
+							if (v.build && v.build.minify === false) {
 								// skipping any validation or minification process since
 								// the raw source is suppose to be production ready.
 								v.minSource = v.rawSource;

@@ -16,8 +16,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		"clean": {
 			repo: ['polyfills/__repo'],
-			versions: ['polyfills/__versions'],
-			intl: ['polyfills/Intl/polyfill.js', 'polyfills/Intl/~locale']
+			versions: ['polyfills/__versions']
 		},
 		"simplemocha": {
 			options: {
@@ -84,6 +83,14 @@ module.exports = function(grunt) {
 					failOnError: true
 				}
 			}
+		},
+		"updatelibrary": {
+			options: {
+				expand: true
+			},
+			tasks: {
+				src: ['polyfills/**/update.task.js'],
+			}
 		}
 	});
 
@@ -118,21 +125,14 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("build", [
-		"clean:versions",
-		"clean:repo",
+		"clean",
 		"installcollections",
 		"buildsources",
 		"clean:repo"
 	]);
 
-	grunt.registerTask("intl", [
-		"clean:intl",
-		"importintl"
-	]);
-
 	grunt.registerTask('dev', [
-		"clean:versions",
-		"clean:repo",
+		"clean",
 		"buildsources",
 		"service",
 		"watch"
