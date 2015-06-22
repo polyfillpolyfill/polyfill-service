@@ -77,11 +77,13 @@ it("Should remove duplicate instances of class", function() {
 });
 
 it("Should work on svg elements", function() {
-	var el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	var classList = el.classList;
-	el.setAttribute('class', "a");
+	if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg')) {
+		var el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		var classList = el.classList;
+		el.setAttribute('class', 'a');
 
-	classList.add("b");
-	expect(classList.contains("b")).to.be(true);
-	expect(el.className.baseVal).to.be("a b");
+		classList.add("b");
+		expect(classList.contains("b")).to.be(true);
+		expect(el.className.baseVal).to.be("a b");
+	}
 });
