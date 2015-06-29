@@ -1,10 +1,10 @@
 {
 	"browsers": {
 		"ie": "*",
-		"firefox": "*",
-		"opera": "*",
+		"firefox": "* - 38",
+		"opera": "* - 28",
 		"safari": "*",
-		"chrome": "*",
+		"chrome": "* - 41",
 		"ios_saf": "*"
 	},
 	"dependencies": [
