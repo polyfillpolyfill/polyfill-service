@@ -42,14 +42,14 @@ module.exports = function(grunt) {
 	grunt.log.writeln('Importing Intl.~locale.* polyfill from ' + LocalesPath);
 
 	var locales = fs.readdirSync(LocalesPath);
-    locales.forEach(function (file) {
-        var locale = file.slice(0, file.indexOf('.'));
-        var localePolyfillSource = fs.readFileSync(path.join(LocalesPath, file));
+	locales.forEach(function (file) {
+		var locale = file.slice(0, file.indexOf('.'));
+		var localePolyfillSource = fs.readFileSync(path.join(LocalesPath, file));
 		// produce a new locale data polyfill
 		grunt.file.write(path.join(LocalesPolyfillOutput, locale, 'polyfill.js'), localePolyfillSource);
 		grunt.file.write(path.join(LocalesPolyfillOutput, locale, 'detect.js'), detectFileSource);
 		grunt.file.write(path.join(LocalesPolyfillOutput, locale, 'config.json'), configFileSource);
-    });
+	});
 
 
 	grunt.log.writeln(locales.length + ' imported locales');
