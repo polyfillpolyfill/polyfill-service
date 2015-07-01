@@ -8,7 +8,7 @@ var envName = process.env.ENV_NAME || "unknown";
 
 var timer = null;
 var graphite = null;
-var data = Measured.createCollection('polyfill.' + envName);
+var data = Measured.createCollection('origami.polyfill.' + envName);
 
 if (graphiteHost) {
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
