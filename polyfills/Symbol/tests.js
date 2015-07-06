@@ -3,7 +3,7 @@ it('should throw if being used via `new`', function() {
 	var test = function () {
 		return new Symbol();
 	}
-	expect(test).to.throw(Error);
+	expect(test).to.throwError();
 });
 
 it('should have Symbol as the constructor property on the prototype', function() {
@@ -27,18 +27,18 @@ it('should return "[object Symbol]" when called with Object.prototype.toString()
 it('should silently fail when overwriting properties', function() {
 	var sym = Symbol('66');
 	sym.toString = 0;
-	expect(sym.toString).to.be.an.instanceof(Function)
+	expect(sym.toString).to.be.a(Function)
 	sym.valueOf = 0;
-	expect(sym.valueOf).to.be.an.instanceof(Function)
+	expect(sym.valueOf).to.be.a(Function)
 });
 
 it('should create unique symbols', function() {
-	expect(Symbol('a').toString()).to.not.equal(Symbol('a').toString())
+	expect(Symbol('a')).to.not.equal(Symbol('a'))
 });
 
 it('has for, and keyFor static methods', function() {
-	expect(Symbol.for).to.be.an.instanceof(Function);
-	expect(Symbol.keyFor).to.be.an.instanceof(Function);
+	expect(Symbol.for).to.be.a(Function);
+	expect(Symbol.keyFor).to.be.a(Function);
 });
 
 it('Symbol.keyFor should throw if not given a symbol', function() {
@@ -64,13 +64,13 @@ it('Symbol.keyFor should throw if not given a symbol', function() {
 		return Symbol.keyFor(Symbol('a'));
 	}
 
-	expect(stringKeyFor).to.throw(Error);
-	expect(numberKeyFor).to.throw(Error);
-	expect(arrayKeyFor).to.throw(Error);
-	expect(objectKeyFor).to.throw(Error);
-	expect(boolKeyFor).to.throw(Error);
-	expect(undefinedKeyFor).to.throw(Error);
-	expect(symbolKeyFor).to.not.throw(Error);
+	expect(stringKeyFor).to.throwError();
+	expect(numberKeyFor).to.throwError();
+	expect(arrayKeyFor).to.throwError();
+	expect(objectKeyFor).to.throwError();
+	expect(boolKeyFor).to.throwError();
+	expect(undefinedKeyFor).to.throwError();
+	expect(symbolKeyFor).to.not.throwError();
 });
 
 it('Symbol.keyFor should return undefined if can not find symbol in global registry', function() {
@@ -100,8 +100,8 @@ it('Symbol.keyFor should return key of symbol if can find symbol in global regis
 });
 
 it('has toString and valueOf instance methods', function() {
-	expect(Symbol.prototype['toString']).to.be.an.instanceof(Function);
-	expect(Symbol.prototype['valueOf']).to.be.an.instanceof(Function);
+	expect(Symbol.prototype['toString']).to.be.a(Function);
+	expect(Symbol.prototype['valueOf']).to.be.a(Function);
 });
 
 it('has the well known symbols as static properties on Symbol', function() {
