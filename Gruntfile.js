@@ -83,6 +83,14 @@ module.exports = function(grunt) {
 					failOnError: true
 				}
 			}
+		},
+		"updatelibrary": {
+			options: {
+				expand: true
+			},
+			tasks: {
+				src: ['polyfills/**/update.task.js'],
+			}
 		}
 	});
 

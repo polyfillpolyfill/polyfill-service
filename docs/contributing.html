@@ -18,13 +18,14 @@
 
 		<h2 id="contributing-to-polyfills">Contributing to polyfills</h2>
 
-		<p>Polyfills are located in the <code>/polyfills</code> directory and organised by feature name.  Each polyfill directory is structured like this:</p>
+		<p>Polyfills are located in the <code>/polyfills</code> directory and organised by feature name.  Each polyfill directory (and subdirectory) is structured like this:</p>
 
 		<ul>
 			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#polyfill-authoring-guidelines">polyfill authoring guidelines</a>.</li>
 			<li><code>polyfill-{variant}.js</code>: Optional alternative polyfills, to be used where different browsers require different polyfill implementations in order to produce the same result.  Often this is because some browsers have a prefixed or part-implemented/buggy version of the feature which can be normalised more easily and efficiently than recreating it from lower level primitives.  The variant name is arbitrary, but conventionally it is the short form of the browser name and version, if applicable, eg <code>polyfill-ie7.js</code>.  The variant name 'default' is reserved for <code>polyfill.js</code>.</li>
 			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  **Must not have a trailing semicolon.**</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
+			<li><code>update.task.js</code>: Optional alternative to <code>polyfill.js</code>. This file is used in combination with the Grunt task <code>updatelibrary</code> to create a local copy of an external polyfill.</li>
 			<li><code>config.json</code>: A config file conforming to the spec below</li>
 		</ul>
 
@@ -40,6 +41,11 @@
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
 			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
+			<li><code>build</code>: Object, used to specify how the polyfill should be built.
+				<ul>
+					<li><code>minify</code>: is a boolean that represents whether the source polyfill has already been minified.</li>
+				</ul>
+			</li>
 		</ul>
 
 		<p>Where a config file contains <code>browsers</code>, <code>license</code>, <code>dependencies</code> or <code>repo</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>

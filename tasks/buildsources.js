@@ -36,18 +36,33 @@ module.exports = function(grunt) {
 
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
+			var dirs = [];
+
+			// Ignore non-directories at the root of a version (ie existing sources.json and aliases.json files)
 			if (!fs.lstatSync(versionBasePath).isDirectory() && !fs.lstatSync(versionBasePath).isSymbolicLink()) {
 				return true;
 			}
 
+			// recursively discover all subfolders and build into a list (ignore the __versions dir if this is the latest version)
+			function scanDir(dir) {
+				fs.readdirSync(dir).forEach(function(item) {
+					var d = path.join(dir, item);
+					if (fs.lstatSync(d).isDirectory() && item.indexOf('__') !== 0) {
+						scanDir(d);
+						dirs.push(d);
+					}
+				});
+			}
+			scanDir(versionBasePath);
+
 			sources[version] = {};
 			configuredAliases[version] = {};
-			fs.readdirSync(versionBasePath).forEach(function(featureName) {
+			dirs.forEach(function(polyfillPath) {
 				var config;
+				var featureName = polyfillPath.substr(versionBasePath.length+1).replace(/\//g, '.');
 				try {
 
 					// Load the polyfill's configuration
-					var polyfillPath = path.join(versionBasePath, featureName);
 					var configPath = path.join(polyfillPath, 'config.json');
 					if (!fs.existsSync(polyfillPath) || !fs.existsSync(configPath)) {
 						return;
@@ -68,7 +83,8 @@ module.exports = function(grunt) {
 							browsers: config.browsers,
 							dependencies: config.dependencies || [],
 							license: config.license || "",
-							esversion: config.esversion || undefined
+							esversion: config.esversion || undefined,
+							build: config.build || {}
 						};
 						delete config.browsers;
 						delete config.dependencies;
@@ -121,9 +137,14 @@ module.exports = function(grunt) {
 								}
 							}
 
-							validateSource(v.rawSource, featureName+' from '+polyfillSourcePath);
-
-							v.minSource = uglify.minify(v.rawSource, {fromString: true}).code;
+							if (v.build && v.build.minify === false) {
+								// skipping any validation or minification process since
+								// the raw source is suppose to be production ready.
+								v.minSource = v.rawSource;
+							} else {
+								validateSource(v.rawSource, featureName+' from '+polyfillSourcePath);
+								v.minSource = uglify.minify(v.rawSource, {fromString: true}).code;
+							}
 
 							if (fs.existsSync(detectPath)) {
 								v.detectSource = fs.readFileSync(detectPath, 'utf8').replace(/\s*$/, '') || null;
