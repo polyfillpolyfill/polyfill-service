@@ -4,7 +4,7 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"chrome": "* - 38",
+		"chrome": "*",
 		"firefox": "* - 24",
 		"ie": "*",
 		"opera": "*",
@@ -12,5 +12,7 @@
 	},
 	"dependencies": [
 		"Object.defineProperty"
-	]
+	],
+	"spec":"http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
+	"docs":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
 }

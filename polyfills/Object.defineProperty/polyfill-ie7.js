@@ -10,20 +10,41 @@ Object.defineProperty = function defineProperty(object, property, descriptor) {
 	}
 
 	var
+	ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine',
+	ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value',
+	hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor,
 	propertyString = String(property),
 	Element = window.Element || {};
 
 	// handle descriptor.get
 	if ('get' in descriptor) {
-		object[propertyString] = object === Element.prototype ? new Element.__getter__(descriptor.get) : descriptor.get.call(object);
+		if (typeof descriptor.get !== 'function') {
+			throw new TypeError('Getter expected a function');
+		}
+		if (hasValueOrWritable) {
+			throw new TypeError(ERR_VALUE_ACCESSORS);
+		}
+		if (object !== Element.prototype) {
+			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
+		}
+		object[propertyString] = new Element.__getter__(descriptor.get);
 	}
-	// handle descriptor.value
+	// handle descriptor.value (must not overwrite getter but if no getter is defined, property must be set, even if only to undefined)
 	else {
 		object[propertyString] = descriptor.value;
 	}
 
 	// handle descriptor.set
-	if ('set' in descriptor && object.constructor === Element) {
+	if ('set' in descriptor) {
+		if (typeof descriptor.set !== 'function') {
+			throw new TypeError('Setter expected a function');
+		}
+		if (hasValueOrWritable) {
+			throw new TypeError(ERR_VALUE_ACCESSORS);
+		}
+		if (object.constructor !== Element) {
+			throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
+		}
 		object.attachEvent('onpropertychange', function callee(event) {
 			object.detachEvent('onpropertychange', callee);
 

@@ -1,1 +1,1 @@
-Array.of
+'of' in Array

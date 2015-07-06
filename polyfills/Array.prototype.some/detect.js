@@ -1,1 +1,1 @@
-Array.prototype.some
+'some' in Array.prototype

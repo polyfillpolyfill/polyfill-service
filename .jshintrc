@@ -1,6 +1,16 @@
 {
-	"-W058": true,
+	"eqeqeq": true,
+	"immed": true,
+	"newcap": true,
+	"noarg": true,
+	"nonbsp": true,
+	"undef": true,
+	"unused": "vars",
 	"boss": true,
+	"esnext": true,
+	"expr": true,
+	"sub": true,
+	"node": true,
 	"strict": false,
-	"predef": ["Window", "HTMLDocument", "HTMLElement"]
+	"globalstrict": true
 }

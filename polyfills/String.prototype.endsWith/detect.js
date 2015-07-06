@@ -1,1 +1,1 @@
-String.prototype.endsWith
+'endsWith' in String.prototype

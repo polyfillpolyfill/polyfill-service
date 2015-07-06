@@ -12,6 +12,10 @@
 
 		<p>We want to encourage more people to get involved in the polyfill service, so the Financial Times is pleased to offer one month's free premium access to all FT content (normally $50) to anyone who has a pull request merged in this repository.  <a href="https://docs.google.com/a/ft.com/forms/d/1aykPiYBwqKpKY6nvGVi43wOU_5epr3XLgE00Vi52SMQ/viewform">Claim your free access</a>.</p>
 
+		<h2 id='building-and-running'>Building and running</h2>
+
+		<p>See the README for installation information</p>
+
 		<h2 id="contributing-to-polyfills">Contributing to polyfills</h2>
 
 		<p>Polyfills are located in the <code>/polyfills</code> directory and organised by feature name.  Each polyfill directory is structured like this:</p>
@@ -19,7 +23,7 @@
 		<ul>
 			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#polyfill-authoring-guidelines">polyfill authoring guidelines</a>.</li>
 			<li><code>polyfill-{variant}.js</code>: Optional alternative polyfills, to be used where different browsers require different polyfill implementations in order to produce the same result.  Often this is because some browsers have a prefixed or part-implemented/buggy version of the feature which can be normalised more easily and efficiently than recreating it from lower level primitives.  The variant name is arbitrary, but conventionally it is the short form of the browser name and version, if applicable, eg <code>polyfill-ie7.js</code>.  The variant name 'default' is reserved for <code>polyfill.js</code>.</li>
-			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).</li>
+			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  **Must not have a trailing semicolon.**</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
 			<li><code>config.json</code>: A config file conforming to the spec below</li>
 		</ul>
@@ -30,12 +34,15 @@
 			<li><code>browsers</code>: Object, one key per browser family name (see <a href="#browser-support">browser support</a>), with the value forming either a range or a list of specific versions separated by double pipes, idenitfying the versions to which the polyfill <em>should be applied</em>. See <a href="https://github.com/npm/node-semver#ranges">node-semver ranges</a>.</li>
 			<li><code>aliases</code>: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.</li>
 			<li><code>dependencies</code>: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.</li>
-			<li><code>author</code>: Object, metadata about the author of the polyfill, following <a href="https://www.npmjs.org/doc/json.html#people-fields-author-contributors">NPM convention</a></li>
-			<li><code>licence</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
-			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>licence</code>, <code>author</code> and <code>dependencies</code> properties.</li>
+			<li><code>license</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="http://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
+			<li><code>repo</code>: String, the URL of the repository containing the canonical version of the polyfill, of which the version stored in the polyfills library is a copy.</li>
+			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
+			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
+			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
+			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
 		</ul>
 
-		<p>Where a config file contains <code>browsers</code>, <code>licence</code>, <code>author</code> or <code>dependencies</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
+		<p>Where a config file contains <code>browsers</code>, <code>license</code>, <code>dependencies</code> or <code>repo</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
 
 		<p>Example:</p>
 
@@ -54,31 +61,57 @@
         "Object.defineProperties",
         "Object.create"
     ],
-    "author": {
-        "name" : "Person B",
-        "email" : "b@example.com",
-        "url" : "http://person.example.com"
-    },
-    "license": "Zlib"
+    "license": "MIT"
 }</code></pre>
 
 		<p>A request from IE7 would receive this polyfill, since it is targeted to IE 6-9.  It <em>may</em> also receive polyfills for <code>Object.defineProperties</code> and <code>Object.create</code>, since those are dependencies of the polyfill in this example, if those polyfills also apply in IE7.</p>
 
 		<h3 id="polyfill-authoring-guidelines">Polyfill authoring guidelines</h3>
 
-		<p>Polyfill source files (<code>polyfill[-variant].js</code>) are not expected to always be perfect implementations of the features they are filling.  However, it's important that we observe some strict guidelines to avoid making native implementations harder to ship. Therefore polyfill sources must meet the following requirements:</p>
+		<p>We are always glad to accept contributions of original polyfills as well as copies of third party polyfills maintained elsewhere.  It's important to distinguish between these, because:</p>
 
 		<ul>
-			<li>Must only make changes that create conformance with a published specification</li>
-			<li>Must not be wrapped in a feature detect (the service will add this)</li>
-			<li>Must not contain polyfills for other features (instead, express a dependency on those polyfills, see below)</li>
+		<li><strong>original polyfills</strong> are those where the polyfill service is the canonical source of the code.  They do not have a <code>repo</code> or <code>license</code> property in their config.  Original polyfills:<ul>
+			<li>inherit the license terms of the polyfill service project as a whole, and all contributions are accepted subject to the committer's agreement to our <a href='#contribution-terms'>contribution terms</a>;</li>
+			<li>can be modified, tweaked and improved within the polyfill service repo;</li>
+			<li>must not be wrapped in a feature detect (this is a runtime option);</li>
+			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on `Object.defineProperty`, but *must not* embed a polyfill for it</li>
+		</ul></li>
+		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presense of a <code>repo</code> property in their config.  Third party polyfills:<ul>
+			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
+			<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
+			<li>may contain embedded polyfills for things for which we already have polyfills in the service, and in general, these should be left as they are in order to maintain sync with the upstream repo, even though we could make the polyfill smaller.  Ideally, we should encourage the polyfill author to remove the embedded dependencies;</li>
+			<li>may contain a feature detect.  Ideally they wouldn't, because the service will wrap the polyfill in a detect, but we'll tolerate a redundant detect in order to maintain sync with the upstream source.</li>
+		</ul></li>
 		</ul>
+
+		In addition, whether original or third party, if the polyfill targeting is open ended (ie it targets current versions of browsers), it <em>must</em> only make changes that create conformance with a published specification.  If it is targeted <em>only</em> at older versions of browsers, it <em>may</em> be OK to exhibit any behaviour that is likely to satisfy the needs of applications that depend on the feature.  For example, our <code>devicePixelRatio</code> polyfill in very old browsers simply returns <code>1</code> without actually measuring anything.
+
+		<h3 id="binding">Binding to global scope</h3>
+
+		<p>Polyfill bundles produced by the service are wrapped in the following IIFE:</p>
+
+		<pre><code>(function(undefined) {
+	// Polyfills go here
+).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
+
+		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`.</p>
 
 		<h3 id="test-authoring-guidelines">Test authoring guidelines</h3>
 
 		<p>Polyfill service tests use Mocha and Expect, both chosen because they work in legacy browsers down to our <a href="#baseline-support">baseline</a>.  The tests must assert the behaviour that the polyfill makes consistent across browsers, which is not necessarily the entire published spec.</p>
 
 		<p>Specifically, if part of a feature is not polyfillable in a particular browser, and yet the polyfill is still usable in that browser, omit tests for the part which cannot be polyfilled.  This ensures that the polyfill is still targeted at that browser, and consumers are able to get an accurate understanding of which parts of the feature are covered by the polyfill.  However, a comment in the test file listing aspects of the feature that are not supported is always appreciated.</p>
+
+		<h3 id='detect-authoring-guidelines'>Detect authoring guidelines</h3>
+
+		<p>Since polyfills are loaded in an environment with a <code>this</code> value guaranteed to be an object, detects should lean heavily on the <code>in</code> operator and build from <code>this</code>, eg:
+
+		<pre><code>'navigator' in this &amp;&amp; 'geolocation' in this.navigator</code></pre>
+
+		<p>Objects defined as part of ECMAScript and present in all browsers above our baseline may be assumed to be present, so this is fine:</p>
+
+		<pre><code>'imul' in Math</code></pre>
 
 		<h3 id="running-tests">Running tests</h3>
 
@@ -111,7 +144,7 @@
 		<ul>
 			<li>Make sure that the polyfill correctly implements the aspects of the spec that it seeks to emulate</li>
 			<li>Write a well defined config.json:<ul>
-				<li>If you do not include a licence or author, we will likely ask that you do</li>
+				<li>If you do not include a license or repo, we will likely ask that you do</li>
 				<li>Check whether there is a Modernizr feature-detect that detects this feature.  If so, add a <code>modernizr:</code>-prefixed alias</li>
 				<li>Make sure you write valid semver ranges for each browser (if defining a range, you need spaces around the dash) and use the correct browser name key</li>
 			</ul></li>
@@ -156,8 +189,13 @@
 
 		<p>In practice this means that in some cases, where polyfills have configurations targeting all versions of a browser (eg <code>"ie": "*"</code>), the polyfill will actually only be available in versions of that browser above the baseline.</p>
 
-		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p></div>
+		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p>
 
+		<h2 id='contribution-terms'>Contribution terms</h2>
+
+		<p><em>Work in progress - see <a href='https://github.com/Financial-Times/polyfill-service/issues/327'>#327</a></em></p>
+
+		</div>
 	</div>
 
 {{>footer}}

@@ -1,0 +1,23 @@
+{
+	"browsers": {
+		"ie": "*",
+		"firefox": "* - 38",
+		"opera": "* - 28",
+		"safari": "*",
+		"chrome": "* - 41",
+		"ios_saf": "*"
+	},
+	"dependencies": [
+		"Array.prototype.forEach",
+		"Object.getOwnPropertyNames",
+		"Promise",
+		"XMLHttpRequest"
+	],
+	"license": "MIT",
+	"spec": "https://fetch.spec.whatwg.org/",
+	"repo": "https://github.com/github/fetch",
+	"notes": [
+		"Makes use of FormData, FileReader and Blob if they exist"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
+}

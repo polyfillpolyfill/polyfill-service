@@ -1,1 +1,1 @@
-"placeholder" in document.createElement("input")
+'document' in this && "placeholder" in document.createElement("input")

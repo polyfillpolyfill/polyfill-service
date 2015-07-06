@@ -1,3 +1,5 @@
+/* global expect,it */
+
 // Safari fails this test.  However, no-one would ever do this
 // as it would just create an event that can never be dispatched/listened for
 // it doesn't cause any problem
@@ -56,4 +58,53 @@ it('should bubble the event', function(done) {
 		done();
 	});
 	testEl.dispatchEvent(testEvent);
+});
+
+it('should not trigger an event handler once removed', function() {
+	var testEvent = new Event('test', {
+		bubbles: true,
+		cancelable: true
+	});
+	var listener = function() {
+		throw new Error('listener was fired, but should have been removed');
+	};
+
+	var testEl = document.createElement('div');
+	testEl.addEventListener('test', listener);
+	testEl.removeEventListener('test', listener);
+	testEl.dispatchEvent(testEvent);
+});
+
+it('should trigger an event handler once added, removed, and added again', function () {
+	// NOTE: The event must be a real DOM event or the
+	// dispatchEvent polyfill will catch the fireEvent
+	// error, simulate firing the event by running the
+	// event listeners.
+	var fired = false;
+	var listener = function() {
+		fired = true;
+		document.removeEventListener('click', listener);
+	};
+
+	document.addEventListener('click', listener);
+	document.removeEventListener('click', listener);
+	document.addEventListener('click', listener);
+	// click the document
+	document.dispatchEvent(new Event('click'));
+	expect(fired).to.be(true);
+});
+
+it('should have the correct target when using delegation', function () {
+	var fired = false;
+	var el = document.body.firstChild;
+	var listener = function(e) {
+		if (e.target === el) fired = true;
+		document.removeEventListener('click', listener);
+	};
+
+	document.addEventListener('click', listener);
+	el.dispatchEvent(new Event('click', {
+		bubbles: true
+	}));
+	expect(fired).to.be(true);
 });

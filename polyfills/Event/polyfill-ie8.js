@@ -63,7 +63,7 @@
 
 				event.currentTarget = element;
 				event.relatedTarget = event.fromElement || null;
-				event.target = event.srcElement || element;
+				event.target = event.target || event.srcElement || element;
 				event.timeStamp = new Date().getTime();
 
 				if (event.clientX) {
@@ -96,7 +96,7 @@
 		var
 		element = this,
 		type = arguments[0],
-		listener = arguments[1].
+		listener = arguments[1],
 		index;
 
 		if (element._events && element._events[type] && element._events[type].list) {
@@ -109,6 +109,7 @@
 					if (element.detachEvent) {
 						element.detachEvent('on' + type, element._events[type]);
 					}
+					delete element._events[type];
 				}
 			}
 		}

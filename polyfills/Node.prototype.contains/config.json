@@ -4,7 +4,8 @@
 	],
 	"browsers": {
 		"firefox": "* - 8",
-		"safari": "* - 2"
+		"safari": "* - 2",
+		"ie": "9 - *"
 	},
 	"variants": {
 		"document": {
@@ -14,11 +15,7 @@
 			"dependencies": [
 				"Element"
 			]
-		},
-		"HTMLElement": {
-			"browsers": {
-				"ie": "9 - *"
-			}
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Node/contains"
 }

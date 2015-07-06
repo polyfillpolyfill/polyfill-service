@@ -4,5 +4,5 @@
   "origamiVersion": 1,
   "support": "https://github.com/Financial-Times/polyfill-service/issues",
   "supportStatus": "active",
-  "serviceUrl": "http://polyfill.webservices.ft.com"
+  "serviceUrl": "https://polyfill.webservices.ft.com"
 }

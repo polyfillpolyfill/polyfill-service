@@ -1,1 +1,1 @@
-window.JSON
+'JSON' in this

@@ -3,13 +3,11 @@
 		"chrome": "*",
 		"firefox": "*",
 		"opera": "*",
-		"safari": "*"
+		"safari": "*",
+		"ie": "* - 9"
 	},
-	"variants": {
-		"onreadystatechange": {
-			"browsers": {
-				"ie": "* - 9"
-			}
-		}
-	}
+	"dependencies": [
+		"_enqueueMicrotask"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
 }

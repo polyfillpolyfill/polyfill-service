@@ -1,8 +1,4 @@
 {
-	"aliases": [
-		"es7",
-		"modernizr:es7array"
-	],
 	"browsers": {
 		"chrome": "*",
 		"firefox": "*",
@@ -11,6 +7,9 @@
 		"safari": "*"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Array.prototype.includes"
+	],
+	"notes": [
+		"This feature was deprecated since it was found to [break older versions of Mootools](https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible).  Use `Array.prototype.includes` instead."
 	]
 }

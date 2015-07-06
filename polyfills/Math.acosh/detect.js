@@ -1,1 +1,1 @@
-Math.acosh
+'acosh' in Math

@@ -1,1 +1,1 @@
-Array.prototype.findIndex
+'findIndex' in Array.prototype

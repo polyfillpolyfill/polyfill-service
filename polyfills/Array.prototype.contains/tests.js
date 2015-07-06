@@ -2,7 +2,8 @@ it('has correct instance', function () {
 	expect(Array.prototype.contains).to.be.a(Function);
 });
 
-it('has correct name', function () {
+// Skipped because contains is now just an alias to includes
+it.skip('has correct name', function () {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
@@ -18,6 +19,14 @@ it('handles arrays', function () {
 	expect([10, 11, 12, 13].contains(14)).to.be(false);
 	expect([10, 11, 12, 13].contains(13, 4)).to.be(false);
 	expect([10, 11, 12, 13].contains(13, -1)).to.be(true);
+});
+
+it('handles arrays of strings', function () {
+	expect(['a', 'b', 'c'].contains('foo')).to.be(false);
+	expect(['1', '2', '3'].contains('foo')).to.be(false);
+	expect(['a', 'b', 'c'].contains(1)).to.be(false);
+	expect(['1', '2', '3'].contains(3)).to.be(false);
+	expect(['1', '2', '3'].contains('3')).to.be(true);
 });
 
 it('handles arrays using SameValueZero equality algorithm', function () {

@@ -1,0 +1,25 @@
+
+{
+	"aliases": [
+		"modernizr:promises",
+		"caniuse:promises"
+	],
+	"browsers": {
+		"android": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ie": "9 - *",
+		"ios": "*",
+		"opera": "*",
+		"safari": "*"
+	},
+	"variants": {
+		"ie8": {
+			"browsers": {
+				"ie": "* - 8"
+			}
+		}
+	},
+	"license": "MIT",
+	"repo": "https://github.com/Octane/setImmediate"
+}

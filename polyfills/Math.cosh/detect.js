@@ -1,1 +1,1 @@
-Math.cosh
+'cosh' in Math

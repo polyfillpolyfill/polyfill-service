@@ -3,23 +3,21 @@
 		"safari": "4 - *"
 	},
 	"variants": {
-		"ie7": {
+		"oldie": {
 			"browsers": {
-				"ie": "6 - 7"
+				"ie": "6 - 8",
+				"firefox": "<=17"
 			}
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			},
-			"dependencies": [
-				"Object.defineProperty"
-			]
 		},
 		"ios": {
 			"browsers": {
 				"ios_saf": "*"
 			}
 		}
-	}
+	},
+	"spec": "http://dev.w3.org/csswg/cssom-view/#dom-window-devicepixelratio",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
+	"notes": [
+		"On very old browsers, this polyfill just sets `devicePixelRatio` to 1 without attempting to measure it."
+	]
 }

@@ -1,1 +1,1 @@
-Math.trunc
+'trunc' in Math

@@ -1,1 +1,1 @@
-Array.prototype.forEach
+'forEach' in Array.prototype

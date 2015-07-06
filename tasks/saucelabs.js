@@ -1,10 +1,17 @@
 'use strict';
 
+var promiseTimeout = function(time) {
+	return new Promise(function (resolve, reject) {
+		setTimeout(function() {
+			resolve();
+		}, time);
+	});
+};
+
 module.exports = function(grunt) {
 
 	var wd = require('wd');
 	var Batch = require('batch');
-	var request = require('request');
 	var SauceTunnel = require('sauce-tunnel');
 	var mkdirp = require('mkdirp');
 	var path = require('path');
@@ -16,11 +23,10 @@ module.exports = function(grunt) {
 	var retryLimit = 50;
 	var sauceConnectPort = 4445;
 
-	var jobsCalledDone = [];
-
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
 		var gruntDone = this.async();
 		var nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
+		var tunnel;
 		var tunnelId = 'SauceTunnel-' + nameSuffix;
 
 		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
@@ -41,108 +47,88 @@ module.exports = function(grunt) {
 			cibuild: false
 		});
 
+		options.browsers = options.browsers.map(function(b) {
+			return {browserName:b[0], version:b[1], platform:b[2]};
+		});
+
 
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
 		batch.throws(false);
 
-		var tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
-
 		// Create a new job to pass into the Batch runner, returns a function
 		function newTestJob(url, urlName, conf) {
-			return function testJob(done) {
+			return function testJob() {
 
 				// Variadic like console.log(...);
 				function log() {
 					var leader = (new Date()).toString() + ' ' + conf.browserName + "/" + conf.version + ": ";
 					var args = Array.prototype.slice.call(arguments);
 					args.unshift(leader);
-					grunt.log.writeln.apply(null, args);
+					grunt.log.writeln.apply(grunt.log, args);
 				}
 
-				log("started job");
+				var browser = wd.promiseRemote("127.0.0.1", sauceConnectPort, options.username, options.key);
 
-				var browser = wd.remote("127.0.0.1", sauceConnectPort, options.username, options.key);
+				function waitOnResults() {
+					return browser.eval('window.global_test_results || window.remainingCount');
+				}
+				function processResults(data) {
+					var remainingCount = null;
+					var retryCount = 0;
+
+					// Result polling code
+					if (typeof data !== 'object' || data === null) {
+						if (retryCount > retryLimit) {
+							log('Timed out');
+							browser.quit();
+							throw new Error('Timeout waiting on ' + conf.browserName + '/' +conf.version);
+						}
+
+						if (typeof data === 'number' && data !== remainingCount) {
+							remainingCount = data;
+							retryCount = 0;
+							log(remainingCount + ' test pages remaining');
+						} else {
+							retryCount++;
+							log('no changes, waiting');
+						}
+
+						// Recurse waitOnResults and processResults
+						return promiseTimeout(pollTick).then(waitOnResults).then(processResults);
+					}
+
+					log("results received (" + data.passed + " passed, " + data.failed + " failed), closing remote browser");
+
+					// Close the browser as soon as we have the
+					// results.  No need to keep it hanging around
+					// until the rest of the job is complete.
+					browser.quit();
+					log("Browser closing");
+
+					return {
+						id: browser.sessionID,
+							browserName: conf.browserName,
+
+							version: conf.version,
+							urlName: urlName,
+							results: data
+					};
+				}
 
 				log("requested browser");
 
-				browser.init(conf, function() {
-
+				return browser.init(conf).then(function() {
 					log("browser launched");
 
-					browser.get(url, function(err) {
-						var refreshed = false;
-						var remainingCount = null;
-						var retryCount = 0;
+					return browser.get(url).then(function() {
+						return browser.refresh();
+					}).then(function() {
+						log("kicked");
 
-						if (err) {
-							log(err);
-							return done(err);
-						}
-
-						browser.refresh(function() {
-							refreshed = true;
-							log("kicked");
-							setTimeout(waitOnResults, pollTick);
-						});
-
-						// Wait until results are available
-						function waitOnResults() {
-							browser.eval('window.global_test_results ||  window.remainingCount', function(err, data) {
-
-								if (typeof data !== 'object') {
-									if (retryCount > retryLimit) {
-										log('Timed out');
-										browser.quit();
-										done(new Error('Timeout waiting on '+conf.browserName+'/'+conf.version));
-									} else {
-										if (typeof data === 'number' && data !== remainingCount) {
-											remainingCount = data;
-											retryCount = 0;
-											log(remainingCount + ' test pages remaining');
-										} else {
-											retryCount++;
-											console.log(data);
-											log('no changes, waiting');
-										}
-										setTimeout(waitOnResults, pollTick);
-									}
-									return;
-								}
-
-								log("results received, closing remote browser");
-
-								// Close the browser as soon as we have the
-								// results.  No need to keep it hanging around
-								// until the rest of the job is complete.
-								browser.quit();
-								log("Browser closing");
-
-								process.nextTick(function() {
-									log('calling done');
-									jobsCalledDone.push(conf.browserName + '/' + conf.version);
-									done(null, {
-										id: browser.sessionID,
-										browserName: conf.browserName,
-										version: conf.version,
-										urlName: urlName,
-										results: data
-									});
-								});
-
-								log("updating sauce with the test results");
-								request({
-									method: "PUT",
-									uri: ["https://", options.username, ":", options.key, "@saucelabs.com/rest", "/v1/", options.username, "/jobs/", browser.sessionID].join(''),
-									headers: {'Content-Type': 'application/json'},
-									body: JSON.stringify({
-										'custom-data': { custom: data },
-										'passed': !data.failed
-									})
-								});
-							});
-						};
-					});
+						// Once refreshed, wait `pollTick` before continuing
+						return promiseTimeout(pollTick);
+					}).then(waitOnResults).then(processResults);
 				});
 			};
 		}
@@ -183,6 +169,7 @@ module.exports = function(grunt) {
 		grunt.log.writeln("travis_fold:start:Sauce test progress");
 		grunt.log.writeln("Sauce job name: "+options.name);
 		readResultsFile(function(testResults) {
+			var noop = true;
 
 			options.browsers.forEach(function(conf) {
 				conf['name'] = options.name;
@@ -198,15 +185,32 @@ module.exports = function(grunt) {
 						testResults[UA.normalizeName(conf.browserName)][conf.version][urlName].length;
 						state = 'skipped - data already in result file';
 					} catch(e) {
-						batch.push(newTestJob(url, urlName, conf));
+						batch.push(function(done) {
+							var testJob = newTestJob(url, urlName, conf);
+							testJob().then(function(data) {
+								done(null, data);
+							}).catch(function(e) {
+								done(e);
+							});
+						});
+
 						state = 'queued';
+						noop = false;
 					}
-					grunt.log.writeln(conf.browserName+' '+conf.version+' ('+urlName+' mode): '+state);
+					grunt.log.writeln(conf.browserName + ' ' + conf.version + ' (' + urlName + ' mode): ' + state);
 				});
 			});
 
+			if (noop) {
+				grunt.log.writeln("Nothing to do");
+				return gruntDone();
+			}
+
 			grunt.log.writeln('Opening tunnel to Sauce Labs');
+			tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
 			tunnel.start(function(status) {
+
+				var cumFailCount = 0;
 
 				grunt.log.writeln("Tunnel Started");
 				if (status !== true)  {
@@ -216,6 +220,10 @@ module.exports = function(grunt) {
 				grunt.log.writeln("Starting test jobs");
 
 				batch.on('progress', function(e) {
+					if (e.error) {
+						throw e.error;
+					}
+
 					if (e.value.browserName) {
 						var browserName = UA.normalizeName(e.value.browserName) || e.value.browserName;
 
@@ -233,11 +241,12 @@ module.exports = function(grunt) {
 							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
 							testedSuites: e.value.results.testedSuites
 						};
+						cumFailCount += e.value.results.failed;
 						writeResultsFile(testResults);
 					}
 
 					// Pending count appears to have an off by one error
-					grunt.log.writeln("Progress: " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' remaining)');
+					grunt.log.writeln("Progress (browsers): " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' browsers remaining, ' + cumFailCount + ' test failures so far)');
 				});
 
 
@@ -248,23 +257,21 @@ module.exports = function(grunt) {
 						var failed = false;
 						grunt.log.writeln('Sauce tunnel stopped');
 						grunt.log.writeln("travis_fold:end:Sauce test progress");
-						if (err) {
-							gruntDone(err);
-							return;
-						}
-						grunt.log.writeln("Failed tests:")
+						grunt.log.writeln("Failed tests:");
 						jobresults.forEach(function(job) {
 							if (!job.results) {
 								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
 								return true;
 							}
-							if (job.results.failed && job.results.failingSuites) {
-								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')')
-								Object.keys(job.results.failingSuites).forEach(function(feature) {
-									var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-									grunt.log.writeln('    -> '+feature);
-									grunt.log.writeln('       '+url);
-								});
+							if (job.results.failed) {
+								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
+								if (job.results.failingSuites) {
+									Object.keys(job.results.failingSuites).forEach(function(feature) {
+										var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
+										grunt.log.writeln('    -> '+feature);
+										grunt.log.writeln('       '+url);
+									});
+								}
 								failed = true;
 							} else {
 								passingUAs.push(job.browserName+'/'+job.version);

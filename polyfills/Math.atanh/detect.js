@@ -1,1 +1,1 @@
-Math.atanh
+'atanh' in Math

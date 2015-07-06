@@ -1,1 +1,1 @@
-Object.getPrototypeOf
+'getPrototypeOf' in Object

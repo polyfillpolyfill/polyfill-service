@@ -1,12 +1,13 @@
-var fs = require('fs'),
-	path = require('path'),
-	request = require('request-promise'),
-	Handlebars = require('handlebars'),
-	Moment = require('moment'),
-	sources = require('../lib/sources');
+var fs = require('fs');
+var path = require('path');
+var request = require('request-promise');
+var Handlebars = require('handlebars');
+var moment = require('moment');
+var sources = require('../lib/sources');
+var marked = require('marked');
 
-var cache = {},
-	cachettl = 1800;
+var cache = {};
+var cachettl = 1800;
 
 // Pre-cache page templates and partials
 var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
@@ -23,10 +24,10 @@ var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].
 
 // Register template helpers
 Handlebars.registerHelper("prettifyDate", function(timestamp) {
-     return Moment(timestamp*1000).format("D MMM YYYY HH:mm");
+     return moment(timestamp*1000).format("D MMM YYYY HH:mm");
 });
 Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return Moment.duration(seconds*1000).humanize();
+     return seconds ? moment.duration(seconds*1000).humanize() : 'None';
 });
 Handlebars.registerHelper('sectionHighlight', function(section, options) {
 	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
@@ -41,18 +42,22 @@ Handlebars.registerHelper('dispBytes', function(bytes) {
 
 	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
 });
+Handlebars.registerHelper('lower', function(str) {
+	return str.toLowerCase();
+});
 
 
 function getData(type) {
 	var handlers = {
 		fastly: function() {
+			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
 			return request({
 				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 			}).then(function (response) {
-				var byhour = [], rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				data = (response && JSON.parse(response)) || {data:[]};
-				byhour = data.data.map(function(result) {
+				var rollup = {requests:0, hits:0, miss:0, bandwidth:0};
+				var data = (response && JSON.parse(response)) || {data:[]};
+				var byhour = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
@@ -63,6 +68,7 @@ function getData(type) {
 			});
 		},
 		respTimes: function() {
+			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
 			var to = ((new Date()).getTime()/1000) - 3600;
 			var from = to - (60*60*24*7);
 			return request({
@@ -76,33 +82,46 @@ function getData(type) {
 					pass: process.env.PINGDOM_PASSWORD
 				}
 			}).then(function (response) {
-				data = (response && JSON.parse(response)) || [];
-				if (!data.summary) data = {summary:{hours:[]}};
+				var data = (response && JSON.parse(response)) || [];
+				if (!data.summary) {
+					data = {summary:{hours:[]}};
+				}
 				return data.summary.hours.map(function(result) {
 					return {date: result.starttime, respTime: result.avgresponse};
 				});
 			});
 		},
 		outages: function() {
-			var to = ((new Date()).getTime()/1000) - 3600;
-			var from = to - (60*60*24*365*5);
-			return request({
-				url: 'https://api.pingdom.com/api/2.0/summary.outage/' + process.env.PINGDOM_CHECK_ID + '?from='+from+'&to='+to+'&order=desc',
-				headers: {
-					'app-key': process.env.PINGDOM_API_KEY,
-					'Account-Email': process.env.PINGDOM_ACCOUNT
-				},
-				auth: {
-					user: process.env.PINGDOM_USERNAME,
-					pass: process.env.PINGDOM_PASSWORD
-				}
-			}).then(function (response) {
-				data = (response && JSON.parse(response)) || {summary:{states:[]}};
-				return data.summary.states.filter(function(result) {
-					return (result.status !== 'unknown');
-				}).map(function(result) {
-					return {date:result.timefrom, status: result.status.toUpperCase(), duration: result.timeto-result.timefrom};
-				}).slice(0,5);
+			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
+			var data = {};
+			var periods = {
+				"30d": 60*60*24*30,
+				"3m": (60*60*24*365) / 4,
+				"12m": (60*60*24*365)
+			}
+			var end = ((new Date()).getTime()/1000) - 3600;  // Ignore the last hour (Pingdom data processing delay)
+			return Promise.all(Object.keys(periods).map(function(period) {
+				var start = end - periods[period];
+				return request({
+					url: 'https://api.pingdom.com/api/2.0/summary.average/' + process.env.PINGDOM_CHECK_ID + '?from='+start+'&to='+end+'&includeuptime=true',
+					headers: {
+						'app-key': process.env.PINGDOM_API_KEY,
+						'Account-Email': process.env.PINGDOM_ACCOUNT
+					},
+					auth: {
+						user: process.env.PINGDOM_USERNAME,
+						pass: process.env.PINGDOM_PASSWORD
+					}
+				}).then(function (response) {
+					response = JSON.parse(response);
+					console.log(response);
+					data[period] = response.summary.status.totaldown;
+				});
+			})).then(function() {
+				console.log(data);
+				return data;
+			}).catch(function(e) {
+				console.log('error', e);
 			});
 		},
 		sizes: function() {
@@ -135,7 +154,9 @@ function getData(type) {
 			return Promise.all(sizes.map(function(item) {
 				return new Promise(function(resolve, reject) {
 					zlib.gzip(item.minsrc, function(err, gzipsrc) {
-						if (!err) item.gzipbytes = gzipsrc.length;
+						if (!err) {
+							item.gzipbytes = gzipsrc.length;
+						}
 						resolve(item);
 					});
 				});
@@ -147,7 +168,11 @@ function getData(type) {
 		return cache[type].promise;
 	} else {
 		cache[type] = {creationTime: (new Date()).getTime()};
-		return cache[type].promise = handlers[type]();
+		try {
+			return cache[type].promise = handlers[type]();
+		} catch(err) {
+			return cache[type].promise = Promise.reject(err.toString());
+		};
 	}
 }
 
@@ -159,29 +184,39 @@ function getCompat() {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
-	}
+	};
 	return Object.keys(data)
 		.filter(function(feature) {
-			return sourceslib.polyfillExists(feature);
+			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0;
 		})
 		.sort()
 		.map(function(feat) {
 			var polyfill = sourceslib.getPolyfill(feat);
 			var fdata = {
 				feature: feat,
+				slug: feat.replace(/\./g, '_'),
 				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-					return Math.max(size, polyfill.variants[variantName].minGatedSource.length);
+					return Math.max(size, polyfill.variants[variantName].minSource.length);
 				}, 0),
 				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-				hasTests: polyfill.hasTests
+				hasTests: polyfill.hasTests,
+				docs: polyfill.docs,
+				spec: polyfill.spec,
+				notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+				license: polyfill.variants.default.license,
+				licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
 			};
 			browsers.forEach(function(browser) {
 				if (data[feat][browser]) {
 					fdata[browser] = [];
 					Object.keys(data[feat][browser]).sort(function(a, b) {
-						if (isNaN(a)) return 1;
-						if (isNaN(b)) return -1;
-						return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						if (isNaN(a)) {
+							return 1;
+						} else if (isNaN(b)) {
+							return -1;
+						} else {
+							return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+						}
 					}).forEach(function(version) {
 						fdata[browser].push({
 							status: data[feat][browser][version],
@@ -192,7 +227,7 @@ function getCompat() {
 				}
 			});
 			return fdata;
-		});
+		})
 	;
 }
 
@@ -204,7 +239,9 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v1/docs/".length) return res.redirect('/v1/docs/');
+	if (req.path.length < "/v1/docs/".length) {
+		return res.redirect('/v1/docs/');
+	}
 
 	if (!req.params || !req.params[0]) {
 		res.send(templates.index({section: 'index'}));
@@ -217,15 +254,21 @@ function route(req, res, next) {
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
+			console.log(outages);
 			res.send(templates.usage({
 				section: 'usage',
 				requestsData: fastly.byhour,
-				outages: outages,
+				downtime: outages,
 				respTimes: respTimes,
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}));
-		})).catch(console.error);
+		})).catch(function(rejectReason) {
+			res.send(templates.usage({
+				section: 'usage',
+				msg: rejectReason.toString()
+			}));
+		});
 
 	} else if (req.params[0] === 'features') {
 		getData('sizes').then(function(sizes) {

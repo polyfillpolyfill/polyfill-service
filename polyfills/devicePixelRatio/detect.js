@@ -1,1 +1,1 @@
-'devicePixelRatio' in window
+'devicePixelRatio' in this

@@ -41,5 +41,7 @@
 				"ios_saf": "*"
 			}
 		}
-	}
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/matches",
+	"spec": "http://dom.spec.whatwg.org/#dom-element-matches"
 }

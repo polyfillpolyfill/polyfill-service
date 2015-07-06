@@ -1,4 +1,4 @@
-Array.from && (function () {
+'from' in Array && (function () {
 	try {
 		Array.from({ length: -Infinity });
 

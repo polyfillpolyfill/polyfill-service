@@ -1,0 +1,21 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "3.6 - *",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "6 - *",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "4 - *"
+	},
+	"dependencies": [
+		"Document",
+		"Element",
+		"Text",
+		"_mutation"
+	],
+	"spec": "http://dom.spec.whatwg.org/#dom-childnode-replacewith"
+}

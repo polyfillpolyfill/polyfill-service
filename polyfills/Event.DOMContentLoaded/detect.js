@@ -1,1 +1,1 @@
-'addEventListener' in window
+'addEventListener' in this

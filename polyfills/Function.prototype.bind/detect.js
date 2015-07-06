@@ -1,1 +1,1 @@
-Function.prototype.bind
+'bind' in Function.prototype

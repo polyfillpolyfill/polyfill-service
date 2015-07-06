@@ -1,0 +1,11 @@
+/node_modules
+/npm-debug.log
+/polyfills/__repo
+/polyfills/__versions
+/polyfills/*/**
+/test/results
+/.env.json
+/.haikro-cache
+/node-*
+/service-process.pid
+.DS_Store

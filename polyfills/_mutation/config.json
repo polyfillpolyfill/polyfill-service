@@ -1,0 +1,19 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*"
+	},
+	"dependencies": [
+		"Document",
+		"Element",
+		"Text"
+	]
+}

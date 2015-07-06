@@ -3,25 +3,25 @@
 [![Build
 Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master)](https://travis-ci.org/Financial-Times/polyfill-service)
 
-**polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](http://polyfill.webservices.ft.com), which formats and displays the service API documentation located in the [docs](docs/) folder.
+Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](https://cdn.polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
 ## Installing as a service
 
-To install polyfill as a service:
-
 1. Install [git](http://git-scm.com/downloads) and [Node](http://nodejs.org) on your system
 2. Clone this repository to your system (`git clone git@github.com:Financial-Times/polyfill-service.git`)
-3. Run `npm install`
+3. Run `npm install` (this will also run `grunt build` which you will need to do again if you edit any polyfills)
 
 To run the app for **development**:
 
-Install [nodemon](http://nodemon.io/), and run `nodemon -e js,json service/index.js` from the root of the working tree.  This will watch your filesystem and automatically restart if you make any changes to any of the app source code or polyfill config files.
+Run `grunt dev` from the root of the working tree.  This will watch your filesystem and automatically rebuild sources and restart if you make any changes to any of the app source code or polyfills.  If you change the docs, library or service (`docs`, `lib` and `service` directories) the service will be restarted.  If you change the polyfills or polyfill configs (`polyfills` directory), the polyfill sources will be recompiled before the service restarts, which makes the restart slightly slower.
+
+By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  If you want to run the service with the historic polyfill collections installed, run `grunt installcollections buildsources service watch` instead.
 
 To run the app for **production**:
 
-Run `npm start`.  This will run the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
+Run `npm start`.  This will start the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
 
-In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser
+In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser (you can configure the port, see environment configuration below).
 
 Alternatively, deploy straight to Heroku:
 
@@ -29,12 +29,26 @@ Alternatively, deploy straight to Heroku:
 
 For an HTTP API reference, see the [hosted service documentation](http://polyfill.webservices.ft.com).
 
+### Environment configuration
+
+The service reads a number of environment variables when started as a service, all of which are optional:
+
+* `PORT`: The port on which to listen for HTTP requests (default 3000)
+* `FASTLY_SERVICE_ID`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
+* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [Usage](https://cdn.polyfill.io/v1/docs/usage) page of the hosted documentation.  If not specified, no stats will be shown.
+* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
+* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: Sauce Labs credentials for grunt test tasks (not used by the service itself)
+
+When running a grunt task, including running the service via `grunt dev` or `grunt service`, you can optionally read environment config from a file called `.env.json` in the root of the working tree.  This is a convenient way of maintaining the environment config that you need for development.  The `.env.json` file is gitignored so will not be accidentally committed.
+
+
 ## Using as a library
 
 Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 1. Add this repo as a dependency in your package.json
-   e.g. `npm install "Financial-Times/polyfill-service" --save-dev`
+   e.g. `npm install polyfill-service --save`
 2. Rebuild your project using `npm install`
 3. Use the API from your code
 
@@ -46,9 +60,10 @@ Returns a bundle of polyfills as a string.  Options is an object with the follow
 
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
-* `type`: String, optional. 'js' or 'css', defaults to js
-* `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, all default features will be considered. Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
+* `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, no features will be considered and the output will be blank. To load the default feature set, set features to `{default:{}}`.  Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
+* `libVersion`: String, optional. Version of the polyfill collection to use. Accepts any valid semver expression.  This is useful if you wish to synronise releases in the polyfill service with your own release process, to ensure that incompatibilities cannot cause errors in your applications without warning.  Intended for when deployed as a service.  Not generally useful in a library context.
+* `unknown`: String, optional. What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Defaults to `ignore`.
 
 Flags that may be applied to polyfills are:
 

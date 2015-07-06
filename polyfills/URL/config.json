@@ -1,0 +1,18 @@
+{
+	"browsers": {
+		"chrome" : "5 - *",
+		"firefox": "4 - 29",
+		"ie"     : ">=8",
+		"opera"  : "11.60 - *",
+		"safari" : "5.1 - *"
+	},
+
+	"dependencies": [
+		"Object.defineProperties",
+		"Array.prototype.forEach"
+	],
+
+	"license": "CC0",
+	"repo" : "https://github.com/inexorabletash/polyfill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
+}

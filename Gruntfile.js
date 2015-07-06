@@ -1,8 +1,23 @@
+'use strict';
+
+require('es6-promise').polyfill();
+
+var ENV = process.env;
+
+var fs = require('fs');
+if (fs.existsSync('./.env.json')) {
+	var environmentOverrides = require('./.env.json');
+	ENV = require('lodash').extend(ENV, environmentOverrides);
+}
+
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-
+		"clean": {
+			repo: ['polyfills/__repo'],
+			versions: ['polyfills/__versions']
+		},
 		"simplemocha": {
 			options: {
 				globals: ['should'],
@@ -22,7 +37,7 @@ module.exports = function(grunt) {
 						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
 						native: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
-					browsers: browserList
+					browsers: browsers.full
 				}
 			},
 			ci: {
@@ -31,7 +46,7 @@ module.exports = function(grunt) {
 					urls: {
 						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
-					browsers: browserList
+					browsers: browsers.ci
 				}
 			},
 			quick: {
@@ -40,171 +55,129 @@ module.exports = function(grunt) {
 					urls: {
 						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
-					browsers: 	[
-						{
-							browserName: 'chrome',
-							version: 'beta',
-							platform: 'Windows 7'
-						},
-						{
-							browserName: 'internet explorer',
-							version: '6',
-							platform: 'Windows XP'
-						}
-					]
+					browsers: browsers.quick
+				}
+			}
+		},
+		"watch": {
+			options: {
+				spawn: false
+			},
+			js: {
+				files: ['!*', 'docs/**/*', 'service/**/*', 'lib/**/*'],
+				tasks: ['service:polyfillservice:restart']
+			},
+			polyfills: {
+				files: ['!*', 'polyfills/**/*', '!polyfills/__versions/**', '!polyfills/*.json'],
+				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
+			}
+		},
+		"service": {
+			polyfillservice: {
+				shellCommand: process.argv[0] + ' ' + __dirname + '/service/index.js',
+				pidFile: __dirname + '/service-process.pid',
+				generatePID: true,
+				options: {
+					env: ENV,
+					cwd: __dirname,
+					failOnError: true
 				}
 			}
 		}
 	});
 
 	grunt.loadTasks('tasks');
-
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
+		"buildsources",
 		"simplemocha",
-		"polyfillservice",
+		"service",
 		"saucelabs:quick",
+		"service:polyfillservice:stop"
 	]);
 
 	grunt.registerTask("compatgen", [
+		"buildsources",
 		"simplemocha",
-		"polyfillservice",
+		"service",
 		"saucelabs:compat",
-		"compattable"
+		"compattable",
+		"service:polyfillservice:stop"
 	]);
 
 	grunt.registerTask("ci", [
+		"buildsources",
 		"simplemocha",
-		"polyfillservice",
-		"saucelabs:ci"
+		"service",
+		"saucelabs:ci",
+		"service:polyfillservice:stop"
 	]);
 
-	grunt.registerTask("deploy", [
-		'installcollections',
-		'shipit'
+	grunt.registerTask("build", [
+		"clean",
+		"installcollections",
+		"buildsources",
+		"clean:repo"
+	]);
+
+	grunt.registerTask('dev', [
+		"clean",
+		"buildsources",
+		"service",
+		"watch"
 	]);
 };
 
-var browserList = [
-	{
-		browserName: 'chrome',
-		version: '39',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'chrome',
-		version: '38',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'chrome',
-		version: '34',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'chrome',
-		version: '26',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'firefox',
-		version: '34',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '33',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '29',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '20',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'firefox',
-		version: '3.6',
-		platform: 'Linux'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '6',
-		platform: 'Windows XP'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '7',
-		platform: 'Windows XP'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '8',
-		platform: 'Windows XP'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '9',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '10',
-		platform: 'Windows 7'
-	},
-	{
-		browserName: 'internet explorer',
-		version: '11',
-		platform: 'Windows 8.1'
-	},
-	{
-		browserName: 'iphone',
-		version: '7.1',
-		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'safari',
-		version: '5',
-		platform: 'OSX 10.6'
-	},
-	{
-		browserName: 'safari',
-		version: '6',
-		platform: 'OSX 10.8'
-	},
-	{
-		browserName: 'safari',
-		version: '7',
-		platform: 'OSX 10.9'
-	},
-	{
-		browserName: 'android',
-		version: '4.4',
-		platform: 'linux'
-	},
-	{
-		browserName: 'android',
-		version: '4.3',
-		platform: 'linux'
-	},
-	{
-		browserName: 'android',
-		version: '4.2',
-		platform: 'linux'
-	},
-	{
-		browserName: 'android',
-		version: '4.1',
-		platform: 'linux'
-	},
-	{
-		browserName: 'android',
-		version: '4.0',
-		platform: 'linux'
-	}
-];
+var browsers = {
+	quick: [
+		['chrome', '39', 'Windows 7'],
+		['firefox', '34', 'Linux'],
+		['internet explorer', '7', 'Windows XP'],
+		['internet explorer', '11', 'Windows 8.1'],
+	],
+	ci: [
+		['chrome', '39', 'Windows 7'],
+		['chrome', '26', 'Windows 7'],
+		['firefox', '34', 'Linux'],
+		['firefox', '20', 'Linux'],
+		['firefox', '3.6', 'Linux'],
+		['internet explorer', '6', 'Windows XP'],
+		['internet explorer', '7', 'Windows XP'],
+		['internet explorer', '8', 'Windows XP'],
+		['internet explorer', '9', 'Windows 7'],
+		['internet explorer', '10', 'Windows 7'],
+		['internet explorer', '11', 'Windows 8.1'],
+		['safari', '5', 'OSX 10.6'],
+		['safari', '7', 'OSX 10.9'],
+		['android', '4.4', 'linux'],
+		['android', '4.0', 'linux']
+	],
+	full: [
+		['chrome', '39', 'Windows 7'],
+		['chrome', '38', 'Windows 7'],
+		['chrome', '34', 'Windows 7'],
+		['chrome', '26', 'Windows 7'],
+		['firefox', '34', 'Linux'],
+		['firefox', '33', 'Linux'],
+		['firefox', '29', 'Linux'],
+		['firefox', '20', 'Linux'],
+		['firefox', '3.6', 'Linux'],
+		['internet explorer', '6', 'Windows XP'],
+		['internet explorer', '7', 'Windows XP'],
+		['internet explorer', '8', 'Windows XP'],
+		['internet explorer', '9', 'Windows 7'],
+		['internet explorer', '10', 'Windows 7'],
+		['internet explorer', '11', 'Windows 8.1'],
+		['safari', '5', 'OSX 10.6'],
+		['safari', '6', 'OSX 10.8'],
+		['safari', '7', 'OSX 10.9'],
+		['android', '4.4', 'linux'],
+		['android', '4.3', 'linux'],
+		['android', '4.2', 'linux'],
+		['android', '4.1', 'linux'],
+		['android', '4.0', 'linux']
+	]
+};

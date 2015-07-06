@@ -17,7 +17,6 @@ function createEndpoint(type, polyfillio) {
 		var mode = req.query.mode  || 'all';
 		var polyfilldata = [];
 		var uaString = req.query.ua || req.header('user-agent');
-		var features = [];
 
 		// Get the feature set for this test runner.  If in 'targeted' mode, allow filtering on UA, else force the feature to be included
 		var features = {};
@@ -28,10 +27,9 @@ function createEndpoint(type, polyfillio) {
 		});
 
 		// If in targeted mode, reduce the set of features to those for which polyfills are available, otherwise pretend all of them apply
+		var targeted = features;
 		if (mode === 'targeted') {
 			targeted = polyfillio.getPolyfills({ uaString: uaString, features: require('util')._extend({}, features) });
-		} else {
-			targeted = features;
 		}
 
 		Object.keys(features).forEach(function(featureName) {
@@ -39,7 +37,7 @@ function createEndpoint(type, polyfillio) {
 			var detectFile = path.join(polyfillPath, '/detect.js');
 			var testFile = path.join(polyfillPath, '/tests.js');
 
-			if (targeted[featureName]) {
+			if (targeted[featureName] && featureName.indexOf('_') !== 0) {
 				polyfilldata.push({
 					feature: featureName,
 					detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,

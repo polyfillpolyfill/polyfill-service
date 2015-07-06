@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"caniuse:matchmedia"
+		"caniuse:matchmedia",
+		"modernizr:matchmedia"
 	],
 	"browsers": {
 		"android": "2.1 - 2.3",
@@ -13,5 +14,7 @@
 	},
 	"dependencies": [
 		"Event"
-	]
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia",
+	"spec": "http://dev.w3.org/csswg/cssom-view/#the-mediaquerylist-interface"
 }

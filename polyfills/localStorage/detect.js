@@ -1,1 +1,1 @@
-window.localStorage
+'localStorage' in this

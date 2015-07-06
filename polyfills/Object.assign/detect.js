@@ -1,1 +1,1 @@
-Object.assign
+'assign' in Object

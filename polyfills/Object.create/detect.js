@@ -1,1 +1,1 @@
-Object.create
+'create' in Object

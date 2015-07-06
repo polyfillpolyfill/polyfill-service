@@ -15,5 +15,7 @@
 		"op_mini": "*",
 		"safari": "4 - 7"
 	},
-	"esversion": 6
+	"esversion": 6,
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acosh",
+	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.acosh"
 }

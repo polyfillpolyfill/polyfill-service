@@ -1,1 +1,1 @@
-Math.log2
+'log2' in Math
