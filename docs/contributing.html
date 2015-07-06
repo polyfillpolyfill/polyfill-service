@@ -41,7 +41,11 @@
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
 			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
-			<li><code>build</code>: Obect, mapping build properties to values. There currently is one build key in use; <code>minify</code>. <code>minify</code> is a boolean that represents whether the source polyfill has already been minified.</li>
+			<li><code>build</code>: Object, used to specify how the polyfill should be built.
+				<ul>
+					<li><code>minify</code>: is a boolean that represents whether the source polyfill has already been minified.</li>
+				</ul>
+			</li>
 		</ul>
 
 		<p>Where a config file contains <code>browsers</code>, <code>license</code>, <code>dependencies</code> or <code>repo</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
