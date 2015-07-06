@@ -11,7 +11,7 @@ it('should have Symbol as the constructor property on the prototype', function()
 });
 
 it('should silently fail when assigning new properties', function (){
-	const a = Symbol('a');
+	const a = Symbol("1");
 	a.b = '1';
 	expect(a.b).to.be.undefined;
 });
@@ -25,7 +25,7 @@ it('should return "[object Symbol]" when called with Object.prototype.toString()
 });
 
 it('should silently fail when overwriting properties', function() {
-	var sym = Symbol('66');
+	var sym = Symbol("2");
 	sym.toString = 0;
 	expect(sym.toString).to.be.a(Function)
 	sym.valueOf = 0;
@@ -33,7 +33,7 @@ it('should silently fail when overwriting properties', function() {
 });
 
 it('should create unique symbols', function() {
-	expect(Symbol('a')).to.not.equal(Symbol('a'))
+	expect(Symbol("3")).to.not.equal(Symbol("3"))
 });
 
 it('has for, and keyFor static methods', function() {
@@ -61,7 +61,7 @@ it('Symbol.keyFor should throw if not given a symbol', function() {
 		return Symbol.keyFor(undefined);
 	}
 	var symbolKeyFor = function() {
-		return Symbol.keyFor(Symbol('a'));
+		return Symbol.keyFor(Symbol("4");
 	}
 
 	expect(stringKeyFor).to.throwError();
@@ -74,27 +74,27 @@ it('Symbol.keyFor should throw if not given a symbol', function() {
 });
 
 it('Symbol.keyFor should return undefined if can not find symbol in global registry', function() {
-	expect(Symbol.keyFor(Symbol('a'))).to.be.undefined;
+	expect(Symbol.keyFor(Symbol("5"))).to.be.undefined;
 });
 
 it('Symbol() should not add the symbol to the global registry', function() {
-	var sym = Symbol('a');
+	var sym = Symbol("6");
 	expect(Symbol.keyFor(sym)).to.be.undefined;
 });
 
 it('Symbol.for should create new symbol if can not find symbol in global registry', function() {
-	var sym1 = Symbol('a');
-	var sym2 = Symbol.for('a');
+	var sym1 = Symbol("7");
+	var sym2 = Symbol.for("7");
 	expect(sym1).to.not.equal(sym2);
 });
 
 it('Symbol.for should return symbol if can find symbol in global registry', function() {
-	var sym = Symbol.for('a');
-	expect(sym).to.equal(Symbol.for('a'));
+	var sym = Symbol.for("8");
+	expect(sym).to.equal(Symbol.for("8"));
 });
 
 it('Symbol.keyFor should return key of symbol if can find symbol in global registry', function() {
-	var key = 'a'
+	var key = "9"
 	var sym = Symbol.for(key);
 	expect(Symbol.keyFor(sym)).to.be(key);
 });
