@@ -13,7 +13,7 @@ it("Should create inherited object", function() {
 });
 
 it("Should create inherited object from a Native Object", function() {
-	var parent = Element;
+	var parent = document;
 	var child = Object.create(parent);
 
 	expect(typeof child).to.be('object');
