@@ -104,19 +104,50 @@ it('has toString and valueOf instance methods', function() {
 	expect(Symbol.prototype['valueOf']).to.be.a(Function);
 });
 
-it('has the well known symbols as static properties on Symbol', function() {
+it('has the well known symbol hasInstance as static properties on Symbol', function() {
 	expect(Symbol.hasInstance).to.be.a('symbol');
+});
+
+it('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
 	expect(Symbol.isConcatSpreadable).to.be.a('symbol');
+});
+
+it('has the well known symbol iterator as static properties on Symbol', function() {
 	expect(Symbol.iterator).to.be.a('symbol');
+});
+
+it('has the well known symbol match as static properties on Symbol', function() {
 	expect(Symbol.match).to.be.a('symbol');
+});
+
+it('has the well known symbol replace as static properties on Symbol', function() {
 	expect(Symbol.replace).to.be.a('symbol');
+});
+
+it('has the well known symbol search as static properties on Symbol', function() {
 	expect(Symbol.search).to.be.a('symbol');
+});
+
+it('has the well known symbol species as static properties on Symbol', function() {
 	expect(Symbol.species).to.be.a('symbol');
+});
+
+it('has the well known symbol split as static properties on Symbol', function() {
 	expect(Symbol.split).to.be.a('symbol');
+});
+
+it('has the well known symbol toPrimitive as static properties on Symbol', function() {
 	expect(Symbol.toPrimitive).to.be.a('symbol');
+});
+
+it('has the well known symbol toStringTag as static properties on Symbol', function() {
 	expect(Symbol.toStringTag).to.be.a('symbol');
+});
+
+it('has the well known symbol unscopables as static properties on Symbol', function() {
 	expect(Symbol.unscopables).to.be.a('symbol');
 });
+
 
 // https://kangax.github.io/compat-table/es6/#Symbol_symbol_keys_are_hidden_to_pre-ES6_code
 it('should make symbols non-enumerable', function() {
