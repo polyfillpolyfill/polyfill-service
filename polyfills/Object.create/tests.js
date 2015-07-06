@@ -12,6 +12,16 @@ it("Should create inherited object", function() {
 	expect(child.obj).to.be(parent.obj);
 });
 
+it("Should create inherited object from a Native Object", function() {
+	var parent = document;
+	var child = Object.create(parent);
+
+	expect(typeof child).to.be('object');
+	expect(parent).to.not.be(child);
+	expect(child.window).to.be(parent.window);
+	expect(child.ELEMENT_NODE).to.be(parent.ELEMENT_NODE);
+});
+
 it("Should throw a TypeError if called with undefined", function() {
 	expect(function() { Object.create(undefined); }).to.throwException(assertTypeError);
 });
@@ -32,11 +42,20 @@ it("Should return an instance of Object", function() {
 	expect(Object.create({})).to.be.an(Object);
 });
 
-it("Should set the prototype of the passed-in object and add new properties", function() {
+it("Should set the prototype of the passed-in object", function() {
 	function Base() {}
 
 	var
 	supportsProto = ''.__proto__ === String.prototype,
+	b = new Base(),
+	bb = Object.create(b);
+
+	expect(supportsProto ? bb.__proto__ : bb.constructor.prototype).to.be(b);
+});
+it("Should allow additional properties to be defined", function() {
+	function Base() {}
+
+	var
 	b = new Base(),
 	bb = Object.create(b, {
 		x: {
@@ -49,7 +68,6 @@ it("Should set the prototype of the passed-in object and add new properties", fu
 		}
 	});
 
-	expect(supportsProto ? bb.__proto__ : bb.constructor.prototype).to.be(b);
 	expect(bb.x).to.be(true);
 	expect(bb.y).to.be("str");
 	expect(b.x).to.be(undefined);
