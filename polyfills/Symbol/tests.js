@@ -61,7 +61,7 @@ it('Symbol.keyFor should throw if not given a symbol', function() {
 		return Symbol.keyFor(undefined);
 	}
 	var symbolKeyFor = function() {
-		return Symbol.keyFor(Symbol("4");
+		return Symbol.keyFor(Symbol("4"));
 	}
 
 	expect(stringKeyFor).to.throwError();
@@ -163,3 +163,17 @@ it('should make symbols non-enumerable', function() {
 	expect(Object.getOwnPropertyNames(object).length).to.be(0);
 });
 
+it('should perform correctly with toString operations', function() {
+	expect(String(Symbol('10'))).to.be('Symbol(10)');
+	expect(Symbol('10').toString()).to.be('Symbol(10)');
+	expect(Object(Symbol('10')).toString()).to.be('Symbol(10)');
+	expect(Symbol.prototype.toString.call(Symbol('10'))).to.be('Symbol(10)');
+});
+
+
+it('should not allow implicit string coercion', function() {
+	var implicitStringCoercion = function() {
+		return Symbol('10') + '';
+	}
+	expect(implicitStringCoercion).to.throwError();
+})
