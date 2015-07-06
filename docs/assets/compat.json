@@ -801,6 +801,41 @@
       "4.0": "native"
     }
   },
+  "Object.prototype.toString": {
+    "firefox": {
+      "20": "native",
+      "29": "native",
+      "33": "native",
+      "34": "native",
+      "3.6": "polyfilled"
+    },
+    "chrome": {
+      "26": "native",
+      "34": "native",
+      "38": "native",
+      "39": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "native",
+      "10": "native",
+      "11": "native"
+    },
+    "safari": {
+      "5": "native",
+      "6": "native",
+      "7": "native"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "native",
+      "4.2": "native",
+      "4.1": "native",
+      "4.0": "native"
+    }
+  },
   "Node.prototype.contains": {
     "firefox": {
       "20": "native",

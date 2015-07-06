@@ -1,0 +1,16 @@
+{
+    "aliases": [
+        "es5",
+        "modernizr:es5object",
+        "default"
+    ],
+    "browsers": {
+        "ie": "6 - 8",
+        "safari": "4",
+        "chrome": "<5",
+        "opera": "<12",
+        "firefox": "<4"
+    },
+    "spec": "http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.4.2",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString"
+}
