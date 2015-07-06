@@ -8,9 +8,13 @@
 		"android": "*",
 		"chrome": "*",
 		"firefox": "*",
-		"ie": "9 - *",
-		"ios": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"ios_saf": "*",
 		"opera": "*",
+		"op_mob": "*",
+		"op_mini": "*",
+		"bb": "*",
 		"safari": "*"
 	},
 	"variants": {
