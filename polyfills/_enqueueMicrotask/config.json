@@ -8,7 +8,7 @@
 		"android": "*",
 		"chrome": "*",
 		"firefox": "*",
-		"ie": "*",
+		"ie": "9 - *",
 		"ie_mob": "*",
 		"ios_saf": "*",
 		"opera": "*",
