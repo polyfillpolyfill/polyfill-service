@@ -105,47 +105,47 @@ it('has toString and valueOf instance methods', function() {
 });
 
 it('has the well known symbol hasInstance as static properties on Symbol', function() {
-	expect(Symbol.hasInstance).to.be.a('symbol');
+	expect(Symbol.hasInstance).to.not.be.undefined;
 });
 
 it('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
-	expect(Symbol.isConcatSpreadable).to.be.a('symbol');
+	expect(Symbol.isConcatSpreadable).to.not.be.undefined;
 });
 
 it('has the well known symbol iterator as static properties on Symbol', function() {
-	expect(Symbol.iterator).to.be.a('symbol');
+	expect(Symbol.iterator).to.not.be.undefined;
 });
 
 it('has the well known symbol match as static properties on Symbol', function() {
-	expect(Symbol.match).to.be.a('symbol');
+	expect(Symbol.match).to.not.be.undefined;
 });
 
 it('has the well known symbol replace as static properties on Symbol', function() {
-	expect(Symbol.replace).to.be.a('symbol');
+	expect(Symbol.replace).to.not.be.undefined;
 });
 
 it('has the well known symbol search as static properties on Symbol', function() {
-	expect(Symbol.search).to.be.a('symbol');
+	expect(Symbol.search).to.not.be.undefined;
 });
 
 it('has the well known symbol species as static properties on Symbol', function() {
-	expect(Symbol.species).to.be.a('symbol');
+	expect(Symbol.species).to.not.be.undefined;
 });
 
 it('has the well known symbol split as static properties on Symbol', function() {
-	expect(Symbol.split).to.be.a('symbol');
+	expect(Symbol.split).to.not.be.undefined;
 });
 
 it('has the well known symbol toPrimitive as static properties on Symbol', function() {
-	expect(Symbol.toPrimitive).to.be.a('symbol');
+	expect(Symbol.toPrimitive).to.not.be.undefined;
 });
 
 it('has the well known symbol toStringTag as static properties on Symbol', function() {
-	expect(Symbol.toStringTag).to.be.a('symbol');
+	expect(Symbol.toStringTag).to.not.be.undefined;
 });
 
 it('has the well known symbol unscopables as static properties on Symbol', function() {
-	expect(Symbol.unscopables).to.be.a('symbol');
+	expect(Symbol.unscopables).to.not.be.undefined;
 });
 
 
