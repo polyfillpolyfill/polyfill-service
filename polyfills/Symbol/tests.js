@@ -106,94 +106,91 @@ it('has toString and valueOf instance methods', function() {
 
 it('has the well known symbol hasInstance as static properties on Symbol', function() {
 	expect(Symbol.hasInstance).to.not.be.undefined;
+	const hasInstance = Symbol.hasInstance;
+	Symbol.hasInstance = "nope";
+	expect(Symbol.hasInstance).to.be(hasInstance);
 });
 
 it('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
 	expect(Symbol.isConcatSpreadable).to.not.be.undefined;
-});
-
-it('has the well known symbol iterator as static properties on Symbol', function() {
-	expect(Symbol.iterator).to.not.be.undefined;
-});
-
-it('has the well known symbol match as static properties on Symbol', function() {
-	expect(Symbol.match).to.not.be.undefined;
-});
-
-it('has the well known symbol replace as static properties on Symbol', function() {
-	expect(Symbol.replace).to.not.be.undefined;
-});
-
-it('has the well known symbol search as static properties on Symbol', function() {
-	expect(Symbol.search).to.not.be.undefined;
-});
-
-it('has the well known symbol species as static properties on Symbol', function() {
-	expect(Symbol.species).to.not.be.undefined;
-});
-
-it('has the well known symbol split as static properties on Symbol', function() {
-	expect(Symbol.split).to.not.be.undefined;
-});
-
-it('has the well known symbol toPrimitive as static properties on Symbol', function() {
-	expect(Symbol.toPrimitive).to.not.be.undefined;
-});
-
-it('has the well known symbol toStringTag as static properties on Symbol', function() {
-	expect(Symbol.toStringTag).to.not.be.undefined;
-});
-
-it('has the well known symbol unscopables as static properties on Symbol', function() {
-	expect(Symbol.unscopables).to.not.be.undefined;
-});
-
-it('silently fails when trying to reassign over a well known symbol', function() {
-	const hasInstance = Symbol.hasInstance;
-	Symbol.hasInstance = "nope";
-	expect(Symbol.hasInstance).to.be(hasInstance);
 
 	const isConcatSpreadable = Symbol.isConcatSpreadable;
 	Symbol.isConcatSpreadable = "nope";
 	expect(Symbol.isConcatSpreadable).to.be(isConcatSpreadable);
+});
+
+it('has the well known symbol iterator as static properties on Symbol', function() {
+	expect(Symbol.iterator).to.not.be.undefined;
 
 	const iterator = Symbol.iterator;
 	Symbol.iterator = "nope";
 	expect(Symbol.iterator).to.be(iterator);
+});
+
+it('has the well known symbol match as static properties on Symbol', function() {
+	expect(Symbol.match).to.not.be.undefined;
 
 	const match = Symbol.match;
 	Symbol.match = "nope";
 	expect(Symbol.match).to.be(match);
+});
+
+it('has the well known symbol replace as static properties on Symbol', function() {
+	expect(Symbol.replace).to.not.be.undefined;
 
 	const replace = Symbol.replace;
 	Symbol.replace = "nope";
 	expect(Symbol.replace).to.be(replace);
+});
+
+it('has the well known symbol search as static properties on Symbol', function() {
+	expect(Symbol.search).to.not.be.undefined;
 
 	const search = Symbol.search;
 	Symbol.search = "nope";
 	expect(Symbol.search).to.be(search);
+});
+
+it('has the well known symbol species as static properties on Symbol', function() {
+	expect(Symbol.species).to.not.be.undefined;
 
 	const species = Symbol.species;
 	Symbol.species = "nope";
 	expect(Symbol.species).to.be(species);
+});
+
+it('has the well known symbol split as static properties on Symbol', function() {
+	expect(Symbol.split).to.not.be.undefined;
 
 	const split = Symbol.split;
 	Symbol.split = "nope";
 	expect(Symbol.split).to.be(split);
+});
+
+it('has the well known symbol toPrimitive as static properties on Symbol', function() {
+	expect(Symbol.toPrimitive).to.not.be.undefined;
 
 	const toPrimitive = Symbol.toPrimitive;
 	Symbol.toPrimitive = "nope";
 	expect(Symbol.toPrimitive).to.be(toPrimitive);
+});
+
+it('has the well known symbol toStringTag as static properties on Symbol', function() {
+	expect(Symbol.toStringTag).to.not.be.undefined;
 
 	const toStringTag = Symbol.toStringTag;
 	Symbol.toStringTag = "nope";
 	expect(Symbol.toStringTag).to.be(toStringTag);
+});
+
+it('has the well known symbol unscopables as static properties on Symbol', function() {
+	expect(Symbol.unscopables).to.not.be.undefined;
 
 	const unscopables = Symbol.unscopables;
 	Symbol.unscopables = "nope";
 	expect(Symbol.unscopables).to.be(unscopables);
-
 });
+
 
 // https://kangax.github.io/compat-table/es6/#Symbol_symbol_keys_are_hidden_to_pre-ES6_code
 it('should make symbols non-enumerable', function() {
