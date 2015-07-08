@@ -10,7 +10,7 @@ var metrics = require('./metrics');
 var fs = require('fs');
 var testing = require('./testing');
 var docs = require('./docs');
-var appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
+var appVersion = require('../package.json').version
 
 'use strict';
 
