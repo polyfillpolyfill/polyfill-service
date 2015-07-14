@@ -9,3 +9,6 @@ before_script:
   - npm install -g grunt-cli
 script:
   - npm run-script citest
+cache:
+  directories:
+    - node_modules
