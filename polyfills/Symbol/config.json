@@ -1,0 +1,15 @@
+{
+	"browsers": {
+		"ie": "*",
+		"safari": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_saf": "*",
+		"opera": "*"
+	},
+	"dependencies": [],
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol-objects",
+	"repo": "https://github.com/JakeChampion/core-js",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol"
+}
