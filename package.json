@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "batch": "^0.5.1",
+    "core-js": "jakechampion/core-js#temp",
     "grunt": "~0.4.0",
     "grunt-cli": "~0.1.6",
     "grunt-contrib-clean": "^0.6.0",
