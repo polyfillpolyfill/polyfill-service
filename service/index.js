@@ -29,7 +29,7 @@ var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
 // Default cache control policy
 app.use(function(req, res, next) {
-	res.set('Cache-Control', 'public, max-age=' + one_week);
+	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
 	return next();
