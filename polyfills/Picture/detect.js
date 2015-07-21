@@ -1,0 +1,1 @@
+'HTMLPictureElement' in window
