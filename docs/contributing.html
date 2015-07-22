@@ -84,8 +84,8 @@
 			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on `Object.defineProperty`, but *must not* embed a polyfill for it</li>
 		</ul></li>
 		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presense of a <code>repo</code> property in their config.  Third party polyfills:<ul>
-			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
 			<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
+			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
 			<li>may contain embedded polyfills for things for which we already have polyfills in the service, and in general, these should be left as they are in order to maintain sync with the upstream repo, even though we could make the polyfill smaller.  Ideally, we should encourage the polyfill author to remove the embedded dependencies;</li>
 			<li>may contain a feature detect.  Ideally they wouldn't, because the service will wrap the polyfill in a detect, but we'll tolerate a detect in order to maintain sync with the upstream source, provided that it is strict enough to fail in the case of broken implementations, as well as missing ones.</li>
 		</ul></li>
