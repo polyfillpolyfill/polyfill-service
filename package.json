@@ -2,6 +2,7 @@
   "name": "polyfill-service",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
+  "bin": "service/index.js",
   "contributors": [
     {
       "name": "Jonathan Neal",
@@ -22,10 +23,10 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
-    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
-    "stop": "forever stop --plain service/index.js",
-    "status": "forever list | grep -q service/index.js",
+    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
+    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
+    "stop": "forever stop --plain bin/polyfill-service",
+    "status": "forever list | grep bin/polyfill-service",
     "prepublish": "grunt build",
     "deploy": "grunt build && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
