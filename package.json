@@ -2,7 +2,7 @@
   "name": "polyfill-service",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
-  "bin": "service/index.js",
+  "bin": "bin/polyfill-service",
   "contributors": [
     {
       "name": "Jonathan Neal",
