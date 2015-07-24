@@ -33,7 +33,7 @@
     "test": "grunt test",
     "citest": "grunt ci --stack"
   },
-  "license": "CC0 1.0 Universal License",
+  "license": "CC0-1.0",
   "dependencies": {
     "babel-core": "^4.6.3",
     "caniuse-db": "1.0.20140710",
