@@ -84,8 +84,9 @@
 			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on `Object.defineProperty`, but *must not* embed a polyfill for it</li>
 		</ul></li>
 		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presense of a <code>repo</code> property in their config.  Third party polyfills:<ul>
-			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
 			<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
+			<li>should have an update task to check the source repo and update the polyfill service version</li>
+			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
 			<li>may contain embedded polyfills for things for which we already have polyfills in the service, and in general, these should be left as they are in order to maintain sync with the upstream repo, even though we could make the polyfill smaller.  Ideally, we should encourage the polyfill author to remove the embedded dependencies;</li>
 			<li>may contain a feature detect.  Ideally they wouldn't, because the service will wrap the polyfill in a detect, but we'll tolerate a detect in order to maintain sync with the upstream source, provided that it is strict enough to fail in the case of broken implementations, as well as missing ones.</li>
 		</ul></li>
@@ -102,6 +103,28 @@
 ).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
 
 		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`.</p>
+
+		<h3 id='update-tasks'>Update tasks</h3>
+
+		<p>If a polyfill comes from a third party source, it's a good idea to write an update task that can be run to import the latest version of the polyfill code from its master repo.  An update task is called <code>update.task.js</code> and lives alongside the <code>polyfill.js</code> and <code>config.json</code> files. It must export a function that accepts the <code>grunt</code> object, and currently must complete its work synchronously.  Example:</p>
+
+		<pre><code>'use strict';
+var path = require('path');
+module.exports = function(grunt) {
+	// ... download/import latest source here
+	// ... do any required source modification
+	var newSource = 'test';
+	grunt.file.write(path.join(__dirname, 'polyfill.js'), newSource);
+};</code></pre>
+
+		<p>Often changes are required (or desirable) to support the format of polyfills needed by the polyfill service, for example:</p>
+
+		<ul>
+		<li><strong>Private dependencies:</strong> some polyfill authors will create polyfill collections that abstract common tasks into shared functions that are not themselves public web platform APIs.  The polyfill service supports this via private polyfills (which are prefixed <code>_</code>), and will import and declare them in the parent scope so that the polyfill can consider them to be globals.  Polyfills may therefore need to be amended to remove import or require statements (or to provide an import or require implementation that will satisfy them), and to provide the necessary dependency via other means (either as a seaparate private polyfill or by inlining it)</li>
+		<li><strong>Embedded polyfills:</strong> some polyfills include code that fills more than one feature. For example, <code>classList</code> polyfills typically also polyfill <code>DOMTokenList</code>.  This should be a dependency relationship expressed using the <code>config.json</code> metadata, rather than conflating two polyfills into one.</li>
+		<li><strong>Feature detects / guards:</strong> most polyfills contain feature detects to ensure that they do not take effect if the feature is already present.  Ours do not, because the feature detect is stored separately in <code>detect.js</code> and combined with the polyfill source at runtime.  If possible, a polyfill should be imported without embedded detects.</li>
+		</ul>
+
 
 		<h3 id="test-authoring-guidelines">Test authoring guidelines</h3>
 
