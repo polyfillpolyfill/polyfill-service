@@ -3007,41 +3007,6 @@
       "4.0": "polyfilled"
     }
   },
-  "Picture": {
-    "chrome": {
-      "26": "polyfilled",
-      "34": "polyfilled",
-      "38": "polyfilled",
-      "39": "native"
-    },
-    "firefox": {
-      "20": "polyfilled",
-      "29": "polyfilled",
-      "33": "native",
-      "34": "native",
-      "3.6": "polyfilled"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled"
-    },
-    "safari": {
-      "5": "polyfilled",
-      "6": "polyfilled",
-      "7": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled",
-      "4.0": "polyfilled"
-    }
-  },
   "Promise": {
     "chrome": {
       "26": "polyfilled",
