@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     }
 
 	// customizing the config to add Picture as a dependency
-	configSource.dependencies.push('~html5-elements/polyfill.js');
+	configSource.dependencies.push('html5shiv');
 	var configFileSource = JSON.stringify(configSource, null, 4);
 
 	grunt.log.writeln('Importing Picture polyfill from ' + PictureFillSourcePath);
