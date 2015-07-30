@@ -5,7 +5,6 @@ var origamijson = require('../origami.json');
 var PolyfillSet = require('./PolyfillSet');
 var path = require('path');
 var fs = require('fs');
-var parseArgs = require('minimist');
 var metrics = require('./metrics');
 var fs = require('fs');
 var testing = require('./testing');
@@ -13,9 +12,6 @@ var docs = require('./docs');
 var appVersion = require('../package.json').version
 
 'use strict';
-
-var argv = parseArgs(process.argv.slice(2));
-var port = argv.port || Number(process.env.PORT) || 3000;
 
 metrics.gauge('memory', function() {
 	return process.memoryUsage().rss;
@@ -185,5 +181,16 @@ app.get("/v1/normalizeUa", function(req, res, next) {
 	}
 });
 
-app.listen(port);
-console.log("Server listening on port: ", port);
+function startService(port, callback) {
+	callback = callback || function() {};
+
+	app
+		.listen(port, function (err) {
+			callback(err, app);
+		})
+		.on('error', function (err) {
+			callback(err);
+		});
+}
+
+module.exports = startService;
