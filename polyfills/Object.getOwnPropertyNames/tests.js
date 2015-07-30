@@ -20,12 +20,14 @@ it('throws an error when the arg is undefined or null', function() {
 	}).to.throwException();
 });
 
-it('returns an empty array for booleans and numbers', function() {
+// This is the polyfill behaviour but the native impl in IE 9+ throws instead
+it.skip('returns an empty array for booleans and numbers', function() {
 	expect(Object.getOwnPropertyNames(true)).to.eql([]);
 	expect(Object.getOwnPropertyNames(42)).to.eql([]);
 });
 
-it('splits a string into an array', function() {
+// This is the polyfill behaviour but the native impl in IE 9+ throws instead
+it.skip('splits a string into an array', function() {
 
 	// In Chrome the length property is returned at the end, in FF at the beginning.  Our polyfill adds it to the end
 	expect(Object.getOwnPropertyNames('foo')).to.eql(['0', '1', '2', 'length']);
