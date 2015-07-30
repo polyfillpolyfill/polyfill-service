@@ -33,7 +33,7 @@
     "test": "grunt test",
     "citest": "grunt ci --stack"
   },
-  "license": "CC0 1.0 Universal License",
+  "license": "CC0-1.0",
   "dependencies": {
     "babel-core": "^4.6.3",
     "caniuse-db": "1.0.20140710",
@@ -68,9 +68,10 @@
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
+    "npm-prepublish": "^1.2.0",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
     "wd": "^0.3.8"
   },
-  "version": "1.5.0-rc.2"
+  "version": "0.0.0"
 }
