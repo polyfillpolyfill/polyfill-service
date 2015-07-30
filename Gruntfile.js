@@ -158,7 +158,7 @@ var browsers = {
 		['internet explorer', '9', 'Windows 7'],
 		['internet explorer', '10', 'Windows 7'],
 		['internet explorer', '11', 'Windows 8.1'],
-		['safari', '6', 'OSX 10.8'],
+		['safari', '5.1', 'Windows 7'],
 		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
 		['android', '4.0', 'linux']
@@ -179,7 +179,7 @@ var browsers = {
 		['internet explorer', '9', 'Windows 7'],
 		['internet explorer', '10', 'Windows 7'],
 		['internet explorer', '11', 'Windows 8.1'],
-		['safari', '6', 'OSX 10.8'],
+		['safari', '5.1', 'Windows 7'],
 		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
 		['android', '4.3', 'linux'],
