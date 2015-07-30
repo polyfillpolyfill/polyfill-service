@@ -20,7 +20,7 @@ function createEndpoint(type, polyfillio) {
 
 		// Get the feature set for this test runner.  If in 'targeted' mode, allow filtering on UA, else force the feature to be included
 		var features = {};
-		polyfillio.getAllPolyfills().forEach(function(featureName) {
+		polyfillio.getTestablePolyfills().forEach(function(featureName) {
 			if (!req.query.feature || req.query.feature === featureName) {
 				features[featureName] = {flags:[]};
 			}
