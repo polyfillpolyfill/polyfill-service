@@ -33,7 +33,9 @@ describe("polyfillio", function() {
 			}), {
 				'Element.prototype.placeholder': { flags:[], polyfillVariant:'default' },
 				'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'ie8' },
-				'Element': { flags: [], aliasOf: ['Element.prototype.placeholder'], polyfillVariant: 'ie8' }
+				'Element': { flags: [], aliasOf: ['document.querySelector', 'Element.prototype.placeholder'], polyfillVariant: 'ie8' },
+				'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'default' },
+				'Document': { flags: [], aliasOf: ['document.querySelector'], polyfillVariant: 'ie8' }
 			});
 		});
 
