@@ -8,7 +8,7 @@
 		id = 'qsa' + String(Math.random()).slice(3),
 		style, elements;
 
-		generator.innerHTML = 'x<style>' + selector + '{qsa:' + id + '}';
+		generator.innerHTML = 'x<style>' + selector + '{qsa:' + id + ';}';
 
 		style = head.appendChild(generator.lastChild);
 
