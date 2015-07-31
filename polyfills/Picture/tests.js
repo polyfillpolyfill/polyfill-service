@@ -70,4 +70,12 @@ it('get candidates from source set', function () {
 	expect(pf.getCandidatesFromSourceSet(candidate2)[1]).to.have.property('resolution', 2); // Resolution is parsed correctly
 	expect(pf.getCandidatesFromSourceSet(candidate2)[1]).to.have.property('url', 'images/pic-medium-2x.png'); // Resolution is parsed correctly
 
+	var candidate3 = "			images/pic-medium.png		 1x		,		 images/pic-medium-2x.png		 2x		";
+		
+	expect(pf.getCandidatesFromSourceSet(candidate3)[0]).to.have.property('resolution', 1); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate3)[0]).to.have.property('url', 'images/pic-medium.png'); // Resolution is parsed correctly
+
+	expect(pf.getCandidatesFromSourceSet(candidate3)[1]).to.have.property('resolution', 2); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate3)[1]).to.have.property('url', 'images/pic-medium-2x.png'); // Resolution is parsed correctly
+
 });
