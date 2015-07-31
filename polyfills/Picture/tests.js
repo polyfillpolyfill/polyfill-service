@@ -79,3 +79,37 @@ it('get candidates from source set', function () {
 	expect(pf.getCandidatesFromSourceSet(candidate3)[1]).to.have.property('url', 'images/pic-medium-2x.png'); // Resolution is parsed correctly
 
 });
+
+it('verify type support', function () {
+	expect(pf.verifyTypeSupport({
+		getAttribute: function() {
+			return "image/jpeg";
+		}
+	})).to.be.false;
+
+	expect(pf.verifyTypeSupport({
+		getAttribute: function() {
+			return "image/png";
+		}
+	})).to.be.false;
+
+	expect(pf.verifyTypeSupport({
+		getAttribute: function() {
+			return "image/gif";
+		}
+	})).to.be.false;
+
+	// if the type attribute is supported it should return true
+	expect(pf.verifyTypeSupport({
+		getAttribute: function() {
+			return "";
+		}
+	})).to.be.false;
+
+	// if the type attribute is supported it should return true
+	expect(pf.verifyTypeSupport({
+		getAttribute: function() {
+			return null;
+		}
+	})).to.be.false;
+});
