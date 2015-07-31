@@ -51,3 +51,23 @@ it('parse size', function () {
 	expect(pf.parseSize(size3)).to.have.property('media', '(min-width:30em)'); // Media is properly parsed
 });
 
+it('get candidates from source set', function () {
+	var candidate1 = "images/pic-medium.png";
+
+	expect(pf.getCandidatesFromSourceSet(candidate1)[0]).to.have.property('resolution', 1); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate1)[0]).to.have.property('url', 'images/pic-medium.png'); // Resolution is parsed correctly
+
+	var candidate1a = "images/pic-medium.png 1x";
+
+	expect(pf.getCandidatesFromSourceSet(candidate1a)[0]).to.have.property('resolution', 1); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate1a)[0]).to.have.property('url', 'images/pic-medium.png'); // Resolution is parsed correctly
+
+	var candidate2 = "images/pic-medium.png, images/pic-medium-2x.png 2x";
+
+	expect(pf.getCandidatesFromSourceSet(candidate2)[0]).to.have.property('resolution', 1); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate2)[0]).to.have.property('url', 'images/pic-medium.png'); // Resolution is parsed correctly
+
+	expect(pf.getCandidatesFromSourceSet(candidate2)[1]).to.have.property('resolution', 2); // Resolution is parsed correctly
+	expect(pf.getCandidatesFromSourceSet(candidate2)[1]).to.have.property('url', 'images/pic-medium-2x.png'); // Resolution is parsed correctly
+
+});
