@@ -1,1 +1,1 @@
-'HTMLPictureElement' in window
+'HTMLPictureElement' in this || 'picturefill' in this
