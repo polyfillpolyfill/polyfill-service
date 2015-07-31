@@ -74,9 +74,7 @@ module.exports = function(grunt) {
 		},
 		"service": {
 			polyfillservice: {
-				shellCommand: process.argv[0] + ' ' + __dirname + '/service/index.js',
-				pidFile: __dirname + '/service-process.pid',
-				generatePID: true,
+				shellCommand: __dirname + '/bin/polyfill-service',
 				options: {
 					env: ENV,
 					cwd: __dirname,
@@ -158,8 +156,8 @@ var browsers = {
 		['internet explorer', '9', 'Windows 7'],
 		['internet explorer', '10', 'Windows 7'],
 		['internet explorer', '11', 'Windows 8.1'],
-		['safari', '5', 'OSX 10.6'],
-		['safari', '7', 'OSX 10.9'],
+		['safari', '5.1', 'Windows 7'],
+		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
 		['android', '4.0', 'linux']
 	],
@@ -179,9 +177,8 @@ var browsers = {
 		['internet explorer', '9', 'Windows 7'],
 		['internet explorer', '10', 'Windows 7'],
 		['internet explorer', '11', 'Windows 8.1'],
-		['safari', '5', 'OSX 10.6'],
-		['safari', '6', 'OSX 10.8'],
-		['safari', '7', 'OSX 10.9'],
+		['safari', '5.1', 'Windows 7'],
+		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
 		['android', '4.3', 'linux'],
 		['android', '4.2', 'linux'],

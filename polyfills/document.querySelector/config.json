@@ -3,7 +3,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - 7"
+		"ie": "6 - 8"
 	},
 	"dependencies": [
 		"Element",
