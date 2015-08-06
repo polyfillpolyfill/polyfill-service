@@ -126,7 +126,7 @@ MIT License
           proc.stdout.on('data', function(d) {
 			  if (!hasStarted) {
 				  buffer += d.toString();
-				  if (buffer.indexOf("Server listening") >= 0) {
+				  if (buffer.indexOf("listening") >= 0) {
 					  hasStarted = true;
 				  }
 			  }
