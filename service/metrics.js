@@ -4,7 +4,7 @@ var Measured = require('measured');
 var reportInterval = 5000;
 var graphiteHost = process.env.GRAPHITE_HOST || null;
 var graphitePort = process.env.GRAPHITE_PORT || 2003;
-var envName = process.env.ENV_NAME || "unknown";
+var envName = process.env.NODE_ENV || "unknown";
 
 var timer = null;
 var graphite = null;

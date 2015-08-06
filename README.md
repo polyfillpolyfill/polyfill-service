@@ -39,6 +39,7 @@ The service reads a number of environment variables when started as a service, a
 * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
 * `SAUCE_USER_NAME` and `SAUCE_API_KEY`: Sauce Labs credentials for grunt test tasks (not used by the service itself)
+* `NODE_ENV`: Name of environment.  We use `dev`, `prod`, `ci` or `qa`.  Just used for logging.
 
 When running a grunt task, including running the service via `grunt dev` or `grunt service`, you can optionally read environment config from a file called `.env.json` in the root of the working tree.  This is a convenient way of maintaining the environment config that you need for development.  The `.env.json` file is gitignored so will not be accidentally committed.
 
