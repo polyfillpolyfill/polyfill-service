@@ -75,6 +75,8 @@ module.exports = function(grunt) {
 		"service": {
 			polyfillservice: {
 				shellCommand: __dirname + '/bin/polyfill-service',
+				pidFile: __dirname+'/.service.pid',
+				generatePID: true,
 				options: {
 					env: ENV,
 					cwd: __dirname,

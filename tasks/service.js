@@ -79,8 +79,8 @@ MIT License
       start = function(callback) {
         var _closed, _spawned, args, command, pid, proc, shellCommand;
 
-		var buffer = "";
-		var hasStarted = false;
+		    var buffer = "";
+		    var hasStarted = false;
 
         _spawned = function() {
           return callback();
@@ -96,7 +96,7 @@ MIT License
           if (fs.existsSync(data.pidFile)) {
             pid = parseInt(fs.readFileSync(data.pidFile));
             if (existProcess(pid)) {
-              log.writeln("[Service] " + target + "(pid=" + pid + ") already exists.");
+              log.writeln("[Service] " + target + "(pid=" + pid + ") is still running.");
               if (data.failOnError) {
                 return;
               }
@@ -139,7 +139,7 @@ MIT License
           });
         }
         if (proc) {
-          log.writeln("Child PID = " + proc.pid);
+          log.writeln("[Service] Child PID = " + proc.pid);
           proc.on('close', function(code) {
             log.writeln('child process exited with code ', arguments);
             return _closed();
@@ -158,6 +158,7 @@ MIT License
           });
         }
         if (data.generatePID && data.pidFile) {
+          log.writeln("[Service] Wrote PID to " + data.pidFile);
           fs.writeFile(data.pidFile, proc.pid);
         }
         if (data.pidFile) {

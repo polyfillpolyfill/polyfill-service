@@ -6,6 +6,7 @@
 /polyfills/sources.json
 /test/results
 /.env.json
+/.service.pid
 /.haikro-cache
 /node-*
 /service-process.pid
