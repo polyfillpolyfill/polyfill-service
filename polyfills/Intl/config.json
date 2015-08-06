@@ -11,9 +11,6 @@
 	"build": {
 		"minify": false
 	},
-	"test": {
-		"ci": false
-	},
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-402/1.0/",
 	"repo": "https://github.com/andyearnshaw/Intl.js",
