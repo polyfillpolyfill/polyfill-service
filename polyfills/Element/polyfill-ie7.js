@@ -45,7 +45,8 @@
 
 	elements = document.getElementsByTagName('*'),
 	nativeCreateElement = document.createElement,
-	interval;
+	interval,
+	loopLimit = 100;
 
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
@@ -78,6 +79,7 @@
 
 	// Apply Element prototype to the pre-existing DOM as soon as the body element appears.
 	function bodyCheck(e) {
+		if (!(loopLimit--)) clearTimeout(interval);
 		if (document.body && !document.body.prototype && /(complete|interactive)/.test(document.readyState)) {
 			shiv(document, true);
 			if (interval && document.body.prototype) clearTimeout(interval);
@@ -87,7 +89,7 @@
 	}
 	if (!bodyCheck(true)) {
 		document.onreadystatechange = bodyCheck;
-		interval = setInterval(bodyCheck, 1);
+		interval = setInterval(bodyCheck, 25);
 	}
 
 	// Apply to any new elements created after load
