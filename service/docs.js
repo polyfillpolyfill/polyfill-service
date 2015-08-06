@@ -201,6 +201,7 @@ function getCompat() {
 				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 				hasTests: polyfill.hasTests,
 				docs: polyfill.docs,
+				baseDir: polyfill.baseDir.replace(path.resolve(path.join(__dirname, '..')), ''),
 				spec: polyfill.spec,
 				notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
 				license: polyfill.variants.default.license,

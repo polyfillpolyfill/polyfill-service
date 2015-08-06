@@ -84,7 +84,7 @@ require('polyfill-service').getPolyfillString({
 });
 ```
 
-#### `getPolyfills(options)` (method)
+#### `listPolyfills(options)` (method)
 
 Returns a list of features whose configuration matches the given user agent string.
 Options is an object with the following keys:
@@ -105,7 +105,7 @@ require('polyfill-service').getPolyfills({
 });
 ```
 
-#### `getAllPolyfills()` (method)
+#### `listAllPolyfills()` (method)
 
 Return a list of all the features with polyfills as an array of strings. This
 list corresponds to directories in the `/polyfills` directory.
