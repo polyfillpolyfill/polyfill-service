@@ -14,8 +14,14 @@ if (graphiteHost) {
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
 	timer = setInterval(function() {
 		graphite.write(data.toJSON(), function(err) {
+
+			// Ignore timeouts
+			if (err.code === 'ETIMEDOUT') return;
+
 			if (err) {
-				console.error(err);
+				console.error(err, err.stack);
+				console.warn('Disabling graphite reporting due to error');
+				clearTimeout(timer);
 			}
 		});
 	}, reportInterval);
