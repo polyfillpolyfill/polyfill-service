@@ -1,1 +1,1 @@
-'HTMLPictureElement' in this || 'picturefill' in this
+'srcset' in document.createElement('source') && 'sizes' in document.createElement('source')

@@ -4,7 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 var PictureFillSourcePath = require.resolve('picturefill/dist/picturefill.min.js');;
-var PictureFillPolyfillOutput = path.resolve('polyfills/Picture');
+var PictureFillMutationSourcePath = require.resolve('picturefill/dist/plugins/mutation/pf.mutation.min.js');;
+var PictureFillPolyfillOutput = path.resolve('polyfills/HTMLPictureElement');
 
 // this is not really a grunt task, but a function that is suppose
 // to be sync, and receive access to grunt instance for convenience.
@@ -26,7 +27,11 @@ module.exports = function(grunt) {
 	grunt.log.writeln('Importing Picture polyfill from ' + PictureFillSourcePath);
 
 	var PictureFillPolyfillSource = fs.readFileSync(PictureFillSourcePath);
-	grunt.file.write(path.join(PictureFillPolyfillOutput, 'polyfill.js'), PictureFillPolyfillSource);
+	var PictureFillPolyfillMutationSource = fs.readFileSync(PictureFillMutationSourcePath);
+
+	var PolyfillCombinedSource = PictureFillPolyfillSource + PictureFillPolyfillMutationSource;
+
+	grunt.file.write(path.join(PictureFillPolyfillOutput, 'polyfill.js'), PolyfillCombinedSource);
 
 	grunt.log.writeln('Picture polyfill imported successfully');
 

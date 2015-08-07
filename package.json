@@ -69,7 +69,7 @@
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
-    "picturefill": "^2.3.1",
+    "picturefill": "^3.0.0-beta1",
     "npm-prepublish": "^1.2.0",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
