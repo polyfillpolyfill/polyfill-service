@@ -1,1 +1,0 @@
-'HTMLPictureElement' in this || 'picturefill' in this
