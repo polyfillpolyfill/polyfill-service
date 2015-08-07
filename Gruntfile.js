@@ -75,6 +75,8 @@ module.exports = function(grunt) {
 		"service": {
 			polyfillservice: {
 				shellCommand: __dirname + '/bin/polyfill-service',
+				pidFile: __dirname+'/.service.pid',
+				generatePID: true,
 				options: {
 					env: ENV,
 					cwd: __dirname,
@@ -139,36 +141,36 @@ module.exports = function(grunt) {
 
 var browsers = {
 	quick: [
-		['chrome', '39', 'Windows 7'],
-		['firefox', '34', 'Linux'],
+		['chrome', '44', 'Windows 7'],
+		['firefox', '39', 'Linux'],
 		['internet explorer', '7', 'Windows XP'],
 		['internet explorer', '11', 'Windows 8.1'],
 	],
 	ci: [
-		['chrome', '39', 'Windows 7'],
-		['chrome', '26', 'Windows 7'],
-		['firefox', '34', 'Linux'],
-		['firefox', '20', 'Linux'],
+		['chrome', '44', 'Windows 7'],
+		['chrome', '35', 'OSX 10.11'],
+		['firefox', '39', 'Linux'],
+		['firefox', '30', 'OSX 10.11'],
 		['firefox', '3.6', 'Linux'],
 		['internet explorer', '6', 'Windows XP'],
 		['internet explorer', '7', 'Windows XP'],
 		['internet explorer', '8', 'Windows XP'],
 		['internet explorer', '9', 'Windows 7'],
 		['internet explorer', '10', 'Windows 7'],
-		['internet explorer', '11', 'Windows 8.1'],
+		['internet explorer', '11', 'Windows 11'],
 		['safari', '5.1', 'Windows 7'],
 		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
 		['android', '4.0', 'linux']
 	],
 	full: [
-		['chrome', '39', 'Windows 7'],
-		['chrome', '38', 'Windows 7'],
-		['chrome', '34', 'Windows 7'],
+		['chrome', '44', 'Windows 7'],
+		['chrome', '42', 'Windows 7'],
+		['chrome', '35', 'OSX 10.11'],
 		['chrome', '26', 'Windows 7'],
-		['firefox', '34', 'Linux'],
+		['firefox', '39', 'Linux'],
 		['firefox', '33', 'Linux'],
-		['firefox', '29', 'Linux'],
+		['firefox', '30', 'OSX 10.11'],
 		['firefox', '20', 'Linux'],
 		['firefox', '3.6', 'Linux'],
 		['internet explorer', '6', 'Windows XP'],

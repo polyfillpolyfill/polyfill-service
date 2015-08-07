@@ -13,5 +13,6 @@ startService(port, function(err, app){
 		throw err;
 	}
 
+	// This output is string-matched by the service.js grunt task
 	console.log(packageJSON.name + '@' + packageJSON.version ,'listening on port', port, 'in environment "'+ app.get('env') +'"...');
 });
