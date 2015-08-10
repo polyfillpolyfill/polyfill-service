@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+var minimist = require('minimist');
+
+var packageJSON = require('../package.json');
+var startService = require('../service');
+
+var argv = minimist(process.argv.slice(2));
+var port = argv.port || Number(process.env.PORT) || 3000;
+
+startService(port, function(err, app){
+	if (err) {
+		console.error('Error while starting service:', err);
+		throw err;
+	}
+
+	// This output is string-matched by the service.js grunt task
+	console.log(packageJSON.name + '@' + packageJSON.version ,'listening on port', port, 'in environment "'+ app.get('env') +'"...');
+});
