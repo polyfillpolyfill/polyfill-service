@@ -2,20 +2,16 @@
   "~html5-elements": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
-      "39": "native"
+      "39": "native",
+      "3.6": "missing"
     },
     "ie": {
       "6": "polyfilled",
@@ -38,19 +34,14 @@
   "viewport": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -77,19 +68,14 @@
   "requestAnimationFrame": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -116,19 +102,14 @@
   "performance.now": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -155,19 +136,14 @@
   "navigator.geolocation": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -194,19 +170,14 @@
   "matchMedia": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -233,19 +204,14 @@
   "location.origin": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -255,7 +221,7 @@
       "8": "polyfilled",
       "9": "polyfilled",
       "10": "polyfilled",
-      "11": "native"
+      "11": "polyfilled"
     },
     "safari": {
       "5.1": "native",
@@ -272,19 +238,14 @@
   "localStorage": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -311,19 +272,14 @@
   "getComputedStyle": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -350,19 +306,14 @@
   "document.querySelector": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -389,19 +340,14 @@
   "document.head": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -428,19 +374,14 @@
   "devicePixelRatio": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -467,19 +408,14 @@
   "atob": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -506,19 +442,14 @@
   "XMLHttpRequest": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -545,19 +476,14 @@
   "Window": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -584,19 +510,14 @@
   "String.prototype.trim": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -623,19 +544,14 @@
   "Object.keys": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -662,19 +578,14 @@
   "Object.is": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -701,19 +612,14 @@
   "Object.getPrototypeOf": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -740,19 +646,14 @@
   "Object.getOwnPropertyNames": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -779,19 +680,14 @@
   "Object.defineProperty": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -818,19 +714,14 @@
   "Object.defineProperties": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -857,19 +748,14 @@
   "Object.create": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -896,19 +782,14 @@
   "JSON": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -932,22 +813,51 @@
       "4.0": "native"
     }
   },
+  "Intl": {
+    "chrome": {
+      "26": "native",
+      "35": "native",
+      "42": "native",
+      "44": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "39": "native",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "native"
+    },
+    "safari": {
+      "5.1": "polyfilled",
+      "8.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
+    }
+  },
   "HTMLDocument": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -974,19 +884,14 @@
   "Function.prototype.bind": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1013,19 +918,14 @@
   "Event.hashchange": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -1052,19 +952,14 @@
   "Event.focusin": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1091,19 +986,14 @@
   "Event.DOMContentLoaded": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1130,19 +1020,14 @@
   "Event": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -1169,19 +1054,14 @@
   "Element.prototype.remove": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1208,19 +1088,14 @@
   "Element.prototype.placeholder": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1247,19 +1122,14 @@
   "Element.prototype.cloneNode": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "missing",
-      "29": "missing",
       "30": "missing",
       "33": "missing",
-      "34": "missing",
       "39": "missing",
       "3.6": "missing"
     },
@@ -1272,7 +1142,6 @@
       "11": "missing"
     },
     "safari": {
-      "5.1": "native",
       "8.1": "native"
     },
     "android": {
@@ -1286,19 +1155,14 @@
   "Element.prototype.classList": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "missing",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -1325,19 +1189,14 @@
   "Element": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1364,19 +1223,14 @@
   "Document": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1403,19 +1257,14 @@
   "Date.prototype.toISOString": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1442,19 +1291,14 @@
   "Date.now": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1481,19 +1325,14 @@
   "DOMTokenList": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "missing",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -1520,19 +1359,14 @@
   "Array.prototype.some": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1559,19 +1393,14 @@
   "Array.prototype.reduceRight": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1598,19 +1427,14 @@
   "Array.prototype.reduce": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1637,19 +1461,14 @@
   "Array.prototype.map": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1676,19 +1495,14 @@
   "Array.prototype.lastIndexOf": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1715,19 +1529,14 @@
   "Array.prototype.indexOf": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1754,19 +1563,14 @@
   "Array.prototype.forEach": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1793,19 +1597,14 @@
   "Array.prototype.filter": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1832,19 +1631,14 @@
   "Array.prototype.every": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "native"
     },
@@ -1871,19 +1665,14 @@
   "Array.isArray": {
     "chrome": {
       "26": "native",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1907,22 +1696,51 @@
       "4.0": "native"
     }
   },
-  "Math.atanh": {
+  "WeakMap": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "39": "native",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5.1": "polyfilled",
+      "8.1": "native"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
+    }
+  },
+  "Math.atanh": {
+    "chrome": {
+      "26": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "44": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1949,19 +1767,14 @@
   "String.prototype.contains": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -1988,19 +1801,14 @@
   "String.prototype.startsWith": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2027,19 +1835,14 @@
   "screen.orientation": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -2066,19 +1869,14 @@
   "Math.log10": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2105,19 +1903,14 @@
   "Array.prototype.find": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2144,19 +1937,14 @@
   "String.prototype.repeat": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2183,19 +1971,14 @@
   "Math.imul": {
     "chrome": {
       "26": "polyfilled",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2222,58 +2005,14 @@
   "WeakSet": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "native",
-      "39": "native",
-      "3.6": "polyfilled"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled"
-    },
-    "safari": {
-      "5.1": "polyfilled",
-      "8.1": "native"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled",
-      "4.0": "polyfilled"
-    }
-  },
-  "Math.cosh": {
-    "chrome": {
-      "26": "polyfilled",
-      "34": "polyfilled",
-      "35": "polyfilled",
-      "38": "native",
-      "39": "native",
-      "42": "native",
-      "44": "native"
-    },
-    "firefox": {
-      "20": "polyfilled",
-      "29": "native",
-      "30": "native",
-      "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2300,19 +2039,14 @@
   "Element.prototype.prepend": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -2339,19 +2073,14 @@
   "Math.log2": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2378,19 +2107,14 @@
   "setImmediate": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -2417,19 +2141,14 @@
   "Array.of": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2456,19 +2175,14 @@
   "Math.asinh": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2495,19 +2209,14 @@
   "Math.sign": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2534,19 +2243,14 @@
   "Math.trunc": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2573,19 +2277,14 @@
   "String.prototype.endsWith": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2612,19 +2311,14 @@
   "Element.prototype.replaceWith": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -2651,19 +2345,14 @@
   "Array.prototype.includes": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -2690,19 +2379,14 @@
   "Array.from": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2729,19 +2413,14 @@
   "Array.prototype.findIndex": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2768,19 +2447,14 @@
   "URL": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "missing",
       "30": "missing",
       "33": "missing",
-      "34": "missing",
       "39": "missing",
       "3.6": "missing"
     },
@@ -2807,19 +2481,82 @@
   "Math.tanh": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
+      "39": "native",
+      "3.6": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5.1": "polyfilled",
+      "8.1": "native"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled",
+      "4.0": "polyfilled"
+    }
+  },
+  "HTMLPictureElement": {
+    "chrome": {
+      "26": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "44": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "39": "native",
+      "3.6": "missing"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled"
+    },
+    "safari": {
+      "5.1": "missing",
+      "8.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing",
+      "4.0": "missing"
+    }
+  },
+  "Math.cosh": {
+    "chrome": {
+      "26": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "44": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2846,58 +2583,14 @@
   "Math.expm1": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
-      "39": "native",
-      "3.6": "polyfilled"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled"
-    },
-    "safari": {
-      "5.1": "polyfilled",
-      "8.1": "native"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled",
-      "4.0": "polyfilled"
-    }
-  },
-  "WeakMap": {
-    "chrome": {
-      "26": "polyfilled",
-      "34": "polyfilled",
-      "35": "polyfilled",
-      "38": "native",
-      "39": "native",
-      "42": "native",
-      "44": "native"
-    },
-    "firefox": {
-      "20": "polyfilled",
-      "29": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "34": "polyfilled",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2924,19 +2617,14 @@
   "Math.log1p": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -2963,19 +2651,14 @@
   "Element.prototype.after": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -3002,19 +2685,14 @@
   "Math.clz32": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3041,19 +2719,14 @@
   "Element.prototype.matches": {
     "chrome": {
       "26": "polyfilled",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3080,19 +2753,14 @@
   "Element.prototype.append": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -3119,19 +2787,14 @@
   "Math.sinh": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3158,19 +2821,14 @@
   "Math.cbrt": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3197,19 +2855,14 @@
   "Math.hypot": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3236,19 +2889,14 @@
   "Element.prototype.before": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -3275,19 +2923,14 @@
   "Element.prototype.closest": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "native",
       "3.6": "missing"
     },
@@ -3314,19 +2957,14 @@
   "Promise": {
     "chrome": {
       "26": "polyfilled",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3353,19 +2991,14 @@
   "fetch": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3392,19 +3025,14 @@
   "Math.acosh": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3431,19 +3059,14 @@
   "Object.assign": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3470,19 +3093,14 @@
   "Array.prototype.contains": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -3509,19 +3127,14 @@
   "String.prototype.includes": {
     "chrome": {
       "26": "polyfilled",
-      "34": "polyfilled",
       "35": "polyfilled",
-      "38": "polyfilled",
-      "39": "polyfilled",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "polyfilled",
-      "29": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
-      "34": "polyfilled",
       "39": "polyfilled",
       "3.6": "polyfilled"
     },
@@ -3548,19 +3161,14 @@
   "CustomEvent": {
     "chrome": {
       "26": "missing",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -3587,19 +3195,14 @@
   "AudioContext": {
     "chrome": {
       "26": "missing",
-      "34": "missing",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "missing",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "missing"
     },
@@ -3626,19 +3229,14 @@
   "Node.prototype.contains": {
     "chrome": {
       "26": "missing",
-      "34": "native",
       "35": "native",
-      "38": "native",
-      "39": "native",
       "42": "native",
       "44": "native"
     },
     "firefox": {
       "20": "native",
-      "29": "native",
       "30": "native",
       "33": "native",
-      "34": "native",
       "39": "native",
       "3.6": "polyfilled"
     },
@@ -3662,15 +3260,9 @@
       "4.0": "missing"
     }
   },
-  "Intl": {
-    "chrome": {
-      "35": "native",
-      "42": "native",
-      "44": "native"
-    },
-    "firefox": {
-      "30": "native",
-      "39": "native"
+  "Element.prototype.cloneNode (timeout after 10000ms, 2 retries)": {
+    "safari": {
+      "5.1": "polyfilled"
     }
   }
 }
