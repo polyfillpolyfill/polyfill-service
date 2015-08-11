@@ -8,7 +8,12 @@
 		"firefox": "*",
 		"ie": "*",
 		"opera": "*",
-		"safari": "*"
+		"safari": "*",
+		"ios_saf": "*",
+		"ios_chr": "*",
+		"android": "*",
+		"op_mob": "*",
+		"ie_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"
