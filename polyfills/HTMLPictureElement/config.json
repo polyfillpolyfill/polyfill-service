@@ -1,9 +1,9 @@
 {
 	"browsers": {
-		"ie": "*",
-		"firefox": "* - 37",
-		"opera": "* - 29",
-		"safari": "*",
+		"ie": "9 - *",
+		"firefox": "4 - 37",
+		"opera": "11.6 - 29",
+		"safari": "6 - *",
 		"chrome": "* - 38",
 		"ios_saf": "*"
 	},
