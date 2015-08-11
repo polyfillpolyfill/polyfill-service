@@ -75,5 +75,5 @@
     "sauce-tunnel": "^2.2.3",
     "wd": "^0.3.8"
   },
-  "version": "0.0.0"
+  "version": "1.6.0-rc.1"
 }
