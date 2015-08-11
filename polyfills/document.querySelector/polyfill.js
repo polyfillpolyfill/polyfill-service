@@ -1,7 +1,4 @@
 (function (global) {
-	var
-	head = document.getElementsByTagName('head')[0];
-
 	function getElementsByQuery(node, selector, one) {
 		var
 		generator = document.createElement(),
@@ -10,11 +7,11 @@
 
 		generator.innerHTML = 'x<style>' + selector + '{qsa:' + id + ';}';
 
-		style = head.appendChild(generator.lastChild);
+		style = node.appendChild(generator.lastChild);
 
 		elements = getElements(node, selector, one, id);
 
-		head.removeChild(style);
+		node.removeChild(style);
 
 		return one ? elements[0] : elements;
 	}
