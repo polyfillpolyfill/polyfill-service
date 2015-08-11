@@ -69,6 +69,7 @@ module.exports = function(grunt) {
 					}
 					try {
 						config = JSON.parse(fs.readFileSync(configPath));
+						config.baseDir = polyfillPath;
 					} catch (e) {
 						throw {name:"Missing or invalid config", message:"Unable to read config from "+configPath};
 					}
