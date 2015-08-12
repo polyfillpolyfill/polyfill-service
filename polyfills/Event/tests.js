@@ -109,7 +109,7 @@ it('should have the correct target when using delegation', function () {
 	expect(fired).to.be(true);
 });
 
-it('should successfully call window.addEventListener or throw exception'), function() {
+it('should successfully call window.addEventListener or throw exception', function() {
 
 	var eventsToTest = [
 		'click',
