@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 	var uglify = require('uglify-js');
 	var to5 = require("babel-core");
 
-	grunt.registerTask('buildsources', 'Build minified polyfill sources', function() {
+	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
 		var polyfillSourceFolder = path.join(__dirname, '../polyfills');
 		var versionsFolder = path.join(__dirname, '../polyfills/__versions');
