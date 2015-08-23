@@ -2,6 +2,7 @@
   "name": "polyfill-service",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
+  "bin": "bin/polyfill-service",
   "contributors": [
     {
       "name": "Jonathan Neal",
@@ -22,18 +23,18 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
-    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain service/index.js",
-    "stop": "forever stop --plain service/index.js",
-    "status": "forever list | grep -q service/index.js",
+    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
+    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
+    "stop": "forever stop --plain bin/polyfill-service",
+    "status": "forever list | grep bin/polyfill-service",
     "prepublish": "grunt build",
-    "deploy": "grunt build && git describe --tags > .semver && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
+    "deploy": "grunt build && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
     "citest": "grunt ci --stack"
   },
-  "license": "CC0 1.0 Universal License",
+  "license": "CC0-1.0",
   "dependencies": {
     "babel-core": "^4.6.3",
     "caniuse-db": "1.0.20140710",
@@ -69,9 +70,11 @@
     "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
+    "picturefill": "^3.0.0-beta1",
+    "npm-prepublish": "^1.2.0",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
     "wd": "^0.3.8"
   },
-  "version": "1.4.0"
+  "version": "1.6.0-rc.1"
 }

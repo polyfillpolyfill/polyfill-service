@@ -6,8 +6,7 @@
 /polyfills/sources.json
 /test/results
 /.env.json
-/.semver
+/.service.pid
 /.haikro-cache
 /node-*
-/service-process.pid
 .DS_Store

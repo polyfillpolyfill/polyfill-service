@@ -1,1 +1,1 @@
-web: node service/index.js
+web: bin/polyfill-service

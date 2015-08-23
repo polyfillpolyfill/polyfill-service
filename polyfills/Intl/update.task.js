@@ -31,6 +31,10 @@ module.exports = function(grunt) {
 
 	// customizing the config to add intl as a dependency
 	configSource.dependencies.push('Intl');
+
+	// don't test every single locale - it will be too slow
+	configSource.test = { ci: false };
+
 	var configFileSource = JSON.stringify(configSource, null, 4);
 
 	grunt.log.writeln('Importing Intl polyfill from ' + IntlSourcePath);

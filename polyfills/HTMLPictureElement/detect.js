@@ -1,0 +1,1 @@
+'srcset' in document.createElement('source') && 'sizes' in document.createElement('source')

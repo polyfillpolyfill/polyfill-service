@@ -1,0 +1,13 @@
+{
+	"aliases": [
+		"es5",
+		"modernizr:es5object",
+		"default"
+	],
+	"browsers": {
+		"firefox": "3.6",
+		"safari": "4",
+		"ie": "6 - 8"
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames"
+}

@@ -5,17 +5,13 @@ var origamijson = require('../origami.json');
 var PolyfillSet = require('./PolyfillSet');
 var path = require('path');
 var fs = require('fs');
-var parseArgs = require('minimist');
 var metrics = require('./metrics');
 var fs = require('fs');
 var testing = require('./testing');
 var docs = require('./docs');
-var appVersion = fs.existsSync('./.semver') ? fs.readFileSync('./.semver', {encoding:'UTF-8'}).replace(/\s+$/, '') : 'Unknown';
+var appVersion = require('../package.json').version
 
 'use strict';
-
-var argv = parseArgs(process.argv.slice(2));
-var port = argv.port || Number(process.env.PORT) || 3000;
 
 metrics.gauge('memory', function() {
 	return process.memoryUsage().rss;
@@ -29,7 +25,7 @@ var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
 // Default cache control policy
 app.use(function(req, res, next) {
-	res.set('Cache-Control', 'public, max-age='+one_day+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
+	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
 	return next();
@@ -185,5 +181,16 @@ app.get("/v1/normalizeUa", function(req, res, next) {
 	}
 });
 
-app.listen(port);
-console.log("Server listening on port: ", port);
+function startService(port, callback) {
+	callback = callback || function() {};
+
+	app
+		.listen(port, function (err) {
+			callback(err, app);
+		})
+		.on('error', function (err) {
+			callback(err);
+		});
+}
+
+module.exports = startService;

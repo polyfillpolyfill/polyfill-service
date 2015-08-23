@@ -20,7 +20,7 @@ function createEndpoint(type, polyfillio) {
 
 		// Get the feature set for this test runner.  If in 'targeted' mode, allow filtering on UA, else force the feature to be included
 		var features = {};
-		polyfillio.getAllPolyfills().forEach(function(featureName) {
+		polyfillio.listTestablePolyfills().forEach(function(featureName) {
 			if (!req.query.feature || req.query.feature === featureName) {
 				features[featureName] = {flags:[]};
 			}
@@ -29,13 +29,13 @@ function createEndpoint(type, polyfillio) {
 		// If in targeted mode, reduce the set of features to those for which polyfills are available, otherwise pretend all of them apply
 		var targeted = features;
 		if (mode === 'targeted') {
-			targeted = polyfillio.getPolyfills({ uaString: uaString, features: require('util')._extend({}, features) });
+			targeted = polyfillio.listPolyfills({ uaString: uaString, features: require('util')._extend({}, features) });
 		}
 
 		Object.keys(features).forEach(function(featureName) {
-			var polyfillPath = path.join(base, featureName);
-			var detectFile = path.join(polyfillPath, '/detect.js');
-			var testFile = path.join(polyfillPath, '/tests.js');
+			var config = polyfillio.describePolyfill(featureName);
+			var detectFile = path.join(config.baseDir, '/detect.js');
+			var testFile = path.join(config.baseDir, '/tests.js');
 
 			if (targeted[featureName] && featureName.indexOf('_') !== 0) {
 				polyfilldata.push({
