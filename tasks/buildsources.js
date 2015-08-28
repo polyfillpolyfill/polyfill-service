@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 	var path = require('path');
 	var uglify = require('uglify-js');
 	var to5 = require("babel-core");
+	var mkdir = require('mkdirp').sync;
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
@@ -37,11 +38,9 @@ module.exports = function(grunt) {
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
 			var dirs = [];
+			var destFolder = path.join(__dirname, '../polyfills/__dist', version);
 
-			// Ignore non-directories at the root of a version (ie existing sources.json and aliases.json files)
-			if (!fs.lstatSync(versionBasePath).isDirectory() && !fs.lstatSync(versionBasePath).isSymbolicLink()) {
-				return true;
-			}
+			mkdir(destFolder);
 
 			// recursively discover all subfolders and build into a list (ignore the __versions dir if this is the latest version)
 			function scanDir(dir) {
@@ -166,7 +165,9 @@ module.exports = function(grunt) {
 						}
 					});
 
-					sources[version][featureName] = config;
+					var featurePath = path.join(destFolder, featureName+'.json');
+					fs.writeFileSync(featurePath, JSON.stringify(config));
+					grunt.log.writeln('+ '+featurePath);
 
 					// Store alias names in a map for efficient lookup, mapping aliases to
 					// featureNames.  An alias can map to many polyfill names. So a group
@@ -201,8 +202,7 @@ module.exports = function(grunt) {
 			if (ignoredErrors) {
 				grunt.log.writeln('Ignored '+ignoredErrors+' error(s) in historic polyfill versions');
 			}
-			fs.writeFileSync(path.join(__dirname, '../polyfills/sources.json'), JSON.stringify(sources));
-			fs.writeFileSync(path.join(__dirname, '../polyfills/aliases.json'), JSON.stringify(configuredAliases));
+			fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
 
 			grunt.log.writeln('Sources built successfully');
 		}

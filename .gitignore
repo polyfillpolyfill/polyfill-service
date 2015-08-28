@@ -2,8 +2,8 @@
 /npm-debug.log
 /polyfills/__repo
 /polyfills/__versions
+/polyfills/__dist
 /polyfills/aliases.json
-/polyfills/sources.json
 /test/results
 /.env.json
 /.service.pid

@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		"clean": {
 			repo: ['polyfills/__repo'],
-			versions: ['polyfills/__versions']
+			versions: ['polyfills/__versions'],
+			dist: ['polyfills/__dist']
 		},
 		"simplemocha": {
 			options: {
@@ -128,7 +129,8 @@ module.exports = function(grunt) {
 		"clean",
 		"installcollections",
 		"buildsources",
-		"clean:repo"
+		"clean:repo",
+		"clean:versions"
 	]);
 
 	grunt.registerTask('dev', [
