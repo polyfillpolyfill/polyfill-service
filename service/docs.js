@@ -132,7 +132,7 @@ function getData(type) {
 			// Define a list of all the browsers in which we tested one of the polyfills
 			var firstfeature = compatdata[Object.keys(compatdata)[0]];
 			var UAs = Object.keys(firstfeature).reduce(function(UAs, family) {
-				UAs.concat(Object.keys(firstfeature[family]).map(function(uaVersion) {
+				UAs = UAs.concat(Object.keys(firstfeature[family]).map(function(uaVersion) {
 					return {family: family, ver: uaVersion};
 				}));
 				return UAs;
