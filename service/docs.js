@@ -138,22 +138,22 @@ function getData(type) {
 				return UAs;
 			}, []);
 
-			// For each of these browsers, get a bundle and report its size
+			// For each of these browsers, get a default bundle and report its size
 			return Promise.all(UAs.map(function(browser) {
 				var opts = {
 					features: PolyfillSet.fromQueryParam('default').get(),
 					uaString: browser.family+'/'+browser.ver,
 				};
-				return Promise.all(
+				return Promise.all([
 					polyfillservice.getPolyfillString(extend({minify: true}, opts)),
 					polyfillservice.getPolyfillString(extend({minify: false}, opts))
-				).then(function (srcs) {
+				]).then(spread(function (minsrc, rawsrc) {
 					var item = {
 						family: browser.family,
 						ver: browser.ver,
-						minsrc: srcs[0],
-						rawbytes: srcs[1].length,
-						minbytes: srcs[0].length
+						minsrc: minsrc,
+						rawbytes: rawsrc.length,
+						minbytes: minsrc.length
 					};
 					return new Promise(function(resolve, reject) {
 						zlib.gzip(item.minsrc, function(err, gzipsrc) {
@@ -163,7 +163,7 @@ function getData(type) {
 							resolve(item);
 						});
 					});
-				});
+				}));
 			}));
 		}
 	};
