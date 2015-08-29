@@ -1,7 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
 var ENV = process.env;
 
 var fs = require('fs');
