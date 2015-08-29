@@ -239,7 +239,7 @@ function getCompat() {
 // Quick helper for Promise.all to spread results over separate arguments rather than an array
 function spread(fn) {
 	return function(results) {
-		fn.apply(fn, results);
+		return fn.apply(fn, results);
 	};
 }
 
@@ -275,15 +275,13 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[0] === 'features') {
-		Promise.all([getData('sizes'), getCompat()]).then(function(results) {
-			var sizes = results[0];
-			var compat = results[1];
+		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
 			res.send(templates.compat({
 				section: 'features',
 				compat: compat,
 				sizes: sizes
 			}));
-		}).catch(function (err) {
+		})).catch(function (err) {
 			console.log (err.stack || err);
 		});
 
