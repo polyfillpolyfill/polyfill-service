@@ -119,11 +119,9 @@ function getData(type) {
 					}
 				}).then(function (response) {
 					response = JSON.parse(response);
-					console.log(response);
 					data[period] = response.summary.status.totaldown;
 				});
 			})).then(function() {
-				console.log(data);
 				return data;
 			}).catch(function(e) {
 				console.log(e.stack || e);
@@ -178,7 +176,7 @@ function getData(type) {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
 			return cache[type].promise = Promise.reject(err.toString());
-		};
+		}
 	}
 }
 
@@ -197,7 +195,6 @@ function getCompat() {
 		.sort()
 		.map(function(feat) {
 			return sourceslib.getPolyfill(feat).then(function(polyfill) {
-				if (!polyfill) console.log(feat);
 				var fdata = {
 					feature: feat,
 					slug: feat.replace(/\./g, '_'),
@@ -262,7 +259,6 @@ function route(req, res, next) {
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
-			console.log(outages);
 			res.send(templates.usage({
 				section: 'usage',
 				requestsData: fastly.byhour,
