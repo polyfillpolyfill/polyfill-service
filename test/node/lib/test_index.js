@@ -4,10 +4,10 @@ var assert  = require('assert');
 var polyfillio = require('../../../lib/index');
 
 describe("polyfillio", function() {
-	describe(".listPolyfills(features)", function() {
+	describe(".getPolyfills(features)", function() {
 
 		it("should remove features not appropriate for the current UA", function() {
-			return polyfillio.listPolyfills({
+			return polyfillio.getPolyfills({
 				features: {
 					'Array.prototype.map': { flags:[] }
 				},
@@ -18,7 +18,7 @@ describe("polyfillio", function() {
 		});
 
 		it("should respect the always flag", function() {
-			return polyfillio.listPolyfills({
+			return polyfillio.getPolyfills({
 				features: {
 					'Array.prototype.map': { flags:['always'] }
 				},
@@ -31,7 +31,7 @@ describe("polyfillio", function() {
 		});
 
 		it("should include dependencies", function() {
-			return polyfillio.listPolyfills({
+			return polyfillio.getPolyfills({
 				features: {
 					'Element.prototype.placeholder': { flags: [] }
 				},
@@ -48,7 +48,7 @@ describe("polyfillio", function() {
 		});
 
 		it("should choose the right variant", function() {
-			return polyfillio.listPolyfills({
+			return polyfillio.getPolyfills({
 				features: {
 					'Math.sign': { flags: [] }
 				},
@@ -65,7 +65,7 @@ describe("polyfillio", function() {
 			return Promise.all([
 
 				// Without unknown, no polyfills
-				polyfillio.listPolyfills({
+				polyfillio.getPolyfills({
 					features: {'Math.sign': { flags: [] }},
 					uaString: ''
 				}).then(function(polyfillSet) {
@@ -73,7 +73,7 @@ describe("polyfillio", function() {
 				}),
 
 				// With unknown=polyfill, default variant polyfills
-				polyfillio.listPolyfills({
+				polyfillio.getPolyfills({
 					features: {'Math.sign': { flags: [] }},
 					unknown: 'polyfill',
 					uaString: ''
@@ -84,7 +84,7 @@ describe("polyfillio", function() {
 				}),
 
 				// With unknown=polyfill, default variant polyfills (UA not specified)
-				polyfillio.listPolyfills({
+				polyfillio.getPolyfills({
 					features: {'Math.sign': { flags: [] }},
 					unknown: 'polyfill',
 				}).then(function(polyfillSet) {
@@ -95,11 +95,22 @@ describe("polyfillio", function() {
 			]);
 
 		});
+
+		it("should understand the 'all' alias", function() {
+			return polyfillio.getPolyfills({
+				features: {
+					'all': { flags: [] }
+				},
+				uaString: 'ie/7'
+			}).then(function(polyfillSet) {
+				assert(Object.keys(polyfillSet).length > 0);
+			});
+		});
 	});
 
 	/*
 	// TODO: Not sure how to test this reliably - need a mock polyfill source?
-	describe('.listPolyfillstring', function() {
+	describe('.getPolyfillstring', function() {
 
 		it('should include the non-gated source when a feature-detect is unavailable', function() {
 		});
