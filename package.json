@@ -28,7 +28,7 @@
     "stop": "forever stop --plain bin/polyfill-service",
     "status": "forever list | grep bin/polyfill-service",
     "prepublish": "grunt build",
-    "deploy": "grunt build && haikro build deploy --heroku-token `heroku auth:token` --commit `git rev-parse HEAD` --app",
+    "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
     "test": "grunt test",
