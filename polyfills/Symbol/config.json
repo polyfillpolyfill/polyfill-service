@@ -2,10 +2,10 @@
 	"browsers": {
 		"ie": "*",
 		"safari": "*",
-		"chrome": "*",
-		"firefox": "*",
+		"chrome": "< 44",
+		"firefox": "< 38",
 		"ios_saf": "*",
-		"opera": "*"
+		"opera": "< 31"
 	},
 	"dependencies": [],
 	"license": "MIT",
