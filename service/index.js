@@ -157,15 +157,16 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
 	}
 
-	var op = polyfillio.getPolyfillString(params);
+	polyfillio.getPolyfillString(params).then(function(op) {
+		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
+		}
+		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+		res.set('Access-Control-Allow-Origin', '*');
+		res.send(op);
+		respTimeTimer.end();
+	});
 
-	if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
-		op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
-	}
-	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
-	res.set('Access-Control-Allow-Origin', '*');
-	res.send(op);
-	respTimeTimer.end();
 });
 
 app.get("/v1/normalizeUa", function(req, res, next) {

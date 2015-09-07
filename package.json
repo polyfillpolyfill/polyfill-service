@@ -39,7 +39,6 @@
     "babel-core": "^4.6.3",
     "caniuse-db": "1.0.20140710",
     "denodeify": "^1.2.1",
-    "es6-promise": "^2.0.1",
     "es6-set": "^0.1.0",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
@@ -70,7 +69,6 @@
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
     "picturefill": "^3.0.0-beta1",
-    "npm-prepublish": "^1.2.0",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
     "wd": "^0.3.8"

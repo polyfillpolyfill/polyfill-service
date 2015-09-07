@@ -39,11 +39,10 @@
 			if (typeof srces === 'string') srces = [srces];
 			srces.forEach(function(src) {
 				var script = document.createElement('script');
-				script[onload] = script[onreadystatechange] = function(){
+				script[onload] = script[onreadystatechange] = function() {
 					if(!this[readyState] || re.test(this[readyState])){
 						script[onload] = script[onreadystatechange] = null;
 						if (++count === srces.length) {
-							console.log('all loaded');
 							fn && fn();
 						}
 					}
