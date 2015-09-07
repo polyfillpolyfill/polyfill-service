@@ -7,6 +7,7 @@
 		"opera": "10 - 18",
 		"safari": "*",
 		"ie": "6 - *",
+		"ie_mob": "6 - *",
 		"ios_saf": "*"
 	},
 	"dependencies": [

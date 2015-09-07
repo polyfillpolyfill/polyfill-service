@@ -10,6 +10,7 @@
 		"toggle": {
 			"browsers": {
 				"ie": "10 - *",
+				"ie_mob": "10 - *",
 				"safari": "5.1 - 6.0"
 			}
 		}

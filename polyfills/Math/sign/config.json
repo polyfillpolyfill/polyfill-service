@@ -17,6 +17,7 @@
 		"plus": {
 			"browsers": {
 				"ie": "*",
+				"ie_mob": "*",
 				"safari": "*"
 			}
 		}
