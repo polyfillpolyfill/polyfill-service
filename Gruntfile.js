@@ -1,7 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
 var ENV = process.env;
 
 var fs = require('fs');
@@ -16,7 +14,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		"clean": {
 			repo: ['polyfills/__repo'],
-			versions: ['polyfills/__versions']
+			versions: ['polyfills/__versions'],
+			dist: ['polyfills/__dist']
 		},
 		"simplemocha": {
 			options: {
@@ -128,7 +127,8 @@ module.exports = function(grunt) {
 		"clean",
 		"installcollections",
 		"buildsources",
-		"clean:repo"
+		"clean:repo",
+		"clean:versions"
 	]);
 
 	grunt.registerTask('dev', [
@@ -151,7 +151,7 @@ var browsers = {
 		['chrome', '35', 'OSX 10.11'],
 		['firefox', '39', 'Linux'],
 		['firefox', '30', 'OSX 10.11'],
-		['firefox', '3.6', 'Linux'],
+		['firefox', '3.6', 'Windows XP'],
 		['internet explorer', '6', 'Windows XP'],
 		['internet explorer', '7', 'Windows XP'],
 		['internet explorer', '8', 'Windows XP'],
@@ -172,7 +172,7 @@ var browsers = {
 		['firefox', '33', 'Linux'],
 		['firefox', '30', 'OSX 10.11'],
 		['firefox', '20', 'Linux'],
-		['firefox', '3.6', 'Linux'],
+		['firefox', '3.6', 'Windows XP'],
 		['internet explorer', '6', 'Windows XP'],
 		['internet explorer', '7', 'Windows XP'],
 		['internet explorer', '8', 'Windows XP'],

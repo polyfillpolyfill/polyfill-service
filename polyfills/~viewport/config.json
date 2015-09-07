@@ -11,5 +11,14 @@
 				"ie": "6 - 7"
 			}
 		}
-	}
+	},
+	"aliases": [
+		"viewport",
+		"innerHeight",
+		"innerWidth",
+		"pageXOffset",
+		"pageYOffset",
+		"scrollX",
+		"scrollY"
+	]
 }

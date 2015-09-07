@@ -5,6 +5,11 @@ var Handlebars = require('handlebars');
 var moment = require('moment');
 var sources = require('../lib/sources');
 var marked = require('marked');
+var zlib = require('zlib');
+var PolyfillSet = require('./PolyfillSet');
+var polyfillservice = require('../lib');
+var compatdata = require('../docs/assets/compat.json');
+var extend = require('lodash').extend;
 
 var cache = {};
 var cachettl = 1800;
@@ -98,7 +103,7 @@ function getData(type) {
 				"30d": 60*60*24*30,
 				"3m": (60*60*24*365) / 4,
 				"12m": (60*60*24*365)
-			}
+			};
 			var end = ((new Date()).getTime()/1000) - 3600;  // Ignore the last hour (Pingdom data processing delay)
 			return Promise.all(Object.keys(periods).map(function(period) {
 				var start = end - periods[period];
@@ -114,52 +119,51 @@ function getData(type) {
 					}
 				}).then(function (response) {
 					response = JSON.parse(response);
-					console.log(response);
 					data[period] = response.summary.status.totaldown;
 				});
 			})).then(function() {
-				console.log(data);
 				return data;
 			}).catch(function(e) {
-				console.log('error', e);
+				console.log(e.stack || e);
 			});
 		},
 		sizes: function() {
-			var sizes = [];
-			var zlib = require('zlib');
-			var PolyfillSet = require('./PolyfillSet');
-			var polyfillservice = require('../lib');
-			var data = require('../docs/assets/compat.json');
-			var firstfeature = data[Object.keys(data)[0]];
-			Object.keys(firstfeature).forEach(function(family) {
-				Object.keys(firstfeature[family]).forEach(function(version) {
-					var minsrc = polyfillservice.getPolyfillString({
-						features: PolyfillSet.fromQueryParam('default').get(),
-						uaString:family+'/'+version,
-						minify: true
-					});
-					sizes.push({
-						family: family,
-						ver: version,
+
+			// Define a list of all the browsers in which we tested one of the polyfills
+			var firstfeature = compatdata[Object.keys(compatdata)[0]];
+			var UAs = Object.keys(firstfeature).reduce(function(UAs, family) {
+				UAs = UAs.concat(Object.keys(firstfeature[family]).map(function(uaVersion) {
+					return {family: family, ver: uaVersion};
+				}));
+				return UAs;
+			}, []);
+
+			// For each of these browsers, get a default bundle and report its size
+			return Promise.all(UAs.map(function(browser) {
+				var opts = {
+					features: PolyfillSet.fromQueryParam('default').get(),
+					uaString: browser.family+'/'+browser.ver,
+				};
+				return Promise.all([
+					polyfillservice.getPolyfillString(extend({minify: true}, opts)),
+					polyfillservice.getPolyfillString(extend({minify: false}, opts))
+				]).then(spread(function (minsrc, rawsrc) {
+					var item = {
+						family: browser.family,
+						ver: browser.ver,
 						minsrc: minsrc,
-						rawbytes: polyfillservice.getPolyfillString({
-							features: PolyfillSet.fromQueryParam('default').get(),
-							uaString:family+'/'+version,
-							minify: false
-						}).length,
+						rawbytes: rawsrc.length,
 						minbytes: minsrc.length
+					};
+					return new Promise(function(resolve, reject) {
+						zlib.gzip(item.minsrc, function(err, gzipsrc) {
+							if (!err) {
+								item.gzipbytes = gzipsrc.length;
+							}
+							resolve(item);
+						});
 					});
-				});
-			});
-			return Promise.all(sizes.map(function(item) {
-				return new Promise(function(resolve, reject) {
-					zlib.gzip(item.minsrc, function(err, gzipsrc) {
-						if (!err) {
-							item.gzipbytes = gzipsrc.length;
-						}
-						resolve(item);
-					});
-				});
+				}));
 			}));
 		}
 	};
@@ -172,12 +176,11 @@ function getData(type) {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
 			return cache[type].promise = Promise.reject(err.toString());
-		};
+		}
 	}
 }
 
 function getCompat() {
-	var data = require('../docs/assets/compat.json');
 	var sourceslib = sources.latest;
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
@@ -185,57 +188,58 @@ function getCompat() {
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
-	return Object.keys(data)
+	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
-			return sourceslib.polyfillExists(feature) && feature.indexOf('_') !== 0;
+			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
 		})
 		.sort()
 		.map(function(feat) {
-			var polyfill = sourceslib.getPolyfill(feat);
-			var fdata = {
-				feature: feat,
-				slug: feat.replace(/\./g, '_'),
-				size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-					return Math.max(size, polyfill.variants[variantName].minSource.length);
-				}, 0),
-				isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-				hasTests: polyfill.hasTests,
-				docs: polyfill.docs,
-				baseDir: polyfill.baseDir.replace(path.resolve(path.join(__dirname, '..')), ''),
-				spec: polyfill.spec,
-				notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-				license: polyfill.variants.default.license,
-				licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
-			};
-			browsers.forEach(function(browser) {
-				if (data[feat][browser]) {
-					fdata[browser] = [];
-					Object.keys(data[feat][browser]).sort(function(a, b) {
-						if (isNaN(a)) {
-							return 1;
-						} else if (isNaN(b)) {
-							return -1;
-						} else {
-							return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
-						}
-					}).forEach(function(version) {
-						fdata[browser].push({
-							status: data[feat][browser][version],
-							statusMsg: msgs[data[feat][browser][version]],
-							version: version
+			return sourceslib.getPolyfill(feat).then(function(polyfill) {
+				var fdata = {
+					feature: feat,
+					slug: feat.replace(/\./g, '_'),
+					size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
+						return Math.max(size, polyfill.variants[variantName].minSource.length);
+					}, 0),
+					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
+					hasTests: polyfill.hasTests,
+					docs: polyfill.docs,
+					baseDir: polyfill.baseDir.replace(path.resolve(path.join(__dirname, '..')), ''),
+					spec: polyfill.spec,
+					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+					license: polyfill.variants.default.license,
+					licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
+				};
+				browsers.forEach(function(browser) {
+					if (compatdata[feat][browser]) {
+						fdata[browser] = [];
+						Object.keys(compatdata[feat][browser]).sort(function(a, b) {
+							if (isNaN(a)) {
+								return 1;
+							} else if (isNaN(b)) {
+								return -1;
+							} else {
+								return (parseFloat(a) < parseFloat(b)) ? -1 : 1;
+							}
+						}).forEach(function(version) {
+							fdata[browser].push({
+								status: compatdata[feat][browser][version],
+								statusMsg: msgs[compatdata[feat][browser][version]],
+								version: version
+							});
 						});
-					});
-				}
+					}
+				});
+				return fdata;
 			});
-			return fdata;
 		})
-	;
+	);
 }
 
 // Quick helper for Promise.all to spread results over separate arguments rather than an array
 function spread(fn) {
 	return function(results) {
-		fn.apply(fn, results);
+		return fn.apply(fn, results);
 	};
 }
 
@@ -255,7 +259,6 @@ function route(req, res, next) {
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
-			console.log(outages);
 			res.send(templates.usage({
 				section: 'usage',
 				requestsData: fastly.byhour,
@@ -272,13 +275,15 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[0] === 'features') {
-		getData('sizes').then(function(sizes) {
+		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
 			res.send(templates.compat({
 				section: 'features',
-				compat: getCompat(),
+				compat: compat,
 				sizes: sizes
 			}));
-		}).catch(console.error);
+		})).catch(function (err) {
+			console.log (err.stack || err);
+		});
 
 	} else if (req.params[0] === 'api') {
 		res.send(templates.api({

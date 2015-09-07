@@ -46,7 +46,7 @@ When running a grunt task, including running the service via `grunt dev` or `gru
 
 ## Using as a library
 
-Polyfill service can also be used as a library in NodeJS projects.  To do this:
+The Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 1. Add this repo as a dependency in your package.json
    e.g. `npm install polyfill-service --save`
@@ -57,7 +57,7 @@ Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 #### `getPolyfillString(options)` (method)
 
-Returns a bundle of polyfills as a string.  Options is an object with the following keys:
+Returns a promise of a polyfill bundle string.  Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
@@ -81,12 +81,14 @@ require('polyfill-service').getPolyfillString({
 		'Element.prototype.matches': { flags: ['always', 'gated'] },
 		'modernizr:es5array': {}
 	}
+}).then(function(bundleString) {
+	console.log(bundleString);
 });
 ```
 
-#### `listPolyfills(options)` (method)
+#### `getPolyfills(options)` (method)
 
-Returns a list of features whose configuration matches the given user agent string.
+Returns a promise of a set of features which are configured to be applied in browsers with the specified user agent string.
 Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
@@ -102,16 +104,17 @@ require('polyfill-service').getPolyfills({
 		'Element.prototype.matches': { flags: ['always', 'gated'] },
 		'modernizr:es5array': {}
 	}
+}).then(function(polyfillSet) {
+	console.log(polyfillSet);
 });
 ```
 
 #### `listAllPolyfills()` (method)
 
-Return a list of all the features with polyfills as an array of strings. This
-list corresponds to directories in the `/polyfills` directory.
+Return a promise of an array all the polyfills as an array of strings. This list corresponds to directories and subdirectories in the `/polyfills` directory.
 
 Example:
 
 ```javascript
-require('polyfill-service').getAllPolyfills();
+require('polyfill-service').listAllPolyfills();
 ```
