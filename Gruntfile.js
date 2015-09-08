@@ -161,7 +161,7 @@ var browsers = {
 		['safari', '5.1', 'Windows 7'],
 		['safari', '8.1', 'OSX 10.11'],
 		['android', '4.4', 'linux'],
-		['android', '4.0', 'linux']
+		['android', '4.1', 'linux']
 	],
 	full: [
 		['chrome', '44', 'Windows 7'],
@@ -184,7 +184,6 @@ var browsers = {
 		['android', '4.4', 'linux'],
 		['android', '4.3', 'linux'],
 		['android', '4.2', 'linux'],
-		['android', '4.1', 'linux'],
-		['android', '4.0', 'linux']
+		['android', '4.1', 'linux']
 	]
 };
