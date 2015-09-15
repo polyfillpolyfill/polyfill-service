@@ -9,7 +9,7 @@
 		"chrome": "1 - 29",
 		"firefox": "3.6 - 21",
 		"ie": "*",
-		"ie_mob": "*",
+		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
 		"op_mob": "*",

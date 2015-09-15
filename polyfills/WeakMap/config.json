@@ -4,7 +4,7 @@
 	],
 	"browsers": {
 		"ie": "7 - 11",
-		"ie_mob": "7 - 11",
+		"ie_mob": "10 - 11",
 		"safari": "*",
 		"chrome": "<38",
 		"firefox": "<36",

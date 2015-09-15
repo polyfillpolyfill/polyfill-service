@@ -7,7 +7,7 @@
 		"chrome": "*",
 		"firefox": "4 - *",
 		"ie": "6 - *",
-		"ie_mob": "6 - *",
+		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "7 - *"
 	},

@@ -1,7 +1,7 @@
 {
 	"browsers": {
 		"ie": "*",
-		"ie_mob": "*",
+		"ie_mob": "10 - *",
 		"firefox": "* - 38",
 		"opera": "* - 28",
 		"safari": "*",

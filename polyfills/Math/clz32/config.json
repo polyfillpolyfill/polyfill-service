@@ -8,7 +8,7 @@
 		"chrome": "1 - 37",
 		"firefox": "1 - 24",
 		"ie": "*",
-		"ie_mob": "*",
+		"ie_mob": "10 - *",
 		"ios_chr": "*",
 		"ios_saf": "4 - *",
 		"opera": "10 - 20",

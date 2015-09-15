@@ -7,7 +7,7 @@
 		"ios_chr": "*",
 		"ios_saf": "*",
 		"ie": "*",
-		"ie_mob": "*",
+		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "*"
