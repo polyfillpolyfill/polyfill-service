@@ -115,10 +115,10 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	metrics.meter('hits').mark();
 	var respTimeTimer = metrics.timer('respTime').start();
 
-	var apiVersion = req.params[0];
+	var apiVersion = parseInt(req.params[0], 10);
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';
-	var fileExtension = minified ? req.params[1].toLowerCase() : firstParameter;
+	var fileExtension = minified ? req.params[2].toLowerCase() : firstParameter;
 	var uaString = req.query.ua || req.header('user-agent');
 	var flags = req.query.flags ? req.query.flags.split(',') : [];
 	var warnings = [];
@@ -165,6 +165,9 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	}
 
 	polyfillio.getPolyfillString(params).then(function(op) {
+		if (warnings.length) {
+			op = '/* WARNINGS:\n\n- ' + warnings.join('\n- ') + '\n\n*/\n\n' + op;
+		}
 		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
 			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
 		}
