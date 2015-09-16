@@ -4,12 +4,10 @@ var app = express().enable("strict routing");
 var origamijson = require('../origami.json');
 var PolyfillSet = require('./PolyfillSet');
 var path = require('path');
-var fs = require('fs');
 var metrics = require('./metrics');
-var fs = require('fs');
 var testing = require('./testing');
 var docs = require('./docs');
-var appVersion = require('../package.json').version
+var appVersion = require('../package.json').version;
 
 'use strict';
 
