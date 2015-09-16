@@ -50,6 +50,12 @@ Handlebars.registerHelper('dispBytes', function(bytes) {
 Handlebars.registerHelper('lower', function(str) {
 	return str.toLowerCase();
 });
+Handlebars.registerHelper('ifEq', function(v1, v2, options) {
+	if (v1 == v2) {
+		return options.fn(this);
+	}
+	return options.inverse(this);
+});
 
 
 function getData(type) {
@@ -244,14 +250,17 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v1/docs/".length) {
-		return res.redirect('/v1/docs/');
+	if (req.path.length < "/v2/docs/".length) {
+		return res.redirect('/v2/docs/');
 	}
+	var locals = {
+		apiversion: req.params[0]
+	};
 
-	if (!req.params || !req.params[0]) {
-		res.send(templates.index({section: 'index'}));
+	if (!req.params || !req.params[1]) {
+		res.send(templates.index(extend({section: 'index'}, locals)));
 
-	} else if (req.params[0] === 'usage') {
+	} else if (req.params[1] === 'usage') {
 		// Set the ttl to one hour for the usage page so the graphs are
 		// updated more frequently, overriding the default cache-control
 		// behaviour set in index.js
@@ -259,45 +268,45 @@ function route(req, res, next) {
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
-			res.send(templates.usage({
+			res.send(templates.usage(extend({
 				section: 'usage',
 				requestsData: fastly.byhour,
 				downtime: outages,
 				respTimes: respTimes,
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
-			}));
+			}, locals)));
 		})).catch(function(rejectReason) {
-			res.send(templates.usage({
+			res.send(templates.usage(extend({
 				section: 'usage',
 				msg: rejectReason.toString()
-			}));
+			}, locals)));
 		});
 
-	} else if (req.params[0] === 'features') {
+	} else if (req.params[1] === 'features') {
 		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
-			res.send(templates.compat({
+			res.send(templates.compat(extend({
 				section: 'features',
 				compat: compat,
 				sizes: sizes
-			}));
+			}, locals)));
 		})).catch(function (err) {
 			console.log (err.stack || err);
 		});
 
-	} else if (req.params[0] === 'api') {
-		res.send(templates.api({
+	} else if (req.params[1] === 'api') {
+		res.send(templates.api(extend({
 			hasVersions: sources.listVersions().length > 1,
 			versions: sources.listVersions(),
 			section: 'api'
-		}));
+		}, locals)));
 
-	} else if (req.params[0] === 'examples') {
+	} else if (req.params[1] === 'examples') {
 
-		res.send(templates.examples({section: 'examples'}));
+		res.send(templates.examples(extend({section: 'examples'}, locals)));
 
-	} else if (req.params[0] === 'contributing') {
-		res.send(templates.contributing({section: 'contributing', baselines: require('../lib/UA').getBaselines()}));
+	} else if (req.params[1] === 'contributing') {
+		res.send(templates.contributing(extend({section: 'contributing', baselines: require('../lib/UA').getBaselines()}, locals)));
 
 	} else {
 		next();

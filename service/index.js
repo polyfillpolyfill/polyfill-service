@@ -42,8 +42,8 @@ app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
 
 /* Documentation and version routing */
 
-app.get(/^\/(?:v1(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
-app.use('/v1/docs/assets', express.static(__dirname + '/../docs/assets'));
+app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
+app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'));
 
 
 
@@ -64,10 +64,10 @@ app.get(/^\/__about$/, function(req, res) {
 });
 
 // Describe the active API version
-app.get(/^\/v1\/__about$/, function(req, res) {
+app.get(/^\/v([12])\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
-		"apiVersion": 1,
+		"apiVersion": req.params[0],
 		"appVersion": appVersion,
 		"dateCreated": '2014-07-14T10:28:45Z',
 		"support": origamijson.support,
@@ -113,19 +113,26 @@ app.get(/^\/__health$/, function(req, res) {
 
 /* API endpoints */
 
-app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	metrics.meter('hits').mark();
 	var respTimeTimer = metrics.timer('respTime').start();
 
-	var firstParameter = req.params[0].toLowerCase(),
-		minified =  firstParameter === '.min',
-		fileExtension = minified ? req.params[1].toLowerCase() : firstParameter,
-		uaString = req.query.ua || req.header('user-agent'),
-		flags = req.query.flags ? req.query.flags.split(',') : [];
+	var apiVersion = req.params[0];
+	var firstParameter = req.params[1].toLowerCase();
+	var minified =  firstParameter === '.min';
+	var fileExtension = minified ? req.params[1].toLowerCase() : firstParameter;
+	var uaString = req.query.ua || req.header('user-agent');
+	var flags = req.query.flags ? req.query.flags.split(',') : [];
+	var warnings = [];
+
+	if (apiVersion === 1) {
+		warnings.push('API Version 1 is deprecated: please consider upgrading to v2.  API v1 will be closed after December 31, 2015, at which time v1 requests will be mapped internally to v2 requests and will be subject to potentially breaking changes.  See https://cdn.polyfill.io/v2/docs/api for details.');
+	}
 
 	// Backwards compatibility
-	if (req.query.gated) {
+	if (req.query.gated && apiVersion < 2) {
 		flags.push('gated');
+		warnings.push('The `gated` query parameter is deprecated and is not supported in API v2.  Set `flags=gated` instead.');
 	}
 
 	// Currently don't support CSS
@@ -138,6 +145,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
 
+	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {
 		res.set('Vary', 'User-Agent');
 	}
@@ -146,7 +154,8 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		features: polyfills.get(),
 		minify: minified
 	};
-	if (req.query.libVersion) {
+	if (req.query.libVersion && apiVersion === 1) {
+		warnings.push('The `libVersion` query parameter is deprecated and switching library version at runtime is not supported in API v2.  To use an older version of the polyfill library, consider running your own version of the service at the version that you want.');
 		params.libVersion = req.query.libVersion;
 	}
 	if (req.query.unknown) {
@@ -169,7 +178,7 @@ app.get(/^\/v1\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 });
 
-app.get("/v1/normalizeUa", function(req, res, next) {
+app.get("/v[12]/normalizeUa", function(req, res, next) {
 
 	if (req.query.ua) {
 		res.status(200);
