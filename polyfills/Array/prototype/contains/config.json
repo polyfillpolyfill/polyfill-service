@@ -3,6 +3,7 @@
 		"chrome": "*",
 		"firefox": "*",
 		"ie": "*",
+		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "*"
 	},
