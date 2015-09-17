@@ -54,7 +54,8 @@ app.get(/^\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
 		"versions": [
-			"/v1/"
+			"/v1/",
+			"/v2/"
 		]
 	};
 	res.set("Content-Type", "application/json;charset=utf-8");
@@ -69,7 +70,7 @@ app.get(/^\/v([12])\/__about$/, function(req, res) {
 		"appVersion": appVersion,
 		"dateCreated": '2014-07-14T10:28:45Z',
 		"support": origamijson.support,
-		"supportStatus": "active"
+		"supportStatus": (parseInt(req.params[0], 10) === 2) ? "active" : "deprecated"
 	};
 
 	res.set("Content-Type", "application/json;charset=utf-8");
