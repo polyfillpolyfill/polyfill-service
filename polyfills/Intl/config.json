@@ -7,7 +7,7 @@
         "chrome": "<24",
         "safari": "*",
         "ios_saf": "*",
-        "firefox_mob": "<29"
+        "firefox_mob": "*"
     },
     "dependencies": [],
     "build": {
