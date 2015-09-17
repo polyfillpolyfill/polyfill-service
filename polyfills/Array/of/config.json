@@ -1,19 +1,20 @@
 {
-	"aliases": [
-		"es6",
-		"modernizr:es6array"
-	],
-	"browsers": {
-		"chrome": "*",
-		"firefox": "* - 24",
-		"ie": "*",
-		"ie_mob": "10 - *",
-		"opera": "*",
-		"safari": "*"
-	},
-	"dependencies": [
-		"Object.defineProperty"
-	],
-	"spec":"http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
-	"docs":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
+    "aliases": [
+        "es6",
+        "modernizr:es6array"
+    ],
+    "browsers": {
+        "chrome": "*",
+        "firefox": "* - 24",
+        "ie": "*",
+        "ie_mob": "10 - *",
+        "opera": "*",
+        "safari": "*",
+        "firefox_mob": "* - 24"
+    },
+    "dependencies": [
+        "Object.defineProperty"
+    ],
+    "spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
 }

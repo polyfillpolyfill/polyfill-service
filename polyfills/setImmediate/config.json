@@ -1,18 +1,19 @@
 {
-	"browsers": {
-		"chrome": "*",
-		"firefox": "*",
-		"opera": "*",
-		"safari": "*",
-		"ie": "* - 9",
-		"ios_saf": "*",
-		"ios_chr": "*",
-		"android": "*",
-		"op_mob": "*",
-		"ie_mob": "*"
-	},
-	"dependencies": [
-		"_enqueueMicrotask"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
+    "browsers": {
+        "chrome": "*",
+        "firefox": "*",
+        "opera": "*",
+        "safari": "*",
+        "ie": "* - 9",
+        "ios_saf": "*",
+        "ios_chr": "*",
+        "android": "*",
+        "op_mob": "*",
+        "ie_mob": "*",
+        "firefox_mob": "*"
+    },
+    "dependencies": [
+        "_enqueueMicrotask"
+    ],
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
 }

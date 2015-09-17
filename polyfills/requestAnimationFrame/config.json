@@ -1,44 +1,45 @@
 {
-	"aliases": [
-		"default",
-		"caniuse:requestanimationframe",
-		"modernizr:requestanimationframe"
-	],
-	"browsers": {
-		"bb": "7",
-		"chrome": "1 - 9",
-		"ie": "6 - 9",
-		"ios_saf": "3.2 - 5.1",
-		"firefox": "3.6",
-		"opera": "9 - 12.1",
-		"op_mini": "5 - 7",
-		"op_mob": "10 - 12.1",
-		"safari": "3.1 - 5.1"
-	},
-	"variants": {
-		"moz": {
-			"browsers": {
-				"firefox": "4 - 22"
-			},
-			"dependencies": [
-				"performance.now"
-			]
-		},
-		"webkit": {
-			"browsers": {
-				"chrome": "10 - 23",
-				"safari": "6",
-				"ios_saf": "6.1"
-			},
-			"dependencies": [
-				"performance.now"
-			]
-		}
-	},
-	"dependencies": [
-		"Date.now",
-		"performance.now"
-	],
-	"license": "MIT",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame"
+    "aliases": [
+        "default",
+        "caniuse:requestanimationframe",
+        "modernizr:requestanimationframe"
+    ],
+    "browsers": {
+        "bb": "7",
+        "chrome": "1 - 9",
+        "ie": "6 - 9",
+        "ios_saf": "3.2 - 5.1",
+        "firefox": "3.6",
+        "opera": "9 - 12.1",
+        "op_mini": "5 - 7",
+        "op_mob": "10 - 12.1",
+        "safari": "3.1 - 5.1",
+        "firefox_mob": "3.6"
+    },
+    "variants": {
+        "moz": {
+            "browsers": {
+                "firefox": "4 - 22"
+            },
+            "dependencies": [
+                "performance.now"
+            ]
+        },
+        "webkit": {
+            "browsers": {
+                "chrome": "10 - 23",
+                "safari": "6",
+                "ios_saf": "6.1"
+            },
+            "dependencies": [
+                "performance.now"
+            ]
+        }
+    },
+    "dependencies": [
+        "Date.now",
+        "performance.now"
+    ],
+    "license": "MIT",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame"
 }

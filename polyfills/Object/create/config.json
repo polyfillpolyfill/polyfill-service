@@ -1,16 +1,17 @@
 {
-	"aliases": [
-		"es5",
-		"modernizr:es5object",
-		"default"
-	],
-	"browsers": {
-		"ie": "6 - 8",
-		"safari": "4",
-		"firefox": "<4"
-	},
-	"dependencies": [
-		"Object.defineProperties"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create"
+    "aliases": [
+        "es5",
+        "modernizr:es5object",
+        "default"
+    ],
+    "browsers": {
+        "ie": "6 - 8",
+        "safari": "4",
+        "firefox": "<4",
+        "firefox_mob": "<4"
+    },
+    "dependencies": [
+        "Object.defineProperties"
+    ],
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create"
 }
