@@ -6,7 +6,8 @@
         "opera": "<15",
         "chrome": "<24",
         "safari": "*",
-        "ios_saf": "*"
+        "ios_saf": "*",
+        "firefox_mob": "<29"
     },
     "dependencies": [
         "Intl"

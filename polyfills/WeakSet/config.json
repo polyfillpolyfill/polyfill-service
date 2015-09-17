@@ -1,22 +1,23 @@
 {
-	"aliases": [
-		"es6"
-	],
-	"browsers": {
-		"ie": "7 - *",
-		"ie_mob": "10 - *",
-		"safari": "*",
-		"chrome": "<38",
-		"firefox": "<34",
-		"ios_saf": "*",
-		"opera": "<25"
-	},
-	"dependencies": [
-		"Object.defineProperty",
-		"Array.prototype.forEach",
-		"Date.now"
-	],
-	"repo": "https://github.com/webcomponents/webcomponentsjs",
-	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet"
+    "aliases": [
+        "es6"
+    ],
+    "browsers": {
+        "ie": "7 - *",
+        "ie_mob": "10 - *",
+        "safari": "*",
+        "chrome": "<38",
+        "firefox": "<34",
+        "ios_saf": "*",
+        "opera": "<25",
+        "firefox_mob": "<34"
+    },
+    "dependencies": [
+        "Object.defineProperty",
+        "Array.prototype.forEach",
+        "Date.now"
+    ],
+    "repo": "https://github.com/webcomponents/webcomponentsjs",
+    "license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet"
 }
