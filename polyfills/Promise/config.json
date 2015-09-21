@@ -1,29 +1,29 @@
 {
-    "aliases": [
-        "modernizr:promises",
-        "caniuse:promises"
-    ],
-    "browsers": {
-        "android": "* - 4.4",
-        "bb": "* - 10",
-        "chrome": "* - 31",
-        "firefox": "6 - 28",
-        "ie": "8 - *",
-        "ie_mob": "*",
-        "ios_saf": "* - 7.1",
-        "op_mini": "*",
-        "opera": "* - 19",
-        "safari": "* - 7",
-        "firefox_mob": "6 - 28"
-    },
-    "dependencies": [
-        "_enqueueMicrotask",
-        "Array.isArray"
-    ],
-    "notes": [
-        "In IE8, the `catch` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"catch\"]` if intend to run your code in IE8"
-    ],
-    "license": "MIT",
-    "docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
-    "repo": "https://github.com/Octane/Promise"
+	"aliases": [
+		"modernizr:promises",
+		"caniuse:promises"
+	],
+	"browsers": {
+		"android": "* - 4.4",
+		"bb": "* - 10",
+		"chrome": "* - 31",
+		"firefox": "6 - 28",
+		"ie": "8 - *",
+		"ie_mob": "*",
+		"ios_saf": "* - 7.1",
+		"op_mini": "*",
+		"opera": "* - 19",
+		"safari": "* - 7",
+		"firefox_mob": "6 - 28"
+	},
+	"dependencies": [
+		"_enqueueMicrotask",
+		"Array.isArray"
+	],
+	"notes": [
+		"In IE8, the `catch` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"catch\"]` if intend to run your code in IE8"
+	],
+	"license": "MIT",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+	"repo": "https://github.com/Octane/Promise"
 }

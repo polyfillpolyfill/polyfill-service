@@ -1,18 +1,18 @@
 {
-    "browsers": {
-        "chrome": "5 - *",
-        "firefox": "4 - 29",
-        "ie": ">=8",
-        "ie_mob": ">=10",
-        "opera": "11.60 - *",
-        "safari": "5.1 - *",
-        "firefox_mob": "4 - 29"
-    },
-    "dependencies": [
-        "Object.defineProperties",
-        "Array.prototype.forEach"
-    ],
-    "license": "CC0",
-    "repo": "https://github.com/inexorabletash/polyfill",
-    "docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
+	"browsers": {
+		"chrome": "5 - *",
+		"firefox": "4 - 29",
+		"ie": ">=8",
+		"ie_mob": ">=10",
+		"opera": "11.60 - *",
+		"safari": "5.1 - *",
+		"firefox_mob": "4 - 29"
+	},
+	"dependencies": [
+		"Object.defineProperties",
+		"Array.prototype.forEach"
+	],
+	"license": "CC0",
+	"repo": "https://github.com/inexorabletash/polyfill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
 }

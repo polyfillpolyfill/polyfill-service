@@ -1,20 +1,20 @@
 {
-    "aliases": [
-        "es6",
-        "modernizr:es6array"
-    ],
-    "browsers": {
-        "chrome": "*",
-        "firefox": "3.6 - 24",
-        "ie": "*",
-        "ie_mob": "10 - *",
-        "opera": "*",
-        "safari": "* - 7.0",
-        "firefox_mob": "3.6 - 24"
-    },
-    "dependencies": [
-        "Object.defineProperty"
-    ],
-    "spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.find",
-    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
+	"aliases": [
+		"es6",
+		"modernizr:es6array"
+	],
+	"browsers": {
+		"chrome": "*",
+		"firefox": "3.6 - 24",
+		"ie": "*",
+		"ie_mob": "10 - *",
+		"opera": "*",
+		"safari": "* - 7.0",
+		"firefox_mob": "3.6 - 24"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.find",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
 }

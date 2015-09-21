@@ -1,21 +1,21 @@
 {
-    "browsers": {
-        "android": "*",
-        "bb": "*",
-        "chrome": "*",
-        "firefox": "*",
-        "ios_chr": "*",
-        "ios_saf": "*",
-        "ie": "*",
-        "ie_mob": "10 - *",
-        "opera": "*",
-        "op_mini": "*",
-        "safari": "*",
-        "firefox_mob": "*"
-    },
-    "dependencies": [
-        "Document",
-        "Element",
-        "Text"
-    ]
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "10 - *",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*"
+	},
+	"dependencies": [
+		"Document",
+		"Element",
+		"Text"
+	]
 }
