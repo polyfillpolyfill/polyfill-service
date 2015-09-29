@@ -7,7 +7,8 @@
 	"browsers": {
 		"ie": "6 - 8",
 		"safari": "4 - 4.1",
-		"firefox": "<4"
+		"firefox": "<4",
+		"firefox_mob": "<4"
 	},
 	"dependencies": [
 		"Object.defineProperty"

@@ -6,7 +6,8 @@
 		"firefox": "* - 8",
 		"safari": "* - 2",
 		"ie": "9 - *",
-		"ie_mob": "10 - *"
+		"ie_mob": "10 - *",
+		"firefox_mob": "* - 8"
 	},
 	"variants": {
 		"document": {

@@ -8,7 +8,8 @@
 		"safari": "*",
 		"ie": "6 - *",
 		"ie_mob": "10 - *",
-		"ios_saf": "*"
+		"ios_saf": "*",
+		"firefox_mob": "3.6 - 17"
 	},
 	"dependencies": [
 		"String.prototype.includes"

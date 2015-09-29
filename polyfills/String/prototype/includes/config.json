@@ -13,7 +13,8 @@
 		"safari": "*",
 		"ie": "6 - *",
 		"ie_mob": "10 - *",
-		"ios_saf": "*"
+		"ios_saf": "*",
+		"firefox_mob": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes"
 }

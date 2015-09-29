@@ -7,7 +7,8 @@
 		"ie": "9 - 11",
 		"ie_mob": "10",
 		"opera": "10 - 11.5",
-		"safari": "4 - 7"
+		"safari": "4 - 7",
+		"firefox_mob": "6 - 10"
 	},
 	"dependencies": [
 		"Window"

@@ -9,7 +9,8 @@
 		"chrome": "<38",
 		"firefox": "<34",
 		"ios_saf": "*",
-		"opera": "<25"
+		"opera": "<25",
+		"firefox_mob": "<34"
 	},
 	"dependencies": [
 		"Object.defineProperty",

@@ -13,7 +13,8 @@
 		"opera": "*",
 		"op_mini": "*",
 		"op_mob": "*",
-		"safari": "*"
+		"safari": "*",
+		"firefox_mob": "6 - *"
 	},
 	"dependencies": [
 		"Element.prototype.matches"

@@ -1,24 +1,28 @@
 {
-    "browsers": {
-        "ie": "<11",
-        "ie_mob": "10",
-        "firefox": "<29",
-        "opera": "<15",
-        "chrome": "<24",
-        "safari": "*",
-        "ios_saf": "*"
-    },
-    "dependencies": [
-        "Intl"
-    ],
-    "build": {
-        "minify": false
-    },
-    "test": {
-        "ci": false
-    },
-    "license": "MIT",
-    "spec": "http://www.ecma-international.org/ecma-402/1.0/",
-    "repo": "https://github.com/andyearnshaw/Intl.js",
-    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl"
+	"browsers": {
+		"ie": "<11",
+		"ie_mob": "10",
+		"firefox": "<29",
+		"opera": "<15",
+		"chrome": "<24",
+		"safari": "*",
+		"ios_saf": "*",
+		"firefox_mob": "*"
+	},
+	"dependencies": [
+		"Intl"
+	],
+	"build": {
+		"minify": false
+	},
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-402/1.0/",
+	"repo": "https://github.com/andyearnshaw/Intl.js",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl",
+	"notes": [
+		"Locales must be specified separately by prefixing the locale name with `Intl.~locale`, eg `Intl.~locale.en-GB`."
+	],
+	"test": {
+		"ci": false
+	}
 }

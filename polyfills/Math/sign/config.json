@@ -11,7 +11,8 @@
 		"ios_saf": "*",
 		"opera": "10 - 20",
 		"op_mob": "*",
-		"op_mini": "*"
+		"op_mini": "*",
+		"firefox_mob": "1 - 24"
 	},
 	"variants": {
 		"plus": {

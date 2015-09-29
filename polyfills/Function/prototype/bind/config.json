@@ -8,7 +8,8 @@
 		"ie": "6 - 8",
 		"firefox": "3.6",
 		"safari": "4 - 5.1",
-		"ios_saf": "<=5"
+		"ios_saf": "<=5",
+		"firefox_mob": "3.6"
 	},
 	"dependencies": [
 		"Object.defineProperty"

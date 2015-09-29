@@ -14,7 +14,8 @@
 		"op_mini": "*",
 		"op_mob": "*",
 		"safari": "*",
-		"ios_saf": "*"
+		"ios_saf": "*",
+		"firefox_mob": "3.6 - 21"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"
 }
