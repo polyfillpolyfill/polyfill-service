@@ -1,31 +1,23 @@
+// https://github.com/es-shims/es5-shim/blob/d6d7ff1b131c7ba14c798cafc598bb6780d37d3b/es5-shim.js#L182
 Object.defineProperty(Function.prototype, 'bind', {
     value: function bind(that) { // .length is 1
+        // add necessary es5-shim utilities
+        var $Array = Array;
+        var $Object = Object;
+        var ObjectPrototype = $Object.prototype;
+        var ArrayPrototype = $Array.prototype;
+        var Empty = function Empty() {};
+        var to_string = ObjectPrototype.toString;
+        var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
+        var isCallable; /* inlined from https://npmjs.com/is-callable */ var fnToStr = Function.prototype.toString, tryFunctionObject = function tryFunctionObject(value) { try { fnToStr.call(value); return true; } catch (e) { return false; } }, fnClass = '[object Function]', genClass = '[object GeneratorFunction]'; isCallable = function isCallable(value) { if (typeof value !== 'function') { return false; } if (hasToStringTag) { return tryFunctionObject(value); } var strClass = to_string.call(value); return strClass === fnClass || strClass === genClass; };
+        var array_slice = ArrayPrototype.slice;
+        var array_concat = ArrayPrototype.concat;
+        var array_push = ArrayPrototype.push;
+        var max = Math.max;
+        // /add necessary es5-shim utilities
+
         // 1. Let Target be the this value.
         var target = this;
-        var Empty = function Empty() {};
-        var isCallable = (function() {
-            var fnToStr = Function.prototype.toString;
-            var tryFunctionObject = function tryFunctionObject(value) {
-                try {
-                    fnToStr.call(value);
-                    return true;
-                } catch (e) {
-                    return false;
-                }
-            };
-            var toStr = Object.prototype.toString;
-            var fnClass = '[object Function]';
-            var genClass = '[object GeneratorFunction]';
-            var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
-
-            return function isCallable(value) {
-                if (typeof value !== 'function') { return false; }
-                if (hasToStringTag) { return tryFunctionObject(value); }
-                var strClass = toStr.call(value);
-                return strClass === fnClass || strClass === genClass;
-            };
-        })();
-
         // 2. If IsCallable(Target) is false, throw a TypeError exception.
         if (!isCallable(target)) {
             throw new TypeError('Function.prototype.bind called on incompatible ' + target);
@@ -33,7 +25,7 @@ Object.defineProperty(Function.prototype, 'bind', {
         // 3. Let A be a new (possibly empty) internal list of all of the
         //   argument values provided after thisArg (arg1, arg2 etc), in order.
         // XXX slicedArgs will stand in for "A" if used
-        var args = Array.prototype.slice.call(arguments, 1); // for normal call
+        var args = array_slice.call(arguments, 1); // for normal call
         // 4. Let F be a new native ECMAScript object.
         // 11. Set the [[Prototype]] internal property of F to the standard
         //   built-in Function prototype object as specified in 15.3.3.1.
@@ -65,9 +57,9 @@ Object.defineProperty(Function.prototype, 'bind', {
 
                 var result = target.apply(
                     this,
-                    args.concat(array_slice.call(arguments))
+                    array_concat.call(args, array_slice.call(arguments))
                 );
-                if (Object(result) === result) {
+                if ($Object(result) === result) {
                     return result;
                 }
                 return this;
@@ -94,7 +86,7 @@ Object.defineProperty(Function.prototype, 'bind', {
                 // equiv: target.call(this, ...boundArgs, ...args)
                 return target.apply(
                     that,
-                    args.concat(Array.prototype.slice.call(arguments))
+                    array_concat.call(args, array_slice.call(arguments))
                 );
 
             }
@@ -107,13 +99,13 @@ Object.defineProperty(Function.prototype, 'bind', {
         //       larger.
         // 16. Else set the length own property of F to 0.
 
-        var boundLength = Math.max(0, target.length - args.length);
+        var boundLength = max(0, target.length - args.length);
 
         // 17. Set the attributes of the length own property of F to the values
         //   specified in 15.3.5.1.
         var boundArgs = [];
         for (var i = 0; i < boundLength; i++) {
-            boundArgs.push('$' + i);
+            array_push.call(boundArgs, '$' + i);
         }
 
         // XXX Build a dynamic function with desired amount of arguments is the only
