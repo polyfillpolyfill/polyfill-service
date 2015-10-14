@@ -264,6 +264,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     this.url = null
     this.status = options.status
     this.statusText = options.statusText
+    this.ok = this.status >= 200 && this.status < 300
     this.headers = options.headers
     this.url = options.url || ''
   }
