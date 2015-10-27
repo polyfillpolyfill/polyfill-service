@@ -4,6 +4,12 @@ it('returns properties of a simple object', function () {
 	expect(Object.getOwnPropertyNames({foo:42})).to.eql(["foo"]);
 });
 
+it('does not throw an exception when used on window object', function () {
+	expect(function () {
+		Object.getOwnPropertyNames(window);
+	}).not.to.throwException();
+});
+
 it('does not include properties inherited from a prototype', function () {
 	var A = function() { this.foo = true; };
 	A.prototype = {bar: true};
@@ -32,4 +38,3 @@ it.skip('splits a string into an array', function() {
 	// In Chrome the length property is returned at the end, in FF at the beginning.  Our polyfill adds it to the end
 	expect(Object.getOwnPropertyNames('foo')).to.eql(['0', '1', '2', 'length']);
 });
-
