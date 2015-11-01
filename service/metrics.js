@@ -32,6 +32,8 @@ if (graphiteHost) {
 		});
 	}, reportInterval);
 	timer.unref();
+} else {
+	console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
 }
 
 module.exports = data;
