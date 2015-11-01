@@ -117,3 +117,11 @@ Example:
 ```javascript
 require('polyfill-service').listAllPolyfills();
 ```
+
+## cdn.polyfill.io deployment
+
+Our deployment of polyfill.io uses Heroku.  Refer to the following dashboards / accounts for access (FT employees only):
+
+* [Heroku app](https://dashboard.heroku.com/apps/ft-polyfill-service)
+* [Graphite metrics](http://grafana.ft.com/dashboard/db/origami-polyfill-service)
+* [Fastly account](https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog)
