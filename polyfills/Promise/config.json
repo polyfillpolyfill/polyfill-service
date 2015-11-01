@@ -6,7 +6,7 @@
 	"browsers": {
 		"android": "* - 4.4",
 		"bb": "* - 10",
-		"chrome": "* - 31",
+		"chrome": "* - 32",
 		"firefox": "6 - 28",
 		"ie": "8 - *",
 		"ie_mob": "*",
