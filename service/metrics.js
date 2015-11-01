@@ -11,6 +11,8 @@ var timer = null;
 var graphite = null;
 var data = Measured.createCollection('origami.polyfill.' + envName + '.' + processIdentifier);
 
+var failures = data.counter('graphiteReportingFailures');
+
 if (graphiteHost) {
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
 	timer = setInterval(function() {
@@ -18,7 +20,10 @@ if (graphiteHost) {
 			if (err) {
 
 				// Ignore timeouts
-				if (err.code === 'ETIMEDOUT') return;
+				if (err.code === 'ETIMEDOUT' || err.code === 'EPIPE') {
+					failures.inc();
+					return;
+				}
 
 				console.error(err, err.stack);
 				console.warn('Disabling graphite reporting due to error');
