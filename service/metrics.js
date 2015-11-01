@@ -22,7 +22,7 @@ if (graphiteHost) {
 
 				console.error(err, err.stack);
 				console.warn('Disabling graphite reporting due to error');
-				clearTimeout(timer);
+				clearInterval(timer);
 			}
 		});
 	}, reportInterval);
