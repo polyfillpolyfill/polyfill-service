@@ -20,9 +20,10 @@ var one_week = one_day * 7;
 var one_year = one_day * 365;
 var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
-app.get(/^\/v([12])\/robots\.txt$/, function (req, res) {
+// Allow robots to index v1/docs v2/docs
+app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
-    res.send("User-agent: *\nDisallow: /");
+    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
 });
 
 
@@ -124,7 +125,7 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var apiVersion = parseInt(req.params[0], 10);
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';
-	var fileExtension = (minified && req.params[2]) ? req.params[2].toLowerCase() : firstParameter;
+	var fileExtension = req.params[2] ? req.params[2].toLowerCase() : firstParameter;
 	var uaString = req.query.ua || req.header('user-agent');
 	var flags = req.query.flags ? req.query.flags.split(',') : [];
 	var warnings = [];
