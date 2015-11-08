@@ -51,6 +51,12 @@ app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'))
  * compliant with FT Origami standard
  * http://origami.ft.com/docs/syntax/web-service-description/ */
 
+// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
+app.get('/robots.txt', function (req, res) {
+    res.type('text/plain');
+    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
+});
+
 app.get(/^\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
@@ -129,7 +135,7 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var apiVersion = parseInt(req.params[0], 10);
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';
-	var fileExtension = minified ? req.params[2].toLowerCase() : firstParameter;
+	var fileExtension = req.params[2] ? req.params[2].toLowerCase() : firstParameter;
 	var uaString = req.query.ua || req.header('user-agent');
 	var flags = req.query.flags ? req.query.flags.split(',') : [];
 	var warnings = [];
