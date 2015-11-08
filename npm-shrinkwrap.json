@@ -458,6 +458,11 @@
         }
       }
     },
+    "blocked": {
+      "version": "1.1.0",
+      "from": "blocked@*",
+      "resolved": "https://registry.npmjs.org/blocked/-/blocked-1.1.0.tgz"
+    },
     "caniuse-db": {
       "version": "1.0.20140710",
       "from": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.20140710.tgz",

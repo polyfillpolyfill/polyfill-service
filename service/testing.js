@@ -49,9 +49,10 @@ function createEndpoint(type, polyfillio) {
 
 				// Eliminate those that are not testable or not public
 				Object.keys(polyfillSet).forEach(function(featureName) {
+					var baseDir = path.join(__dirname, '../polyfills');
 					var config = polyfillSet[featureName];
-					var detectFile = path.join(config.baseDir, '/detect.js');
-					var testFile = path.join(config.baseDir, '/tests.js');
+					var detectFile = path.join(baseDir, config.baseDir, '/detect.js');
+					var testFile = path.join(baseDir, config.baseDir, '/tests.js');
 					var isTestable = !('test' in config && 'ci' in config.test && config.test.ci === false);
 					var isPublic = featureName.indexOf('_') !== 0;
 
