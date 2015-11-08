@@ -15,6 +15,17 @@ var data = Measured.createCollection('origami.polyfill.' + envName + '.' + proce
 var failures = data.counter('graphiteReportingFailures');
 
 if (graphiteHost) {
+
+	data.gauge('memory', function() {
+		return process.memoryUsage().rss;
+	});
+
+	blocked(function(ms) {
+		if (ms < 100) return;
+		console.warn('Event loop blocked for '+ms+'ms');
+		data.counter('eventloopdelay').inc(ms);
+	});
+
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
 	timer = setInterval(function() {
 		graphite.write(data.toJSON(), function(err) {
@@ -36,16 +47,6 @@ if (graphiteHost) {
 } else {
 	console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
 }
-
-data.gauge('memory', function() {
-	return process.memoryUsage().rss;
-});
-
-blocked(function(ms) {
-	if (ms < 100) return;
-	console.warn('Event loop blocked for '+ms+'ms');
-	data.counter('eventloopdelay').inc(ms);
-});
 
 
 module.exports = data;
