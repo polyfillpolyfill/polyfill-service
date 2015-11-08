@@ -20,7 +20,7 @@ var one_week = one_day * 7;
 var one_year = one_day * 365;
 var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
-// Allow robots to index v1/docs v2/docs
+// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
     res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
