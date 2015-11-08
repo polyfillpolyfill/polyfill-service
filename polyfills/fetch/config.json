@@ -1,5 +1,6 @@
 {
 	"browsers": {
+		"android": "* - 4.4.4",
 		"ie": "*",
 		"ie_mob": "10 - *",
 		"firefox": "* - 38",
