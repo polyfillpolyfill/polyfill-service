@@ -153,6 +153,7 @@ var browsers = {
 		['microsoftedge', '20.10240', 'Windows 10'],
 	],
 	ci: [
+		['android', '4.4', 'linux', 'Android Emulator'],
 		['chrome', '46', 'Windows 7'],
 		['chrome', '35', 'OSX 10.11'],
 		['firefox', '41', 'Linux'],
@@ -167,8 +168,6 @@ var browsers = {
 		['safari', '9.0', 'OSX 10.11'],
 		['safari', '8.0', 'OSX 10.10'],
 		['safari', '5.1', 'Windows 7'],
-		['android', '4.4', 'linux', 'Android Emulator'],
-		['android', '4.1', 'linux', 'Android Emulator']
 	],
 	full: [
 		['chrome', '46', 'Windows 7'],
