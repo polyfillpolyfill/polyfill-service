@@ -3,29 +3,25 @@ var express = require('express');
 var app = express().enable("strict routing");
 var origamijson = require('../origami.json');
 var PolyfillSet = require('./PolyfillSet');
+var fs = require('fs');
 var path = require('path');
 var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
-var appVersion = require('../package.json').version;
+var appVersion = require(path.join(__dirname,'../package.json')).version;
+var hostname = require("os").hostname();
 
 'use strict';
-
-metrics.gauge('memory', function() {
-	return process.memoryUsage().rss;
-});
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
 var one_year = one_day * 365;
 var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+var dateDeployed;
 
-// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
-app.get('/robots.txt', function (req, res) {
-    res.type('text/plain');
-    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
-});
-
+require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
+	dateDeployed = stat.mtime;
+})
 
 // Default cache control policy
 app.use(function(req, res, next) {
@@ -44,39 +40,54 @@ app.use('/test/libs/expect', express.static(path.join(__dirname, '/../node_modul
 app.get(/\/test\/director\/?$/, testing.createEndpoint('director', polyfillio));
 app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
 
+
 /* Documentation and version routing */
 
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
 app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'));
 
 
-
 /* Endpoints for health, application metadata and availability status
  * compliant with FT Origami standard
- * http://origami.ft.com/docs/syntax/web-service-index/ */
+ * http://origami.ft.com/docs/syntax/web-service-description/ */
 
-// Describe the available API versions
+// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
+app.get('/robots.txt', function (req, res) {
+    res.type('text/plain');
+    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
+});
+
 app.get(/^\/__about$/, function(req, res) {
 	var info = {
 		"name": "polyfill-service",
-		"versions": [
-			"/v1/",
-			"/v2/"
-		]
-	};
-	res.set("Content-Type", "application/json;charset=utf-8");
-	res.send(JSON.stringify(info));
-});
-
-// Describe the active API version
-app.get(/^\/v([12])\/__about$/, function(req, res) {
-	var info = {
-		"name": "polyfill-service",
-		"apiVersion": req.params[0],
+		"purpose": "Stores a library of FT-approved polyfills and serves them to FT websites that need them in older browsers.",
+		"audience": "public",
+		"primaryUrl": "https://polyfill.webservices.ft.com",
+		"serviceTier": "silver",
 		"appVersion": appVersion,
-		"dateCreated": '2014-07-14T10:28:45Z',
-		"support": origamijson.support,
-		"supportStatus": (parseInt(req.params[0], 10) === 2) ? "active" : "deprecated"
+		"apiVersion": 2,
+		"apiVersions": [
+			{ "path": "/v1", "supportStatus": "deprecated", "dateTerminated": "2016-01-01T00:00:00Z" },
+			{ "path": "/v2", "supportStatus": "active" }
+		],
+		"hostname": hostname,
+		"dateCreated": "2014-07-14T10:28:45Z",
+		"dateDeployed": dateDeployed,
+		"contacts": [
+			{ "name": "Origami team", "email": "origami-support@ft.com", "rel": "owner", "domain": "All support enquiries" }
+		],
+		"links": [
+			{"url": "https://github.com/Financial-Times/polyfill-service/issues", "category": "issues"},
+			{"url": "https://github.com/Financial-Times/polyfill-service", "category": "repo"},
+			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service", "category": "deployment", "description": "Production Heroku app"},
+			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service-qa", "category": "deployment", "description": "QA Heroku app"},
+			{"url": "http://grafana.ft.com/dashboard/db/origami-polyfill-service", "category": "monitoring", "description": "Grafana dashboard"},
+			{"url": "https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog", "category": "deployment", "description": "Fastly CDN app"},
+			{"url": "https://my.pingdom.com/reports/uptime#check=1338405", "category": "monitoring", "description": "Pingdom check"},
+			{"url": "https://docs.google.com/drawings/d/1eA_sYaSRkvOqIxdkN6LRpyHeOzv8Mxr51WMfXM1sS3Q/edit", "category": "documentation", "description": "Architecture diagram"},
+			{"url": "https://github.com/Financial-Times/polyfill-service/blob/master/README.md", "category": "documentation", "description": "README"},
+			{"url": "https://travis-ci.org/Financial-Times/polyfill-service", "category": "testing", "description": "Continuous Integration status on Travis"}
+		]
 	};
 
 	res.set("Content-Type", "application/json;charset=utf-8");
@@ -92,27 +103,27 @@ app.get(/^\/__gtg$/, function(req, res) {
 
 // Healthcheck
 app.get(/^\/__health$/, function(req, res) {
-    var info = {
-        "schemaVersion": 1,
-        "name": "polyfill-service",
-        "description": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent.  More at http://github.com/Financial-Times/polyfill-service.",
-        "checks": [
-            {
-                "name": "Server is up",
-                "ok": true,
-                "severity": 2,
-                "businessImpact": "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
-                "technicalSummary": "Tests that the Node JS process is up.",
-                "panicGuide": "This application consists of Node JS processes on any number of nodes in an environment.  The process must have read permissions on files within its deployment.",
-                "checkOutput": "None",
-                "lastUpdated": new Date().toISOString()
-            }
-        ],
-    };
+	var info = {
+		"schemaVersion": 1,
+		"name": "polyfill-service",
+		"description": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent.  More at http://github.com/Financial-Times/polyfill-service.",
+		"checks": [
+			{
+				"name": "Server is up",
+				"ok": true,
+				"severity": 2,
+				"businessImpact": "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
+				"technicalSummary": "Tests that the Node JS process is up.",
+				"panicGuide": "This application consists of Node JS processes on any number of nodes in an environment.  The process must have read permissions on files within its deployment.",
+				"checkOutput": "None",
+				"lastUpdated": new Date().toISOString()
+			}
+		],
+	};
 
-    res.set('Cache-Control', 'no-cache');
-    res.set('Content-Type', 'application/json;charset=utf-8');
-    res.send(JSON.stringify(info));
+	res.set('Cache-Control', 'no-cache');
+	res.set('Content-Type', 'application/json;charset=utf-8');
+	res.send(JSON.stringify(info));
 });
 
 
@@ -121,7 +132,6 @@ app.get(/^\/__health$/, function(req, res) {
 app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	metrics.meter('hits').mark();
 	var respTimeTimer = metrics.timer('respTime').start();
-
 	var apiVersion = parseInt(req.params[0], 10);
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';

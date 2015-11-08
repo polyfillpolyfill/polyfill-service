@@ -1,5 +1,6 @@
 var Graphite = require('graphite');
 var Measured = require('measured');
+var blocked = require('blocked');
 
 var reportInterval = 5000;
 var graphiteHost = process.env.GRAPHITE_HOST || null;
@@ -35,5 +36,16 @@ if (graphiteHost) {
 } else {
 	console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
 }
+
+data.gauge('memory', function() {
+	return process.memoryUsage().rss;
+});
+
+blocked(function(ms) {
+	if (ms < 100) return;
+	console.warn('Event loop blocked for '+ms+'ms');
+	data.counter('eventloopdelay').inc(ms);
+});
+
 
 module.exports = data;

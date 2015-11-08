@@ -48,7 +48,9 @@ module.exports = function(grunt) {
 		});
 
 		options.browsers = options.browsers.map(function(b) {
-			return {browserName:b[0], version:b[1], platform:b[2]};
+			var def = {browserName:b[0], version:b[1], platform:b[2]};
+			if (b[3]) def['deviceName'] = b[3];
+			return def;
 		});
 
 
