@@ -8,18 +8,8 @@ var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
 var appVersion = require('../package.json').version;
-var blocked = require('blocked');
 
 'use strict';
-
-metrics.gauge('memory', function() {
-	return process.memoryUsage().rss;
-});
-
-blocked(function(ms){
-	if (ms < 100) return;
-	metrics.counter('blockedeventloop.' + (Math.ceil(ms / 100) * 100)).inc();
-});
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
