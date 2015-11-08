@@ -13,10 +13,6 @@ var hostname = require("os").hostname();
 
 'use strict';
 
-metrics.gauge('memory', function() {
-	return process.memoryUsage().rss;
-});
-
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
 var one_year = one_day * 365;
@@ -130,7 +126,6 @@ app.get(/^\/__health$/, function(req, res) {
 app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	metrics.meter('hits').mark();
 	var respTimeTimer = metrics.timer('respTime').start();
-
 	var apiVersion = parseInt(req.params[0], 10);
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';

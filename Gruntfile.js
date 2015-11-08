@@ -131,9 +131,14 @@ module.exports = function(grunt) {
 		"clean:versions"
 	]);
 
-	grunt.registerTask('dev', [
+	grunt.registerTask("devbuild", [
 		"clean",
 		"buildsources",
+		"clean:repo",
+		"clean:versions"
+	]);
+
+	grunt.registerTask('dev', [
 		"service",
 		"watch"
 	]);
