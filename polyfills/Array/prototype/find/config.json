@@ -7,8 +7,10 @@
 		"chrome": "*",
 		"firefox": "3.6 - 24",
 		"ie": "*",
+		"ie_mob": "10 - *",
 		"opera": "*",
-		"safari": "* - 7.0"
+		"safari": "* - 7.0",
+		"firefox_mob": "3.6 - 24"
 	},
 	"dependencies": [
 		"Object.defineProperty"

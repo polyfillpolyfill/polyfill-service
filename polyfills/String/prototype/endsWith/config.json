@@ -11,7 +11,9 @@
 		"opera": "10 - 18",
 		"safari": "*",
 		"ie": "6 - *",
-		"ios_saf": "*"
+		"ie_mob": "10 - *",
+		"ios_saf": "*",
+		"firefox_mob": "3.6 - 17"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith"
 }

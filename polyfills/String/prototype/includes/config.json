@@ -12,7 +12,9 @@
 		"opera": "10 - 18",
 		"safari": "*",
 		"ie": "6 - *",
-		"ios_saf": "*"
+		"ie_mob": "10 - *",
+		"ios_saf": "*",
+		"firefox_mob": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes"
 }

@@ -13,7 +13,8 @@
 		"opera": "9 - 12.1",
 		"op_mini": "5 - 7",
 		"op_mob": "10 - 12.1",
-		"safari": "3.1 - 5.1"
+		"safari": "3.1 - 5.1",
+		"firefox_mob": "3.6"
 	},
 	"variants": {
 		"moz": {
@@ -39,6 +40,6 @@
 		"Date.now",
 		"performance.now"
 	],
-	"license": "requestAnimationFrame polyfill by Erik Möller, fixes from Paul Irish, Tino Zijdel, and Jonathan Neal",
+	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame"
 }

@@ -3,8 +3,10 @@
 		"chrome": "*",
 		"firefox": "*",
 		"ie": "*",
+		"ie_mob": "10 - *",
 		"opera": "*",
-		"safari": "*"
+		"safari": "*",
+		"firefox_mob": "*"
 	},
 	"dependencies": [
 		"Array.prototype.includes"

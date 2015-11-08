@@ -9,7 +9,8 @@
 		"opera": "* - 24",
 		"op_mob": "*",
 		"android": "*",
-		"bb": "*"
+		"bb": "*",
+		"firefox_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

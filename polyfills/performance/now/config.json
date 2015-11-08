@@ -7,7 +7,8 @@
 		"firefox": "<15",
 		"opera": "<15",
 		"op_mob": "<24",
-		"safari": "<8"
+		"safari": "<8",
+		"firefox_mob": "<15"
 	},
 	"dependencies": [
 		"Date.now"

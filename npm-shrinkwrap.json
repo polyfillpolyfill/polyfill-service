@@ -1,6 +1,6 @@
 {
   "name": "polyfill-service",
-  "version": "1.6.0-rc.1",
+  "version": "2.1.0",
   "dependencies": {
     "babel-core": {
       "version": "4.7.16",
@@ -457,6 +457,11 @@
           "resolved": "https://registry.npmjs.org/trim-right/-/trim-right-1.0.1.tgz"
         }
       }
+    },
+    "blocked": {
+      "version": "1.1.0",
+      "from": "blocked@*",
+      "resolved": "https://registry.npmjs.org/blocked/-/blocked-1.1.0.tgz"
     },
     "caniuse-db": {
       "version": "1.0.20140710",

@@ -13,7 +13,8 @@
 		"ios_chr": "*",
 		"android": "*",
 		"op_mob": "*",
-		"ie_mob": "*"
+		"ie_mob": "*",
+		"firefox_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"
