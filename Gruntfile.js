@@ -63,11 +63,11 @@ module.exports = function(grunt) {
 				spawn: false
 			},
 			js: {
-				files: ['!*', 'docs/**/*', 'service/**/*', 'lib/**/*'],
+				files: ['bin/*', 'docs/*.html', 'service/*.js', 'lib/*.js'],
 				tasks: ['service:polyfillservice:restart']
 			},
 			polyfills: {
-				files: ['!*', 'polyfills/**/*', '!polyfills/__versions/**', '!polyfills/*.json'],
+				files: ['polyfills/**/*.js', 'polyfills/**/config.json', '!polyfills/__dist/**'],
 				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
 			}
 		},
