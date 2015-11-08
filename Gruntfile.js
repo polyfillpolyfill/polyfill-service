@@ -162,8 +162,8 @@ var browsers = {
 		['safari', '9.0', 'OSX 10.11'],
 		['safari', '8.0', 'OSX 10.10'],
 		['safari', '5.1', 'Windows 7'],
-		['android', '4.4', 'linux'],
-		['android', '4.1', 'linux']
+		['android', '4.4', 'linux', 'Android Emulator'],
+		['android', '4.1', 'linux', 'Android Emulator']
 	],
 	full: [
 		['chrome', '46', 'Windows 7'],
@@ -184,10 +184,10 @@ var browsers = {
 		['safari', '9.0', 'OSX 10.11'],
 		['safari', '8.0', 'OSX 10.10'],
 		['safari', '5.1', 'Windows 7'],
-		['android', '4.4', 'linux'],
-		['android', '4.3', 'linux'],
-		['android', '4.2', 'linux'],
-		['android', '4.1', 'linux'],
+		['android', '4.4', 'linux', 'Android Emulator'],
+		['android', '4.3', 'linux', 'Android Emulator'],
+		['android', '4.2', 'linux', 'Android Emulator'],
+		['android', '4.1', 'linux', 'Android Emulator'],
 		['iphone', '9.1', 'OSX 10.10', 'iPhone 6']
 	]
 };
