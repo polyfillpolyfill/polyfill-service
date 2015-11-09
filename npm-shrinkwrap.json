@@ -473,52 +473,6 @@
       "from": "https://registry.npmjs.org/denodeify/-/denodeify-1.2.1.tgz",
       "resolved": "https://registry.npmjs.org/denodeify/-/denodeify-1.2.1.tgz"
     },
-    "es6-set": {
-      "version": "0.1.1",
-      "from": "https://registry.npmjs.org/es6-set/-/es6-set-0.1.1.tgz",
-      "resolved": "https://registry.npmjs.org/es6-set/-/es6-set-0.1.1.tgz",
-      "dependencies": {
-        "d": {
-          "version": "0.1.1",
-          "from": "https://registry.npmjs.org/d/-/d-0.1.1.tgz",
-          "resolved": "https://registry.npmjs.org/d/-/d-0.1.1.tgz"
-        },
-        "es5-ext": {
-          "version": "0.10.7",
-          "from": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.7.tgz",
-          "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.7.tgz",
-          "dependencies": {
-            "es6-symbol": {
-              "version": "2.0.1",
-              "from": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-2.0.1.tgz",
-              "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-2.0.1.tgz"
-            }
-          }
-        },
-        "es6-iterator": {
-          "version": "0.1.3",
-          "from": "https://registry.npmjs.org/es6-iterator/-/es6-iterator-0.1.3.tgz",
-          "resolved": "https://registry.npmjs.org/es6-iterator/-/es6-iterator-0.1.3.tgz",
-          "dependencies": {
-            "es6-symbol": {
-              "version": "2.0.1",
-              "from": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-2.0.1.tgz",
-              "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-2.0.1.tgz"
-            }
-          }
-        },
-        "es6-symbol": {
-          "version": "0.1.1",
-          "from": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-0.1.1.tgz",
-          "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-0.1.1.tgz"
-        },
-        "event-emitter": {
-          "version": "0.3.3",
-          "from": "https://registry.npmjs.org/event-emitter/-/event-emitter-0.3.3.tgz",
-          "resolved": "https://registry.npmjs.org/event-emitter/-/event-emitter-0.3.3.tgz"
-        }
-      }
-    },
     "expect.js": {
       "version": "0.3.1",
       "from": "https://registry.npmjs.org/expect.js/-/expect.js-0.3.1.tgz",
