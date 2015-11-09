@@ -59,7 +59,9 @@ app.get('/robots.txt', function (req, res) {
 
 app.get(/^\/__about$/, function(req, res) {
 	var info = {
+		"schemaVersion": 1,
 		"name": "polyfill-service",
+		"systemCode": "origami-polyfill-service",
 		"purpose": "Stores a library of FT-approved polyfills and serves them to FT websites that need them in older browsers.",
 		"audience": "public",
 		"primaryUrl": "https://polyfill.webservices.ft.com",
@@ -79,8 +81,8 @@ app.get(/^\/__about$/, function(req, res) {
 		"links": [
 			{"url": "https://github.com/Financial-Times/polyfill-service/issues", "category": "issues"},
 			{"url": "https://github.com/Financial-Times/polyfill-service", "category": "repo"},
-			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service", "category": "deployment", "description": "Production Heroku app"},
-			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service-qa", "category": "deployment", "description": "QA Heroku app"},
+			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service", "category": "deployment", "description": "Production Heroku app control panel"},
+			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service-qa", "category": "deployment", "description": "QA Heroku app control panel"},
 			{"url": "http://grafana.ft.com/dashboard/db/origami-polyfill-service", "category": "monitoring", "description": "Grafana dashboard"},
 			{"url": "https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog", "category": "deployment", "description": "Fastly CDN app"},
 			{"url": "https://my.pingdom.com/reports/uptime#check=1338405", "category": "monitoring", "description": "Pingdom check"},
