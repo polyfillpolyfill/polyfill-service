@@ -25,6 +25,12 @@ Set.prototype.toArray = function() {
 	return array;
 };
 
+function toArray(obj) {
+	if (!obj) return [];
+	return Array.isArray(obj) ? obj : Object.keys(obj).map(function(k) { return obj[k]; });
+}
+
+
 module.exports = function(grunt) {
 	var fs = require('fs');
 	var path = require('path');
@@ -60,9 +66,9 @@ module.exports = function(grunt) {
 						return;
 					}
 
-					var allTests = new Set(testResults.native.testedSuites || []);
-					var failedNative = new Set(testResults.native.failingSuites || []);
-					var failedPolyfilled = new Set(testResults.polyfilled.failingSuites || []);
+					var allTests = new Set(toArray(testResults.native.testedSuites));
+					var failedNative = new Set(toArray(testResults.native.failingSuites));
+					var failedPolyfilled = new Set(toArray(testResults.polyfilled.failingSuites));
 
 					var missing = failedNative.intersection(failedPolyfilled);
 					var polyfilled = failedPolyfilled.difference(failedNative);

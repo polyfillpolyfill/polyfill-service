@@ -8,6 +8,12 @@ var promiseTimeout = function(time) {
 	});
 };
 
+var toArray = function (obj) {
+	if (!obj) return [];
+	return Array.isArray(obj) ? obj : Object.keys(obj).map(function(k) { return obj[k]; });
+};
+
+
 module.exports = function(grunt) {
 
 	var wd = require('wd');
@@ -241,7 +247,7 @@ module.exports = function(grunt) {
 							passed: e.value.results.passed,
 							failed: e.value.results.failed,
 							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
-							testedSuites: e.value.results.testedSuites
+							testedSuites: toArray(e.value.results.testedSuites)
 						};
 						cumFailCount += e.value.results.failed;
 						writeResultsFile(testResults);
