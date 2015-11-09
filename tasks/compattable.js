@@ -1,7 +1,5 @@
 'use strict';
 
-var Set = require('es6-set');
-
 // All elements of A (this) that also belong to B (other)
 Set.prototype.intersection = function(other) {
 	var self = this;
@@ -33,7 +31,6 @@ module.exports = function(grunt) {
 	var testResultsPath = path.join(__dirname, '../test/results');
 	var file = path.join(testResultsPath, 'results.json');
 	var compatFile = path.join(__dirname, '/../docs/assets/compat.json');
-	var Set = require('es6-set');
 
 	grunt.registerTask('compattable', 'Create a compatibility table', function() {
 		var done = this.async();
