@@ -5,6 +5,7 @@ var origamijson = require('../origami.json');
 var PolyfillSet = require('./PolyfillSet');
 var fs = require('fs');
 var path = require('path');
+var URL = require('url');
 var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
@@ -181,6 +182,12 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	if (uaString) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
+	}
+	if (req.header('referer')) {
+		var ref = URL.parse(req.header('referer')).hostname;
+		if (ref) {
+			metrics.counter('refererdomains.'+ref.replace(/\./g, '-')).inc();
+		}
 	}
 
 	polyfillio.getPolyfillString(params).then(function(op) {
