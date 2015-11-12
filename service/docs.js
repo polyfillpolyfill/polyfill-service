@@ -177,6 +177,7 @@ function getData(type) {
 	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
 		return cache[type].promise;
 	} else {
+		console.log('Generating docs data', type);
 		cache[type] = {creationTime: (new Date()).getTime()};
 		try {
 			return cache[type].promise = handlers[type]();
