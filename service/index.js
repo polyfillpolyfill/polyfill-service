@@ -6,6 +6,7 @@ var PolyfillSet = require('./PolyfillSet');
 var fs = require('fs');
 var path = require('path');
 var URL = require('url');
+var Raven = require('raven');
 var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
@@ -25,10 +26,11 @@ require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 })
 
 // Set up Sentry (getsentry.com) to collect JS errors.
-// Raven provides an automatic no-op client if a DSN is not set
-var Raven = require('raven');
-var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
-ravenClient.patchGlobal();
+if (process.env.SENTRY_DSN) {
+	var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+	ravenClient.patchGlobal();
+	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
+}
 
 // Default cache control policy
 app.use(function(req, res, next) {
@@ -223,6 +225,11 @@ app.get("/v[12]/normalizeUa", function(req, res, next) {
 		res.send('ua query param required');
 	}
 });
+
+if (process.env.SENTRY_DSN) {
+	app.use(Raven.middleware.express.errorHandler(process.env.SENTRY_DSN));
+}
+
 
 function startService(port, callback) {
 	callback = callback || function() {};
