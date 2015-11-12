@@ -1695,6 +1695,33 @@
       "from": "https://registry.npmjs.org/moment/-/moment-2.10.6.tgz",
       "resolved": "https://registry.npmjs.org/moment/-/moment-2.10.6.tgz"
     },
+    "raven": {
+      "version": "0.8.1",
+      "from": "raven@*",
+      "resolved": "https://registry.npmjs.org/raven/-/raven-0.8.1.tgz",
+      "dependencies": {
+        "cookie": {
+          "version": "0.1.0",
+          "from": "cookie@0.1.0",
+          "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.1.0.tgz"
+        },
+        "lsmod": {
+          "version": "0.0.3",
+          "from": "lsmod@>=0.0.3 <0.1.0",
+          "resolved": "https://registry.npmjs.org/lsmod/-/lsmod-0.0.3.tgz"
+        },
+        "node-uuid": {
+          "version": "1.4.4",
+          "from": "node-uuid@>=1.4.1 <1.5.0",
+          "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.4.tgz"
+        },
+        "stack-trace": {
+          "version": "0.0.7",
+          "from": "stack-trace@0.0.7",
+          "resolved": "https://registry.npmjs.org/stack-trace/-/stack-trace-0.0.7.tgz"
+        }
+      }
+    },
     "request": {
       "version": "2.61.0",
       "from": "https://registry.npmjs.org/request/-/request-2.61.0.tgz",
