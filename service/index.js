@@ -26,7 +26,9 @@ require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 // Raven provides an automatic no-op client if a DSN is not set
-new require('raven').Client(process.env.SENTRY_DSN);
+var Raven = require('raven');
+var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+ravenClient.patchGlobal();
 
 // Default cache control policy
 app.use(function(req, res, next) {
