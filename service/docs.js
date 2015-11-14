@@ -195,6 +195,7 @@ function getCompat() {
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
+	console.log('Generating compatibility data');
 	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
 			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
