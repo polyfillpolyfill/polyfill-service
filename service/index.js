@@ -147,8 +147,8 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	var firstParameter = req.params[1].toLowerCase();
 	var minified =  firstParameter === '.min';
 	var fileExtension = req.params[2] ? req.params[2].toLowerCase() : firstParameter;
-	var uaString = req.query.ua || req.header('user-agent');
-	var flags = req.query.flags ? req.query.flags.split(',') : [];
+	var uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
+	var flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
 	var warnings = [];
 
 	if (apiVersion === 1) {
