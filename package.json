@@ -36,6 +36,7 @@
   },
   "license": "CC0-1.0",
   "dependencies": {
+    "audio-context-polyfill": "^1.0.0",
     "babel-core": "^4.6.3",
     "blocked": "^1.1.0",
     "caniuse-db": "1.0.20140710",
