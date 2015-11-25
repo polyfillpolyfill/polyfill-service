@@ -36,7 +36,7 @@
   },
   "license": "CC0-1.0",
   "dependencies": {
-    "babel-core": "^4.6.3",
+    "babel-core": "^6.2.1",
     "blocked": "^1.1.0",
     "caniuse-db": "1.0.20140710",
     "denodeify": "^1.2.1",
