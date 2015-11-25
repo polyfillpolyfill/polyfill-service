@@ -38,7 +38,7 @@
   "dependencies": {
     "babel-core": "^4.6.3",
     "blocked": "^1.1.0",
-    "caniuse-db": "1.0.20140710",
+    "caniuse-db": "1.0.30000368",
     "denodeify": "^1.2.1",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
