@@ -1,6 +1,6 @@
 {
   "name": "polyfill-service",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "dependencies": {
     "babel-core": {
       "version": "4.7.16",
