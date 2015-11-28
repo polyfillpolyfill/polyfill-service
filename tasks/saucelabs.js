@@ -229,6 +229,7 @@ module.exports = function(grunt) {
 							testJob().then(function(data) {
 								done(null, data);
 							}).catch(function(e) {
+								console.log(e.stack || e);
 								done(e);
 							});
 						});
