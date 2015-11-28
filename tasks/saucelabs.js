@@ -162,7 +162,6 @@ module.exports = function(grunt) {
 				}
 
 				log("requested browser");
-				console.log(conf);
 
 				return browser.init(conf).then(function() {
 					log("browser launched");
