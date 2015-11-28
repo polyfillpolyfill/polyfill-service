@@ -23,10 +23,7 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "start": "forever start --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
-    "restart": "forever restart --minUptime=1000 --spinSleepTime=1000 --plain bin/polyfill-service",
-    "stop": "forever stop --plain bin/polyfill-service",
-    "status": "forever list | grep bin/polyfill-service",
+    "start": "bin/polyfill-service",
     "prepublish": "grunt build",
     "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
@@ -36,13 +33,10 @@
   },
   "license": "CC0-1.0",
   "dependencies": {
-    "babel-core": "^4.6.3",
     "blocked": "^1.1.0",
-    "caniuse-db": "1.0.20140710",
     "denodeify": "^1.2.1",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
-    "forever": "^0.11.1",
     "graphite": "0.0.6",
     "handlebars": "^1.3.0",
     "lodash": "^2.4.1",
@@ -54,25 +48,24 @@
     "mocha": "^1.20.1",
     "moment": "^2.8.3",
     "raven": "^0.8.1",
-    "request": "^2.44.0",
     "request-promise": "^0.3.2",
     "semver": "^2.3.1",
     "tsort": "0.0.1",
-    "uglify-js": "^2.4.14",
     "useragent": "^2.0.8"
   },
   "devDependencies": {
+    "babel-core": "^4.6.3",
     "batch": "^0.5.1",
     "grunt": "~0.4.0",
     "grunt-cli": "~0.1.6",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-mocha": "^0.4.11",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
     "picturefill": "^3.0.0-beta1",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
+    "uglify-js": "^2.4.14",
     "wd": "^0.3.8"
   },
   "version": "2.2.3"
