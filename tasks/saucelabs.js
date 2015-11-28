@@ -1,7 +1,33 @@
 'use strict';
 
-var promiseTimeout = function(time) {
-	return new Promise(function (resolve, reject) {
+var useragentToSauce = {
+	'chrome/46': ['chrome', '46', 'Windows 7'],
+	'chrome/42': ['chrome', '42', 'Windows 7'],
+	'chrome/35': ['chrome', '35', 'OSX 10.11'],
+	'chrome/30': ['chrome', '30', 'Windows 7'],
+	'firefox/41': ['firefox', '41', 'Linux'],
+	'firefox/33': ['firefox', '33', 'Linux'],
+	'firefox/30': ['firefox', '30', 'OSX 10.11'],
+	'firefox/20': ['firefox', '20', 'Linux'],
+	'ie/12': ['microsoftedge', '20.10240', 'Windows 10'],
+	'ie/11': ['internet explorer', '11', 'Windows 10'],
+	'ie/10': ['internet explorer', '10', 'Windows 7'],
+	'ie/9': ['internet explorer', '9', 'Windows 7'],
+	'ie/8': ['internet explorer', '8', 'Windows XP'],
+	'ie/7': ['internet explorer', '7', 'Windows XP'],
+	'ie/6': ['internet explorer', '6', 'Windows XP'],
+	'safari/9': ['safari', '9.0', 'OSX 10.11'],
+	'safari/8': ['safari', '8.0', 'OSX 10.10'],
+	'safari/5.1': ['safari', '5.1', 'Windows 7'],
+	'android/4.4': ['android', '4.4', 'linux', 'Android Emulator'],
+	'android/4.3': ['android', '4.3', 'linux', 'Android Emulator'],
+	'android/4.2': ['android', '4.2', 'linux', 'Android Emulator'],
+	'android/4.1': ['android', '4.1', 'linux', 'Android Emulator'],
+	'ios_saf/9.1': ['iphone', '9.1', 'OSX 10.10', 'iPhone 6']
+};
+
+var promiseTimer = function(time) {
+	return new Promise(function (resolve) {
 		setTimeout(function() {
 			resolve();
 		}, time);
@@ -33,7 +59,7 @@ module.exports = function(grunt) {
 		var gruntDone = this.async();
 		var nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
 		var tunnel;
-		var tunnelId = 'SauceTunnel-' + nameSuffix;
+		var tunnelId = 'SauceTunnel' + nameSuffix;
 
 		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
 			gruntDone(new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment'));
@@ -54,29 +80,42 @@ module.exports = function(grunt) {
 		});
 
 		options.browsers = options.browsers.map(function(b) {
-			var def = {browserName:b[0], version:b[1], platform:b[2]};
-			if (b[3]) def['deviceName'] = b[3];
+			var ua = b.split('/');
+			var sauce = useragentToSauce[b];
+			var def = { browserName:ua[0], browserVersion:ua[1], sauce: {
+				browserName: sauce[0],
+				version: sauce[1],
+				platform: sauce[2]
+			}};
+			if (sauce[3]) def['sauce']['deviceName'] = sauce[3];
 			return def;
 		});
-
 
 		var batch = new Batch();
 		batch.concurrency(options.concurrency);
 		batch.throws(false);
 
 		// Create a new job to pass into the Batch runner, returns a function
-		function newTestJob(url, urlName, conf) {
+		function newTestJob(url, urlName, ua) {
 			return function testJob() {
 
 				// Variadic like console.log(...);
 				function log() {
-					var leader = (new Date()).toString() + ' ' + conf.browserName + "/" + conf.version + ": ";
+					var leader = (new Date()).toString() + ' ' + ua.browserName + "/" + ua.browserVersion + ": ";
 					var args = Array.prototype.slice.call(arguments);
 					args.unshift(leader);
 					grunt.log.writeln.apply(grunt.log, args);
 				}
 
 				var browser = wd.promiseRemote("127.0.0.1", sauceConnectPort, options.username, options.key);
+				var conf = Object.assign({
+					"name": options.name,
+					"record-video": options.video,
+					"record-screenshots": options.screenshots,
+					"tunnel-identifier": tunnelId
+				}, ua.sauce);
+				if (options.tags && options.tags.length) conf['tags'] = options.tags;
+				if (options.build) conf['build'] = options.build;
 
 				function waitOnResults() {
 					return browser.eval('window.global_test_results || window.remainingCount');
@@ -90,7 +129,7 @@ module.exports = function(grunt) {
 						if (retryCount > retryLimit) {
 							log('Timed out');
 							browser.quit();
-							throw new Error('Timeout waiting on ' + conf.browserName + '/' +conf.version);
+							throw new Error('Timeout waiting on ' + ua.browserName + '/' +ua.browserVersion);
 						}
 
 						if (typeof data === 'number' && data !== remainingCount) {
@@ -103,7 +142,7 @@ module.exports = function(grunt) {
 						}
 
 						// Recurse waitOnResults and processResults
-						return promiseTimeout(pollTick).then(waitOnResults).then(processResults);
+						return promiseTimer(pollTick).then(waitOnResults).then(processResults);
 					}
 
 					log("results received (" + data.passed + " passed, " + data.failed + " failed), closing remote browser");
@@ -116,15 +155,14 @@ module.exports = function(grunt) {
 
 					return {
 						id: browser.sessionID,
-							browserName: conf.browserName,
-
-							version: conf.version,
-							urlName: urlName,
-							results: data
+						ua: ua,
+						urlName: urlName,
+						results: data
 					};
 				}
 
 				log("requested browser");
+				console.log(conf);
 
 				return browser.init(conf).then(function() {
 					log("browser launched");
@@ -135,7 +173,7 @@ module.exports = function(grunt) {
 						log("kicked");
 
 						// Once refreshed, wait `pollTick` before continuing
-						return promiseTimeout(pollTick);
+						return promiseTimer(pollTick);
 					}).then(waitOnResults).then(processResults);
 				});
 			};
@@ -179,25 +217,19 @@ module.exports = function(grunt) {
 		readResultsFile(function(testResults) {
 			var noop = true;
 
-			options.browsers.forEach(function(conf) {
-				conf['name'] = options.name;
-				conf['record-video'] = options.video;
-				conf['record-screenshots'] = options.screenshots;
-				conf['tunnel-identifier'] = tunnelId;
-				if (options.tags) conf['tags'] = options.tags;
-				if (options.build) conf['build'] = options.build;
-
+			options.browsers.forEach(function(ua) {
 				Object.keys(options.urls).forEach(function(urlName) {
 					var url = options.urls[urlName], state;
 					try {
-						testResults[UA.normalizeName(conf.browserName)][conf.version][urlName].length;
+						testResults[ua.browserName][ua.browserVersion][urlName].length;
 						state = 'skipped - data already in result file';
 					} catch(e) {
 						batch.push(function(done) {
-							var testJob = newTestJob(url, urlName, conf);
+							var testJob = newTestJob(url, urlName, ua);
 							testJob().then(function(data) {
 								done(null, data);
 							}).catch(function(e) {
+								console.log(e.stack || e);
 								done(e);
 							});
 						});
@@ -205,7 +237,7 @@ module.exports = function(grunt) {
 						state = 'queued';
 						noop = false;
 					}
-					grunt.log.writeln(conf.browserName + ' ' + conf.version + ' (' + urlName + ' mode): ' + state);
+					grunt.log.writeln(ua.browserName + '/' + ua.browserVersion + ' (' + urlName + ' mode): ' + state);
 				});
 			});
 
@@ -232,18 +264,16 @@ module.exports = function(grunt) {
 						throw e.error;
 					}
 
-					if (e.value.browserName) {
-						var browserName = UA.normalizeName(e.value.browserName) || e.value.browserName;
-
-						if (!testResults[browserName]) {
-							testResults[browserName] = {};
+					if (e.value.ua) {
+						if (!testResults[e.value.ua.browserName]) {
+							testResults[e.value.ua.browserName] = {};
 						}
 
-						if (!testResults[browserName][e.value.version]) {
-							testResults[browserName][e.value.version]	= {};
+						if (!testResults[e.value.ua.browserName][e.value.ua.browserVersion]) {
+							testResults[e.value.ua.browserName][e.value.ua.browserVersion]	= {};
 						}
 
-						testResults[browserName][e.value.version][e.value.urlName] = {
+						testResults[e.value.ua.browserName][e.value.ua.browserVersion][e.value.urlName] = {
 							passed: e.value.results.passed,
 							failed: e.value.results.failed,
 							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
@@ -268,11 +298,11 @@ module.exports = function(grunt) {
 						grunt.log.writeln("Failed tests:");
 						jobresults.forEach(function(job) {
 							if (!job.results) {
-								grunt.warn('No results reported for '+ job.browserName+'/'+job.version+' '+job.urlName);
+								grunt.warn('No results reported for '+ job.ua.browserName+'/'+job.ua.browserVersion+' '+job.urlName);
 								return true;
 							}
 							if (job.results.failed) {
-								grunt.log.writeln(' - '+job.browserName+' '+job.version+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
+								grunt.log.writeln(' - '+job.ua.browserName+' '+job.ua.browserVersion+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
 								if (job.results.failingSuites) {
 									Object.keys(job.results.failingSuites).forEach(function(feature) {
 										var url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
@@ -282,7 +312,7 @@ module.exports = function(grunt) {
 								}
 								failed = true;
 							} else {
-								passingUAs.push(job.browserName+'/'+job.version);
+								passingUAs.push(job.ua.browserName+'/'+job.ua.browserVersion);
 							}
 						});
 						if (!failed) {
