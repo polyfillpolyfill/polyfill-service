@@ -1,4 +1,32 @@
 #!/usr/bin/env node
+require('async-listener');
+require('stackup');
+var tripwire = require('tripwire');
+var StackTrace = require('stacktrace-js');
+
+var callback = function(stackframes) {
+    var stringifiedStack = stackframes.map(function(sf) {
+        return sf.toString();
+    }).join('\n');
+    console.log(stringifiedStack);
+};
+
+var errback = function(err) { console.log(err.message); };
+
+process.on('uncaughtException', function (e) {
+	console.log(tripwire.getContext())
+	if (undefined === tripwire.getContext()) {
+    console.log('The exception was not caused by tripwire.', e);
+		StackTrace.fromError(e).then(callback).catch(errback).then(() => process.exit(1));
+  } else {
+    console.log('The event loop was blocked for longer than 2000 milliseconds', e);
+		StackTrace.fromError(e).then(callback).catch(errback).then(() => process.exit(1));
+	}
+});
+
+// set the limit of execution time to 2000 milliseconds
+tripwire.resetTripwire(1000);
+
 var minimist = require('minimist');
 
 var packageJSON = require('../package.json');
