@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+if (process.env.NODE_ENV === 'development') {
+	require('look').start();
+}
 var minimist = require('minimist');
 
 var packageJSON = require('../package.json');
