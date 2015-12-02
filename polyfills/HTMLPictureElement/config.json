@@ -1,14 +1,15 @@
 {
 	"browsers": {
 		"ie": "9 - *",
+		"ie_mob": "10 - *",
 		"firefox": "4 - 37",
 		"opera": "11.6 - 29",
 		"safari": "6 - *",
 		"chrome": "* - 38",
-		"ios_saf": "*"
+		"ios_saf": "*",
+		"firefox_mob": "4 - 37"
 	},
-	"dependencies": [
-	],
+	"dependencies": [],
 	"license": "MIT",
 	"spec": "https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content",
 	"repo": "https://github.com/scottjehl/picturefill",

@@ -1,7 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
 var ENV = process.env;
 
 var fs = require('fs');
@@ -16,7 +14,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		"clean": {
 			repo: ['polyfills/__repo'],
-			versions: ['polyfills/__versions']
+			versions: ['polyfills/__versions'],
+			dist: ['polyfills/__dist']
 		},
 		"simplemocha": {
 			options: {
@@ -64,11 +63,11 @@ module.exports = function(grunt) {
 				spawn: false
 			},
 			js: {
-				files: ['!*', 'docs/**/*', 'service/**/*', 'lib/**/*'],
+				files: ['bin/*', 'docs/*.html', 'service/*.js', 'lib/*.js'],
 				tasks: ['service:polyfillservice:restart']
 			},
 			polyfills: {
-				files: ['!*', 'polyfills/**/*', '!polyfills/__versions/**', '!polyfills/*.json'],
+				files: ['polyfills/**/*.js', 'polyfills/**/config.json', '!polyfills/__dist/**'],
 				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
 			}
 		},
@@ -128,12 +127,18 @@ module.exports = function(grunt) {
 		"clean",
 		"installcollections",
 		"buildsources",
-		"clean:repo"
+		"clean:repo",
+		"clean:versions"
+	]);
+
+	grunt.registerTask("devbuild", [
+		"clean",
+		"buildsources",
+		"clean:repo",
+		"clean:versions"
 	]);
 
 	grunt.registerTask('dev', [
-		"clean",
-		"buildsources",
 		"service",
 		"watch"
 	]);
@@ -141,50 +146,52 @@ module.exports = function(grunt) {
 
 var browsers = {
 	quick: [
-		['chrome', '44', 'Windows 7'],
-		['firefox', '39', 'Linux'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '11', 'Windows 10'],
+		'chrome/46',
+		'firefox/41',
+		'ie/12',
+		'ie/11',
+		'ie/8',
+		'android/4.4'
 	],
 	ci: [
-		['chrome', '44', 'Windows 7'],
-		['chrome', '35', 'OSX 10.11'],
-		['firefox', '39', 'Linux'],
-		['firefox', '30', 'OSX 10.11'],
-		['firefox', '3.6', 'Linux'],
-		['internet explorer', '6', 'Windows XP'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '8', 'Windows XP'],
-		['internet explorer', '9', 'Windows 7'],
-		['internet explorer', '10', 'Windows 7'],
-		['internet explorer', '11', 'Windows 10'],
-		['safari', '5.1', 'Windows 7'],
-		['safari', '8.1', 'OSX 10.11'],
-		['android', '4.4', 'linux'],
-		['android', '4.0', 'linux']
+		'chrome/46',
+		'chrome/35',
+		'firefox/41',
+		'firefox/30',
+		'ie/12',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'ie/6',
+		'safari/9',
+		'safari/8',
+		'android/4.4'
 	],
 	full: [
-		['chrome', '44', 'Windows 7'],
-		['chrome', '42', 'Windows 7'],
-		['chrome', '35', 'OSX 10.11'],
-		['chrome', '26', 'Windows 7'],
-		['firefox', '39', 'Linux'],
-		['firefox', '33', 'Linux'],
-		['firefox', '30', 'OSX 10.11'],
-		['firefox', '20', 'Linux'],
-		['firefox', '3.6', 'Linux'],
-		['internet explorer', '6', 'Windows XP'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '8', 'Windows XP'],
-		['internet explorer', '9', 'Windows 7'],
-		['internet explorer', '10', 'Windows 7'],
-		['internet explorer', '11', 'Windows 10'],
-		['safari', '5.1', 'Windows 7'],
-		['safari', '8.1', 'OSX 10.11'],
-		['android', '4.4', 'linux'],
-		['android', '4.3', 'linux'],
-		['android', '4.2', 'linux'],
-		['android', '4.1', 'linux'],
-		['android', '4.0', 'linux']
+		'chrome/46',
+		'chrome/42',
+		'chrome/35',
+		'chrome/30',
+		'firefox/41',
+		'firefox/33',
+		'firefox/30',
+		'firefox/20',
+		'ie/12',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'ie/6',
+		'safari/9',
+		'safari/8',
+		'safari/5.1',
+		'android/4.4',
+		'android/4.3',
+		'android/4.2',
+		'android/4.1',
+		'ios_saf/9.1'
 	]
 };

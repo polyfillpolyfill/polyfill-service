@@ -6,11 +6,11 @@ var denodeify = require('denodeify');
 var mkdir = denodeify(require('mkdirp'));
 var exec = denodeify(require('child_process').exec, function(err, stdout, stderr) { return [err, stdout]; });
 
+// The ability to switch to a previous version of the libary is now deprecated.
+// Versions that were previously exposed in this manner are still supported by the v1 API
+var versions = ['v0.0.1', 'v1.0.0', 'v1.0.2', 'v1.1.0', 'v1.2.0', 'v1.3.0', 'v1.4.0', 'v1.5.0'];
 var repourl = 'git://github.com/financial-times/polyfill-service';
 
-function trim(str) {
-	return str.trim();
-}
 
 module.exports = function(grunt) {
 
@@ -39,15 +39,6 @@ module.exports = function(grunt) {
 			return execCmd('git clone '+ repourl +' '+ repodir);
 		})
 		.then(function() {
-			return execCmd('git tag', basedir).then(function(stdout) {
-				return stdout.split('\n')
-					.map(trim)
-					.filter(function(item) {
-						return /^v\d+\.\d+\.\d+$/.test(item);
-					});
-			});
-		})
-		.then(function(versions) {
 			return versions.reduce(function(asYouWere, version) {
 				var dest = path.join(versionsdir, version);
 				return asYouWere
@@ -65,6 +56,5 @@ module.exports = function(grunt) {
 		})
 		.then(done)
 		.catch(grunt.warn);
-
 	});
 };

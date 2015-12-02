@@ -20,10 +20,10 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="https://build.origami.ft.com/bundles/css?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0" />
-	<link rel="stylesheet" href="/v1/docs/assets/css/style.css" />
+	<link rel="stylesheet" href="/v2/docs/assets/css/style.css" />
 
 	<!-- Polyfills must load sync, since they need to be active before other script runs -->
-	<script src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent"></script>
+	<script src="/v2/polyfill.min.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent"></script>
 
 	<!-- Other scripts can be loaded async -->
 	<script>
@@ -39,11 +39,10 @@
 			if (typeof srces === 'string') srces = [srces];
 			srces.forEach(function(src) {
 				var script = document.createElement('script');
-				script[onload] = script[onreadystatechange] = function(){
+				script[onload] = script[onreadystatechange] = function() {
 					if(!this[readyState] || re.test(this[readyState])){
 						script[onload] = script[onreadystatechange] = null;
 						if (++count === srces.length) {
-							console.log('all loaded');
 							fn && fn();
 						}
 					}
@@ -55,7 +54,7 @@
 		})([
 			'https://build.origami.ft.com/bundles/js?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0',
 			'https://www.google.com/jsapi',
-			'/v1/docs/assets/js/ui.js'
+			'/v2/docs/assets/js/ui.js'
 		], function() { charts(); });
 	</script>
 </head>

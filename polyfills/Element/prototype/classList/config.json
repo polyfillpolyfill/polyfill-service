@@ -1,0 +1,17 @@
+{
+	"aliases": [
+		"default",
+		"modernizr:classlist"
+	],
+	"browsers": {
+		"ie": "6 - 9",
+		"safari": "4 - 4.1"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"DOMTokenList",
+		"Element"
+	],
+	"spec": "https://html.spec.whatwg.org/multipage/dom.html#dom-classlist",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"
+}

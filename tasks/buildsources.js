@@ -13,9 +13,10 @@ module.exports = function(grunt) {
 	var fs = require('fs');
 	var path = require('path');
 	var uglify = require('uglify-js');
-	var to5 = require("babel-core");
+	var babel = require("babel-core");
+	var mkdir = require('mkdirp').sync;
 
-	grunt.registerTask('buildsources', 'Build minified polyfill sources', function() {
+	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
 		var polyfillSourceFolder = path.join(__dirname, '../polyfills');
 		var versionsFolder = path.join(__dirname, '../polyfills/__versions');
@@ -37,11 +38,9 @@ module.exports = function(grunt) {
 		versions.forEach(function (version) {
 			var versionBasePath = version === 'latest' ? polyfillSourceFolder : path.join(versionsFolder, version);
 			var dirs = [];
+			var destFolder = path.join(__dirname, '../polyfills/__dist', version);
 
-			// Ignore non-directories at the root of a version (ie existing sources.json and aliases.json files)
-			if (!fs.lstatSync(versionBasePath).isDirectory() && !fs.lstatSync(versionBasePath).isSymbolicLink()) {
-				return true;
-			}
+			mkdir(destFolder);
 
 			// recursively discover all subfolders and build into a list (ignore the __versions dir if this is the latest version)
 			function scanDir(dir) {
@@ -69,7 +68,7 @@ module.exports = function(grunt) {
 					}
 					try {
 						config = JSON.parse(fs.readFileSync(configPath));
-						config.baseDir = polyfillPath;
+						config.baseDir = path.relative(path.join(__dirname,'../polyfills'), polyfillPath);
 					} catch (e) {
 						throw {name:"Missing or invalid config", message:"Unable to read config from "+configPath};
 					}
@@ -129,10 +128,12 @@ module.exports = function(grunt) {
 							// At time of writing no current browsers support the full ES6 language syntax, so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all cases (also note that uglify currently cannot minify ES6 syntax).  When browsers start shipping with complete ES6 support, the ES6 source versions should be served where appropriate, which will require another set of variations on the source properties of the polyfill.  At this point it might be better to create a collection of sources with different properties, eg v.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
 							if (v.esversion && v.esversion > 5) {
 								if (v.esversion === 6) {
+									var result = babel.transform(v.rawSource, {"presets": ["es2015"]});
 
 									// Don't add a "use strict"
-									var result = to5.transform(v.rawSource, { blacklist: ["useStrict"] });
-									v.rawSource = result.code;
+									// Super annoying to have to drop the preset and list all babel plugins individually, so hack to remove the "use strict" added by Babel (see also http://stackoverflow.com/questions/33821312/how-to-remove-global-use-strict-added-by-babel)
+									v.rawSource = result.code.replace(/^\s*"use strict";\s*/i, '');
+
 								} else {
 									throw {name:"Unsupported ES version", message:"Feature "+featureName+' ('+polyfillVariant+') uses ES'+v.esversion+' but no transpiler is available for that version'};
 								}
@@ -166,7 +167,9 @@ module.exports = function(grunt) {
 						}
 					});
 
-					sources[version][featureName] = config;
+					var featurePath = path.join(destFolder, featureName+'.json');
+					fs.writeFileSync(featurePath, JSON.stringify(config));
+					grunt.log.writeln('+ '+featurePath);
 
 					// Store alias names in a map for efficient lookup, mapping aliases to
 					// featureNames.  An alias can map to many polyfill names. So a group
@@ -201,8 +204,7 @@ module.exports = function(grunt) {
 			if (ignoredErrors) {
 				grunt.log.writeln('Ignored '+ignoredErrors+' error(s) in historic polyfill versions');
 			}
-			fs.writeFileSync(path.join(__dirname, '../polyfills/sources.json'), JSON.stringify(sources));
-			fs.writeFileSync(path.join(__dirname, '../polyfills/aliases.json'), JSON.stringify(configuredAliases));
+			fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
 
 			grunt.log.writeln('Sources built successfully');
 		}

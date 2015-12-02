@@ -9,11 +9,12 @@
 		"chrome": "* - 31",
 		"firefox": "6 - 28",
 		"ie": "8 - *",
-		"ie_mob": "* - 10",
+		"ie_mob": "*",
 		"ios_saf": "* - 7.1",
 		"op_mini": "*",
 		"opera": "* - 19",
-		"safari": "* - 7"
+		"safari": "* - 7",
+		"firefox_mob": "6 - 28"
 	},
 	"dependencies": [
 		"_enqueueMicrotask",

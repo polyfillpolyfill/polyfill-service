@@ -1,0 +1,15 @@
+{
+	"aliases": [
+		"caniuse:hashchange",
+		"modernizr:hashchange",
+		"default"
+	],
+	"browsers": {
+		"ie": "6 - 7",
+		"safari": "4"
+	},
+	"dependencies": [
+		"Event"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/Events/hashchange"
+}

@@ -6,7 +6,18 @@
 
 			<h1>API reference</h1>
 
-			<h2>GET /v1/polyfill<var>:minify</var>.<var>:type</var></h2>
+			{{#ifEq apiversion 1}}
+			<p>This version of the API is deprecated.  It is guaranteed to be available until December 31, 2015, after which requests may be redirected to v2 in a manner that is not guaranteed to be backwards compatible.  Please upgrade to <a href='/'>the latest version</a>.</p>
+			{{/ifEq}}
+			{{#ifEq apiversion 2}}
+			<h2>Migrating from v1</h2>
+			<ul>
+				<li><code>libVersion</code> is no longer supported.  We no longer support using an older version of the polyfill collection with the current version of the service.  To use an older polyfill library, use the version of the project that contains the library in the state you want it (not possible if using cdn.polyfill.io)</li>
+				<li><code>gated</code> is no longer supported.  Use <code>flags</code> instead.</li>
+				<li>There are changes to the Node API.  See the README for details.</li>
+			</ul>
+			{{/ifEq}}
+			<h2>GET /v{{apiversion}}/polyfill<var>:minify</var>.<var>:type</var></h2>
 
 			<p>Fetch a polyfill bundle.</p>
 
@@ -29,7 +40,7 @@
 					<td><code>features</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>List of browser features to polyfill. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v1/docs/features/'>Browsers and Features</a> page, though group aliases such as 'es5' and 'es6' are also accepted (these are defined in the polyfills' config.json files - [here's an example](https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Array.from/config.json)).</p>
+						<p>List of browser features to polyfill. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v{{apiversion}}/docs/features/'>Browsers and Features</a> page, though group aliases such as 'es5' and 'es6' are also accepted (these are defined in the polyfills' config.json files - [here's an example](https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Array.from/config.json)).</p>
 						<p>Each feature name may optionally be appended with zero or more of the following flags:</p>
 						<dl>
 							<dt><code>|always</code></dt>
@@ -54,7 +65,9 @@
 					<td><code>callback</code></td>
 					<td>Querystring</td>
 					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asyncronously with <code>async</code> and <code>defer</code> attributes.</td>
-				</tr><tr>
+				</tr>
+				{{#ifEq apiversion 1}}
+				<tr>
 					<td><code>libVersion</code></td>
 					<td>Querystring</td>
 					<td>
@@ -68,7 +81,9 @@
 						<p><em>Historic polyfill collections are not installed.  To install run <code>grunt installcollections</code>.  Only the `latest` collection is available.</code></em></p>
 						{{/hasVersions}}
 					</td>
-				</tr><tr>
+				</tr>
+				{{/ifEq}}
+				<tr>
 					<td><code>unknown</code></td>
 					<td>Querystring</td>
 					<td>What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Use caution when setting this argument to 'polyfill' on large feature sets, since huge polyfill bundles may cause crashes or lockups in extremely old or underpowered user agents.  Defaults to `ignore`.</td>

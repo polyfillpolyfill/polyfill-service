@@ -19,7 +19,7 @@ By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  
 
 To run the app for **production**:
 
-Run `npm start`.  This will start the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
+Run `npm start`.  Monitoring the process and restarting it if necessary is left to you (and PaaS platforms like Heroku do this for you) but if you need a tool to start the service in the background and ensure it continues running, consider [forever](https://github.com/nodejitsu/forever).  It doesn't watch the filesystem for changes and you won't see any console output.
 
 In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser (you can configure the port, see environment configuration below).
 
@@ -46,7 +46,7 @@ When running a grunt task, including running the service via `grunt dev` or `gru
 
 ## Using as a library
 
-Polyfill service can also be used as a library in NodeJS projects.  To do this:
+The Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 1. Add this repo as a dependency in your package.json
    e.g. `npm install polyfill-service --save`
@@ -57,13 +57,12 @@ Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 #### `getPolyfillString(options)` (method)
 
-Returns a bundle of polyfills as a string.  Options is an object with the following keys:
+Returns a promise of a polyfill bundle string.  Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for polyfills that should be included conditionally
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, no features will be considered and the output will be blank. To load the default feature set, set features to `{default:{}}`.  Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
-* `libVersion`: String, optional. Version of the polyfill collection to use. Accepts any valid semver expression.  This is useful if you wish to synronise releases in the polyfill service with your own release process, to ensure that incompatibilities cannot cause errors in your applications without warning.  Intended for when deployed as a service.  Not generally useful in a library context.
 * `unknown`: String, optional. What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Defaults to `ignore`.
 
 Flags that may be applied to polyfills are:
@@ -81,12 +80,14 @@ require('polyfill-service').getPolyfillString({
 		'Element.prototype.matches': { flags: ['always', 'gated'] },
 		'modernizr:es5array': {}
 	}
+}).then(function(bundleString) {
+	console.log(bundleString);
 });
 ```
 
-#### `listPolyfills(options)` (method)
+#### `getPolyfills(options)` (method)
 
-Returns a list of features whose configuration matches the given user agent string.
+Returns a promise of a set of features which are configured to be applied in browsers with the specified user agent string.
 Options is an object with the following keys:
 
 * `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
@@ -102,16 +103,25 @@ require('polyfill-service').getPolyfills({
 		'Element.prototype.matches': { flags: ['always', 'gated'] },
 		'modernizr:es5array': {}
 	}
+}).then(function(polyfillSet) {
+	console.log(polyfillSet);
 });
 ```
 
 #### `listAllPolyfills()` (method)
 
-Return a list of all the features with polyfills as an array of strings. This
-list corresponds to directories in the `/polyfills` directory.
+Return a promise of an array all the polyfills as an array of strings. This list corresponds to directories and subdirectories in the `/polyfills` directory.
 
 Example:
 
 ```javascript
-require('polyfill-service').getAllPolyfills();
+require('polyfill-service').listAllPolyfills();
 ```
+
+## cdn.polyfill.io deployment
+
+Our deployment of polyfill.io uses Heroku.  Refer to the following dashboards / accounts for access (FT employees only):
+
+* [Heroku app](https://dashboard.heroku.com/apps/ft-polyfill-service)
+* [Graphite metrics](http://grafana.ft.com/dashboard/db/origami-polyfill-service)
+* [Fastly account](https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog)

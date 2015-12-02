@@ -15,7 +15,7 @@ Array.from(document.querySelectorAll('.demo')).forEach(function(el) {
 
 // Perf charts
 function charts() {
-	var chart1, data1, chart2, data2, drawCharts;
+	var chart1, data1, chart2, data2, chart3, data3, drawCharts;
 	drawCharts = function() {
 		chart1.draw(data1, {
 			chartArea:{left:0,top:0,width:'100%',height:'90%'},

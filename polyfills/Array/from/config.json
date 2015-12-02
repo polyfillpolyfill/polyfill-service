@@ -4,11 +4,13 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"chrome": "*",
+		"chrome": "<45",
 		"firefox": "4 - *",
 		"ie": "6 - *",
+		"ie_mob": "10 - *",
 		"opera": "*",
-		"safari": "7 - *"
+		"safari": "7 - *",
+		"firefox_mob": "4 - *"
 	},
 	"dependencies": [
 		"Object.defineProperty"
