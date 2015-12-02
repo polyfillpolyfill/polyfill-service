@@ -27,7 +27,9 @@ module.exports = function(grunt) {
 
 	var Svg4EverybodyPolyfillSource = fs.readFileSync(Svg4EverybodySourcePath);
 
-	var PolyfillCombinedSource = Svg4EverybodyPolyfillSource;
+	var Svg4EverbodyPolyfillRun = 'svg4everybody();';
+
+	var PolyfillCombinedSource = Svg4EverybodyPolyfillSource + Svg4EverbodyPolyfillRun;
 
 	grunt.file.write(path.join(Svg4EverybodyPolyfillOutput, 'polyfill.js'), PolyfillCombinedSource);
 

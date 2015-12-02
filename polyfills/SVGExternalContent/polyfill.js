@@ -128,3 +128,4 @@ function svg4everybody(opts) {
 		oninterval();
 	}
 }
+svg4everybody();
