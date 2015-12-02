@@ -1,1 +1,1 @@
-'srcset' in document.createElement('source') && 'sizes' in document.createElement('source')
+/\bEdge\/12\b|\bTrident\/[567]\b|\bVersion\/7.0 Safari\b/.test(navigator.userAgent);
