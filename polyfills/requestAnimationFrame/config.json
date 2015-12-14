@@ -29,7 +29,7 @@
 			"browsers": {
 				"chrome": "10 - 23",
 				"safari": "6",
-				"ios_saf": "6.1"
+				"ios_saf": "6"
 			},
 			"dependencies": [
 				"performance.now"
