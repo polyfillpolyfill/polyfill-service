@@ -1,0 +1,10 @@
+{
+	"browsers": {
+		"ie": "10 - *"
+	},
+	"dependencies": [],
+	"license": "MIT",
+	"spec": "https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content",
+	"repo": "https://github.com/jonathantneal/svg4everybody",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture"
+}
