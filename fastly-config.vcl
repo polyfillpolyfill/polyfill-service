@@ -28,7 +28,7 @@ sub vcl_deliver {
 
 	# If the original request didn't specify a UA override, and we added one when the request was sent to the backend, the backend won't have included a Vary:user-agent header (correctly) but we need to add one
 	} else if (req.url ~ "^/v\d/polyfill\..*[\?\&]ua=" && req.http.X-Orig-URL && req.http.X-Orig-URL !~ "[\?\&]ua=") {
-		set resp.http.Vary = "Accept-Encoding, User-Agent";
+		add resp.http.Vary = "User-Agent";
 	}
 	return(deliver);
 }
