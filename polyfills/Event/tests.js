@@ -108,3 +108,42 @@ it('should have the correct target when using delegation', function () {
 	}));
 	expect(fired).to.be(true);
 });
+
+it('should successfully call window.addEventListener or throw exception', function() {
+
+	var eventsToTest = [
+		'click',
+		'dblclick',
+		'keyup',
+		'keypress',
+		'keydown',
+		'mousedown',
+		'mouseup',
+		'mousemove',
+		'mouseover',
+		'mouseenter',
+		'mouseleave',
+		'mouseout',
+		'storage',
+		'storagecommit',
+		'textinput'
+	];
+
+	var threwLast;
+	var threw;
+	var listener = function() {};
+	for(var i = 0; i < eventsToTest.length; i++) {
+		var eventType = eventsToTest[i];
+		try {
+			window.addEventListener(eventType, listener);
+			threw = false;
+		} catch(ignore) {
+			threw = true;
+		}
+
+		if (typeof (threwLast) != 'undefined') {
+			expect(threw).to.be(threwLast);
+		}
+		threwLast = threw;
+	}
+});
