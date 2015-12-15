@@ -63,7 +63,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.0.0-rc-4",
-    "picturefill": "^3.0.0-beta1",
+    "picturefill": "^3.0.1",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
     "uglify-js": "^2.4.14",
