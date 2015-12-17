@@ -107,7 +107,7 @@
 	// Polyfills go here
 ).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
 
-		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`.</p>
+		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`, which may not always be what you think they are.</p>
 
 		<h3 id='update-tasks'>Update tasks</h3>
 
@@ -186,9 +186,18 @@ module.exports = function(grunt) {
 			<li>Make sure you write a reasonably comprehensive set of tests, and that they pass in all the browsers you have targeted</li>
 		</ul>
 
+		<h3 id='adding-browsers'>Adding browser targets to a existing polyfill</h3>
+
+		<p>Commonly, people want to take a polyfill we already have and get us to serve it to a browser that we currently don't target with that polyfill. Often this is because it's a less common browser and we just haven't tested the polyfill in that browser, so adding the extra browser as a target does make sense.  But when raising a PR to add a browser target, please include the following:</p>
+
+		<ul>
+			<li>Confirmation that the browser concerned does not support the feature natively (a link to the relevant caniuse or MDN data is useful, a screenshot is even better)</li>
+			<li>Confirmation that you have tested our polyfill on that browser, using our <a href='#running-tests'>test suite</a>. Ideally include a screenshot of the browser running the tests.</li>
+		</ul>
+
 		<h2 id="contributing-to-the-application">Contributing to the application</h2>
 
-		<p>The service part of the project is pretty simple, and there are few strict conventions.  In lieu of any formal standards, try to take care to follow existing conventions.  Some of these are defined in an <code>.editorconfig</code> file.</p>
+		<p>The service part of the project is pretty simple, and there are few strict conventions.  In lieu of any formal standards, try to take care to follow existing conventions.  Some of these are defined in an <code>.editorconfig</code> and <code>.jshintrc</code> files.</p>
 
 		<h2 id="browser-support">Browser support</h2>
 
