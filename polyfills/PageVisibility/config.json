@@ -13,20 +13,6 @@
 	"dependencies": [
 		"CustomEvent"
 	],
-	"variants": {
-		"moz": {
-			"browsers": {
-				"firefox": "*"
-			}
-		},
-		"webkit": {
-			"browsers": {
-				"android": "*",
-				"opera": "*",
-				"chrome": "*"
-			}
-		}
-	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API",
 	"spec": "http://www.w3.org/TR/page-visibility/"
 }

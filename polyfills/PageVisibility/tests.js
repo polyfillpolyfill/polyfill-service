@@ -1,4 +1,4 @@
-describe.only('Page Visibility API', function () {
+describe('Page Visibility API', function () {
 
 	it('has a hidden property', function () {
 		expect(typeof document.hidden).not.to.equal('undefined')
@@ -9,7 +9,7 @@ describe.only('Page Visibility API', function () {
 	});
 
 	it('fires a normalized event name', function (done) {
-		var prefix = document.mozVisibilityState ? 'moz' : document.webkitVisibilityState ? 'webkit' : '';
+		var prefix = document.mozVisibilityState ? 'moz' : document.webkitVisibilityState ? 'webkit' : null;
 		if (!prefix) {
 			return done();
 		}
