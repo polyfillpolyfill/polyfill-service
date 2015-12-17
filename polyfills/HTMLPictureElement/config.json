@@ -7,7 +7,8 @@
 		"safari": "6 - *",
 		"chrome": "* - 38",
 		"ios_saf": "*",
-		"firefox_mob": "4 - 37"
+		"firefox_mob": "4 - 37",
+		"bb": "7 - 10"
 	},
 	"dependencies": [],
 	"license": "MIT",
