@@ -1,16 +1,21 @@
 // PageVisibility
 (function () {
 	var prefix = document.webkitVisibilityState ? 'webkit' : document.mozVisibilityState ? 'moz' : null;
+
+	function normalizeState () {
+		document.hidden = document[prefix + 'Hidden'];
+		document.visibilityState = document[prefix + 'VisibilityState'];
+	}
+
 	if (!prefix) {
 		return;
 	}
 
-	document.visibilityState = document[prefix + 'VisibilityState'];
-	document.hidden = document[prefix + 'Hidden'];
+	normalizeState();
 
 	document.addEventListener(prefix + 'visibilitychange', function (ev) {
-		document.hidden = document[prefix + 'Hidden'];
-		document.visibilityState = document[prefix + 'VisibilityState'];
-		document.dispatchEvent(new CustomEvent('visibilitychange'))
+		normalizeState();
+		document.dispatchEvent(new CustomEvent('visibilitychange'));
 	});
+
 }());

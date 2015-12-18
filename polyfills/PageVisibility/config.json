@@ -1,7 +1,9 @@
 {
 	"aliases": [
 		"default",
-		"caniuse:visib"
+		"caniuse:visib",
+		"caniuse:pagevisibility",
+		"modernizr:pagevisibility"
 	],
 	"browsers": {
 		"firefox": "10 - 17",
