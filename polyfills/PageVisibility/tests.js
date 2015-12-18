@@ -15,7 +15,9 @@ describe('Page Visibility API', function () {
 		}
 		document.addEventListener('visibilitychange', function (ev) {
 			expect('normalized event fired').to.equal('normalized event fired');
+			done();
 		});
+
 		document.dispatchEvent(new Event(prefix + 'visibilitychange'));
 	});
 });

@@ -1,7 +1,6 @@
-// Page Visibility API
+// PageVisibility
 (function () {
 	var prefix = document.webkitVisibilityState ? 'webkit' : document.mozVisibilityState ? 'moz' : null;
-
 	if (!prefix) {
 		return;
 	}
