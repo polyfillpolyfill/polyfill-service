@@ -17,7 +17,7 @@
 		"firefox_mob": "6 - 28"
 	},
 	"dependencies": [
-		"_enqueueMicrotask",
+		"setImmediate",
 		"Array.isArray"
 	],
 	"notes": [

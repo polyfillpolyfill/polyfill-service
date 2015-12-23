@@ -21,9 +21,7 @@
     var REQUIRES_NEW = 'constructor Promise requires "new".';
     var CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.';
 
-    // Polyfill service change: The following line is modified from the upstream source
-    var setImmediate = _enqueueMicrotask;
-
+    var setImmediate = global.setImmediate || require('timers').setImmediate;
     var isArray = Array.isArray || function (anything) {
         return Object.prototype.toString.call(anything) == '[object Array]';
     };

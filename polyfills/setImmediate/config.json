@@ -12,8 +12,6 @@
 		"ie_mob": "*",
 		"firefox_mob": "*"
 	},
-	"dependencies": [
-		"_enqueueMicrotask"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
+	"repo": "https://github.com/YuzuJS/setImmediate"
 }
