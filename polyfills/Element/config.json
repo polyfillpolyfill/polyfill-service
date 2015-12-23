@@ -2,22 +2,12 @@
 	"aliases": [
 		"default"
 	],
-	"browsers": {},
-	"variants": {
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			},
-			"dependencies": [
-				"Document"
-			]
-		},
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			}
-		}
+	"browsers": {
+		"ie": "6 - 8"
 	},
+	"dependencies": [
+		"Document"
+	],
 	"spec": "https://dom.spec.whatwg.org/#interface-element",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element"
 }
