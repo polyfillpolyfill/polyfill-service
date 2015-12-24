@@ -1,4 +1,4 @@
-(function (global, join, splice) {
+(function (global, nativeImpl, join, splice) {
 	function tokenize(token) {
 		if (/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(token)) {
 			return String(token);
@@ -28,49 +28,68 @@
 	}
 
 	// <Global>.DOMTokenlist
-	global.DOMTokenList = function DOMTokenList() {};
+	if (!'DOMTokenlist' in global) {
+		global.DOMTokenList = function DOMTokenList() {};
 
-	global.DOMTokenList.prototype = {
-		constructor: DOMTokenList,
-		item: function item(index) {
-			return this[parseFloat(index)] || null;
-		},
-		length: Array.prototype.length,
-		toString: function toString() {
-			return join.call(this, ' ');
-		},
+		global.DOMTokenList.prototype = {
+			constructor: DOMTokenList,
+			item: function item(index) {
+				return this[parseFloat(index)] || null;
+			},
+			length: Array.prototype.length,
+			toString: function toString() {
+				return join.call(this, ' ');
+			},
 
-		add: function add() {
-			for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
-				token = tokenize(arguments[index]);
+			add: function add() {
+				for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
+					token = tokenize(arguments[index]);
 
-				object[token] = true;
+					object[token] = true;
+				}
+
+				fromObject(this, object);
+			},
+			contains: function contains(token) {
+				return token in toObject(this);
+			},
+			remove: function remove() {
+				for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
+					token = tokenize(arguments[index]);
+
+					object[token] = false;
+				}
+
+				fromObject(this, object);
+			},
+			toggle: function toggle(token) {
+				var
+				object = toObject(this),
+				contains = 1 in arguments ? !arguments[1] : tokenize(token) in object;
+
+				object[token] = !contains;
+
+				fromObject(this, object);
+
+				return !contains;
+			}
+		};
+	} else {
+		var NativeToggle = nativeImpl.prototype.toggle;
+
+		nativeImpl.prototype.toggle = function toggle(token) {
+			if (1 in arguments) {
+				var
+				contains = this.contains(token),
+				force = !!arguments[1];
+
+				if ((contains && force) || (!contains && !force)) {
+					return force;
+				}
 			}
 
-			fromObject(this, object);
-		},
-		contains: function contains(token) {
-			return token in toObject(this);
-		},
-		remove: function remove() {
-			for (var object = toObject(this), index = 0, token; index in arguments; ++index) {
-				token = tokenize(arguments[index]);
+			return NativeToggle.call(this, token);
+		};
 
-				object[token] = false;
-			}
-
-			fromObject(this, object);
-		},
-		toggle: function toggle(token) {
-			var
-			object = toObject(this),
-			contains = 1 in arguments ? !arguments[1] : tokenize(token) in object;
-
-			object[token] = !contains;
-
-			fromObject(this, object);
-
-			return !contains;
-		}
-	};
-})(this, Array.prototype.join, Array.prototype.splice);
+	}
+})(this, DOMTokenList, Array.prototype.join, Array.prototype.splice);
