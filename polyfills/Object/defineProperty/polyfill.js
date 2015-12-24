@@ -6,6 +6,11 @@
 
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 
+		var propertyString = String(property);
+		var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
+		var getterType = 'get' in descriptor && typeof descriptor.get;
+		var setterType = 'set' in descriptor && typeof descriptor.set;
+
 		if (object === null || !(object instanceof Object || typeof object === 'object')) {
 			throw new TypeError('Object must be an object (Object.defineProperty polyfill)');
 		}
@@ -18,13 +23,6 @@
 		if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
 			return nativeDefineProperty(object, propertyString, descriptor);
 		}
-
-		var propertyString = String(property);
-		var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
-		var getterType = 'get' in descriptor && typeof descriptor.get;
-		var setterType = 'set' in descriptor && typeof descriptor.set;
-		var propertyString = String(property);
-		var Element = window.Element || {};
 
 		// handle descriptor.get
 		if (getterType) {
@@ -63,4 +61,4 @@
 
 		return object;
 	};
-}());
+}(Object.defineProperty));
