@@ -56,7 +56,7 @@
 		return event;
 	};
 
-	if (!'createEvent' in document) {
+	if (!('createEvent' in document)) {
 		window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {
 			var
 			element = this,
