@@ -21,7 +21,9 @@
     var REQUIRES_NEW = 'constructor Promise requires "new".';
     var CHAINING_CYCLE = 'then() cannot return same Promise that it resolves.';
 
-    var setImmediate = global.setImmediate || require('timers').setImmediate;
+    // Modifed by polyfill service - remove undefined require statement
+    var setImmediate = global.setImmediate;
+
     var isArray = Array.isArray || function (anything) {
         return Object.prototype.toString.call(anything) == '[object Array]';
     };
