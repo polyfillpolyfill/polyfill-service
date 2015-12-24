@@ -1,4 +1,6 @@
-(function (global, nativeImpl, join, splice) {
+(function (global, join, splice) {
+	var nativeImpl = "DOMTokenList" in global && global.DOMTokenList;
+
 	function tokenize(token) {
 		if (/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(token)) {
 			return String(token);
@@ -27,8 +29,7 @@
 		splice.apply(self, [0, self.length].concat(array));
 	}
 
-	// <Global>.DOMTokenlist
-	if (!'DOMTokenlist' in global) {
+	if (!nativeImpl) {
 		global.DOMTokenList = function DOMTokenList() {};
 
 		global.DOMTokenList.prototype = {
@@ -92,4 +93,5 @@
 		};
 
 	}
-})(this, DOMTokenList, Array.prototype.join, Array.prototype.splice);
+
+})(this, Array.prototype.join, Array.prototype.splice);
