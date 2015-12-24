@@ -1,34 +1,49 @@
 (function (global) {
-	'use strict';
 
-	var
-	lastTime = Date.now();
+	if ('mozRequestAnimationFrame' in global) {
+		global.requestAnimationFrame = function (callback) {
+		    return mozRequestAnimationFrame(function () {
+		        callback(performance.now());
+		    });
+		};
+		global.cancelAnimationFrame = mozCancelAnimationFrame;
 
-	// <Global>.requestAnimationFrame
-	global.requestAnimationFrame = function (callback) {
-		if (typeof callback !== 'function') {
-			throw new TypeError(callback + 'is not a function');
-		}
-		
-		var
-		currentTime = Date.now(),
-		delay = 16 + lastTime - currentTime;
+	} else if ('webkitRequestAnimationFrame' in global) {
+		global.requestAnimationFrame = function (callback) {
+		    return webkitRequestAnimationFrame(function () {
+		        callback(performance.now());
+		    });
+		};
+		global.cancelAnimationFrame = webkitCancelAnimationFrame;
 
-		if (delay < 0) {
-			delay = 0;
-		}
+	} else {
 
-		lastTime = currentTime;
+		var lastTime = Date.now();
 
-		return setTimeout(function () {
-			lastTime = Date.now();
+		global.requestAnimationFrame = function (callback) {
+			if (typeof callback !== 'function') {
+				throw new TypeError(callback + 'is not a function');
+			}
 
-			callback(performance.now());
-		}, delay);
-	};
+			var
+			currentTime = Date.now(),
+			delay = 16 + lastTime - currentTime;
 
-	// <Global>.cancelAnimationFrame
-	global.cancelAnimationFrame = function (id) {
-		clearTimeout(id);
-	};
+			if (delay < 0) {
+				delay = 0;
+			}
+
+			lastTime = currentTime;
+
+			return setTimeout(function () {
+				lastTime = Date.now();
+
+				callback(performance.now());
+			}, delay);
+		};
+
+		global.cancelAnimationFrame = function (id) {
+			clearTimeout(id);
+		};
+	}
 })(this);
