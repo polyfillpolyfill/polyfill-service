@@ -12,8 +12,8 @@
 	}
 
 	function setStatically() {
-		window.scrollX = scrollX();
-		window.scrollY = scrollY();
+		window.scrollX = window.pageXOffset = scrollX();
+		window.scrollY = window.pageYOffset = scrollY();
 		window.innerWidth = docEl.clientWidth;
 		window.innerHeight = docEl.clientHeight;
 	}
