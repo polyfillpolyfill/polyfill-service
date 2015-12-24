@@ -18,13 +18,6 @@
 	prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
 	cache = {},
 
-	// getter to assist in Object.defineProperty({ set: Function });
-	Getter = Element.__getter__ = function Getter(getter) {
-		this.get = function (scope) {
-			return getter.call(scope);
-		};
-	},
-
 	// polyfill Element.prototype on an element
 	shiv = function (element, deep) {
 		var
