@@ -7,19 +7,19 @@
 	}
 
 	// create Element constructor
-	window.Element = window.HTMLElement = new Function('return function Element() {}')(),
+	window.Element = window.HTMLElement = new Function('return function Element() {}')();
 
 	// generate sandboxed iframe
-	vbody = document.appendChild(document.createElement('body')),
-	frame = vbody.appendChild(document.createElement('iframe')),
+	var vbody = document.appendChild(document.createElement('body'));
+	var frame = vbody.appendChild(document.createElement('iframe'));
 
 	// use sandboxed iframe to replicate Element functionality
-	frameDocument = frame.contentWindow.document,
-	prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*')),
-	cache = {},
+	var frameDocument = frame.contentWindow.document;
+	var prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*'));
+	var cache = {};
 
 	// polyfill Element.prototype on an element
-	shiv = function (element, deep) {
+	var shiv = function (element, deep) {
 		var
 		childNodes = element.childNodes || [],
 		index = -1,
@@ -30,8 +30,7 @@
 
 			for (key in cache) {
 				value = cache[key];
-
-				element[key] = value instanceof Getter ? value.get(element) : value;
+				element[key] = value;
 			}
 		}
 
@@ -40,12 +39,12 @@
 		}
 
 		return element;
-	},
+	};
 
-	elements = document.getElementsByTagName('*'),
-	nativeCreateElement = document.createElement,
-	interval,
-	loopLimit = 100;
+	var elements = document.getElementsByTagName('*');
+	var nativeCreateElement = document.createElement;
+	var interval;
+	var loopLimit = 100;
 
 	prototype.attachEvent('onpropertychange', function (event) {
 		var
@@ -58,8 +57,8 @@
 
 		while (element = elements[++index]) {
 			if (element.nodeType === 1) {
-				if (nonValue || element[propertyName] === oldValue || oldValue instanceof Getter) {
-					element[propertyName] = newValue instanceof Getter ? newValue.get(element) : newValue;
+				if (nonValue || element[propertyName] === oldValue) {
+					element[propertyName] = newValue;
 				}
 			}
 		}
