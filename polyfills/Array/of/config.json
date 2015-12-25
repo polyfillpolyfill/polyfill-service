@@ -4,7 +4,7 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"chrome": "*",
+		"chrome": "<=44",
 		"firefox": "* - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
