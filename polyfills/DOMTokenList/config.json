@@ -3,17 +3,9 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - 9",
-		"safari": "4 - 5.0"
-	},
-	"variants": {
-		"toggle": {
-			"browsers": {
-				"ie": "10 - *",
-				"ie_mob": "10 - *",
-				"safari": "5.1 - 6.0"
-			}
-		}
+		"ie": "6 - *",
+		"safari": "4 - 6.0",
+		"ie_mob": "10 - *"
 	},
 	"spec": "http://www.whatwg.org/specs/web-apps/current-work/#domtokenlist",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList"

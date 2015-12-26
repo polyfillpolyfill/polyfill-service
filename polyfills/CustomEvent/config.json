@@ -5,7 +5,7 @@
 	],
 	"browsers": {
 		"firefox": "6 - 10",
-		"ie": "9 - *",
+		"ie": "*",
 		"ie_mob": "10 - *",
 		"opera": "10 - 11.5",
 		"safari": "4 - 7",
@@ -16,16 +16,6 @@
 	"dependencies": [
 		"Event"
 	],
-	"variants": {
-		"ie8": {
-			"browsers": {
-				"ie": "6 - 8"
-			},
-			"dependencies": [
-				"Event"
-			]
-		}
-	},
 	"spec": "http://dom.spec.whatwg.org/#interface-customevent",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent"
 }

@@ -4,29 +4,19 @@
 	],
 	"browsers": {
 		"firefox": "6 - 10",
-		"ie": "9 - 11",
+		"ie": "6 - 11",
 		"ie_mob": "10",
 		"opera": "10 - 11.5",
 		"safari": "4 - 7",
 		"firefox_mob": "6 - 10"
 	},
 	"dependencies": [
-		"Window"
+		"Window",
+		"Document",
+		"Element"
 	],
-	"variants": {
-		"ie8": {
-			"browsers": {
-				"ie": "6 - 8"
-			},
-			"dependencies": [
-				"Window",
-				"Document",
-				"Element"
-			]
-		}
-	},
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event",
 	"notes": [
-		"This includes the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) methods `addEventListener`, `removeEventListener` and `dispatchEvent` for IE6-8."
+		"Where necessary, also adds the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) methods `addEventListener`, `removeEventListener` and `dispatchEvent`."
 	]
 }

@@ -3,17 +3,10 @@
 		"default"
 	],
 	"browsers": {
+		"chrome": "14 - 18",
 		"ie": "6 - 7",
 		"opera": "10 - 11.6",
-		"safari": "4 - 5"
-	},
-	"variants": {
-		"chrome": {
-			"browsers": {
-				"chrome": "14 - 18",
-				"safari": "5.1"
-			}
-		}
+		"safari": "4 - 5.1"
 	},
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/Window"
 }
