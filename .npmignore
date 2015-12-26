@@ -1,7 +1,5 @@
 /node_modules
 /npm-debug.log
-/polyfills/__repo
-/polyfills/__versions
 /test/results
 /.env.json
 /.haikro-cache

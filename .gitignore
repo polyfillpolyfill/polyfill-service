@@ -1,8 +1,6 @@
 /node_modules
 /npm-debug.log
 /newrelic_agent.log
-/polyfills/__repo
-/polyfills/__versions
 /polyfills/__dist
 /polyfills/aliases.json
 /test/results
