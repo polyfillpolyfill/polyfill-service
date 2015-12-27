@@ -5,7 +5,7 @@ sub vcl_recv {
 		return(pass);
 	}
 
-	if (req.url ~ "^/v\d/polyfill\." && req.url !~ "[\?\&]ua=") {
+	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
