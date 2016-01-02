@@ -45,6 +45,8 @@ if (graphiteHost) {
 		});
 	}, reportInterval);
 	timer.unref();
+
+	console.log('Initialised graphite metrics reporting to '+graphiteHost+', prefixed with '+metricsNS);
 } else {
 	console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
 }
