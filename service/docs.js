@@ -188,7 +188,7 @@ function getData(type) {
 }
 
 function getCompat() {
-	var sourceslib = sources.latest;
+	var sourceslib = sources.getCollection();
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
