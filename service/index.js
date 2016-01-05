@@ -10,6 +10,7 @@ var Raven = require('raven');
 var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
+var morgan = require('morgan');
 var appVersion = require(path.join(__dirname,'../package.json')).version;
 var hostname = require("os").hostname();
 
@@ -23,7 +24,10 @@ var dateDeployed;
 
 require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 	dateDeployed = stat.mtime;
-})
+});
+
+// Log requests - immediate because Heroku logs at end of request
+app.use(morgan(':req[X-Request-ID] :method :url => :status :response-time ms :res[content-length]'));
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
