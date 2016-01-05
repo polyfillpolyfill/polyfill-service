@@ -27,7 +27,7 @@ require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 });
 
 // Log requests - immediate because Heroku logs at end of request
-app.use(morgan(':req[X-Request-ID] :method :url => :status :response-time ms :res[content-length]'));
+app.use(morgan('method=:method path=":url" request_id=:req[X-Request-ID] status=:status service=:response-time bytes=:res[content-length]'));
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
