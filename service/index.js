@@ -245,6 +245,9 @@ function startService(port, callback) {
 		})
 		.on('error', function (err) {
 			callback(err);
+		})
+		.on('clientError', function (ex, sock) {
+			console.log('HTTP clientError: ', ex.code);
 		});
 }
 
