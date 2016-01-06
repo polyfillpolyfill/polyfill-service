@@ -161,7 +161,7 @@ describe("AliasResolver", function() {
 			}).then(function(resolved) {
 				assert.deepEqual(resolved, {
 					resolved_name_a: { flags: ["always"], aliasOf: ["alias_name_a", "first_alias_name_a"] },
-					resolved_name_b: { flags: ["gated", "always"], aliasOf: ["alias_name_b", "alias_name_a", "first_alias_name_a"] },
+					resolved_name_b: { flags: ["always", "gated"], aliasOf: ["alias_name_a", "alias_name_b", "first_alias_name_a"] },
 					resolved_name_c: { flags: ["gated"], aliasOf: ["alias_name_b"] }
 				});
 				done();
@@ -180,7 +180,7 @@ describe("AliasResolver", function() {
 				name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
 				assert.deepEqual(resolved, {
-					name_b: { flags: ["gated", "always"], aliasOf: ['alias_name_a'] }
+					name_b: { flags: ["always", "gated"], aliasOf: ['alias_name_a'] }
 				});
 				done();
 			});
