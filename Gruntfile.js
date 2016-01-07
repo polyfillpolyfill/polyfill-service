@@ -97,7 +97,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:quick",
