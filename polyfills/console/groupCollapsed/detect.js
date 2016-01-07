@@ -1,1 +1,1 @@
-'console' in this && 'groupCollapsed' in this.console
+'groupCollapsed' in this.console

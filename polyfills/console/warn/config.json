@@ -7,7 +7,9 @@
 		"firefox": "1 - 4"
 	},
 	"dependencies": [
-		"Window"
+		"Window",
+		"console",
+		"console.log"
 	],
 	"spec": "https://github.com/DeveloperToolsWG/console-object/blob/master/api.md",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"

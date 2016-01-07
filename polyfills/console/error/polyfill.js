@@ -1,30 +1,20 @@
-(function(global) {
+this.console.error = function error() {
 
-	var console = global.console || (global.console = {});
+	var fn = console.log;
+	var hasApply = false;
 
-	if (typeof console.error === 'function') {
-		return;
+	try {
+		hasApply = !!fn.apply;
+	} catch (e) { /* do nothing */ }
+
+	if (hasApply) {
+		return function () {
+			fn.apply(console, arguments);
+		};
 	}
 
-	console.error = function error() {
-
-		var fn = console.log;
-		var hasApply = false;
-
-		try {
-			hasApply = !!fn.apply;
-		} catch (e) { /* do nothing */ }
-
-		if (hasApply) {
-			return function () {
-				fn.apply(console, arguments);
-			};
-		}
-
-		return function (arg1, arg2, arg3) {
-			fn(arg1, arg2, arg3);
-		};
-
+	return function (arg1, arg2, arg3) {
+		fn(arg1, arg2, arg3);
 	};
 
-})(this);
+};

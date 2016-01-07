@@ -1,1 +1,1 @@
-'console' in this && 'groupEnd' in this.console
+'groupEnd' in this.console
