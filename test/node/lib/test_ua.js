@@ -1,4 +1,4 @@
-var assert  = require('assert');
+var assert = require('assert');
 var UA = require('../../../lib/UA');
 
 describe("UA", function() {
@@ -19,5 +19,9 @@ describe("UA", function() {
 			assert.equal(yandex, "chrome/37.0.0");
 		});
 
+		it("should resolve edge mobile to the ie family", function() {
+			var test = UA.normalize("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
+			assert.equal(test, "ie/12.10130.0");
+		});
 	});
 });
