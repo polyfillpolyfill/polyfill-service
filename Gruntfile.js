@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config({silent: true});
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
