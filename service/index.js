@@ -196,12 +196,6 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
 	}
-	if (req.header('referer')) {
-		var ref = URL.parse(req.header('referer')).hostname;
-		if (ref) {
-			metrics.counter('refererdomains.'+ref.replace(/\./g, '-')).inc();
-		}
-	}
 
 	polyfillio.getPolyfillString(params).then(function(op) {
 		if (warnings.length) {
