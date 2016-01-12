@@ -8,7 +8,8 @@
 		"chrome": "* - 38",
 		"ios_saf": "*",
 		"firefox_mob": "4 - 37",
-		"bb": "7 - 10"
+		"bb": "7 - 10",
+		"android": "*"
 	},
 	"dependencies": [],
 	"license": "MIT",
