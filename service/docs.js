@@ -175,11 +175,12 @@ function getData(type) {
 		compat: getCompat
 	};
 
-	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
+	if (cache.hasOwnProperty(type) && cache[type].expires > Date.now()) {
 		return cache[type].promise;
 	} else {
-		console.log('Generating docs data', type);
-		cache[type] = {creationTime: (new Date()).getTime()};
+		var ttl = Math.floor((cachettl*1000)*(Math.random()+1));
+		console.log('Generating docs data: type='+type+' expired='+(cache[type] && cache[type].expires)+' newttl='+ttl);
+		cache[type] = {expires: Date.now() + ttl};
 		try {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
