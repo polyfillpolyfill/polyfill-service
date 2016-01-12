@@ -34,6 +34,7 @@
   "dependencies": {
     "blocked": "^1.1.0",
     "denodeify": "^1.2.1",
+    "dotenv": "^1.2.0",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
     "graphite": "0.0.6",

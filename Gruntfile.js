@@ -1,14 +1,5 @@
 'use strict';
 
-var ENV = process.env;
-
-var fs = require('fs');
-if (fs.existsSync('./.env.json')) {
-	var environmentOverrides = require('./.env.json');
-	ENV = require('lodash').extend(ENV, environmentOverrides);
-}
-
-
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -75,7 +66,6 @@ module.exports = function(grunt) {
 				pidFile: __dirname+'/.service.pid',
 				generatePID: true,
 				options: {
-					env: ENV,
 					cwd: __dirname,
 					failOnError: true
 				}

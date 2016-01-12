@@ -637,6 +637,11 @@
       "from": "diff@1.0.8",
       "resolved": "https://registry.npmjs.org/diff/-/diff-1.0.8.tgz"
     },
+    "dotenv": {
+      "version": "1.2.0",
+      "from": "dotenv@*",
+      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-1.2.0.tgz"
+    },
     "ecc-jsbn": {
       "version": "0.1.1",
       "from": "ecc-jsbn@>=0.0.1 <1.0.0",
