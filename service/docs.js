@@ -12,7 +12,7 @@ var compatdata = require('../docs/assets/compat.json');
 var extend = require('lodash').extend;
 
 var cache = {};
-var cachettl = 1800;
+var cachettls = {fastly:1800, respTimes:1800, outages:86400};
 
 // Pre-cache page templates and partials
 var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
@@ -175,12 +175,14 @@ function getData(type) {
 		compat: getCompat
 	};
 
-	if (cache.hasOwnProperty(type) && cache[type].expires > Date.now()) {
+	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
 		return cache[type].promise;
 	} else {
-		var ttl = Math.floor((cachettl*1000)*(Math.random()+1));
-		console.log('Generating docs data: type='+type+' expired='+(cache[type] && cache[type].expires)+' newttl='+ttl);
-		cache[type] = {expires: Date.now() + ttl};
+		cache[type] = {};
+		if (cachettls[type]) {
+			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		}
+		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
 		try {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
