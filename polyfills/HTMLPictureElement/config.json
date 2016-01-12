@@ -9,7 +9,7 @@
 		"ios_saf": "*",
 		"firefox_mob": "4 - 37",
 		"bb": "7 - 10",
-		"android": "*"
+		"android": "* < 46"
 	},
 	"dependencies": [],
 	"license": "MIT",
