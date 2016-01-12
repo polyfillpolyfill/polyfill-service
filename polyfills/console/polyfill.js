@@ -46,7 +46,6 @@
 		'count',
 		'debug',
 		'dir',
-		'dirxml',
 		'error',
 		'exception',
 		'group',

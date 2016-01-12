@@ -50,12 +50,6 @@ describe('console', function () {
 			}).not.to.throwException();
 		});
 
-		it('dirxml()', function () {
-			expect(function () {
-				console.dirxml();
-			}).not.to.throwException();
-		});
-
 		it('error()', function () {
 			expect(function () {
 				console.error();
