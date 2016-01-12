@@ -171,7 +171,8 @@ function getData(type) {
 					});
 				}));
 			}));
-		}
+		},
+		compat: getCompat
 	};
 
 	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
@@ -195,7 +196,6 @@ function getCompat() {
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
-	console.log('Generating compatibility data');
 	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
 			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
@@ -284,7 +284,7 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[1] === 'features') {
-		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
+		Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
 			res.send(templates.compat(extend({
 				section: 'features',
 				compat: compat,
