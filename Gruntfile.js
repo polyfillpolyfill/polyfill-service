@@ -24,8 +24,8 @@ module.exports = function(grunt) {
 			compat: {
 				options: {
 					urls: {
-						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
-						native: 'http://127.0.0.1:3000/test/director?mode=control'
+						all: 'http://127.0.0.1:3000/test/director?mode=all',
+						control: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
 					browsers: browsers.full
 				}
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 				options: {
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					browsers: browsers.ci
 				}
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 				options: {
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					browsers: browsers.quick
 				}
