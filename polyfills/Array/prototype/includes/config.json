@@ -5,7 +5,7 @@
 	],
 	"browsers": {
 		"chrome": "*",
-		"firefox": "*",
+		"firefox": "<=42",
 		"ie": "*",
 		"opera": "*",
 		"safari": "*",

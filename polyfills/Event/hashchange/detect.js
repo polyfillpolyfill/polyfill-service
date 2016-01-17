@@ -1,1 +1,1 @@
-'onhashchange' in this
+'onhashchange' in this && this.onhashchange !== null

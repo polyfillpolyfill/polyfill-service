@@ -22,7 +22,6 @@
 
 		<ul>
 			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#polyfill-authoring-guidelines">polyfill authoring guidelines</a>.</li>
-			<li><code>polyfill-{variant}.js</code>: Optional alternative polyfills, to be used where different browsers require different polyfill implementations in order to produce the same result.  Often this is because some browsers have a prefixed or part-implemented/buggy version of the feature which can be normalised more easily and efficiently than recreating it from lower level primitives.  The variant name is arbitrary, but conventionally it is the short form of the browser name and version, if applicable, eg <code>polyfill-ie7.js</code>.  The variant name 'default' is reserved for <code>polyfill.js</code>.</li>
 			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  **Must not have a trailing semicolon.**</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
 			<li><code>update.task.js</code>: Optional alternative to <code>polyfill.js</code>. This file is used in combination with the Grunt task <code>updatelibrary</code> to create a local copy of an external polyfill.</li>
@@ -40,8 +39,7 @@
 			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
-			<li><code>variants</code>: Object, mapping variant names to objects with individual <code>browsers</code>, <code>license</code>, <code>dependencies</code> and <code>repo</code> properties.</li>
-			<li><code>build</code>: Object, used to specify how the polyfill should be built.
+=			<li><code>build</code>: Object, used to specify how the polyfill should be built.
 				<ul>
 					<li><code>minify</code>: boolean, whether the polyfill should be minified (default true).</li>
 				</ul>
@@ -52,8 +50,6 @@
 				</ul>
 			</li>
 		</ul>
-
-		<p>Where a config file contains <code>browsers</code>, <code>license</code>, <code>dependencies</code> or <code>repo</code> properties outside of a <code>variants</code> object, those properties are interpreted as belonging to the <code>default</code> variant, and apply to the <code>polyfil.js</code> implementation.  Placing them inside <code>variants.default</code> is allowed, but optional.</p>
 
 		<p>Example:</p>
 
@@ -86,9 +82,9 @@
 			<li>inherit the license terms of the polyfill service project as a whole, and all contributions are accepted subject to the committer's agreement to our <a href='#contribution-terms'>contribution terms</a>;</li>
 			<li>can be modified, tweaked and improved within the polyfill service repo;</li>
 			<li>must not be wrapped in a feature detect (this is a runtime option);</li>
-			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on `Object.defineProperty`, but *must not* embed a polyfill for it</li>
+			<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on <code>Object.defineProperty</code>, but <em>must not</em> embed a polyfill for it</li>
 		</ul></li>
-		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presense of a <code>repo</code> property in their config.  Third party polyfills:<ul>
+		<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presence of a <code>repo</code> property in their config.  Third party polyfills:<ul>
 			<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
 			<li>should have an update task to check the source repo and update the polyfill service version</li>
 			<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
@@ -107,7 +103,7 @@
 	// Polyfills go here
 ).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
 
-		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`.</p>
+		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`, which may not always be what you think they are.</p>
 
 		<h3 id='update-tasks'>Update tasks</h3>
 
@@ -163,7 +159,7 @@ module.exports = function(grunt) {
 
 		<p><a href="http://127.0.0.1:3000/test/director?mode=targeted">http://127.0.0.1:3000/test/director?mode=targeted</a></p>
 
-		<p>To run just one feature, use the test runner:</p>
+		<p>To test just one feature, use the test runner:</p>
 
 		<p><a href="http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted">http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted</a></p>
 
@@ -186,9 +182,18 @@ module.exports = function(grunt) {
 			<li>Make sure you write a reasonably comprehensive set of tests, and that they pass in all the browsers you have targeted</li>
 		</ul>
 
+		<h3 id='adding-browsers'>Adding browser targets to a existing polyfill</h3>
+
+		<p>Commonly, people want to take a polyfill we already have and get us to serve it to a browser that we currently don't target with that polyfill. Often this is because it's a less common browser and we just haven't tested the polyfill in that browser, so adding the extra browser as a target does make sense.  But when raising a PR to add a browser target, please include the following:</p>
+
+		<ul>
+			<li>Confirmation that the browser concerned does not support the feature natively (a link to the relevant caniuse or MDN data is useful, a screenshot is even better)</li>
+			<li>Confirmation that you have tested our polyfill on that browser, using our <a href='#running-tests'>test suite</a>. Ideally include a screenshot of the browser running the tests.</li>
+		</ul>
+
 		<h2 id="contributing-to-the-application">Contributing to the application</h2>
 
-		<p>The service part of the project is pretty simple, and there are few strict conventions.  In lieu of any formal standards, try to take care to follow existing conventions.  Some of these are defined in an <code>.editorconfig</code> file.</p>
+		<p>The service part of the project is pretty simple, and there are few strict conventions.  In lieu of any formal standards, try to take care to follow existing conventions.  Some of these are defined in an <code>.editorconfig</code> and <code>.jshintrc</code> files.</p>
 
 		<h2 id="browser-support">Browser support</h2>
 
@@ -199,7 +204,7 @@ module.exports = function(grunt) {
 			<tr><th>Short name</th><th>User Agent Name</th><th>Baseline</th></tr>
 			</thead>
 			<tbody>
-			<tr><td><code>ie</code></td><td>Internet Explorer / Edge</td><td>{{baselines.ie}}</td></tr>
+			<tr><td><code>ie</code></td><td>Internet Explorer / Edge / Edge Mobile</td><td>{{baselines.ie}}</td></tr>
 			<tr><td><code>ie_mob</code></td><td>Internet Explorer Mobile</td><td>{{baselines.ie_mob}}</td></tr>
 			<tr><td><code>chrome</code></td><td>Chrome</td><td>{{baselines.chrome}}</td></tr>
 			<tr><td><code>ios_chr</code></td><td>Chrome on iOS</td><td>{{baselines.ios_chr}}</td></tr>

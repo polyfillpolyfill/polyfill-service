@@ -12,7 +12,7 @@ var compatdata = require('../docs/assets/compat.json');
 var extend = require('lodash').extend;
 
 var cache = {};
-var cachettl = 1800;
+var cachettls = {fastly:1800, respTimes:1800, outages:86400};
 
 // Pre-cache page templates and partials
 var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
@@ -171,14 +171,18 @@ function getData(type) {
 					});
 				}));
 			}));
-		}
+		},
+		compat: getCompat
 	};
 
-	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
+	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
 		return cache[type].promise;
 	} else {
-		console.log('Generating docs data', type);
-		cache[type] = {creationTime: (new Date()).getTime()};
+		cache[type] = {};
+		if (cachettls[type]) {
+			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		}
+		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
 		try {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
@@ -188,14 +192,13 @@ function getData(type) {
 }
 
 function getCompat() {
-	var sourceslib = sources.latest;
+	var sourceslib = sources.getCollection();
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
-	console.log('Generating compatibility data');
 	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
 			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
@@ -206,17 +209,15 @@ function getCompat() {
 				var fdata = {
 					feature: feat,
 					slug: feat.replace(/\./g, '_'),
-					size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-						return Math.max(size, polyfill.variants[variantName].minSource.length);
-					}, 0),
+					size: polyfill.minSource.length,
 					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 					hasTests: polyfill.hasTests,
 					docs: polyfill.docs,
 					baseDir: polyfill.baseDir,
 					spec: polyfill.spec,
 					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-					license: polyfill.variants.default.license,
-					licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
+					license: polyfill.license,
+					licenseIsUrl: polyfill.license && polyfill.license.length > 5
 				};
 				browsers.forEach(function(browser) {
 					if (compatdata[feat][browser]) {
@@ -286,7 +287,7 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[1] === 'features') {
-		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
+		Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
 			res.send(templates.compat(extend({
 				section: 'features',
 				compat: compat,
@@ -297,11 +298,7 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[1] === 'api') {
-		res.send(templates.api(extend({
-			hasVersions: sources.listVersions().length > 1,
-			versions: sources.listVersions(),
-			section: 'api'
-		}, locals)));
+		res.send(templates.api(extend({section: 'api'}, locals)));
 
 	} else if (req.params[1] === 'examples') {
 

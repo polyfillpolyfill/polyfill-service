@@ -1,23 +1,14 @@
 {
 	"browsers": {
-		"safari": "4 - *"
-	},
-	"variants": {
-		"oldie": {
-			"browsers": {
-				"ie": "6 - 8",
-				"firefox": "<=17"
-			}
-		},
-		"ios": {
-			"browsers": {
-				"ios_saf": "*"
-			}
-		}
+		"safari": "4 - *",
+		"ie": "6 - 10",
+		"firefox": "<=17",
+		"ios_saf": "*"
 	},
 	"spec": "http://dev.w3.org/csswg/cssom-view/#dom-window-devicepixelratio",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio",
 	"notes": [
-		"On very old browsers, this polyfill just sets `devicePixelRatio` to 1 without attempting to measure it."
+		"This polyfill just sets `devicePixelRatio` to 1 without attempting to measure it.",
+		"Older versions of Firefox are known to incorrectly alter the DPR on user zoom, but we don't (currently) correct for this"
 	]
 }

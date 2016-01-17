@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('newrelic');
+require('dotenv').config({silent: true});
 
 var minimist = require('minimist');
 
