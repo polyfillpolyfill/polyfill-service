@@ -180,7 +180,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		return;
 	}
 
-	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
+	var polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
 
 	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {

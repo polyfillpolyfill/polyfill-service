@@ -20,6 +20,7 @@ PolyfillSet.prototype.get = function() {
 
 
 PolyfillSet.fromQueryParam = function(polyfillList, additionalFlags) {
+	if (!polyfillList || !polyfillList.split) polyfillList = 'default';
 	var list = polyfillList.split(',').filter(function(x) { return x.length; });
 	additionalFlags = additionalFlags || [];
 
