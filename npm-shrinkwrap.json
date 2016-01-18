@@ -12,6 +12,16 @@
       "from": "accepts@>=1.2.12 <1.3.0",
       "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.2.13.tgz"
     },
+    "after-all": {
+      "version": "2.0.2",
+      "from": "after-all@>=2.0.2 <3.0.0",
+      "resolved": "https://registry.npmjs.org/after-all/-/after-all-2.0.2.tgz"
+    },
+    "after-all-results": {
+      "version": "2.0.0",
+      "from": "after-all-results@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/after-all-results/-/after-all-results-2.0.0.tgz"
+    },
     "align-text": {
       "version": "0.1.3",
       "from": "align-text@>=0.1.0 <0.2.0",
@@ -100,6 +110,18 @@
       "version": "0.2.10",
       "from": "async@>=0.2.6 <0.3.0",
       "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
+    },
+    "async-cache": {
+      "version": "1.0.0",
+      "from": "async-cache@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/async-cache/-/async-cache-1.0.0.tgz",
+      "dependencies": {
+        "lru-cache": {
+          "version": "2.3.1",
+          "from": "lru-cache@>=2.3.0 <2.4.0",
+          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.3.1.tgz"
+        }
+      }
     },
     "aws-sign": {
       "version": "0.3.0",
@@ -518,6 +540,11 @@
       "from": "concat-map@0.0.1",
       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
     },
+    "console-log-level": {
+      "version": "1.2.1",
+      "from": "console-log-level@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/console-log-level/-/console-log-level-1.2.1.tgz"
+    },
     "content-disposition": {
       "version": "0.5.0",
       "from": "content-disposition@0.5.0",
@@ -656,6 +683,11 @@
       "version": "1.1.0",
       "from": "end-of-stream@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.1.0.tgz"
+    },
+    "error-callsites": {
+      "version": "1.0.0",
+      "from": "error-callsites@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/error-callsites/-/error-callsites-1.0.0.tgz"
     },
     "escape-html": {
       "version": "1.0.2",
@@ -1377,6 +1409,28 @@
       "from": "once@>=1.3.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/once/-/once-1.3.3.tgz"
     },
+    "opbeat": {
+      "version": "3.1.4",
+      "from": "opbeat@*",
+      "resolved": "https://registry.npmjs.org/opbeat/-/opbeat-3.1.4.tgz",
+      "dependencies": {
+        "lru-cache": {
+          "version": "2.7.3",
+          "from": "lru-cache@>=2.7.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.7.3.tgz"
+        }
+      }
+    },
+    "opbeat-http-client": {
+      "version": "1.0.3",
+      "from": "opbeat-http-client@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/opbeat-http-client/-/opbeat-http-client-1.0.3.tgz"
+    },
+    "opbeat-release-tracker": {
+      "version": "1.1.1",
+      "from": "opbeat-release-tracker@>=1.1.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/opbeat-release-tracker/-/opbeat-release-tracker-1.1.1.tgz"
+    },
     "optimist": {
       "version": "0.3.7",
       "from": "optimist@>=0.3.0 <0.4.0",
@@ -1568,6 +1622,11 @@
       "from": "shebang-regex@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz"
     },
+    "shimmer": {
+      "version": "1.1.0",
+      "from": "shimmer@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/shimmer/-/shimmer-1.1.0.tgz"
+    },
     "sigmund": {
       "version": "1.0.1",
       "from": "sigmund@>=1.0.0 <1.1.0",
@@ -1605,6 +1664,11 @@
       "from": "split@>=0.3.2 <0.4.0",
       "resolved": "https://registry.npmjs.org/split/-/split-0.3.3.tgz"
     },
+    "sql-summary": {
+      "version": "1.0.0",
+      "from": "sql-summary@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/sql-summary/-/sql-summary-1.0.0.tgz"
+    },
     "sshpk": {
       "version": "1.7.0",
       "from": "sshpk@>=1.7.0 <2.0.0",
@@ -1621,6 +1685,11 @@
       "version": "0.0.7",
       "from": "stack-trace@0.0.7",
       "resolved": "https://registry.npmjs.org/stack-trace/-/stack-trace-0.0.7.tgz"
+    },
+    "stackman": {
+      "version": "1.2.3",
+      "from": "stackman@>=1.2.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/stackman/-/stackman-1.2.3.tgz"
     },
     "statuses": {
       "version": "1.2.1",
