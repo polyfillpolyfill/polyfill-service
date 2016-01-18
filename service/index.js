@@ -33,7 +33,9 @@ if (process.env.ENABLE_ACCESS_LOG) {
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
-	var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+	var ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
+		release: appVersion
+	});
 	ravenClient.patchGlobal();
 	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
 }
