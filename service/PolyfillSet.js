@@ -21,7 +21,11 @@ PolyfillSet.prototype.get = function() {
 
 PolyfillSet.fromQueryParam = function(polyfillList, additionalFlags) {
 	if (!polyfillList || !polyfillList.split) polyfillList = 'default';
-	var list = polyfillList.split(',').filter(function(x) { return x.length; });
+	var list = polyfillList
+		.split(',')
+		.filter(function(x) { return x.length; })
+		.map(function(x) { return x.replace(/[\*\/]/g, ''); }) // Eliminate XSS vuln
+	;
 	additionalFlags = additionalFlags || [];
 
 	return new PolyfillSet(list.sort().reduce(function parsePolyfillInfo(obj, name) {
