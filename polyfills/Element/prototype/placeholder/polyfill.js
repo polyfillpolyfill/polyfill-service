@@ -1,6 +1,7 @@
 Object.defineProperty(Element.prototype, 'placeholder', {
-	get:function(){
-		return this.getAttribute('placeholder') ;},
+	get: function() {
+		return this.getAttribute('placeholder');
+	},
 
 	set: function (value) {
 		if (!value || !/^(input|textarea)$/i.test(this.nodeName) || !/^(email|number|password|search|tel|text|url|)$/i.test(this.getAttribute('type'))) {
