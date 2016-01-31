@@ -1,7 +1,7 @@
 {
   "name": "polyfill-service",
   "description": "A polyfill combinator",
-  "main": "lib/index.js","browserify": "^12.0.1",
+  "main": "lib/index.js",
   "bin": "bin/polyfill-service",
   "contributors": [
     {
