@@ -1,7 +1,7 @@
 {
 	"browsers": {
-		"ie": ">=8",
-		"safari": "*",
+		"ie": "*",
+		"safari": "<9",
 		"chrome": "< 44",
 		"firefox": "< 38",
 		"ios_saf": "*",
