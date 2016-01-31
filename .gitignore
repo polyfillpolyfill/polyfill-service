@@ -5,6 +5,7 @@
 /polyfills/aliases.json
 /test/results
 /.env.json
+/.env
 /.service.pid
 /.haikro-cache
 /node-*

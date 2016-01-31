@@ -42,7 +42,7 @@ describe("polyfillio", function() {
 					'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
 					'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
 					'Element': { flags: [], aliasOf: ['Element.prototype.placeholder', 'document.querySelector'] },
-					'Document': { flags: [], aliasOf: ['document.querySelector', 'Element.prototype.placeholder', 'Element'] }
+					'Document': { flags: [], aliasOf: ['Element', 'Element.prototype.placeholder', 'document.querySelector'] }
 				});
 			});
 		});
