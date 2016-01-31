@@ -26,12 +26,16 @@ require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 	dateDeployed = stat.mtime;
 });
 
-// Log requests - immediate because Heroku logs at end of request
-app.use(morgan(':req[X-Request-ID] :method :url => :status :response-time ms :res[content-length]'));
+// Log requests
+if (process.env.ENABLE_ACCESS_LOG) {
+	app.use(morgan('method=:method path=":url" request_id=:req[X-Request-ID] status=:status service=:response-time bytes=:res[content-length]'));
+}
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
-	var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+	var ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
+		release: appVersion
+	});
 	ravenClient.patchGlobal();
 	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
 }
@@ -178,7 +182,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		return;
 	}
 
-	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
+	var polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
 
 	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {
@@ -195,12 +199,6 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	if (uaString) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
-	}
-	if (req.header('referer')) {
-		var ref = URL.parse(req.header('referer')).hostname;
-		if (ref) {
-			metrics.counter('refererdomains.'+ref.replace(/\./g, '-')).inc();
-		}
 	}
 
 	polyfillio.getPolyfillString(params).then(function(op) {
@@ -245,6 +243,9 @@ function startService(port, callback) {
 		})
 		.on('error', function (err) {
 			callback(err);
+		})
+		.on('clientError', function (ex, sock) {
+			console.log('HTTP clientError: ', ex.code);
 		});
 }
 
