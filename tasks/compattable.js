@@ -57,18 +57,13 @@ module.exports = function(grunt) {
 				var versions = compat[browserName];
 				Object.keys(versions).forEach(function(version) {
 					var testResults = versions[version];
-					if (!testResults.native) {
-						throw new Error("No native test results for " + browserName + "/" + version);
+					if (!testResults.all || !testResults.control) {
+						throw new Error("Missing test results for " + browserName + "/" + version);
 					}
 
-					if (!testResults.native || !testResults.polyfilled) {
-						console.log("Could not get test results for " + browserName + "/" + version);
-						return;
-					}
-
-					var allTests = new Set(toArray(testResults.native.testedSuites));
-					var failedNative = new Set(toArray(testResults.native.failingSuites));
-					var failedPolyfilled = new Set(toArray(testResults.polyfilled.failingSuites));
+					var allTests = new Set(toArray(testResults.control.testedSuites));
+					var failedNative = new Set(toArray(testResults.control.failingSuites));
+					var failedPolyfilled = new Set(toArray(testResults.all.failingSuites));
 
 					var missing = failedNative.intersection(failedPolyfilled);
 					var polyfilled = failedPolyfilled.difference(failedNative);

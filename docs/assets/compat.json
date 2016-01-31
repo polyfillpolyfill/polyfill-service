@@ -1,16 +1,16 @@
 {
   "~viewport": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -37,17 +37,17 @@
     }
   },
   "~html5-elements": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -73,18 +73,55 @@
       "9.1": "native"
     }
   },
-  "performance.now": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "requestAnimationFrame": {
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "native",
+      "11": "native",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "performance.now": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -111,17 +148,17 @@
     }
   },
   "navigator.geolocation": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -148,23 +185,23 @@
     }
   },
   "matchMedia": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
+      "9": "polyfilled",
       "10": "native",
       "11": "native",
       "12": "native"
@@ -184,18 +221,55 @@
       "9.1": "native"
     }
   },
-  "localStorage": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "location.origin": {
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "native"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "native",
+      "4.2": "native",
+      "4.1": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "localStorage": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -222,17 +296,17 @@
     }
   },
   "getComputedStyle": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -259,17 +333,17 @@
     }
   },
   "document.querySelector": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -296,17 +370,17 @@
     }
   },
   "document.head": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -333,17 +407,17 @@
     }
   },
   "devicePixelRatio": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -369,55 +443,18 @@
       "9.1": "native"
     }
   },
-  "console": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "native",
-      "7": "native",
-      "8": "native",
-      "9": "native",
-      "10": "native",
-      "11": "native",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "native"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
   "atob": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -444,17 +481,17 @@
     }
   },
   "XMLHttpRequest": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -481,17 +518,17 @@
     }
   },
   "Window": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -518,17 +555,17 @@
     }
   },
   "String.prototype.trim": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -554,129 +591,18 @@
       "9.1": "native"
     }
   },
-  "String.prototype.startsWith": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "String.prototype.endsWith": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "String.prototype.contains": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "polyfilled",
-      "46": "polyfilled"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "polyfilled"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "polyfilled"
-    }
-  },
   "Object.keys": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -691,6 +617,43 @@
       "8": "native",
       "9": "native",
       "5.1": "native"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "native",
+      "4.2": "native",
+      "4.1": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Object.is": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
     },
     "android": {
       "4.4": "native",
@@ -703,17 +666,17 @@
     }
   },
   "Object.getPrototypeOf": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -740,17 +703,17 @@
     }
   },
   "Object.getOwnPropertyNames": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -777,17 +740,17 @@
     }
   },
   "Object.defineProperty": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -814,17 +777,17 @@
     }
   },
   "Object.defineProperties": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -851,17 +814,17 @@
     }
   },
   "Object.create": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -887,55 +850,18 @@
       "9.1": "native"
     }
   },
-  "Node.prototype.contains": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "native"
-    },
-    "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
   "Math.imul": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -962,17 +888,17 @@
     }
   },
   "JSON": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -998,18 +924,55 @@
       "9.1": "native"
     }
   },
-  "HTMLDocument": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "Intl": {
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "native",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "HTMLDocument": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1036,17 +999,17 @@
     }
   },
   "Function.prototype.bind": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1073,31 +1036,31 @@
     }
   },
   "Event": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
       "12": "native"
     },
     "safari": {
       "8": "native",
       "9": "native",
-      "5.1": "missing"
+      "5.1": "polyfilled"
     },
     "android": {
       "4.4": "native",
@@ -1110,17 +1073,17 @@
     }
   },
   "Event.focusin": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "native",
@@ -1147,17 +1110,17 @@
     }
   },
   "Event.DOMContentLoaded": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1178,29 +1141,66 @@
       "4.3": "native",
       "4.2": "native",
       "4.1": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Element.prototype.remove": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
       "9.1": "native"
     }
   },
   "Element.prototype.placeholder": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
+      "9": "polyfilled",
       "10": "native",
       "11": "native",
       "12": "native"
@@ -1220,23 +1220,97 @@
       "9.1": "native"
     }
   },
-  "Element": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "Element.prototype.cloneNode": {
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "missing",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
+    },
     "ie": {
-      "6": "native",
-      "7": "native",
+      "6": "missing",
+      "7": "missing",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
       "8": "native",
+      "9": "native",
+      "5.1": "native"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "native",
+      "4.2": "native",
+      "4.1": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Element.prototype.classList": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "missing",
+      "11": "missing",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "missing"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Element": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
       "9": "native",
       "10": "native",
       "11": "native",
@@ -1258,17 +1332,17 @@
     }
   },
   "Document": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1295,17 +1369,17 @@
     }
   },
   "Date.prototype.toISOString": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1332,17 +1406,17 @@
     }
   },
   "Date.now": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1368,55 +1442,92 @@
       "9.1": "native"
     }
   },
-  "CustomEvent": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "DOMTokenList": {
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
       "12": "native"
     },
     "safari": {
       "8": "native",
       "9": "native",
-      "5.1": "missing"
+      "5.1": "polyfilled"
     },
     "android": {
       "4.4": "native",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "CustomEvent": {
+    "chrome": {
+      "30": "native",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "native",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
       "9.1": "native"
     }
   },
   "Array.prototype.some": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1443,17 +1554,17 @@
     }
   },
   "Array.prototype.reduceRight": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1480,17 +1591,17 @@
     }
   },
   "Array.prototype.reduce": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1517,17 +1628,17 @@
     }
   },
   "Array.prototype.map": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1554,17 +1665,17 @@
     }
   },
   "Array.prototype.lastIndexOf": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1591,17 +1702,17 @@
     }
   },
   "Array.prototype.indexOf": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1628,17 +1739,17 @@
     }
   },
   "Array.prototype.forEach": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1665,17 +1776,17 @@
     }
   },
   "Array.prototype.filter": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1702,17 +1813,17 @@
     }
   },
   "Array.prototype.every": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1739,17 +1850,17 @@
     }
   },
   "Array.isArray": {
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "native",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1775,18 +1886,55 @@
       "9.1": "native"
     }
   },
-  "Math.atanh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "WeakMap": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Math.atanh": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1812,18 +1960,129 @@
       "9.1": "native"
     }
   },
-  "screen.orientation": {
-    "firefox": {
-      "20": "polyfilled",
+  "String.prototype.contains": {
+    "chrome": {
       "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "polyfilled"
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
     },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "PageVisibility": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "missing",
+      "42": "missing",
+      "46": "missing"
+    },
+    "firefox": {
+      "20": "missing",
+      "30": "missing",
+      "33": "missing",
+      "41": "missing"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "missing",
+      "10": "native",
+      "11": "native",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "missing"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "String.prototype.startsWith": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "screen.orientation": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "missing",
@@ -1850,17 +2109,17 @@
     }
   },
   "Math.log10": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1887,17 +2146,17 @@
     }
   },
   "Array.prototype.find": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1924,17 +2183,17 @@
     }
   },
   "String.prototype.repeat": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1961,17 +2220,17 @@
     }
   },
   "Math.sign": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -1998,17 +2257,17 @@
     }
   },
   "WeakSet": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2034,18 +2293,55 @@
       "9.1": "native"
     }
   },
-  "Math.log2": {
+  "Element.prototype.prepend": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
     "firefox": {
       "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "Math.log2": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2072,17 +2368,17 @@
     }
   },
   "setImmediate": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "polyfilled"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
@@ -2109,17 +2405,17 @@
     }
   },
   "Array.of": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2146,17 +2442,17 @@
     }
   },
   "Math.asinh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2183,17 +2479,17 @@
     }
   },
   "Math.trunc": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2219,18 +2515,55 @@
       "9.1": "native"
     }
   },
-  "Array.prototype.contains": {
-    "firefox": {
-      "20": "polyfilled",
+  "String.prototype.endsWith": {
+    "chrome": {
       "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "polyfilled"
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
     },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Element.prototype.replaceWith": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
@@ -2257,17 +2590,17 @@
     }
   },
   "Array.prototype.includes": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "polyfilled"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
@@ -2294,17 +2627,17 @@
     }
   },
   "Array.from": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2330,55 +2663,18 @@
       "9.1": "native"
     }
   },
-  "HTMLPictureElement": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "polyfilled"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "polyfilled"
-    }
-  },
   "Array.prototype.findIndex": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2405,17 +2701,17 @@
     }
   },
   "URL": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "missing",
+      "33": "missing",
+      "41": "missing"
     },
     "ie": {
       "6": "missing",
@@ -2442,17 +2738,17 @@
     }
   },
   "Math.tanh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2478,129 +2774,55 @@
       "9.1": "native"
     }
   },
-  "DOMTokenList": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Object.is": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.expm1": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "HTMLPictureElement": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
     },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "WeakMap": {
     "firefox": {
       "20": "polyfilled",
       "30": "polyfilled",
       "33": "polyfilled",
       "41": "native"
     },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "missing"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "Math.cosh": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2612,7 +2834,44 @@
       "12": "native"
     },
     "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Math.expm1": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
       "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
       "9": "native",
       "5.1": "polyfilled"
     },
@@ -2627,17 +2886,17 @@
     }
   },
   "Math.log1p": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -2663,55 +2922,18 @@
       "9.1": "native"
     }
   },
-  "location.origin": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "native"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.clz32": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "native",
-      "41": "native"
-    },
+  "Element.prototype.after": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
-      "42": "native",
-      "46": "native"
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
@@ -2720,163 +2942,15 @@
       "9": "polyfilled",
       "10": "polyfilled",
       "11": "polyfilled",
-      "12": "native"
+      "12": "polyfilled"
     },
     "safari": {
       "8": "polyfilled",
-      "9": "native",
+      "9": "polyfilled",
       "5.1": "polyfilled"
     },
     "android": {
       "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.cosh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.sinh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.cbrt": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Intl": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "native",
-      "12": "native"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "native",
       "4.3": "polyfilled",
       "4.2": "polyfilled",
       "4.1": "polyfilled"
@@ -2885,240 +2959,18 @@
       "9.1": "polyfilled"
     }
   },
-  "requestAnimationFrame": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "native",
-      "11": "native",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Promise": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Element.prototype.classList": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.acosh": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
-      "33": "native",
-      "41": "native"
-    },
+  "Math.clz32": {
     "chrome": {
       "30": "polyfilled",
       "35": "polyfilled",
       "42": "native",
       "46": "native"
     },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Object.assign": {
     "firefox": {
       "20": "polyfilled",
       "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "polyfilled",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "polyfilled",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Math.hypot": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "native",
       "33": "native",
       "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "4.4": "polyfilled",
-      "4.3": "polyfilled",
-      "4.2": "polyfilled",
-      "4.1": "polyfilled"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "String.prototype.includes": {
-    "firefox": {
-      "20": "polyfilled",
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "polyfilled",
-      "35": "polyfilled",
-      "42": "native",
-      "46": "native"
     },
     "ie": {
       "6": "polyfilled",
@@ -3145,437 +2997,548 @@
     }
   },
   "Element.prototype.matches": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "native"
-    },
     "chrome": {
-      "30": "missing",
+      "30": "polyfilled",
       "35": "native",
       "42": "native",
       "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
     },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
     },
     "safari": {
       "8": "native",
       "9": "native",
-      "5.1": "missing"
+      "5.1": "polyfilled"
     },
     "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
       "9.1": "native"
     }
   },
   "Element.prototype.append": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
     "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
     },
     "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
     },
     "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
-      "9.1": "missing"
+      "9.1": "polyfilled"
     }
   },
-  "AudioContext": {
+  "Math.sinh": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
     "firefox": {
-      "20": "missing",
+      "20": "polyfilled",
       "30": "native",
       "33": "native",
       "41": "native"
     },
-    "chrome": {
-      "30": "missing",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
     "ie": {
-      "6": "missing",
-      "7": "missing",
-      "8": "missing",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
       "12": "native"
     },
     "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
-  "Element.prototype.replaceWith": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
-    },
-    "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
-  "Element.prototype.closest": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "native"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
-    },
-    "safari": {
-      "8": "missing",
+      "8": "native",
       "9": "native",
-      "5.1": "missing"
+      "5.1": "polyfilled"
     },
     "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
       "9.1": "native"
     }
   },
-  "Element.prototype.cloneNode": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
+  "Math.cbrt": {
     "chrome": {
-      "30": "native",
-      "35": "native",
+      "30": "polyfilled",
+      "35": "polyfilled",
       "42": "native",
       "46": "native"
     },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
     "ie": {
-      "6": "missing",
-      "7": "missing",
+      "6": "polyfilled",
+      "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
     },
     "safari": {
       "8": "native",
       "9": "native",
-      "5.1": "native"
+      "5.1": "polyfilled"
     },
     "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native"
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Math.hypot": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
       "9.1": "native"
     }
   },
   "Element.prototype.before": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
     "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
     },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
     },
     "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
     },
     "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
     },
     "ios_saf": {
-      "9.1": "missing"
+      "9.1": "polyfilled"
     }
   },
-  "Element.prototype.remove": {
+  "Element.prototype.closest": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Promise": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Event.hashchange": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "fetch": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "Math.acosh": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Object.assign": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Array.prototype.contains": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "String.prototype.includes": {
+    "chrome": {
+      "30": "polyfilled",
+      "35": "polyfilled",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "AudioContext": {
+    "chrome": {
+      "30": "missing",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
     "firefox": {
       "20": "missing",
       "30": "native",
       "33": "native",
       "41": "native"
     },
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "42": "native",
-      "46": "native"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "native"
-    }
-  },
-  "Element.prototype.prepend": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
-    },
-    "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
-  "Event.hashchange": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
-    },
-    "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
-  "Element.prototype.after": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
-    },
-    "ie": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
-    },
-    "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
-    },
-    "android": {
-      "4.4": "missing",
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    },
-    "ios_saf": {
-      "9.1": "missing"
-    }
-  },
-  "PageVisibility": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "missing"
-    },
-    "chrome": {
-      "30": "missing",
-      "35": "missing",
-      "42": "missing",
-      "46": "missing"
-    },
     "ie": {
       "6": "missing",
       "7": "missing",
       "8": "missing",
       "9": "missing",
-      "10": "native",
-      "11": "native",
+      "10": "missing",
+      "11": "missing",
       "12": "native"
     },
     "safari": {
-      "8": "native",
-      "9": "native",
+      "8": "missing",
+      "9": "missing",
       "5.1": "missing"
     },
     "android": {
@@ -3585,30 +3548,67 @@
       "4.1": "missing"
     },
     "ios_saf": {
-      "9.1": "native"
+      "9.1": "missing"
     }
   },
-  "fetch": {
-    "firefox": {
-      "20": "missing",
-      "30": "missing",
-      "33": "missing",
-      "41": "native"
-    },
+  "console": {
     "chrome": {
       "30": "missing",
       "35": "missing",
-      "42": "native",
-      "46": "native"
+      "42": "missing",
+      "46": "missing"
+    },
+    "firefox": {
+      "20": "polyfilled",
+      "30": "missing",
+      "33": "missing",
+      "41": "missing"
     },
     "ie": {
       "6": "polyfilled",
       "7": "polyfilled",
       "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "polyfilled"
+    },
+    "safari": {
+      "8": "missing",
       "9": "missing",
-      "10": "missing",
-      "11": "missing",
-      "12": "missing"
+      "5.1": "missing"
+    },
+    "android": {
+      "4.4": "missing",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled",
+      "4.1": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "missing"
+    }
+  },
+  "Node.prototype.contains": {
+    "chrome": {
+      "30": "missing",
+      "35": "native",
+      "42": "native",
+      "46": "native"
+    },
+    "firefox": {
+      "20": "native",
+      "30": "native",
+      "33": "native",
+      "41": "native"
+    },
+    "ie": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "12": "native"
     },
     "safari": {
       "8": "missing",

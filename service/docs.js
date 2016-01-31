@@ -12,7 +12,7 @@ var compatdata = require('../docs/assets/compat.json');
 var extend = require('lodash').extend;
 
 var cache = {};
-var cachettl = 1800;
+var cachettls = {fastly:1800, respTimes:1800, outages:86400};
 
 // Pre-cache page templates and partials
 var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
@@ -171,14 +171,18 @@ function getData(type) {
 					});
 				}));
 			}));
-		}
+		},
+		compat: getCompat
 	};
 
-	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
+	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
 		return cache[type].promise;
 	} else {
-		console.log('Generating docs data', type);
-		cache[type] = {creationTime: (new Date()).getTime()};
+		cache[type] = {};
+		if (cachettls[type]) {
+			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		}
+		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
 		try {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
@@ -195,7 +199,6 @@ function getCompat() {
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
-	console.log('Generating compatibility data');
 	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
 			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
@@ -284,7 +287,7 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[1] === 'features') {
-		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
+		Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
 			res.send(templates.compat(extend({
 				section: 'features',
 				compat: compat,
