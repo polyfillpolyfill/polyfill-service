@@ -4,7 +4,7 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"chrome": "*",
+		"chrome": "<=45",
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
@@ -12,9 +12,14 @@
 		"safari": "* - 7.0",
 		"firefox_mob": "3.6 - 24"
 	},
+	"build": {
+		"commonjs": true
+	},
 	"dependencies": [
 		"Object.defineProperty"
 	],
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.findIndex",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex",
+	"license": "MIT",
+	"repo": "https://github.com/paulmillr/Array.prototype.findIndex"
 }

@@ -13,8 +13,6 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			repo: ['polyfills/__repo'],
-			versions: ['polyfills/__versions'],
 			dist: ['polyfills/__dist']
 		},
 		"simplemocha": {
@@ -99,7 +97,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:quick",
@@ -107,7 +104,6 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("compatgen", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:compat",
@@ -116,7 +112,6 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:ci",
@@ -125,17 +120,13 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", [
 		"clean",
-		"installcollections",
-		"buildsources",
-		"clean:repo",
-		"clean:versions"
+		"updatelibrary",
+		"buildsources"
 	]);
 
 	grunt.registerTask("devbuild", [
 		"clean",
 		"buildsources",
-		"clean:repo",
-		"clean:versions"
 	]);
 
 	grunt.registerTask('dev', [
@@ -146,52 +137,52 @@ module.exports = function(grunt) {
 
 var browsers = {
 	quick: [
-		['chrome', '46', 'Windows 7'],
-		['firefox', '41', 'Linux'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '11', 'Windows 10'],
-		['microsoftedge', '20.10240', 'Windows 10'],
+		'chrome/46',
+		'firefox/41',
+		'ie/12',
+		'ie/11',
+		'ie/8',
+		'android/4.4'
 	],
 	ci: [
-		['android', '4.4', 'linux', 'Android Emulator'],
-		['chrome', '46', 'Windows 7'],
-		['chrome', '35', 'OSX 10.11'],
-		['firefox', '41', 'Linux'],
-		['firefox', '30', 'OSX 10.11'],
-		['internet explorer', '6', 'Windows XP'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '8', 'Windows XP'],
-		['internet explorer', '9', 'Windows 7'],
-		['internet explorer', '10', 'Windows 7'],
-		['internet explorer', '11', 'Windows 10'],
-		['microsoftedge', '20.10240', 'Windows 10'],
-		['safari', '9.0', 'OSX 10.11'],
-		['safari', '8.0', 'OSX 10.10'],
-		['safari', '5.1', 'Windows 7'],
+		'chrome/46',
+		'chrome/35',
+		'firefox/41',
+		'firefox/30',
+		'ie/12',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'ie/6',
+		'safari/9',
+		'safari/8',
+		'android/4.4'
 	],
 	full: [
-		['chrome', '46', 'Windows 7'],
-		['chrome', '42', 'Windows 7'],
-		['chrome', '35', 'OSX 10.11'],
-		['chrome', '30', 'Windows 7'],
-		['firefox', '41', 'Linux'],
-		['firefox', '33', 'Linux'],
-		['firefox', '30', 'OSX 10.11'],
-		['firefox', '20', 'Linux'],
-		['internet explorer', '6', 'Windows XP'],
-		['internet explorer', '7', 'Windows XP'],
-		['internet explorer', '8', 'Windows XP'],
-		['internet explorer', '9', 'Windows 7'],
-		['internet explorer', '10', 'Windows 7'],
-		['internet explorer', '11', 'Windows 10'],
-		['microsoftedge', '20.10240', 'Windows 10'],
-		['safari', '9.0', 'OSX 10.11'],
-		['safari', '8.0', 'OSX 10.10'],
-		['safari', '5.1', 'Windows 7'],
-		['android', '4.4', 'linux', 'Android Emulator'],
-		['android', '4.3', 'linux', 'Android Emulator'],
-		['android', '4.2', 'linux', 'Android Emulator'],
-		['android', '4.1', 'linux', 'Android Emulator'],
-		['iphone', '9.1', 'OSX 10.10', 'iPhone 6']
+		'chrome/46',
+		'chrome/42',
+		'chrome/35',
+		'chrome/30',
+		'firefox/41',
+		'firefox/33',
+		'firefox/30',
+		'firefox/20',
+		'ie/12',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'ie/6',
+		'safari/9',
+		'safari/8',
+		'safari/5.1',
+		'android/4.4',
+		'android/4.3',
+		'android/4.2',
+		'android/4.1',
+		'ios_saf/9.1'
 	]
 };

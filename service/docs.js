@@ -188,7 +188,7 @@ function getData(type) {
 }
 
 function getCompat() {
-	var sourceslib = sources.latest;
+	var sourceslib = sources.getCollection();
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
@@ -206,17 +206,15 @@ function getCompat() {
 				var fdata = {
 					feature: feat,
 					slug: feat.replace(/\./g, '_'),
-					size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-						return Math.max(size, polyfill.variants[variantName].minSource.length);
-					}, 0),
+					size: polyfill.minSource.length,
 					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 					hasTests: polyfill.hasTests,
 					docs: polyfill.docs,
 					baseDir: polyfill.baseDir,
 					spec: polyfill.spec,
 					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-					license: polyfill.variants.default.license,
-					licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
+					license: polyfill.license,
+					licenseIsUrl: polyfill.license && polyfill.license.length > 5
 				};
 				browsers.forEach(function(browser) {
 					if (compatdata[feat][browser]) {
@@ -297,11 +295,7 @@ function route(req, res, next) {
 		});
 
 	} else if (req.params[1] === 'api') {
-		res.send(templates.api(extend({
-			hasVersions: sources.listVersions().length > 1,
-			versions: sources.listVersions(),
-			section: 'api'
-		}, locals)));
+		res.send(templates.api(extend({section: 'api'}, locals)));
 
 	} else if (req.params[1] === 'examples') {
 

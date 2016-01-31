@@ -7,8 +7,11 @@
 	"browsers": {
 		"ie": "6 - 7"
 	},
+	"build": {
+		"commonjs": true
+	},
 	"license": "MIT",
-	"repo": "https://github.com/abozhilov/json",
+	"repo": "https://github.com/bestiejs/json3",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-json-object"
 }

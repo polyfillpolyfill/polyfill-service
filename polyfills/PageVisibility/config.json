@@ -1,0 +1,20 @@
+{
+	"aliases": [
+		"default",
+		"caniuse:visib",
+		"caniuse:pagevisibility",
+		"modernizr:pagevisibility"
+	],
+	"browsers": {
+		"firefox": "10 - 17",
+		"safari": "4",
+		"android": "4.4 - *",
+		"opera": "15 - 19",
+		"chrome": "14 - 32"
+	},
+	"dependencies": [
+		"CustomEvent"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API",
+	"spec": "http://www.w3.org/TR/page-visibility/"
+}

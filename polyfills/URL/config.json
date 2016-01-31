@@ -8,6 +8,9 @@
 		"safari": "5.1 - *",
 		"firefox_mob": "4 - 29"
 	},
+	"build": {
+		"commonjs": true
+	},
 	"dependencies": [
 		"Object.defineProperties",
 		"Array.prototype.forEach"

@@ -55,7 +55,6 @@ module.exports = function(grunt) {
 		grunt.file.write(path.join(LocalesPolyfillOutput, locale, 'config.json'), configFileSource);
 	});
 
-
 	grunt.log.writeln(locales.length + ' imported locales');
 	grunt.log.writeln('Intl polyfill imported successfully');
 

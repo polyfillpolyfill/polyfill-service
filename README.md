@@ -19,7 +19,7 @@ By default, `grunt dev` also *deletes historic polyfills*, for a faster build.  
 
 To run the app for **production**:
 
-Run `npm start`.  This will start the service using [forever](https://github.com/nodejitsu/forever), which runs the process in the background, monitors it and restarts it automatically if it dies.  It doesn't watch the filesystem for changes and you won't see any console output.
+Run `npm start`.  Monitoring the process and restarting it if necessary is left to you (and PaaS platforms like Heroku do this for you) but if you need a tool to start the service in the background and ensure it continues running, consider [forever](https://github.com/nodejitsu/forever).  It doesn't watch the filesystem for changes and you won't see any console output.
 
 In either case, once the service is running, navigate to [http://localhost:3000](http://localhost:3000) in your browser (you can configure the port, see environment configuration below).
 
@@ -63,7 +63,7 @@ Returns a promise of a polyfill bundle string.  Options is an object with the fo
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, no features will be considered and the output will be blank. To load the default feature set, set features to `{default:{}}`.  Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
-* `unknown`: String, optional. What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Defaults to `ignore`.
+* `unknown`: String, optional. What to do when the user agent is not recognised.  Set to `polyfill` to return polyfills for all qualifying features, `ignore` to return nothing.  Defaults to `ignore`.
 
 Flags that may be applied to polyfills are:
 

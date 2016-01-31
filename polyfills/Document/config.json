@@ -3,14 +3,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - 7"
-	},
-	"variants": {
-		"ie8": {
-			"browsers": {
-				"ie": "8"
-			}
-		}
+		"ie": "6 - 8"
 	},
 	"spec": "http://dom.spec.whatwg.org/#interface-document",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/Document"

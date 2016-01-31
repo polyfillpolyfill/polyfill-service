@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+require('newrelic');
+
 var minimist = require('minimist');
 
 var packageJSON = require('../package.json');

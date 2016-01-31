@@ -3,8 +3,11 @@
 		"es6",
 		"modernizr:es6array"
 	],
+	"build": {
+		"commonjs": true
+	},
 	"browsers": {
-		"chrome": "*",
+		"chrome": "<=44",
 		"firefox": "* - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
@@ -16,5 +19,7 @@
 		"Object.defineProperty"
 	],
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of",
+	"license": "MIT",
+	"repo": "https://github.com/mathiasbynens/Array.of"
 }

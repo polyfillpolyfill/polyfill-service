@@ -2,6 +2,9 @@
 	"aliases": [
 		"es6"
 	],
+	"build": {
+		"commonjs": true
+	},
 	"browsers": {
 		"ie": "7 - *",
 		"ie_mob": "10 - *",
@@ -17,7 +20,7 @@
 		"Array.prototype.forEach",
 		"Date.now"
 	],
-	"repo": "https://github.com/webcomponents/webcomponentsjs",
-	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
+	"repo": "https://github.com/dfcreative/weakset",
+	"license": "https://github.com/dfcreative/weakset/blob/master/UNLICENSE",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet"
 }
