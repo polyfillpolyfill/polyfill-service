@@ -1,1 +1,1 @@
-'Symbol' in this
+'Symbol' in this && 'hasInstance' in this.Symbol

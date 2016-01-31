@@ -104,14 +104,14 @@ it('has toString and valueOf instance methods', function() {
 	expect(Symbol.prototype['valueOf']).to.be.a(Function);
 });
 
-it.skip('has the well known symbol hasInstance as static properties on Symbol', function() {
+it('has the well known symbol hasInstance as static properties on Symbol', function() {
 	expect(Symbol.hasInstance).to.not.be.undefined;
 	const hasInstance = Symbol.hasInstance;
 	Symbol.hasInstance = "nope";
 	expect(Symbol.hasInstance).to.be(hasInstance);
 });
 
-it.skip('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
+it('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
 	expect(Symbol.isConcatSpreadable).to.not.be.undefined;
 
 	const isConcatSpreadable = Symbol.isConcatSpreadable;
@@ -127,7 +127,7 @@ it('has the well known symbol iterator as static properties on Symbol', function
 	expect(Symbol.iterator).to.be(iterator);
 });
 
-it.skip('has the well known symbol match as static properties on Symbol', function() {
+it('has the well known symbol match as static properties on Symbol', function() {
 	expect(Symbol.match).to.not.be.undefined;
 
 	const match = Symbol.match;
@@ -135,7 +135,7 @@ it.skip('has the well known symbol match as static properties on Symbol', functi
 	expect(Symbol.match).to.be(match);
 });
 
-it.skip('has the well known symbol replace as static properties on Symbol', function() {
+it('has the well known symbol replace as static properties on Symbol', function() {
 	expect(Symbol.replace).to.not.be.undefined;
 
 	const replace = Symbol.replace;
@@ -143,7 +143,7 @@ it.skip('has the well known symbol replace as static properties on Symbol', func
 	expect(Symbol.replace).to.be(replace);
 });
 
-it.skip('has the well known symbol search as static properties on Symbol', function() {
+it('has the well known symbol search as static properties on Symbol', function() {
 	expect(Symbol.search).to.not.be.undefined;
 
 	const search = Symbol.search;
@@ -151,7 +151,7 @@ it.skip('has the well known symbol search as static properties on Symbol', funct
 	expect(Symbol.search).to.be(search);
 });
 
-it.skip('has the well known symbol species as static properties on Symbol', function() {
+it('has the well known symbol species as static properties on Symbol', function() {
 	expect(Symbol.species).to.not.be.undefined;
 
 	const species = Symbol.species;
@@ -159,7 +159,7 @@ it.skip('has the well known symbol species as static properties on Symbol', func
 	expect(Symbol.species).to.be(species);
 });
 
-it.skip('has the well known symbol split as static properties on Symbol', function() {
+it('has the well known symbol split as static properties on Symbol', function() {
 	expect(Symbol.split).to.not.be.undefined;
 
 	const split = Symbol.split;
@@ -167,7 +167,7 @@ it.skip('has the well known symbol split as static properties on Symbol', functi
 	expect(Symbol.split).to.be(split);
 });
 
-it.skip('has the well known symbol toPrimitive as static properties on Symbol', function() {
+it('has the well known symbol toPrimitive as static properties on Symbol', function() {
 	expect(Symbol.toPrimitive).to.not.be.undefined;
 
 	const toPrimitive = Symbol.toPrimitive;
@@ -175,7 +175,7 @@ it.skip('has the well known symbol toPrimitive as static properties on Symbol', 
 	expect(Symbol.toPrimitive).to.be(toPrimitive);
 });
 
-it.skip('has the well known symbol toStringTag as static properties on Symbol', function() {
+it('has the well known symbol toStringTag as static properties on Symbol', function() {
 	expect(Symbol.toStringTag).to.not.be.undefined;
 
 	const toStringTag = Symbol.toStringTag;

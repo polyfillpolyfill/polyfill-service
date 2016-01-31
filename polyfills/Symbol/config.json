@@ -2,14 +2,17 @@
 	"browsers": {
 		"ie": "*",
 		"safari": "<9",
-		"chrome": "< 44",
-		"firefox": "< 38",
+		"chrome": "< 50",
+		"firefox": "< 40",
 		"ios_saf": "*",
-		"opera": "< 31"
+		"opera": "< 50"
+	},
+	"build": {
+		"commonjs": true
 	},
 	"dependencies": [],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol-objects",
-	"repo": "https://github.com/JakeChampion/core-js",
+	"repo": "https://github.com/zloirock/core-js",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol"
 }
