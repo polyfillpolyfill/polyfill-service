@@ -3,6 +3,9 @@
 		"es6",
 		"modernizr:es6array"
 	],
+	"build": {
+		"commonjs": true
+	},
 	"browsers": {
 		"chrome": "<45",
 		"firefox": "4 - 31",
@@ -16,5 +19,7 @@
 		"Object.defineProperty"
 	],
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from",
+	"license": "MIT",
+	"repo": "https://github.com/mathiasbynens/Array.from"
 }

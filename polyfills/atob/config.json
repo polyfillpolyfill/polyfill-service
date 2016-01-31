@@ -6,6 +6,9 @@
 	"browsers": {
 		"ie": "6 - 9"
 	},
+	"build": {
+		"commonjs": true
+	},
 	"license": "MIT",
 	"repo": "http://www.webtoolkit.info/javascript-base64.html",
 	"spec": "https://html.spec.whatwg.org/multipage/webappapis.html#dom-windowbase64-atob",

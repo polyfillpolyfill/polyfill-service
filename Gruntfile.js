@@ -89,7 +89,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:quick",
@@ -97,7 +96,6 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("compatgen", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:compat",
@@ -106,7 +104,6 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
-		"buildsources",
 		"simplemocha",
 		"service",
 		"saucelabs:ci",
@@ -115,7 +112,12 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", [
 		"clean",
+<<<<<<< HEAD
+		"updatelibrary",
+		"buildsources"
+=======
 		"buildsources",
+>>>>>>> 3e41f79d5b9d37d9da73b66df674dbb4f97a569c
 	]);
 
 	grunt.registerTask("devbuild", [

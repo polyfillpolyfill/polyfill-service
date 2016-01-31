@@ -8,5 +8,7 @@
 	"dependencies": [
 		"Event"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest",
+	"license": "CC0",
+	"repo": "https://github.com/inexorabletash/polyfill"
 }

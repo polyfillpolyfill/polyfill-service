@@ -3,5 +3,8 @@
 		"caniuse:audio-api",
 		"modernizr:webaudio"
 	],
+	"build": {
+		"commonjs": true
+	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext"
 }

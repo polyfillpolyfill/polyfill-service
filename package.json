@@ -1,75 +1,89 @@
 {
-  "name": "polyfill-service",
-  "description": "A polyfill combinator",
-  "main": "lib/index.js",
-  "bin": "bin/polyfill-service",
-  "contributors": [
-    {
-      "name": "Jonathan Neal",
-      "email": "jonathantneal+github@gmail.com",
-      "url": "http://jonathantneal.com/"
-    },
-    {
-      "name": "FT Labs",
-      "email": "enquiries@labs.ft.com",
-      "url": "http://labs.ft.com"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/financial-times/polyfill-service.git"
-  },
-  "bugs": {
-    "url": "https://github.com/financial-times/polyfill-service/issues"
-  },
-  "scripts": {
-    "start": "bin/polyfill-service",
-    "prepublish": "grunt build",
-    "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
-    "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
-    "deploy-prod": "npm run deploy -- ft-polyfill-service",
-    "test": "grunt test"
-  },
-  "license": "CC0-1.0",
-  "dependencies": {
-    "blocked": "^1.1.0",
-    "denodeify": "^1.2.1",
-    "dotenv": "^1.2.0",
-    "expect.js": "^0.3.1",
-    "express": "^4.4.4",
-    "graphite": "0.0.6",
-    "handlebars": "^1.3.0",
-    "lodash": "^3.0.0",
-    "lru-cache": "^3.0.0",
-    "marked": "^0.3.3",
-    "measured": "^1.0.0",
-    "minimist": "^0.2.0",
-    "mkdirp": "^0.5.0",
-    "mocha": "^1.20.1",
-    "moment": "^2.8.3",
-    "morgan": "^1.6.1",
-    "opbeat": "^3.1.4",
-    "raven": "^0.8.1",
-    "request-promise": "^0.3.2",
-    "semver": "^5.0.0",
-    "tsort": "0.0.1",
-    "useragent": "^2.0.8"
-  },
-  "devDependencies": {
-    "babel-core": "^6.2.1",
-    "babel-preset-es2015": "^6.1.18",
-    "batch": "^0.5.1",
-    "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.6",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-simple-mocha": "^0.4.0",
-    "intl": "~1.0.0-rc-4",
-    "picturefill": "^3.0.1",
-    "rimraf": "^2.4.0",
-    "sauce-tunnel": "^2.2.3",
-    "uglify-js": "^2.4.14",
-    "wd": "^0.3.8"
-  },
-  "version": "3.1.2"
+	"name": "polyfill-service",
+	"description": "A polyfill combinator",
+	"main": "lib/index.js",
+	"bin": "bin/polyfill-service",
+	"contributors": [
+		{
+			"name": "Jonathan Neal",
+			"email": "jonathantneal+github@gmail.com",
+			"url": "http://jonathantneal.com/"
+		},
+		{
+			"name": "FT Labs",
+			"email": "enquiries@labs.ft.com",
+			"url": "http://labs.ft.com"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/financial-times/polyfill-service.git"
+	},
+	"bugs": {
+		"url": "https://github.com/financial-times/polyfill-service/issues"
+	},
+	"scripts": {
+		"start": "bin/polyfill-service",
+		"postinstall": "grunt build",
+		"deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
+		"deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
+		"deploy-prod": "npm run deploy -- ft-polyfill-service",
+		"test": "grunt test"
+	},
+	"license": "CC0-1.0",
+	"dependencies": {
+		"blocked": "^1.1.0",
+		"browserify": "^12.0.1",
+		"denodeify": "^1.2.1",
+		"dotenv": "^1.2.0",
+		"expect.js": "^0.3.1",
+		"express": "^4.4.4",
+		"graphite": "0.0.6",
+		"handlebars": "^1.3.0",
+		"lodash": "^3.10.1",
+		"lru-cache": "^3.0.0",
+		"marked": "^0.3.3",
+		"measured": "^1.0.0",
+		"minimist": "^0.2.0",
+		"mkdirp": "^0.5.0",
+		"mocha": "^1.20.1",
+		"moment": "^2.8.3",
+		"morgan": "^1.6.1",
+		"opbeat": "^3.1.4",
+		"raven": "^0.8.1",
+		"request-promise": "^0.3.2",
+		"semver": "^5.0.0",
+		"tsort": "0.0.1",
+		"useragent": "^2.0.8"
+	},
+	"devDependencies": {
+		"Base64": "^0.3.0",
+		"array.from": "^1.0.0",
+		"array.of": "^0.1.1",
+		"array.prototype.find": "github:paulmillr/Array.prototype.find",
+		"array.prototype.findindex": "github:paulmillr/Array.prototype.findindex",
+		"audio-context-polyfill": "^1.0.0",
+		"babel-core": "^6.2.1",
+		"babel-preset-es2015": "^6.1.18",
+		"batch": "^0.5.1",
+		"core-js": "^2.0.3",
+		"exists-sync": "0.0.3",
+		"grunt": "~0.4.0",
+		"grunt-cli": "~0.1.6",
+		"grunt-contrib-clean": "^0.6.0",
+		"grunt-contrib-watch": "^0.6.1",
+		"grunt-simple-mocha": "^0.4.0",
+		"html5shiv": "^3.7.3",
+		"intl": "~1.0.0-rc-4",
+		"js-polyfills": "^0.1.12",
+		"json3": "^3.3.2",
+		"picturefill": "^3.0.1",
+		"rimraf": "^2.4.0",
+		"sauce-tunnel": "^2.2.3",
+		"uglify-js": "^2.4.14",
+		"wd": "^0.3.8",
+		"weakset": "^0.2.1",
+		"whatwg-fetch": "^0.10.1"
+	},
+	"version": "3.1.2"
 }

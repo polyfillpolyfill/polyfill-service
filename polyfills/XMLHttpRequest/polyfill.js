@@ -1,63 +1,71 @@
-(function (global, NativeXMLHttpRequest) {
-	// <Global>.XMLHttpRequest
-	global.XMLHttpRequest = function XMLHttpRequest() {
-		var request = this, nativeRequest = request._request = NativeXMLHttpRequest ? new NativeXMLHttpRequest() : new ActiveXObject('MSXML2.XMLHTTP.3.0');
+(function(global) {
+  if (!('window' in global && 'document' in global))
+    return;
 
-		nativeRequest.onreadystatechange = function () {
-			request.readyState = nativeRequest.readyState;
+  //----------------------------------------------------------------------
+  //
+  // XMLHttpRequest
+  // https://xhr.spec.whatwg.org
+  //
+  //----------------------------------------------------------------------
 
-			var readyState = request.readyState === 4;
+  // XMLHttpRequest interface
+  // Needed for: IE7-
+  global.XMLHttpRequest = global.XMLHttpRequest || function() {
+    try { return new ActiveXObject("Msxml2.XMLHTTP.6.0"); } catch (_) { }
+    try { return new ActiveXObject("Msxml2.XMLHTTP.3.0"); } catch (_) { }
+    try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (_) { }
+    throw Error("This browser does not support XMLHttpRequest.");
+  };
 
-			request.response = request.responseText = readyState ? nativeRequest.responseText : null;
-			request.status = readyState ? nativeRequest.status : null;
-			request.statusText = readyState ? nativeRequest.statusText : null;
+  // XMLHttpRequest interface constants
+  // Needed for IE8-
+  XMLHttpRequest.UNSENT = 0;
+  XMLHttpRequest.OPENED = 1;
+  XMLHttpRequest.HEADERS_RECEIVED = 2;
+  XMLHttpRequest.LOADING = 3;
+  XMLHttpRequest.DONE = 4;
 
-			request.dispatchEvent(new Event('readystatechange'));
+  // FormData interface
+  // Needed for: IE9-
+  (function() {
+    if ('FormData' in global)
+      return;
 
-			if (readyState) {
-				request.dispatchEvent(new Event('load'));
-			}
-		};
+    function FormData(form) {
+      this._data = [];
+      if (!form) return;
+      for (var i = 0; i < form.elements.length; ++i) {
+        var element = form.elements[i];
+        if (element.name !== '')
+          this.append(element.name, element.value);
+      }
+    }
 
-		if ('onerror' in nativeRequest) {
-			nativeRequest.onerror = function () {
-				request.dispatchEvent(new Event('error'));
-			};
-		}
-	};
+    FormData.prototype = {
+      append: function(name, value /*, filename */) {
+        if ('Blob' in global && value instanceof global.Blob)
+          throw TypeError("Blob not supported");
+        name = String(name);
+        this._data.push([name, value]);
+      },
 
-	var XMLHttpRequestPrototype = global.XMLHttpRequest.prototype;
+      toString: function() {
+        return this._data.map(function(pair) {
+          return encodeURIComponent(pair[0]) + '=' + encodeURIComponent(pair[1]);
+        }).join('&');
+      }
+    };
 
-	XMLHttpRequestPrototype.addEventListener = global.addEventListener;
-	XMLHttpRequestPrototype.removeEventListener = global.removeEventListener;
-	XMLHttpRequestPrototype.dispatchEvent = global.dispatchEvent;
+    global.FormData = FormData;
+    var send = global.XMLHttpRequest.prototype.send;
+    global.XMLHttpRequest.prototype.send = function(body) {
+      if (body instanceof FormData) {
+        this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        arguments[0] = body.toString();
+      }
+      return send.apply(this, arguments);
+    };
+  }());
 
-	XMLHttpRequestPrototype.abort = function abort() {
-		return this._request();
-	};
-
-	XMLHttpRequestPrototype.getAllResponseHeaders = function getAllResponseHeaders() {
-		return this._request.getAllResponseHeaders();
-	};
-
-	XMLHttpRequestPrototype.getResponseHeader = function getResponseHeader(header) {
-		return this._request.getResponseHeader(header);
-	};
-
-	XMLHttpRequestPrototype.open = function open(method, url) {
-		// method, url, async, username, password
-		this._request.open(method, url, arguments[2], arguments[3], arguments[4]);
-	};
-
-	XMLHttpRequestPrototype.overrideMimeType = function overrideMimeType(mimetype) {
-		this._request.overrideMimeType(mimetype);
-	};
-
-	XMLHttpRequestPrototype.send = function send() {
-		this._request.send(0 in arguments ? arguments[0] : null);
-	};
-
-	XMLHttpRequestPrototype.setRequestHeader = function setRequestHeader(header, value) {
-		this._request.setRequestHeader(header, value);
-	};
-})(this, this.XMLHttpRequest);
+}(this));

@@ -3,6 +3,9 @@
 		"modernizr:promises",
 		"caniuse:promises"
 	],
+	"build": {
+		"commonjs": true
+	},
 	"browsers": {
 		"android": "* - 4.4",
 		"bb": "* - 10",
