@@ -54,14 +54,16 @@ module.exports = function(grunt) {
 		}
 		scanDir(polyfillSourceFolder);
 
-		var promises = dirs.map(function(polyfillPath) {
-			return new Promise(function(resolve, reject) {
-				var config;
-				var configPath = path.join(polyfillPath, 'config.json');
-				var detectPath = path.join(polyfillPath, 'detect.js');
-				var polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
-				var featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/\//g, '.');
+		dirs.forEach(function(polyfillPath) {
+			var config;
+			var configPath = path.join(polyfillPath, 'config.json');
+			var detectPath = path.join(polyfillPath, 'detect.js');
+			var polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
+			var featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/\//g, '.');
 
+			try {
+
+				// Load the polyfill's configuration
 				try {
 					if (!fs.existsSync(configPath)) return;
 					config = JSON.parse(fs.readFileSync(configPath));
@@ -88,8 +90,6 @@ module.exports = function(grunt) {
 					if (config.build && config.build.commonjs === true) {
 						config.rawSource = streamToString(browserify().add(polyfillSourcePath).bundle());
 					}
-					config.rawSource = fs.readFileSync(polyfillSourcePath, 'utf8');
-				}
 
 					if (!config.rawSource) {
 						polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
@@ -172,56 +172,6 @@ module.exports = function(grunt) {
 					// console.error(ex);
 					// errors.push(ex);
 				}
-
-				if (config.build && config.build.minify === false) {
-					// skipping any validation or minification process since
-					// the raw source is supposed to be production ready.
-					config.minSource = config.rawSource;
-				} else {
-					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
-					config.minSource = uglify.minify(config.rawSource, {fromString: true}).code;
-				}
-
-				if (fs.existsSync(detectPath)) {
-					config.detectSource = fs.readFileSync(detectPath, 'utf8').replace(/\s*$/, '') || null;
-					validateSource("if ("+config.detectSource+") true;", featureName+' feature detect from '+detectPath);
-				} else {
-					config.detectSource = '';
-				}
-
-				// Add start-of-module marker comments to unminifed source
-				config.rawSource = '\n// '+featureName + '\n' + config.rawSource;
-
-				var featurePath = path.join(destFolder, featureName+'.json');
-				var featureDir = path.dirname(featurePath);
-				mkdir(featureDir, function(err) {
-					if (!err) {
-						fs.writeFileSync(featurePath, JSON.stringify(config));
-					}
-					else {
-						grunt.log.writenln("Can't create directory " + featureDir + "due to the following error: " + err);
-					}
-				});
-				fs.writeFileSync(featurePath, JSON.stringify(config));
-				grunt.log.writeln('+ '+featureName);
-
-				// Store alias names in a map for efficient lookup, mapping aliases to
-				// featureNames.  An alias can map to many polyfill names. So a group
-				// of polyfills can be aliased under the same name.  This is why an
-				// array is created and used for the value in the map.
-				if (config.aliases) {
-					config.aliases.forEach(function(aliasName) {
-						if (configuredAliases[aliasName]) {
-							configuredAliases[aliasName].push(featureName);
-						} else {
-							configuredAliases[aliasName] = [ featureName ];
-						}
-					});
-				}
-			} catch (ex) {
-				console.error(ex);
-				errors.push(ex);
-			}
 		});
 
 		Promise.all(promises).then(function() {
