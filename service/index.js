@@ -165,7 +165,7 @@ app.get(/^\/v1\/(.*)/, function(req, res) {
 });
 
 app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	metrics.meter('hits').mark();
+	metrics.counter('hits').inc();
 	var respTimeTimer = metrics.timer('respTime').start();
 	var firstParameter = req.params[0].toLowerCase();
 	var minified =  firstParameter === '.min';
