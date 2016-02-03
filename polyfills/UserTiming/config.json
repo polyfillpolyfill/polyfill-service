@@ -14,5 +14,6 @@
 	},
 	"spec": "http://www.w3.org/TR/user-timing/",
 	"license": "MIT",
-	"repo": "https://github.com/nicjansma/usertiming.js"
+	"repo": "https://github.com/nicjansma/usertiming.js",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API"
 }
