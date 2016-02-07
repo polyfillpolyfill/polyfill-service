@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"default",
-		"caniuse:matchesselector"
+		"caniuse:matchesselector",
+		"blissfuljs"
 	],
 	"browsers": {
 		"ie": "6 - *",
