@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"default",
-		"modernizr:classlist"
+		"modernizr:classlist",
+		"blissfuljs"
 	],
 	"browsers": {
 		"ie": "8 - 9",
