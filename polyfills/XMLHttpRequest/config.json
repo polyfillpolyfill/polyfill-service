@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"default"
+		"default",
+		"blissfuljs"
 	],
 	"browsers": {
 		"ie": "6 - 8"

@@ -18,7 +18,7 @@ var failures = data.counter('graphiteReportingFailures');
 blocked(function(ms) {
 	if (ms < 100) return;
 	console.warn('Event loop blocked for '+ms+'ms');
-	data.meter('eventloop.blocks').mark();
+	data.counter('eventloop.blocks').inc();
 	data.counter('eventloop.delay').inc(ms);
 });
 

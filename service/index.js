@@ -33,7 +33,9 @@ if (process.env.ENABLE_ACCESS_LOG) {
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
-	var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+	var ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
+		release: appVersion
+	});
 	ravenClient.patchGlobal();
 	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
 }
@@ -163,7 +165,7 @@ app.get(/^\/v1\/(.*)/, function(req, res) {
 });
 
 app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	metrics.meter('hits').mark();
+	metrics.counter('hits').inc();
 	var respTimeTimer = metrics.timer('respTime').start();
 	var firstParameter = req.params[0].toLowerCase();
 	var minified =  firstParameter === '.min';
@@ -180,7 +182,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		return;
 	}
 
-	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
+	var polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
 
 	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {
