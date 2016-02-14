@@ -4,9 +4,17 @@
 	],
 	"browsers": {
 		"ie": "*",
+		"ie_mob" : "*",
 		"firefox": "<16",
+		"firefox_mob":"<44",
 		"chrome":"<19",
-		"safari": "<10"
+		"android": "<47",
+		"safari": "<9",
+		"ios_saf": "<9.2",
+		"opera": "<21",
+		"op_mini": "*",
+		"op_mob": "<33",
+		"bb": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN"
 }
