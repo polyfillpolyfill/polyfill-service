@@ -1,4 +1,7 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
 		"ie": "*",
 		"firefox": "<=15",
