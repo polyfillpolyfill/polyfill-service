@@ -6,7 +6,7 @@
 		"ie": "*",
 		"firefox": "<16",
 		"chrome":"<19",
-		"safari": "<16"
+		"safari": "<10"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN"
 }
