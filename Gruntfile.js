@@ -1,13 +1,6 @@
 'use strict';
 
-var ENV = process.env;
-
-var fs = require('fs');
-if (fs.existsSync('./.env.json')) {
-	var environmentOverrides = require('./.env.json');
-	ENV = require('lodash').extend(ENV, environmentOverrides);
-}
-
+require('dotenv').config({silent: true});
 
 module.exports = function(grunt) {
 
@@ -31,8 +24,8 @@ module.exports = function(grunt) {
 			compat: {
 				options: {
 					urls: {
-						polyfilled: 'http://127.0.0.1:3000/test/director?mode=all',
-						native: 'http://127.0.0.1:3000/test/director?mode=control'
+						all: 'http://127.0.0.1:3000/test/director?mode=all',
+						control: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
 					browsers: browsers.full
 				}
@@ -41,7 +34,7 @@ module.exports = function(grunt) {
 				options: {
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					browsers: browsers.ci
 				}
@@ -50,7 +43,7 @@ module.exports = function(grunt) {
 				options: {
 					cibuild: true,
 					urls: {
-						default: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
 					browsers: browsers.quick
 				}
@@ -75,7 +68,6 @@ module.exports = function(grunt) {
 				pidFile: __dirname+'/.service.pid',
 				generatePID: true,
 				options: {
-					env: ENV,
 					cwd: __dirname,
 					failOnError: true
 				}
@@ -185,6 +177,6 @@ var browsers = {
 		'android/4.3',
 		'android/4.2',
 		'android/4.1',
-		'ios_saf/9.1'
+		'ios_saf/9.2'
 	]
 };

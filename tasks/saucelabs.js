@@ -23,7 +23,8 @@ var useragentToSauce = {
 	'android/4.3': ['android', '4.3', 'linux', 'Android Emulator'],
 	'android/4.2': ['android', '4.2', 'linux', 'Android Emulator'],
 	'android/4.1': ['android', '4.1', 'linux', 'Android Emulator'],
-	'ios_saf/9.1': ['iphone', '9.1', 'OSX 10.10', 'iPhone 6']
+	'ios_saf/9.1': ['iphone', '9.1', 'OS X 10.10', 'iPhone 6'],
+	'ios_saf/9.2': ['iphone', '9.2', 'OS X 10.10', 'iPhone 6 Plus']
 };
 
 var promiseTimer = function(time) {

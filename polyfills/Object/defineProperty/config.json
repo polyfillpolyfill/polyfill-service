@@ -2,7 +2,8 @@
 	"aliases": [
 		"es5",
 		"modernizr:es5object",
-		"default"
+		"default",
+		"blissfuljs"
 	],
 	"browsers": {
 		"firefox": "3.6",

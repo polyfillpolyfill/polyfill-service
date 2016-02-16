@@ -107,6 +107,15 @@ module.exports = function(grunt) {
 				config.rawSource = '\n// '+featureName + '\n' + config.rawSource;
 
 				var featurePath = path.join(destFolder, featureName+'.json');
+				var featureDir = path.dirname(featurePath);
+				mkdir(featureDir, function(err) {
+					if (!err) {
+						fs.writeFileSync(featurePath, JSON.stringify(config));
+					}
+					else {
+						grunt.log.writenln("Can't create directory " + featureDir + "due to the following error: " + err);
+					}    
+				});                    
 				fs.writeFileSync(featurePath, JSON.stringify(config));
 				grunt.log.writeln('+ '+featureName);
 

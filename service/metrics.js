@@ -15,16 +15,17 @@ var data = Measured.createCollection(metricsNS + '.' + envName + '.' + processId
 
 var failures = data.counter('graphiteReportingFailures');
 
+blocked(function(ms) {
+	if (ms < 100) return;
+	console.warn('Event loop blocked for '+ms+'ms');
+	data.counter('eventloop.blocks').inc();
+	data.counter('eventloop.delay').inc(ms);
+});
+
 if (graphiteHost) {
 
 	data.gauge('memory', function() {
 		return process.memoryUsage().rss;
-	});
-
-	blocked(function(ms) {
-		if (ms < 100) return;
-		console.warn('Event loop blocked for '+ms+'ms');
-		data.counter('eventloopdelay').inc(ms);
 	});
 
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
