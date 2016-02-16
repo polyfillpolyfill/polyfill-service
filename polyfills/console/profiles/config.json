@@ -1,7 +1,4 @@
 {
-	"aliases": [
-		"caniuse:console-basic"
-	],
 	"browsers": {
 		"ie": "6 - 11",
 		"firefox": "1 - 4"
@@ -11,5 +8,8 @@
 		"console"
 	],
 	"spec": "https://github.com/DeveloperToolsWG/console-object/blob/master/api.md",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/console",
+	"notes": [
+		"`console.profiles` used to be an array storing profile data. It was removed in Chrome and Safari"
+	]
 }
