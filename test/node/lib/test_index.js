@@ -47,6 +47,17 @@ describe("polyfillio", function() {
 			});
 		});
 
+		it("should not include unused dependencies", function() {
+			return polyfillio.getPolyfills({
+				features: {
+					'Promise': { flags: [] }
+				},
+				uaString: 'chrome/45'
+			}).then(function(polyfillSet) {
+				assert.deepEqual(polyfillSet, {});
+			});
+		});
+
 		it("should return no polyfills for unknown UA unless unknown is set", function() {
 
 			return Promise.all([
