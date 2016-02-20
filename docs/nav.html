@@ -17,6 +17,13 @@
 			</li>
 			<li{{sectionHighlight section name='contributing'}}>
 				<a href="/v{{apiversion}}/docs/contributing">Contributing</a>
+				{{#ifEq section "contributing"}}
+				<ul class="o-techdocs-nav o-techdocs-nav--sub">
+					<li><a href="/v{{apiversion}}/docs/contributing/authoring-polyfills">Authoring polyfills</a></li>
+					<li><a href="/v{{apiversion}}/docs/contributing/testing">Testing</a></li>
+					<li><a href="/v{{apiversion}}/docs/contributing/common-scenarios">Common scenarios</a></li>
+				</ul>
+				{{/ifEq}}
 			</li>
 		</ul>
 	</div>
