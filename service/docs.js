@@ -33,39 +33,25 @@ function template(name) {
 });
 
 // Register template helpers
-Handlebars.registerHelper("prettifyDate", function(timestamp) {
-     return moment(timestamp*1000).format("D MMM YYYY HH:mm");
-});
-Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return seconds ? moment.duration(seconds*1000).humanize() : 'None';
-});
-Handlebars.registerHelper('sectionHighlight', function(section, pageName, options) {
-	return (section === pageName) ? new Handlebars.SafeString(' aria-selected="true"') : '';
-});
-Handlebars.registerHelper('dispBytes', function(bytes) {
-	var i = 0;
-	var byteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	do {
-		bytes /= 1024;
-		i++;
-	} while (bytes > 1024);
+Handlebars.registerHelper({
+	prettifyDate: function(timestamp) { return moment(timestamp*1000).format("D MMM YYYY HH:mm"); },
+	prettifyDuration: function(seconds) { return seconds ? moment.duration(seconds*1000).humanize() : 'None'; },
+	lower: function(str) { return str.toLowerCase(); },
+	ifEq: function(v1, v2, options) { return (v1 === v2) ? options.fn(this) : options.inverse(this); },
+	ifPrefix: function(v1, v2, options) { return (v1.indexOf(v2) === 0) ? options.fn(this) : options.inverse(this); },
+	sectionHighlight: function(section, pageName, options) {
+		return (section === pageName) ? new Handlebars.SafeString(' aria-selected="true"') : '';
+	},
+	dispBytes: function(bytes) {
+		var i = 0;
+		var byteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		do {
+			bytes /= 1024;
+			i++;
+		} while (bytes > 1024);
 
-	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
-});
-Handlebars.registerHelper('lower', function(str) {
-	return str.toLowerCase();
-});
-Handlebars.registerHelper('ifEq', function(v1, v2, options) {
-	if (v1 == v2) {
-		return options.fn(this);
+		return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
 	}
-	return options.inverse(this);
-});
-Handlebars.registerHelper('ifPrefix', function(v1, v2, options) {
-	if (v1.indexOf(v2) === 0) {
-		return options.fn(this);
-	}
-	return options.inverse(this);
 });
 
 
@@ -269,52 +255,52 @@ function route(req, res, next) {
 	}
 	Promise
 		.resolve({
-		apiversion: req.params[0],
+			apiversion: req.params[0],
 			pageName: (req.params[1] || 'index').replace(/\/$/, '')
 		})
 		.then(function(locals) {
-	if (locals.pageName === 'usage') {
+			if (locals.pageName === 'usage') {
 
-		// Set the ttl to one hour for the usage page so the graphs are
-		// updated more frequently, overriding the default cache-control
-		// behaviour set in index.js
-		var one_hour = 60 * 60;
-		var one_week = one_hour * 24 * 7;
-		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+				// Set the ttl to one hour for the usage page so the graphs are
+				// updated more frequently, overriding the default cache-control
+				// behaviour set in index.js
+				var one_hour = 60 * 60;
+				var one_week = one_hour * 24 * 7;
+				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
 					return extend(locals, {
-				requestsData: fastly.byhour,
-				downtime: outages,
-				respTimes: respTimes,
-				hitCount: fastly.rollup.hits,
-				missCount: fastly.rollup.miss
-			});
-		})).catch(function(ex) {
+						requestsData: fastly.byhour,
+						downtime: outages,
+						respTimes: respTimes,
+						hitCount: fastly.rollup.hits,
+						missCount: fastly.rollup.miss
+					});
+				})).catch(function(ex) {
 					return extend(locals, {
-				msg: ex.error || ex.message || ex.toString()
-			});
-		});
+						msg: ex.error || ex.message || ex.toString()
+					});
+				});
 
-	} else if (locals.pageName === 'features') {
+			} else if (locals.pageName === 'features') {
 				return Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
 					return extend(locals, {
-				compat: compat,
-				sizes: sizes
-			}, locals);
-		})).catch(function (err) {
-			console.log(err.stack || err);
-		});
+						compat: compat,
+						sizes: sizes
+					}, locals);
+				})).catch(function (err) {
+					console.log(err.stack || err);
+				});
 			} else {
 				return locals;
-	}
+			}
 		})
 		.then(function(locals) {
-	template(locals.pageName)
-		.then(function(templFn) {
-			res.send(templFn(locals));
-		})
-		.catch(function() { next() })
-	;
+			template(locals.pageName)
+				.then(function(templFn) {
+					res.send(templFn(locals));
+				})
+				.catch(function() { next() })
+			;
 		})
 	;
 }
