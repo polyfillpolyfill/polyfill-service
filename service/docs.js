@@ -13,14 +13,19 @@ var extend = require('lodash').extend;
 
 var cache = {};
 var cachettls = {fastly:1800, respTimes:1800, outages:86400};
+var templCache = {};
 
-// Pre-cache page templates and partials
-var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
-	map[temName] = Handlebars.compile(
-		fs.readFileSync(path.join(__dirname, '/../docs/' + temName + '.html'), {encoding: 'UTF-8'})
-	);
-	return map;
-}, {});
+// Template loader
+function template(name) {
+	if (name in templCache) return templCache[name];
+	return templCache[name] = new Promise(function(resolve, reject) {
+		var filepath = path.join(__dirname, '/../docs/' + name + '.html');
+		fs.readFile(filepath, 'utf-8', function(err, content) {
+			if (!err) resolve(Handlebars.compile(content));
+			else reject(err);
+		});
+	});
+}
 ['header', 'footer', 'nav'].forEach(function(partialName) {
 	Handlebars.registerPartial(partialName, Handlebars.compile(
 		fs.readFileSync(path.join(__dirname, '/../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
@@ -34,8 +39,8 @@ Handlebars.registerHelper("prettifyDate", function(timestamp) {
 Handlebars.registerHelper("prettifyDuration", function(seconds) {
      return seconds ? moment.duration(seconds*1000).humanize() : 'None';
 });
-Handlebars.registerHelper('sectionHighlight', function(section, options) {
-	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
+Handlebars.registerHelper('sectionHighlight', function(section, pageName, options) {
+	return (section === pageName) ? new Handlebars.SafeString(' aria-selected="true"') : '';
 });
 Handlebars.registerHelper('dispBytes', function(bytes) {
 	var i = 0;
@@ -52,6 +57,12 @@ Handlebars.registerHelper('lower', function(str) {
 });
 Handlebars.registerHelper('ifEq', function(v1, v2, options) {
 	if (v1 == v2) {
+		return options.fn(this);
+	}
+	return options.inverse(this);
+});
+Handlebars.registerHelper('ifPrefix', function(v1, v2, options) {
+	if (v1.indexOf(v2) === 0) {
 		return options.fn(this);
 	}
 	return options.inverse(this);
@@ -256,60 +267,56 @@ function route(req, res, next) {
 	if (req.path.length < "/v2/docs/".length) {
 		return res.redirect('/v2/docs/');
 	}
-	var locals = {
-		apiversion: req.params[0]
-	};
+	Promise
+		.resolve({
+		apiversion: req.params[0],
+			pageName: (req.params[1] || 'index').replace(/\/$/, '')
+		})
+		.then(function(locals) {
+	if (locals.pageName === 'usage') {
 
-	if (!req.params || !req.params[1]) {
-		res.send(templates.index(extend({section: 'index'}, locals)));
-
-	} else if (req.params[1] === 'usage') {
 		// Set the ttl to one hour for the usage page so the graphs are
 		// updated more frequently, overriding the default cache-control
 		// behaviour set in index.js
 		var one_hour = 60 * 60;
 		var one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
-			res.send(templates.usage(extend({
-				section: 'usage',
+				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
+					return extend(locals, {
 				requestsData: fastly.byhour,
 				downtime: outages,
 				respTimes: respTimes,
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
-			}, locals)));
+			});
 		})).catch(function(ex) {
-			res.send(templates.usage(extend({
-				section: 'usage',
+					return extend(locals, {
 				msg: ex.error || ex.message || ex.toString()
-			}, locals)));
+			});
 		});
 
-	} else if (req.params[1] === 'features') {
-		Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
-			res.send(templates.compat(extend({
-				section: 'features',
+	} else if (locals.pageName === 'features') {
+				return Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
+					return extend(locals, {
 				compat: compat,
 				sizes: sizes
-			}, locals)));
+			}, locals);
 		})).catch(function (err) {
-			console.log (err.stack || err);
+			console.log(err.stack || err);
 		});
-
-	} else if (req.params[1] === 'api') {
-		res.send(templates.api(extend({section: 'api'}, locals)));
-
-	} else if (req.params[1] === 'examples') {
-
-		res.send(templates.examples(extend({section: 'examples'}, locals)));
-
-	} else if (req.params[1] === 'contributing') {
-		res.send(templates.contributing(extend({section: 'contributing', baselines: require('../lib/UA').getBaselines()}, locals)));
-
-	} else {
-		next();
+			} else {
+				return locals;
 	}
+		})
+		.then(function(locals) {
+	template(locals.pageName)
+		.then(function(templFn) {
+			res.send(templFn(locals));
+		})
+		.catch(function() { next() })
+	;
+		})
+	;
 }
 
 module.exports = {

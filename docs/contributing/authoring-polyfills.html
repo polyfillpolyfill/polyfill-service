@@ -14,7 +14,7 @@
 
 		<ul>
 			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#configuration">configuration</a>.</li>
-			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  **Must not have a trailing semicolon.**</li>
+			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an IIFE.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  <strong>Must not have a trailing semicolon</strong>.</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
 			<li><code>update.task.js</code>: Optional alternative to <code>polyfill.js</code>. This file is used in combination with the Grunt task <code>updatelibrary</code> to create a local copy of an external polyfill.</li>
 			<li><code>config.json</code>: A config file conforming to the spec below</li>
@@ -33,7 +33,7 @@
 			<li><code>spec</code>: String, the URL of a document that is the canonical technical definition of the feature (ie. the spec, preferably with fragment referencing the specific heading)</li>
 			<li><code>docs</code>: String, the URL of an online resource with the most helpful description of the feature for developers (eg. MDN)</li>
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, eg "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
-=			<li><code>build</code>: Object, used to specify how the polyfill should be built.
+			<li><code>build</code>: Object, used to specify how the polyfill should be built.
 				<ul>
 					<li><code>minify</code>: boolean, whether the polyfill should be minified (default true).</li>
 				</ul>
@@ -168,11 +168,6 @@ module.exports = function(grunt) {
 
 		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p>
 
-		<h2 id='contribution-terms'>Contribution terms</h2>
-
-		<p><em>Work in progress - see <a href='https://github.com/Financial-Times/polyfill-service/issues/327'>#327</a></em></p>
-
-		</div>
 	</div>
 
 {{>footer}}
