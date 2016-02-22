@@ -31,7 +31,9 @@
     "test": "grunt test"
   },
   "license": "CC0-1.0",
-  "engines" : { "node" : ">5.0.0" },
+  "engines": {
+    "node": ">5.0.0"
+  },
   "dependencies": {
     "blocked": "^1.1.0",
     "denodeify": "^1.2.1",
@@ -72,5 +74,5 @@
     "uglify-js": "^2.4.14",
     "wd": "^0.3.8"
   },
-  "version": "3.2.0"
+  "version": "3.3.0-rc.1"
 }
