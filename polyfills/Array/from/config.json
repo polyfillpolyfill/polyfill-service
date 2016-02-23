@@ -7,11 +7,12 @@
 	"browsers": {
 		"chrome": "<45",
 		"firefox": "4 - 31",
-		"ie": "6 - *",
+		"ie": "6 - 11",
 		"ie_mob": "10 - *",
 		"opera": "*",
-		"safari": "7 - *",
-		"firefox_mob": "4 - *"
+		"safari": "<9",
+		"firefox_mob": "4 - *",
+		"ios_saf": "3 - 8"
 	},
 	"dependencies": [
 		"Object.defineProperty"
