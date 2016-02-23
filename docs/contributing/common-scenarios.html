@@ -6,7 +6,7 @@
 
 		<h1>Common contribution scenarios</h1>
 
-		<p>A few scenarios come up time and again on our issue tracker. If you want to contribute, and one of the scenarios below descirbes what you want to change, follow the steps to acheive a painless and rapidly merged pull request!</p>
+		<p>A few scenarios come up time and again on our issue tracker. If you want to contribute, and one of the scenarios below describes what you want to change, follow the steps to achieve a painless and rapidly merged pull request!</p>
 
 
 		<h3 id='adding-browsers'>A particular polyfill is being served to the wrong browsers / not enough browsers</h3>
@@ -17,7 +17,7 @@
 			<li>Update the relevant polyfill's <code>config.json</code> file to add, remove or change the value of the browser version constraint</li>
 			<li>Check that your change is in line with the documentation on writing <a href='/v{{apiversion}}/docs/contributing/authoring-polyfills#configuration'>configuration JSON</a></li>
 			<li>Open a pull request with the following information</li>
-			<li>Check reliable sources of browser support information, eg MDN, caniuse and Kangax.  Tell us what these sources say about the browser/polyfill combo that you want to add or remove, and link to the relevant pages from your PR.</li>
+			<li>Check reliable sources of browser support information, e.g. MDN, caniuse and Kangax.  Tell us what these sources say about the browser/polyfill combo that you want to add or remove, and link to the relevant pages from your PR.</li>
 			<li>Explain how you have tested support (or lack of) in the browser concerned.  Ideally, include a screenshot of the relevant browser running our test suite for that feature.</li>
 			<li>State your agreement to our contribution terms.</li>
 		</ol>
@@ -28,12 +28,12 @@
 		<p>Although there are only five significant rendering engines (blink, presto, trident, gecko and webkit), there are lots of distinct browsers and user agents. We don't currently support anywhere near all of them, but are happy to add support on demand.</p>
 
 		<ol>
-			<li>Find out the <code>User-Agent</code> header value sent by the browser</li>
-			<li>Load <code>https://cdn.polyfill.io/v2/polyfill.js?ua={UAHEADER}</code> and take note of the detected, normalised browser name (eg 'chrome/40') that is displayed in the comment at the top of the output</li>
-			<li>Work out which of our existing families the browser matches, eg Firefox for iOS is most usefully seen as an alias of Safari for iOS.</li>
+			<li><a href='http://www.whatsmyua.com/'>Find out</a> the <code>User-Agent</code> header value sent by the browser</li>
+			<li>Load <code>https://cdn.polyfill.io/v2/polyfill.js?ua={UAHEADER}</code> and take note of the detected, normalised browser name (e.g. 'chrome/40') that is displayed in the comment at the top of the output</li>
+			<li>Work out which of our existing families the browser matches, e.g. Firefox for iOS is most usefully seen as an alias of Safari for iOS.</li>
 			<li>Make the apppropriate change:
 			<ul>
-				<li>If the browser is misrecognised as another browser that we support (eg niche Acme browser is recognised as 'chrome' but it's actually gecko based), the family is right but the version number is wrong, or it's coming up as 'unknown', this is probably a problem with the node useragent module. Check our <code>UA.js</code> module to ensure we don't have any craxy aliasing rules that are misbehaving, then raise your issue in the useragent repo, not here.</li>
+				<li>If the browser is misrecognised as another browser that we support (e.g. niche Acme browser is recognised as 'chrome' but it's actually gecko based), the family is right but the version number is wrong, or it's coming up as 'unknown', this is probably a problem with the node useragent module. Check our <code>UA.js</code> module to ensure we don't have any crazy aliasing rules that are misbehaving, then raise your issue in the useragent repo, not here.</li>
 				<li>If the family is an unsupported browser but a supported one would suffice and the version is correct, make the niche browser an alias for the supported one in the <code>UA.js</code> module.</li>
 				<li>If the family is an unsupported browser and we have no existing supported family that would be comparable, consider creating a new supported family, which will require updates to <code>UA.js</code>, all relevant polyfill <code>config.json</code> files, and the documentation in <code>/docs</code>.  This adds a significant maintenance burden, and we will strongly prefer to make an imperfect alias rather than create a new supported family.</li>
 			</ul>
@@ -50,7 +50,7 @@
 			<li>Search for existing polyfills online - has someone already created one that you can use?</li>
 			<li>Make sure that the polyfill correctly implements the aspects of the spec that it seeks to emulate</li>
 			<li>Follow our guidelines for the best practice <a href='/v{{apiversion}}/docs/contributing/authoring-polyfills#authoring-guidelines'>architecture</a> of original, or 3rd party polyfills</li>
-			<li>Save your polyfill code in a file called <code>polyfill.js</code> in a new subdirectory of the <code>/polyfills</code> directory, named for the JavaScript global that accesses the feature (or if the feature has no JavaScript API, use a descriptive name prefixed with a tilde, eg. <code>~html5-elements</code>)</li>
+			<li>Save your polyfill code in a file called <code>polyfill.js</code> in a new subdirectory of the <code>/polyfills</code> directory, named for the JavaScript global that accesses the feature (or if the feature has no JavaScript API, use a descriptive name prefixed with a tilde, e.g. <code>~html5-elements</code>)</li>
 			<li>Add a well defined config.json, following the guidelines for <a href='/v{{apiversion}}/docs/contributing/authoring-polyfills#configuration'>configuring polyfills</a>.</li>
 			<li>Add a feature detect in a <code>detect.js</code> file if it's possible to detect the feature via a JavaScript expression.</li>
 			<li>Write a reasonably comprehensive set of tests in a <code>tests.js</code> file, and check that they pass in all the browsers you have targeted.</li>
@@ -70,7 +70,7 @@
 				<li>No: Replace the <code>polyfill.js</code> file with the new one, taking care to make any architectural changes that are needed to make the polyfill compatible with the service.  Also consider adding an update task so that future updates can be automated.</li>
 			</ol>
 			</li>
-			<li>Minimise the diff. If your update created a lot of inconsequential changes, eg changing the indent style or adding or removing comments, consider reversing those changes, or moving them into a separate commit, so that reviewers can see the effective changes without being distracted by ineffective ones.</li>
+			<li>Minimise the diff. If your update created a lot of inconsequential changes, e.g. changing the indent style or adding or removing comments, consider reversing those changes, or moving them into a separate commit, so that reviewers can see the effective changes without being distracted by ineffective ones.</li>
 			<li>If the new version has added support for more of the native feature, add tests to cover it in the <code>tests.js</code> file.</li>
 			<li>Run <code>grunt ci</code> to check that library still passes our continuous integration tests. For help connecting to a Sauce Labs account, see <a href='/v{{apiversion}}/docs/contributing/testing#runing-tests-sauce'>running tests on Sauce Labs</a>.</li>
 			<li>Open a pull request, stating the version of the polyfill you are changing, noting any functional changes that the new version brings</li>

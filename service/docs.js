@@ -290,6 +290,12 @@ function route(req, res, next) {
 				})).catch(function (err) {
 					console.log(err.stack || err);
 				});
+
+			} else if (locals.pageName === 'contributing/authoring-polyfills') {
+				return extend(locals, {
+					baselines: require('../lib/UA').getBaselines()
+				});
+
 			} else {
 				return locals;
 			}
