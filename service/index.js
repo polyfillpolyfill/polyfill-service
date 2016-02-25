@@ -68,10 +68,10 @@ app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'))
  * compliant with FT Origami standard
  * http://origami.ft.com/docs/syntax/web-service-description/ */
 
-// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
+// Allow robots to index the site, including polyfill bundles as some sites need polyfills in order to be indexable!
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
-    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
+    res.send("User-agent: *\nDisallow:");
 });
 
 app.get(/^\/__about$/, function(req, res) {
@@ -165,7 +165,7 @@ app.get(/^\/v1\/(.*)/, function(req, res) {
 });
 
 app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	metrics.meter('hits').mark();
+	metrics.counter('hits').inc();
 	var respTimeTimer = metrics.timer('respTime').start();
 	var firstParameter = req.params[0].toLowerCase();
 	var minified = firstParameter === '.min';

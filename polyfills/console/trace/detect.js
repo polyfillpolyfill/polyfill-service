@@ -1,0 +1,1 @@
+'trace' in this.console

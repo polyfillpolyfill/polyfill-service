@@ -1,0 +1,1 @@
+'dir' in this.console

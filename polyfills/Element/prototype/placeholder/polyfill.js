@@ -1,4 +1,8 @@
 Object.defineProperty(Element.prototype, 'placeholder', {
+	get: function() {
+		return this.getAttribute('placeholder');
+	},
+
 	set: function (value) {
 		if (!value || !/^(input|textarea)$/i.test(this.nodeName) || !/^(email|number|password|search|tel|text|url|)$/i.test(this.getAttribute('type'))) {
 			return;
@@ -6,8 +10,8 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 
 		var
 		element = this,
-		xInput = document.createElement('-ms-input'),
-		xPlaceholder = xInput.appendChild(document.createElement('-ms-placeholder')),
+		xInput = document.createElement('ms-input'),
+		xPlaceholder = xInput.appendChild(document.createElement('ms-placeholder')),
 		xInputRuntimeStyle = xInput.runtimeStyle,
 		xPlaceholderRuntimeStyle = xPlaceholder.runtimeStyle,
 		elementCurrentStyle = element.currentStyle;

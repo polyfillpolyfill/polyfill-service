@@ -177,6 +177,6 @@ var browsers = {
 		'android/4.3',
 		'android/4.2',
 		'android/4.1',
-		'ios_saf/9.1'
+		'ios_saf/9.2'
 	]
 };

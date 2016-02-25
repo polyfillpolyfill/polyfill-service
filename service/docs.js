@@ -279,10 +279,10 @@ function route(req, res, next) {
 				hitCount: fastly.rollup.hits,
 				missCount: fastly.rollup.miss
 			}, locals)));
-		})).catch(function(rejectReason) {
+		})).catch(function(ex) {
 			res.send(templates.usage(extend({
 				section: 'usage',
-				msg: rejectReason.toString()
+				msg: ex.error || ex.message || ex.toString()
 			}, locals)));
 		});
 

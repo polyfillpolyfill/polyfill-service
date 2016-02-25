@@ -1,0 +1,1 @@
+'groupCollapsed' in this.console

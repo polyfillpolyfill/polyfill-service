@@ -5,7 +5,7 @@ var AliasResolver = require('../../../lib/aliases');
 
 var configuredAliases = {};
 
-var resolver = new AliasResolver([function expandAliasFromConfig(featureName) {
+var resolver = AliasResolver([function expandAliasFromConfig(featureName) {
 	return configuredAliases[featureName] || undefined;
 }]);
 
@@ -22,7 +22,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": [ "resolved_name_c", "resolved_name_d" ]
 			};
 
-			return resolver.resolve({
+			return resolver({
 				alias_name_a: { flags: [] }
 			}).then(function(resolved) {
 				assert.deepEqual(resolved, {
@@ -38,7 +38,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 			};
 
-			return resolver.resolve({
+			return resolver({
 				alias_name_a: { flags: [] },
 				alias_name_b: { flags: [] }
 			}).then(function(resolved) {
@@ -56,7 +56,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_d"]
 			};
 
-			return resolver.resolve({
+			return resolver({
 				alias_name_a: { flags: ["always"] },
 				alias_name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
@@ -75,7 +75,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 			};
 
-			return resolver.resolve({
+			return resolver({
 				alias_name_a: { flags: ["always"] },
 				alias_name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
@@ -93,7 +93,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 			};
 
-			var localresolver = new AliasResolver([
+			var localresolver = AliasResolver([
 
 				// Map only first_alias_name_a to another alias
 				function(name) {
@@ -104,7 +104,7 @@ describe("AliasResolver", function() {
 				}
 			]);
 
-			return localresolver.resolve({
+			return localresolver({
 				first_alias_name_a: { flags: ["always"] }
 			}).then(function(resolved) {
 				assert.deepEqual(resolved, {
@@ -120,7 +120,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 			};
 
-			return resolver.resolve({
+			return resolver({
 				resolved_name_a: { flags: ["always"] },
 				alias_name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
@@ -138,7 +138,7 @@ describe("AliasResolver", function() {
 				"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 			};
 
-			var localresolver = new AliasResolver([
+			var localresolver = AliasResolver([
 
 				// Map only first_alias_name_a to another alias
 				function(name) {
@@ -149,7 +149,7 @@ describe("AliasResolver", function() {
 				}
 			]);
 
-			return localresolver.resolve({
+			return localresolver({
 				first_alias_name_a: { flags: ["always"] },
 				alias_name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
@@ -162,13 +162,13 @@ describe("AliasResolver", function() {
 		});
 
 		it('should be able to resolve an alias to one of the other inputs', function() {
-			var localresolver = new AliasResolver([
+			var localresolver = AliasResolver([
 				function(name) {
 					return (name === 'alias_name_a') ? ['name_b'] : undefined;
 				}
 			]);
 
-			return localresolver.resolve({
+			return localresolver({
 				alias_name_a: { flags: ["always"] },
 				name_b: { flags: ["gated"] }
 			}).then(function(resolved) {
@@ -179,11 +179,11 @@ describe("AliasResolver", function() {
 		});
 
 		it('should be able to resolve an alias to itself', function() {
-			var localresolver = new AliasResolver([
+			var localresolver = AliasResolver([
 				function(name) { return [name]; }
 			]);
 
-			return localresolver.resolve({
+			return localresolver({
 				name_a: { },
 				name_b: { }
 			}).then(function(resolved) {
@@ -195,11 +195,11 @@ describe("AliasResolver", function() {
 		});
 
 		it('should handle resolvers that return promises', function() {
-			var localresolver = new AliasResolver([
+			var localresolver = AliasResolver([
 				function(name) { return Promise.resolve(['alias']); }
 			]);
 
-			return localresolver.resolve({
+			return localresolver({
 				name: {},
 			}).then(function(resolved) {
 				assert.deepEqual(resolved, {

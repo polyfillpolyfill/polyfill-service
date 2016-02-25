@@ -57,13 +57,13 @@
 					<td><code>ua</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a inaccurate <code>User-Agent</code> header (the User-Agent header should properly be set to a string identifying the client you are using to make the request - for server side requests that might be cURL, for example).</p>
+						<p>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenario, this is preferable to setting an inaccurate <code>User-Agent</code> header (the User-Agent header should properly be set to a string identifying the client you are using to make the request - for server side requests that might be cURL, for example).</p>
 						<p>Normally, responses from the service will Vary on User-Agent. Setting the <code>ua</code> parameter means responses no longer differ between user agents, so the <code>Vary</code> header will not list User-Agent as a vary value.</p>
 					</td>
 				</tr><tr>
 					<td><code>callback</code></td>
 					<td>Querystring</td>
-					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asyncronously with <code>async</code> and <code>defer</code> attributes.</td>
+					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asynchronously with <code>async</code> and <code>defer</code> attributes.</td>
 				</tr>
 				<tr>
 					<td><code>unknown</code></td>
