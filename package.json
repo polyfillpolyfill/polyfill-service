@@ -31,7 +31,9 @@
     "test": "grunt test"
   },
   "license": "CC0-1.0",
-  "engines" : { "node" : ">5.0.0" },
+  "engines": {
+    "node": ">5.0.0"
+  },
   "dependencies": {
     "blocked": "^1.1.0",
     "browserify": "^12.0.2",
@@ -56,6 +58,7 @@
     "request-promise": "^0.3.2",
     "semver": "^5.0.0",
     "tsort": "0.0.1",
+    "uglifyify": "^3.0.1",
     "useragent": "^2.0.8"
   },
   "devDependencies": {
