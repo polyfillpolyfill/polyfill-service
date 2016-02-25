@@ -1,5 +1,4 @@
 'use strict';
-var browserify = require('browserify');
 var denodeify = require('denodeify');
 
 function validateSource(code, label) {
@@ -8,19 +7,6 @@ function validateSource(code, label) {
 	} catch(e) {
 		throw {name:"Parse error", message:"Error parsing source code for "+label, error:e};
 	}
-}
-
-function streamToString(stream) {
-	return new Promise(function(resolve, reject) {
-		const chunks = [];
-		stream.on('error', reject);
-		stream.on('data', function(chunk) {
-			chunks.push(chunk);
-		});
-		stream.on('end', () => {
-			resolve(chunks.join(''));
-		});
-	});
 }
 
 module.exports = function(grunt) {
@@ -73,10 +59,6 @@ module.exports = function(grunt) {
 
 			if (config.licence) {
 				throw 'Incorrect spelling of license property in '+featureName;
-			}
-
-			if (config.build && config.build.commonjs === true) {
-				config.rawSource = streamToString(browserify().add(polyfillSourcePath).bundle());
 			}
 
 			if (!config.rawSource) {
