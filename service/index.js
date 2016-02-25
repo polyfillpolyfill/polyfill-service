@@ -168,7 +168,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 	metrics.meter('hits').mark();
 	var respTimeTimer = metrics.timer('respTime').start();
 	var firstParameter = req.params[0].toLowerCase();
-	var minified =  firstParameter === '.min';
+	var minified = firstParameter === '.min';
 	var fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
 	var uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
 	var flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
