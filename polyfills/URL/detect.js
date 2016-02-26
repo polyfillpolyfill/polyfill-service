@@ -9,13 +9,11 @@
 	'use strict';
 
 	try {
-		if (global.URL) {
-			var nativeURL = new global.URL('http://example.com');
+		var nativeURL = new global.URL('http://example.com');
 
-			if ('href' in nativeURL && 'searchParams' in nativeURL) {
-				return nativeURL;
-			}
-		}
+		return 'href' in nativeURL && 'searchParams' in nativeURL;
 	}
-	catch (error) { }
+	catch (error) {
+		return false;
+	}
 }(this))
