@@ -12,6 +12,7 @@
 	"dependencies": [
 		"document.head"
 	],
+	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/geolocation",
 	"spec": "http://www.w3.org/TR/geolocation-API/#navi-geo"
 }
