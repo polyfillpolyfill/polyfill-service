@@ -16,5 +16,6 @@
 		"op_mob": "<33",
 		"bb": "*"
 	},
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-isnan-number",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN"
 }
