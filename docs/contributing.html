@@ -220,6 +220,11 @@ module.exports = function(grunt) {
 			</tbody>
 		</table>
 
+		<h3 id="browser-support-links">Links</h3>
+		<li><a href="http://http://caniuse.com">Can I use... (Support tables for HTML5, CSS3, etc)</a></li>
+		<li><a href="https://kangax.github.io/compat-table/es6">Kangax (ECMAScript 6 compatibility table)</a></li>
+		<li><a href="https://www.webplatform.org">WebPlatform.org (project of the W3C)</a></li>
+
 		<h3 id="baseline-support">Baseline support</h3>
 
 		<p>The polyfill service does not attempt to serve polyfills to very old browsers.  We maintain a movable baseline of browser support, which is shown in the table above and configured in <a href="https://github.com/Financial-Times/polyfill-service/blob/master/lib/UA.js">the UA module</a>.  If a request for a polyfill bundle comes from a UA that is below the baseline or unknown, the response will be:</p>
