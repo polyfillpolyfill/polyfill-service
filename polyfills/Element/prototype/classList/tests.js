@@ -87,3 +87,7 @@ it("Should work on svg elements", function() {
 		expect(el.className.baseVal).to.be("a b");
 	}
 });
+
+it("Should be configurable", function() {
+	expect(Object.getOwnPropertyDescriptor(Element.prototype, 'classList').configurable).to.be(true);
+});
