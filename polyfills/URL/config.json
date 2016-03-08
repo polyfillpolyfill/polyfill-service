@@ -6,7 +6,7 @@
 	"browsers": {
 		"chrome": "<49",
 		"firefox": "<29",
-		"ie": "*",
+		"ie": "8 - *",
 		"ie_mob": "*",
 		"safari": "*",
 		"firefox_mob": "<29",
@@ -18,7 +18,8 @@
 		"Array.prototype.forEach"
 	],
 	"notes": [
-	  "`searchParams` is not iterable and has no `forEach()`, `entries()`, `keys()`, `values()` methods"
+	  "`searchParams` is not iterable and has no `forEach()`, `entries()`, `keys()`, `values()` methods",
+	  "Polyfill requires Object getters so fails in IE < 8"
 	],
 	"license": "CC0",
 	"repo": "https://github.com/inexorabletash/polyfill",
