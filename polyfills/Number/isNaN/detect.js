@@ -1,0 +1,1 @@
+'isNaN' in Number
