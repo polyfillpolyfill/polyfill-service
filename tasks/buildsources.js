@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 			var configPath = path.join(polyfillPath, 'config.json');
 			var detectPath = path.join(polyfillPath, 'detect.js');
 			var polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
-			var featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/\//g, '.');
+			var featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/(\/|\\)/g, '.');
 
 			try {
 
