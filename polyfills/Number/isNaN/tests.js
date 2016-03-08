@@ -13,11 +13,11 @@ it('returns true with NaN values', function () {
 });
 
 it('retuns false for valid numbers and non-number data types', function () {
-		expect(Number.isNaN("NaN")).to.be(false);
-		expect(Number.isNaN(undefined)).to.be(false);
-		expect(Number.isNaN({})).to.be(false);
-		expect(Number.isNaN("blabla")).to.be(false);
-		expect(Number.isNaN(true)).to.be(false);
-		expect(Number.isNaN(37)).to.be(false);
-		expect(Number.isNaN("37")).to.be(false);
-});	
+	expect(Number.isNaN("NaN")).to.be(false);
+	expect(Number.isNaN(undefined)).to.be(false);
+	expect(Number.isNaN({})).to.be(false);
+	expect(Number.isNaN("blabla")).to.be(false);
+	expect(Number.isNaN(true)).to.be(false);
+	expect(Number.isNaN(37)).to.be(false);
+	expect(Number.isNaN("37")).to.be(false);
+});
