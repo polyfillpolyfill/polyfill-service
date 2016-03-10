@@ -7,9 +7,6 @@
 		"ios_saf": "*",
 		"opera": "< 50"
 	},
-	"build": {
-		"commonjs": true
-	},
 	"dependencies": [],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol-objects",
