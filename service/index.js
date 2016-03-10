@@ -60,8 +60,8 @@ app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
 
 /* Documentation and version routing */
 
-app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
-app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'));
+app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, docs.route);
+app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
 
 
 /* Endpoints for health, application metadata and availability status
