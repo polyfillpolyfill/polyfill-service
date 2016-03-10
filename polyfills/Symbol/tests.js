@@ -219,4 +219,4 @@ it('should not allow implicit string coercion', function() {
 		return Symbol('10') + '';
 	}
 	expect(implicitStringCoercion).to.throwError();
-})
+});
