@@ -1,12 +1,13 @@
 'use strict';
 
 require('dotenv').config({silent: true});
+const path = require('path');
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			dist: ['polyfills/__dist']
+			dist: [path.resolve(__dirname, '/polyfills/__dist')]
 		},
 		"simplemocha": {
 			options: {
