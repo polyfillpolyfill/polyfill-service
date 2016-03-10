@@ -62,8 +62,13 @@ body {
 	margin-right: 60px;
 	margin-left: 0;
 }
-
-.twitter-timeline {
+@media (max-width: 700px) {
+	.showcase {
+		display: block;
+	}
+	.showcase > .showcase__media {
+		margin: 0;
+	}
 }
 
 
