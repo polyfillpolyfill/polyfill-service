@@ -1,5 +1,9 @@
+* {
+	box-sizing: border-box;
+}
+
 html {
-	font-family: BentonSans, sans-serif;
+	font-family: sans-serif;
 }
 
 body {
@@ -27,6 +31,41 @@ body {
 .o-header .logo {
 	width: 40px;
 }
+
+.lead {
+	font-size: 20px;
+}
+
+.showcase {
+	display: flex;
+	flex-direction: row;
+	margin: 40px 0;
+}
+.showcase > div {
+	flex: 1 0 35%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.showcase > .showcase__media {
+	flex: 1 1 65%;
+	margin-left: 60px;
+	background: #eee;
+	border: 1px solid #ddd !important;
+	border-radius: 2px !important;
+}
+.showcase--right > .showcase__desc {
+	order: 2;
+}
+.showcase--right > .showcase__media {
+	order: 1;
+	margin-right: 60px;
+	margin-left: 0;
+}
+
+.twitter-timeline {
+}
+
 
 
 .demo {

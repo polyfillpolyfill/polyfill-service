@@ -10,6 +10,7 @@ var PolyfillSet = require('./PolyfillSet');
 var polyfillservice = require('../lib');
 var compatdata = require('../docs/assets/compat.json');
 var extend = require('lodash').extend;
+var appVersion = require(path.join(__dirname,'../package.json')).version;
 
 var cache = {};
 var cachettls = {fastly:1800, respTimes:1800, outages:86400};
@@ -256,6 +257,7 @@ function route(req, res, next) {
 	Promise
 		.resolve({
 			apiversion: req.params[0],
+			appversion: appVersion,
 			pageName: (req.params[1] || 'index').replace(/\/$/, '')
 		})
 		.then(function(locals) {
