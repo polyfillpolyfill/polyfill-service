@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 	var uglify = require('uglify-js');
 	var babel = require("babel-core");
 	var mkdir = require('mkdirp').sync;
+	var tsort = require('tsort');
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
@@ -23,6 +24,7 @@ module.exports = function(grunt) {
 		var errors = [];
 		var dirs = [];
 		var destFolder = path.join(__dirname, '../polyfills/__dist');
+		var depGraph = tsort();
 
 		grunt.log.writeln('Writing compiled polyfill sources to '+destFolder+'/...');
 
@@ -113,9 +115,9 @@ module.exports = function(grunt) {
 						fs.writeFileSync(featurePath, JSON.stringify(config));
 					}
 					else {
-						grunt.log.writenln("Can't create directory " + featureDir + "due to the following error: " + err);
-					}    
-				});                    
+						grunt.log.errorlns("Can't create directory " + featureDir + "due to the following error: " + err);
+					}
+				});
 				fs.writeFileSync(featurePath, JSON.stringify(config));
 				grunt.log.writeln('+ '+featureName);
 
@@ -132,18 +134,31 @@ module.exports = function(grunt) {
 						}
 					});
 				}
+
+				if (config.dependencies) {
+					config.dependencies.forEach(function(depFeatureName) {
+						depGraph.add(depFeatureName, featureName);
+					});
+				}
+
 			} catch (ex) {
-				console.error(ex);
+				grunt.fail.warn(ex);
 				errors.push(ex);
 			}
 		});
 
 		if (errors.length) {
-			console.error(errors.length + ' error(s) encountered parsing polyfill sources.');
-			process.exit(1);
-		} else {
-			fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
-			grunt.log.writeln('Sources built successfully');
+			grunt.fail.warn('\n' + errors.length + ' error(s) encountered parsing polyfill sources.');
 		}
+
+		try {
+			depGraph.sort();
+		} catch(e) {
+			grunt.fail.warn('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
+		}
+
+		fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
+		grunt.log.oklns('Sources built successfully');
+
 	});
 };

@@ -1,0 +1,1 @@
+'error' in this.console

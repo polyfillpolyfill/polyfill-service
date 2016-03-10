@@ -1,0 +1,1 @@
+'exception' in this.console

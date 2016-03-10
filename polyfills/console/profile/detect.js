@@ -1,0 +1,1 @@
+'profile' in this.console

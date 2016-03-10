@@ -68,10 +68,10 @@ app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
  * compliant with FT Origami standard
  * http://origami.ft.com/docs/syntax/web-service-description/ */
 
-// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
+// Allow robots to index the site, including polyfill bundles as some sites need polyfills in order to be indexable!
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
-    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
+    res.send("User-agent: *\nDisallow:");
 });
 
 app.get(/^\/__about$/, function(req, res) {

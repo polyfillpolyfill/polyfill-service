@@ -67,12 +67,12 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
-    "intl": "~1.0.0-rc-4",
+    "intl": "~1.1.0",
     "picturefill": "^3.0.1",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
     "uglify-js": "^2.4.14",
     "wd": "^0.3.8"
   },
-  "version": "3.3.0-rc.1"
+  "version": "3.3.0"
 }

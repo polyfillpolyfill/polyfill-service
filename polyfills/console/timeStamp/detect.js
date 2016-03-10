@@ -1,0 +1,1 @@
+'timeStamp' in this.console
