@@ -77,3 +77,68 @@ function charts() {
 		window.onresize = drawCharts;
 	}
 }
+
+// Test current browser
+(function() {
+	var testsRunning = false, resultsByFeature = {};
+	function runTests() {
+		window.receiveTestResult = processLiveResult;
+		if ('postMessage' in window) {
+			window.addEventListener("message", function(message) {
+				try { data = JSON.parse(msg.data); } catch (e) { return; }
+				processLiveResult(data.featureName, data.result, data.mode);
+			}, false);
+		}
+		['control', 'all'].forEach(function(mode) {
+			var ifr = document.createElement('iframe');
+			ifr.className = 'testFrame testFrame--'+mode;
+			document.body.appendChild(ifr);
+			ifr.src = '/test/director?mode='+mode;
+		});
+	}
+	function processLiveResult(featureName, result, mode) {
+		resultsByFeature[featureName] = resultsByFeature[featureName] || {};
+		resultsByFeature[featureName][mode] = result;
+		if ('control' in resultsByFeature[featureName] && 'all' in resultsByFeature[featureName]) {
+			var status =
+				(resultsByFeature[featureName].control === 'pass') ? 'native' :
+				(resultsByFeature[featureName].all === 'pass') ? 'polyfilled' :
+				(resultsByFeature[featureName].all === 'fail') ? 'missing' :
+				'unknown'
+			;
+			var resultCell = document.querySelector('#'+slugify(featureName)+' .compatibility__live');
+			if (resultCell) {
+				resultCell.innerHTML =
+					'<span class="status-'+status+'">'+status+'</span>'
+				;
+			}
+		}
+	}
+	function slugify(str) {
+		return str.replace(/[^\w]/g, '_');
+	}
+	Array.from(document.querySelectorAll('.compatMode')).forEach(function(radio) {
+		radio.addEventListener('change', function() {
+			Array.from(document.querySelectorAll('.compatMode')).forEach(function(el) {
+				if (el.checked === true) {
+					var cl = document.querySelector('.compatibility').classList;
+					cl.remove('compatibility--data', 'compatibility--live');
+					cl.add('compatibility--'+el.value);
+					if (el.value == 'live' && !testsRunning) {
+						runTests();
+						testsRunning = true;
+					}
+				}
+			});
+		});
+	});
+}());
+
+// Notes toggle
+document.addEventListener('DOMContentLoaded', function() {
+	Array.from(document.querySelectorAll('.notes-toggle')).forEach(function(el) {
+		el.addEventListener('click', function() {
+			el.closest('.feature').classList.toggle('show-notes');
+		});
+	});
+});

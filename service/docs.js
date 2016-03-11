@@ -206,7 +206,7 @@ function getCompat() {
 			return sourceslib.getPolyfill(feat).then(function(polyfill) {
 				var fdata = {
 					feature: feat,
-					slug: feat.replace(/\./g, '_'),
+					slug: feat.replace(/[^\w]/g, '_'),
 					size: polyfill.minSource.length,
 					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 					hasTests: polyfill.hasTests,
