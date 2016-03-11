@@ -16,7 +16,7 @@ it('should silently fail when assigning new properties', function (){
 	expect(a.b).to.be.undefined;
 });
 
-// Not really possible on a polyfill
+// A tough one right now
 xit('should have Symbol.prototype as the prototype of an instance', function() {
 	expect(Object.getPrototypeOf(Symbol())).to.be(Symbol.prototype);
 });
