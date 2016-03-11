@@ -1,0 +1,1 @@
+'isConcatSpreadable' in this.Symbol

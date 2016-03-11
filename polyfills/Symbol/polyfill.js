@@ -110,6 +110,7 @@
 	};
 	Object.defineProperty(Symbol, 'keyFor', descriptor);
 
+	// Overriding Object.prototype.toString to make it detect Symbols correctly
 	descriptor.value = function () {
 		var str = toString.call(this);
 		return (str === '[object String]' && onlySymbols(this)) ? '[object Symbol]' : str;
@@ -137,38 +138,3 @@
 		};
 	}
 }(typeof global === typeof G ? window : global));
-
-(function (O, S) {
-	var dP = O.defineProperty;
-	var toString = Object.prototype.toString;
-	var toStringTag = 'toStringTag';
-	var descriptor;
-	[
-		'iterator',           // A method returning the default iterator for an object. Used by for...of.
-		'match',              // A method that matches against a string, also used to determine if an object may be used as a regular expression. Used by String.prototype.match().
-		'replace',            // A method that replaces matched substrings of a string. Used by String.prototype.replace().
-		'search',             // A method that returns the index within a string that matches the regular expression. Used by String.prototype.search().
-		'split',              // A method that splits a string at the indices that match a regular expression. Used by String.prototype.split().
-		'hasInstance',        // A method determining if a constructor object recognizes an object as its instance. Used by instanceof.
-		'isConcatSpreadable', // A Boolean value indicating if an object should be flattened to its array elements. Used by Array.prototype.concat().
-		'unscopables',        // An Array of string values that are property values. These are excluded from the with environment bindings of the associated objects.
-		'species',            // A constructor function that is used to create derived objects.
-		'toPrimitive',        // A method converting an object to a primitive value.
-		toStringTag           // A string value used for the default description of an object. Used by Object.prototype.toString().
-	].forEach(function (name) {
-		if (!(name in Symbol)) {
-			dP(Symbol, name, {value: Symbol(name)});
-			switch (name) {
-				case toStringTag:
-				descriptor = O.getOwnPropertyDescriptor(Object.prototype, 'toString');
-				descriptor.value = function () {
-					var str = toString.call(this);
-					var tst = this[Symbol.toStringTag];
-					return typeof tst === 'undefined' ? str : ('[object ' + tst + ']');
-				};
-				dP(Object.prototype, 'toString', descriptor);
-				break;
-			}
-		}
-	});
-}(Object, Symbol));

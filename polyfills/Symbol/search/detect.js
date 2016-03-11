@@ -1,0 +1,1 @@
+'search' in this.Symbol

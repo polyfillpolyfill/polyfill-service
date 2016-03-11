@@ -7,8 +7,10 @@
 		"ios_saf": "*",
 		"opera": "< 50"
 	},
-	"dependencies": [],
+	"dependencies": [
+		"Symbol"
+	],
 	"license": "MIT",
-	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol-objects",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol.iterator",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol"
 }

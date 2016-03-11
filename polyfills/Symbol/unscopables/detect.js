@@ -1,0 +1,1 @@
+'unscopables' in this.Symbol

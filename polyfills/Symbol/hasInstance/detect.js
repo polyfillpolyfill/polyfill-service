@@ -1,0 +1,1 @@
+'hasInstance' in this.Symbol

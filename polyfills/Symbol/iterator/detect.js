@@ -1,0 +1,1 @@
+'interator' in this.Symbol
