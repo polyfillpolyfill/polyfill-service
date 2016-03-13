@@ -1,19 +1,21 @@
-var Graphite = require('graphite');
-var Measured = require('measured');
-var blocked = require('blocked');
+'use strict';
 
-var reportInterval = 5000;
-var graphiteHost = process.env.GRAPHITE_HOST || null;
-var graphitePort = process.env.GRAPHITE_PORT || 2003;
-var envName = process.env.NODE_ENV || "unknown";
-var processIdentifier = process.env.DYNO ? 'dyno-' + process.env.DYNO.replace('.', '') : 'pid-' + process.pid;
-var metricsNS = process.env.GRAPHITE_NS || 'origami.polyfill';
+const Graphite = require('graphite');
+const Measured = require('measured');
+const blocked = require('blocked');
 
-var timer = null;
-var graphite = null;
-var data = Measured.createCollection(metricsNS + '.' + envName + '.' + processIdentifier);
+const reportInterval = 5000;
+const graphiteHost = process.env.GRAPHITE_HOST || null;
+const graphitePort = process.env.GRAPHITE_PORT || 2003;
+const envName = process.env.NODE_ENV || "unknown";
+const processIdentifier = process.env.DYNO ? 'dyno-' + process.env.DYNO.replace('.', '') : 'pid-' + process.pid;
+const metricsNS = process.env.GRAPHITE_NS || 'origami.polyfill';
 
-var failures = data.counter('graphiteReportingFailures');
+let reportTimer = null;
+let graphite = null;
+const data = Measured.createCollection(metricsNS + '.' + envName + '.' + processIdentifier);
+
+const failures = data.counter('graphiteReportingFailures');
 
 blocked(function(ms) {
 	if (ms < 100) return;
@@ -24,12 +26,10 @@ blocked(function(ms) {
 
 if (graphiteHost) {
 
-	data.gauge('memory', function() {
-		return process.memoryUsage().rss;
-	});
+	data.gauge('memory', () => process.memoryUsage().rss);
 
 	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
-	timer = setInterval(function() {
+	reportTimer = setInterval(() => {
 		graphite.write(data.toJSON(), function(err) {
 			if (err) {
 
@@ -41,11 +41,11 @@ if (graphiteHost) {
 
 				console.error(err, err.stack);
 				console.warn('Disabling graphite reporting due to error');
-				clearInterval(timer);
+				clearInterval(reportTimer);
 			}
 		});
 	}, reportInterval);
-	timer.unref();
+	reportTimer.unref();
 
 	console.log('Initialised graphite metrics reporting to '+graphiteHost+', prefixed with '+metricsNS);
 } else {
