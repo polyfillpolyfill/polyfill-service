@@ -1,3 +1,6 @@
+// A modification of https://github.com/WebReflection/get-own-property-symbols
+// (C) Andrea Giammarchi - MIT Licensed
+
 (function (G) {
 	'use strict';
 	var setDescriptor;
