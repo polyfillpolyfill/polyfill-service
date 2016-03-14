@@ -1,7 +1,7 @@
 # Polyfill service
 
 [![Build
-Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master)](https://travis-ci.org/Financial-Times/polyfill-service)
+Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)](https://circleci.com/gh/Financial-Times/polyfill-service)
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](https://cdn.polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
