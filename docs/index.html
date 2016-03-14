@@ -1,24 +1,33 @@
-{{>header}}
+{{>header this}}
 
 {{>nav this}}
 
 	<div class="o-techdocs-main o-techdocs-content">
 
-		<p class='o-techdocs-leadbody'>Upgrade the web.  Automatically.</p>
-
-		<p>The polyfill service selectively bundles browser polyfills based on the <code>User-Agent</code> header supplied in a request, with the intention of allowing JavaScript and CSS developers to use modern standards in legacy user agents that do not natively support the standard.  Think of it like a pair of glasses for your aging browser.</p>
-
-		<p>Load the service before you load or parse your own JavaScript:</p>
+		<p class='lead'>Just the polyfills you need for your site, tailored to each browser.  Copy the code to unleash the magic:</p>
 
 		<pre class='bigcode'><code>&lt;script src="https://cdn.polyfill.io/v{{apiversion}}/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 
-		<p>The polyfill service is developed and maintained by a community of contributors led by a team at the <a href='http://www.ft.com'>Financial Times</a>.  It evolved from a previous service developed by <a href='http://www.jonathantneal.com/'>Jonathan Neal</a>, and our <code>cdn.polyfill.io</code> domain routes traffic through <a href='http://www.fastly.com'>Fastly</a>, which makes it available with global high availability and superb performance no matter where your users are.</p>
+		<p>Polyfill.io reads the <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> header of each request and returns polyfills that are suitable for the requesting browser.  <a href='/v{{apiversion}}/docs/api'>Tailor the response</a> based on the features you're using in your app, and see our <a href='/v{{apiversion}}/docs/examples'>live examples</a> to get started quickly.</p>
 
-		<p>
-			<a href='http://labs.ft.com'><img src='https://build.origami.ft.com/v2/files/o-header@4.0.0/img/ft-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='FT logo' title='The polyfill service is hosted and developed by the Financial Times'></a>
-			<a href='http://www.fastly.com'><img src='/v1/docs/assets/images/fastly-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='Fastly logo' title='The polyfill service is supported by Fastly'></a>
-		</p>
-
+		<div class='showcase showcase--right'>
+			<div class='showcase__desc'>
+				<p>This site runs version <code>{{appversion}}</code> of the service.  To get notified when we release new versions or push release candidates to our <a href='http://qa.polyfill.io'>public QA environment</a>, <a href='https://twitter.com/polyfillio'>follow us on twitter at @polyfillio</a>.</p>
+			</div>
+			<div class='showcase__media'>
+				<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/polyfillio" data-widget-id="703041228984578048">Latest news via @polyfillio on Twitter</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+		</div>
+		<div class='showcase showcase--left'>
+			<div class='showcase__desc'>
+				<p>The polyfill service is developed and maintained by a community of contributors led by a team at the <a href='http://www.ft.com'>Financial Times</a>.  It evolved from a previous service developed by <a href='http://www.jonathantneal.com/'>Jonathan Neal</a>, and our <code>cdn.polyfill.io</code> domain routes traffic through <a href='http://www.fastly.com'>Fastly</a>, which makes it available with global high availability and superb performance no matter where your users are.</p>
+			</div>
+			<div class='showcase__media'>
+				<a href='http://labs.ft.com'><img src='https://build.origami.ft.com/files/o-header@2.5.13/img/ft-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='FT logo' title='The polyfill service is hosted and developed by the Financial Times'></a>
+				<a href='http://www.fastly.com'><img src='/v2/assets/images/fastly-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='Fastly logo' title='The polyfill service is supported by Fastly'></a>
+			</div>
+		</div>
 	</div>
 
 {{>footer}}
