@@ -1,11 +1,12 @@
 'use strict';
 
 var useragentToSauce = {
-	'chrome/46': ['chrome', '46', 'Windows 7'],
+	'chrome/49': ['chrome', '49', 'Windows 7'],
 	'chrome/42': ['chrome', '42', 'Windows 7'],
-	'chrome/35': ['chrome', '35', 'OSX 10.11'],
+	'chrome/38': ['chrome', '38', 'OSX 10.11'],
+	'chrome/35': ['chrome', '35', 'Windows 7'],
 	'chrome/30': ['chrome', '30', 'Windows 7'],
-	'firefox/41': ['firefox', '41', 'Linux'],
+	'firefox/42': ['firefox', '42', 'Linux'],
 	'firefox/33': ['firefox', '33', 'Linux'],
 	'firefox/30': ['firefox', '30', 'OSX 10.11'],
 	'firefox/20': ['firefox', '20', 'Linux'],
@@ -83,11 +84,15 @@ module.exports = function(grunt) {
 		options.browsers = options.browsers.map(function(b) {
 			var ua = b.split('/');
 			var sauce = useragentToSauce[b];
-			var def = { browserName:ua[0], browserVersion:ua[1], sauce: {
-				browserName: sauce[0],
-				version: sauce[1],
-				platform: sauce[2]
-			}};
+			var def = {
+				browserName: ua[0],
+				browserVersion: ua[1],
+				sauce: {
+					browserName: sauce[0],
+					version: sauce[1],
+					platform: sauce[2]
+				}
+			};
 			if (sauce[3]) def['sauce']['deviceName'] = sauce[3];
 			return def;
 		});

@@ -5,7 +5,6 @@ node_js:
 notifications:
   email: false
 before_script:
-  - npm install -g karma-cli
   - npm install -g grunt-cli
 script:
   - grunt ci --stack
