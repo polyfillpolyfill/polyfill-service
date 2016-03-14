@@ -1,0 +1,1 @@
+'log' in this.console

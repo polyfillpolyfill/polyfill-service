@@ -1,12 +1,13 @@
 'use strict';
 
 require('dotenv').config({silent: true});
+const path = require('path');
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			dist: ['polyfills/__dist']
+			dist: [path.resolve(__dirname, '/polyfills/__dist')]
 		},
 		"simplemocha": {
 			options: {
@@ -177,6 +178,6 @@ var browsers = {
 		'android/4.3',
 		'android/4.2',
 		'android/4.1',
-		'ios_saf/9.1'
+		'ios_saf/9.2'
 	]
 };
