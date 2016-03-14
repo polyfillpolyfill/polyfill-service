@@ -18,7 +18,7 @@ it('has correct argument length', function () {
 });
 
 it('is not enumerable', function () {
-	expect(Array.prototype.propertyIsEnumerable('fill')).to.be.false;
+	expect(Array.prototype.propertyIsEnumerable('fill')).to.eql(false);
 });
 
 it('fills whole array when using only one argument', function () {
