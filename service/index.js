@@ -10,6 +10,7 @@ var Raven = require('raven');
 var metrics = require('./metrics');
 var testing = require('./testing');
 var docs = require('./docs');
+var morgan = require('morgan');
 var appVersion = require(path.join(__dirname,'../package.json')).version;
 var hostname = require("os").hostname();
 
@@ -23,11 +24,18 @@ var dateDeployed;
 
 require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
 	dateDeployed = stat.mtime;
-})
+});
+
+// Log requests
+if (process.env.ENABLE_ACCESS_LOG) {
+	app.use(morgan('method=:method path=":url" request_id=:req[X-Request-ID] status=:status service=:response-time bytes=:res[content-length]'));
+}
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
-	var ravenClient = new Raven.Client(process.env.SENTRY_DSN);
+	var ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
+		release: appVersion
+	});
 	ravenClient.patchGlobal();
 	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
 }
@@ -52,18 +60,18 @@ app.get(/\/test\/tests\/?$/, testing.createEndpoint('runner', polyfillio));
 
 /* Documentation and version routing */
 
-app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:([^\/]+)\/?)?)?)?)?$/, docs.route);
-app.use(/^\/v[12]\/docs\/assets/, express.static(__dirname + '/../docs/assets'));
+app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, docs.route);
+app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
 
 
 /* Endpoints for health, application metadata and availability status
  * compliant with FT Origami standard
  * http://origami.ft.com/docs/syntax/web-service-description/ */
 
-// Allow robots to index docs only (avoid indexing API endpoints linked from websites that are using the service)
+// Allow robots to index the site, including polyfill bundles as some sites need polyfills in order to be indexable!
 app.get('/robots.txt', function (req, res) {
     res.type('text/plain');
-    res.send("User-agent: *\nAllow: /v1/docs\nAllow: /v2/docs\nDisallow: /");
+    res.send("User-agent: *\nDisallow:");
 });
 
 app.get(/^\/__about$/, function(req, res) {
@@ -140,26 +148,31 @@ app.get(/^\/__health$/, function(req, res) {
 
 /* API endpoints */
 
-app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
-	metrics.meter('hits').mark();
+app.get(/^\/v1\/(.*)/, function(req, res) {
+
+	var qs = Object.keys(req.query).reduce(function(out, key) {
+		if (key !== 'libVersion' && key !== 'gated') {
+			out.push(key+'='+encodeURIComponent(req.query[key]));
+		}
+		return out;
+	}, []).join('&');
+	var redirPath = '/v2/' + req.params[0] + (qs.length ? '?'+qs : '');
+
+	res.status(301);
+	res.set('Location', redirPath);
+	res.set('Deprecation-Notice', 'API version 1 has been decommissioned - see the body of this response for more information.');
+	res.send('API version 1 has been decommissioned. Your request is being redirected to v2.  The `libVersion` and `gated` query string parameters are no longer supported and if present have been removed from your request.\n\nA deprecation period for v1 existed between August and December 2015, during which time v1 requests were honoured but a deprecation warning was added to output.');
+});
+
+app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+	metrics.counter('hits').inc();
 	var respTimeTimer = metrics.timer('respTime').start();
-	var apiVersion = parseInt(req.params[0], 10);
-	var firstParameter = req.params[1].toLowerCase();
+	var firstParameter = req.params[0].toLowerCase();
 	var minified =  firstParameter === '.min';
-	var fileExtension = req.params[2] ? req.params[2].toLowerCase() : firstParameter;
+	var fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
 	var uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
 	var flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
 	var warnings = [];
-
-	if (apiVersion === 1) {
-		warnings.push('API Version 1 is deprecated: please consider upgrading to v2.  API v1 will be closed after December 31, 2015, at which time v1 requests will be mapped internally to v2 requests and will be subject to potentially breaking changes.  See https://cdn.polyfill.io/v2/docs/api for details.');
-	}
-
-	// Backwards compatibility
-	if (req.query.gated && apiVersion < 2) {
-		flags.push('gated');
-		warnings.push('The `gated` query parameter is deprecated and is not supported in API v2.  Set `flags=gated` instead.');
-	}
 
 	// Currently don't support CSS
 	if (fileExtension !== '.js') {
@@ -169,7 +182,7 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		return;
 	}
 
-	var polyfills = PolyfillSet.fromQueryParam(req.query.features || 'default', flags);
+	var polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
 
 	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {
@@ -180,22 +193,12 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		features: polyfills.get(),
 		minify: minified
 	};
-	if (req.query.libVersion && apiVersion === 1) {
-		warnings.push('The `libVersion` query parameter is deprecated and switching library version at runtime is not supported in API v2.  To use an older version of the polyfill library, consider running your own version of the service at the version that you want.');
-		params.libVersion = req.query.libVersion;
-	}
 	if (req.query.unknown) {
 		params.unknown = req.query.unknown;
 	}
 	if (uaString) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
-	}
-	if (req.header('referer')) {
-		var ref = URL.parse(req.header('referer')).hostname;
-		if (ref) {
-			metrics.counter('refererdomains.'+ref.replace(/\./g, '-')).inc();
-		}
 	}
 
 	polyfillio.getPolyfillString(params).then(function(op) {
@@ -213,7 +216,7 @@ app.get(/^\/v([12])\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 });
 
-app.get("/v[12]/normalizeUa", function(req, res, next) {
+app.get("/v2/normalizeUa", function(req, res, next) {
 
 	if (req.query.ua) {
 		res.status(200);
@@ -240,6 +243,9 @@ function startService(port, callback) {
 		})
 		.on('error', function (err) {
 			callback(err);
+		})
+		.on('clientError', function (ex, sock) {
+			console.log('HTTP clientError: ', ex.code);
 		});
 }
 

@@ -9,11 +9,11 @@
 		"ios_chr": "*",
 		"android": "*",
 		"op_mob": "*",
-		"ie_mob": "*",
-		"firefox_mob": "*"
+		"ie_mob": "<10",
+		"firefox_mob": "*",
+		"bb": "*",
+		"op_mini": "*"
 	},
-	"dependencies": [
-		"_enqueueMicrotask"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
+	"repo": "https://github.com/YuzuJS/setImmediate"
 }

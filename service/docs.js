@@ -10,17 +10,23 @@ var PolyfillSet = require('./PolyfillSet');
 var polyfillservice = require('../lib');
 var compatdata = require('../docs/assets/compat.json');
 var extend = require('lodash').extend;
+var appVersion = require(path.join(__dirname,'../package.json')).version;
 
 var cache = {};
-var cachettl = 1800;
+var cachettls = {fastly:1800, respTimes:1800, outages:86400};
+var templCache = {};
 
-// Pre-cache page templates and partials
-var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].reduce(function(map, temName) {
-	map[temName] = Handlebars.compile(
-		fs.readFileSync(path.join(__dirname, '/../docs/' + temName + '.html'), {encoding: 'UTF-8'})
-	);
-	return map;
-}, {});
+// Template loader
+function template(name) {
+	if (name in templCache) return templCache[name];
+	return templCache[name] = new Promise(function(resolve, reject) {
+		var filepath = path.join(__dirname, '/../docs/' + name + '.html');
+		fs.readFile(filepath, 'utf-8', function(err, content) {
+			if (!err) resolve(Handlebars.compile(content));
+			else reject(err);
+		});
+	});
+}
 ['header', 'footer', 'nav'].forEach(function(partialName) {
 	Handlebars.registerPartial(partialName, Handlebars.compile(
 		fs.readFileSync(path.join(__dirname, '/../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
@@ -28,33 +34,25 @@ var templates = ['index', 'usage', 'compat', 'api', 'examples', 'contributing'].
 });
 
 // Register template helpers
-Handlebars.registerHelper("prettifyDate", function(timestamp) {
-     return moment(timestamp*1000).format("D MMM YYYY HH:mm");
-});
-Handlebars.registerHelper("prettifyDuration", function(seconds) {
-     return seconds ? moment.duration(seconds*1000).humanize() : 'None';
-});
-Handlebars.registerHelper('sectionHighlight', function(section, options) {
-	return (section === options.hash.name) ? new Handlebars.SafeString(' aria-selected="true"') : '';
-});
-Handlebars.registerHelper('dispBytes', function(bytes) {
-	var i = 0;
-	var byteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	do {
-		bytes /= 1024;
-		i++;
-	} while (bytes > 1024);
+Handlebars.registerHelper({
+	prettifyDate: function(timestamp) { return moment(timestamp*1000).format("D MMM YYYY HH:mm"); },
+	prettifyDuration: function(seconds) { return seconds ? moment.duration(seconds*1000).humanize() : 'None'; },
+	lower: function(str) { return str.toLowerCase(); },
+	ifEq: function(v1, v2, options) { return (v1 === v2) ? options.fn(this) : options.inverse(this); },
+	ifPrefix: function(v1, v2, options) { return (v1.indexOf(v2) === 0) ? options.fn(this) : options.inverse(this); },
+	sectionHighlight: function(section, pageName, options) {
+		return (section === pageName) ? new Handlebars.SafeString(' aria-selected="true"') : '';
+	},
+	dispBytes: function(bytes) {
+		var i = 0;
+		var byteUnits = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		do {
+			bytes /= 1024;
+			i++;
+		} while (bytes > 1024);
 
-	return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
-});
-Handlebars.registerHelper('lower', function(str) {
-	return str.toLowerCase();
-});
-Handlebars.registerHelper('ifEq', function(v1, v2, options) {
-	if (v1 == v2) {
-		return options.fn(this);
+		return new Handlebars.SafeString(Math.max(bytes, 0.1).toFixed(1) + byteUnits[i]);
 	}
-	return options.inverse(this);
 });
 
 
@@ -171,14 +169,18 @@ function getData(type) {
 					});
 				}));
 			}));
-		}
+		},
+		compat: getCompat
 	};
 
-	if (cache.hasOwnProperty(type) && cache[type].creationTime > ((new Date()).getTime() - (cachettl*1000)) ) {
+	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
 		return cache[type].promise;
 	} else {
-		console.log('Generating docs data', type);
-		cache[type] = {creationTime: (new Date()).getTime()};
+		cache[type] = {};
+		if (cachettls[type]) {
+			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		}
+		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
 		try {
 			return cache[type].promise = handlers[type]();
 		} catch(err) {
@@ -188,14 +190,13 @@ function getData(type) {
 }
 
 function getCompat() {
-	var sourceslib = sources.latest;
+	var sourceslib = sources.getCollection();
 	var browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 	var msgs = {
 		'native': 'Supported natively',
 		'polyfilled': 'Supported with polyfill service',
 		'missing': 'Not supported'
 	};
-	console.log('Generating compatibility data');
 	return Promise.all(Object.keys(compatdata)
 		.filter(function(feature) {
 			return sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0;
@@ -206,17 +207,15 @@ function getCompat() {
 				var fdata = {
 					feature: feat,
 					slug: feat.replace(/\./g, '_'),
-					size: Object.keys(polyfill.variants).reduce(function(size, variantName) {
-						return Math.max(size, polyfill.variants[variantName].minSource.length);
-					}, 0),
+					size: polyfill.minSource.length,
 					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 					hasTests: polyfill.hasTests,
 					docs: polyfill.docs,
 					baseDir: polyfill.baseDir,
 					spec: polyfill.spec,
 					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-					license: polyfill.variants.default.license,
-					licenseIsUrl: polyfill.variants.default.license && polyfill.variants.default.license.length > 5
+					license: polyfill.license,
+					licenseIsUrl: polyfill.license && polyfill.license.length > 5
 				};
 				browsers.forEach(function(browser) {
 					if (compatdata[feat][browser]) {
@@ -255,64 +254,63 @@ function route(req, res, next) {
 	if (req.path.length < "/v2/docs/".length) {
 		return res.redirect('/v2/docs/');
 	}
-	var locals = {
-		apiversion: req.params[0]
-	};
+	Promise
+		.resolve({
+			apiversion: req.params[0],
+			appversion: appVersion,
+			pageName: (req.params[1] || 'index').replace(/\/$/, '')
+		})
+		.then(function(locals) {
+			if (locals.pageName === 'usage') {
 
-	if (!req.params || !req.params[1]) {
-		res.send(templates.index(extend({section: 'index'}, locals)));
+				// Set the ttl to one hour for the usage page so the graphs are
+				// updated more frequently, overriding the default cache-control
+				// behaviour set in index.js
+				var one_hour = 60 * 60;
+				var one_week = one_hour * 24 * 7;
+				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
+					return extend(locals, {
+						requestsData: fastly.byhour,
+						downtime: outages,
+						respTimes: respTimes,
+						hitCount: fastly.rollup.hits,
+						missCount: fastly.rollup.miss
+					});
+				})).catch(function(ex) {
+					return extend(locals, {
+						msg: ex.error || ex.message || ex.toString()
+					});
+				});
 
-	} else if (req.params[1] === 'usage') {
-		// Set the ttl to one hour for the usage page so the graphs are
-		// updated more frequently, overriding the default cache-control
-		// behaviour set in index.js
-		var one_hour = 60 * 60;
-		var one_week = one_hour * 24 * 7;
-		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-		Promise.all([getData('fastly'), getData('outages'), getData('respTimes')]).then(spread(function(fastly, outages, respTimes) {
-			res.send(templates.usage(extend({
-				section: 'usage',
-				requestsData: fastly.byhour,
-				downtime: outages,
-				respTimes: respTimes,
-				hitCount: fastly.rollup.hits,
-				missCount: fastly.rollup.miss
-			}, locals)));
-		})).catch(function(rejectReason) {
-			res.send(templates.usage(extend({
-				section: 'usage',
-				msg: rejectReason.toString()
-			}, locals)));
-		});
+			} else if (locals.pageName === 'features') {
+				return Promise.all([getData('sizes'), getData('compat')]).then(spread(function(sizes, compat) {
+					return extend(locals, {
+						compat: compat,
+						sizes: sizes
+					}, locals);
+				})).catch(function (err) {
+					console.log(err.stack || err);
+				});
 
-	} else if (req.params[1] === 'features') {
-		Promise.all([getData('sizes'), getCompat()]).then(spread(function(sizes, compat) {
-			res.send(templates.compat(extend({
-				section: 'features',
-				compat: compat,
-				sizes: sizes
-			}, locals)));
-		})).catch(function (err) {
-			console.log (err.stack || err);
-		});
+			} else if (locals.pageName === 'contributing/authoring-polyfills') {
+				return extend(locals, {
+					baselines: require('../lib/UA').getBaselines()
+				});
 
-	} else if (req.params[1] === 'api') {
-		res.send(templates.api(extend({
-			hasVersions: sources.listVersions().length > 1,
-			versions: sources.listVersions(),
-			section: 'api'
-		}, locals)));
-
-	} else if (req.params[1] === 'examples') {
-
-		res.send(templates.examples(extend({section: 'examples'}, locals)));
-
-	} else if (req.params[1] === 'contributing') {
-		res.send(templates.contributing(extend({section: 'contributing', baselines: require('../lib/UA').getBaselines()}, locals)));
-
-	} else {
-		next();
-	}
+			} else {
+				return locals;
+			}
+		})
+		.then(function(locals) {
+			template(locals.pageName)
+				.then(function(templFn) {
+					res.send(templFn(locals));
+				})
+				.catch(function() { next() })
+			;
+		})
+	;
 }
 
 module.exports = {

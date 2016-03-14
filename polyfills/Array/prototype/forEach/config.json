@@ -2,7 +2,8 @@
 	"aliases": [
 		"default",
 		"es5",
-		"modernizr:es5array"
+		"modernizr:es5array",
+		"blissfuljs"
 	],
 	"browsers": {
 		"ie": "6 - 8"

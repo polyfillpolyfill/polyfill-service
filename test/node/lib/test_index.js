@@ -25,7 +25,7 @@ describe("polyfillio", function() {
 				uaString: 'chrome/38'
 			}).then(function(polyfillSet) {
 				assert.deepEqual(polyfillSet, {
-					'Array.prototype.map': { flags:['always'], polyfillVariant:'default' }
+					'Array.prototype.map': { flags:['always'] }
 				});
 			});
 		});
@@ -38,25 +38,23 @@ describe("polyfillio", function() {
 				uaString: 'ie/8'
 			}).then(function(polyfillSet) {
 				assert.deepEqual(polyfillSet, {
-					'Element.prototype.placeholder': { flags:[], polyfillVariant:'default' },
-					'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'ie8' },
-					'Element': { flags: [], aliasOf: ['Element.prototype.placeholder', 'document.querySelector'], polyfillVariant: 'ie8' },
-					'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'], polyfillVariant:'default' },
-					'Document': { flags: [], aliasOf: ['document.querySelector'], polyfillVariant: 'ie8' }
+					'Element.prototype.placeholder': { flags:[] },
+					'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
+					'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
+					'Element': { flags: [], aliasOf: ['Element.prototype.placeholder', 'document.querySelector'] },
+					'Document': { flags: [], aliasOf: ['Element', 'Element.prototype.placeholder', 'document.querySelector'] }
 				});
 			});
 		});
 
-		it("should choose the right variant", function() {
+		it("should not include unused dependencies", function() {
 			return polyfillio.getPolyfills({
 				features: {
-					'Math.sign': { flags: [] }
+					'Promise': { flags: [] }
 				},
-				uaString: 'ie/7'
+				uaString: 'chrome/45'
 			}).then(function(polyfillSet) {
-				assert.deepEqual(polyfillSet, {
-					'Math.sign': { flags:[], polyfillVariant:'plus' }
-				});
+				assert.deepEqual(polyfillSet, {});
 			});
 		});
 
@@ -79,7 +77,7 @@ describe("polyfillio", function() {
 					uaString: ''
 				}).then(function(polyfillSet) {
 					assert.deepEqual(polyfillSet, {
-						'Math.sign': { flags:[], polyfillVariant:'default' }
+						'Math.sign': { flags:[] }
 					});
 				}),
 
@@ -89,7 +87,7 @@ describe("polyfillio", function() {
 					unknown: 'polyfill',
 				}).then(function(polyfillSet) {
 					assert.deepEqual(polyfillSet, {
-						'Math.sign': { flags:[], polyfillVariant:'default' }
+						'Math.sign': { flags:[] }
 					});
 				})
 			]);

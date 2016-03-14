@@ -1,20 +1,21 @@
 {
 	"aliases": [
-		"default"
+		"default",
+		"blissfuljs"
 	],
 	"browsers": {
 		"bb": "*",
-		"android": "*",
-		"chrome": "*",
+		"android": "<47",
+		"chrome": "* - 41",
 		"ie": "*",
 		"ie_mob": "*",
-		"ios_saf": "*",
-		"firefox": "6 - *",
-		"opera": "*",
+		"ios_saf": "<9.2",
+		"firefox": "6 - 34",
+		"opera": "<28",
 		"op_mini": "*",
-		"op_mob": "*",
-		"safari": "*",
-		"firefox_mob": "6 - *"
+		"op_mob": "<33",
+		"safari": "<9",
+		"firefox_mob": "6 - 43"
 	},
 	"dependencies": [
 		"Element.prototype.matches"

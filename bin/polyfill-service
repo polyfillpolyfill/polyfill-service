@@ -1,4 +1,15 @@
 #!/usr/bin/env node
+
+require('dotenv').config({silent: true});
+
+if (process.env.OPBEAT_ORG) {
+	require('opbeat').start({
+		organizationId: process.env.OPBEAT_ORG,
+		appId: process.env.OPBEAT_APPID,
+		secretToken: process.env.OPBEAT_SECRET
+	});
+}
+
 var minimist = require('minimist');
 
 var packageJSON = require('../package.json');

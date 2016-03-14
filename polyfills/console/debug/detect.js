@@ -1,0 +1,1 @@
+'debug' in this.console

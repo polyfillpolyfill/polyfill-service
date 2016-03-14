@@ -1,10 +1,11 @@
 {
 	"aliases": [
 		"default",
-		"modernizr:classlist"
+		"modernizr:classlist",
+		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "6 - 9",
+		"ie": "8 - 9",
 		"safari": "4 - 4.1"
 	},
 	"dependencies": [

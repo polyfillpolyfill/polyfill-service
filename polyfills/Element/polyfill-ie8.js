@@ -1,1 +1,0 @@
-window.HTMLElement = window.Element;

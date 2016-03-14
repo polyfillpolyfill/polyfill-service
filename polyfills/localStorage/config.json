@@ -4,7 +4,8 @@
 		"modernizr:localstorage"
 	],
 	"browsers": {
-		"ie": "6 - 7"
+		"ie": "6 - 7",
+		"op_mini": "*"
 	},
 	"dependencies": [
 		"Window"

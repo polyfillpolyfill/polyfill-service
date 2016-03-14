@@ -7,8 +7,8 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
-		"firefox": "*",
+		"chrome": "<=40",
+		"firefox": "<=39",
 		"opera": "10 - 18",
 		"safari": "*",
 		"ie": "6 - *",

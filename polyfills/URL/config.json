@@ -1,16 +1,25 @@
 {
+	"aliases": [
+	  	"modernizr:urlparser",
+		"blissfuljs"
+	],
 	"browsers": {
-		"chrome": "5 - *",
-		"firefox": "4 - 29",
-		"ie": ">=8",
-		"ie_mob": ">=10",
-		"opera": "11.60 - *",
-		"safari": "5.1 - *",
-		"firefox_mob": "4 - 29"
+		"chrome": "<49",
+		"firefox": "<29",
+		"ie": "8 - *",
+		"ie_mob": "*",
+		"safari": "*",
+		"firefox_mob": "<29",
+		"opera": "<36",
+		"android": "*"
 	},
 	"dependencies": [
 		"Object.defineProperties",
 		"Array.prototype.forEach"
+	],
+	"notes": [
+	  "`searchParams` is not iterable and has no `forEach()`, `entries()`, `keys()`, `values()` methods",
+	  "Polyfill requires Object getters so fails in IE < 8"
 	],
 	"license": "CC0",
 	"repo": "https://github.com/inexorabletash/polyfill",

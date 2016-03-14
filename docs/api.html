@@ -6,17 +6,16 @@
 
 			<h1>API reference</h1>
 
-			{{#ifEq apiversion 1}}
-			<p>This version of the API is deprecated.  It is guaranteed to be available until December 31, 2015, after which requests may be redirected to v2 in a manner that is not guaranteed to be backwards compatible.  Please upgrade to <a href='/'>the latest version</a>.</p>
-			{{/ifEq}}
-			{{#ifEq apiversion 2}}
 			<h2>Migrating from v1</h2>
+
+			<aside>Here we're talking about the API version shown in the path (eg. <code>/v1/polyfill.min.js</code>), not the project version you find in the package.json file.</aside>
+
 			<ul>
 				<li><code>libVersion</code> is no longer supported.  We no longer support using an older version of the polyfill collection with the current version of the service.  To use an older polyfill library, use the version of the project that contains the library in the state you want it (not possible if using cdn.polyfill.io)</li>
 				<li><code>gated</code> is no longer supported.  Use <code>flags</code> instead.</li>
 				<li>There are changes to the Node API.  See the README for details.</li>
 			</ul>
-			{{/ifEq}}
+
 			<h2>GET /v{{apiversion}}/polyfill<var>:minify</var>.<var>:type</var></h2>
 
 			<p>Fetch a polyfill bundle.</p>
@@ -40,7 +39,7 @@
 					<td><code>features</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>List of browser features to polyfill. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v{{apiversion}}/docs/features/'>Browsers and Features</a> page, though group aliases such as 'es5' and 'es6' are also accepted (these are defined in the polyfills' config.json files - [here's an example](https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Array.from/config.json)).</p>
+						<p>List of browser features to polyfill. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v{{apiversion}}/docs/features/'>Browsers and Features</a> page, though group aliases such as 'es5' and 'es6' are also accepted (these are defined in the polyfills' config.json files - <a href="https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Array/from/config.json">here's an example</a>).</p>
 						<p>Each feature name may optionally be appended with zero or more of the following flags:</p>
 						<dl>
 							<dt><code>|always</code></dt>
@@ -48,7 +47,7 @@
 							<dt><code>|gated</code></dt>
 							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
 						</dl>
-						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.  Setting the value "all" will select every feature in the library (take care when using this, the resulting bundle may be very large)</p>
+						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.  Setting the value "all" will select every feature in the library (this is an extremely bad idea)</p>
 					</td>
 				</tr><tr>
 					<td><code>flags</code></td>
@@ -58,31 +57,14 @@
 					<td><code>ua</code></td>
 					<td>Querystring</td>
 					<td>
-						<p>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenerio, this is preferable to setting a inaccurate <code>User-Agent</code> header (the User-Agent header should properly be set to a string identifying the client you are using to make the request - for server side requests that might be cURL, for example).</p>
+						<p>User agent string to override the <code>User-Agent</code> header on the request.  Useful if the polyfill service is being used from the server-side, and in that scenario, this is preferable to setting an inaccurate <code>User-Agent</code> header (the User-Agent header should properly be set to a string identifying the client you are using to make the request - for server side requests that might be cURL, for example).</p>
 						<p>Normally, responses from the service will Vary on User-Agent. Setting the <code>ua</code> parameter means responses no longer differ between user agents, so the <code>Vary</code> header will not list User-Agent as a vary value.</p>
 					</td>
 				</tr><tr>
 					<td><code>callback</code></td>
 					<td>Querystring</td>
-					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asyncronously with <code>async</code> and <code>defer</code> attributes.</td>
+					<td>Name of JavaScript function to call after polyfills are loaded.  Must match the PCRE expression <code>^[\w\.]+$</code> otherwise will have no effect.  Note that this feature differs from normal JSONp in that nothing is passed to the function - it is simply a way of triggering your own code when the polyfills have loaded, intended to allow the polyfill service to be more easily loaded asynchronously with <code>async</code> and <code>defer</code> attributes.</td>
 				</tr>
-				{{#ifEq apiversion 1}}
-				<tr>
-					<td><code>libVersion</code></td>
-					<td>Querystring</td>
-					<td>
-						<p>Version of the polyfill collection to use. Accepts any valid <a href='https://semver.org'>semver</a> expression.  This is useful if you wish to synronise releases in the polyfill service with your own release process, to ensure that incompatibilities cannot cause errors in your applications without warning.</p>
-						{{#hasVersions}}
-						<p>The following versions are available:</p>
-						<p class='versionlist'>{{#versions}}<code>{{.}}</code>{{/versions}}</p>
-						<p>If not specified, the latest version of the library will be used.</p>
-						{{/hasVersions}}
-						{{^hasVersions}}
-						<p><em>Historic polyfill collections are not installed.  To install run <code>grunt installcollections</code>.  Only the `latest` collection is available.</code></em></p>
-						{{/hasVersions}}
-					</td>
-				</tr>
-				{{/ifEq}}
 				<tr>
 					<td><code>unknown</code></td>
 					<td>Querystring</td>

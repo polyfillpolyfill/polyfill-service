@@ -1,0 +1,1 @@
+'info' in this.console

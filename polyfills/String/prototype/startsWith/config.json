@@ -1,12 +1,13 @@
 {
 	"aliases": [
 		"es6",
-		"modernizr:es6string"
+		"modernizr:es6string",
+		"blissfuljs"
 	],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
+		"chrome": "<=40",
 		"firefox": "3.6 - 17",
 		"opera": "10 - 18",
 		"safari": "*",

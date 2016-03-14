@@ -1,17 +1,10 @@
 {
 	"browsers": {
-		"ie": "8"
+		"ie": "6 - 8"
 	},
 	"dependencies": [
 		"Object.defineProperties"
 	],
-	"variants": {
-		"ie7": {
-			"browsers": {
-				"ie": "6 - 7"
-			}
-		}
-	},
 	"aliases": [
 		"viewport",
 		"innerHeight",

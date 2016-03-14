@@ -5,19 +5,12 @@
 	"browsers": {
 		"firefox": "* - 8",
 		"safari": "* - 2",
-		"ie": "9 - *",
+		"ie": "*",
 		"ie_mob": "10 - *",
 		"firefox_mob": "* - 8"
 	},
-	"variants": {
-		"document": {
-			"browsers": {
-				"ie": "* - 8"
-			},
-			"dependencies": [
-				"Element"
-			]
-		}
-	},
+	"dependencies": [
+		"Element"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Node/contains"
 }

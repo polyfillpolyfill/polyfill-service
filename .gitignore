@@ -1,11 +1,11 @@
 /node_modules
 /npm-debug.log
-/polyfills/__repo
-/polyfills/__versions
+/newrelic_agent.log
 /polyfills/__dist
 /polyfills/aliases.json
 /test/results
 /.env.json
+/.env
 /.service.pid
 /.haikro-cache
 /node-*

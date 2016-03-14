@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"modernizr:promises",
-		"caniuse:promises"
+		"caniuse:promises",
+		"blissfuljs"
 	],
 	"browsers": {
 		"android": "* - 4.4",
@@ -17,7 +18,7 @@
 		"firefox_mob": "6 - 28"
 	},
 	"dependencies": [
-		"_enqueueMicrotask",
+		"setImmediate",
 		"Array.isArray"
 	],
 	"notes": [

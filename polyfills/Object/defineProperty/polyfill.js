@@ -1,33 +1,33 @@
-(function () {
-	if (Object.defineProperty) {
-		return;
-	}
+(function (nativeDefineProperty) {
 
 	var supportsAccessors = Object.prototype.hasOwnProperty('__defineGetter__');
 	var ERR_ACCESSORS_NOT_SUPPORTED = 'Getters & setters cannot be defined on this javascript engine';
 	var ERR_VALUE_ACCESSORS = 'A property cannot both have accessors and be writable or have a value';
 
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
-		// handle object
+
+		// Where native support exists, assume it
+		if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
+			return nativeDefineProperty(object, property, descriptor);
+		}
+
+		var propertyString = String(property);
+		var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
+		var getterType = 'get' in descriptor && typeof descriptor.get;
+		var setterType = 'set' in descriptor && typeof descriptor.set;
+
 		if (object === null || !(object instanceof Object || typeof object === 'object')) {
-			throw new TypeError('Object must be an object');
+			throw new TypeError('Object must be an object (Object.defineProperty polyfill)');
 		}
 
-		// handle descriptor
 		if (!(descriptor instanceof Object)) {
-			throw new TypeError('Descriptor must be an object');
+			throw new TypeError('Descriptor must be an object (Object.defineProperty polyfill)');
 		}
-
-		var
-		propertyString = String(property),
-		getterType = 'get' in descriptor && typeof descriptor.get,
-		setterType = 'set' in descriptor && typeof descriptor.set,
-		hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
 
 		// handle descriptor.get
 		if (getterType) {
 			if (getterType !== 'function') {
-				throw new TypeError('Getter expected a function');
+				throw new TypeError('Getter expected a function (Object.defineProperty polyfill)');
 			}
 			if (!supportsAccessors) {
 				throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
@@ -43,7 +43,7 @@
 		// handle descriptor.set
 		if (setterType) {
 			if (setterType !== 'function') {
-				throw new TypeError('Setter expected a function');
+				throw new TypeError('Setter expected a function (Object.defineProperty polyfill)');
 			}
 			if (!supportsAccessors) {
 				throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
@@ -54,7 +54,11 @@
 			object.__defineSetter__(propertyString, descriptor.set);
 		}
 
-		// return object
+		// OK to define value unconditionally - if a getter has been specified as well, an error would be thrown above
+		if ('value' in descriptor) {
+			object[propertyString] = descriptor.value;
+		}
+
 		return object;
 	};
-}());
+}(Object.defineProperty));

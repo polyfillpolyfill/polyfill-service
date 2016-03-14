@@ -31,9 +31,13 @@
     "test": "grunt test"
   },
   "license": "CC0-1.0",
+  "engines": {
+    "node": ">5.0.0"
+  },
   "dependencies": {
     "blocked": "^1.1.0",
     "denodeify": "^1.2.1",
+    "dotenv": "^1.2.0",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
     "graphite": "0.0.6",
@@ -46,9 +50,11 @@
     "mkdirp": "^0.5.0",
     "mocha": "^1.20.1",
     "moment": "^2.8.3",
+    "morgan": "^1.6.1",
+    "opbeat": "^3.1.4",
     "raven": "^0.8.1",
     "request-promise": "^0.3.2",
-    "semver": "^2.3.1",
+    "semver": "^5.0.0",
     "tsort": "0.0.1",
     "useragent": "^2.0.8"
   },
@@ -61,13 +67,13 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
-    "intl": "~1.0.0-rc-4",
-    "picturefill": "^3.0.0-beta1",
-    "svg4everybody": "^2.0.0",
+    "intl": "~1.1.0",
+    "picturefill": "^3.0.1",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
+	"svg4everybody": "^2.0.0",
     "uglify-js": "^2.4.14",
     "wd": "^0.3.8"
   },
-  "version": "2.2.4"
+  "version": "3.3.0"
 }

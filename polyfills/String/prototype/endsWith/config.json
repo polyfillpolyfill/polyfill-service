@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"es6",
-		"modernizr:es6string"
+		"modernizr:es6string",
+		"blissfuljs"
 	],
 	"browsers": {
 		"android": "*",
