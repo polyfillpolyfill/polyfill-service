@@ -84,7 +84,6 @@ module.exports = function(grunt) {
 		options.browsers = options.browsers.map(function(b) {
 			var ua = b.split('/');
 			var sauce = useragentToSauce[b];
-			console.log(useragentToSauce, b, sauce);
 			var def = {
 				browserName: ua[0],
 				browserVersion: ua[1],
