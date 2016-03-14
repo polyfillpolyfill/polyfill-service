@@ -1,3 +1,5 @@
+'use strict';
+
 var polyfillio = require('../lib');
 var express = require('express');
 var app = express().enable("strict routing");
@@ -13,8 +15,6 @@ var docs = require('./docs');
 var morgan = require('morgan');
 var appVersion = require(path.join(__dirname,'../package.json')).version;
 var hostname = require("os").hostname();
-
-'use strict';
 
 var one_day = 60 * 60 * 24;
 var one_week = one_day * 7;
