@@ -56,3 +56,7 @@ it('does not fill if end index is not a number', function () {
 	expect([1, 2, 3].fill(1, 0, '')).to.eql([1, 2, 3]);
 	expect([1, 2, 3].fill(2, 0, {})).to.eql([1, 2, 3]);
 });
+
+it('works on array-like objects', function () {
+  expect([].fill.call({ length: 3 }, 4)).to.eql({0: 4, 1: 4, 2: 4, length: 3});
+});
