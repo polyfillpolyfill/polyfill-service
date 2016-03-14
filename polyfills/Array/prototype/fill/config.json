@@ -3,7 +3,11 @@
 		"es6"
 	],
 	"browsers": {
-		"ie": "6 - 11"
+		"ie": "6 - 11",
+		"safari": "<= 7",
+		"firefox": "< 31",
+		"chrome": "< 45",
+		"ios_saf": "<= 7"
 	},
 	"dependencies": [
 		"Object.defineProperty"
