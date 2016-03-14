@@ -61,11 +61,11 @@
 			}
 		};
 		Object.defineProperty(ObjectProto, uid, descriptor);
-		return (source[uid] = Object.freeze(Object.defineProperty(
+		return Object.freeze(source[uid] = Object.defineProperty(
 			Object(uid),
 			'constructor',
 			sourceConstructor
-		)));
+		));
 	};
 	var Symbol = function Symbol(description) {
 			if (this && this !== G) {
