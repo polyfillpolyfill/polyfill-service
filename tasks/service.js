@@ -157,19 +157,13 @@ module.exports = function(grunt) {
 
 		switch (task) {
 			case "stop":
-				return killByPid(function() {
-					return done();
-				});
+				return killByPid(done);
 			case "restart":
 				return killByPid(function() {
-					return start(function() {
-						return done();
-					});
+					return start(done);
 				});
 			case "start":
-				return start(function() {
-					return done();
-				});
+				return start(done);
 		}
 	});
 };
