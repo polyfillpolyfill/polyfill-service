@@ -67,8 +67,8 @@ module.exports = function(grunt) {
 			let command;
 			let args;
 
-			const spawned = function() { return data.blocking ? undefined : callback(); };
-			const closed = function() { return data.blocking ? callback() : undefined; };
+			const spawned = () => data.blocking ? undefined : callback();
+			const closed = () => data.blocking ? callback() : undefined;
 
 			if (data.pidFile) {
 				if (fs.existsSync(data.pidFile)) {
