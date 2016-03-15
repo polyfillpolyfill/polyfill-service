@@ -24,7 +24,6 @@ function loopUntil(fnEndOk, done) {
 };
 
 module.exports = function(grunt) {
-	const log = grunt.log;
 	return grunt.registerMultiTask('service', 'background service', function(task) {
 		const target = this.target;
 		const data = this.data;
@@ -36,7 +35,7 @@ module.exports = function(grunt) {
 
 		function killByPid(callback) {
 			if (!fs.existsSync(data.pidFile)) {
-				log.writeln("Service " + target + " - pid file not exists");
+				grunt.log.writeln("Service " + target + " - pid file not exists");
 				if (data.failOnError) {
 					return;
 				} else {
@@ -44,17 +43,17 @@ module.exports = function(grunt) {
 				}
 			}
 			const pid = parseInt(fs.readFileSync(data.pidFile));
-			log.writeln("Service " + target + "(pid=" + pid + ") is killing ");
+			grunt.log.writeln("Service " + target + "(pid=" + pid + ") is killing ");
 			try {
 				process.kill(pid);
 			} catch (_error) {
-				log.writeln("Service " + target + "(pid=" + pid + ") does not exists.");
+				grunt.log.writeln("Service " + target + "(pid=" + pid + ") does not exists.");
 				return callback();
 			}
 			return loopUntil(function() {
 				return !existProcess(pid);
 			}, function() {
-				log.writeln("Service " + target + "(pid=" + pid + ") is killed.");
+				grunt.log.writeln("Service " + target + "(pid=" + pid + ") is killed.");
 				return callback();
 			});
 		}
@@ -74,7 +73,7 @@ module.exports = function(grunt) {
 				if (fs.existsSync(data.pidFile)) {
 					pid = parseInt(fs.readFileSync(data.pidFile));
 					if (existProcess(pid)) {
-						log.writeln("Service " + target + "(pid=" + pid + ") is still running.");
+						grunt.log.writeln("Service " + target + "(pid=" + pid + ") is still running.");
 						if (data.failOnError) {
 							return;
 						}
@@ -99,7 +98,7 @@ module.exports = function(grunt) {
 				args = data.args;
 			}
 			proc = child_process.spawn(command, args, options);
-			log.writeln("Service " + target + " is starting.");
+			grunt.log.writeln("Service " + target + " is starting.");
 			if (proc.stdout) {
 				proc.stdout.on('data', function(d) {
 			if (!hasStarted) {
@@ -108,35 +107,35 @@ module.exports = function(grunt) {
 					hasStarted = true;
 				}
 			}
-					return log.writeln(d);
+					return grunt.log.writeln(d);
 				});
 			}
 			if (proc.stderr) {
 				proc.stderr.on('data', function(d) {
-					return log.writeln(d);
+					return grunt.log.writeln(d);
 				});
 			}
 			if (proc) {
-				log.writeln("Service Child PID = " + proc.pid);
+				grunt.log.writeln("Service Child PID = " + proc.pid);
 				proc.on('close', function(code) {
-					log.writeln('child process exited with code ', code);
+					grunt.log.writeln('child process exited with code ', code);
 					return closed();
 				});
 				proc.on('error', function() {
-					return log.writeln('error', arguments);
+					return grunt.log.error('error', arguments);
 				});
 				proc.on('exit', function() {
-					return log.writeln('exit', arguments);
+					return grunt.log.writeln('exit', arguments);
 				});
 				proc.on('close', function() {
-					return log.writeln('close', arguments);
+					return grunt.log.writeln('close', arguments);
 				});
 				proc.on('disconnect', function() {
-					return log.writeln('disconnect', arguments);
+					return grunt.log.writeln('disconnect', arguments);
 				});
 			}
 			if (data.generatePID && data.pidFile) {
-				log.writeln("Service Wrote PID to " + data.pidFile);
+				grunt.log.writeln("Wrote service PID to " + data.pidFile);
 				fs.writeFile(data.pidFile, proc.pid);
 			}
 			if (data.pidFile) {
@@ -144,11 +143,11 @@ module.exports = function(grunt) {
 					return fs.existsSync(data.pidFile) && hasStarted;
 				}, function() {
 					pid = parseInt(fs.readFileSync(data.pidFile));
-					log.writeln("Service " + target + "(pid=" + pid + ") is started.");
+					grunt.log.ok("Service " + target + "(pid=" + pid + ") is started.");
 					return spawned();
 				});
 			} else {
-				log.writeln("Service " + target + " is started.");
+				grunt.log.ok("Service " + target + " is started.");
 				return spawned();
 			}
 		}
