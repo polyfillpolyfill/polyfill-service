@@ -5,7 +5,7 @@ Object.defineProperty(Array.prototype, 'fill', {
 			throw new TypeError(this + ' is not an object');
 		}
 
-		var arrayLike = this instanceof String ? this.split('') : Object(this);
+		var arrayLike = Object(this);
 
 		var length = Math.max(Math.min(arrayLike.length, 9007199254740991), 0) || 0;
 
