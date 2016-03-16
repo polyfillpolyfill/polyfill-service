@@ -13,7 +13,7 @@ Object.defineProperty(Array.prototype, 'fill', {
 
 		relativeStart = relativeStart < 0 ? Math.max(length + relativeStart, 0) : Math.min(relativeStart, length);
 
-		var relativeEnd = 2 in arguments ? Math.floor(Number(arguments[2])) || 0 : length;
+		var relativeEnd = 2 in arguments && arguments[2] !== undefined ? Math.floor(Number(arguments[2])) || 0 : length;
 
 		relativeEnd = relativeEnd < 0 ? Math.max(length + arguments[2], 0) : Math.min(relativeEnd, length);
 
