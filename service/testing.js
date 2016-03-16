@@ -1,5 +1,7 @@
-var fs = require('fs');
-var path = require('path');
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Modes:
@@ -9,61 +11,52 @@ var path = require('path');
  */
 
 function createEndpoint(type, polyfillio) {
-	var templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/', type + '.html.handlebars'), {encoding: 'UTF-8'});
-	var template = require('handlebars').compile(templateSrc);
+	const templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/', type + '.html.handlebars'), {encoding: 'UTF-8'});
+	const template = require('handlebars').compile(templateSrc);
 
-	return function(req, res) {
-		var mode = req.query.mode  || 'all';
-		var uaString = req.query.ua || req.header('user-agent');
-		var featureListPromise;
+	return (req, res) => {
+		const mode = req.query.mode || 'all';
+		const uaString = req.query.ua || req.header('user-agent');
+		let featureListPromise;
 
 		// Get the feature set for this test runner.  If in 'targeted' mode, allow filtering on UA, else force the feature to be included
 		if (mode === 'targeted') {
-			featureListPromise = polyfillio.getPolyfills({ uaString: uaString, features: {all: {flags: []}} }).then(function(set) {
-				return Object.keys(set);
-			});
+			featureListPromise = polyfillio.getPolyfills({uaString, features: {all: {flags: []}} }).then(set => Object.keys(set));
 		} else {
 			featureListPromise = polyfillio.listAllPolyfills();
 		}
 
 		featureListPromise
-			.then(function(featuresList) {
+			.then(featuresList => {
 
 				// Filter for querystring args
-				featuresList = featuresList.filter(function(featureName) {
-					return (!req.query.feature || req.query.feature === featureName);
-				});
+				featuresList = featuresList.filter(featureName => (!req.query.feature || req.query.feature === featureName));
 
-				// Fetch configs for all the features to be tested
-				var polyfillSet = {};
-				return Promise.all(featuresList.map(function(featureName) {
-					return polyfillio.describePolyfill(featureName).then(function(config) {
-						polyfillSet[featureName] = config;
-					});
-				})).then(function() {
-					return polyfillSet;
-				});
+				// Fetch polyfill configs for all the features to be tested
+				return Promise.all(featuresList.map(featureName => {
+					return polyfillio.describePolyfill(featureName).then(config => ({[featureName]: config}) );
+				})).then(featureObjs => Object.assign({}, ...featureObjs));
 			})
-			.then(function(polyfillSet) {
-				var polyfilldata = [];
+			.then(polyfillSet => {
 
 				// Eliminate those that are not testable or not public
-				Object.keys(polyfillSet).forEach(function(featureName) {
-					var baseDir = path.join(__dirname, '../polyfills');
-					var config = polyfillSet[featureName];
-					var detectFile = path.join(baseDir, config.baseDir, '/detect.js');
-					var testFile = path.join(baseDir, config.baseDir, '/tests.js');
-					var isTestable = !('test' in config && 'ci' in config.test && config.test.ci === false);
-					var isPublic = featureName.indexOf('_') !== 0;
+				const polyfilldata = Object.keys(polyfillSet).reduce((acc, featureName) => {
+					const baseDir = path.join(__dirname, '../polyfills');
+					const config = polyfillSet[featureName];
+					const detectFile = path.join(baseDir, config.baseDir, '/detect.js');
+					const testFile = path.join(baseDir, config.baseDir, '/tests.js');
+					const isTestable = !('test' in config && 'ci' in config.test && config.test.ci === false);
+					const isPublic = featureName.indexOf('_') !== 0;
 
-					if (!isTestable || !isPublic) return true;
-
-					polyfilldata.push({
-						feature: featureName,
-						detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
-						tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
-					});
-				});
+					if (isTestable && isPublic) {
+						acc.push({
+							feature: featureName,
+							detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
+							tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
+						});
+					}
+					return acc;
+				}, []);
 
 				res.set('Cache-Control', 'no-store');
 				res.send(template({
@@ -73,7 +66,7 @@ function createEndpoint(type, polyfillio) {
 					mode: mode
 				}));
 			})
-			.catch(function(err) {
+			.catch(err => {
 				console.log(err.stack || err);
 			})
 		;
