@@ -65,7 +65,7 @@ it('works on array-like objects', function () {
   expect([].fill.call({ length: 3 }, 4)).to.eql({0: 4, 1: 4, 2: 4, length: 3});
 });
 
-it('returns the same array', function() {
+it('returns the same array', function () {
   var arr = [];
   var result = arr.fill(1);
 
@@ -74,60 +74,60 @@ it('returns the same array', function() {
 
 // start parameter tests
 
-it('undefined start coerced to 0', function() {
+it('undefined start coerced to 0', function () {
   expect([0, 0].fill(1, undefined)).to.eql([1, 1])
 });
 
-it('null start coerced to 0', function() {
+it('null start coerced to 0', function () {
   expect([0, 0].fill(1, null)).to.eql([1, 1])
 });
 
-it('true start coerced to 1', function() {
+it('true start coerced to 1', function () {
   expect([0, 0].fill(1, true)).to.eql([0, 1])
 });
 
-it('false start coerced to 0', function() {
+it('false start coerced to 0', function () {
   expect([0, 0].fill(1, false)).to.eql([1, 1])
 });
 
-it('NaN start coerced to 0', function() {
+it('NaN start coerced to 0', function () {
   expect([0, 0].fill(1, NaN)).to.eql([1, 1])
 });
 
-it('string start coerced to integer', function() {
+it('string start coerced to integer', function () {
   expect([0, 0].fill(1, '1')).to.eql([0, 1])
 });
 
-it('float start coerced to integer', function() {
+it('float start coerced to integer', function () {
   expect([0, 0].fill(1, 1.5)).to.eql([0, 1])
 });
 
 // end parameter tests
 
-it('undefined end coerced to length of `this`', function() {
+it('undefined end coerced to length of `this`', function () {
   expect([0, 0].fill(1, 0, undefined)).to.eql([1, 1])
 });
 
-it('null end coerced to 0', function() {
+it('null end coerced to 0', function () {
   expect([0, 0].fill(1, 0, null)).to.eql([0, 0])
 });
 
-it('true end coerced to 1', function() {
+it('true end coerced to 1', function () {
   expect([0, 0].fill(1, 0, true)).to.eql([1, 0])
 });
 
-it('false end coerced to 0', function() {
+it('false end coerced to 0', function () {
   expect([0, 0].fill(1, 0, false)).to.eql([0, 0])
 });
 
-it('NaN end coerced to 0', function() {
+it('NaN end coerced to 0', function () {
   expect([0, 0].fill(1, 0, NaN)).to.eql([0, 0])
 });
 
-it('string end coerced to integer', function() {
+it('string end coerced to integer', function () {
   expect([0, 0].fill(1, 0, '1')).to.eql([1, 0])
 });
 
-it('float end coerced to integer', function() {
+it('float end coerced to integer', function () {
   expect([0, 0].fill(1, 0, 1.5)).to.eql([1, 0])
 });
