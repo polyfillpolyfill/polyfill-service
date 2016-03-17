@@ -19,7 +19,24 @@ it('has correct argument length', function () {
 
 it('fills whole array when using only one argument', function () {
 	expect([1, 2, 3].fill(0)).to.eql([0, 0, 0]);
-	expect([1, 2, 3].fill()).to.eql([undefined, undefined, undefined]);
+});
+
+function compareArray(a, b) {
+  if (b.length !== a.length) {
+    return expect().fail('expected an array of length ' + b.length + ', received array of length ' + a.length);
+  }
+
+  for (var i = 0; i < a.length; i++) {
+    if (b[i] !== a[i]) {
+      return expect().fail('expected item in array index ' + i + ' to be ' + b[i] + ', received ' + a[i]);
+    }
+  }
+  return true;
+}
+
+
+it('fills whole array with undefined if passed no arguments', function () {
+	expect(compareArray([1, 2, 3].fill(), [undefined, undefined, undefined])).to.eql(true);
 });
 
 it('starts filling from the start index given by second argument', function () {
