@@ -1,14 +1,14 @@
 'use strict';
 
 const useragentToSauce = {
-	'chrome/48': ['chrome', '48', 'Windows 7'],
-	'chrome/46': ['chrome', '46', 'Windows 7'],
-	'chrome/42': ['chrome', '42', 'Windows 7'],
-	'chrome/40': ['chrome', '40', 'OSX 10.11'],
-	'chrome/35': ['chrome', '35', 'OSX 10.11'],
-	'chrome/30': ['chrome', '30', 'Windows 7'],
-	'firefox/45': ['firefox', '45', 'Linux'],
-	'firefox/42': ['firefox', '42', 'Linux'],
+	'chrome/48': ['chrome', '48.0', 'Windows 7'],
+	'chrome/46': ['chrome', '46.0', 'Windows 7'],
+	'chrome/42': ['chrome', '42.0', 'Windows 7'],
+	'chrome/40': ['chrome', '40.0', 'OS X 10.11'],
+	'chrome/35': ['chrome', '35.0', 'OS X 10.11'],
+	'chrome/30': ['chrome', '30.0', 'Windows 7'],
+	'firefox/44': ['firefox', '44.0', 'Linux'],
+	'firefox/42': ['firefox', '42.0', 'Linux'],
 	'firefox/41': ['firefox', '41', 'Linux'],
 	'firefox/33': ['firefox', '33', 'Linux'],
 	'firefox/30': ['firefox', '30', 'OSX 10.11'],
@@ -77,6 +77,7 @@ module.exports = function(grunt) {
 		options.browsers = options.browsers.map(b => {
 			const ua = b.split('/');
 			const sauce = useragentToSauce[b];
+			console.log(b);
 			const def = { browserName:ua[0], browserVersion:ua[1], sauce: {
 				browserName: sauce[0],
 				version: sauce[1],
