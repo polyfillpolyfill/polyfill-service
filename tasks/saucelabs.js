@@ -4,6 +4,7 @@ const useragentToSauce = {
 	'chrome/48': ['chrome', '48', 'Windows 7'],
 	'chrome/46': ['chrome', '46', 'Windows 7'],
 	'chrome/42': ['chrome', '42', 'Windows 7'],
+	'chrome/40': ['chrome', '40', 'OSX 10.11'],
 	'chrome/35': ['chrome', '35', 'OSX 10.11'],
 	'chrome/30': ['chrome', '30', 'Windows 7'],
 	'firefox/45': ['firefox', '45', 'Linux'],
