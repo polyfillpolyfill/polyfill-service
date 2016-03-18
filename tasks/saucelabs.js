@@ -1,14 +1,18 @@
 'use strict';
 
 const useragentToSauce = {
+	'chrome/48': ['chrome', '48', 'Windows 7'],
 	'chrome/46': ['chrome', '46', 'Windows 7'],
 	'chrome/42': ['chrome', '42', 'Windows 7'],
 	'chrome/35': ['chrome', '35', 'OSX 10.11'],
 	'chrome/30': ['chrome', '30', 'Windows 7'],
+	'firefox/45': ['firefox', '45', 'Linux'],
+	'firefox/42': ['firefox', '42', 'Linux'],
 	'firefox/41': ['firefox', '41', 'Linux'],
 	'firefox/33': ['firefox', '33', 'Linux'],
 	'firefox/30': ['firefox', '30', 'OSX 10.11'],
 	'firefox/20': ['firefox', '20', 'Linux'],
+	'ie/13': ['MicrosoftEdge', '13.10586', 'Windows 10'],
 	'ie/12': ['microsoftedge', '20.10240', 'Windows 10'],
 	'ie/11': ['internet explorer', '11', 'Windows 10'],
 	'ie/10': ['internet explorer', '10', 'Windows 7'],

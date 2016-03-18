@@ -132,18 +132,20 @@ module.exports = function(grunt) {
 
 var browsers = {
 	quick: [
-		'chrome/46',
-		'firefox/41',
+		'chrome/48',
+		'firefox/45',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/8',
 		'android/4.4'
 	],
 	ci: [
-		'chrome/46',
-		'chrome/35',
-		'firefox/41',
+		'chrome/48',
+		'chrome/40',
+		'firefox/42',
 		'firefox/30',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/10',
@@ -156,7 +158,7 @@ var browsers = {
 		'android/4.4'
 	],
 	full: [
-		'chrome/46',
+		'chrome/48',
 		'chrome/42',
 		'chrome/35',
 		'chrome/30',
@@ -164,6 +166,7 @@ var browsers = {
 		'firefox/33',
 		'firefox/30',
 		'firefox/20',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/10',
