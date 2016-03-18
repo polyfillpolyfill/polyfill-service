@@ -71,6 +71,7 @@
     "picturefill": "^3.0.1",
     "rimraf": "^2.4.0",
     "sauce-tunnel": "^2.2.3",
+	"svg4everybody": "^2.0.0",
     "uglify-js": "^2.4.14",
     "wd": "^0.3.8"
   },
