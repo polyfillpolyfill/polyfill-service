@@ -7,16 +7,16 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
+		"chrome": "1 - 44",
 		"firefox": "1 - 33",
 		"ie": "*",
 		"ie_mob": "*",
 		"ios_chr": "*",
 		"ios_saf": "*",
-		"opera": "*",
+		"opera": "1 - 31",
 		"op_mob": "*",
 		"op_mini": "*",
-		"safari": "*",
+		"safari": "1 - 8",
 		"firefox_mob": "1 - 33"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
