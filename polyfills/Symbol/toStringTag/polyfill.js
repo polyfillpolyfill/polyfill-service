@@ -1,4 +1,4 @@
-(function (Object, Symbol) {
+(function () {
 	var toString = Object.prototype.toString;
 	Object.defineProperty(Symbol, 'toStringTag', {value: Symbol('toStringTag')});
 	var descriptor = Object.getOwnPropertyDescriptor(Object.prototype, 'toString');
@@ -8,4 +8,4 @@
 		return typeof tst === 'undefined' ? str : ('[object ' + tst + ']');
 	};
 	Object.defineProperty(Object.prototype, 'toString', descriptor);
-}(Object, Symbol));
+}());

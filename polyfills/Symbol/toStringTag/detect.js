@@ -1,1 +1,1 @@
-'interator' in this.Symbol
+'toStringTag' in this.Symbol
