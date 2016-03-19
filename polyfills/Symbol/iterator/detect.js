@@ -1,1 +1,1 @@
-'interator' in this.Symbol
+'iterator' in this.Symbol
