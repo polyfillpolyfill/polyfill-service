@@ -1,0 +1,17 @@
+{
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"ie": "6 - 11",
+		"safari": "<= 7",
+		"firefox": "< 31",
+		"chrome": "< 45",
+		"ios_saf": "<= 7"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.fill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"
+}

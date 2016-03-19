@@ -1,5 +1,6 @@
 (function (global, splice) {
 	Object.defineProperty(Element.prototype, 'classList', {
+		configurable: true,
 		get: function () {
 			function pull() {
 				var className = (typeof element.className === "object" ? element.className.baseVal : element.className);

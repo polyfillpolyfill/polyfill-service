@@ -1,30 +1,29 @@
-var polyfillio = require('../lib');
-var express = require('express');
-var app = express().enable("strict routing");
-var origamijson = require('../origami.json');
-var PolyfillSet = require('./PolyfillSet');
-var fs = require('fs');
-var path = require('path');
-var URL = require('url');
-var Raven = require('raven');
-var metrics = require('./metrics');
-var testing = require('./testing');
-var docs = require('./docs');
-var morgan = require('morgan');
-var appVersion = require(path.join(__dirname,'../package.json')).version;
-var hostname = require("os").hostname();
-
 'use strict';
 
-var one_day = 60 * 60 * 24;
-var one_week = one_day * 7;
-var one_year = one_day * 365;
-var contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
-var dateDeployed;
+const polyfillio = require('../lib');
+const express = require('express');
+const app = express().enable("strict routing");
+const PolyfillSet = require('./PolyfillSet');
+const path = require('path');
+const Raven = require('raven');
+const metrics = require('./metrics');
+const testing = require('./testing');
+const docs = require('./docs');
+const morgan = require('morgan');
 
-require('fs').stat(path.join(__dirname,'../package.json'), function(err, stat) {
-	dateDeployed = stat.mtime;
+const one_day = 60 * 60 * 24;
+const one_week = one_day * 7;
+const one_year = one_day * 365;
+const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
+
+const serviceInfo = Object.assign({}, require(path.join(__dirname, '../about.json')), {
+	appVersion: require(path.join(__dirname,'../package.json')).version,
+	hostname: require("os").hostname(),
+	dateDeployed: require('fs').statSync(path.join(__dirname,'../package.json')).mtime
 });
+
+let ravenClient;
+
 
 // Log requests
 if (process.env.ENABLE_ACCESS_LOG) {
@@ -33,15 +32,15 @@ if (process.env.ENABLE_ACCESS_LOG) {
 
 // Set up Sentry (getsentry.com) to collect JS errors.
 if (process.env.SENTRY_DSN) {
-	var ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
-		release: appVersion
+	ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
+		release: serviceInfo.appVersion
 	});
 	ravenClient.patchGlobal();
-	app.use(Raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
+	app.use(Raven.middleware.express.requestHandler(ravenClient));
 }
 
-// Default cache control policy
-app.use(function(req, res, next) {
+// Default response headers
+app.use((req, res, next) => {
 	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
@@ -69,60 +68,26 @@ app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
  * http://origami.ft.com/docs/syntax/web-service-description/ */
 
 // Allow robots to index the site, including polyfill bundles as some sites need polyfills in order to be indexable!
-app.get('/robots.txt', function (req, res) {
+app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.send("User-agent: *\nDisallow:");
 });
 
-app.get(/^\/__about$/, function(req, res) {
-	var info = {
-		"schemaVersion": 1,
-		"name": "polyfill-service",
-		"systemCode": "origami-polyfill-service",
-		"purpose": "Stores a library of FT-approved polyfills and serves them to FT websites that need them in older browsers.",
-		"audience": "public",
-		"primaryUrl": "https://polyfill.webservices.ft.com",
-		"serviceTier": "silver",
-		"appVersion": appVersion,
-		"apiVersion": 2,
-		"apiVersions": [
-			{ "path": "/v1", "supportStatus": "deprecated", "dateTerminated": "2016-01-01T00:00:00Z" },
-			{ "path": "/v2", "supportStatus": "active" }
-		],
-		"hostname": hostname,
-		"dateCreated": "2014-07-14T10:28:45Z",
-		"dateDeployed": dateDeployed,
-		"contacts": [
-			{ "name": "Origami team", "email": "origami-support@ft.com", "rel": "owner", "domain": "All support enquiries" }
-		],
-		"links": [
-			{"url": "https://github.com/Financial-Times/polyfill-service/issues", "category": "issues"},
-			{"url": "https://github.com/Financial-Times/polyfill-service", "category": "repo"},
-			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service", "category": "deployment", "description": "Production Heroku app control panel"},
-			{"url": "https://dashboard.heroku.com/apps/ft-polyfill-service-qa", "category": "deployment", "description": "QA Heroku app control panel"},
-			{"url": "http://grafana.ft.com/dashboard/db/origami-polyfill-service", "category": "monitoring", "description": "Grafana dashboard"},
-			{"url": "https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog", "category": "deployment", "description": "Fastly CDN app"},
-			{"url": "https://my.pingdom.com/reports/uptime#check=1338405", "category": "monitoring", "description": "Pingdom check"},
-			{"url": "https://docs.google.com/drawings/d/1eA_sYaSRkvOqIxdkN6LRpyHeOzv8Mxr51WMfXM1sS3Q/edit", "category": "documentation", "description": "Architecture diagram"},
-			{"url": "https://github.com/Financial-Times/polyfill-service/blob/master/README.md", "category": "documentation", "description": "README"},
-			{"url": "https://travis-ci.org/Financial-Times/polyfill-service", "category": "testing", "description": "Continuous Integration status on Travis"}
-		]
-	};
-
-	res.set("Content-Type", "application/json;charset=utf-8");
-	res.send(JSON.stringify(info));
+app.get(/^\/__about$/, (req, res) => {
+	res.type("application/json;charset=utf-8");
+	res.json(serviceInfo);
 });
 
 // "Good to go" endpoint
-app.get(/^\/__gtg$/, function(req, res) {
-	res.set("Content-Type", "text/plain;charset=utf-8");
+app.get(/^\/__gtg$/, (req, res) => {
+	res.type("text/plain;charset=utf-8");
 	res.set("Cache-Control", "no-cache");
 	res.send("OK");
 });
 
 // Healthcheck
-app.get(/^\/__health$/, function(req, res) {
-	var info = {
+app.get(/^\/__health$/, (req, res) => {
+	const info = {
 		"schemaVersion": 1,
 		"name": "polyfill-service",
 		"description": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent.  More at http://github.com/Financial-Times/polyfill-service.",
@@ -141,22 +106,22 @@ app.get(/^\/__health$/, function(req, res) {
 	};
 
 	res.set('Cache-Control', 'no-cache');
-	res.set('Content-Type', 'application/json;charset=utf-8');
-	res.send(JSON.stringify(info));
+	res.type('application/json;charset=utf-8');
+	res.json(info);
 });
 
 
 /* API endpoints */
 
-app.get(/^\/v1\/(.*)/, function(req, res) {
+app.get(/^\/v1\/(.*)/, (req, res) => {
 
-	var qs = Object.keys(req.query).reduce(function(out, key) {
+	const qs = Object.keys(req.query).reduce((out, key) => {
 		if (key !== 'libVersion' && key !== 'gated') {
 			out.push(key+'='+encodeURIComponent(req.query[key]));
 		}
 		return out;
 	}, []).join('&');
-	var redirPath = '/v2/' + req.params[0] + (qs.length ? '?'+qs : '');
+	const redirPath = '/v2/' + req.params[0] + (qs.length ? '?'+qs : '');
 
 	res.status(301);
 	res.set('Location', redirPath);
@@ -164,15 +129,15 @@ app.get(/^\/v1\/(.*)/, function(req, res) {
 	res.send('API version 1 has been decommissioned. Your request is being redirected to v2.  The `libVersion` and `gated` query string parameters are no longer supported and if present have been removed from your request.\n\nA deprecation period for v1 existed between August and December 2015, during which time v1 requests were honoured but a deprecation warning was added to output.');
 });
 
-app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
+app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	metrics.counter('hits').inc();
-	var respTimeTimer = metrics.timer('respTime').start();
-	var firstParameter = req.params[0].toLowerCase();
-	var minified = firstParameter === '.min';
-	var fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
-	var uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
-	var flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
-	var warnings = [];
+	const respTimeTimer = metrics.timer('respTime').start();
+	const firstParameter = req.params[0].toLowerCase();
+	const minified = firstParameter === '.min';
+	const fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
+	const uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
+	const flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
+	const warnings = [];
 
 	// Currently don't support CSS
 	if (fileExtension !== '.js') {
@@ -182,14 +147,14 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		return;
 	}
 
-	var polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
+	const polyfills = PolyfillSet.fromQueryParam(req.query.features, flags);
 
 	// If inbound request did not specify UA on the query string, the cache key must use the HTTP header
 	if (!req.query.ua) {
 		res.set('Vary', 'User-Agent');
 	}
 
-	var params = {
+	const params = {
 		features: polyfills.get(),
 		minify: minified
 	};
@@ -201,7 +166,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
 	}
 
-	polyfillio.getPolyfillString(params).then(function(op) {
+	polyfillio.getPolyfillString(params).then(op => {
 		if (warnings.length) {
 			op = '/* WARNINGS:\n\n- ' + warnings.join('\n- ') + '\n\n*/\n\n' + op;
 		}
@@ -216,7 +181,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, function(req, res) {
 
 });
 
-app.get("/v2/normalizeUa", function(req, res, next) {
+app.get("/v2/normalizeUa", (req, res) => {
 
 	if (req.query.ua) {
 		res.status(200);
@@ -230,7 +195,7 @@ app.get("/v2/normalizeUa", function(req, res, next) {
 });
 
 if (process.env.SENTRY_DSN) {
-	app.use(Raven.middleware.express.errorHandler(process.env.SENTRY_DSN));
+	app.use(Raven.middleware.express.errorHandler(ravenClient));
 }
 
 
@@ -245,8 +210,9 @@ function startService(port, callback) {
 			callback(err);
 		})
 		.on('clientError', function (ex, sock) {
-			console.log('HTTP clientError: ', ex.code);
-		});
+			console.log('HTTP clientError: ', ex.code, sock);
+		})
+	;
 }
 
 module.exports = startService;

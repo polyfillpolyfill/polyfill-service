@@ -1,73 +1,51 @@
 'use strict';
 
 // All elements of A (this) that also belong to B (other)
-Set.prototype.intersection = function(other) {
-	var self = this;
-	return new Set(other.toArray().filter(function(value) {
-		return self.has(value);
-	}));
+function intersection(a, b) {
+	return new Set(Array.from(a).filter(value => b.has(value)));
 };
 
 // Relative complement of this (A) and other (B)
 // Returns the set of objects in other (B) but not in this (A)
-Set.prototype.difference = function(other) {
-	var self = this;
-	return new Set(other.toArray().filter(function(value) {
-		return !self.has(value);
-	}));
+function difference(a, b) {
+	return new Set(Array.from(a).filter(value => !b.has(value)));
 };
-
-Set.prototype.toArray = function() {
-	var array = [];
-	this.forEach(function(value) {
-		array.push(value);
-	});
-	return array;
-};
-
-function toArray(obj) {
-	if (!obj) return [];
-	return Array.isArray(obj) ? obj : Object.keys(obj).map(function(k) { return obj[k]; });
-}
 
 
 module.exports = function(grunt) {
-	var fs = require('fs');
-	var path = require('path');
-	var testResultsPath = path.join(__dirname, '../test/results');
-	var file = path.join(testResultsPath, 'results.json');
-	var compatFile = path.join(__dirname, '/../docs/assets/compat.json');
+	const fs = require('fs');
+	const path = require('path');
+	const testResultsPath = path.join(__dirname, '../test/results');
+	const file = path.join(testResultsPath, 'results.json');
+	const compatFile = path.join(__dirname, '/../docs/assets/compat.json');
 
 	grunt.registerTask('compattable', 'Create a compatibility table', function() {
-		var done = this.async();
-		console.log("Running compattable task");
-		fs.readFile(file, function(err, filedata) {
-			console.log("Reading file");
-			if (err) {
-				if (err.code !== 'ENOENT') {
-					throw err;
-				}
+		const done = this.async();
+		fs.readFile(file, (err, filedata) => {
+			grunt.log.writeln('Reading test result data');
+			if (err && err.code !== 'ENOENT') {
+				throw err;
 			}
 
-			var compat = filedata ? JSON.parse(filedata) : {};
+			const compat = filedata ? JSON.parse(filedata) : {};
 
-			var builtCompatTable = {};
+			const builtCompatTable = {};
 
-			Object.keys(compat).forEach(function(browserName) {
-				var versions = compat[browserName];
-				Object.keys(versions).forEach(function(version) {
-					var testResults = versions[version];
+			Object.keys(compat).forEach(browserName => {
+				const versions = compat[browserName];
+				Object.keys(versions).forEach(version => {
+					const testResults = versions[version];
 					if (!testResults.all || !testResults.control) {
 						throw new Error("Missing test results for " + browserName + "/" + version);
 					}
 
-					var allTests = new Set(toArray(testResults.control.testedSuites));
-					var failedNative = new Set(toArray(testResults.control.failingSuites));
-					var failedPolyfilled = new Set(toArray(testResults.all.failingSuites));
+					const allTests = new Set(Array.from(testResults.control.testedSuites));
+					const failedNative = new Set(Array.from(testResults.control.failingSuites));
+					const failedPolyfilled = new Set(Array.from(testResults.all.failingSuites));
 
-					var missing = failedNative.intersection(failedPolyfilled);
-					var polyfilled = failedPolyfilled.difference(failedNative);
-					var native = failedNative.difference(allTests);
+					const missing = intersection(failedNative, failedPolyfilled);
+					const polyfilled = difference(failedPolyfilled, failedNative);
+					const native = difference(failedNative, allTests);
 
 					function buildData(support) {
 						return function(feature) {
@@ -94,12 +72,12 @@ module.exports = function(grunt) {
 				delete builtCompatTable['1'];
 			}
 
-			fs.writeFile(compatFile, JSON.stringify(builtCompatTable, null, 2), function(err) {
+			fs.writeFile(compatFile, JSON.stringify(builtCompatTable, null, 2), err => {
 				if (err) {
 					throw err;
 				}
 
-				grunt.log.writeln("Updated compat.json");
+				grunt.log.oklns("Updated compat.json");
 				done(true);
 
 			});

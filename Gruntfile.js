@@ -1,7 +1,7 @@
 'use strict';
 
 require('dotenv').config({silent: true});
-var path = require('path');
+const path = require('path');
 
 module.exports = function(grunt) {
 
@@ -130,10 +130,11 @@ module.exports = function(grunt) {
 	]);
 };
 
-var browsers = {
+const browsers = {
 	quick: [
 		'chrome/49',
-		'firefox/42',
+		'firefox/45',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/8',
@@ -144,6 +145,7 @@ var browsers = {
 		'chrome/35',
 		'firefox/42',
 		'firefox/30',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/10',
@@ -164,6 +166,7 @@ var browsers = {
 		'firefox/33',
 		'firefox/30',
 		'firefox/20',
+		'ie/13',
 		'ie/12',
 		'ie/11',
 		'ie/10',
