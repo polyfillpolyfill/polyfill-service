@@ -1,7 +1,7 @@
 'use strict';
 
 const useragentToSauce = {
-	'chrome/49': ['chrome', '49', 'OS X 10.11'],
+	'chrome/48': ['chrome', '48.0', 'Windows 7'],
 	'chrome/46': ['chrome', '46.0', 'Windows 7'],
 	'chrome/42': ['chrome', '42.0', 'Windows 7'],
 	'chrome/40': ['chrome', '40.0', 'OS X 10.11'],
