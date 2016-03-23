@@ -28,8 +28,8 @@
     "prepublish": "grunt build",
 
     "build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
-    "deploy-qa": "docker push registry.heroku.com/ft-polyfill-service-qa/web",
-    "deploy-prod": "docker push registry.heroku.com/ft-polyfill-service-qa/web",
+    "deploy": "docker push registry.heroku.com/ft-polyfill-service-qa/web",
+    "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web",
     "test": "docker run registry.heroku.com/ft-polyfill-service-qa/web grunt ci"
   },
   "license": "CC0-1.0",
