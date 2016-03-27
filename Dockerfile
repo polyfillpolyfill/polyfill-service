@@ -1,11 +1,7 @@
 FROM mhart/alpine-node:5.7.1
 
 # The working directory must be set using WORKDIR
-WORKDIR .
-ENV HOME="/"
-
-# If you have native dependencies, you'll need extra tools. Also remove any cached files from the installs
-# RUN apk add --no-cache make gcc g++ python
+WORKDIR /app
 
 ADD ./package.json ./
 

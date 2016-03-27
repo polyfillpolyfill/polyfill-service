@@ -23,14 +23,8 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-
     "start": "bin/polyfill-service",
-    "prepublish": "grunt build",
-
-    "build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
-    "deploy": "docker push registry.heroku.com/ft-polyfill-service-qa/web",
-    "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web",
-    "test": "docker run registry.heroku.com/ft-polyfill-service-qa/web grunt ci"
+    "prepublish": "grunt build"
   },
   "license": "CC0-1.0",
   "engines": {
