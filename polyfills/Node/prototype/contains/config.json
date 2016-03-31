@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"dom4"
+		"dom4",
+		"default"
 	],
 	"browsers": {
 		"firefox": "* - 8",
