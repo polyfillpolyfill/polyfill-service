@@ -1,3 +1,44 @@
+
+function parseIterable(arraylike) {
+	var
+	done = false,
+	iterableResponse,
+	tempArray;
+
+	tempArray = [];
+	while (!done) {
+		iterableResponse = arraylike.next();
+		if (
+			iterableResponse.hasOwnProperty('value') &&
+			iterableResponse.hasOwnProperty('done')
+		) {
+			if (iterableResponse.done === true) {
+				done = true;
+				break;
+
+			// handle the case where the done value is not Boolean
+			} else if (iterableResponse.done !== false) {
+				break;
+			}
+
+			tempArray.push(iterableResponse.value);
+		} else {
+
+			// it does not conform to the iterable pattern
+			break;
+		}
+	}
+
+	if (done) {
+		return tempArray;
+	} else {
+
+		// something went wrong return false;
+		return false;
+	}
+
+}
+
 Object.defineProperty(Array, 'from', {
 	configurable: true,
 	value: function from(source) {
@@ -19,6 +60,34 @@ Object.defineProperty(Array, 'from', {
 		index = -1,
 		length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991),
 		value;
+
+		// variables for rebuilding array from iterator
+		var arrayFromIterable;
+
+		// if it is an iterable treat like one
+		// it is an iterable if 'next' is a function but it has not been defined on
+		// the object itself.
+		if (typeof arraylike.next === 'function' && arraylike.hasOwnProperty('next') === false) {
+			arrayFromIterable = parseIterable(arraylike);
+		}
+
+		//if it is a Map or a Set then handle them appropriately
+		if (
+			typeof arraylike.entries === 'function' &&
+			typeof arraylike.values === 'function'
+		) {
+			if (arraylike.constructor.name === 'Set') {
+				arrayFromIterable = parseIterable(arraylike.values());
+			}
+			if (arraylike.constructor.name === 'Map') {
+				arrayFromIterable = parseIterable(arraylike.entries());
+			}
+		}
+
+		if (arrayFromIterable) {
+			arraylike = arrayFromIterable;
+			length = arrayFromIterable.length;
+		}
 
 		while (++index < length) {
 			if (index in arraylike) {
