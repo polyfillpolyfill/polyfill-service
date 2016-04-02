@@ -16,18 +16,20 @@ it('has correct argument length', function () {
 	expect(Array.from.length).to.be(1);
 });
 
-describe('handles iterables', function () {
-	it('Handles Map', function () {
-		expect(Array.from(new Map([[1,2],[3,4]]))).to.eql([[1,2],[3,4]]);
+if ('Map' in this && 'Set' in this) {
+	describe('handles iterables', function () {
+		it('Handles Map', function () {
+			expect(Array.from(new Map([[1,2],[3,4]]))).to.eql([[1,2],[3,4]]);
+		});
+		it('Handles Set', function () {
+			expect(Array.from(new Set([1,2,3,4]))).to.eql([1,2,3,4]);
+		});
+		it('Handles an Iterable', function () {
+			expect(Array.from((new Set([1,2,3,4])).values())).to.eql([1,2,3,4]);
+			expect(Array.from((new Map([[1,2],[3,4]])).values())).to.eql([2,4]);
+		});
 	});
-	it('Handles Set', function () {
-		expect(Array.from(new Set([1,2,3,4]))).to.eql([1,2,3,4]);
-	});
-	it('Handles an Iterable', function () {
-		expect(Array.from((new Set([1,2,3,4])).values())).to.eql([1,2,3,4]);
-		expect(Array.from((new Map([[1,2],[3,4]])).values())).to.eql([2,4]);
-	});
-});
+}
 
 describe('returns an array with', function () {
 	it('arrays', function () {
