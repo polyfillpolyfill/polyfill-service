@@ -30,20 +30,20 @@ describe('returns an array with', function () {
 {
 		it('Map', function () {
 			if ('Map' in window) {
-				expect(Array.from(new Map().set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
+				expect(Array.from(new Map()).set(1,2).set(3,4)).to.eql([[1,2],[3,4]]);
 			}
 		});
 
 		it('Set', function () {
 			if ('Map' in window) {
-				expect(Array.from(new Set().add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
+				expect(Array.from(new Set()).add(1).add(2).add(3).add(4)).to.eql([1,2,3,4]);
 			}
 		});
 
 		it('Iterable', function () {
 			if ('Map' in window && 'Set' in window) {
-				expect(Array.from((new Set().add(1).add(2).add(3).add(4)).values())).to.eql([1,2,3,4]);
-				expect(Array.from((new Map().set(1,2).set(3,4)).values())).to.eql([2,4]);
+				expect(Array.from((new Set()).add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
+				expect(Array.from((new Map()).set(1,2).set(3,4).values())).to.eql([2,4]);
 			}
 		});
 	}
