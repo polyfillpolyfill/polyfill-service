@@ -1,4 +1,4 @@
-/* eslint-env mocha*/
+/* eslint-env mocha, browser*/
 /* global expect, it */
 
 it('has correct instance', function () {
@@ -29,19 +29,19 @@ describe('returns an array with', function () {
 	});
 {
 		it('Map', function () {
-			if ('Map' in this) {
+			if ('Map' in window) {
 				expect(Array.from(new Map([[1,2],[3,4]]))).to.eql([[1,2],[3,4]]);
 			}
 		});
 
 		it('Set', function () {
-			if ('Map' in this) {
+			if ('Map' in window) {
 				expect(Array.from(new Set([1,2,3,4]))).to.eql([1,2,3,4]);
 			}
 		});
 
 		it('Iterable', function () {
-			if ('Map' in this) {
+			if ('Map' in window && 'Set' in window) {
 				expect(Array.from((new Set([1,2,3,4])).values())).to.eql([1,2,3,4]);
 				expect(Array.from((new Map([[1,2],[3,4]])).values())).to.eql([2,4]);
 			}
