@@ -4,27 +4,32 @@
 		var iterableResponse;
 		var tempArray;
 
-		tempArray = [];
-		while (!done) {
-			iterableResponse = arraylike.next();
-			if (
-				iterableResponse.hasOwnProperty('value') &&
-				iterableResponse.hasOwnProperty('done')
-			) {
-				if (iterableResponse.done === true) {
-					done = true;
-					break;
+		// if the iterable doesn't have next;
+		// it is an iterable if 'next' is a function but it has not been defined on
+		// the object itself.
+		if (typeof arraylike.next === 'function' && arraylike.hasOwnProperty('next') === false) {
+			tempArray = [];
+			while (!done) {
+				iterableResponse = arraylike.next();
+				if (
+					iterableResponse.hasOwnProperty('value') &&
+					iterableResponse.hasOwnProperty('done')
+				) {
+					if (iterableResponse.done === true) {
+						done = true;
+						break;
 
-				// handle the case where the done value is not Boolean
-				} else if (iterableResponse.done !== false) {
+					// handle the case where the done value is not Boolean
+					} else if (iterableResponse.done !== false) {
+						break;
+					}
+
+					tempArray.push(iterableResponse.value);
+				} else {
+
+					// it does not conform to the iterable pattern
 					break;
 				}
-
-				tempArray.push(iterableResponse.value);
-			} else {
-
-				// it does not conform to the iterable pattern
-				break;
 			}
 		}
 
@@ -63,11 +68,7 @@
 			var arrayFromIterable;
 
 			// if it is an iterable treat like one
-			// it is an iterable if 'next' is a function but it has not been defined on
-			// the object itself.
-			if (typeof arraylike.next === 'function' && arraylike.hasOwnProperty('next') === false) {
-				arrayFromIterable = parseIterable(arraylike);
-			}
+			arrayFromIterable = parseIterable(arraylike);
 
 			//if it is a Map or a Set then handle them appropriately
 			if (
