@@ -59,7 +59,7 @@ describe('returns an array with', function () {
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			expect(Array.from(set).to.eql([1,2,3,4]);
+			expect(Array.from(set)).to.eql([1,2,3,4]);
 		}
 	});
 
