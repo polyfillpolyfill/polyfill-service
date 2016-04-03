@@ -75,10 +75,10 @@
 				typeof arraylike.entries === 'function' &&
 				typeof arraylike.values === 'function'
 			) {
-				if (arraylike.constructor.name === 'Set') {
+				if (arraylike.constructor.name === 'Set' && 'values' in Set.prototype) {
 					arrayFromIterable = parseIterable(arraylike.values());
 				}
-				if (arraylike.constructor.name === 'Map') {
+				if (arraylike.constructor.name === 'Map' && 'entries' in Map.prototype) {
 					arrayFromIterable = parseIterable(arraylike.entries());
 				}
 			}

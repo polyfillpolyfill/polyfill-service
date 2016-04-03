@@ -27,26 +27,25 @@ describe('returns an array with', function () {
 		expect(Array.from({ 0: 'a' })).to.eql([]);
 		expect(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 })).to.eql(['a', 'b', 'c']);
 	});
-{
-		it('Map', function () {
-			if ('Map' in window) {
-				expect(Array.from((new Map()).set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
-			}
-		});
 
-		it('Set', function () {
-			if ('Map' in window) {
-				expect(Array.from((new Set()).add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
-			}
-		});
+	it('Iterable', function () {
+		if ('Map' in window && 'Set' in window && 'entries' in Map.prototype) {
+			expect(Array.from((new Set()).add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
+			expect(Array.from((new Map()).set(1,2).set(3,4).values())).to.eql([2,4]);
+		}
+	});
 
-		it('Iterable', function () {
-			if ('Map' in window && 'Set' in window) {
-				expect(Array.from((new Set()).add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
-				expect(Array.from((new Map()).set(1,2).set(3,4).values())).to.eql([2,4]);
-			}
-		});
-	}
+	it('Map', function () {
+		if ('Map' in window && 'entries' in Map.prototype && 'values' in Set.prototype) {
+			expect(Array.from((new Map()).set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
+		}
+	});
+
+	it('Set', function () {
+		if ('Set' in window && 'values' in Set.prototype) {
+			expect(Array.from((new Set()).add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
+		}
+	});
 
 	it('strings', function () {
 		expect(Array.from('')).to.eql([]);
