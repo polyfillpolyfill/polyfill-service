@@ -92,7 +92,6 @@ module.exports = function(grunt) {
 					// the raw source is supposed to be production ready.
 					config.minSource = config.rawSource;
 				} else {
-
 					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
 					config.minSource = uglify.minify(config.rawSource, {fromString: true}).code;
 				}
