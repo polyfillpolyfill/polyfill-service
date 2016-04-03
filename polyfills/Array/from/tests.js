@@ -30,20 +30,24 @@ describe('returns an array with', function () {
 
 	it('Iterable', function () {
 		if ('Map' in window && 'Set' in window && 'entries' in Map.prototype) {
-			expect(Array.from((new Set()).add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
-			expect(Array.from((new Map()).set(1,2).set(3,4).values())).to.eql([2,4]);
+			var map = new Map();
+			var set = new Set();
+			expect(Array.from(set.add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
+			expect(Array.from(map.set(1,2).set(3,4).values())).to.eql([2,4]);
 		}
 	});
 
 	it('Map', function () {
 		if ('Map' in window && 'entries' in Map.prototype && 'values' in Set.prototype) {
-			expect(Array.from((new Map()).set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
+			var map = new Map();
+			expect(Array.from(map.set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
 		}
 	});
 
 	it('Set', function () {
 		if ('Set' in window && 'values' in Set.prototype) {
-			expect(Array.from((new Set()).add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
+			var set = new Set();
+			expect(Array.from(set.add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
 		}
 	});
 
