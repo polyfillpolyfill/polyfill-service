@@ -31,23 +31,35 @@ describe('returns an array with', function () {
 	it('Iterable', function () {
 		if ('Map' in window && 'Set' in window && 'entries' in Map.prototype) {
 			var map = new Map();
+			map.set(1,2);
+			map.set(3,4);
 			var set = new Set();
-			expect(Array.from(set.add(1).add(2).add(3).add(4).values())).to.eql([1,2,3,4]);
-			expect(Array.from(map.set(1,2).set(3,4).values())).to.eql([2,4]);
+			set.add(1);
+			set.add(2);
+			set.add(3);
+			set.add(4);
+			expect(Array.from(set.values())).to.eql([1,2,3,4]);
+			expect(Array.from(map.values())).to.eql([2,4]);
 		}
 	});
 
 	it('Map', function () {
 		if ('Map' in window && 'entries' in Map.prototype && 'values' in Set.prototype) {
 			var map = new Map();
-			expect(Array.from(map.set(1,2).set(3,4))).to.eql([[1,2],[3,4]]);
+			map.set(1,2);
+			map.set(3,4);
+			expect(Array.from(map)).to.eql([[1,2],[3,4]]);
 		}
 	});
 
 	it('Set', function () {
 		if ('Set' in window && 'values' in Set.prototype) {
 			var set = new Set();
-			expect(Array.from(set.add(1).add(2).add(3).add(4))).to.eql([1,2,3,4]);
+			set.add(1);
+			set.add(2);
+			set.add(3);
+			set.add(4);
+			expect(Array.from(set).to.eql([1,2,3,4]);
 		}
 	});
 
