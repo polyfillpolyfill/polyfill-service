@@ -1,1 +1,1 @@
-'search' in this.Symbol
+'Symbol' in this && 'search' in this.Symbol

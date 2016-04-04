@@ -1,1 +1,1 @@
-'toStringTag' in this.Symbol
+'Symbol' in this && 'toStringTag' in this.Symbol
