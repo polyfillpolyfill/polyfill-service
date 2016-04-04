@@ -9,9 +9,7 @@
 		"chrome": "*",
 		"ie": "*"
 	},
-	"dependencies": [
-		"MutationObserver"
-	],
+	"dependencies": [],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "",
 	"notes": [
