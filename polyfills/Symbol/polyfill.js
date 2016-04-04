@@ -21,7 +21,7 @@
 	var keys = Object.keys;
 	var freeze = Object.freeze || Object;
 	var defineProperty = Object[DP];
-	var defineProperties = Object[DPies];
+	var $defineProperties = Object[DPies];
 	var descriptor = gOPD(Object, GOPN);
 	var ObjectProto = Object.prototype;
 	var hOP = ObjectProto.hasOwnProperty;
@@ -143,7 +143,7 @@
 			}
 		});
 		} else {
-		defineProperties(o, descriptors);
+		$defineProperties(o, descriptors);
 		}
 		return o;
 	};
