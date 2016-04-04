@@ -41,8 +41,17 @@
 		get "size": function() {
 			return this.keys.length;
 		},
+		"values": function() {
+
+		},
+		"keys": function() {
+
+		},
 		"entries": function() {
 			// TODO
+		},
+		"forEach": function() {
+
 		},
 		"constructor": Map
 	});
