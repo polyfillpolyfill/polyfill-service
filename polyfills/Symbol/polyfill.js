@@ -95,7 +95,7 @@
 		));
 		};
 	var Symbol = function Symbol(description) {
-		if (this && this !== G) {
+		if (this instanceof Symbol) {
 			throw new TypeError('Symbol is not a constructor');
 		}
 		return setAndGetSymbol(
