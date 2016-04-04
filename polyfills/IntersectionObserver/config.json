@@ -11,7 +11,7 @@
 	},
 	"dependencies": [],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
-	"spec": "",
+	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
 	"notes": [
 		"This polyfill is the work of [@surma](https://github.com/surma) and was proposed in https://github.com/WICG/IntersectionObserver/pull/116",
 		"`rootMargin` will always be treated as 0 in the polyfill"
