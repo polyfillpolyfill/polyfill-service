@@ -30,48 +30,52 @@
 	var indexOf = Array.prototype.indexOf || function (v) {
 		for (var i = this.length; i-- && this[i] !== v;) {}
 		return i;
-		};
+	};
 	var addInternalIfNeeded = function (o, uid, enumerable) {
 		if (!hOP.call(o, internalSymbol)) {
-			defineProperty(o, internalSymbol, {
-			enumerable: false,
-			configurable: false,
-			writable: false,
-			value: {}
-			});
+			try {
+				defineProperty(o, internalSymbol, {
+					enumerable: false,
+					configurable: false,
+					writable: false,
+					value: {}
+				});
+			} catch (e) {
+				o.internalSymbol = value
+			}
 		}
 		o[internalSymbol]['@@' + uid] = enumerable;
-		};
+	};
 	var createWithSymbols = function (proto, descriptors) {
 		var self = create(proto);
 		gOPN(descriptors).forEach(function (key) {
 			if (propertyIsEnumerable.call(descriptors, key)) {
-			$defineProperty(self, key, descriptors[key]);
+				$defineProperty(self, key, descriptors[key]);
 			}
 		});
 		return self;
-		};
+	};
 	var copyAsNonEnumerable = function (descriptor) {
 		var newDescriptor = create(descriptor);
 		newDescriptor.enumerable = false;
 		return newDescriptor;
-		};
+	};
 	var get = function get(){};
 	var onlyNonSymbols = function (name) {
 		return  name != internalSymbol &&
-				!hOP.call(source, name);
-		};
+			!hOP.call(source, name);
+	};
 	var onlySymbols = function (name) {
 		return  name != internalSymbol &&
-				hOP.call(source, name);
-		};
+			hOP.call(source, name);
+	};
 	var propertyIsEnumerable = function propertyIsEnumerable(key) {
 		var uid = '' + key;
 		return onlySymbols(uid) ? (
 			hOP.call(this, uid) &&
 			this[internalSymbol]['@@' + uid]
 		) : pIE.call(this, key);
-		}
+	}
 	var setAndGetSymbol = function (uid) {
 		var descriptor = {
 			enumerable: false,
@@ -87,13 +91,17 @@
 			addInternalIfNeeded(this, uid, true);
 			}
 		};
-		defineProperty(ObjectProto, uid, descriptor);
+		try {
+			defineProperty(ObjectProto, uid, descriptor);
+		} catch (e) {
+			ObjectProto[uid] = descriptor.value;
+		}
 		return freeze(source[uid] = defineProperty(
 			Object(uid),
 			'constructor',
 			sourceConstructor
 		));
-		};
+	};
 	var Symbol = function Symbol(description) {
 		if (this instanceof Symbol) {
 			throw new TypeError('Symbol is not a constructor');
