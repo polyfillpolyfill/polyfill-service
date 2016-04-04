@@ -1,0 +1,16 @@
+{
+	"aliases": [
+		"default"
+	],
+	"browsers": {
+		"ie": "<11",
+		"firefox": "<29",
+		"safari": "<8",
+		"ios_saf": "<7.1",
+		"chrome": "<38",
+		"firefox_mob": "<29"
+	},
+	"dependencies": [
+		"Symbol"
+	]
+}
