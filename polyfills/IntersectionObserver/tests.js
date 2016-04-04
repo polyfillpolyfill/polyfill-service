@@ -1,315 +1,189 @@
-<!DOCTYPE html>
-<script src="intersectionobserver-polyfill.js"></script>
-<style>
-root {
-  background-color: pink;
-  display: block;
-}
-child {
-  background-color: salmon;
-  display: block;
-}
-</style>
-<div id="container" style="position: relative"></div>
-<div id="logger" style="white-space: pre-wrap"></div>
-<script>
-var testIndex = 0;
-
-function test(callback, title) {
-  if(!title) {
-    title = '';
-  }
-  document.getElementById('container').innerHTML = '';
-  document.getElementById('logger').innerHTML += 'Test ' + title + ' ' + (++testIndex) + ': ' + callback() + '\n\n';
-}
-
-function assert(a) {
-  if (a) {
-    return 'Passed';
-  }
-  return '<b>Failed</b>';
-}
-
-test(()=>{
-  return assert(true);
-}, 'the testing framework')
-
-// Observing root not in the DOM.
-test(()=>{
-  var root = document.createElement('div');
-  var io = new IntersectionObserver(function(){},{
-    root: root,
-  });
-
-  var didThrow = false;
-  try {
-    io.observe(document.getElementById('container'));
-  } catch (e) {
-    didThrow = true;
-  }
-
-  io.disconnect();
-  return assert(didThrow);
-}, 'Observing root not in the DOM')
-
-// Observing unrooted element.
-test(()=>{
-  var io = new IntersectionObserver(function(){}, {});
-
-  var didThrow = false;
-  try {
-    io.observe(document.createElement('container'));
-  } catch (e) {
-    didThrow = true;
-  }
-
-  io.disconnect();
-  return assert(didThrow);
-}, 'Observing unrooted element')
-
-// Observing child of root.
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      root: root
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  var didThrow = false;
-  try {
-    io.observe(child);
-  } catch (e) {
-    didThrow = true;
-  }
-
-  io.disconnect();
-  return assert(!didThrow);
-}, 'Observing child of root')
-
-// takeRecords and observe already intersecting element.
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  root.style.height = "100px";
-  root.style.width = "100px";
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      root: root
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  child.style.height = "20px";
-  child.style.width = "20px";
-  child.style.position = "absolute";
-
-  io.observe(child);
-
-  var numRecords = io.takeRecords().length;
-  io.disconnect();
-  return assert(numRecords);
-}, 'takeRecords and observe already intersecting element')
-
-// Observe non-intersecting element.
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  root.style.height = "100px";
-  root.style.width = "100px";
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      root: root,
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  child.style.height = "20px";
-  child.style.width = "20px";
-  child.style.position = "absolute";
-  child.style.top = "-20px";
-
-  io.observe(child);
-
-  var records = io.takeRecords();
-  io.disconnect();
-  return assert(records.length === 1 && records[0].intersectionRatio === 0);
-}, 'observe non-intersecting element')
-
-// thresholds
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  root.style.height = "100px";
-  root.style.width = "100px";
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      threshold: 0.5,
-      root: root,
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  child.style.height = "20px";
-  child.style.width = "20px";
-  child.style.position = "absolute";
-
-  io.observe(child);
-
-  var output = []
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio === 1));
-
-  child.style.top = "-11px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio <= 0.5));
-
-  child.style.top = "-10px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio === 0.5));
-
-  io.disconnect();
-  return output.join('\n');
-}, 'thresholds')
-
-// multiple thresholds
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  root.style.height = "100px";
-  root.style.width = "100px";
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      threshold: [0.5, 0.25],
-      root: root,
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  child.style.height = "20px";
-  child.style.width = "20px";
-  child.style.position = "absolute";
-
-  io.observe(child);
-
-  var output = []
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio === 1));
-
-  child.style.top = "-11px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio <= 0.5 && records[0].intersectionRatio >= 0.25));
-
-  child.style.top = "-16px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio <= 0.25));
-
-  child.style.top = "-17px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 0));
-
-  child.style.top = "-15px";
-  var records = io.takeRecords();
-  output.push(assert(records.length == 1 && records[0].intersectionRatio === 0.25));
-
-  io.disconnect();
-  return output.join('\n');
-}, 'multiple thresholds')
-
-// margins
-test(()=>{
-  var container = document.getElementById('container');
-  var root = document.createElement('root');
-  container.appendChild(root);
-
-  root.style.height = "100px";
-  root.style.width = "200px";
-
-  var io = new IntersectionObserver(
-    ()=>{ console.log("This shouldn't be called since we always takeRecords."); },
-    {
-      margin: "5px 10% 10% 15px",
-      root: root,
-    }
-  );
-
-  var child = document.createElement('child');
-  root.appendChild(child);
-
-  child.style.height = "20px";
-  child.style.width = "20px";
-  child.style.position = "absolute";
-
-  io.observe(child);
-
-  var output = []
-  output.push(assert(io.takeRecords().length));
-
-  // Stop intersecting from the top.
-  child.style.top = "-25px";
-  output.push(assert(io.takeRecords().length));
-
-  // Start intersecting from the top.
-  child.style.top = "-24px";
-  output.push(assert(io.takeRecords().length));
-
-  // Stop intersecting from the bottom.
-  child.style.top = "110px";
-  output.push(assert(io.takeRecords().length));
-
-  // Start intersecting from the bottom.
-  child.style.top = "109px";
-  output.push(assert(io.takeRecords().length));
-
-  // Stop intersecting from the left.
-  child.style.left = "-35px";
-  output.push(assert(io.takeRecords().length));
-
-  // Start intersecting from the left.
-  child.style.left = "-34px";
-  output.push(assert(io.takeRecords().length));
-
-  // Stop intersecting from the right.
-  child.style.left = "220px";
-  output.push(assert(io.takeRecords().length));
-
-  // Start intersecting from the right.
-  child.style.left = "219px";
-  output.push(assert(io.takeRecords().length));
-
-  io.disconnect();
-  return output.join('\n');
-}, 'margins')
-
-</script>
+
+var rootEl, childEl, io;
+
+beforeEach(function() {
+	io = null;
+	rootEl = document.createElement('div');
+	rootEl.setAttribute('style', 'display:block; position: relative; width: 200px; height: 100px; overflow: auto; background: #bbb');
+	childEl = document.createElement('div');
+	childEl.setAttribute('style', 'display:block; position: absolute; width: 20px; height: 20px; background: #f00');
+});
+
+afterEach(function() {
+	if (io && 'disconnect' in io) io.disconnect();
+	if (childEl.parentNode) childEl.parentNode.removeChild(childEl);
+	if (rootEl.parentNode) rootEl.parentNode.removeChild(rootEl);
+});
+
+
+it("throws when root is not in the DOM", function() {
+	document.body.appendChild(childEl);
+	io = new IntersectionObserver(function(){}, {root: rootEl});
+	expect(function() {
+		io.observe(childEl);
+	}).to.throwException();
+});
+
+it("throws when observed is not in the DOM", function() {
+	document.body.appendChild(rootEl);
+	io = new IntersectionObserver(function(){}, {root: rootEl});
+	expect(function() {
+		io.observe(childEl);
+	}).to.throwException();
+});
+
+it("throws if root does not contain child", function() {
+	document.body.appendChild(rootEl);
+	document.body.appendChild(childEl);
+	io = new IntersectionObserver(function(){}, {root: rootEl});
+	expect(function() {
+		io.observe(childEl);
+	}).to.throwException();
+});
+
+it("triggers if elements already intersect when observing begins", function() {
+	rootEl.appendChild(childEl);
+	document.body.appendChild(rootEl);
+
+	io = new IntersectionObserver(
+		function() { throw new Error("This shouldn't be called since we always takeRecords."); },
+		{root: rootEl}
+	);
+
+	io.observe(childEl);
+
+	var records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(1);
+});
+
+it("triggers if elements do not intersect when observing begins", function() {
+	rootEl.appendChild(childEl);
+	document.body.appendChild(rootEl);
+
+	io = new IntersectionObserver(
+		function() { throw new Error("This shouldn't be called since we always takeRecords."); },
+		{root: rootEl}
+	);
+
+	childEl.style.top = "-50px";
+
+	io.observe(childEl);
+
+	var records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(0);
+});
+
+it("reports at threshold correctly", function() {
+	rootEl.appendChild(childEl);
+	document.body.appendChild(rootEl);
+
+	io = new IntersectionObserver(
+		function() { throw new Error("This shouldn't be called since we always takeRecords."); },
+		{root: rootEl, threshold: 0.5}
+	);
+
+	io.observe(childEl);
+
+	var records;
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(1);
+
+	childEl.style.top = "-11px";
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be.lessThan(0.5);
+
+	childEl.style.top = "-16px";
+	records = io.takeRecords();
+	expect(records.length).to.be(0);
+
+	childEl.style.top = "-10px";
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(0.5);
+});
+
+it("reports at multiple thresholds", function() {
+	rootEl.appendChild(childEl);
+	document.body.appendChild(rootEl);
+
+	io = new IntersectionObserver(
+		function() { throw new Error("This shouldn't be called since we always takeRecords."); },
+		{root: rootEl, threshold: [0.5, 0.25]}
+	);
+
+	io.observe(childEl);
+
+	var records;
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(1);
+
+	childEl.style.top = "-11px";
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be.lessThan(0.5);
+	expect(records[0].intersectionRatio).to.be.greaterThan(0.25);
+
+	childEl.style.top = "-16px";
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be.lessThan(0.25);
+
+	childEl.style.top = "-17px";
+	records = io.takeRecords();
+	expect(records.length).to.be(0);
+
+	childEl.style.top = "-15px";
+	records = io.takeRecords();
+	expect(records.length).to.be(1);
+	expect(records[0].intersectionRatio).to.be(0.25);
+});
+
+it("supports margins", function() {
+	rootEl.appendChild(childEl);
+	document.body.appendChild(rootEl);
+
+	io = new IntersectionObserver(
+		function() { throw new Error("This shouldn't be called since we always takeRecords."); },
+		{root: rootEl, margin: "5px 10% 10% 15px"}
+	);
+
+	io.observe(childEl);
+	io.takeRecords();
+
+	// Stop intersecting from the top.
+	childEl.style.top = "-25px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Start intersecting from the top.
+	childEl.style.top = "-24px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Stop intersecting from the bottom.
+	childEl.style.top = "110px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Start intersecting from the bottom.
+	childEl.style.top = "109px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Stop intersecting from the left.
+	childEl.style.left = "-35px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Start intersecting from the left.
+	childEl.style.left = "-34px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Stop intersecting from the right.
+	childEl.style.left = "220px";
+	expect(io.takeRecords().length).to.be(1);
+
+	// Start intersecting from the right.
+	childEl.style.left = "219px";
+	expect(io.takeRecords().length).to.be(1);
+});
