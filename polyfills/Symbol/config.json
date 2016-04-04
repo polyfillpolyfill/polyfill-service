@@ -8,6 +8,7 @@
 		"opera": "< 50"
 	},
 	"dependencies": [
+		"Array.prototype.forEach",
 		"Array.prototype.filter",
 		"Math.random",
 		"Object.create",
