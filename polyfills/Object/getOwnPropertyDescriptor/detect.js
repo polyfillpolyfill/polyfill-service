@@ -1,11 +1,12 @@
-'getOwnPropertyDescriptor' in Object && typeof Object.getOwnPropertyDescriptor === 'function' && (function doesGetOwnPropertyDescriptorWork(object) {
+'getOwnPropertyDescriptor' in Object && typeof Object.getOwnPropertyDescriptor === 'function' && (function() {
     try {
-        object.sentinel = 0;
+    	var object = {};
+        object.test = 0;
         return Object.getOwnPropertyDescriptor(
             object,
-            "sentinel"
+            "test"
         ).value === 0;
     } catch (exception) {
-        // returns falsy
+        return false
     }
 }())
