@@ -1,7 +1,8 @@
 {
 	"aliases": [
 	  	"modernizr:urlparser",
-		"blissfuljs"
+		"blissfuljs",
+		"default"
 	],
 	"browsers": {
 		"chrome": "<49",

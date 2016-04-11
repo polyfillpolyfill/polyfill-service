@@ -43,7 +43,7 @@
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, e.g. "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
 			<li><code>build</code>: Object, used to specify how the polyfill should be built.
 				<ul>
-					<li><code>minify</code>: boolean, whether the polyfill should be minified (default true).</li>
+					<li><code>minify</code>: boolean, whether the polyfill should be minified (default true).  To speed up building of polyfills, this should be set to false for polyfill sources that are already minified.</li>
 				</ul>
 			</li>
 			<li><code>test</code>: Object, used to specify how the polyfill should be tested.

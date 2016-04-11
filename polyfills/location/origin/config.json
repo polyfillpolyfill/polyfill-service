@@ -1,4 +1,7 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
 		"ie": "6 - 10",
 		"ie_mob": "10",

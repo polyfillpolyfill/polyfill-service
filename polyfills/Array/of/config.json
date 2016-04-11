@@ -1,7 +1,8 @@
 {
 	"aliases": [
 		"es6",
-		"modernizr:es6array"
+		"modernizr:es6array",
+		"default"
 	],
 	"browsers": {
 		"chrome": "<=44",
