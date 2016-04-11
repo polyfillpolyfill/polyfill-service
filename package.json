@@ -25,6 +25,7 @@
   "scripts": {
     "start": "bin/polyfill-service",
     "prepublish": "grunt build",
+    "postinstall": "grunt build",
     "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
     "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
     "deploy-prod": "npm run deploy -- ft-polyfill-service",
