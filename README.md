@@ -69,7 +69,6 @@ We configure the Polyfill service using environment variables. In development, c
   * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
   * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
   * `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-  * `NODE_ENV`: Name of environment.  We use `dev`, `prod`, `ci` or `qa`.  Just used for logging.
   * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if we are not running node behind a routing layer like nginx or heroku.
 
 
