@@ -30,7 +30,7 @@ Requirements
 
 Running Origami Build Service requires a few tools:
   * [Git]: For downloading the source code
-  * [Node.js] 5.x and [npm] 3.x: For installing the dependencies and running the application
+  * [Node.js] 5.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
   * [Grunt] 0.1.x: Used for automating tasks such as testing
 
 Running Locally
