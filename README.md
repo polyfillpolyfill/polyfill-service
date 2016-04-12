@@ -17,9 +17,9 @@ Table Of Contents
   * [Running Locally](#running-locally)
   * [Configuration](#configuration)
   * [Testing](#testing)
-	* [Release Process](#release-process)
+  * [Release Process](#release-process)
   * [Deployment](#deployment)
-	* [Publishing](#publishing)
+  * [Publishing](#publishing)
   * [Monitoring](#monitoring)
   * [Library API Reference](#library-api-reference)
   * [License](#license)
@@ -31,7 +31,7 @@ Requirements
 Running Origami Build Service requires a few tools:
   * [Git]: For downloading the source code
   * [Node.js] 5.x and [npm] 3.x: For installing the dependencies and running the application
-	* [Grunt] 0.1.x: Used for automating tasks such as testing
+  * [Grunt] 0.1.x: Used for automating tasks such as testing
 
 Running Locally
 ---------------
@@ -238,6 +238,7 @@ The Financial Times has published this software under the [CC0 license][license]
 
 
 [ci]: https://circleci.com/gh/Financial-Times/polyfill-service
+[Git]: https://git-scm.com/
 [grafana]: http://grafana.ft.com/dashboard/db/origami-polyfill-service
 [grunt]: https://www.npmjs.com/package/grunt-cli
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
