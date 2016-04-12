@@ -249,4 +249,5 @@ The Financial Times has published this software under the [CC0 license][license]
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
 [polyfill-service]: https://cdn.polyfill.io
 [sauce]: saucelabs.com
+[semver]: http://semver.org/
 [usage]: https://cdn.polyfill.io/v1/docs/usage
