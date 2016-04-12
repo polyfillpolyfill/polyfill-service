@@ -75,7 +75,7 @@ We configure the Polyfill service using environment variables. In development, c
 Testing
 -------
 
-The tests are split into for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the[configuration](#configuration) section for more information.
+The tests are split into for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
 grunt test           # run service tests and polyfill tests on a small set of browsers
