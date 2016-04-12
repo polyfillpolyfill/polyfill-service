@@ -133,7 +133,7 @@ module.exports = function(grunt) {
 var browsers = {
 	quick: [
 		'chrome/48',
-		'firefox/45',
+		'firefox/44',
 		'ie/13',
 		'ie/12',
 		'ie/11',
