@@ -1,19 +1,37 @@
 {
-  "Element.prototype.cloneNode": {
-    "firefox": {
-      "20": "missing"
+  "Element.prototype.classList": {
+    "chrome": {
+      "30": "missing",
+      "35": "missing",
+      "42": "missing"
     },
     "ie": {
       "6": "missing",
-      "7": "missing"
+      "7": "missing",
+      "10": "missing",
+      "11": "missing"
+    },
+    "safari": {
+      "8": "missing",
+      "9": "missing",
+      "5.1": "missing"
+    },
+    "android": {
+      "4.4": "missing",
+      "4.3": "missing",
+      "4.2": "missing",
+      "4.1": "missing"
+    },
+    "ios_saf": {
+      "9.2": "missing"
     }
   },
   "AudioContext": {
-    "firefox": {
-      "20": "missing"
-    },
     "chrome": {
       "30": "missing"
+    },
+    "firefox": {
+      "20": "missing"
     },
     "ie": {
       "6": "missing",
@@ -38,11 +56,19 @@
       "9.2": "missing"
     }
   },
+  "Element.prototype.cloneNode": {
+    "firefox": {
+      "20": "missing"
+    },
+    "ie": {
+      "6": "missing",
+      "7": "missing"
+    }
+  },
   "URL": {
     "firefox": {
       "30": "missing",
-      "33": "missing",
-      "41": "missing"
+      "33": "missing"
     },
     "ie": {
       "6": "missing",
@@ -69,29 +95,13 @@
       "8": "missing"
     }
   },
-  "Element.prototype.classList": {
-    "ie": {
-      "6": "missing",
-      "7": "missing",
-      "10": "missing",
-      "11": "missing"
-    },
-    "safari": {
-      "5.1": "missing"
-    },
-    "android": {
-      "4.3": "missing",
-      "4.2": "missing",
-      "4.1": "missing"
-    }
-  },
   "Promise": {
     "ie": {
       "6": "missing",
       "7": "missing"
     }
   },
-  "PageVisibility": {
+  "document.visibilityState": {
     "ie": {
       "6": "missing",
       "7": "missing",
@@ -117,7 +127,8 @@
     "ie": {
       "10": "missing",
       "11": "missing",
-      "12": "missing"
+      "12": "missing",
+      "13": "missing"
     }
   },
   "Event": {
