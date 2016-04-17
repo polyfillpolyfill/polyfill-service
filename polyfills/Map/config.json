@@ -11,6 +11,10 @@
 		"firefox_mob": "<29"
 	},
 	"dependencies": [
-		"Symbol"
+		"Array.prototype.indexOf",
+		"Symbol.iterator",
+		"Symbol.species",
+		"Object.defineProperty",
+		"Number.isNaN"
 	]
 }
