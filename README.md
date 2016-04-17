@@ -232,18 +232,18 @@ require('polyfill-service').listAllPolyfills();
 License
 -------
 
-The Financial Times has published this software under the [CC0 license][license].
-
+Except where indicated in selected polyfill config files, the polyfill service codebase is licensed under the terms of the [MIT license]. Contributors must accept our [contribution terms].
 
 
 [ci]: https://circleci.com/gh/Financial-Times/polyfill-service
+[contribution terms]: https://github.com/Financial-Times/polyfill-service/blob/master/CONTRIBUTING.md
 [Git]: https://git-scm.com/
 [grafana]: http://grafana.ft.com/dashboard/db/origami-polyfill-service
 [grunt]: https://www.npmjs.com/package/grunt-cli
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
 [heroku-qa]: https://dashboard.heroku.com/apps/ft-polyfill-service-qa
 [heroku]: https://heroku.com/
-[license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
+[MIT license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
