@@ -1,0 +1,24 @@
+{
+	"browsers": {
+		"ie": "*",
+		"safari": "<9",
+		"chrome": "< 50",
+		"firefox": "< 40",
+		"ios_saf": "*",
+		"opera": "< 50"
+	},
+	"dependencies": [
+		"Array.prototype.forEach",
+		"Array.prototype.filter",
+		"Math.random",
+		"Object.create",
+		"Object.defineProperty",
+		"Object.getOwnPropertyNames",
+		"Object.getOwnPropertyDescriptor",
+		"Object.freeze",
+		"Object.keys"
+	],
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol-objects",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol"
+}
