@@ -36,7 +36,7 @@ Running Origami Build Service requires a few tools:
 Running Locally
 ---------------
 
-Clone the project to our system:
+Clone the project to your system:
 ```sh
 git clone git@github.com:Financial-Times/polyfill-service.git
 ```
@@ -60,22 +60,22 @@ grunt dev
 Configuration
 -------------
 
-We configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
+You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
   * `PORT`: The port on which to listen for HTTP requests (default 3000).
-  * `NODE_ENV`: Name of environment.  We use `dev`, `prod`, `ci` or `qa`.  Just used for logging.
+  * `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
   * `FASTLY_SERVICE_ID`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
   * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
   * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
   * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
   * `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-  * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if we are not running node behind a routing layer like nginx or heroku.
+  * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
 
 
 Testing
 -------
 
-The tests are split into for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
+The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
 grunt test           # run service tests and polyfill tests on a small set of browsers
@@ -83,7 +83,7 @@ grunt simplemocha    # run the service tests
 grunt ci             # run the service tests and polyfills tests on a large set of browsers
 ```
 
-We run the tests on CI, we can see the [results on CircleCI][ci].  `grunt ci` must pass before we merge a pull request.
+We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull request.
 
 Release Process
 ---------------
@@ -108,7 +108,7 @@ Before creating a new deployment, update the compatability table:
 grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'
 ```
 
-We use [Semantic Versioning][semver] to tag releases.  Only tagged releases should hit production, this ensures that the `__about` endpoint is informative.  To tag a new release, use one of the following (this is the only time we allow a commit directly to `master`):
+We use [Semantic Versioning][semver] to tag releases.  Only tagged releases should hit production, which ensures that the `/__about` endpoint is informative.  To tag a new release, use one of the following (this is the only time we allow a commit directly to `master`):
 
 ```sh
 npm version major
@@ -116,12 +116,12 @@ npm version minor
 npm version patch
 ```
 
-Now we can push to GitHub:
+Now you can push to GitHub:
 ```sh
 git push && git push --tags
 ```
 
-After pushing to Github, we can deploy to [QA][heroku-qa] (This command requires being executed in Bash):
+After pushing to Github, you can deploy to [QA][heroku-qa] (This command requires being executed in Bash):
 ```sh
 npm run deploy-qa
 ```
@@ -129,14 +129,14 @@ npm run deploy-qa
 
 Publishing
 ----------
-To publish to the public [npm] registry, we need to be logged in to the NPM CLI.
+To publish to the public [npm] registry, you need to be logged in to the NPM CLI.
 
-Check if we are already logged in to NPM via the CLI:
+Check if you are already logged in to NPM via the CLI:
 ```sh
 npm whoami
 ```
 
-If we are not logged in, log in to NPM:
+If you are not logged in, log in to NPM:
 ```sh
 npm login
 ```
@@ -150,7 +150,7 @@ npm publish
 Monitoring
 ----------
 
-We use Graphite and [Grafana] to keep track of application metrics. We can view requests, bundle build duration, cache hit ratios, and memory usage. It's important after a deploy to make sure we haven't unexpectedly had an impact on these.
+We use Graphite and [Grafana] to keep track of application metrics. You can view requests, bundle build duration, cache hit ratios, and memory usage. It's important after a deploy to make sure we haven't unexpectedly had an impact on these.
 
 We also use [Pingdom] to track uptime. You should get notifications if you're a member of the Origami team.
 
