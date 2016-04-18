@@ -3,7 +3,8 @@
 		"modernizr:promises",
 		"caniuse:promises",
 		"blissfuljs",
-		"default"
+		"default",
+		"es6"
 	],
 	"browsers": {
 		"android": "* - 4.4",
