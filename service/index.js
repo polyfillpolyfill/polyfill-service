@@ -10,7 +10,6 @@ const metrics = require('./metrics');
 const testing = require('./testing');
 const docs = require('./docs');
 const morgan = require('morgan');
-const hsts = require('hsts')
 
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
@@ -23,10 +22,6 @@ const serviceInfo = Object.assign({}, require(path.join(__dirname, '../about.jso
 	hostname: require("os").hostname(),
 	dateDeployed: require('fs').statSync(path.join(__dirname,'../package.json')).mtime
 });
-
-app.use(hsts({
-	maxAge: eighteen_weeks * 1000 //converting from seconds to milliseconds
-}))
 
 let ravenClient;
 
@@ -47,6 +42,7 @@ if (process.env.SENTRY_DSN) {
 
 // Default response headers
 app.use((req, res, next) => {
+	res.set('Strict-Transport-Security', `max-age=${eighteen_weeks}`)
 	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
