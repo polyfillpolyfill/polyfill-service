@@ -1,4 +1,6 @@
-(function arrayFromPolyfill() {
+
+// Wrapped in IIFE to prevent leaking to global scope.
+(function () {
 	function parseIterable (arraylike) {
 		var done = false;
 		var iterableResponse;
