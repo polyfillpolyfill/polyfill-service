@@ -29,33 +29,49 @@ describe('returns an array with', function () {
 	});
 
 	it('Iterable', function () {
-		if ('Map' in window && 'Set' in window && 'entries' in Map.prototype) {
+		var set;
+		var setIterator;
+		var map;
+		var mapIterator;
 
-			var map = new Map();
+		if ('Map' in window && 'entries' in Map.prototype) {
+
+			map = new Map();
 			map.set(1,2);
 			map.set(3,4);
-			var mapIterator = map.values();
-			var set = new Set();
+			mapIterator = map.values();
+
+			if (typeof mapIterator.next === 'function') {
+
+				// Test map iterable
+				expect(Array.from(mapIterator)).to.eql([2,4]);
+
+				it('can convert from Map', function () {
+					expect(Array.from(map)).to.eql([[1,2],[3,4]]);
+				});
+			}
+		}
+
+		if ('Set' in window && 'values' in Set.prototype) {
+
+			set = new Set();
 			set.add(1);
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			var setIterator = set.values();
+			setIterator = set.values();
 
-			if (typeof setIterator.next === 'function' && setIterator.hasOwnProperty('next') === false) {
+			if (typeof setIterator.next === 'function') {
 
+				// Test set iterable
 				expect(Array.from(setIterator)).to.eql([1,2,3,4]);
-				expect(Array.from(mapIterator)).to.eql([2,4]);
 
-				it('Map', function () {
-					expect(Array.from(map)).to.eql([[1,2],[3,4]]);
-				});
-
-				it('Set', function () {
+				it('can convert from Set', function () {
 					expect(Array.from(set)).to.eql([1,2,3,4]);
 				});
 			}
 		}
+
 	});
 
 	it('strings', function () {
