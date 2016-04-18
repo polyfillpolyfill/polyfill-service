@@ -10,9 +10,11 @@ const metrics = require('./metrics');
 const testing = require('./testing');
 const docs = require('./docs');
 const morgan = require('morgan');
+const hsts = require('hsts')
 
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
+const eighteen_weeks = one_week * 18;
 const one_year = one_day * 365;
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
@@ -21,6 +23,10 @@ const serviceInfo = Object.assign({}, require(path.join(__dirname, '../about.jso
 	hostname: require("os").hostname(),
 	dateDeployed: require('fs').statSync(path.join(__dirname,'../package.json')).mtime
 });
+
+app.use(hsts({
+	maxAge: eighteen_weeks * 1000 //converting from seconds to milliseconds
+}))
 
 let ravenClient;
 
