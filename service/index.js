@@ -13,7 +13,6 @@ const morgan = require('morgan');
 
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
-const eighteen_weeks = one_week * 18;
 const one_year = one_day * 365;
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 
@@ -42,7 +41,7 @@ if (process.env.SENTRY_DSN) {
 
 // Default response headers
 app.use((req, res, next) => {
-	res.set('Strict-Transport-Security', `max-age=${eighteen_weeks}`)
+	res.set('Strict-Transport-Security', `max-age=${one_year}`)
 	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
 	res.removeHeader("x-powered-by");
