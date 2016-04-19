@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global expect, it */
+
 it('has correct instance', function () {
 	expect(Array.from).to.be.a(Function);
 });
@@ -23,6 +26,52 @@ describe('returns an array with', function () {
 		expect(Array.from({})).to.eql([]);
 		expect(Array.from({ 0: 'a' })).to.eql([]);
 		expect(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 })).to.eql(['a', 'b', 'c']);
+	});
+
+	it('Iterable', function () {
+		var set;
+		var setIterator;
+		var map;
+		var mapIterator;
+
+		if ('Map' in window && 'entries' in Map.prototype) {
+
+			map = new Map();
+			map.set(1,2);
+			map.set(3,4);
+			mapIterator = map.values();
+
+			if (typeof mapIterator.next === 'function') {
+
+				// Test map iterable
+				expect(Array.from(mapIterator)).to.eql([2,4]);
+
+				it('can convert from Map', function () {
+					expect(Array.from(map)).to.eql([[1,2],[3,4]]);
+				});
+			}
+		}
+
+		if ('Set' in window && 'values' in Set.prototype) {
+
+			set = new Set();
+			set.add(1);
+			set.add(2);
+			set.add(3);
+			set.add(4);
+			setIterator = set.values();
+
+			if (typeof setIterator.next === 'function') {
+
+				// Test set iterable
+				expect(Array.from(setIterator)).to.eql([1,2,3,4]);
+
+				it('can convert from Set', function () {
+					expect(Array.from(set)).to.eql([1,2,3,4]);
+				});
+			}
+		}
+
 	});
 
 	it('strings', function () {
@@ -146,4 +195,3 @@ describe('throws', function () {
 		}).to.throwError();
 	});
 });
-
