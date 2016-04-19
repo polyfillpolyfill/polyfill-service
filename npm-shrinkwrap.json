@@ -1295,9 +1295,9 @@
       "resolved": "https://registry.npmjs.org/module-details-from-path/-/module-details-from-path-1.0.2.tgz"
     },
     "moment": {
-      "version": "2.12.0",
-      "from": "moment@>=2.8.3 <3.0.0",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.12.0.tgz"
+      "version": "2.13.0",
+      "from": "moment@2.13.0",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.13.0.tgz"
     },
     "morgan": {
       "version": "1.7.0",
