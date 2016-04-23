@@ -105,7 +105,7 @@ it("exhibits correct iterator behaviour", function () {
 	var v = values.next();
 	expect(k.value).to.be("1");
 	expect(v.value).to.be(1);
-	o.delete("2");
+	o['delete']("2");
 	k = keys.next();
 	v = values.next();
 	expect(k.value).to.be("3");
@@ -158,19 +158,19 @@ it("implements .forEach()", function () {
 it("supports mutations during forEach loops", function () {
 	var o = new Map([["0", 0], ["1", 1], ["2", 2]]), seen = [];
 	o.forEach(function (value, key, obj) {
-		seen.push(value);
+		seen += ','+value;
 		expect(obj).to.be(o);
 		expect(""+value).to.be(key);
 		// mutations work as expected
 		if (value === 1) {
-			o.delete("0"); // remove from before current index
-			o.delete("2"); // remove from after current index
+			o['delete']("0"); // remove from before current index
+			o['delete']("2"); // remove from after current index
 			o.set("3", 3); // insertion
 		} else if (value === 3) {
 			o.set("0", 0); // insertion at the end
 		}
 	});
-	expect(JSON.stringify(seen)).to.be(JSON.stringify([0, 1, 3, 0]));
+	expect(seen).to.be(",0,1,3,0");
 });
 
 it("implements .clear()", function(){
