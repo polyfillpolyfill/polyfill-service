@@ -9,6 +9,13 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	expect(new Map).to.be.a(Map);
 	expect(new Map()).to.be.a(Map);
+	if ("__proto__" in {}) {
+		expect((new Map).__proto__.isPrototypeOf(new Map())).to.be(true);
+		expect((new Map).__proto__ === Map.prototype).to.be(true);
+	}
+});
+
+it ("can be pre-populated", function() {
 	var a = 1;
 	var b = {};
 	var c = new Map();
@@ -17,10 +24,6 @@ it("has valid constructor", function () {
 	expect(m.has(b)).to.be(true);
 	expect(m.has(c)).to.be(true);
 	expect(m.size).to.equal(3);
-	if ("__proto__" in {}) {
-		expect((new Map).__proto__.isPrototypeOf(new Map())).to.be(true);
-		expect((new Map).__proto__ === Map.prototype).to.be(true);
-	}
 });
 
 it("implements .size()", function () {
@@ -65,7 +68,7 @@ it("implements .set()", function () {
 	expect(o.has(-0));
 	expect(o.has(0));
 	expect(o.get(-0)).to.be(callback);
-	expect(o.get(0)).to.be(callback);
+	expect(o.get(0)).to.be(callback); // Native impl fails in IE11
 	o.set(0, generic);
 	expect(o.has(-0));
 	expect(o.has(0));
