@@ -3,7 +3,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "<11",
+		"ie": "<12",
 		"firefox": "<29",
 		"safari": "<8",
 		"ios_saf": "<7.1",
