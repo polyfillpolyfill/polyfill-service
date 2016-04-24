@@ -1,4 +1,7 @@
 {
+	"aliases": [
+		"default"
+	],
 	"browsers": {
 		"android": "*",
 		"bb": "*",

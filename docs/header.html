@@ -18,12 +18,12 @@
 		.enhanced .o--if-no-js { display: none !important; }
 	</style>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-techdocs@^5.0.0,o-grid@^4.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0,o-forms@^2.0.0" />
 	<link rel="stylesheet" href="/v2/assets/css/style.css" />
 
 	<!-- Polyfills must load sync, since they need to be active before other script runs -->
-	<script src="/v2/polyfill.min.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent"></script>
+	<script src="/v2/polyfill.min.js?features=Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent,Element.prototype.closest"></script>
 
 	<!-- Other scripts can be loaded async -->
 	<script>
@@ -47,12 +47,12 @@
 						}
 					}
 				};
-				script.async = true;
+				script.async = script.defer = true;
 				script.src = src;
 				firstScript.parentNode.insertBefore(script, firstScript);
 			});
 		})([
-			'https://build.origami.ft.com/v2/bundles/js?modules=o-techdocs@^4.0.0,o-grid@^3.0.0,o-overlay@^1.4.0',
+			'https://build.origami.ft.com/v2/bundles/js?modules=o-techdocs@^5.0.0,o-grid@^4.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0,o-forms@^2.0.0',
 			'https://www.google.com/jsapi',
 			'/v2/assets/js/ui.js'
 		], function() { charts(); });

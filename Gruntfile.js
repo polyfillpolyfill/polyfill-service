@@ -130,7 +130,7 @@ module.exports = function(grunt) {
 	]);
 };
 
-var browsers = {
+const browsers = {
 	quick: [
 		'chrome/48',
 		'firefox/45',
