@@ -10,8 +10,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+// TODO: rootMargin are completely ignored for now
 (function(scope) {
-  // TODO: rootMargin are completely ignored for now
+  if('IntersectionObserver' in window) {
+    return;
+  }
 
   var POLL_INTERVAL = 100;
 
@@ -30,7 +33,7 @@ limitations under the License.
     this._callback = callback;
     this._root = options.root || null;
     this._rootMargin = options.rootMargin || [0, 0, 0, 0];
-    this._thresholds = options.threshold || 0;
+    this._thresholds = options.threshold || [0];
     this._init();
   };
 
@@ -47,11 +50,6 @@ limitations under the License.
     },
 
     get thresholds() {
-      // 0 means call callback on every change
-      // See note at http://rawgit.com/WICG/IntersectionObserver/master/index.html#intersection-observer-init
-      if(this._thresholds === 0) {
-        return 0;
-      }
       if(this._thresholds instanceof Array) {
         return this._thresholds;
       }
@@ -59,6 +57,9 @@ limitations under the License.
     },
 
     observe: function(target) {
+      if(this._observationTargets.has(target)) {
+        return;
+      }
       if(!(target instanceof HTMLElement)) {
         throw('Target needs to be an HTMLelement');
       }
@@ -68,14 +69,14 @@ limitations under the License.
       if(!root.contains(target)) {
         throw('Target must be descendant of root');
       }
-
-      this._mutationObserver.observe(target, {
+      this._mutationObserver.observe(target.parentNode, {
         attributes: true,
         childList: true,
         characterData: true,
         subtree: true
       });
       this._observationTargets.set(target, {});
+      this._update();
     },
 
     unobserve: function(target) {
@@ -85,6 +86,7 @@ limitations under the License.
     disconnect: function() {
       this._observationTargets.clear();
       this.root.removeEventListener('scroll', this._boundUpdate);
+      scope.removeEventListener('resize', this._boundUpdate);
       this._mutationObserver.disconnect();
       this._descheduleCallback();
     },
@@ -104,7 +106,14 @@ limitations under the License.
       this._observationTargets = new Map();
       this._boundUpdate = throttle(this._update.bind(this), POLL_INTERVAL);
       this.root.addEventListener('scroll', this._boundUpdate);
+      scope.addEventListener('resize', this._boundUpdate);
       this._mutationObserver = new MutationObserver(this._boundUpdate);
+      this._mutationObserver.observe(this.root, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
       this._queue = [];
     },
 
@@ -119,7 +128,7 @@ limitations under the License.
         var targetArea = targetRect.width * targetRect.height;
         var intersectionArea = intersectionRect.width * intersectionRect.height;
         var intersectionRatio = intersectionArea / targetArea;
-        if(!this._hasCrossedThreshold(oldIntersectionEntry.intersectionRatio, intersectionRatio)) {
+        if(!this._hasCrossedThreshold(oldIntersectionEntry.intersectionRatio || 0, intersectionRatio)) {
           return;
         }
         var intersectionEntry = {
@@ -170,18 +179,24 @@ limitations under the License.
       };
     },
 
-    // FIXME: so hack, much performance, very JSON
     _hasCrossedThreshold: function(oldRatio, newRatio) {
-      if(this.thresholds === 0) {
-        return newRatio != oldRatio;
+      if(oldRatio === newRatio) {
+        return;
       }
+      var isOnBoundary = this.thresholds.map(function(threshold) {
+        return threshold == newRatio;
+      }).indexOf(true) !== -1;
+
       var b1 = this.thresholds.map(function(threshold) {
-        return threshold <= oldRatio;
+        return threshold < oldRatio;
       });
       var b2 = this.thresholds.map(function(threshold) {
-        return threshold <= newRatio;
+        return threshold < newRatio;
       });
-      return JSON.stringify(b1) !== JSON.stringify(b2);
+      var hasCrossedThreshold = b1.map(function(_, idx) {
+        return b1[idx] !== b2[idx]
+      }).indexOf(true) !== -1;
+      return isOnBoundary || hasCrossedThreshold;
     }
   };
 
@@ -195,8 +210,8 @@ limitations under the License.
       bottom: bottom,
       left: left,
       right: right,
-      width: right-left,
-      height: bottom-top
+      width: right - left,
+      height: bottom - top
     };
     if(top > bottom) {
       intersectionRect.height = 0;
@@ -215,15 +230,19 @@ limitations under the License.
       if (timer) {
         return;
       }
-      fn.apply(this, arguments);
       timer = setTimeout(function () {
+        fn.apply(this, arguments);
         timer = null;
-      }, int);
+      }.bind(this), int);
     };
   };
 
   var getBoundingClientRect = function(el) {
     var r = el.getBoundingClientRect();
+    if(!r) {
+      return null;
+    }
+    // Older IE
     r.width = r.width || r.right - r.left;
     r.height = r.height || r.bottom - r.top;
     return r;
