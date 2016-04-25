@@ -53,7 +53,7 @@
 	};
 	Map.prototype = {};
 
-	// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically easch time the size of the map changes.
+	// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically each time the size of the map changes.
 	try {
 		Object.defineProperty(Map.prototype, 'size', {
 			get: function() {
