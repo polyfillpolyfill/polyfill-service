@@ -5,6 +5,8 @@ WORKDIR /app
 ENV HOME="/app"
 
 ADD ./package.json ./
+# Set the application to be in production mode by default
+ENV NODE_ENV production
 
 # If don't you need npm, use a base tag
 RUN npm install --production
