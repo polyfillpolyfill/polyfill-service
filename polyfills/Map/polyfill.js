@@ -2,10 +2,10 @@
 
 
 	// Deleted map items mess with iterator pointers, so rather than removing them mark them as deleted. Can't use undefined or null since those both valid keys so use a private symbol.
-	var undefMarker = {};
+	var undefMarker = Symbol('undef');
 
 	// NaN cannot be found in an array using indexOf, so we encode NaNs using a private symbol.
-	var NaNMarker = {};
+	var NaNMarker = Symbol('NaN');
 
 	function encodeKey(key) {
 		return Number.isNaN(key) ? NaNMarker : key;

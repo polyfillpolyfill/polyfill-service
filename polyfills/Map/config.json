@@ -12,6 +12,7 @@
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",
+		"Symbol",
 		"Symbol.iterator",
 		"Symbol.species",
 		"Object.defineProperty",
