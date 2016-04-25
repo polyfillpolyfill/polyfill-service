@@ -45,7 +45,7 @@
 		this._values = [];
 
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
-		data && data.forEach && data.forEach(function (item) {
+		data && (typeof data.forEach === 'function') && data.forEach(function (item) {
 			this.set.apply(this, item);
 		}, this);
 
