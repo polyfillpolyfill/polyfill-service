@@ -109,6 +109,27 @@ table {
 .compatibility tr.has-notes td {
 	border-bottom: none;
 }
+.compatibility__data, .compatibility__live {
+    display: none;
+    vertical-align: top;
+}
+.compatibility--data .compatibility__data {
+    display: table-cell;
+}
+.compatibility--live .compatibility__live {
+    display: table-cell;
+}
+.compat_icon {
+	display: none;
+}
+@media (max-width: 700px) {
+	.compat_name { display: none; }
+	.compat_icon { display: inline; }
+}
+
+.testFrame {
+	visibility: hidden;
+}
 
 [class^='status'],div[class*=' status']{
 	padding: 1px 4px;
@@ -131,6 +152,19 @@ table {
 	background-color: #ECECEC;
 	color: #aaa;
 	font-style: italic;
+}
+.notes {
+	display: none;
+}
+.notes-toggle {
+	cursor: pointer;
+	color: #2e6e9e;
+}
+.show-notes + .notes {
+	display: table-row;
+}
+.show-notes .notes-toggle {
+	color: red;
 }
 
 .enhanced #chart-requests, .enhanced #chart-hitratio {

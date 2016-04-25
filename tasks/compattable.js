@@ -2,13 +2,13 @@
 
 // All elements of A (this) that also belong to B (other)
 function intersection(a, b) {
-	return new Set(Array.from(a).filter(value => b.has(value)));
+	return new Set(Array.from(b).filter(value => a.has(value)));
 };
 
 // Relative complement of this (A) and other (B)
 // Returns the set of objects in other (B) but not in this (A)
 function difference(a, b) {
-	return new Set(Array.from(a).filter(value => !b.has(value)));
+	return new Set(Array.from(b).filter(value => !a.has(value)));
 };
 
 

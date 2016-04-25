@@ -130,10 +130,10 @@ module.exports = function(grunt) {
 	]);
 };
 
-var browsers = {
+const browsers = {
 	quick: [
 		'chrome/48',
-		'firefox/45',
+		'firefox/44',
 		'ie/13',
 		'ie/12',
 		'ie/11',
@@ -159,9 +159,13 @@ var browsers = {
 	],
 	full: [
 		'chrome/48',
+		'chrome/46',
 		'chrome/42',
+		'chrome/40',
 		'chrome/35',
 		'chrome/30',
+		'firefox/44',
+		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
@@ -181,6 +185,7 @@ var browsers = {
 		'android/4.3',
 		'android/4.2',
 		'android/4.1',
+		'ios_saf/9.1',
 		'ios_saf/9.2'
 	]
 };

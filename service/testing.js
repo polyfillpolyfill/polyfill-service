@@ -58,6 +58,10 @@ function createEndpoint(type, polyfillio) {
 					return acc;
 				}, []);
 
+				polyfilldata.sort(function(a,b) {
+					return (a.feature > b.feature) ? -1 : 1;
+				});
+
 				res.set('Cache-Control', 'no-store');
 				res.send(template({
 					loadPolyfill: (mode !== 'control'),

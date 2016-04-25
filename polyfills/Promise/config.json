@@ -2,7 +2,9 @@
 	"aliases": [
 		"modernizr:promises",
 		"caniuse:promises",
-		"blissfuljs"
+		"blissfuljs",
+		"default",
+		"es6"
 	],
 	"browsers": {
 		"android": "* - 4.4",
