@@ -1,1 +1,11 @@
 /node_modules
+.editorconfig
+.eslintrc
+.npmignore
+circle.yml
+CONTRIBUTING.md
+Dockerfile
+fastly-config.vcl
+LICENSE.md
+Makefile
+README.md
