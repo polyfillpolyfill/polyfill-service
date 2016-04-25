@@ -16,5 +16,8 @@
 		"Symbol.species",
 		"Object.defineProperty",
 		"Number.isNaN"
+	],
+	"notes": [
+		"For compatibility with very old engines, `Map.prototype.delete` must be accessed using square bracket notation because 'delete' is a reserved word. `myMap.delete()` is an error in IE8. Use `myMap['delete']()` instead."
 	]
 }
