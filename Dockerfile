@@ -4,15 +4,13 @@ FROM mhart/alpine-node:5.7.1
 WORKDIR /app
 ENV HOME="/app"
 
-ADD ./package.json ./
 # Set the application to be in production mode by default
 ENV NODE_ENV production
 
-# If don't you need npm, use a base tag
-RUN npm install --production
+ADD ./package.json ./
 
-# Remove the cache that NPM creates
-RUN npm cache clean
+# Install dependencies and remove the cache that NPM creates
+RUN npm install --production && npm cache clean
 
 # Add application code
 ADD ./ .
