@@ -1,0 +1,25 @@
+{
+	"aliases": [
+		"default"
+	],
+	"browsers": {
+		"ie": "<12",
+		"firefox": "<29",
+		"safari": "<8",
+		"ios_saf": "<7.1",
+		"chrome": "<38",
+		"firefox_mob": "<29"
+	},
+	"dependencies": [
+		"Array.prototype.indexOf",
+		"Symbol",
+		"Symbol.iterator",
+		"Symbol.species",
+		"Object.defineProperty",
+		"Number.isNaN"
+	],
+	"notes": [
+		"For compatibility with very old engines, `Map.prototype.delete` must be accessed using square bracket notation because 'delete' is a reserved word. `myMap.delete()` is an error in IE8. Use `myMap['delete']()` instead.",
+		"The test suite for this polyfill is derived from work of Andrea Giammarchi which is [published under an MIT licence](https://github.com/WebReflection/es6-collections)"
+	]
+}
