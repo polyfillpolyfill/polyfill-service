@@ -1,71 +1,49 @@
+// Copied from ES5-Shim
+
 describe('Basic functionality', function () {
-	var arePropertyDescriptorsSupported = function () {
-		var obj = {};
-		try {
-			Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-	        for (var _ in obj) { return false; }
-			return obj.x === obj;
-		} catch (e) { // this is IE 8.
-			return false;
-		}
-	};
-	var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
+	it('should return undefined because the object does not own the property', function () {
+        var descr = Object.getOwnPropertyDescriptor({}, 'name');
 
-	var enumDescriptor = {
-		configurable: true,
-		enumerable: false,
-		value: true,
-		writable: false
-	};
-	var writableDescriptor = {
-		configurable: true,
-		enumerable: true,
-		value: 42,
-		writable: true
-	};
+        expect(descr).to.be(undefined);
+    });
 
-	if (supportsDescriptors) {
-		it('works with Object.prototype poisoned setter', function () {
-			var key = 'foo';
+    it('should return a data descriptor', function () {
+        var descr = Object.getOwnPropertyDescriptor({ name: 'Testing' }, 'name');
+        var expected = {
+            value: 'Testing',
+            enumerable: true,
+            writable: true,
+            configurable: true
+        };
 
-			var obj = {};
-			obj[key] = 42;
+        expect(descr).to.eql(expected);
+    });
 
-			var expected = {};
-			expected[key] = {
-				configurable: true,
-				enumerable: true,
-				value: 42,
-				writable: true
-			};
+    it('should return undefined because the object does not own the property', function () {
+        var descr = Object.getOwnPropertyDescriptor(Object.create({ name: 'Testing' }, {}), 'name');
 
-			Object.defineProperty(Object.prototype, key, { configurable: true, set: function (v) { throw new Error(v); } });
+        expect(descr).to.be(undefined);
+    });
 
-			expect(function () {
-				var result = Object.getOwnPropertyDescriptors(obj);
-				expect(result).to.equal(expected);
-			}).to.not.throwException()
+    it('should return a data descriptor', function () {
+        var expected = {
+            value: 'Testing',
+            configurable: true,
+            enumerable: true,
+            writable: true
+        };
+        var obj = Object.create({}, { name: expected });
 
-			delete Object.prototype[key];
-		});
+        var descr = Object.getOwnPropertyDescriptor(obj, 'name');
 
-		it('gets all expected non-Symbol descriptors', function () {
-			var obj = { normal: Infinity };
-			Object.defineProperty(obj, 'enumerable', enumDescriptor);
-			Object.defineProperty(obj, 'writable', writableDescriptor);
+        expect(descr).to.eql(expected);
+    });
 
-			var descriptors = Object.getOwnPropertyDescriptors(obj);
-
-			expect(descriptors).to.equal({
-				enumerable: enumDescriptor,
-				normal: {
-					configurable: true,
-					enumerable: true,
-					value: Infinity,
-					writable: true
-				},
-				writable: writableDescriptor
-			});
-		});
-	}
+    it('should throw error for non object', function () {
+        try {
+        	Object.getOwnPropertyDescriptor(42, 'name');
+        } catch (err) {
+            expect(err).to.eql(TypeError);
+        }
+    });
 });
