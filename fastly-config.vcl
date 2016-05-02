@@ -10,7 +10,7 @@ sub vcl_recv {
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
 
-	if (!req.http.Fastly-SSL) {
+	if (!req.http.Fastly-SSL && req.http.Host == "cdn.polyfill.io") {
 		error 751 "Force TLS";
 	}
 
