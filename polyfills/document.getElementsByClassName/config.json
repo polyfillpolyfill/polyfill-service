@@ -1,0 +1,10 @@
+{
+	"browsers": {
+
+	},
+	"dependencies": [
+		"document.querySelector"
+	],
+	"spec": "TODO",
+	"docs": "TODO"
+}
