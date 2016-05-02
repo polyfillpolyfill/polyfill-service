@@ -5,17 +5,18 @@ const path = require('path');
 
 module.exports = function(grunt) {
 
-	grunt.registerTask('deployvcl', 'Push VCL configuration to Fastly', function() {
+	grunt.registerMultiTask('deployvcl', 'Push VCL configuration to Fastly', function() {
 
 		const done = this.async();
 
 		const options = this.options({
+			serviceId: null,
 			vclFilePath: path.join(__dirname, '../fastly-config.vcl'),
 			vclName: 'default',
 			dryRun: false
 		});
 
-		if (!process.env.FASTLY_SERVICE_ID || !process.env.FASTLY_API_KEY) {
+		if (!process.env.FASTLY_API_KEY) {
 			throw new Error ("Fastly credentials required.  Check environment configuration");
 		}
 		if (!fs.statSync(options.vclFilePath).isFile()) {
@@ -26,15 +27,15 @@ module.exports = function(grunt) {
 
 		grunt.log.writeln('Pushing to Fastly');
 
-		const fastly = require('fastly')(process.env.FASTLY_API_KEY, encodeURIComponent(process.env.FASTLY_SERVICE_ID));
+		const fastly = require('fastly')(process.env.FASTLY_API_KEY, encodeURIComponent(options.serviceId));
 		let newVersion;
 
 		let deploy =
 			fastly.getServices()
 			.then(services => {
 				grunt.log.writeln('Loading Fastly service list');
-				var service = services.filter(svc => svc.id === process.env.FASTLY_SERVICE_ID);
-				if (!service) throw new Error('Service not found.  Check FASTLY_SERVICE_ID matches a valid service on Fastly that is accessible by your FASTLY_API_KEY');
+				var service = services.filter(svc => svc.id === options.serviceId);
+				if (!service) throw new Error('Service not found.  Check options.serviceId matches a valid service on Fastly that is accessible by your FASTLY_API_KEY');
 				service = service[0];
 				grunt.log.writeln('Cloning active version %s of %s', service.version, service.name);
 				return fastly.cloneVersion(service.version).then(res => {

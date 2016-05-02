@@ -26,8 +26,8 @@
     "start": "bin/polyfill-service",
     "prepublish": "grunt build",
     "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
-    "deploy-qa": "npm run deploy -- ft-polyfill-service-qa",
-    "deploy-prod": "npm run deploy -- ft-polyfill-service",
+    "deploy-qa": "npm run deploy -- ft-polyfill-service-qa && grunt deployvcl:qa",
+    "deploy-prod": "npm run deploy -- ft-polyfill-service && grunt deployvcl:prod",
     "test": "grunt test"
   },
   "license": "CC0-1.0",

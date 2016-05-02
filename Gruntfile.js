@@ -81,6 +81,10 @@ module.exports = function(grunt) {
 			tasks: {
 				src: ['polyfills/**/update.task.js'],
 			}
+		},
+		"deployvcl": {
+			qa: { options: {serviceId: "2l7QhcR5rkdg691tcdRTD7"} },
+			prod: { options: {serviceId: "4E1GeTez3EFH3cnwfyMAog"} }
 		}
 	});
 
