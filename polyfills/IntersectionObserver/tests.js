@@ -42,8 +42,7 @@ afterEach(function() {
 });
 
 
-
-it("triggers if elements already intersect when observing begins", function() {
+it("triggers if elements already intersect when observing begins", function(done) {
 	rootEl.appendChild(childEl);
 	document.body.appendChild(rootEl);
 
