@@ -1,30 +1,35 @@
 
 var rootEl, childEl, io;
 
-function promiseAnimationFrame() {
-	return new Promise(function(resolve) {
-		requestAnimationFrame(function() {
-			resolve();
-		});
-	});
-}
+function createRunner(actions) {
+	var asyncTestAssertion;
+	var done;
+	var doTest = function() {
+		if (actions.length === 0) return done();
+		var next = actions.shift();
+		var action = next[0];
+		var isAsync = next[1];
+		var assertion = next[2];
+		asyncTestAssertion = (isAsync) ? assertion : function() {};
 
-function await(f, timeout) {
-	var stack = new Error().stack;
-	return function() {
-		return new Promise(function(resolve) {
-			var timeoutId = setTimeout(function() {
-				throw new Error("Timed out " + stack);
-			}, timeout);
-			intervalId = setInterval(function() {
-				if(f()) {
-					clearInterval(intervalId);
-					clearTimeout(timeoutId);
-					resolve();
-				}
-			}, 50);
-		});
-	};
+		childEl.scrollTop;  // Force render as substitute for requestAnimationFrame
+		action();
+
+		if (!isAsync) {
+			assertion(io.takeRecords());
+			doTest();
+		}
+	}
+	return {
+		"asyncAssert": function(records) {
+			asyncTestAssertion(records);
+			doTest();
+		},
+		"go": function(cb) {
+			done = cb || function() {};
+			doTest();
+		}
+	}
 }
 
 beforeEach(function() {
@@ -78,166 +83,130 @@ it("reports at threshold correctly", function(done) {
 	rootEl.appendChild(childEl);
 	document.body.appendChild(rootEl);
 
-	var callCounter = 0;
+	var runner = createRunner([
+		[function() {}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "-11px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be.lessThan(0.5);
+		}],
+		[function() {
+			childEl.style.top = "-16px";
+		}, false, function(records) {
+			expect(records.length).to.be(0);
+		}],
+		[function() {
+			childEl.style.top = "-10px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be(0.5);
+		}]
+	]);
 	io = new IntersectionObserver(
-		function(records) {
-			switch(callCounter) {
-				case 0:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be(1);
-				break;
-				case 1:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be.lessThan(0.5);
-				break;
-				case 2:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be.greaterThan(0.5);
-				break;
-				default:
-				throw new Error("Too many calls");
-			}
-			callCounter++;
-		},
+		runner.asyncAssert,
 		{root: rootEl, threshold: 0.5}
 	);
-
 	io.observe(childEl);
-
-	promiseAnimationFrame()
-	.then(await(function(){return callCounter == 1;}, 500))
-	.then(function() {
-		childEl.style.top = "-11px";
-	})
-	.then(await(function(){return callCounter == 2;}, 500))
-	.then(function() {
-		childEl.style.top = "-16px";
-	})
-	.then(promiseAnimationFrame)
-	.then(function() {
-		expect(io.takeRecords().length).to.be(0);
-		expect(callCounter).to.be(2);
-		childEl.style.top = "-5px";
-	})
-	.then(await(function(){return callCounter == 3;}, 500))
-	.then(done);
+	runner.go(done);
 });
 
 it("reports at multiple thresholds", function(done) {
 	rootEl.appendChild(childEl);
 	document.body.appendChild(rootEl);
 
-	var callCounter = 0;
+	var runner = createRunner([
+		[function() {}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "-11px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be.lessThan(0.5);
+			expect(records[0].intersectionRatio).to.be.greaterThan(0.25);
+		}],
+		[function() {
+			childEl.style.top = "-16px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be.lessThan(0.25);
+		}],
+		[function() {
+			childEl.style.top = "-17px";
+		}, false, function(records) {
+			expect(records.length).to.be(0);
+		}],
+		[function() {
+			childEl.style.top = "-15px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+			expect(records[0].intersectionRatio).to.be(0.25);
+		}]
+	]);
 	io = new IntersectionObserver(
-		function(records) {
-			switch(callCounter) {
-				case 0:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be(1);
-				break;
-				case 1:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be.lessThan(0.5);
-				expect(records[0].intersectionRatio).to.be.greaterThan(0.25);
-				break;
-				case 2:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be.lessThan(0.25);
-				break;
-				case 3:
-				expect(records.length).to.be(1);
-				expect(records[0].intersectionRatio).to.be(0.25);
-				break;
-				default:
-				throw new Error("Too many calls");
-			}
-			callCounter++;
-		},
+		runner.asyncAssert,
 		{root: rootEl, threshold: [0.5, 0.25]}
 	);
-
 	io.observe(childEl);
-
-	promiseAnimationFrame()
-	.then(await(function(){return callCounter == 1;}, 500))
-	.then(function() {
-		childEl.style.top = "-11px";
-	})
-	.then(await(function(){return callCounter == 2;}, 500))
-	.then(function() {
-		childEl.style.top = "-16px";
-	})
-	.then(await(function(){return callCounter == 3;}, 500))
-	.then(function() {
-		childEl.style.top = "-17px";
-	})
-	.then(promiseAnimationFrame)
-	.then(function() {
-		expect(io.takeRecords().length).to.be(0);
-		expect(callCounter).to.be(3);
-		childEl.style.top = "-15px";
-	})
-	.then(await(function(){return callCounter == 4;}, 500))
-	.then(done);
+	runner.go(done);
 });
 
 it("supports margins", function(done) {
 	rootEl.appendChild(childEl);
 	document.body.appendChild(rootEl);
 
-	var callCounter = 0;
+	var runner = createRunner([
+		[function() {
+			childEl.style.top = "-25px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "-24px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "110px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "109px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "-35px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "-34px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "220px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}],
+		[function() {
+			childEl.style.top = "219px";
+		}, true, function(records) {
+			expect(records.length).to.be(1);
+		}]
+	]);
 	io = new IntersectionObserver(
-		function(records) {
-			if(callCounter <= 6) {
-				expect(records.length).to.be(1);
-			} else {
-				throw new Error("Too many calls");
-			}
-			callCounter++;
-		},
+		runner.asyncAssert,
 		{root: rootEl, margin: "5px 10% 10% 15px"}
 	);
-
 	io.observe(childEl);
+	runner.go(done);
 
-	childEl.style.top = "-15px";
-	promiseAnimationFrame()
-	.then(await(function(){return callCounter == 1;}, 500))
-	.then(function() {
-		childEl.style.top = "-14px";
-	})
-	.then(await(function(){return callCounter == 2;}, 500))
-	.then(function() {
-		childEl.style.top = "86px";
-	})
-	.then(await(function(){return callCounter == 3;}, 500))
-	.then(function() {
-		childEl.style.top = "87px";
-	})
-	.then(promiseAnimationFrame)
-	.then(await(function(){return callCounter == 3;}, 500))
-	.then(function() {
-		childEl.style.top = "0px";
-		childEl.style.left = "0px";
-	})
-	.then(await(function(){return callCounter == 4;}, 500))
-	.then(function() {
-		childEl.style.left = "-1px";
-	})
-	.then(promiseAnimationFrame)
-	.then(await(function(){return callCounter == 4;}, 500))
-	.then(function() {
-		childEl.style.left = "1px";
-	})
-	.then(await(function(){return callCounter == 5;}, 500))
-	.then(function() {
-		childEl.style.left = "180px";
-	})
-	.then(await(function(){return callCounter == 6;}, 500))
-	.then(function() {
-		childEl.style.left = "181px";
-	})
-	.then(promiseAnimationFrame)
-	.then(await(function(){return callCounter == 6;}, 500))
-	.then(done);
 });
