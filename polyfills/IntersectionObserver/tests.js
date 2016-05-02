@@ -42,30 +42,6 @@ afterEach(function() {
 });
 
 
-it("throws when root is not in the DOM", function() {
-	document.body.appendChild(childEl);
-	io = new IntersectionObserver(function(){}, {root: rootEl});
-	expect(function() {
-		io.observe(childEl);
-	}).to.throwException();
-});
-
-it("throws when observed is not in the DOM", function() {
-	document.body.appendChild(rootEl);
-	io = new IntersectionObserver(function(){}, {root: rootEl});
-	expect(function() {
-		io.observe(childEl);
-	}).to.throwException();
-});
-
-it("throws if root does not contain child", function() {
-	document.body.appendChild(rootEl);
-	document.body.appendChild(childEl);
-	io = new IntersectionObserver(function(){}, {root: rootEl});
-	expect(function() {
-		io.observe(childEl);
-	}).to.throwException();
-});
 
 it("triggers if elements already intersect when observing begins", function() {
 	rootEl.appendChild(childEl);
