@@ -212,7 +212,8 @@ function startService(port, callback) {
 			callback(err);
 		})
 		.on('clientError', function (ex, sock) {
-			console.log('HTTP clientError: ', ex.code, sock);
+			sock.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+			sock.destroy();
 		})
 	;
 }

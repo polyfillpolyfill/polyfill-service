@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 5.8.0
+    version: 6.0.0
 dependencies:
   override:
     - npm install -g grunt-cli
