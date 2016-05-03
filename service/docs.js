@@ -61,11 +61,14 @@ function getData(type) {
 	const handlers = {
 		fastly: () => {
 			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
+			const endTime = moment().startOf('day');
+			const startTime = moment(endTime).subtract(180, 'days');
 			return request({
-				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=90 days ago&to=1 day ago&by=day',
+				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from='+startTime.unix()+'&to='+endTime.unix()+'&by=day',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 				json: true
 			}).then(data => {
+				console.log(data);
 				const rollup = {requests:0, hits:0, miss:0, bandwidth:0};
 				const byday = data.data.map(function(result) {
 					rollup.requests += result.requests;
