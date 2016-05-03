@@ -18,6 +18,10 @@ var startService = require('../service');
 var argv = minimist(process.argv.slice(2));
 var port = argv.port || Number(process.env.PORT) || 3000;
 
+process.on('uncaughtException', (err) => {
+  console.log('uncaught exception', err.stack || err);
+});
+
 startService(port, function(err, app){
 	if (err) {
 		console.error('Error while starting service:', err);
