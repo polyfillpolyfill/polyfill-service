@@ -1,0 +1,13 @@
+{
+	"aliases": [
+	],
+	"browsers": {
+	},
+	"dependencies": [
+		"XMLHttpRequest"
+	],
+	"docs": "TODO",
+	"spec": "TODO",
+	"repo": "https://github.com/miguelmota/Navigator.sendBeacon",
+	"license": "TODO"
+}
