@@ -1,10 +1,8 @@
 
-it('returns identical objects for the same search', function () {
+it('finds an element using a class name', function () {
 	var div = document.body.appendChild(document.createElement('DIV'));
 	div.className = 'abcd';
 	var a = document.getElementsByClassName('abcd');
-	var b = document.getElementsByClassName('abcd');
-	expect(a).to.be(b);
 	expect(a.length).to.be(1);
 	document.body.removeChild(div);
 });
