@@ -152,7 +152,6 @@ const browsers = {
 		'ie/9',
 		'ie/8',
 		'ie/7',
-		'ie/6',
 		'safari/9',
 		'safari/8',
 		'android/4.4'
@@ -177,7 +176,6 @@ const browsers = {
 		'ie/9',
 		'ie/8',
 		'ie/7',
-		'ie/6',
 		'safari/9',
 		'safari/8',
 		'safari/5.1',
