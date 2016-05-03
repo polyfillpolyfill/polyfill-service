@@ -157,6 +157,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	const params = {
 		features: polyfills.get(),
+		excludes: (req.query.excludes && req.query.excludes.split(',')) || [],
 		minify: minified
 	};
 	if (req.query.unknown) {

@@ -174,6 +174,7 @@ Returns a promise of a polyfill bundle string.  Options is an object with the fo
 * `minify`: Boolean, optional. Whether to minify the bundle
 * `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, no features will be considered and the output will be blank. To load the default feature set, set features to `{default:{}}`.  Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
+* `excludes`: Array, optional. Array of features to exclude from the final bundle.
 * `unknown`: String, optional. What to do when the user agent is not recognised.  Set to `polyfill` to return polyfills for all qualifying features, `ignore` to return nothing.  Defaults to `ignore`.
 
 Flags that may be applied to polyfills are:
@@ -204,6 +205,7 @@ Options is an object with the following keys:
 * `uaString`: String, required. The user agent to evaluate for features that should be included conditionally
 * `features`: Object, optional. An object with the features that are to be considered for polyfill inclusion. If not supplied, all default features will be considered. Each feature must be an entry in the features object with the key corresponding to the name of the feature and the value an object with the following properties:
 	* `flags`: Array, optional. Array of flags to apply to this feature (see below)
+* `excludes`: Array, optional. Array of features to exclude from the final bundle.
 
 Example:
 
