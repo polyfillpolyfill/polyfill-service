@@ -104,6 +104,35 @@ describe("polyfillio", function() {
 				assert(Object.keys(polyfillSet).length > 0);
 			});
 		});
+
+		it("should respect the excludes option", function() {
+			return Promise.all([
+				polyfillio.getPolyfills({
+					features: {
+						'fetch': { flags:[] }
+					},
+					uaString: 'chrome/30'
+				}).then(function(polyfillSet) {
+					assert.deepEqual(polyfillSet, {
+						fetch: { flags: [] },
+						Promise: { flags: [], aliasOf: [ 'fetch' ] },
+						setImmediate: { flags: [], aliasOf: [ 'Promise', 'fetch' ] }
+					});
+				}),
+				polyfillio.getPolyfills({
+					features: {
+						'fetch': { flags:[] }
+					},
+					excludes: ["Promise", "non-existent-feature"],
+					uaString: 'chrome/30'
+				}).then(function(polyfillSet) {
+					console.log(polyfillSet, 2);
+					assert.deepEqual(polyfillSet, {
+						fetch: { flags: [] }
+					});
+				})
+			]);
+		});
 	});
 
 	/*
