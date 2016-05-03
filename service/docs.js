@@ -62,19 +62,19 @@ function getData(type) {
 		fastly: () => {
 			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
 			return request({
-				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
+				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=90 days ago&to=1 day ago&by=day',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 				json: true
 			}).then(data => {
 				const rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				const byhour = data.data.map(function(result) {
+				const byday = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
 					rollup.bandwidth += result.bandwidth;
 					return {date: result.start_time, requests:result.requests, hits:result.hits, miss:result.miss};
 				});
-				return {byhour:byhour, rollup:rollup};
+				return {byday:byday, rollup:rollup};
 			});
 		},
 		respTimes: () => {
@@ -258,7 +258,7 @@ function route(req, res, next) {
 				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')])
 					.then(spread((fastly, outages, respTimes) => {
 						return Object.assign(locals, {
-							requestsData: fastly.byhour,
+							requestsData: fastly.byday,
 							downtime: outages,
 							respTimes: respTimes,
 							hitCount: fastly.rollup.hits,
