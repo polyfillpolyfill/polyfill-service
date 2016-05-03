@@ -17,3 +17,10 @@ it('converts undefined into a string', function () {
 	document.body.removeChild(div);
 });
 
+it('supports multiple space-separated classes', function () {
+	var div = document.body.appendChild(document.createElement('DIV'));
+	div.innerHTML = '<p class="one two">foo</p><p class="one">foo</p><p class="two one"></p>';
+	expect(document.getElementsByClassName('one two').length).to.be(2);
+	document.body.removeChild(div);
+});
+
