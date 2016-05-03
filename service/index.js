@@ -122,7 +122,7 @@ app.get(/^\/v1\/(.*)/, (req, res) => {
 		}
 		return out;
 	}, []).join('&');
-	const redirPath = '/v2/' + req.params[0] + (qs.length ? '?'+qs : '');
+	const redirPath = '/v2/' + req.params[0].replace(/[^\w\/\.\+\:]/g, '') + (qs.length ? '?'+qs : '');
 
 	res.status(301);
 	res.set('Location', redirPath);
