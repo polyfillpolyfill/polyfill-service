@@ -83,9 +83,9 @@ module.exports = function(grunt) {
 			}
 		},
 		"deployvcl": {
-			dryrun: { options: {serviceId: "2l7QhcR5rkdg691tcdRTD7", dryRun: true} },
-			qa: { options: {serviceId: "2l7QhcR5rkdg691tcdRTD7"} },
-			prod: { options: {serviceId: "4E1GeTez3EFH3cnwfyMAog"} }
+			dryrun: { options: {service: "qa", dryRun: true} },
+			qa: { options: {service: "qa"} },
+			prod: { options: {service: "prod"} }
 		}
 	});
 

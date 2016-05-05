@@ -64,7 +64,7 @@ You can configure the Polyfill service using environment variables. In developme
 
   * `PORT`: The port on which to listen for HTTP requests (default 3000).
   * `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
-  * `FASTLY_SERVICE_ID`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
+  * `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
   * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
   * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
   * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
