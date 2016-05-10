@@ -7,6 +7,9 @@
 		"safari": "4 - 6.0",
 		"ie_mob": "10 - *"
 	},
+	"dependencies": [
+		"_DOMTokenList"
+	],
 	"spec": "http://www.whatwg.org/specs/web-apps/current-work/#domtokenlist",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList"
 }
