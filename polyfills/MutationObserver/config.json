@@ -11,6 +11,9 @@
 		"op_mob": "<15",
 		"ios_saf": "<7"
 	},
+	"dependencies": [
+		"WeakMap"
+	],
 	"repo": "https://github.com/webcomponents/webcomponentsjs",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
 	"spec": "https://dom.spec.whatwg.org/#mutationobserver",
