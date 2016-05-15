@@ -3,6 +3,15 @@
 		"default"
 	],
 	"browsers": {
+		"ie": "<12",
+		"safari": "<7.1",
+		"firefox": "<29",
+		"chrome": "<38",
+		"android": "*",
+		"firefox_mob": "<29",
+		"ie_mob": "*",
+		"opera_mob": "*",
+		"ios_saf": "<8"
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",
