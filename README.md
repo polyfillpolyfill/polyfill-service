@@ -22,7 +22,7 @@ Table Of Contents
 * [Publishing](#publishing)
 * [Monitoring](#monitoring)
 * [Library API Reference](#library-api-reference)
-	* [License](#license)
+* [License](#license)
 
 
 Requirements
