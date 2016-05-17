@@ -13,15 +13,15 @@ Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shie
 Table Of Contents
 -----------------
 
-	* [Requirements](#requirements)
-	* [Running Locally](#running-locally)
-	* [Configuration](#configuration)
-	* [Testing](#testing)
-	* [Release Process](#release-process)
-	* [Deployment](#deployment)
-	* [Publishing](#publishing)
-	* [Monitoring](#monitoring)
-	* [Library API Reference](#library-api-reference)
+* [Requirements](#requirements)
+* [Running Locally](#running-locally)
+* [Configuration](#configuration)
+* [Testing](#testing)
+* [Release Process](#release-process)
+* [Deployment](#deployment)
+* [Publishing](#publishing)
+* [Monitoring](#monitoring)
+* [Library API Reference](#library-api-reference)
 	* [License](#license)
 
 
