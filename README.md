@@ -245,6 +245,7 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
 [heroku-qa]: https://dashboard.heroku.com/apps/ft-polyfill-service-qa
 [heroku]: https://heroku.com/
+[license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
 [MIT license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
