@@ -122,7 +122,7 @@ app.get(/^\/v1\/(.*)/, (req, res) => {
 		}
 		return out;
 	}, []).join('&');
-	const redirPath = '/v2/' + req.params[0] + (qs.length ? '?'+qs : '');
+	const redirPath = '/v2/' + req.params[0].replace(/[^\w\/\.\+\:]/g, '') + (qs.length ? '?'+qs : '');
 
 	res.status(301);
 	res.set('Location', redirPath);
@@ -157,6 +157,7 @@ app.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	const params = {
 		features: polyfills.get(),
+		excludes: (req.query.excludes && req.query.excludes.split(',')) || [],
 		minify: minified
 	};
 	if (req.query.unknown) {
@@ -211,7 +212,8 @@ function startService(port, callback) {
 			callback(err);
 		})
 		.on('clientError', function (ex, sock) {
-			console.log('HTTP clientError: ', ex.code, sock);
+			sock.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+			sock.destroy();
 		})
 	;
 }
