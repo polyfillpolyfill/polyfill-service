@@ -152,3 +152,15 @@ xit('should not allow implicit string coercion', function() {
 	}
 	expect(implicitStringCoercion).to.throwError();
 });
+
+it('should create Object without symbols', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype);
+	expect(obj instanceof Obj).to.be(true);
+});
+
+it('should create Object without symbols, second argument undefined', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype, undefined);
+	expect(obj instanceof Obj).to.be(true);
+});
