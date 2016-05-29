@@ -25,9 +25,10 @@
   "scripts": {
     "start": "bin/polyfill-service",
     "prepublish": "grunt build",
-    "deploy": "grunt build && haikro build && haikro deploy --commit `git rev-parse HEAD` --app",
-    "deploy-qa": "npm run deploy -- ft-polyfill-service-qa && grunt deployvcl:qa",
-    "deploy-prod": "npm run deploy -- ft-polyfill-service && grunt deployvcl:prod",
+    "container-build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
+    "container-test": "npm run container-build && docker run -p 3000:3000 -it registry.heroku.com/ft-polyfill-service-qa/web",
+    "deploy": "npm run container-build && docker push registry.heroku.com/ft-polyfill-service-qa/web && grunt deployvcl:qa",
+    "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && grunt deployvcl:prod",
     "test": "grunt test"
   },
   "license": "CC0-1.0",
@@ -67,7 +68,6 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
-    "haikro": "^2.3.2",
     "intl": "~1.1.0",
     "picturefill": "^3.0.1",
     "rimraf": "^2.4.0",
