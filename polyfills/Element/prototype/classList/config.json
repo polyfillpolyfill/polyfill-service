@@ -10,7 +10,7 @@
 	},
 	"dependencies": [
 		"Object.defineProperty",
-		"DOMTokenList",
+		"_DOMTokenList",
 		"Element"
 	],
 	"spec": "https://html.spec.whatwg.org/multipage/dom.html#dom-classlist",

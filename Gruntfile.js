@@ -81,6 +81,11 @@ module.exports = function(grunt) {
 			tasks: {
 				src: ['polyfills/**/update.task.js'],
 			}
+		},
+		"deployvcl": {
+			dryrun: { options: {service: "qa", dryRun: true} },
+			qa: { options: {service: "qa"} },
+			prod: { options: {service: "prod"} }
 		}
 	});
 
@@ -111,7 +116,8 @@ module.exports = function(grunt) {
 		"simplemocha",
 		"service",
 		"saucelabs:ci",
-		"service:polyfillservice:stop"
+		"service:polyfillservice:stop",
+		"deployvcl:dryrun"
 	]);
 
 	grunt.registerTask("build", [

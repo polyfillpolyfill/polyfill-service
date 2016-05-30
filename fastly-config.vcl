@@ -5,6 +5,10 @@ sub vcl_recv {
 		return(pass);
 	}
 
+	if (!req.http.Fastly-SSL && req.http.Host == "cdn.polyfill.io") {
+		error 751 "Force TLS";
+	}
+
 	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
@@ -31,4 +35,16 @@ sub vcl_deliver {
 		add resp.http.Vary = "User-Agent";
 	}
 	return(deliver);
+}
+
+sub vcl_error {
+
+	# Redirect to SSL
+	if (obj.status == 751) {
+		set obj.status = 301;
+		set obj.response = "Moved Permanently";
+		set obj.http.Location = "https://" req.http.host req.url;
+		synthetic {""};
+		return (deliver);
+	}
 }
