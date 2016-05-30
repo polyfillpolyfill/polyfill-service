@@ -250,7 +250,7 @@ describe('MutationObserver attributes', function() {
     var div = document.createElement('div');
     var observer = new MutationObserver(function() {});
     observer.observe(div, {
-      attributes: true,
+      attributes: true
     });
 
     div.setAttribute('a', 'A');
@@ -269,11 +269,11 @@ describe('MutationObserver attributes', function() {
     var div = document.createElement('div');
     var observer1 = new MutationObserver(function() {});
     observer1.observe(div, {
-      attributes: true,
+      attributes: true
     });
     var observer2 = new MutationObserver(function() {});
     observer2.observe(div, {
-      attributes: true,
+      attributes: true
     });
 
     div.setAttribute('a', 'A');
@@ -1078,7 +1078,7 @@ describe('MutationObserver transient', function() {
 
 			observer2.observe(div2, {
 				attributes: true,
-				subtree: true,
+				subtree: true
 			});
 
 			div2.appendChild(child);
