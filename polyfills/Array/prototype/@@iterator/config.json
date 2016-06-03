@@ -9,5 +9,11 @@
 	},
 	"dependencies": [
 		"Symbol.iterator"
-	]
+	],
+	"repo": "https://github.com/medikoo/es6-iterator",
+	"build": {
+		"commonjs": true
+	},
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype-@@iterator"
 }
