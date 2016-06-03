@@ -6,6 +6,10 @@ function getNodeList () {
 }
 
 it('exists', function () {
+	if (!Symbol || !Symbol.iterator) {
+		expect(true).to.be.false;
+		return;
+	}
 	expect(getNodeList()[Symbol.iterator]).to.be.a(Function);
 });
 
