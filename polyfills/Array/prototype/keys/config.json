@@ -1,0 +1,21 @@
+{
+	"browsers": {
+		"ie": "<12",
+		"firefox": "<38",
+		"chrome": "<38",
+		"safari": "<7.1",
+		"android": "<5.1",
+		"ios_saf": "<8",
+		"opera": "<25"
+	},
+	"dependencies": [
+		"Symbol.iterator"
+	],
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.keys",
+	"repo": "https://github.com/medikoo/es6-iterator",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/keys",
+	"build": {
+		"commonjs": true
+	}
+}
