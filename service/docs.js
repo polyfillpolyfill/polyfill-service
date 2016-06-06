@@ -68,7 +68,6 @@ function getData(type) {
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 				json: true
 			}).then(data => {
-				console.log(data);
 				const rollup = {requests:0, hits:0, miss:0, bandwidth:0};
 				const byday = data.data.map(function(result) {
 					rollup.requests += result.requests;
@@ -176,11 +175,15 @@ function getData(type) {
 			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
 		}
 		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
-		try {
-			return cache[type].promise = handlers[type]();
-		} catch(err) {
-			return cache[type].promise = Promise.reject(err.toString());
-		}
+		return cache[type].promise = handlers[type]()
+			.catch(err => {
+				const errobj = err.error || err;
+				throw {
+					service: type,
+					msg: errobj.error || errobj.message || errobj.msg || errobj.toString()
+				}
+			})
+		;
 	}
 }
 
@@ -268,9 +271,7 @@ function route(req, res, next) {
 							missCount: fastly.rollup.miss
 						});
 					}))
-					.catch(ex => Object.assign(locals, {
-						msg: ex.error || ex.message || ex.toString()
-					}))
+					.catch(ex => Object.assign(locals, ex))
 				;
 
 			} else if (locals.pageName === 'features') {
