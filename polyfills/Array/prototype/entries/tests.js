@@ -3,29 +3,31 @@ it('exists', function () {
 		expect(true).to.be.false;
 		return;
 	}
-	expect([][Symbol.iterator]).to.be.a(Function);
+	expect([].entries).to.be.a(Function);
 });
 
-
-//TODO test for function name'
+it('is named \'entries\'', function () {
+	expect([].entries.name).to.equal('entries');
+});
 
 it('returns a next-able object', function () {
 	var array = ['val1', 'val2'];
-	var iterator = array[Symbol.iterator]();
+	var iterator = array.entries();
 
 	expect(iterator.next).to.be.a(Function);
-	expect(iterator.next()).to.deep.equal({
-		value: 'val1',
+	expect(iterator.next()).to.eql({
+		value: [0, 'val1'],
 		done: false
 	});
 });
 
 it('finally returns a done object', function () {
-	var array = [];
-	var iterator = array[Symbol.iterator]();
+	var array = ['val1', 'val2'];
+	var iterator = array.entries();
 	iterator.next();
 	iterator.next();
-	expect(iterator.next()).to.deep.equal({
+	expect(iterator.next()).to.eql({
+		value: undefined,
 		done: true
 	});
 });

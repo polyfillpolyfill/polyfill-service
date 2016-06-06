@@ -4,28 +4,31 @@ it('exists', function () {
 		return;
 	}
 	expect([][Symbol.iterator]).to.be.a(Function);
-
 });
 
-//TODO test for function name'
+
+it('is named \'values\'', function () {
+	expect([][Symbol.iterator].name).to.equal('values');
+});
 
 it('returns a next-able object', function () {
 	var array = ['val1', 'val2'];
 	var iterator = array[Symbol.iterator]();
 
 	expect(iterator.next).to.be.a(Function);
-	expect(iterator.next()).to.deep.equal({
+	expect(iterator.next()).to.eql({
 		value: 'val1',
 		done: false
 	});
 });
 
 it('finally returns a done object', function () {
-	var array = [];
+	var array = ['val1', 'val2'];
 	var iterator = array[Symbol.iterator]();
 	iterator.next();
 	iterator.next();
-	expect(iterator.next()).to.deep.equal({
+	expect(iterator.next()).to.eql({
+		value: undefined,
 		done: true
 	});
 });

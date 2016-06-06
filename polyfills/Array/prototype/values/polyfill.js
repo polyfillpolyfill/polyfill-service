@@ -1,3 +1,3 @@
 (function () {
-	Array.protoype.values = Array.protoype[Symbol.iterator];
+	Array.prototype.values = Array.prototype[Symbol.iterator];
 })();
