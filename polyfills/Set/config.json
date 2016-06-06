@@ -1,5 +1,6 @@
 {
 	"aliases": [
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
