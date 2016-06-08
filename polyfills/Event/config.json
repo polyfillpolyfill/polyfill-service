@@ -13,7 +13,8 @@
 	"dependencies": [
 		"Window",
 		"Document",
-		"Element"
+		"Element",
+		"Object.defineProperty"
 	],
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event",
 	"notes": [
