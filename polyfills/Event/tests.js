@@ -148,10 +148,14 @@ it('should successfully call window.addEventListener or throw exception', functi
 	}
 });
 
-it('subclasses should be instances of Event', function () {
-	const a = document.createElement('a');
+it('subclasses should be instances of Event if the UA implements DOM3', function () {
+	var a = document.createElement('a');
 	a.addEventListener('click', function(ev) {
-		expect(ev).to.be.an(Event);
+
+		// Supported in IE9+
+		if ('MouseEvent' in window) {
+			expect(ev).to.be.an(Event);
+		}
 	});
 	document.body.appendChild(a);
 	a.click();
