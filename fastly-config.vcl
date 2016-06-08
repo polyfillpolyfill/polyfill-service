@@ -8,7 +8,7 @@ sub vcl_recv {
 		return(pass);
 	}
 
-	if (!req.http.Fastly-SSL && req.http.Host == "cdn.polyfill.io") {
+	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io")) {
 		error 751 "Force TLS";
 	}
 
