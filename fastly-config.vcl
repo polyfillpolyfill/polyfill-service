@@ -1,5 +1,8 @@
 sub vcl_recv {
 #FASTLY recv
+	if ( req.request == "FASTLYPURGE" ) {
+		set req.http.Fastly-Purge-Requires-Auth = "1";
+	}
 
 	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
 		return(pass);
