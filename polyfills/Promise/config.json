@@ -3,6 +3,9 @@
 		"modernizr:promises",
 		"caniuse:promises",
 		"blissfuljs",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default",
 		"es6"
 	],
