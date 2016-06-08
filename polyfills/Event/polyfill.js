@@ -57,7 +57,12 @@
 		return event;
 	};
 	if (existingProto) {
-		window.Event.prototype = existingProto;
+		Object.defineProperty(window.Event, 'prototype', {
+			configurable: false,
+			enumerable: false,
+			writable: true,
+			value: existingProto
+		});
 	}
 
 	if (!('createEvent' in document)) {
