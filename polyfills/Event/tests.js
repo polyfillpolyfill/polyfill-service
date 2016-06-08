@@ -147,3 +147,12 @@ it('should successfully call window.addEventListener or throw exception', functi
 		threwLast = threw;
 	}
 });
+
+it('subclasses should be instances of Event', function () {
+	const a = document.createElement('a');
+	a.addEventListener('click', function(ev) {
+		expect(ev).to.be.an(Event);
+	});
+	document.body.appendChild(a);
+	a.click();
+})
