@@ -1,18 +1,25 @@
-var fixturesEl = document.createElement('div');
-fixturesEl.id = 'fixtures';
-document.body.appendChild(fixturesEl);
-var css = "#root { position: relative; width: 400px; height: 200px; background: #eee } #grand-parent { position: relative; width: 200px; height: 200px; } #parent { position: absolute; top: 0px; left: 200px; overflow: hidden; width: 200px; height: 200px; background: #ddd; } #target1, #target2, #target3, #target4 { position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; transform: translateX(0px) translateY(0px); transition: transform .5s; background: #f00; }";
-var head = head = document.head || document.getElementsByTagName('head')[0];
-var styleEl = document.createElement('style');
-styleEl.type = 'text/css';
-if (styleEl.styleSheet){
-  styleEl.styleSheet.cssText = css;
-} else {
-  styleEl.appendChild(document.createTextNode(css));
-}
+before(function() {
 
-head.appendChild(styleEl);
+	var fixturesEl = document.createElement('div');
+	fixturesEl.id = 'fixtures';
+	document.body.appendChild(fixturesEl);
 
+	var css = "#root { position: relative; width: 400px; height: 200px; background: #eee } #grand-parent { position: relative; width: 200px; height: 200px; } #parent { position: absolute; top: 0px; left: 200px; overflow: hidden; width: 200px; height: 200px; background: #ddd; } #target1, #target2, #target3, #target4 { position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; transform: translateX(0px) translateY(0px); transition: transform .5s; background: #f00; }";
+	var head = head = document.head || document.getElementsByTagName('head')[0];
+	var styleEl = document.createElement('style');
+	styleEl.type = 'text/css';
+	if (styleEl.styleSheet){
+	  styleEl.styleSheet.cssText = css;
+	} else {
+	  styleEl.appendChild(document.createTextNode(css));
+	}
+	head.appendChild(styleEl);
+
+	var scriptEl = document.createElement('script');
+	scriptEl.src='https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+	head.appendChild(scriptEl);
+
+});
 
 /*  The following copy-paste from https://raw.githubusercontent.com/philipwalton/IntersectionObserver/ddc47f358db7624ac52a524451ef9f2a3d5ce8f7/polyfill/intersection-observer-test.js */
 
