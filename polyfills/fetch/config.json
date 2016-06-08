@@ -11,6 +11,9 @@
 		"ios_saf": "*",
 		"firefox_mob": "* - 38"
 	},
+        "build": {
+                "commonjs": true
+        },
 	"dependencies": [
 		"Array.prototype.forEach",
 		"Object.getOwnPropertyNames",
