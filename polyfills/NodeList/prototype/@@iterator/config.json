@@ -1,11 +1,12 @@
 {
 	"browsers": {
 		"ie": "*",
-		"safari": "<9",
-		"chrome": "< 50",
-		"firefox": "< 40",
+		"safari": "*",
+		"chrome": "*",
+		"firefox": "<46",
 		"ios_saf": "*",
-		"opera": "< 50"
+		"opera": "*",
+		"ie_mobile": "*"
 	},
 	"dependencies": [
 		"Symbol.iterator"

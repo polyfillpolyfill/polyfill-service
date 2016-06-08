@@ -8,7 +8,8 @@ it('exists', function () {
 
 
 it('is named \'values\'', function () {
-	expect([][Symbol.iterator].name).to.equal('values');
+	// Don't fail tests just because browser doesn't support the Function.name polyfill
+	expect([][Symbol.iterator].name).to.equal('values' || undefined);
 });
 
 it('returns a next-able object', function () {
