@@ -2,15 +2,14 @@
 	"browsers": {
 		"ie": "<12",
 		"firefox": "<38",
-		"chrome": "<38",
+		"chrome": "<49",
 		"safari": "<9",
 		"android": "<5.1",
 		"ios_saf": "<9",
 		"opera": "<25"
 	},
 	"dependencies": [
-		"Symbol.iterator",
-		"Function.prototype.name"
+		"Symbol.iterator"
 	],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype-@@iterator",
