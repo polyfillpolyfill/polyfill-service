@@ -8,7 +8,9 @@ it('exists', function () {
 
 it('is named \'keys\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
-	expect([].keys.name).to.equal('keys' || undefined);
+	if ([].keys.name) {
+		expect([].keys.name).to.equal('keys');
+	}
 });
 
 it('returns a next-able object', function () {
