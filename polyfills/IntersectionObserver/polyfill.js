@@ -45,7 +45,7 @@ function IntersectionObserverEntry(entry) {
   var intersectionRect = this.intersectionRect;
   var intersectionArea = intersectionRect.width * intersectionRect.height;
   this.intersectionRatio = targetArea ? (intersectionArea / targetArea) : 0;
-};
+}
 
 
 /**
@@ -69,10 +69,9 @@ function IntersectionObserver(callback, opt_options) {
     throw new Error('root must be an Element');
   }
 
-  // Bound methods.
-  this._checkForIntersections = this._checkForIntersections.bind(this);
-  this._handlePageVisibilityChanges =
-      this._handlePageVisibilityChanges.bind(this);
+  // Binds and throttles `this._checkForIntersections`.
+  this._checkForIntersections = throttle(
+      this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT);
 
   // Private properties.
   this._callback = callback;
@@ -86,7 +85,14 @@ function IntersectionObserver(callback, opt_options) {
   this.rootMargin = this._rootMarginValues.map(function(margin) {
     return margin.value + margin.unit;
   }).join(' ');
-};
+}
+
+
+/**
+ * The minimum interval within which the document will be checked for
+ * intersection changes.
+ */
+IntersectionObserver.prototype.THROTTLE_TIMEOUT = 100;
 
 
 /**
@@ -94,7 +100,7 @@ function IntersectionObserver(callback, opt_options) {
  * this can be updated on a per instance basis and must be set prior to
  * calling `observe` on the first target.
  */
-IntersectionObserver.prototype.POLL_INTERVAL = 100;
+IntersectionObserver.prototype.POLL_INTERVAL = null;
 
 
 /**
@@ -115,9 +121,7 @@ IntersectionObserver.prototype.observe = function(target) {
   }
 
   this._observationTargets.push({element: target, entry: {}});
-
   this._monitorIntersections();
-  this._monitorPageVisiblityChanges();
 };
 
 
@@ -133,7 +137,6 @@ IntersectionObserver.prototype.unobserve = function(target) {
   });
   if (!this._observationTargets.length) {
     this._unmonitorIntersections();
-    this._unmonitorPageVisibilityChanges();
   }
 };
 
@@ -144,7 +147,6 @@ IntersectionObserver.prototype.unobserve = function(target) {
 IntersectionObserver.prototype.disconnect = function() {
   this._observationTargets = [];
   this._unmonitorIntersections();
-  this._unmonitorPageVisibilityChanges();
 };
 
 
@@ -156,7 +158,6 @@ IntersectionObserver.prototype.disconnect = function() {
  */
 IntersectionObserver.prototype.takeRecords = function() {
   var records = this._queuedEntries.slice();
-  this._descheduleCallback();
   this._queuedEntries = [];
   return records;
 };
@@ -220,10 +221,31 @@ IntersectionObserver.prototype._parseRootMargin = function(opt_rootMargin) {
  * @private
  */
 IntersectionObserver.prototype._monitorIntersections = function() {
-  if (!this._monitoringInterval && getPageVisibilityState() == 'visible') {
+  if (!this._monitoringIntersections) {
+    this._monitoringIntersections = true;
 
-    this._monitoringInterval = window.setInterval(
-        this._checkForIntersections, this.POLL_INTERVAL);
+    this._checkForIntersections();
+
+    // If a poll interval is set, use polling instead of listening to
+    // resize and scroll events or DOM mutations.
+    if (this.POLL_INTERVAL) {
+      this._monitoringInterval = setInterval(
+          this._checkForIntersections, this.POLL_INTERVAL);
+    }
+    else {
+      addEvent(window, 'resize', this._checkForIntersections, true);
+      addEvent(document, 'scroll', this._checkForIntersections, true);
+
+      if ('MutationObserver' in window) {
+        this._domObserver = new MutationObserver(this._checkForIntersections);
+        this._domObserver.observe(document, {
+          attributes: true,
+          childList: true,
+          characterData: true,
+          subtree: true
+        });
+      }
+    }
   }
 };
 
@@ -233,49 +255,19 @@ IntersectionObserver.prototype._monitorIntersections = function() {
  * @private
  */
 IntersectionObserver.prototype._unmonitorIntersections = function() {
-  window.clearInterval(this._monitoringInterval);
-  this._monitoringInterval = null;
-};
+  if (this._monitoringIntersections) {
+    this._monitoringIntersections = false;
 
+    clearInterval(this._monitoringInterval);
+    this._monitoringInterval = null;
 
-/**
- * Adds an event listener for page visiblity changes if the event
- * listener has not already been added. When the visiblity changes to
- * visible, polling is started. And polling is stopped if visibility
- * changes to anything other than visible.
- * @private
- */
-IntersectionObserver.prototype._monitorPageVisiblityChanges = function() {
-  if (!this._handlePageVisibilityChanges) {
-    document.addEventListener && document.addEventListener(
-        'visibilitychange', this._handlePageVisibilityChanges);
-  }
-};
+    removeEvent(window, 'resize', this._checkForIntersections, true);
+    removeEvent(document, 'scroll', this._checkForIntersections, true);
 
-
-/**
- * Removes the page visibility event listener.
- * @private
- */
-IntersectionObserver.prototype._unmonitorPageVisibilityChanges = function() {
-  document.removeEventListener && document.removeEventListener(
-      'visibilitychange', this._handlePageVisibilityChanges);
-
-  this._handlePageVisibilityChanges = null;
-};
-
-
-/**
- * Handles changes to the page visibility state. If the state changes to not
- * visible, monitoring for interesection changes stops. It starts up again if
- * the visibility state changes back to visible.
- */
-IntersectionObserver.prototype._handlePageVisibilityChanges = function() {
-  if (this._observationTargets.length &&
-      getPageVisibilityState() == 'visible') {
-    this._monitorIntersections();
-  } else {
-    this._unmonitorIntersections();
+    if (this._domObserver) {
+      this._domObserver.disconnect();
+      this._domObserver = null;
+    }
   }
 };
 
@@ -326,36 +318,9 @@ IntersectionObserver.prototype._checkForIntersections = function() {
   }.bind(this));
 
   if (this._queuedEntries.length) {
-    this._scheduleCallback();
+
+    this._callback(this.takeRecords(), this);
   }
-};
-
-
-/**
- * Adds a timeout to run the user callback with the current entries in
- * the queue. A timeout is only added if one isn't already scheduled.
- * @private
- */
-IntersectionObserver.prototype._scheduleCallback = function() {
-  if (this._callbackScheduled) return;
-
-  this._callbackScheduled = window.setTimeout(function() {
-    this._descheduleCallback();
-    this._callback(this._queuedEntries, this);
-    this._queuedEntries = [];
-  }.bind(this), this.POLL_INTERVAL / 2);
-};
-
-
-/**
- * Clears the timeout added in the scheduleCallback function.
- * @private
- */
-IntersectionObserver.prototype._descheduleCallback = function() {
-  if (!this._callbackScheduled) return;
-
-  window.clearTimeout(this._callbackScheduled);
-  this._callbackScheduled = null;
 };
 
 
@@ -417,7 +382,7 @@ IntersectionObserver.prototype._getRootRect = function() {
   if (this.root) {
     rootRect = getBoundingClientRect(this.root);
   } else {
-    // Use <html> intead of window for since scroll bars affect size.
+    // Use <html> intead of window since scroll bars affect size.
     var html = document.documentElement;
     rootRect = {
       top: 0,
@@ -514,22 +479,69 @@ IntersectionObserver.prototype._rootContainsTarget = function(target) {
 
 
 /**
- * Gets the visibility state of the document. Defaults to "visible" on
- * browsers that doen't support the Page Visibility API.
- * @return {string} The document.visibilityState value or "visible".
- */
-function getPageVisibilityState() {
-  return document.visibilityState || 'visible';
-}
-
-
-/**
  * Returns the result of the performance.now() method or null in browsers
  * that don't support the API.
  * @return {number} The elapsed time since the page was requested.
  */
 function now() {
   return window.performance && performance.now && performance.now();
+}
+
+
+/**
+ * Throttles a function and delays its executiong, so it's only called at most
+ * once within a given time period.
+ * @param {Function} fn The function to throttle.
+ * @param {number} timeout The amount of time that must pass before the
+ *     function can be called again.
+ * @return {Function} The throttled function.
+ */
+function throttle(fn, timeout) {
+  var timer = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(function() {
+        fn();
+        timer = null;
+      }, timeout);
+    }
+  };
+}
+
+
+/**
+ * Adds an event handler to a DOM node ensuring cross-browser compatibility.
+ * @param {Node} node The DOM node to add the event handler to.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to add.
+ * @param {boolean} opt_useCapture Optionally adds the even to the capture
+ *     phase. Note: this only works in modern browsers.
+ */
+function addEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.addEventListener == 'function') {
+    node.addEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.attachEvent == 'function') {
+    node.attachEvent(event, fn);
+  }
+}
+
+
+/**
+ * Removes a previously added event handler from a DOM node.
+ * @param {Node} node The DOM node to remove the event handler from.
+ * @param {string} event The event name.
+ * @param {Function} fn The event handler to remove.
+ * @param {boolean} opt_useCapture If the event handler was added with this
+ *     flag set to true, it should be set to true here in order to remove it.
+ */
+function removeEvent(node, event, fn, opt_useCapture) {
+  if (typeof node.removeEventListener == 'function') {
+    node.addEventListener(event, fn, opt_useCapture || false);
+  }
+  else if (typeof node.detatchEvent == 'function') {
+    node.detatchEvent(event, fn);
+  }
 }
 
 
@@ -593,7 +605,7 @@ function getBoundingClientRect(el) {
       left: rect.left,
       width: rect.right - rect.left,
       height: rect.bottom - rect.top
-    }
+    };
   }
   return rect;
 }
