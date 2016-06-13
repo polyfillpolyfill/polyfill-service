@@ -10,7 +10,13 @@
 		"ie": "*"
 	},
 	"dependencies": [
-		"getComputedStyle"
+		"getComputedStyle",
+		"Array.isArray",
+		"Array.prototype.filter",
+		"Array.prototype.forEach",
+		"Array.prototype.map",
+		"Array.prototype.some",
+		"Function.prototype.bind"
 	],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
