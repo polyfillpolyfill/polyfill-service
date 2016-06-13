@@ -23,11 +23,11 @@
 	<script>
 	{{#features}}
 	describe('{{feature}}', function() {
-		it('has testing suite', function() {
+		it('is running the test framework', function() {
 			expect(true).to.be(true);
 		});
 		{{#detect}}
-		it('has feature detection', function() {
+		it('passes a feature detect', function() {
 			expect((function() {
 				return ({{{.}}});
 			}).call(window)).to.be.ok();
