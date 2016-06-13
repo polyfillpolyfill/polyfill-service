@@ -1,0 +1,22 @@
+{
+	"browsers": {
+		"ie": "9 - *",
+		"ie_mob": "10 - *",
+		"firefox": "14 - 31",
+		"opera": "15 - 25",
+		"safari": "*",
+		"chrome": "* - 35",
+		"ios_saf": "*",
+		"firefox_mob": "4 - 37",
+		"bb": "*",
+		"android": "* - 4.4.4"
+	},
+	"build": {
+		"commonjs": true
+	},
+	"dependencies": ["html5shiv"],
+	"license": "MIT",
+	"spec": "https://w3c.github.io/webcomponents/spec/custom/#extensions-to-document-interface-to-register",
+	"repo": "https://github.com/WebReflection/document-register-element",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Document/registerElement"
+}

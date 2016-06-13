@@ -1,0 +1,1 @@
+require('document-register-element');
