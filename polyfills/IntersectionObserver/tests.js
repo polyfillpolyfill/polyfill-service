@@ -48,6 +48,8 @@ var targetEl4;
 
 describe('IntersectionObserver', function() {
 
+	this.timeout(10000);
+
   before(function() {
     // If the browser running the tests doesn't support MutationObserver,
     // fall back to polling.
