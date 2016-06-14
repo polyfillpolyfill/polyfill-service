@@ -9,7 +9,8 @@
 		"opera": "<25"
 	},
 	"dependencies": [
-		"Symbol.iterator"
+		"Symbol.iterator",
+		"Object.getPrototypeOf"
 	],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype-@@iterator",
