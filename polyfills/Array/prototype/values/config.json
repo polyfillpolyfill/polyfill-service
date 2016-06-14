@@ -15,8 +15,5 @@
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.values",
 	"repo": "https://github.com/medikoo/es6-iterator",
-	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/values",
-	"build": {
-		"commonjs": true
-	}
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/values"
 }
