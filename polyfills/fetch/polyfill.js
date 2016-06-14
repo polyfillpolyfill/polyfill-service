@@ -1,27 +1,6 @@
-/*
-Copyright (c) 2014 GitHub, Inc.
+/* 0.11.1 */
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-(function() {
+(function(self) {
   'use strict';
 
   if (self.fetch) {
@@ -133,13 +112,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   var support = {
     blob: 'FileReader' in self && 'Blob' in self && (function() {
       try {
-        new Blob();
+        new Blob()
         return true
       } catch(e) {
         return false
       }
     })(),
-    formData: 'FormData' in self
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
   }
 
   function Body() {
@@ -156,8 +136,19 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         this._bodyFormData = body
       } else if (!body) {
         this._bodyText = ''
+      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+        // Only support ArrayBuffers for POST method.
+        // Receiving ArrayBuffers happens via Blobs, instead.
       } else {
         throw new Error('unsupported BodyInit type')
+      }
+
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type)
+        }
       }
     }
 
@@ -278,7 +269,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   function headers(xhr) {
     var head = new Headers()
-    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
+    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
     pairs.forEach(function(header) {
       var split = header.trim().split(':')
       var key = split.shift().trim()
@@ -295,13 +286,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       options = {}
     }
 
-    this._initBody(bodyInit)
     this.type = 'default'
     this.status = options.status
     this.ok = this.status >= 200 && this.status < 300
     this.statusText = options.statusText
     this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
     this.url = options.url || ''
+    this._initBody(bodyInit)
   }
 
   Body.call(Response.prototype)
@@ -331,9 +322,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     return new Response(null, {status: status, headers: {location: url}})
   }
 
-  self.Headers = Headers;
-  self.Request = Request;
-  self.Response = Response;
+  self.Headers = Headers
+  self.Request = Request
+  self.Response = Response
 
   self.fetch = function(input, init) {
     return new Promise(function(resolve, reject) {
@@ -356,7 +347,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           return xhr.getResponseHeader('X-Request-URL')
         }
 
-        return;
+        return
       }
 
       xhr.onload = function() {
@@ -371,11 +362,15 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           headers: headers(xhr),
           url: responseURL()
         }
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+        var body = 'response' in xhr ? xhr.response : xhr.responseText
         resolve(new Response(body, options))
       }
 
       xhr.onerror = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.ontimeout = function() {
         reject(new TypeError('Network request failed'))
       }
 
@@ -397,4 +392,4 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     })
   }
   self.fetch.polyfill = true
-})();
+})(typeof self !== 'undefined' ? self : this);
