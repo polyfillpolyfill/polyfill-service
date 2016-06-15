@@ -577,11 +577,8 @@ describe('IntersectionObserver', function() {
       runSequence([
         function(done) {
           io.observe(targetEl1);
-          setTimeout(function() {
-            expect(spy.callCount).to.be(0);
-            done();
-          }, ASYNC_TIMEOUT);
-        },
+					setTimeout(done, 0);
+				},
         function(done) {
           document.getElementById('fixtures').appendChild(rootEl);
           setTimeout(function() {
