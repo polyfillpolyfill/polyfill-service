@@ -1,7 +1,8 @@
-before(function() {
+before(function(done) {
 	var head = head = document.head || document.getElementsByTagName('head')[0];
 	var scriptEl = document.createElement('script');
-	scriptEl.src='https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+	scriptEl.onload = function() { done() };
 	head.appendChild(scriptEl);
 });
 
