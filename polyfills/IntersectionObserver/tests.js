@@ -1,9 +1,19 @@
 before(function(done) {
-	var head = head = document.head || document.getElementsByTagName('head')[0];
-	var scriptEl = document.createElement('script');
-	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
-	scriptEl.onload = function() { done() };
-	head.appendChild(scriptEl);
+  var head = head = document.head || document.getElementsByTagName('head')[0];
+  var scriptEl = document.createElement('script');
+  var readywait = null;
+  scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+  scriptEl.onload = function() {
+    clearTimeout(readywait);
+    done();
+  };
+  readywait = setInterval(function() {
+    if ('sinon' in window) {
+      clearTimeout(readywait);
+      done();
+    }
+  }, 500);
+  head.appendChild(scriptEl);
 });
 
 /*  The following copy-paste from https://raw.githubusercontent.com/philipwalton/IntersectionObserver/ddc47f358db7624ac52a524451ef9f2a3d5ce8f7/polyfill/intersection-observer-test.js */
@@ -49,7 +59,7 @@ var targetEl4;
 
 describe('IntersectionObserver', function() {
 
-	this.timeout(10000);
+  this.timeout(10000);
 
   before(function() {
     // If the browser running the tests doesn't support MutationObserver,
@@ -578,8 +588,8 @@ describe('IntersectionObserver', function() {
       runSequence([
         function(done) {
           io.observe(targetEl1);
-					setTimeout(done, 0);
-				},
+          setTimeout(done, 0);
+        },
         function(done) {
           document.getElementById('fixtures').appendChild(rootEl);
           setTimeout(function() {
