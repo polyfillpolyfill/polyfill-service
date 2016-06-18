@@ -16,6 +16,8 @@ before(function(done) {
   head.appendChild(scriptEl);
 });
 
+this.timeout(10000);
+
 /*  The following copy-paste from https://raw.githubusercontent.com/philipwalton/IntersectionObserver/ddc47f358db7624ac52a524451ef9f2a3d5ce8f7/polyfill/intersection-observer-test.js */
 
 
@@ -58,8 +60,6 @@ var targetEl4;
 
 
 describe('IntersectionObserver', function() {
-
-  this.timeout(10000);
 
   before(function() {
     // If the browser running the tests doesn't support MutationObserver,
