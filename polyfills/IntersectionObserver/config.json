@@ -6,7 +6,7 @@
 		"safari": "*",
 		"android": "*",
 		"opera": "*",
-		"chrome": "*",
+		"chrome": "<50",
 		"ie": "*"
 	},
 	"dependencies": [
