@@ -19,10 +19,9 @@ function charts() {
 	drawCharts = function() {
 		chart1.draw(data1, {
 			chartArea:{left:0,top:0,width:'100%',height:'90%'},
-			hAxis: {title: 'Time (by hour, last 7 days)'},
-			vAxis: {textPosition: 'in'},
-			legend: {position: 'none'},
-			bar: {groupWidth: '90%'}
+			hAxis: {title: 'Time (by day)'},
+			vAxis: {textPosition: 'in', minValue:0},
+			legend: {position: 'none'}
 		});
 		chart2.draw(data2, {
 			pieHole: 0.6,
@@ -49,7 +48,7 @@ function charts() {
 						});
 					})
 				);
-				chart1 = new google.visualization.ColumnChart(chartel);
+				chart1 = new google.visualization.LineChart(chartel);
 
 				chartel = document.getElementById('chart-hitratio');
 				data2 = google.visualization.arrayToDataTable(

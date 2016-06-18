@@ -191,7 +191,7 @@
 	defineProperty(Object, GOPD, descriptor);
 
 	descriptor.value = function (proto, descriptors) {
-		return arguments.length === 1 ?
+		return arguments.length === 1 || typeof descriptors === "undefined" ?
 		create(proto) :
 		createWithSymbols(proto, descriptors);
 	};

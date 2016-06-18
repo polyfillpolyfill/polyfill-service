@@ -144,15 +144,13 @@ it("implements .forEach()", function () {
 	var o = new Map(), i;
 	o.set("key 0", 0);
 	o.set("key 1", 1);
-	if ("forEach" in o) {
-		o.forEach(function (value, key, obj) {
-			expect(key).to.be("key " + value);
-			expect(obj).to.be(o);
-			// even if dropped, keeps looping
-			o["delete"](key);
-		});
-		expect(o.size).to.be(0);
-	}
+	o.forEach(function (value, key, obj) {
+		expect(key).to.be("key " + value);
+		expect(obj).to.be(o);
+		// even if dropped, keeps looping
+		o["delete"](key);
+	});
+	expect(o.size).to.be(0);
 });
 
 it("supports mutations during forEach loops", function () {

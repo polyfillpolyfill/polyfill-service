@@ -12,7 +12,7 @@
 
 		<h3>Traffic volume</h3>
 
-		<p>This shows the number of requests we have served per hour, over the last 7 days, measured by <strong>Fastly</strong>:</p>
+		<p>This shows the number of requests we have served per day, over the last 180 days, measured by <strong>Fastly</strong>:</p>
 
 		<div id="chart-requests" class='o-techdocs-content'>
 			<table class='chart-data o-techdocs-table'>
@@ -72,7 +72,8 @@
 
 		<p><em>Usage stats cannot be shown, probably because you need to configure the environment variables needed to get data from the Fastly and Pingdom APIs.  The specific error thrown by the service is shown below:</em></p>
 
-		<pre><code>{{msg}}</code></pre>
+		<pre><code class="nohighlight">Service: {{service}}
+Error:   {{msg}}</code></pre>
 
 		{{/if}}
 

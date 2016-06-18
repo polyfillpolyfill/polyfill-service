@@ -2,10 +2,10 @@
 
 
 	// Deleted map items mess with iterator pointers, so rather than removing them mark them as deleted. Can't use undefined or null since those both valid keys so use a private symbol.
-	var undefMarker = {};
+	var undefMarker = Symbol('undef');
 
 	// NaN cannot be found in an array using indexOf, so we encode NaNs using a private symbol.
-	var NaNMarker = {};
+	var NaNMarker = Symbol('NaN');
 
 	function encodeKey(key) {
 		return Number.isNaN(key) ? NaNMarker : key;
@@ -45,7 +45,7 @@
 		this._values = [];
 
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
-		data && data.forEach && data.forEach(function (item) {
+		data && (typeof data.forEach === 'function') && data.forEach(function (item) {
 			this.set.apply(this, item);
 		}, this);
 
@@ -53,7 +53,7 @@
 	};
 	Map.prototype = {};
 
-	// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically easch time the size of the map changes.
+	// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically each time the size of the map changes.
 	try {
 		Object.defineProperty(Map.prototype, 'size', {
 			get: function() {

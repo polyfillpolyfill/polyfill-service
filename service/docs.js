@@ -61,20 +61,22 @@ function getData(type) {
 	const handlers = {
 		fastly: () => {
 			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
+			const endTime = moment().startOf('day');
+			const startTime = moment(endTime).subtract(180, 'days');
 			return request({
-				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=7 days ago&to=2 hours ago&by=hour',
+				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from='+startTime.unix()+'&to='+endTime.unix()+'&by=day',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 				json: true
 			}).then(data => {
 				const rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				const byhour = data.data.map(function(result) {
+				const byday = data.data.map(function(result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
 					rollup.bandwidth += result.bandwidth;
 					return {date: result.start_time, requests:result.requests, hits:result.hits, miss:result.miss};
 				});
-				return {byhour:byhour, rollup:rollup};
+				return {byday:byday, rollup:rollup};
 			});
 		},
 		respTimes: () => {
@@ -173,11 +175,15 @@ function getData(type) {
 			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
 		}
 		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
-		try {
-			return cache[type].promise = handlers[type]();
-		} catch(err) {
-			return cache[type].promise = Promise.reject(err.toString());
-		}
+		return cache[type].promise = handlers[type]()
+			.catch(err => {
+				const errobj = err.error || err;
+				throw {
+					service: type,
+					msg: errobj.error || errobj.message || errobj.msg || errobj.toString()
+				}
+			})
+		;
 	}
 }
 
@@ -258,16 +264,14 @@ function route(req, res, next) {
 				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')])
 					.then(spread((fastly, outages, respTimes) => {
 						return Object.assign(locals, {
-							requestsData: fastly.byhour,
+							requestsData: fastly.byday,
 							downtime: outages,
 							respTimes: respTimes,
 							hitCount: fastly.rollup.hits,
 							missCount: fastly.rollup.miss
 						});
 					}))
-					.catch(ex => Object.assign(locals, {
-						msg: ex.error || ex.message || ex.toString()
-					}))
+					.catch(ex => Object.assign(locals, ex))
 				;
 
 			} else if (locals.pageName === 'features') {

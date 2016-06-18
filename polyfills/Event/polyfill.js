@@ -31,6 +31,7 @@
 		return -1;
 	}
 
+	var existingProto = (window.Event && window.Event.prototype) || null;
 	window.Event = Window.prototype.Event = function Event(type, eventInitDict) {
 		if (!type) {
 			throw new Error('Not enough arguments');
@@ -55,6 +56,14 @@
 
 		return event;
 	};
+	if (existingProto) {
+		Object.defineProperty(window.Event, 'prototype', {
+			configurable: false,
+			enumerable: false,
+			writable: true,
+			value: existingProto
+		});
+	}
 
 	if (!('createEvent' in document)) {
 		window.addEventListener = Window.prototype.addEventListener = Document.prototype.addEventListener = Element.prototype.addEventListener = function addEventListener() {

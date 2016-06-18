@@ -47,7 +47,14 @@
 							<dt><code>|gated</code></dt>
 							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
 						</dl>
-						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of the most popular polyfills.  Setting the value "all" will select every feature in the library (this is an extremely bad idea)</p>
+						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for <a href='/{{apiversion}}/docs/features/#default-sets'>a curated list of the most popular polyfills</a>.  Setting the value "all" will select every feature in the library (this is an extremely bad idea and will be removed in a future version)</p>
+					</td>
+				</tr><tr>
+					<td><code>excludes</code></td>
+					<td>Querystring</td>
+					<td>
+						<p>List of browser features to exclude from output. Accepts a comma-separated list of feature names.  Available feature names are shown on the <a href='/v{{apiversion}}/docs/features/'>Browsers and Features</a> page.  Aliases and flags are not accepted. Omitting or setting to an empty string will exclude no polyfills.</p>
+						<p>The main use case for this is where you want a polyfill but you don't want one or more of its dependencies.  Note that it doesn't make any sense to list the same feature in both the <code>features</code> and the <code>excludes</code> list.
 					</td>
 				</tr><tr>
 					<td><code>flags</code></td>

@@ -55,9 +55,9 @@
 		}
 
         function postResult(featureName, result) {
-            if (parent && 'receiveTestResult' in parent) {
+            if (window.top !== this && parent && 'receiveTestResult' in parent) {
                 parent.receiveTestResult(featureName, result, '{{{mode}}}');
-            } else if (parent && 'postMessage' in parent) {
+            } else if (window.top !== this && parent && 'postMessage' in parent && 'JSON' in window) {
                 parent.postMessage(JSON.stringify({featureName:featureName, result:result, mode:'{{{mode}}}'}), '*');
             }
         }

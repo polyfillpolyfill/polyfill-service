@@ -81,6 +81,11 @@ module.exports = function(grunt) {
 			tasks: {
 				src: ['polyfills/**/update.task.js'],
 			}
+		},
+		"deployvcl": {
+			dryrun: { options: {service: "qa", dryRun: true} },
+			qa: { options: {service: "qa"} },
+			prod: { options: {service: "prod"} }
 		}
 	});
 
@@ -111,7 +116,8 @@ module.exports = function(grunt) {
 		"simplemocha",
 		"service",
 		"saucelabs:ci",
-		"service:polyfillservice:stop"
+		"service:polyfillservice:stop",
+		"deployvcl:dryrun"
 	]);
 
 	grunt.registerTask("build", [
@@ -133,7 +139,7 @@ module.exports = function(grunt) {
 const browsers = {
 	quick: [
 		'chrome/48',
-		'firefox/45',
+		'firefox/44',
 		'ie/13',
 		'ie/12',
 		'ie/11',
@@ -152,16 +158,19 @@ const browsers = {
 		'ie/9',
 		'ie/8',
 		'ie/7',
-		'ie/6',
 		'safari/9',
 		'safari/8',
 		'android/4.4'
 	],
 	full: [
 		'chrome/48',
+		'chrome/46',
 		'chrome/42',
+		'chrome/40',
 		'chrome/35',
 		'chrome/30',
+		'firefox/44',
+		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
@@ -173,7 +182,6 @@ const browsers = {
 		'ie/9',
 		'ie/8',
 		'ie/7',
-		'ie/6',
 		'safari/9',
 		'safari/8',
 		'safari/5.1',
@@ -181,6 +189,7 @@ const browsers = {
 		'android/4.3',
 		'android/4.2',
 		'android/4.1',
+		'ios_saf/9.1',
 		'ios_saf/9.2'
 	]
 };
