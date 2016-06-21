@@ -1,7 +1,13 @@
+/* Endpoints for running the test framework */
+
 'use strict';
 
+const polyfillio = require('../../lib');
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
+
+const router = express.Router();  // eslint-disable-line new-cap
 
 /**
  * Modes:
@@ -11,7 +17,7 @@ const path = require('path');
  */
 
 function createEndpoint(type, polyfillio) {
-	const templateSrc = fs.readFileSync(path.join(__dirname, '/../test/browser/', type + '.html.handlebars'), {encoding: 'UTF-8'});
+	const templateSrc = fs.readFileSync(path.join(__dirname, '/../../test/browser/', type + '.html.handlebars'), {encoding: 'UTF-8'});
 	const template = require('handlebars').compile(templateSrc);
 
 	return (req, res) => {
@@ -41,7 +47,7 @@ function createEndpoint(type, polyfillio) {
 
 				// Eliminate those that are not testable or not public
 				const polyfilldata = Object.keys(polyfillSet).reduce((acc, featureName) => {
-					const baseDir = path.join(__dirname, '../polyfills');
+					const baseDir = path.join(__dirname, '../../polyfills');
 					const config = polyfillSet[featureName];
 					const detectFile = path.join(baseDir, config.baseDir, '/detect.js');
 					const testFile = path.join(baseDir, config.baseDir, '/tests.js');
@@ -77,6 +83,10 @@ function createEndpoint(type, polyfillio) {
 	};
 }
 
-module.exports = {
-	createEndpoint: createEndpoint
-};
+router.use('/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
+router.use('/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
+
+router.get(/\/director\/?$/, createEndpoint('director', polyfillio));
+router.get(/\/tests?\/?$/, createEndpoint('runner', polyfillio));
+
+module.exports = router;

@@ -62,7 +62,6 @@ module.exports = function(grunt) {
 			let buffer = "";
 			let hasStarted = false;
 			let pid;
-			let proc;
 			let command;
 			let args;
 
@@ -97,7 +96,7 @@ module.exports = function(grunt) {
 			} else {
 				args = data.args;
 			}
-			proc = child_process.spawn(command, args, options);
+			const proc = child_process.spawn(command, args, options);
 			grunt.log.writeln("Service " + target + " is starting.");
 			if (proc.stdout) {
 				proc.stdout.on('data', function(d) {

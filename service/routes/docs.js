@@ -5,13 +5,13 @@ const path = require('path');
 const request = require('request-promise');
 const Handlebars = require('handlebars');
 const moment = require('moment');
-const sources = require('../lib/sources');
+const sources = require('../../lib/sources');
 const marked = require('marked');
 const zlib = require('zlib');
-const PolyfillSet = require('./PolyfillSet');
-const polyfillservice = require('../lib');
-const compatdata = require('../docs/assets/compat.json');
-const appVersion = require(path.join(__dirname,'../package.json')).version;
+const PolyfillSet = require('../PolyfillSet');
+const polyfillservice = require('../../lib');
+const compatdata = require('../../docs/assets/compat.json');
+const appVersion = require(path.join(__dirname,'../../package.json')).version;
 
 const cache = {};
 const cachettls = {fastly:1800, respTimes:1800, outages:86400};
@@ -21,7 +21,7 @@ const templCache = {};
 function template(name) {
 	if (name in templCache) return templCache[name];
 	return templCache[name] = new Promise((resolve, reject) => {
-		const filepath = path.join(__dirname, '/../docs/' + name + '.html');
+		const filepath = path.join(__dirname, '/../../docs/' + name + '.html');
 		fs.readFile(filepath, 'utf-8', (err, content) => {
 			if (!err) resolve(Handlebars.compile(content));
 			else reject(err);
@@ -30,7 +30,7 @@ function template(name) {
 }
 ['header', 'footer', 'nav'].forEach(partialName => {
 	Handlebars.registerPartial(partialName, Handlebars.compile(
-		fs.readFileSync(path.join(__dirname, '/../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
+		fs.readFileSync(path.join(__dirname, '/../../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
 	));
 });
 
@@ -181,7 +181,7 @@ function getData(type) {
 				throw {
 					service: type,
 					msg: errobj.error || errobj.message || errobj.msg || errobj.toString()
-				}
+				};
 			})
 		;
 	}
@@ -252,6 +252,8 @@ function route(req, res, next) {
 			appversion: appVersion,
 			pageName: (req.params[1] || 'index').replace(/\/$/, '')
 		})
+
+		// Add page-specific data
 		.then(locals => {
 			if (locals.pageName === 'usage') {
 
@@ -287,7 +289,7 @@ function route(req, res, next) {
 
 			} else if (locals.pageName === 'contributing/authoring-polyfills') {
 				return Object.assign(locals, {
-					baselines: require('../lib/UA').getBaselines()
+					baselines: require('../../lib/UA').getBaselines()
 				});
 
 			} else {
@@ -297,12 +299,10 @@ function route(req, res, next) {
 		.then(locals => {
 			template(locals.pageName)
 				.then(templFn => res.send(templFn(locals)))
-				.catch(function() { next(); })
+				.catch(() => next())
 			;
 		})
 	;
 }
 
-module.exports = {
-	route: route
-};
+module.exports = route;
