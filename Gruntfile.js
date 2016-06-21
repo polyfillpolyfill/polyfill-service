@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 				spawn: false
 			},
 			js: {
-				files: ['bin/*', 'docs/*.html', 'service/*.js', 'lib/*.js'],
+				files: ['bin/*', 'docs/*.html', 'service/**/*.js', 'lib/*.js'],
 				tasks: ['service:polyfillservice:restart']
 			},
 			polyfills: {
