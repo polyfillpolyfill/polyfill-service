@@ -82,7 +82,7 @@ function createEndpoint(type, polyfillio) {
 		;
 	};
 }
-console.log(require.resolve('mocha'));
+
 router.use('/libs/mocha', express.static(path.dirname(require.resolve('mocha'))));
 router.use('/libs/expect', express.static(path.dirname(require.resolve('expect.js'))));
 
