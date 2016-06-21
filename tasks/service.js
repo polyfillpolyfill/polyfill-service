@@ -43,17 +43,17 @@ module.exports = function(grunt) {
 				}
 			}
 			const pid = parseInt(fs.readFileSync(data.pidFile));
-			grunt.log.writeln("Service " + target + "(pid=" + pid + ") is killing ");
+			grunt.log.writeln("Service " + target + " (pid=" + pid + ") is killing");
 			try {
 				process.kill(pid);
 			} catch (_error) {
-				grunt.log.writeln("Service " + target + "(pid=" + pid + ") does not exists.");
+				grunt.log.writeln("Service " + target + " (pid=" + pid + ") does not exists.");
 				return callback();
 			}
 			return loopUntil(function() {
 				return !existProcess(pid);
 			}, function() {
-				grunt.log.writeln("Service " + target + "(pid=" + pid + ") is killed.");
+				grunt.log.writeln("Service " + target + " (pid=" + pid + ") is killed.");
 				return callback();
 			});
 		}
@@ -100,12 +100,12 @@ module.exports = function(grunt) {
 			grunt.log.writeln("Service " + target + " is starting.");
 			if (proc.stdout) {
 				proc.stdout.on('data', function(d) {
-			if (!hasStarted) {
-				buffer += d.toString();
-				if (buffer.indexOf(" started") >= 0) {
-					hasStarted = true;
-				}
-			}
+					if (!hasStarted) {
+						buffer += d.toString();
+						if (buffer.indexOf(" started") >= 0) {
+							hasStarted = true;
+						}
+					}
 					return grunt.log.writeln(d);
 				});
 			}
@@ -116,18 +116,20 @@ module.exports = function(grunt) {
 			}
 			if (proc) {
 				grunt.log.writeln("Service Child PID = " + proc.pid);
-				proc.on('close', function(code) {
-					grunt.log.writeln('child process exited with code ', code);
+				proc.on('close', function(err, code) {
+					grunt.log.writeln('Child process exited, code:', code);
 					return closed();
 				});
 				proc.on('error', function() {
 					return grunt.log.error('error', arguments);
 				});
-				proc.on('exit', function() {
-					return grunt.log.writeln('exit', arguments);
+				proc.on('exit', function(err, code) {
+					// Enable for debug if desired
+					//return grunt.log.writeln('exit', arguments);
 				});
 				proc.on('close', function() {
-					return grunt.log.writeln('close', arguments);
+					// Enable for debug if desired
+					//return grunt.log.writeln('close', arguments);
 				});
 				proc.on('disconnect', function() {
 					return grunt.log.writeln('disconnect', arguments);

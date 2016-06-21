@@ -83,8 +83,8 @@ function createEndpoint(type, polyfillio) {
 	};
 }
 
-router.use('/libs/mocha', express.static(path.join(__dirname, '/../node_modules/mocha')));
-router.use('/libs/expect', express.static(path.join(__dirname, '/../node_modules/expect.js/')));
+router.use('/libs/mocha', express.static(path.join(__dirname, '/../../node_modules/mocha')));
+router.use('/libs/expect', express.static(path.join(__dirname, '/../../node_modules/expect.js/')));
 
 router.get(/\/director\/?$/, createEndpoint('director', polyfillio));
 router.get(/\/tests?\/?$/, createEndpoint('runner', polyfillio));
