@@ -51,7 +51,7 @@
     "measured": "^1.0.0",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
-    "mocha": "^1.20.1",
+    "mocha": "^2.5.3",
     "moment": "^2.8.3",
     "morgan": "^1.6.1",
     "raven": "^0.8.1",
