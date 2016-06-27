@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 			},
 			polyfills: {
 				files: ['polyfills/**/*.js', 'polyfills/**/config.json', '!polyfills/__dist/**'],
-				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
+				tasks: ['service:polyfillservice:stop', 'build', 'service:polyfillservice:start']
 			}
 		},
 		"service": {
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:quick",
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("compatgen", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:compat",
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:ci",
