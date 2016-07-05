@@ -3,7 +3,6 @@
 'use strict';
 
 const polyfillio = require('../../lib');
-const metrics = require('../metrics');
 const express = require('express');
 
 let mysql;
@@ -13,7 +12,7 @@ if (process.env.MYSQL_DSN) {
 		.then(conn => {
 			mysql = conn;
 		})
-		.catch(e => {
+		.catch(() => {
 			console.error('MYSQL connection failed.  Check server is up or unset MYSQL_DSN to disable database backend');
 			process.exit();
 		})
@@ -98,7 +97,7 @@ router.get('/v2/getRumPerfData', (req, res) => {
 			const data = results.reduce((acc, resultset) => {
 				resultset.forEach(row => {
 					acc[makeKey(row)] = Object.assign({}, acc[makeKey(row)], row);
-				})
+				});
 				return acc;
 			}, {});
 			res.json(Object.keys(data).map(k => data[k]));
@@ -107,6 +106,7 @@ router.get('/v2/getRumPerfData', (req, res) => {
 });
 
 router.get('/v2/getRumCompatData', (req, res) => {
+	res.json("TODO");
 	/*
 	{
 		"results": {
