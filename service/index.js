@@ -45,6 +45,7 @@ app.use((req, res, next) => {
 
 app.use(require('./routes/api.js'));
 app.use(require('./routes/meta.js'));
+app.use(require('./routes/rum.js'));
 app.use('/test', require('./routes/test.js'));
 
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, require('./routes/docs'));

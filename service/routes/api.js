@@ -57,7 +57,9 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	const params = {
 		features: polyfills.get(),
 		excludes: (req.query.excludes && req.query.excludes.split(',')) || [],
-		minify: minified
+		minify: minified,
+		rum: req.query.rum,
+		baseurl: req.protocol+'://'+req.get('host')
 	};
 	if (req.query.unknown) {
 		params.unknown = req.query.unknown;

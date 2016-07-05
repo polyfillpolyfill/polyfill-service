@@ -75,7 +75,12 @@
 				<tr>
 					<td><code>unknown</code></td>
 					<td>Querystring</td>
-					<td>What to do when the user agent is not recognised.  Set to `polyfill` to return default polyfill variants of all qualifying features, `ignore` to return nothing.  Use caution when setting this argument to 'polyfill' on large feature sets, since huge polyfill bundles may cause crashes or lockups in extremely old or underpowered user agents.  Defaults to `ignore`.</td>
+					<td>What to do when the user agent is not recognised.  Set to <code>polyfill</code> to return default polyfill variants of all qualifying features, <code>ignore</code> to return nothing.  Use caution when setting this argument to 'polyfill' on large feature sets, since huge polyfill bundles may cause crashes or lockups in extremely old or underpowered user agents.  Defaults to <code>ignore</code>.</td>
+				</tr>
+				<tr>
+					<td><code>rum</code></td>
+					<td>Querystring</td>
+					<td>Set to <code>1</code> to enable <a href='https://en.wikipedia.org/wiki/Real_user_monitoring'>real user monitoring</a>, allowing the polyfill service to gather performance data about itself using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API/Using_the_Resource_Timing_API'>resource timing API</a>, where available, and to perform feature detection to improve our browser targeting.  Turning this on will help us improve the service, and tune our browser targeting to better serve your particular users.  Defaults to 0.  In a future release this will be on by default, so if you want to opt out permanently, set it explicitly to <code>0</code> now.</td>
 				</tr>
 			</table>
 		</div>
