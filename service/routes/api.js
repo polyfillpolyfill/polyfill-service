@@ -17,7 +17,7 @@ router.get(/^\/v1\/(.*)/, (req, res) => {
 
 	const qs = Object.keys(req.query).reduce((out, key) => {
 		if (key !== 'libVersion' && key !== 'gated') {
-			out.push(key+'='+encodeURIComponent(req.query[key]));
+			out.push(encodeURIComponent(key)+'='+encodeURIComponent(req.query[key]));
 		}
 		return out;
 	}, []).join('&');
