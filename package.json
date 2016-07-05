@@ -57,7 +57,7 @@
     "request-promise": "^0.3.2",
     "semver": "^5.0.0",
     "tsort": "0.0.1",
-    "useragent": "^2.0.8"
+    "useragent": "^2.1.9"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
