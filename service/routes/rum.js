@@ -8,9 +8,16 @@ const express = require('express');
 
 let mysql;
 if (process.env.MYSQL_DSN) {
-	require('promise-mysql').createConnection(process.env.MYSQL_DSN).then(conn => {
-		mysql = conn;
-	});
+	require('promise-mysql')
+		.createConnection(process.env.MYSQL_DSN)
+		.then(conn => {
+			mysql = conn;
+		})
+		.catch(e => {
+			console.error('MYSQL connection failed.  Check server is up or unset MYSQL_DSN to disable database backend');
+			process.exit();
+		})
+	;
 }
 
 const router = express.Router();  // eslint-disable-line new-cap
