@@ -33,8 +33,6 @@ const blankGif = new Buffer([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x0
  */
 router.get('/v2/recordRumData', (req, res) => {
 
-	res.set('Cache-Control', 'no-store');
-
 	const logquery = 'INSERT INTO requests SET perf_dns=?, perf_connect=?, perf_req=?, perf_resp=?, ua_family=?, ua_version=?, lat=?, lng=?, country=?, data_center=?, refer_domain=?';
 	const referer = (req.get('referer') || '').replace(/^(https?:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$/, '$3');
 	const ua = polyfillio.normalizeUserAgent(req.get('user-agent')).split('/');
@@ -60,6 +58,7 @@ router.get('/v2/recordRumData', (req, res) => {
 
 	res.status(200);
 	res.set('Content-type', 'image/gif');
+	res.set('Cache-Control', 'no-store');
 	res.send(blankGif);
 });
 
@@ -68,6 +67,9 @@ router.get('/v2/getRumPerfData', (req, res) => {
 	if (!mysql) {
 		return res.status(500).json('MySQL connection not available');
 	}
+
+	res.set('Cache-Control', 'no-cache, stale-while-revalidate=86400');
+
 	mysql.query('SELECT COUNT(*) as count FROM requests WHERE '+daterange)
 		.then(rows => {
 			const count = rows[0].count;
@@ -106,6 +108,8 @@ router.get('/v2/getRumPerfData', (req, res) => {
 });
 
 router.get('/v2/getRumCompatData', (req, res) => {
+
+	res.set('Cache-Control', 'no-cache, stale-while-revalidate=86400');
 	res.json("TODO");
 	/*
 	{
