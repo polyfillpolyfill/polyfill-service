@@ -7,7 +7,7 @@ For usage information see the [hosted service](polyfill-service), which formats 
 
 [![Build
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
-[![CC0 licensed](https://img.shields.io/badge/license-CC0-blue.svg)][license]
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)][license]
 
 
 Table Of Contents
