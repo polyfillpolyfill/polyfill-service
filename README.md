@@ -163,7 +163,7 @@ The Polyfill service can also be used as a library in NodeJS projects.  To do th
 
 1. Add this repo as a dependency in your package.json
 	 e.g. `npm install polyfill-service --save`
-2. Rebuild your project using `npm install`
+2. Rebuild your project using `cd node_modules/polyfill-service && npm install`
 3. Use the API from your code
 
 #### `getPolyfillString(options)` (method)
