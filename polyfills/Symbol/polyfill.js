@@ -203,25 +203,12 @@
 	};
 	defineProperty(ObjectProto, 'toString', descriptor);
 
-	try { // fails in few pre ES 5.1 engines
-		setDescriptor = create(
-		defineProperty(
-			{},
-			prefix,
-			{
-			get: function () {
-				return defineProperty(this, prefix, {value: false})[prefix];
-			}
-			}
-		)
-		)[prefix] || defineProperty;
-	} catch(o_O) {
-		setDescriptor = function (o, key, descriptor) {
+
+	setDescriptor = function (o, key, descriptor) {
 		var protoDescriptor = gOPD(ObjectProto, key);
 		delete ObjectProto[key];
 		defineProperty(o, key, descriptor);
 		defineProperty(ObjectProto, key, protoDescriptor);
-		};
-	}
+	};
 
 }(Object, 'getOwnPropertySymbols'));
