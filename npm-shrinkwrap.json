@@ -1,6 +1,6 @@
 {
   "name": "polyfill-service",
-  "version": "3.8.1-rc.1",
+  "version": "3.8.1-rc.2",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
