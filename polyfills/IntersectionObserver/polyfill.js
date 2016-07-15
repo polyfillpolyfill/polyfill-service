@@ -27,6 +27,15 @@ if ('IntersectionObserver' in window &&
 
 
 /**
+ * An IntersectionObserver registry. This registry exists to hold a strong
+ * reference to IntersectionObserver instances currently observering a target
+ * element. Without this registry, instances without another reference may be
+ * garbage collected.
+ */
+var registry = [];
+
+
+/**
  * Creates the global IntersectionObserverEntry constructor.
  * https://wicg.github.io/IntersectionObserver/#intersection-observer-entry
  * @param {Object} entry A dictionary of instance properties.
@@ -120,7 +129,8 @@ IntersectionObserver.prototype.observe = function(target) {
     throw new Error('target must be an Element');
   }
 
-  this._observationTargets.push({element: target, entry: {}});
+  this._registerInstance();
+  this._observationTargets.push({element: target, entry: null});
   this._monitorIntersections();
 };
 
@@ -137,6 +147,7 @@ IntersectionObserver.prototype.unobserve = function(target) {
   });
   if (!this._observationTargets.length) {
     this._unmonitorIntersections();
+    this._unregisterInstance();
   }
 };
 
@@ -147,6 +158,7 @@ IntersectionObserver.prototype.unobserve = function(target) {
 IntersectionObserver.prototype.disconnect = function() {
   this._observationTargets = [];
   this._unmonitorIntersections();
+  this._unregisterInstance();
 };
 
 
@@ -177,8 +189,8 @@ IntersectionObserver.prototype._initThresholds = function(opt_threshold) {
   if (!isArray(threshold)) threshold = [threshold];
 
   return threshold.sort().filter(function(t, i, a) {
-    if (t < 0 || t > 1) {
-      throw new Error('threshold must be be between 0 and 1 inclusively');
+    if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
+      throw new Error('threshold must be a number between 0 and 1 inclusively');
     }
     return t !== a[i - 1];
   });
@@ -300,25 +312,20 @@ IntersectionObserver.prototype._checkForIntersections = function() {
     if (rootIsInDom && rootContainsTarget) {
       // If the new entry intersection ratio has crossed any of the
       // thresholds, add a new entry.
-      if (this._hasCrossedThreshold(oldEntry, newEntry))  {
-        // Record that this target is in the DOM, a child or root, and
-        // is intersecting with the root.
-        item.hasIntersection = hasIntersection(newEntry.intersectionRect);
+      if (this._hasCrossedThreshold(oldEntry, newEntry)) {
         this._queuedEntries.push(newEntry);
       }
     } else {
       // If the root is not in the DOM or target is not contained within
       // root but the previous entry for this target had an intersection,
       // add a new record indicating removal.
-      if (item.hasIntersection) {
-        item.hasIntersection = false;
+      if (oldEntry && hasIntersection(oldEntry.intersectionRect)) {
         this._queuedEntries.push(newEntry);
       }
     }
   }.bind(this));
 
   if (this._queuedEntries.length) {
-
     this._callback(this.takeRecords(), this);
   }
 };
@@ -341,15 +348,15 @@ IntersectionObserver.prototype._computeTargetAndRootIntersection =
   var targetRect = getBoundingClientRect(target);
   var intersectionRect = targetRect;
   var parent = target.parentNode;
-  var notAtRoot = true;
+  var atRoot = false;
 
-  while (notAtRoot) {
+  while (!atRoot) {
     var parentRect = null;
 
     // If we're at the root element, set parentRect to the already
     // calculated rootRect.
     if (parent == this.root || parent.nodeType != 1) {
-      notAtRoot = false;
+      atRoot = true;
       parentRect = rootRect;
     }
     // Otherwise check to see if the parent element hides overflow,
@@ -365,6 +372,8 @@ IntersectionObserver.prototype._computeTargetAndRootIntersection =
     if (parentRect) {
       intersectionRect = computeRectIntersection(
           parentRect, intersectionRect);
+
+      if (!hasIntersection(intersectionRect)) break;
     }
     parent = parent.parentNode;
   }
@@ -382,7 +391,7 @@ IntersectionObserver.prototype._getRootRect = function() {
   if (this.root) {
     rootRect = getBoundingClientRect(this.root);
   } else {
-    // Use <html>/<body> intead of window since scroll bars affect size.
+    // Use <html>/<body> instead of window since scroll bars affect size.
     var html = document.documentElement;
     var body = document.body;
     rootRect = {
@@ -425,8 +434,8 @@ IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
 /**
  * Accepts an old and new entry and returns true if at least one of the
  * threshold values has been crossed.
- * @param {IntersectionObserverEntry} oldEntry The previous entry for a
- *    particular target element.
+ * @param {?IntersectionObserverEntry} oldEntry The previous entry for a
+ *    particular target element or null if no previous entry exists.
  * @param {IntersectionObserverEntry} newEntry The current entry for a
  *    particular target element.
  * @return {boolean} Returns true if a any threshold has been crossed.
@@ -437,7 +446,7 @@ IntersectionObserver.prototype._hasCrossedThreshold =
 
   // To make comparing easier, a entry that has a ratio of 0
   // but does not actually intersect is given a value of -1
-  var oldRatio = hasIntersection(oldEntry.intersectionRect) ?
+  var oldRatio = oldEntry && hasIntersection(oldEntry.intersectionRect) ?
       oldEntry.intersectionRatio || 0 : -1;
   var newRatio = hasIntersection(newEntry.intersectionRect) ?
       newEntry.intersectionRatio || 0 : -1;
@@ -476,6 +485,29 @@ IntersectionObserver.prototype._rootIsInDom = function() {
  */
 IntersectionObserver.prototype._rootContainsTarget = function(target) {
   return contains(this.root || document, target);
+};
+
+
+/**
+ * Adds the instance to the global IntersectionObserver registry if it isn't
+ * already present.
+ * @private
+ */
+IntersectionObserver.prototype._registerInstance = function() {
+  if (registry.indexOf(this) < 0) {
+    registry.push(this);
+  }
+};
+
+
+/**
+ * Removes the instance from the global IntersectionObserver registry.
+ * @private
+ */
+IntersectionObserver.prototype._unregisterInstance = function() {
+  registry = registry.filter(function(instance) {
+    return instance !== this;
+  }.bind(this));
 };
 
 
@@ -557,34 +589,32 @@ function computeRectIntersection(rect1, rect2) {
   var bottom = Math.min(rect1.bottom, rect2.bottom);
   var left = Math.max(rect1.left, rect2.left);
   var right = Math.min(rect1.right, rect2.right);
-  var intersectionRect = {
+  var width = right - left;
+  var height = bottom - top;
+
+  // Returns the intersection or an emptry rect if no intersection is found.
+  return (width < 0 || height < 0) ? getEmptyRect() : {
     top: top,
     bottom: bottom,
     left: left,
     right: right,
-    width: left > right ? 0 : right - left,
-    height: top > bottom ? 0 : bottom - top
+    width: width,
+    height: height
   };
-  return intersectionRect;
 }
 
 
 /**
- * Accepts an intersectionRect and returns whether or not it represents
- * an actual intersection. This is needed because intersectionRatio alone
- * doesn't tell the whole story, and there are two cases which it doesn't
- * account for, both of which should be considered "intersections".
- * <ul>
- * <li> A target has an area of zero but is fully in-bounds
- * <li> A target is on the boarder
- * </ul>
- * @param {Object=} opt_rect The intersection rect to check. If no rect is
- *     provided the result is always false.
+ * Returns true if an rect was passed and any of its properties are not zero.
+ * TODO(philipwalton): the current native implementation sets the
+ * intersectionRect value of a change entry to (0, 0, 0, 0) when no
+ * intersection is detected. This may change in the future:
+ * https://github.com/WICG/IntersectionObserver/issues/142
+ * @param {Object} rect The intersection rect to check.
  * @return {boolean} True if an intersection exists, false otherwise.
  */
-function hasIntersection(opt_rect) {
-  return !!opt_rect &&
-      (opt_rect.left <= opt_rect.right && opt_rect.top <= opt_rect.bottom);
+function hasIntersection(rect) {
+  return rect.top > 0 || rect.bottom > 0 || rect.left > 0 || rect.right > 0;
 }
 
 
