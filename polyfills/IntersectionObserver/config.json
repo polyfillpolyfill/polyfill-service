@@ -14,6 +14,7 @@
 		"Array.isArray",
 		"Array.prototype.filter",
 		"Array.prototype.forEach",
+		"Array.prototype.indexOf",
 		"Array.prototype.map",
 		"Array.prototype.some",
 		"Function.prototype.bind"
