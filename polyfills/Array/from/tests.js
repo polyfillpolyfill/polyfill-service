@@ -96,6 +96,7 @@ describe('returns an array with', function () {
 	it('objects with in-range lengths', function () {
 		expect(Array.from({ length: 0 }).length).to.be(0);
 		expect(Array.from({ length: 3 }).length).to.be(3);
+		expect(Array.from({ length: 3 })).to.eql([undefined, undefined, undefined]);
 		expect(Array.from({ length: '+3' }).length).to.be(3);
 		// expect(Array.from({ length: Infinity }).length).to.be();
 	});
