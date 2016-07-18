@@ -22,5 +22,7 @@
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
 	"notes": [],
-	"repo": "https://github.com/WICG/IntersectionObserver"
+	"repo": "https://github.com/WICG/IntersectionObserver",
+	"module":"intersection-observer",
+	"paths": ["intersection-observer"]
 }
