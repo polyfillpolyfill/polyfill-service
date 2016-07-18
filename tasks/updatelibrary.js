@@ -3,19 +3,14 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const _ = require('lodash');
 const existsSync = require('exists-sync');
 function hash (contents) {
 	return crypto.createHash('md5').update(contents).digest('hex');
 }
 
-function sum (a, b) {
-	return a + b;
-}
-
 function constructPolyfill(polyfillPaths) {
-	const polyfills = polyfillPaths.map(_.ary(fs.readFileSync, 1));
-	return polyfills.reduce(sum, '');
+	const polyfills = polyfillPaths.map((polyfill) => fs.readFileSync(polyfill));
+	return polyfills.join('');
 }
 
 const installPolyfill = function(polyfillOutputFolder, module, polyfillSourcePaths) {
