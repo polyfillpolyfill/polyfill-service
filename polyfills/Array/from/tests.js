@@ -22,6 +22,14 @@ describe('returns an array with', function () {
 		expect(Array.from(['a', 'b', 'c'])).to.eql(['a', 'b', 'c']);
 	});
 
+	it('fills holes in arrays', function () {
+		var arr = [1, 2, 3];
+		delete arr[1];
+		expect(Array.from(arr)).to.eql([1, undefined, 3]);
+		/* eslint-disable no-sparse-arrays */
+		expect(Array.from([4, , 6])).to.eql([4, undefined, 6]);
+	});
+
 	it('objects', function () {
 		expect(Array.from({})).to.eql([]);
 		expect(Array.from({ 0: 'a' })).to.eql([]);
