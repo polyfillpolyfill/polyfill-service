@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start": "bin/polyfill-service",
-    "prepublish": "grunt build",
+		"prepublish": "npm run build",
+    "build": "grunt build",
     "container-build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
     "container-test": "npm run container-build && docker run -p 3000:3000 -it registry.heroku.com/ft-polyfill-service-qa/web",
     "deploy": "npm run container-build && docker push registry.heroku.com/ft-polyfill-service-qa/web && grunt deployvcl:qa",
@@ -36,12 +37,18 @@
     "node": ">6.0.0"
   },
   "dependencies": {
+		"babel-core": "^6.2.1",
+		"babel-preset-es2015": "^6.1.18",
     "blocked": "^1.1.0",
     "denodeify": "^1.2.1",
     "dotenv": "^1.2.0",
     "expect.js": "^0.3.1",
     "express": "^4.4.4",
     "graphite": "0.0.6",
+		"grunt": "~0.4.0",
+		"grunt-cli": "~0.1.6",
+		"grunt-contrib-clean": "^0.6.0",
+
     "handlebars": "^1.3.0",
     "lodash": "^3.0.0",
     "lru-cache": "^3.0.0",
@@ -60,14 +67,9 @@
     "useragent": "^2.1.9"
   },
   "devDependencies": {
-    "babel-core": "^6.2.1",
-    "babel-preset-es2015": "^6.1.18",
     "batch": "^0.5.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
-    "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.6",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-watch": "^0.6.1",
+		"grunt-contrib-watch": "^0.6.1",
     "grunt-simple-mocha": "^0.4.0",
     "intl": "~1.1.0",
     "picturefill": "^3.0.1",

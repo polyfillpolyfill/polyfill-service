@@ -2,6 +2,7 @@
 
 require('dotenv').config({silent: true});
 const path = require('path');
+const process = require('process');
 
 module.exports = function(grunt) {
 
@@ -90,10 +91,15 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadTasks('tasks');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-simple-mocha');
+	if (process.env.NODE_ENV === 'production') {
+		require('./tasks/buildsources')(grunt);
+		grunt.loadNpmTasks('grunt-contrib-clean');
+	} else {
+		grunt.loadTasks('tasks');
+		grunt.loadNpmTasks('grunt-contrib-clean');
+		grunt.loadNpmTasks('grunt-contrib-watch');
+		grunt.loadNpmTasks('grunt-simple-mocha');
+	}
 
 	grunt.registerTask("test", [
 		"build",
