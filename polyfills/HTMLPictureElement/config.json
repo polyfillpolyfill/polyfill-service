@@ -11,7 +11,7 @@
 		"bb": "7 - 10",
 		"android": "* < 46"
 	},
-	"dependencies": ["html5shiv"],
+	"dependencies": ["~html5-elements"],
 	"license": "MIT",
 	"spec": "https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content",
 	"repo": "https://github.com/scottjehl/picturefill",
