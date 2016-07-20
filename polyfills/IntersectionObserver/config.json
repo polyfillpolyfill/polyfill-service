@@ -2,12 +2,16 @@
 	"aliases": [
 	],
 	"browsers": {
-		"firefox": "*",
-		"safari": "*",
 		"android": "*",
-		"opera": "*",
+		"bb": "*",
 		"chrome": "<51",
-		"ie": "*"
+		"firefox": "*",
+		"firefox_mob": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"ios_saf": "*",
+		"opera": "*",
+		"safari": "*"
 	},
 	"dependencies": [
 		"getComputedStyle",
