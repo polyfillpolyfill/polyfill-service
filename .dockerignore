@@ -1,4 +1,4 @@
-/node_modules
+/node_modules/
 .editorconfig
 .eslintrc
 .npmignore
@@ -9,3 +9,7 @@ fastly-config.vcl
 LICENSE.md
 Makefile
 README.md
+/polyfills/__dist/
+.env
+.service.pid
+npm-debug.log
