@@ -20,5 +20,10 @@
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl",
 	"notes": [
 		"Locales must be specified separately by prefixing the locale name with `Intl.~locale`, eg `Intl.~locale.en-GB`."
-	]
+	],
+	"install": {
+		"module": "intl",
+		"paths": ["dist/Intl.min.js"],
+		"postinstall": "update.task.js"
+	}
 }

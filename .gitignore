@@ -10,3 +10,7 @@
 /.haikro-cache
 /node-*
 .DS_Store
+/polyfills/HTMLPictureElement/polyfill.js
+/polyfills/IntersectionObserver/polyfill.js
+/polyfills/Intl/polyfill.js
+/polyfills/Intl/~locale
