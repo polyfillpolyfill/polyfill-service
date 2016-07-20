@@ -1,0 +1,19 @@
+{
+	"browsers": {
+		"chrome": "* - 38",
+		"firefox": "* - 36",
+		"ie": "* - 11",
+		"ie_mob": "10 - *",
+		"opera": "* - 25",
+		"safari": "* - 8"
+	},
+	"dependencies": [
+		"Symbol.iterator"
+	],
+	"repo": "https://github.com/medikoo/es6-iterator",
+	"build": {
+		"commonjs": true
+	},
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype-@@iterator"
+}
