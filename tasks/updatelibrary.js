@@ -4,61 +4,66 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const existsSync = require('exists-sync');
-function hash (contents) {
+function md5 (contents) {
 	return crypto.createHash('md5').update(contents).digest('hex');
 }
 
-function constructPolyfill(polyfillPaths) {
+function loadSource(polyfillPaths) {
 	const polyfills = polyfillPaths.map((polyfill) => fs.readFileSync(polyfill));
 	return polyfills.join('');
 }
 
-const installPolyfill = function(polyfillOutputFolder, module, polyfillSourcePaths) {
+const installPolyfill = function(grunt, polyfillOutputFolder, { module, paths:polyfillSourcePaths, postinstall }) {
 	const polyfillOutputPath = path.join(polyfillOutputFolder, 'polyfill.js');
 	const polyfillAlreadyExists = existsSync(polyfillOutputPath);
 
 	polyfillSourcePaths = polyfillSourcePaths || [''];
-	polyfillSourcePaths = polyfillSourcePaths.map(polyfillPath => path.join(module, polyfillPath))
+	polyfillSourcePaths = polyfillSourcePaths.map(polyfillPath => path.join(module, polyfillPath));
+	console.log(polyfillSourcePaths);
 	polyfillSourcePaths = polyfillSourcePaths.map(path => require.resolve(path));
 
-	console.log(`Importing polyfill/s from ${polyfillSourcePaths.join(',')}`);
-	const newPolyfill = constructPolyfill(polyfillSourcePaths);
+	grunt.log.writeln(`Creating polyfill for ${path.basename(polyfillOutputFolder)}:
+	importing polyfill/s from ${polyfillSourcePaths.map(p => path.relative(__dirname, p)).join(',\n')}`);
+	const newPolyfill = loadSource(polyfillSourcePaths);
 
 	if (polyfillAlreadyExists) {
 		const currentPolyfill = fs.readFileSync(polyfillOutputPath);
-		const currentPolyfillHash = hash(currentPolyfill);
-		const newPolyfillHash = hash(newPolyfill);
+		const currentPolyfillHash = md5(currentPolyfill);
+		const newPolyfillHash = md5(newPolyfill);
 
 		if (newPolyfillHash === currentPolyfillHash) {
-			console.log('Polyfill has not changed.');
-			return;
+			grunt.log.writeln('Polyfill has not changed.');
 		} else {
-			console.log('Polyfill has changed. Deleting old polyfill.');
+			grunt.log.writeln('Polyfill has changed. Deleting old polyfill.');
 			fs.unlinkSync(polyfillOutputPath);
+			fs.writeFileSync(polyfillOutputPath, newPolyfill);
 		}
-  }
+  } else {
+		fs.writeFileSync(polyfillOutputPath, newPolyfill);
+	}
 
-	fs.writeFileSync(polyfillOutputPath, newPolyfill);
-	console.log('Polyfill imported successfully');
+	if (postinstall) {
+		grunt.log.writeln('Running update task');
+		require(path.resolve(polyfillOutputFolder, postinstall))(grunt);
+	}
+
+	grunt.log.writeln('Polyfill imported successfully');
 
 };
 
 module.exports = function(grunt) {
 
-	grunt.registerMultiTask('updatelibrary', 'Update Polyfill imported from external libraries', function() {
+	grunt.registerMultiTask('updatelibrary', 'Update polyfills imported from external libraries', function() {
 		this.files.forEach(function (file) {
 			const configs = file.src.map(src => Object.assign({src}, {
 				config: JSON.parse(fs.readFileSync(src)),
 			}));
 			configs.filter(function(config) {
-				return typeof config.config.module === 'string';
+				return 'install' in config.config;
 			}).forEach(function(config){
 				const polyfillDirectory = path.resolve(__dirname, path.relative(__dirname, path.dirname(config.src)));
-				installPolyfill(polyfillDirectory, config.config.module, config.config.paths);
+				installPolyfill(grunt, polyfillDirectory, config.config.install);
 				grunt.log.writeln('-------------');
-				if (config.config.postinstall) {
-					require(path.resolve(polyfillDirectory, config.config.postinstall))();
-				}
 			});
 		});
 

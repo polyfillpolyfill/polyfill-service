@@ -23,6 +23,8 @@
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
 	"notes": [],
 	"repo": "https://github.com/WICG/IntersectionObserver",
-	"module":"intersection-observer",
-	"paths": ["intersection-observer"]
+	"install": {
+		"module": "intersection-observer",
+		"paths": ["intersection-observer"]
+	}
 }

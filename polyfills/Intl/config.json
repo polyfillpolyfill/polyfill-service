@@ -21,7 +21,9 @@
 	"notes": [
 		"Locales must be specified separately by prefixing the locale name with `Intl.~locale`, eg `Intl.~locale.en-GB`."
 	],
-	"module": "Intl",
-	"paths": ["dist/Intl.min.js"],
-	"postinstall": "update.task.js"
+	"install": {
+		"module": "Intl",
+		"paths": ["dist/Intl.min.js"],
+		"postinstall": "update.task.js"
+	}
 }
