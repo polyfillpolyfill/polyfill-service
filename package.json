@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "bin/polyfill-service",
-    "prepublish": "grunt build",
+    "prepublish": "grunt build && grunt updatelibrary",
     "container-build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
     "container-test": "npm run container-build && docker run -p 3000:3000 -it registry.heroku.com/ft-polyfill-service-qa/web",
     "deploy": "npm run container-build && docker push registry.heroku.com/ft-polyfill-service-qa/web && grunt deployvcl:qa",
