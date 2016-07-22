@@ -14,17 +14,11 @@
 		"firefox_mob": "< 31"
 	},
 	"dependencies": [
-		"Function.prototype.bind",
-		"Object.assign",
 		"Object.create",
-		"Object.defineProperties",
 		"Object.defineProperty",
-		"Object.prototype.hasOwnProperty",
-		"Object.setPrototypeOf",
-		"String.prototype.contains",
-		"Symbol",
-		"Symbol.iterator",
-		"Symbol.toStringTag"
+		"Object.getPrototypeOf",
+		"Object.getOwnPropertyNames",
+		"Object.getOwnPropertyDescriptor",
 	],
 	"license": "MIT",
 	"docs": "https://tc39.github.io/ecma262/#sec-object.setprototypeof",
