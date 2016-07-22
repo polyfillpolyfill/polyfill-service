@@ -4,7 +4,7 @@
 
 	function getElementsByQuery(node, selector, one) {
 		var
-		generator = document.createElement(),
+		generator = document.createElement('null'),
 		id = 'qsa' + String(Math.random()).slice(3),
 		style, elements;
 
