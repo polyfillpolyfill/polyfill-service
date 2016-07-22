@@ -1,8 +1,15 @@
 sub vcl_recv {
 #FASTLY recv
+	if ( req.request == "FASTLYPURGE" ) {
+		set req.http.Fastly-Purge-Requires-Auth = "1";
+	}
 
 	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
 		return(pass);
+	}
+
+	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io")) {
+		error 751 "Force TLS";
 	}
 
 	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
@@ -10,9 +17,10 @@ sub vcl_recv {
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
 
-	if (!req.http.Fastly-SSL && req.http.Host == "cdn.polyfill.io") {
-		error 751 "Force TLS";
-	}
+    set req.http.Geo-Lat = geoip.latitude;
+    set req.http.Geo-Lng = geoip.longitude;
+    set req.http.Geo-Country = geoip.country_code;
+    set req.http.Data-Center = server.datacenter;
 
 	return(lookup);
 }

@@ -1,6 +1,7 @@
 {
 	"browsers": {
 		"ie": "*",
+		"ie_mob": "*",
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",

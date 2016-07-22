@@ -152,3 +152,25 @@ xit('should not allow implicit string coercion', function() {
 	}
 	expect(implicitStringCoercion).to.throwError();
 });
+
+it('should create Object without symbols', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype);
+	expect(obj instanceof Obj).to.be(true);
+});
+
+it('should create Object without symbols, second argument undefined', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype, undefined);
+	expect(obj instanceof Obj).to.be(true);
+});
+
+it('does not break when an iframe is added', function () {
+	var div = document.createElement('div');
+	div.innerHTML = '<iframe src="http://ft.com"></iframe>';
+	document.body.appendChild(div);
+	setTimeout(function () {
+		document.body.removeChild(div);
+	}, 0);
+	expect(Object.prototype.toString.call(Object.getOwnPropertyNames(window)) === '[object Array]').to.eql(true);
+});

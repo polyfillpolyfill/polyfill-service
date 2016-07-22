@@ -7,31 +7,31 @@ For usage information see the [hosted service](polyfill-service), which formats 
 
 [![Build
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
-[![CC0 licensed](https://img.shields.io/badge/license-CC0-blue.svg)][license]
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)][license]
 
 
 Table Of Contents
 -----------------
 
-  * [Requirements](#requirements)
-  * [Running Locally](#running-locally)
-  * [Configuration](#configuration)
-  * [Testing](#testing)
-  * [Release Process](#release-process)
-  * [Deployment](#deployment)
-  * [Publishing](#publishing)
-  * [Monitoring](#monitoring)
-  * [Library API Reference](#library-api-reference)
-  * [License](#license)
+* [Requirements](#requirements)
+* [Running Locally](#running-locally)
+* [Configuration](#configuration)
+* [Testing](#testing)
+* [Release Process](#release-process)
+* [Deployment](#deployment)
+* [Publishing](#publishing)
+* [Monitoring](#monitoring)
+* [Library API Reference](#library-api-reference)
+* [License](#license)
 
 
 Requirements
 ------------
 
 Running Origami Build Service requires a few tools:
-  * [Git]: For downloading the source code
-  * [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
-  * [Grunt] 0.1.x: Used for automating tasks such as testing
+	* [Git]: For downloading the source code
+	* [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
+	* [Grunt] 0.1.x: Used for automating tasks such as testing
 
 Running Locally
 ---------------
@@ -62,14 +62,14 @@ Configuration
 
 You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
-  * `PORT`: The port on which to listen for HTTP requests (default 3000).
-  * `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
-  * `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
-  * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
-  * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
-  * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
-  * `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-  * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+	* `PORT`: The port on which to listen for HTTP requests (default 3000).
+	* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
+	* `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
+	* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
+	* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
+	* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+	* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
+	* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
 
 
 Testing
@@ -88,7 +88,7 @@ We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull
 Release Process
 ---------------
 
- 1.  The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table.
+ 1. The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table.
  2. The commit is tagged vX.Y.Z-rcN where N is initially 1
  3. Deploy to [QA](http://qa.polyfill.io)
  4. Announce the release on twitter
@@ -162,7 +162,7 @@ Library API Reference
 The Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
 1. Add this repo as a dependency in your package.json
-   e.g. `npm install polyfill-service --save`
+	 e.g. `npm install polyfill-service --save`
 2. Rebuild your project using `npm install`
 3. Use the API from your code
 
@@ -245,6 +245,7 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
 [heroku-qa]: https://dashboard.heroku.com/apps/ft-polyfill-service-qa
 [heroku]: https://heroku.com/
+[license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
 [MIT license]: https://github.com/Financial-Times/polyfill-service/blob/master/LICENSE.md
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
