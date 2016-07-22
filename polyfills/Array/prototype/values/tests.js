@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* global expect */
 it('exists', function () {
 	if (!Symbol || !Symbol.iterator) {
 		expect(true).to.be.false;

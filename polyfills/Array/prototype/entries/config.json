@@ -9,13 +9,9 @@
 		"opera": "<25"
 	},
 	"dependencies": [
+		"_ArrayIterator",
 		"Symbol.iterator"
 	],
-	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.entries",
-	"repo": "https://github.com/medikoo/es6-iterator",
-	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/entries",
-	"build": {
-		"commonjs": true
-	}
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/entries"
 }
