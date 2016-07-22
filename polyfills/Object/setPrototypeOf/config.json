@@ -18,7 +18,7 @@
 		"Object.defineProperty",
 		"Object.getPrototypeOf",
 		"Object.getOwnPropertyNames",
-		"Object.getOwnPropertyDescriptor",
+		"Object.getOwnPropertyDescriptor"
 	],
 	"license": "MIT",
 	"docs": "https://tc39.github.io/ecma262/#sec-object.setprototypeof",
