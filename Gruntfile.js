@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			dist: [path.resolve(__dirname, '/polyfills/__dist')]
+			dist: [path.resolve(__dirname, '/polyfills/__dist')],
+			testResults: [path.resolve(__dirname, '/test/results')]
 		},
 		"simplemocha": {
 			options: {
@@ -55,12 +56,12 @@ module.exports = function(grunt) {
 				spawn: false
 			},
 			js: {
-				files: ['bin/*', 'docs/*.html', 'service/*.js', 'lib/*.js'],
+				files: ['bin/*', 'docs/*.html', 'service/**/*.js', 'lib/*.js'],
 				tasks: ['service:polyfillservice:restart']
 			},
 			polyfills: {
 				files: ['polyfills/**/*.js', 'polyfills/**/config.json', '!polyfills/__dist/**'],
-				tasks: ['service:polyfillservice:stop', 'buildsources', 'service:polyfillservice:start']
+				tasks: ['service:polyfillservice:stop', 'build', 'service:polyfillservice:start']
 			}
 		},
 		"service": {
@@ -79,7 +80,7 @@ module.exports = function(grunt) {
 				expand: true
 			},
 			tasks: {
-				src: ['polyfills/**/update.task.js'],
+				src: ['polyfills/**/config.json'],
 			}
 		},
 		"deployvcl": {
@@ -95,7 +96,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask("test", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:quick",
@@ -103,7 +104,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("compatgen", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:compat",
@@ -112,7 +113,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
-		"buildsources",
+		"build",
 		"simplemocha",
 		"service",
 		"saucelabs:ci",

@@ -2,6 +2,8 @@
 	"aliases": [
 		"es5",
 		"modernizr:es5object",
+		"default-3.5",
+		"default-3.6",
 		"default",
 		"blissfuljs"
 	],

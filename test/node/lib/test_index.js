@@ -126,7 +126,6 @@ describe("polyfillio", function() {
 					excludes: ["Promise", "non-existent-feature"],
 					uaString: 'chrome/30'
 				}).then(function(polyfillSet) {
-					console.log(polyfillSet, 2);
 					assert.deepEqual(polyfillSet, {
 						fetch: { flags: [] }
 					});

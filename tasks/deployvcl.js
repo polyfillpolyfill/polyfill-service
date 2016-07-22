@@ -37,16 +37,14 @@ module.exports = function(grunt) {
 		const fastly = require('fastly')(process.env.FASTLY_API_KEY, encodeURIComponent(options.serviceId));
 		let newVersion;
 
-		let deploy =
-			fastly.getServices()
+		fastly.getServices()
 			.then(services => {
 				grunt.log.writeln('Loading Fastly service list');
-				var service = services.filter(svc => svc.id === options.serviceId);
-				if (!service.length) throw new Error('Service not found.  Check options.service matches a valid service on Fastly that is accessible by your FASTLY_API_KEY');
-				service = service[0];
+				const service = services.find(svc => svc.id === options.serviceId);
+				if (!service) throw new Error('Service not found.  Check options.service matches a valid service on Fastly that is accessible by your FASTLY_API_KEY');
 				grunt.log.writeln('Cloning active version %s of %s', service.version, service.name);
 				return fastly.cloneVersion(service.version).then(res => {
-					newVersion = res.number
+					newVersion = res.number;
 					grunt.log.writeln("Created version %d", newVersion);
 				});
 			})
@@ -54,7 +52,7 @@ module.exports = function(grunt) {
 			.then(() => fastly.getVcl(newVersion))
 			.then(vclsList => {
 				grunt.log.writeln('Deleting existing VCLs');
-				return Promise.all(vclsList.map(vcl => fastly.deleteVcl(newVersion, vcl.name)))
+				return Promise.all(vclsList.map(vcl => fastly.deleteVcl(newVersion, vcl.name)));
 			})
 
 			.then(() => {
@@ -67,7 +65,7 @@ module.exports = function(grunt) {
 
 			.then(() => {
 				grunt.log.writeln('Setting the VCL as main');
-				return fastly.setVclAsMain(newVersion, options.vclName)
+				return fastly.setVclAsMain(newVersion, options.vclName);
 			})
 
 			// Validate the VCL
