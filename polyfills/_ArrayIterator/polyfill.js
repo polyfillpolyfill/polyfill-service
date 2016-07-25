@@ -197,7 +197,7 @@ var ArrayIterator = (function() {
 			writable: false
 		});
 	};
-	if (Object.setPrototypeOf) Object.setPrototypeOf(ArrayIterator, Iterator);
+	if (Object.setPrototypeOf) Object.setPrototypeOf(ArrayIterator, Iterator.prototype);
 
 	ArrayIterator.prototype = Object.create(Iterator.prototype, {
 		constructor: {
