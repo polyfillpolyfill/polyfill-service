@@ -12,7 +12,8 @@ describe('Basic functionality', function () {
         var expected = {
             enumerable: true,
             configurable: true,
-            value: 'Testing'
+            value: 'Testing',
+            writable: true
         };
 
         expect(descr).to.eql(expected);
@@ -43,6 +44,6 @@ describe('Basic functionality', function () {
     it('should throw error for non object', function () {
     	expect(function() {
         	Object.getOwnPropertyDescriptor(42, 'name');
-    	}).to.throwError()
+    	}).to.throwError();
     });
 });
