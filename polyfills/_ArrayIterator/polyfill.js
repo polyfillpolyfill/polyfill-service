@@ -13,19 +13,6 @@ var ArrayIterator = (function() {
 			if (typeof fn !== 'function') throw new TypeError(fn + " is not a function");
 			return fn;
 		};
-		var autoBind = function(name, desc) {
-			var value = desc && desc.value;
-			var dgs = Object.assign({}, desc);
-			delete dgs.writable;
-			delete dgs.value;
-			dgs.get = function() {
-				if (Object.prototype.hasOwnProperty.call(this, name)) return value;
-				desc.value = Function.prototype.bind.call(value, this);
-				Object.defineProperty(this, name, desc);
-				return this[name];
-			};
-			return dgs;
-		};
 
 		var Iterator = function(list, context) {
 			if (!(this instanceof Iterator)) {
@@ -47,9 +34,9 @@ var ArrayIterator = (function() {
 			});
 			if (!context) return;
 			callable(context.on);
-			context.on('_add', this._onAdd);
-			context.on('_delete', this._onDelete);
-			context.on('_clear', this._onClear);
+			context.on('_add', this._onAdd.bind(this));
+			context.on('_delete', this._onDelete.bind(this));
+			context.on('_clear', this._onClear.bind(this));
 		};
 
 		Object.defineProperties(Iterator.prototype, Object.assign({
@@ -110,9 +97,9 @@ var ArrayIterator = (function() {
 					this.__list__ = null;
 					delete this.__redo__;
 					if (!this.__context__) return;
-					this.__context__.off('_add', this._onAdd);
-					this.__context__.off('_delete', this._onDelete);
-					this.__context__.off('_clear', this._onClear);
+					this.__context__.off('_add', this._onAdd.bind(this));
+					this.__context__.off('_delete', this._onDelete.bind(this));
+					this.__context__.off('_clear', this._onClear.bind(this));
 					this.__context__ = null;
 				},
 				configurable: true,
@@ -128,7 +115,7 @@ var ArrayIterator = (function() {
 				writable: true
 			}
 		}, {
-			_onAdd: autoBind('_onAdd', {
+			_onAdd: {
 				value: function(index) {
 					if (index >= this.__nextIndex__) return;
 					++this.__nextIndex__;
@@ -149,8 +136,8 @@ var ArrayIterator = (function() {
 				configurable: true,
 				enumerable: false,
 				writable: true
-			}),
-			_onDelete: autoBind('_onDelete', {
+			},
+			_onDelete: {
 				value: function(index) {
 					var i;
 					if (index >= this.__nextIndex__) return;
@@ -165,8 +152,8 @@ var ArrayIterator = (function() {
 				configurable: true,
 				enumerable: false,
 				writable: true
-			}),
-			_onClear: autoBind('_onClear', {
+			},
+			_onClear: {
 				value: function() {
 					if (this.__redo__) clear.call(this.__redo__);
 					this.__nextIndex__ = 0;
@@ -174,7 +161,7 @@ var ArrayIterator = (function() {
 				configurable: true,
 				enumerable: false,
 				writable: true
-			})
+			}
 		}));
 
 		Object.defineProperty(Iterator.prototype, Symbol.iterator, {
