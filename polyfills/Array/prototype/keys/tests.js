@@ -1,10 +1,3 @@
-it('exists', function () {
-	if (!Symbol || !Symbol.iterator) {
-		expect(true).to.be.false;
-		return;
-	}
-	expect([].keys).to.be.a(Function);
-});
 
 it('is named \'keys\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
