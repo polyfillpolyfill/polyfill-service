@@ -7,10 +7,15 @@ it('exists', function () {
 });
 
 
-it('is named \'values\'', function () {
+it('is named \'values\' or \'ArrayValues\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
 	if ([][Symbol.iterator].name) {
-		expect([][Symbol.iterator].name).to.equal('values');
+		try {
+			expect([][Symbol.iterator].name).to.equal('values');
+		} catch (e) {
+			// Chrome 40 implements the Symbol.iterator function for Arrays but has it named ArrayValues.
+			expect([][Symbol.iterator].name).to.equal('ArrayValues');
+		}
 	}
 });
 
