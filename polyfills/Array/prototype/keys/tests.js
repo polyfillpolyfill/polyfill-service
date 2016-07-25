@@ -1,4 +1,3 @@
-
 it('is named \'keys\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
 	if ([].keys.name) {
