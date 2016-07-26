@@ -1,6 +1,11 @@
-Object.create = function create(prototype, properties) {
+(function(){
+	function isPrimitive(o) {
+		return o == null || (typeof o !== 'object' && typeof o !== 'function');
+  };
+
+	Object.create = function create(prototype, properties) {
 	/* jshint evil: true */
-    if (typeof prototype !== 'object' && prototype !== null) {
+    if (prototype !== null && isPrimitive(prototype)) {
       throw TypeError('Object prototype may only be an Object or null');
     }
 
@@ -15,3 +20,4 @@ Object.create = function create(prototype, properties) {
 
 	return object;
 };
+}());
