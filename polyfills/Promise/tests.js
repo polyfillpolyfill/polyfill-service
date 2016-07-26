@@ -1,7 +1,7 @@
 /* eslint-env mocha, browser */
 /* global expect, sinon, proclaim */
 /* eslint-disable no-var, strict, one-var, no-unused-vars, eqeqeq, no-extend-native */
-
+"use strict";
 /**
  * Include Sinon for section 2.2.6
  */
@@ -2900,7 +2900,7 @@ var global = window;
 
 		describe("incorrect subclassing:", function () {
 				describe("25.4.1.6.1 step 8 invalid 'resolve':", function () {
-
+					"use strict";
 						function BadResolverPromise(executor) {
 								var p = new Promise(executor);
 								executor(3, function () {});
