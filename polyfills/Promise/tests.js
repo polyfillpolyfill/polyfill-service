@@ -1312,10 +1312,11 @@ var global = window;
 									});
 							});
 					}
-
-					Object.keys(reasons).forEach(function (stringRepresentation) {
-							testReason(reasons[stringRepresentation](), stringRepresentation);
-					});
+					if ('keys' in Object && 'forEach' in Array.prototype) {
+						Object.keys(reasons).forEach(function (stringRepresentation) {
+								testReason(reasons[stringRepresentation](), stringRepresentation);
+						});
+					}
 			});
 
 			describe("2.2.7.3: If `onFulfilled` is not a function and `promise1` is fulfilled, `promise2` must be fulfilled " +
@@ -1633,13 +1634,14 @@ var global = window;
 											}
 									});
 							}
-
-							testPromiseResolution(xFactory, function (promise, done) {
-									promise.then(function () {
-											assert.strictEqual(numberOfTimesThenWasRetrieved, 1);
-											done();
-									});
-							});
+							if ('create' in Object) {
+								testPromiseResolution(xFactory, function (promise, done) {
+										promise.then(function () {
+												assert.strictEqual(numberOfTimesThenWasRetrieved, 1);
+												done();
+										});
+								});
+							}
 					});
 
 					describe("`x` is an object with normal Object.prototype", function () {
@@ -1661,13 +1663,14 @@ var global = window;
 											}
 									});
 							}
-
-							testPromiseResolution(xFactory, function (promise, done) {
-									promise.then(function () {
-											assert.strictEqual(numberOfTimesThenWasRetrieved, 1);
-											done();
-									});
-							});
+							if ('create' in Object) {
+								testPromiseResolution(xFactory, function (promise, done) {
+										promise.then(function () {
+												assert.strictEqual(numberOfTimesThenWasRetrieved, 1);
+												done();
+										});
+								});
+							}
 					});
 
 					describe("`x` is a function", function () {
@@ -1713,20 +1716,22 @@ var global = window;
 											}
 									});
 							}
-
-							describe("`e` is " + stringRepresentation, function () {
-									testPromiseResolution(xFactory, function (promise, done) {
-											promise.then(null, function (reason) {
-													assert.strictEqual(reason, e);
-													done();
-											});
-									});
-							});
+							if ('create' in Object) {
+								describe("`e` is " + stringRepresentation, function () {
+										testPromiseResolution(xFactory, function (promise, done) {
+												promise.then(null, function (reason) {
+														assert.strictEqual(reason, e);
+														done();
+												});
+										});
+								});
+							}
 					}
-
-					Object.keys(reasons).forEach(function (stringRepresentation) {
-							testRejectionViaThrowingGetter(reasons[stringRepresentation], stringRepresentation);
-					});
+					if ('keys' in Object && 'forEach' in Array.prototype) {
+						Object.keys(reasons).forEach(function (stringRepresentation) {
+								testRejectionViaThrowingGetter(reasons[stringRepresentation], stringRepresentation);
+						});
+					}
 			});
 
 			describe("2.3.3.3: If `then` is a function, call it with `x` as `this`, first argument `resolvePromise`, and " +
@@ -1772,12 +1777,13 @@ var global = window;
 											}
 									});
 							}
-
-							testPromiseResolution(xFactory, function (promise, done) {
-									promise.then(function () {
-											done();
-									});
-							});
+							if ('create' in Object) {
+								testPromiseResolution(xFactory, function (promise, done) {
+										promise.then(function () {
+												done();
+										});
+								});
+							}
 					});
 
 					describe("2.3.3.3.1: If/when `resolvePromise` is called with value `y`, run `[[Resolve]](promise, y)`",
@@ -1792,6 +1798,7 @@ var global = window;
 							});
 
 							describe("`y` is a thenable", function () {
+								if ('keys' in Object && 'forEach' in Array.prototype) {
 									Object.keys(thenables.fulfilled).forEach(function (stringRepresentation) {
 											function yFactory() {
 													return thenables.fulfilled[stringRepresentation](sentinel);
@@ -1807,9 +1814,11 @@ var global = window;
 
 											testCallingResolvePromiseRejectsWith(yFactory, stringRepresentation, sentinel);
 									});
+								}
 							});
 
 							describe("`y` is a thenable for a thenable", function () {
+								if ('keys' in Object && 'forEach' in Array.prototype) {
 									Object.keys(thenables.fulfilled).forEach(function (outerStringRepresentation) {
 											var outerThenableFactory = thenables.fulfilled[outerStringRepresentation];
 
@@ -1837,14 +1846,17 @@ var global = window;
 													testCallingResolvePromiseRejectsWith(yFactory, stringRepresentation, sentinel);
 											});
 									});
+								}
 							});
 					});
 
 					describe("2.3.3.3.2: If/when `rejectPromise` is called with reason `r`, reject `promise` with `r`",
 									function () {
+										if ('keys' in Object && 'forEach' in Array.prototype) {
 							Object.keys(reasons).forEach(function (stringRepresentation) {
 									testCallingRejectPromiseRejectsWith(reasons[stringRepresentation](), stringRepresentation);
 							});
+										}
 					});
 
 					describe("2.3.3.3.3: If both `resolvePromise` and `rejectPromise` are called, or multiple calls to the same " +
@@ -2457,7 +2469,9 @@ var global = window;
 					testFulfillViaNonFunction({}, "an object");
 					testFulfillViaNonFunction([function () { }], "an array containing a function");
 					testFulfillViaNonFunction(/a-b/i, "a regular expression");
-					testFulfillViaNonFunction(Object.create(Function.prototype), "an object inheriting from `Function.prototype`");
+					if ('create' in Object) {
+						testFulfillViaNonFunction(Object.create(Function.prototype), "an object inheriting from `Function.prototype`");
+					}
 			});
 	});
 
