@@ -32,5 +32,9 @@
 	],
 	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
-	"repo": "https://github.com/ysmood/yaku"
+	"repo": "https://github.com/ysmood/yaku",
+	"install": {
+		"module": "yaku",
+		"paths": ["dist/yaku.browser.global.js"]
+	}
 }

@@ -60,7 +60,8 @@
     "request-promise": "^0.3.2",
     "semver": "^5.0.0",
     "tsort": "0.0.1",
-    "useragent": "^2.1.9"
+    "useragent": "^2.1.9",
+    "yaku": "^0.16.4"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
