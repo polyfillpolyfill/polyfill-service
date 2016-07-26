@@ -2578,9 +2578,9 @@ var global = window;
 
 						Promise.all(nonIterable)
 								.then(unexpectedResolve(done))
-								.catch(function (err) {
+								['catch'](function (err) {
 										assert.ok(err instanceof TypeError);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 				});
 		});
 
@@ -2599,7 +2599,7 @@ var global = window;
 
 						p.then(function (result) {
 								assert.deepEqual([], result);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 		});
 
@@ -2611,7 +2611,7 @@ var global = window;
 
 						Promise.all([p1]).then(function (result) {
 								assert.deepEqual([1], result);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 				it("should resolve immediately", function (done) {
 						var obj = {};
@@ -2622,7 +2622,7 @@ var global = window;
 
 						Promise.all([p1]).then(function (resolved) {
 								assert.deepEqual([obj], resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 				it("should reject immediately", function (done) {
 						var obj = {};
@@ -2634,7 +2634,7 @@ var global = window;
 						Promise.all([p1])
 								.then(unexpectedResolve(done), function (rejected) {
 										assert.equal(obj, rejected);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 
 				});
 		});
@@ -2647,7 +2647,7 @@ var global = window;
 
 						Promise.all([p1, p2]).then(function (resolved) {
 								assert.deepEqual([1, 2], resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 				});
 
@@ -2664,17 +2664,17 @@ var global = window;
 						p1.then(function (resolved) {
 								assert.deepEqual([1], sequencer);
 								sequencer.push(2);
-						}).catch(done);
+						})['catch'](done);
 
 						Promise.all([p1, p2]).then(function (resolved) {
 								assert.deepEqual([1, 2, 3], sequencer);
 								sequencer.push(4);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						p2.then(function (resolved) {
 								assert.deepEqual([1, 2], sequencer);
 								sequencer.push(3);
-						}).catch(done);
+						})['catch'](done);
 
 				});
 
@@ -2687,17 +2687,17 @@ var global = window;
 						p1.then(function afterOne(resolved) {
 								assert.deepEqual([1], sequencer);
 								sequencer.push(2);
-						}).catch(done);
+						})['catch'](done);
 
 						Promise.all([p1, p2]).then(function afterAll(resolved) {
 								assert.deepEqual([1, 2, 3], sequencer);
 								sequencer.push(4);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						p2.then(function afterTwo(resolved) {
 								assert.deepEqual([1, 2], sequencer);
 								sequencer.push(3);
-						}).catch(done);
+						})['catch'](done);
 
 				});
 				// covered by case above
@@ -2712,9 +2712,9 @@ var global = window;
 
 						Promise.all([p1, p2])
 								.then(unexpectedResolve(done))
-								.catch(function (rejected) {
+								['catch'](function (rejected) {
 										assert.equal(rejected, 1);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 
 						rejectP1(1);
 				});
@@ -2728,9 +2728,9 @@ var global = window;
 
 						Promise.all([p1, p2])
 								.then(unexpectedResolve(done))
-								.catch(function (rejected) {
+								['catch'](function (rejected) {
 										assert.equal(2, rejected);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 
 						rejectP2(2);
 				});
@@ -2797,7 +2797,7 @@ var global = window;
 						// receive first resolution
 						p.then(function (resolved) {
 								assert.equal(1, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						resolveP(1);
 				});
@@ -2819,15 +2819,15 @@ var global = window;
 								// affirm that previous resolution is still settled
 								p.then(function (resolved) {
 										assert.equal(1, resolved);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 						}
 
 						// receive first resolution
 						p.then(function (resolved) {
 								assert.equal(resolved, 1);
 
-								Promise.resolve().then(afterFirstResolution).catch(done);
-						}).catch(done);
+								Promise.resolve().then(afterFirstResolution)['catch'](done);
+						})['catch'](done);
 				});
 
 				it("throws TypeError if 'executor' is not Callable", function () {
@@ -2862,7 +2862,7 @@ var global = window;
 										assert.equal(undefined, this);
 								}
 								assert.equal(errorObject, err);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 				});
 
@@ -3054,7 +3054,7 @@ var global = window;
 				it("is not a Promise"); // implied
 		});
 
-		describe("25.4.5.1 Promise.prototype.catch( onRejected )", function () {
+		describe("25.4.5.1 Promise.prototype['catch']( onRejected )", function () {
 				it("is a function");
 				it("expects 'this' to be a Promise");
 				it("takes one argument, a function");
@@ -3079,9 +3079,9 @@ var global = window;
 								reject(errorObject);
 						});
 
-						p.then().catch(function (rejected) {
+						p.then()['catch'](function (rejected) {
 								assert.equal(errorObject, rejected);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 
 				it("does not call either function immediately if promise status is 'pending'");
@@ -3118,9 +3118,9 @@ var global = window;
 						// GetIterator throws TypeError per 7.4.2
 
 						Promise.race(nonIterable)
-								.catch(function (rejected) {
+								['catch'](function (rejected) {
 										assert.ok(rejected instanceof TypeError);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 				});
 				it("requires 'this' to be a constructor function that supports the " +
 						"parameter conventions of the Promise constructor", function (done) {
@@ -3156,9 +3156,9 @@ var global = window;
 						p1.then(function () {
 								throw new Error("expected Promise.race([]) to remain unsettled");
 						})
-								.catch(done);
+								['catch'](done);
 
-						var p2 = Promise.resolve().then(done).catch(done);
+						var p2 = Promise.resolve().then(done)['catch'](done);
 				});
 		});
 
@@ -3168,7 +3168,7 @@ var global = window;
 
 						Promise.race([p1]).then(function (resolved) {
 								assert.equal(1, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 				it("should reject immediately", function (done) {
 						var p1 = new Promise(function (resolve, reject) {
@@ -3179,7 +3179,7 @@ var global = window;
 								throw new Error("unexpected resolve");
 						}, function (rejected) {
 								assert.equal(1, rejected);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 		});
 
@@ -3190,7 +3190,7 @@ var global = window;
 
 						Promise.race([p1, p2]).then(function (resolved) {
 								assert.equal(1, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 				});
 				it("should resolve immediately when first resolves", function (done) {
@@ -3199,7 +3199,7 @@ var global = window;
 
 						Promise.race([p1, p2]).then(function (resolved) {
 								assert.equal(1, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 				it("should resolve immediately when second resolves", function (done) {
 						var p1 = new Promise(function () {}),
@@ -3207,7 +3207,7 @@ var global = window;
 
 						Promise.race([p1, p2]).then(function (resolved) {
 								assert.equal(2, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 				it("should reject immediately when first rejects", function (done) {
 						var p1 = Promise.reject(1),
@@ -3217,7 +3217,7 @@ var global = window;
 								throw new Error("Unexpected resolve");
 						}, function (rejected) {
 								assert.equal(rejected, 1);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 				});
 
@@ -3235,7 +3235,7 @@ var global = window;
 
 						Promise.race([p1, p2]).then(function (resolved) {
 								assert.equal(resolved, 1);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 
 				it("should reject immediately when second rejects", function (done) {
@@ -3251,7 +3251,7 @@ var global = window;
 								throw new Error("Unexpected resolve " + resolved);
 						}, function (rejected) {
 								assert.equal(rejected, 2);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						rejectP2(2);
 						resolveP1(1);
@@ -3289,7 +3289,7 @@ var global = window;
 								throw new Error("unexpected resolve");
 						}, function (rejected) {
 								assert.equal(3, rejected);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 		});
 	}());
@@ -3319,8 +3319,8 @@ var global = window;
 								p2.then(function (r2) {
 										assert.equal(1, r2);
 										assert.equal(p1, p2);
-								}).then(done).catch(done);
-						}).catch(done);
+								}).then(done)['catch'](done);
+						})['catch'](done);
 				});
 
 				it("passes through an unsettled promise created with the same constructor as 'this'", function (done) {
@@ -3332,12 +3332,12 @@ var global = window;
 
 						p1.then(function (r1) {
 								assert.equal(1, r1);
-						}).catch(done);
+						})['catch'](done);
 
 						p2.then(function (r2) {
 								assert.equal(1, r2);
 								assert.equal(p1, p2);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						resolveP1(1);
 				});
@@ -3362,7 +3362,7 @@ var global = window;
 
 						p1.then(function (resolved) {
 								assert.equal(3, resolved);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 
 				it("can return a pending promise", function (done) {
@@ -3378,7 +3378,7 @@ var global = window;
 								sequencer.push(3);
 								assert.deepEqual([1, 2, 3], sequencer);
 
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						sequencer.push(2);
 				});
@@ -3391,7 +3391,7 @@ var global = window;
 								throw new Error("unexpected resolve " + resolve);
 						}, function (rejected) {
 								assert.equal(3, rejected);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 
 				// 25.4.4.5 steps 2 a & b:
@@ -3418,11 +3418,11 @@ var global = window;
 								sequencer.push(msg);
 						}).then(function () {
 								assert.deepEqual(["A", "B"], sequencer);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 
 						(new Promise(function (resolve, reject) {
 								rejectP2 = reject;
-						})).catch(function (msg) {
+						}))['catch'](function (msg) {
 								sequencer.push(msg);
 						});
 
@@ -3449,11 +3449,11 @@ var global = window;
 								sequencer.push(msg);
 						});
 
-						p2.catch(function (msg) {
+						p2['catch'](function (msg) {
 								sequencer.push(msg);
 						}).then(function () {
 								assert.deepEqual(["A", "B"], sequencer);
-						}).then(done).catch(done);
+						}).then(done)['catch'](done);
 				});
 
 				it("T2b", function (done) {
@@ -3476,11 +3476,11 @@ var global = window;
 										sequencer.push(msg);
 								});
 
-								p2.catch(function (msg) {
+								p2['catch'](function (msg) {
 										sequencer.push(msg);
 								}).then(function () {
 										assert.deepEqual(["A", "B"], sequencer);
-								}).then(done).catch(done);
+								}).then(done)['catch'](done);
 						}, 0);
 
 				});
