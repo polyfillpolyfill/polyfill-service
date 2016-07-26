@@ -57,6 +57,7 @@ it('should resolve Promise.all when all promises resolve', function(done) {
 
 // promises-aplus and promises-es6 test suites both look for an assert global.
 var assert = proclaim;
+var global = window;
 
 /**
  * This section is used to adapt the Promise polyfill and polyfill-service
@@ -64,7 +65,6 @@ var assert = proclaim;
  * https://github.com/promises-aplus/promises-tests
  */
 (function(){
-	var global = window;
 
 	var adapter = {};
 
