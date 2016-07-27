@@ -15,7 +15,24 @@
 	var GOPN = 'getOwnPropertyNames';
 	var GOPD = 'getOwnPropertyDescriptor';
 	var PIE = 'propertyIsEnumerable';
-	var gOPN = Object[GOPN];
+	var ObjectProto = Object.prototype;
+	var hOP = ObjectProto.hasOwnProperty;
+	var pIE = ObjectProto[PIE];
+	var toString = ObjectProto.toString;
+	var concat = Array.prototype.concat;
+	var cachedWindowNames = typeof window === 'object' ? Object.getOwnPropertyNames(window) : [];
+	var nGOPN = Object[GOPN];
+	var gOPN = function getOwnPropertyNames (obj) {
+		if (toString.call(obj) === '[object Window]') {
+			try {
+				return nGOPN(obj);
+			} catch (e) {
+				// IE bug where layout engine calls userland gOPN for cross-domain `window` objects
+				return concat.call([], cachedWindowNames);
+			}
+		}
+		return nGOPN(obj);
+	}
 	var gOPD = Object[GOPD];
 	var create = Object.create;
 	var keys = Object.keys;
@@ -23,10 +40,6 @@
 	var defineProperty = Object[DP];
 	var $defineProperties = Object[DPies];
 	var descriptor = gOPD(Object, GOPN);
-	var ObjectProto = Object.prototype;
-	var hOP = ObjectProto.hasOwnProperty;
-	var pIE = ObjectProto[PIE];
-	var toString = ObjectProto.toString;
 	var indexOf = Array.prototype.indexOf || function (v) {
 		for (var i = this.length; i-- && this[i] !== v;) {}
 		return i;

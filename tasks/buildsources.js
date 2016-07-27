@@ -93,7 +93,12 @@ module.exports = function(grunt) {
 					config.minSource = config.rawSource;
 				} else {
 					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
-					config.minSource = uglify.minify(config.rawSource, {fromString: true}).code;
+					config.minSource = uglify.minify(config.rawSource, {
+						fromString: true,
+						compress: { screw_ie8: false},
+						mangle:   { screw_ie8: false},
+						output:   { screw_ie8: false, beautify: false }
+					}).code;
 				}
 
 				if (fs.existsSync(detectPath)) {

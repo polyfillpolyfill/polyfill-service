@@ -38,6 +38,15 @@ it("Should throw a TypeError if called with a number primitive", function() {
 	expect(function() { Object.create(100); }).to.throwException(assertTypeError);
 });
 
+it("Should not throw a TypeError if called with Function objects", function() {
+	expect(function() {
+		Object.create(Function);
+	}).to.not.throwException();
+	expect(function() {
+		Object.create(Function.prototype);
+	}).to.not.throwException();
+});
+
 it("Should return an instance of Object", function() {
 	expect(Object.create({})).to.be.an(Object);
 });

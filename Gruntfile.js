@@ -7,8 +7,8 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			dist: [path.resolve(__dirname, '/polyfills/__dist')],
-			testResults: [path.resolve(__dirname, '/test/results')]
+			dist: [path.resolve(__dirname, 'polyfills/__dist')],
+			testResults: [path.resolve(__dirname, 'test/results')]
 		},
 		"simplemocha": {
 			options: {
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 				expand: true
 			},
 			tasks: {
-				src: ['polyfills/**/update.task.js'],
+				src: ['polyfills/**/config.json'],
 			}
 		},
 		"deployvcl": {

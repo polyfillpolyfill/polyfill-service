@@ -118,7 +118,7 @@
 						if (index in events) {
 							eventElement = events[index];
 
-							if (indexOf(list, eventElement) !== -1) {
+							if (indexOf(list, eventElement) !== -1 && typeof eventElement === 'function') {
 								eventElement.call(element, event);
 							}
 						}

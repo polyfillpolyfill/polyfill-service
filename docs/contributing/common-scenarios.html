@@ -64,14 +64,13 @@
 		<p>We have an out of date version of a 3rd party polyfill in our repo, and you want to update it to the latest version.</p>
 
 		<ol>
-			<li>Is there an <code>update.task.js</code> file in the polyfill's directory?
+			<li>Bump the version of the package inside <code>package.json<code></li>
+			<li>Is there a <code>tests.js</code> file in the polyfill's directory?
 			<ol>
-				<li>Yes: Run <code>grunt updatelibrary</code>.</li>
-				<li>No: Replace the <code>polyfill.js</code> file with the new one, taking care to make any architectural changes that are needed to make the polyfill compatible with the service.  Also consider adding an update task so that future updates can be automated.</li>
+				<li>Yes: If the new version has added support for more of the native feature, add tests to cover it in the <code>tests.js</code> file.</li>
 			</ol>
 			</li>
-			<li>Minimise the diff. If your update created a lot of inconsequential changes, e.g. changing the indent style or adding or removing comments, consider reversing those changes, or moving them into a separate commit, so that reviewers can see the effective changes without being distracted by ineffective ones.</li>
-			<li>If the new version has added support for more of the native feature, add tests to cover it in the <code>tests.js</code> file.</li>
+			<li>Run <code>grunt updatelibrary<code> to install the new version of the library</li>
 			<li>Run <code>grunt ci</code> to check that library still passes our continuous integration tests. For help connecting to a Sauce Labs account, see <a href='/v{{apiversion}}/docs/contributing/testing#runing-tests-sauce'>running tests on Sauce Labs</a>.</li>
 			<li>Open a pull request, stating the version of the polyfill you are changing, noting any functional changes that the new version brings</li>
 			<li>State your agreement to our contribution terms.</li>
