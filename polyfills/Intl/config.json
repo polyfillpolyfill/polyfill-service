@@ -15,10 +15,15 @@
 		"minify": false
 	},
 	"license": "MIT",
-	"spec": "http://www.ecma-international.org/ecma-402/1.0/",
+	"spec": "https://tc39.github.io/ecma402/2016/",
 	"repo": "https://github.com/andyearnshaw/Intl.js",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl",
 	"notes": [
 		"Locales must be specified separately by prefixing the locale name with `Intl.~locale`, eg `Intl.~locale.en-GB`."
-	]
+	],
+	"install": {
+		"module": "intl",
+		"paths": ["dist/Intl.min.js"],
+		"postinstall": "update.task.js"
+	}
 }

@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 				expand: true
 			},
 			tasks: {
-				src: ['polyfills/**/update.task.js'],
+				src: ['polyfills/**/config.json'],
 			}
 		},
 		"deployvcl": {
