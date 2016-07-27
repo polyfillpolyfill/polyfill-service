@@ -12,7 +12,8 @@
 		"ios_saf": "7 - *",
 		"op_mini": "17 - *",
 		"opera": "*",
-		"safari": "6 - *"
+		"safari": "6 - *",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"getComputedStyle",

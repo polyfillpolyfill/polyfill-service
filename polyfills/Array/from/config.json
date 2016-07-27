@@ -16,7 +16,8 @@
 		"opera": "*",
 		"safari": "<9",
 		"firefox_mob": "4 - *",
-		"ios_saf": "3 - 8"
+		"ios_saf": "3 - 8",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

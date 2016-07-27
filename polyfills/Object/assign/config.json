@@ -21,7 +21,8 @@
 		"op_mob": "*",
 		"op_mini": "*",
 		"safari": "1 - 8",
-		"firefox_mob": "1 - 33"
+		"firefox_mob": "1 - 33",
+		"samsung_mob": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
 }

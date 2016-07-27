@@ -12,7 +12,8 @@
 		"ie_mob": "<10",
 		"firefox_mob": "*",
 		"bb": "*",
-		"op_mini": "*"
+		"op_mini": "*",
+		"samsung_mob": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
 	"repo": "https://github.com/YuzuJS/setImmediate"

@@ -4,7 +4,8 @@
 	],
 	"browsers": {
 		"ie": "6 - 11",
-		"firefox": "1 - 4"
+		"firefox": "1 - 4",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Window",
