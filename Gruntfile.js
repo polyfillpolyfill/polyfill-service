@@ -93,6 +93,7 @@ module.exports = function(grunt) {
 
 	if (process.env.NODE_ENV === 'production') {
 		require('./tasks/buildsources')(grunt);
+		require('./tasks/updatelibrary')(grunt);
 		grunt.loadNpmTasks('grunt-contrib-clean');
 	} else {
 		grunt.loadTasks('tasks');
