@@ -167,7 +167,7 @@ it('should create Object without symbols, second argument undefined', function (
 
 it('does not break when an iframe is added', function () {
 	var div = document.createElement('div');
-	div.innerHTML = '<iframe src="http://ft.com"></iframe>';
+	div.innerHTML = '<iframe src="https://xkcd.com"></iframe>';
 	document.body.appendChild(div);
 	setTimeout(function () {
 		document.body.removeChild(div);

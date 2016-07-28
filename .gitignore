@@ -14,3 +14,5 @@
 /polyfills/IntersectionObserver/polyfill.js
 /polyfills/Intl/polyfill.js
 /polyfills/Intl/~locale
+
+polyfills/Promise/polyfill.js
