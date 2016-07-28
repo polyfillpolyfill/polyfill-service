@@ -10,7 +10,8 @@
 	],
 	"browsers": {
 		"ie": "6 - 7",
-		"safari": "4"
+		"safari": "4",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Event"
