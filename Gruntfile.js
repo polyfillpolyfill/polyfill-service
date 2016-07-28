@@ -88,7 +88,10 @@ module.exports = function(grunt) {
 			dryrun: { options: {service: "qa", dryRun: true} },
 			qa: { options: {service: "qa"} },
 			prod: { options: {service: "prod"} }
-		}
+		},
+		"eslint": {
+      target: ['polyfills/**/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', "!polyfills/HTMLPictureElement/polyfill.js", "!polyfills/fetch/polyfill.js"]
+    }
 	});
 
 	if (process.env.NODE_ENV === 'production') {
@@ -100,6 +103,7 @@ module.exports = function(grunt) {
 		grunt.loadNpmTasks('grunt-contrib-clean');
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-simple-mocha');
+		grunt.loadNpmTasks('grunt-eslint');
 	}
 
 	grunt.registerTask("test", [
