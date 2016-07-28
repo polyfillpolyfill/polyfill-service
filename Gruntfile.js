@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 			prod: { options: {service: "prod"} }
 		},
 		"eslint": {
-      target: ['polyfills/**/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', "!polyfills/HTMLPictureElement/polyfill.js", "!polyfills/fetch/polyfill.js"]
+      target: ['polyfills/**/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', "!polyfills/HTMLPictureElement/polyfill.js", "!polyfills/fetch/polyfill.js", "!polyfills/Promise/polyfill.js"]
     }
 	});
 
