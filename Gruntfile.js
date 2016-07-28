@@ -130,12 +130,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", [
 		"clean",
-		"buildsources",
-	]);
-
-	grunt.registerTask("installpolyfills", [
 		"updatelibrary",
-		"build",
+		"buildsources",
 	]);
 
 	grunt.registerTask("devbuild", [
