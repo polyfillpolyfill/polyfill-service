@@ -44,6 +44,6 @@ describe('Basic functionality', function () {
     it('should throw error for non object', function () {
     	expect(function() {
         	Object.getOwnPropertyDescriptor(42, 'name');
-    	}).to.throwError()
+    	}).to.throwError();
     });
 });
