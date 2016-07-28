@@ -4,7 +4,7 @@ Date.prototype.toISOString = function toISOString() {
 	function pad(str, len) {
 		var pad = "0000";
 		str = '' + str;
-		return pad.substr(0, len - str.length) + str
+		return pad.substr(0, len - str.length) + str;
 	}
 
 	var y = date.getUTCFullYear(),

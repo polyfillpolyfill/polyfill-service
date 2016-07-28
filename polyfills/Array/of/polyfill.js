@@ -6,4 +6,4 @@
 		},
 		writable: true
 	});
-})(Array.prototype.slice);
+}(Array.prototype.slice));

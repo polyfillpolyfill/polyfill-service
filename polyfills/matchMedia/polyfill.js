@@ -80,4 +80,4 @@
 
 		return list;
 	};
-})(this);
+}(this));

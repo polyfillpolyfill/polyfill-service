@@ -52,4 +52,4 @@
 
 		return output.join('');
 	};
-})(this);
+}(this));

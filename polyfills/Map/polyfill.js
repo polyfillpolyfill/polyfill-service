@@ -27,7 +27,7 @@
 					return {done:true};
 				}
 			}
-		}
+		};
 	}
 
 	function calcSize(mapInst) {
@@ -107,7 +107,7 @@
 	Map.prototype['forEach'] = function(callbackFn, thisArg) {
 		thisArg = thisArg || global;
 		var iterator = this.entries();
-		result = iterator.next();
+		var result = iterator.next();
 		while (result.done === false) {
 			callbackFn.call(thisArg, result.value[1], result.value[0], this);
 			result = iterator.next();
@@ -121,4 +121,4 @@
 	// Export the object
 	this.Map = Map;
 
-})(this);
+}(this));

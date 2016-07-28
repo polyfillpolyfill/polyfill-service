@@ -50,4 +50,4 @@
 			value: gainGainConstructorPrototype.setTargetAtTime || gainGainConstructorPrototype.setTargetValueAtTime
 		}
 	});
-})();
+}());

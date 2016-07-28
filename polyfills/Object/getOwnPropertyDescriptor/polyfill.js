@@ -3,14 +3,10 @@
 	var prototypeOfObject = Object.prototype;
 	var owns = call.bind(prototypeOfObject.hasOwnProperty);
 
-	var defineGetter;
-	var defineSetter;
 	var lookupGetter;
 	var lookupSetter;
 	var supportsAccessors;
 	if ((supportsAccessors = owns(prototypeOfObject, "__defineGetter__"))) {
-	    defineGetter = call.bind(prototypeOfObject.__defineGetter__);
-	    defineSetter = call.bind(prototypeOfObject.__defineSetter__);
 	    lookupGetter = call.bind(prototypeOfObject.__lookupGetter__);
 	    lookupSetter = call.bind(prototypeOfObject.__lookupSetter__);
 	}
@@ -64,7 +60,7 @@
 
 	        // If object has a property then it's for sure both `enumerable` and
 	        // `configurable`.
-	        var descriptor =  { enumerable: true, configurable: true };
+	        var descriptor = { enumerable: true, configurable: true };
 
 	        // If JS engine supports accessor properties then property may be a
 	        // getter or setter.
@@ -103,4 +99,4 @@
 	        return descriptor;
 	    };
 	}
-}())
+}());
