@@ -8,8 +8,8 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		"clean": {
-			dist: [path.resolve(__dirname, '/polyfills/__dist')],
-			testResults: [path.resolve(__dirname, '/test/results')]
+			dist: [path.resolve(__dirname, 'polyfills/__dist')],
+			testResults: [path.resolve(__dirname, 'test/results')]
 		},
 		"simplemocha": {
 			options: {
