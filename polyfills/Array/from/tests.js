@@ -22,6 +22,21 @@ describe('returns an array with', function () {
 		expect(Array.from(['a', 'b', 'c'])).to.eql(['a', 'b', 'c']);
 	});
 
+	it('fills holes in arrays', function () {
+		var arr = [1, 2, 3];
+		delete arr[1];
+		/**
+		 * These are unrolled as expect.js' eql doesn't work on
+		 * arrays created with undefined elements.
+		 * https://github.com/Automattic/expect.js/issues/140
+		 */
+		expect(Array.from(arr)[0]).to.eql(1);
+		expect(Array.from(arr)[1]).to.eql(undefined);
+		expect(Array.from(arr)[2]).to.eql(3);
+		/* eslint-disable no-sparse-arrays */
+		expect(Array.from([4, , 6])[1]).to.eql(undefined);
+	});
+
 	it('objects', function () {
 		expect(Array.from({})).to.eql([]);
 		expect(Array.from({ 0: 'a' })).to.eql([]);
@@ -96,6 +111,14 @@ describe('returns an array with', function () {
 	it('objects with in-range lengths', function () {
 		expect(Array.from({ length: 0 }).length).to.be(0);
 		expect(Array.from({ length: 3 }).length).to.be(3);
+		/**
+		 * These are unrolled as expect.js' eql doesn't work on
+		 * arrays created with undefined elements.
+		 * https://github.com/Automattic/expect.js/issues/140
+		 */
+		expect(Array.from({ length: 3 })[0]).to.eql(undefined);
+		expect(Array.from({ length: 3 })[1]).to.eql(undefined);
+		expect(Array.from({ length: 3 })[2]).to.eql(undefined);
 		expect(Array.from({ length: '+3' }).length).to.be(3);
 		// expect(Array.from({ length: Infinity }).length).to.be();
 	});
