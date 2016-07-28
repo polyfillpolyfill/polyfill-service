@@ -12,7 +12,8 @@ describe('Basic functionality', function () {
         var expected = {
             enumerable: true,
             configurable: true,
-            value: 'Testing'
+            value: 'Testing',
+            writable: true
         };
 
         expect(descr).to.eql(expected);

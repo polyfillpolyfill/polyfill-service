@@ -99,6 +99,7 @@
 	        // If we got this far we know that object has an own property that is
 	        // not an accessor so we set it as a value and return descriptor.
 	        descriptor.value = object[property];
+			descriptor.writable = true;
 	        return descriptor;
 	    };
 	}
