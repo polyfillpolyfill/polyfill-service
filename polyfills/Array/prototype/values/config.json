@@ -6,7 +6,8 @@
 		"safari": "<9",
 		"android": "*",
 		"ios_saf": "<9",
-		"opera": "*"
+		"opera": "*",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Symbol.iterator",
