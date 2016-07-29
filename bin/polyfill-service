@@ -2,13 +2,13 @@
 
 require('dotenv').config({silent: true});
 
-var minimist = require('minimist');
+const minimist = require('minimist');
 
-var packageJSON = require('../package.json');
-var startService = require('../service');
+const packageJSON = require('../package.json');
+const startService = require('../service');
 
-var argv = minimist(process.argv.slice(2));
-var port = argv.port || Number(process.env.PORT) || 3000;
+const argv = minimist(process.argv.slice(2));
+const port = argv.port || Number(process.env.PORT) || 3000;
 
 process.on('uncaughtException', (err) => {
   console.log('uncaught exception', err.stack || err);
