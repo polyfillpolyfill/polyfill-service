@@ -8,11 +8,11 @@
 		"opera": "< 50"
 	},
 	"dependencies": [
+		"_ArrayIterator",
 		"Symbol.iterator"
 	],
 	"license": "MIT",
-	"spec": "https://dom.spec.whatwg.org/#nodelist",
-	"repo": "https://github.com/medikoo/es6-iterator",
+	"spec": "https://dom.spec.whatwg.org/#domtokenlist",
 	"build": {
 		"commonjs": true
 	}
