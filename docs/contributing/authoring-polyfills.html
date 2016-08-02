@@ -21,11 +21,10 @@
 		<p>Each polyfill directory (and subdirectory) is structured like this:</p>
 
 		<ul>
-			<li><code>polyfill.js</code>: Required. Code to apply the polyfill behaviour.  See <a href="#configuration">configuration</a>.</li>
+			<li><code>polyfill.js</code>: Code to apply the polyfill behaviour.  See <a href="#configuration">configuration</a>.</li>
 			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an <abbr title="Immediately Invoked Function Expression">IIFE</abbr>.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  <strong>Must not have a trailing semicolon</strong>.</li>
 			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
-			<li><code>update.task.js</code>: Optional alternative to <code>polyfill.js</code>. This file is used in combination with the Grunt task <code>updatelibrary</code> to create a local copy of an external polyfill.</li>
-			<li><code>config.json</code>: A config file conforming to the spec below</li>
+			<li><code>config.json</code>: Required. A config file conforming to the spec below</li>
 		</ul>
 
 		<h2 id='configuration'>Configuration</h2>
@@ -43,12 +42,19 @@
 			<li><code>notes</code>: Array, Notices in markdown format that developers should be aware of, useful for deprecated features like String.prototype.contains, e.g. "This feature was deprecated due to poor existing native implementations, and replaced with String.prototype.includes"</li>
 			<li><code>build</code>: Object, used to specify how the polyfill should be built.
 				<ul>
-					<li><code>minify</code>: boolean, whether the polyfill should be minified (default true).  To speed up building of polyfills, this should be set to false for polyfill sources that are already minified.</li>
+					<li><code>minify</code>: Boolean, whether the polyfill should be minified (default true).  To speed up building of polyfills, this should be set to false for polyfill sources that are already minified.</li>
 				</ul>
 			</li>
 			<li><code>test</code>: Object, used to specify how the polyfill should be tested.
 				<ul>
-					<li><code>ci</code>: boolean, whether the polyfill should be tested in CI (default true).</li>
+					<li><code>ci</code>: Boolean, whether the polyfill should be tested in CI (default true).</li>
+				</ul>
+			</li>
+			<li><code>install</code>: Object, used to specify how to install the third-party polyfill into the polyfill-service.
+				<ul>
+					<li><code>module</code>: String, name of the package on NPMJS to install.</li>
+					<li><code>paths</code>: Array, paths of the files inside the package to combine together to create the polyfill. If not included, defaults to the packages default entry point.</li>
+					<li><code>postinstall</code>: String, path to a javascript module to execute after creating the polyfill. This can be used to create any helper files for the polyfill.</li>
 				</ul>
 			</li>
 		</ul>
@@ -61,7 +67,8 @@
         "firefox": "&lt;=20",
         "opera": "11 || 14",
         "safari": "&lt;=4",
-        "ios_saf" "&lt;=6"
+        "ios_saf" "&lt;=6",
+        "samsing_mob": "*"
     },
     "aliases": [
         "modernizr:es5array"
@@ -159,6 +166,7 @@ module.exports = function(grunt) {
 			<tr><td><code>opera</code></td><td>Opera</td><td>{{baselines.opera}}</td></tr>
 			<tr><td><code>op_mob</code></td><td>Opera Mobile</td><td>{{baselines.op_mob}}</td></tr>
 			<tr><td><code>op_mini</code></td><td>Opera Mini</td><td>{{baselines.op_mini}}</td></tr>
+			<tr><td><code>samsung_mob</code></td><td>Samsung Internet</td><td>{{baselines.samsung_mob}}</td></tr>
 			<tr><td><code>bb</code></td><td>Blackberry</td><td>{{baselines.bb}}</td></tr>
 			</tbody>
 		</table>

@@ -1,5 +1,9 @@
 {
 	"aliases": [
+		"default-3.3",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default",
 		"caniuse:json",
 		"modernizr:json"

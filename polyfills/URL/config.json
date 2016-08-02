@@ -2,6 +2,9 @@
 	"aliases": [
 	  	"modernizr:urlparser",
 		"blissfuljs",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
@@ -12,7 +15,8 @@
 		"safari": "*",
 		"firefox_mob": "<29",
 		"opera": "<36",
-		"android": "*"
+		"android": "*",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperties",

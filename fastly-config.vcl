@@ -1,17 +1,24 @@
 sub vcl_recv {
 #FASTLY recv
+	if ( req.request == "FASTLYPURGE" ) {
+		set req.http.Fastly-Purge-Requires-Auth = "1";
+	}
 
 	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
 		return(pass);
 	}
 
-	if (!req.http.Fastly-SSL && req.http.Host == "cdn.polyfill.io") {
+	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io")) {
 		error 751 "Force TLS";
 	}
 
 	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
+	}
+
+	if (req.url ~ "^/v2/recordRumData") {
+		error 204 "No Content";
 	}
 
 	return(lookup);

@@ -14,7 +14,8 @@
 		"android": "*",
 		"op_mob": "*",
 		"ie_mob": "*",
-		"firefox_mob": "*"
+		"firefox_mob": "*",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

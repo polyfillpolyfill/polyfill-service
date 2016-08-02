@@ -164,3 +164,13 @@ it('should create Object without symbols, second argument undefined', function (
 	var obj = Object.create(Obj.prototype, undefined);
 	expect(obj instanceof Obj).to.be(true);
 });
+
+it('does not break when an iframe is added', function () {
+	var div = document.createElement('div');
+	div.innerHTML = '<iframe src="https://xkcd.com"></iframe>';
+	document.body.appendChild(div);
+	setTimeout(function () {
+		document.body.removeChild(div);
+	}, 0);
+	expect(Object.prototype.toString.call(Object.getOwnPropertyNames(window)) === '[object Array]').to.eql(true);
+});

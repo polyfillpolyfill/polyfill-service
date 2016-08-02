@@ -13,7 +13,8 @@
 		"safari": "* - 7.1",
 		"ios_saf": "* - 8.0",
 		"ios_chr": "* - 8.0",
-		"firefox_mob": "3.6 - 24"
+		"firefox_mob": "3.6 - 24",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

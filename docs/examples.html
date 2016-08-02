@@ -11,7 +11,7 @@
 
 			<h2 id='basic'>Basic case</h2>
 
-			<p>The simplest use: consider default polyfills, bundle, minfy and and return those which are required by the current browser:</p>
+			<p>The simplest use: consider default polyfills, bundle, minify and and return those which are required by the current browser:</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.min.js'></div>
 			<p>This example is minified by including <code>.min</code> in the URL.  All the other examples on this page are not minified, so you can see the metadata included at the top of the response, but any response can be minified by adding <code>.min</code> in the same way as shown above.</p>
 
@@ -38,7 +38,7 @@
 			<h2 id='flags'>Using flags</h2>
 
 			<p>It's often a good idea to use the <code>gated</code> flag to wrap polyfills in a feature-detect.  Some people prefer not to do this and instead just trust the browser targeting, but to guard against mistargeting, incorrect user agent interpretation, and conflicts with other polyfills that may be on the same page, you can apply feature-detect gating to all features in the bundle at once:</p>
-			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from,Document&amp;gated=1'></div>
+			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from,Document&amp;flags=gated'></div>
 
 			<p>Use the <code>always</code> flag to force a polyfill to be returned regardless of whether the user-agent requires it:</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList|always,Array.from,Document|always&amp;ua=chrome/37'></div>
@@ -48,6 +48,12 @@
 
 			<p>And this example applies both flags to the whole request:</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from&amp;flags=always,gated'></div>
+
+			<h2 id='rum'>Data collection</h2>
+
+			<p>To help out the project with collecting compatibility data, please consider enabling the `rum` option:</p>
+
+			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from&amp;rum=1&amp;flags=always'></div>
 
 		</div>
 

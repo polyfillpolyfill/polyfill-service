@@ -4,7 +4,8 @@
 	},
 	"env": {
 		"es6": true,
-		"browser": false
+		"browser": false,
+		"node": true
 	},
 	"rules": {
 		"no-unused-vars": 2,

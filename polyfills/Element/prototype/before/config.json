@@ -1,5 +1,8 @@
 {
 	"aliases": [
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
@@ -14,7 +17,8 @@
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "4 - *",
-		"firefox_mob": "3.6 - *"
+		"firefox_mob": "3.6 - *",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Document",

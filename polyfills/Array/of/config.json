@@ -2,6 +2,9 @@
 	"aliases": [
 		"es6",
 		"modernizr:es6array",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
@@ -11,7 +14,8 @@
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "*",
-		"firefox_mob": "* - 24"
+		"firefox_mob": "* - 24",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

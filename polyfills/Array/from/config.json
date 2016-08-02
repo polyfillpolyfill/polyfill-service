@@ -3,6 +3,9 @@
 		"es6",
 		"modernizr:es6array",
 		"blissfuljs",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
@@ -13,7 +16,8 @@
 		"opera": "*",
 		"safari": "<9",
 		"firefox_mob": "4 - *",
-		"ios_saf": "3 - 8"
+		"ios_saf": "3 - 8",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"
