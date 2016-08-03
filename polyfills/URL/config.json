@@ -28,5 +28,9 @@
 	],
 	"license": "CC0",
 	"repo": "https://github.com/inexorabletash/polyfill",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL",
+	"install": {
+		"module": "js-polyfills",
+		"paths": ["url.js"]
+	}
 }
