@@ -1,4 +1,4 @@
 /* global Symbol, ArrayIterator*/
-NodeList.protoype[Symbol.iterator] = function values () {
+NodeList.prototype[Symbol.iterator] = function () {
   return new ArrayIterator(this);
 };

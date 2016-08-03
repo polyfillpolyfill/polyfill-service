@@ -1,7 +1,7 @@
 function getDOMTokenList () {
 	var div = document.createElement('div');
 	div.className = 'class1 class2';
-	return div.classList();
+	return div.classList;
 }
 
 it('exists', function () {
@@ -17,7 +17,7 @@ it('returns a next-able object', function () {
 	var iterator = tokenList[Symbol.iterator]();
 
 	expect(iterator.next).to.be.a(Function);
-	expect(iterator.next()).to.deep.equal({
+	expect(iterator.next()).to.eql({
 		value: 'class1',
 		done: false
 	});
@@ -27,7 +27,9 @@ it('finally returns a done object', function () {
 	var tokenList = getDOMTokenList();
 	var iterator = tokenList[Symbol.iterator]();
 	iterator.next();
-	expect(iterator.next()).to.deep.equal({
-		done: false
+	iterator.next();
+	expect(iterator.next()).to.eql({
+		done: true,
+		value: undefined
 	});
 });
