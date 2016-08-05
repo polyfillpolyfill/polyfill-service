@@ -96,6 +96,11 @@
       "from": "async@>=0.1.22 <0.2.0",
       "resolved": "https://registry.npmjs.org/async/-/async-0.1.22.tgz"
     },
+    "audio-context-polyfill": {
+      "version": "1.0.0",
+      "from": "audio-context-polyfill@latest",
+      "resolved": "https://registry.npmjs.org/audio-context-polyfill/-/audio-context-polyfill-1.0.0.tgz"
+    },
     "aws-sign2": {
       "version": "0.6.0",
       "from": "aws-sign2@>=0.6.0 <0.7.0",
@@ -357,6 +362,11 @@
       "version": "6.11.3",
       "from": "babel-plugin-transform-strict-mode@>=6.8.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-transform-strict-mode/-/babel-plugin-transform-strict-mode-6.11.3.tgz"
+    },
+    "babel-preset-es2015": {
+      "version": "6.9.0",
+      "from": "babel-preset-es2015@>=6.1.18 <7.0.0",
+      "resolved": "https://registry.npmjs.org/babel-preset-es2015/-/babel-preset-es2015-6.9.0.tgz"
     },
     "babel-register": {
       "version": "6.9.0",
@@ -908,6 +918,60 @@
       "from": "growl@1.9.2",
       "resolved": "https://registry.npmjs.org/growl/-/growl-1.9.2.tgz"
     },
+    "grunt": {
+      "version": "0.4.5",
+      "from": "grunt@>=0.4.0 <0.5.0",
+      "resolved": "https://registry.npmjs.org/grunt/-/grunt-0.4.5.tgz",
+      "dependencies": {
+        "glob": {
+          "version": "3.1.21",
+          "from": "glob@>=3.1.21 <3.2.0",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-3.1.21.tgz"
+        },
+        "inherits": {
+          "version": "1.0.2",
+          "from": "inherits@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/inherits/-/inherits-1.0.2.tgz"
+        },
+        "lodash": {
+          "version": "0.9.2",
+          "from": "lodash@>=0.9.2 <0.10.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-0.9.2.tgz"
+        },
+        "lru-cache": {
+          "version": "2.7.3",
+          "from": "lru-cache@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.7.3.tgz"
+        },
+        "minimatch": {
+          "version": "0.2.14",
+          "from": "minimatch@>=0.2.12 <0.3.0",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-0.2.14.tgz"
+        },
+        "rimraf": {
+          "version": "2.2.8",
+          "from": "rimraf@>=2.2.8 <2.3.0",
+          "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
+        }
+      }
+    },
+    "grunt-cli": {
+      "version": "0.1.13",
+      "from": "grunt-cli@>=0.1.6 <0.2.0",
+      "resolved": "https://registry.npmjs.org/grunt-cli/-/grunt-cli-0.1.13.tgz"
+    },
+    "grunt-contrib-clean": {
+      "version": "0.6.0",
+      "from": "grunt-contrib-clean@>=0.6.0 <0.7.0",
+      "resolved": "https://registry.npmjs.org/grunt-contrib-clean/-/grunt-contrib-clean-0.6.0.tgz",
+      "dependencies": {
+        "rimraf": {
+          "version": "2.2.8",
+          "from": "rimraf@~2.2.1",
+          "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
+        }
+      }
+    },
     "grunt-legacy-log": {
       "version": "0.1.3",
       "from": "grunt-legacy-log@>=0.1.0 <0.2.0",
@@ -1072,6 +1136,11 @@
       "version": "0.1.1",
       "from": "intersection-observer@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.1.1.tgz"
+    },
+    "intl": {
+      "version": "1.2.4",
+      "from": "intl@>=1.2.4 <2.0.0",
+      "resolved": "https://registry.npmjs.org/intl/-/intl-1.2.4.tgz"
     },
     "invariant": {
       "version": "2.2.1",
@@ -1424,6 +1493,11 @@
       "version": "0.1.7",
       "from": "path-to-regexp@0.1.7",
       "resolved": "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.7.tgz"
+    },
+    "picturefill": {
+      "version": "3.0.2",
+      "from": "picturefill@>=3.0.1 <4.0.0",
+      "resolved": "https://registry.npmjs.org/picturefill/-/picturefill-3.0.2.tgz"
     },
     "pinkie": {
       "version": "2.0.4",
