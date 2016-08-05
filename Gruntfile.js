@@ -90,7 +90,10 @@ module.exports = function(grunt) {
 			prod: { options: {service: "prod"} }
 		},
 		"eslint": {
-      target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', "!polyfills/HTMLPictureElement/polyfill.js", "!polyfills/fetch/polyfill.js", "!polyfills/Promise/polyfill.js"]
+			options: {
+				ignorePath: './.gitignore'
+			},
+      target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js']
     }
 	});
 
