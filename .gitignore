@@ -16,3 +16,5 @@
 /polyfills/Intl/~locale
 
 polyfills/Promise/polyfill.js
+
+polyfills/~html5-elements/polyfill.js
