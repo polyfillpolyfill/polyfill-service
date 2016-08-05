@@ -21,5 +21,9 @@
 		"Object.defineProperty"
 	],
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of",
+	"install": {
+		"module": "array.of",
+		"paths": ["array-of.js"]
+	}
 }
