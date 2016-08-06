@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var xhr;
 
 function nameOf(fn) {
@@ -6,17 +9,17 @@ function nameOf(fn) {
 
 // REMOVED: Safari considers XMLHttpRequest an object
 it.skip('has correct instance', function () {
-	expect(XMLHttpRequest).to.be.a(Function);
+	proclaim.isInstanceOf(XMLHttpRequest, Function);
 });
 
 // REMOVED: Firefox considers XMLHttpRequest a function, but does not allow you to use Function.prototype.toString (yet accepts XMLHttpRequest.toString!)
 it.skip('has correct name', function () {
-	expect(nameOf(XMLHttpRequest)).to.be('XMLHttpRequest');
+	proclaim.equal(nameOf(XMLHttpRequest), 'XMLHttpRequest');
 });
 
 // REMOVED: See above
 it.skip('has correct argument length', function () {
-	expect(XMLHttpRequest.length).to.be(0);
+	proclaim.equal(XMLHttpRequest.length, 0);
 });
 
 it('can create instance', function () {
@@ -24,21 +27,21 @@ it('can create instance', function () {
 });
 
 it('can setup request', function () {
-	expect(xhr.open).to.be.a(Function);
-	expect(nameOf(xhr.open)).to.be('open');
+	proclaim.isInstanceOf(xhr.open, Function);
+	proclaim.equal(nameOf(xhr.open), 'open');
 
-	expect(xhr.addEventListener).to.be.a(Function);
-	expect(nameOf(xhr.addEventListener)).to.be('addEventListener');
+	proclaim.isInstanceOf(xhr.addEventListener, Function);
+	proclaim.equal(nameOf(xhr.addEventListener), 'addEventListener');
 
-	expect(xhr.send).to.be.a(Function);
-	expect(nameOf(xhr.send)).to.be('send');
+	proclaim.isInstanceOf(xhr.send, Function);
+	proclaim.equal(nameOf(xhr.send), 'send');
 });
 
 // REMOVED: Inconsistent between browsers, does not affect functionality
 it.skip('has methods with correct argument length', function() {
-	expect(xhr.open.length).to.be(2);
-	expect(xhr.addEventListener.length).to.be(0);
-	expect(xhr.send.length).to.be(0);
+	proclaim.equal(xhr.open.length, 2);
+	proclaim.equal(xhr.addEventListener.length, 0);
+	proclaim.equal(xhr.send.length, 0);
 
 });
 
@@ -46,8 +49,8 @@ it('can make request', function () {
 	xhr.open('GET', location.href);
 
 	xhr.addEventListener('load', function (event) {
-		expect(arguments.length).to.be(1);
-		expect(event.currentTarget).to.eql(xhr);
+		proclaim.equal(arguments.length, 1);
+		proclaim.deepEqual(event.currentTarget, xhr);
 	});
 
 	xhr.send();
