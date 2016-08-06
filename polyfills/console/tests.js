@@ -1,7 +1,10 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 describe('console', function () {
 
 	it('is an object', function () {
-		expect(console).to.be.an('object');
+		proclaim.isInstanceOf(console, Object);
 	});
 
 });
