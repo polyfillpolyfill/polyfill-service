@@ -15,6 +15,7 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
+		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
 
