@@ -67,7 +67,7 @@
     "semver": "^5.0.0",
     "tsort": "0.0.1",
     "useragent": "^2.1.9",
-    "yaku": "^0.16.4"
+    "yaku": "^0.16.6"
   },
   "devDependencies": {
     "batch": "^0.5.1",
