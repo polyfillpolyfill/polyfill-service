@@ -1,15 +1,18 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('should be instantiable', function(){
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
-	expect(nameOf(WeakSet)).to.be('WeakSet');
-	expect(typeof (new WeakSet)).to.be('object');
+	proclaim.equal(nameOf(WeakSet), 'WeakSet');
+	proclaim.isTypeOf(new WeakSet, 'object');
 });
 
 it('has add, delete and has methods', function(){
-	expect(WeakSet.prototype['add']).to.not.be(undefined);
-	expect(WeakSet.prototype['delete']).to.not.be(undefined);
-	expect(WeakSet.prototype['has']).to.not.be(undefined);
+	proclaim.notEqual(WeakSet.prototype['add'], undefined);
+	proclaim.notEqual(WeakSet.prototype['delete'], undefined);
+	proclaim.notEqual(WeakSet.prototype['has'], undefined);
 });
 
 it('should perform as expected', function() {
@@ -18,25 +21,25 @@ it('should perform as expected', function() {
 
 	set.add(a);
 	set.add(b);
-	set.add(c)
+	set.add(c);
 	set.add(d);
 
-	expect(set.has(a)).to.be(true);
-	expect(set.has(b)).to.be(true);
-	expect(set.has(c)).to.be(true);
-	expect(set.has(d)).to.be(true);
-	expect(set.has(e)).to.be(false);
+	proclaim.equal(set.has(a), true);
+	proclaim.equal(set.has(b), true);
+	proclaim.equal(set.has(c), true);
+	proclaim.equal(set.has(d), true);
+	proclaim.equal(set.has(e), false);
 
-	expect(set['delete'](b)).to.be(true);
-	expect(set['delete'](c)).to.be(true);
-	expect(set['delete'](d)).to.be(true);
-	expect(set['delete'](e)).to.be(false);
+	proclaim.equal(set['delete'](b), true);
+	proclaim.equal(set['delete'](c), true);
+	proclaim.equal(set['delete'](d), true);
+	proclaim.equal(set['delete'](e), false);
 
-	expect(set.has(a)).to.be(true);
-	expect(set.has(b)).to.be(false);
-	expect(set.has(c)).to.be(false);
-	expect(set.has(d)).to.be(false);
-	expect(set.has(e)).to.be(false);
+	proclaim.equal(set.has(a), true);
+	proclaim.equal(set.has(b), false);
+	proclaim.equal(set.has(c), false);
+	proclaim.equal(set.has(d), false);
+	proclaim.equal(set.has(e), false);
 });
 
 it('should be chainable', function() {
@@ -44,7 +47,7 @@ it('should be chainable', function() {
 	var o1 = {};
 	var o2 = function(){};
 	ws.add(o1).add(o2);
-	expect(ws.has(o2)).to.be(true);
+	proclaim.equal(ws.has(o2), true);
 })
 
 // IE <= 8 does not allow invocation of delete as a property of an object using dot notation
@@ -53,7 +56,7 @@ it.skip('should allow use of dot notation for delete method', function() {
 	var o1 = {};
 	ws.add(o1);
 	//ws.delete(o1);  // Causes an error during parse in IE<=8, which will prevent other tests from running even though this test is marked as skipped!
-	expect(ws.has(o1)).to.be(false);
+	proclaim.equal(ws.has(o1), false);
 })
 
 // Early native implementations do not support this, polyfill does
@@ -66,7 +69,7 @@ it('should be possible to prepopulate the set', function() {
 		{}
 	]);
 
-	expect(ws.has({})).to.be(false);
-	expect(ws.has(o1)).to.be(true);
-	expect(ws.has(window)).to.be(true);
+	proclaim.equal(ws.has({}), false);
+	proclaim.equal(ws.has(o1), true);
+	proclaim.equal(ws.has(window), true);
 });
