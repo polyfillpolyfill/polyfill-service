@@ -27,7 +27,7 @@ it('should have Symbol as the constructor property', function() {
 	proclaim.equal(Symbol().constructor, Symbol);
 });
 
-it('should silently fail when assigning new properties', function (){
+xit('should silently fail when assigning new properties', function (){
 	var a = Symbol("1");
 	a.b = '1';
 	proclaim.equal(a.b, undefined);
