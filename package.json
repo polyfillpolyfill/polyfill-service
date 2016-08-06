@@ -53,7 +53,7 @@
     "intl": "^1.2.4",
     "lodash": "^4.14.1",
     "lru-cache": "^3.0.0",
-    "marked": "^0.3.3",
+    "marked": "^0.3.6",
     "measured": "^1.0.0",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
