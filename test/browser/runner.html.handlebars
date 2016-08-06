@@ -24,13 +24,13 @@
 	{{#features}}
 	describe('{{feature}}', function() {
 		it('is running the test framework', function() {
-			expect(true).to.be(true);
+			proclaim.ok(true);
 		});
 		{{#detect}}
 		it('passes a feature detect', function() {
-			expect((function() {
+			proclaim.ok((function() {
 				return ({{{.}}});
-			}).call(window)).to.be.ok();
+			}).call(window));
 		});
 		{{/detect}}
 		{{#tests}}
