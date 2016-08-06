@@ -62,7 +62,7 @@
     "morgan": "^1.6.1",
     "picturefill": "^3.0.1",
     "promise-mysql": "^1.3.2",
-    "raven": "^0.8.1",
+    "raven": "^0.12.1",
     "request-promise": "^0.3.2",
     "semver": "^5.0.0",
     "tsort": "0.0.1",
