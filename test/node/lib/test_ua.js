@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('proclaim');
 var UA = require('../../../lib/UA');
 
 describe("UA", function() {

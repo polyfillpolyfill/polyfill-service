@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert  = require('assert');
+var assert  = require('proclaim');
 var AliasResolver = require('../../../lib/aliases');
 
 var configuredAliases = {};
