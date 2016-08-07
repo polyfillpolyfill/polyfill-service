@@ -16,3 +16,5 @@
 /polyfills/Intl/~locale
 
 polyfills/Promise/polyfill.js
+
+polyfills/atob/polyfill.js
