@@ -1,3 +1,5 @@
+import boltsort;
+
 sub vcl_recv {
 #FASTLY recv
 	if ( req.request == "FASTLYPURGE" ) {
@@ -20,6 +22,8 @@ sub vcl_recv {
 	if (req.url ~ "^/v2/recordRumData") {
 		error 204 "No Content";
 	}
+
+	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
 }
