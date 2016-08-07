@@ -15,7 +15,8 @@ RUN npm install --production && npm cache clean
 # Add application code
 ADD ./ .
 
-RUN npm run build
+# Install polyfills
+RUN node_modules/.bin/grunt build
 
 # Heroku ignores this command and will use their designated port set as an environment variable
 EXPOSE 3000

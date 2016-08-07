@@ -20,47 +20,6 @@ if (process.env.MYSQL_DSN) {
 }
 
 const router = express.Router();  // eslint-disable-line new-cap
-const blankGif = new Buffer([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00, 0x80, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44, 0x01, 0x00, 0x3b]);
-
-
-/**
- * GET /v2/recordData
- *  - <featureName>: 1 if it passed the detect, else 0
- *  - dns: perf.domainLookupEnd - perf.domainLookupStart
- *  - connect: perf.connectEnd - perf.connectStart
- *  - req: perf.responseStart - perf.requestStart
- *  - resp: perf.responseEnd - perf.responseStart
- */
-router.get('/v2/recordRumData', (req, res) => {
-
-	const logquery = 'INSERT INTO requests SET perf_dns=?, perf_connect=?, perf_req=?, perf_resp=?, ua_family=?, ua_version=?, lat=?, lng=?, country=?, data_center=?, refer_domain=?';
-	const referer = (req.get('referer') || '').replace(/^(https?:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$/, '$3');
-	const ua = polyfillio.normalizeUserAgent(req.get('user-agent')).split('/');
-	const logdata = [req.query.dns, req.query.connect, req.query.req, req.query.resp, ua[0], ua[1], req.get('geo-lat'), req.get('geo-lng'), req.get('geo-country'), req.get('data-center'), referer];
-
-	if (mysql) {
-		mysql.query(logquery, logdata)
-			.then(result => {
-				const reqid = result.insertId;
-				return Promise.all(Object.keys(req.query).map(key => polyfillio.describePolyfill(key)))
-					.then(features => {
-						const dataquery = features
-							.filter(f => f && f.name in req.query)
-							.map(f => `(null, ${reqid}, ${mysql.escape(f.name)}, ${mysql.escape(req.query[f.name])})`)
-							.join(', ')
-						;
-						return mysql.query('INSERT INTO detect_results (id, request_id, feature_name, result) VALUES ' + dataquery);
-					})
-				;
-			})
-		;
-	}
-
-	res.status(200);
-	res.set('Content-type', 'image/gif');
-	res.set('Cache-Control', 'no-store');
-	res.send(blankGif);
-});
 
 router.get('/v2/getRumPerfData', (req, res) => {
 	const daterange = "req_time BETWEEN (CURDATE() - INTERVAL 30 DAY) AND CURDATE()";
