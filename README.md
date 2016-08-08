@@ -1,5 +1,4 @@
-Polyfill service
-=====================
+# Polyfill service
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
@@ -9,32 +8,24 @@ For usage information see the [hosted service](https://polyfill.io), which forma
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)][license]
 
-
-Table Of Contents
------------------
-
 * [Requirements](#requirements)
-* [Running Locally](#running-locally)
+* [Running locally](#running-locally)
 * [Configuration](#configuration)
 * [Testing](#testing)
-* [Release Process](#release-process)
-* [Deployment](#deployment)
-* [Publishing](#publishing)
-* [Monitoring](#monitoring)
-* [Library API Reference](#library-api-reference)
+* [Real user monitoring](#real-user-monitoring)
+* [polyfill.io CDN](polyfill.io-cdn)
+* [Library](#library)
 * [License](#license)
 
 
-Requirements
-------------
+## Requirements
 
 Running Origami Build Service requires a few tools:
 	* [Git]: For downloading the source code
 	* [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
 	* [Grunt] 0.1.x: Used for automating tasks such as testing
 
-Running Locally
----------------
+## Running locally
 
 Clone the project to your system:
 ```sh
@@ -57,8 +48,7 @@ grunt dev
 ```
 
 
-Configuration
--------------
+## Configuration
 
 You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
@@ -69,11 +59,11 @@ You can configure the Polyfill service using environment variables. In developme
 	* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
 	* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
 	* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-	* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+	* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+	* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 
 
-Testing
--------
+## Testing
 
 The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
@@ -85,8 +75,40 @@ grunt ci             # run the service tests and polyfills tests on a large set 
 
 We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull request.
 
-Release Process
----------------
+
+## Real User Monitoring
+
+We have shipped experimental support for using RUM to monitor feature support and performance in browsers.  This involves a number of parts, all activated by the presence `RUM_MYSQL_DSN` env var:
+
+* **RUM client code**: a [small snippet](lib/rumTemplate.js.handlebars) of legacy-compatible code that will evaluate feature detects on the client, sample resource timing data, and beacon the results back to the service. This is shipped as part of the Node app.
+* **Beacon endpoint**: an [endpoint to collect RUM data](fastly-config.vcl), terminated at the CDN, logging query data out to Amazon S3 to avoid overloading the backend.  To clarify, the backend node server does not provide a route handler for the RUM data collection URL, so this is shipped when we deploy VCL to Fastly.  It also requires log streaming to be configured in the Fastly UI.
+* **Lambda processing function**: an [AWS Lambda function](tasks/lambda/functions/rum-process/index.js) is used to move the data from the raw log files on S3 into the MySQL backend.  This is shipped using a dedicated process with [Apex](http://apex.run), see below.
+* **Reporting endpoints**: [API routes that deliver useful analysis of the RUM data](service/routes/rum.js) are provided in the node server.  These return CSV data intended to populate a spreadsheet.  This is shipped as part of the Node app.
+
+Because this requires a fair amount of orchestration, we recommend only enabling it for the FT hosted version.  If you want to run the service yourself, you can opt out of this RUM feature by not setting a `RUM_MYSQL_DSN`.
+
+### Routes
+
+* `/v2/getRumPerfData`: Return stats for resource timing metrics, grouped by CDN POP and country of request origin
+* `/v2/getRumCompatData`: Return stats for differences between current targeting configuration and live feature detect results from browers, grouped by feature name, browser family and version.
+
+### Deploying Lambda
+
+All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run).  To deploy the Lambda functions:
+
+1. Set up AWS profiles in your `~/.aws/credentials` file for `[polyfill-qa]` and `[polyfill]`, and configure the default region to match the location you want to run the Lambdas. We typically use `eu-west-1`.
+2. Set the `RUM_MYSQL_DSN` and/or `RUM_MYSQL_DSN_QA` environment variables in your own local environment (you can also set them in `.env`).  FT devs with Heroku privs can get the relevant values with `heroku config` against both the QA and prod apps.
+3. Run `grunt shell:deployrumlambda:qa` or `grunt shell:deployrumlambda:prod` as appropriate
+4. If this is the first time you've deployed the function to this AWS profile, you then need to configure the function in the AWS UI:
+	- Ensure the IAM role assigned to the function has access to write cloudwatch logs, and has `getObject` and `deleteObject` permmissions on S3
+	- Set up a trigger to invoke the function whenever a file is written to the appropriate S3 bucket
+
+
+## polyfill.io CDN
+
+The Financial Times and Fastly host a public version of this service on [polyfill.io](https://polyfill.io).
+
+### Release process
 
  1. The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table.
  2. The commit is tagged vX.Y.Z-rcN where N is initially 1
@@ -97,9 +119,7 @@ Release Process
  7. Publish to npm
  8. Push to cdn.polyfill.io
 
-
-Deployment
-----------
+### Deployment
 
 The [production][heroku-production] and [QA][heroku-qa] applications run on [Heroku].  The library is published to the public [npm] registry.
 
@@ -131,17 +151,16 @@ When it is time to promote from [QA][heroku-qa] to [production][heroku-productio
 npm run promote
 ```
 
+### Publishing to npm
 
-Publishing
-----------
-To publish to the public [npm] registry, you need to be logged in to the NPM CLI.
+To publish to the public [npm] registry, you need to be logged in to the npm CLI.
 
-Check if you are already logged in to NPM via the CLI:
+Check if you are already logged in to npm via the CLI:
 ```sh
 npm whoami
 ```
 
-If you are not logged in, log in to NPM:
+If you are not logged in, log in to npm:
 ```sh
 npm login
 ```
@@ -152,17 +171,16 @@ npm publish
 ```
 
 
-Monitoring
-----------
+### Monitoring
 
 We use Graphite and [Grafana] to keep track of application metrics. You can view requests, bundle build duration, cache hit ratios, and memory usage. It's important after a deploy to make sure we haven't unexpectedly had an impact on these.
 
 We also use [Pingdom] to track uptime. You should get notifications if you're a member of the Origami team.
 
-Library API Reference
----------------------
 
-### Using as a library
+## Library
+
+### API reference
 
 The Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
@@ -236,8 +254,7 @@ Example:
 require('polyfill-service').listAllPolyfills();
 ```
 
-License
--------
+## License
 
 Except where indicated in selected polyfill config files, the polyfill service codebase is licensed under the terms of the [MIT license]. Contributors must accept our [contribution terms].
 

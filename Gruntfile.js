@@ -88,18 +88,34 @@ module.exports = function(grunt) {
 			dryrun: { options: {service: "qa", dryRun: true} },
 			qa: { options: {service: "qa"} },
 			prod: { options: {service: "prod"} }
+		},
+		"shell": {
+			"deployrumlambda": {
+				command: env => {
+
+					// These AWS profiles are expected to be in ~/.aws/credentials
+					const profile = (env !== 'prod') ? 'polyfill-qa' : 'polyfill';
+
+					const envvar = (env !== 'prod') ? 'RUM_MYSQL_DSN_QA' : 'RUM_MYSQL_DSN';
+					console.log('Deploying Lambda functions.  Environment:', env);
+
+					const cmd = `apex deploy -C ./tasks/lambda --profile=${profile} --set ${envvar}=$${envvar}`;
+					return cmd;
+				}
+			}
 		}
 	});
 
 	if (process.env.NODE_ENV === 'production') {
-		require('./tasks/buildsources')(grunt);
-		require('./tasks/updatelibrary')(grunt);
+		require('./tasks/grunt/buildsources')(grunt);
+		require('./tasks/grunt/updatelibrary')(grunt);
 		grunt.loadNpmTasks('grunt-contrib-clean');
 	} else {
-		grunt.loadTasks('tasks');
+		grunt.loadTasks('tasks/grunt');
 		grunt.loadNpmTasks('grunt-contrib-clean');
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-simple-mocha');
+		grunt.loadNpmTasks('grunt-shell');
 	}
 
 	grunt.registerTask("test", [

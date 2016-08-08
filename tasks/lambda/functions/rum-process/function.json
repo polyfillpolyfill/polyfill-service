@@ -1,0 +1,4 @@
+{
+  "description": "Batch process RUM logs into MySQL backend",
+  "timeout": 5
+}

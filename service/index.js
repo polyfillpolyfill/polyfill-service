@@ -45,8 +45,11 @@ app.use((req, res, next) => {
 
 app.use(require('./routes/api.js'));
 app.use(require('./routes/meta.js'));
-app.use(require('./routes/rum.js'));
 app.use('/test', require('./routes/test.js'));
+
+if (process.env.RUM_MYSQL_DSN) {
+	app.use(require('./routes/rum.js'));
+}
 
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, require('./routes/docs'));
 app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));

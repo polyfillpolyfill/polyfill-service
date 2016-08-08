@@ -19,11 +19,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
-		const polyfillSourceFolder = path.join(__dirname, '../polyfills');
+		const polyfillSourceFolder = path.join(__dirname, '../../polyfills');
 		const configuredAliases = {};
 		const errors = [];
 		const dirs = [];
-		const destFolder = path.join(__dirname, '../polyfills/__dist');
+		const destFolder = path.join(__dirname, '../../polyfills/__dist');
 		const depGraph = tsort();
 
 		grunt.log.writeln('Writing compiled polyfill sources to '+destFolder+'/...');
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 				try {
 					if (!fs.existsSync(configPath)) return;
 					config = JSON.parse(fs.readFileSync(configPath));
-					config.baseDir = path.relative(path.join(__dirname,'../polyfills'), polyfillPath);
+					config.baseDir = path.relative(path.join(__dirname,'../../polyfills'), polyfillPath);
 				} catch (e) {
 					throw {name:"Invalid config", message:"Unable to read config from "+configPath};
 				}
@@ -161,7 +161,7 @@ module.exports = function(grunt) {
 			grunt.fail.warn('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
 		}
 
-		fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
+		fs.writeFileSync(path.join(__dirname, '../../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
 		grunt.log.oklns('Sources built successfully');
 
 	});

@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 		const options = this.options({
 			service: 'qa',
 			serviceId: null,
-			vclFilePath: path.join(__dirname, '../fastly-config.vcl'),
+			vclFilePath: path.join(__dirname, '../../fastly-config.vcl'),
 			vclName: 'default',
 			dryRun: false
 		});

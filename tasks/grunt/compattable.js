@@ -15,9 +15,9 @@ function difference(a, b) {
 module.exports = function(grunt) {
 	const fs = require('fs');
 	const path = require('path');
-	const testResultsPath = path.join(__dirname, '../test/results');
+	const testResultsPath = path.join(__dirname, '../../test/results');
 	const file = path.join(testResultsPath, 'results.json');
-	const compatFile = path.join(__dirname, '/../docs/assets/compat.json');
+	const compatFile = path.join(__dirname, '/../../docs/assets/compat.json');
 
 	grunt.registerTask('compattable', 'Create a compatibility table', function() {
 		const done = this.async();

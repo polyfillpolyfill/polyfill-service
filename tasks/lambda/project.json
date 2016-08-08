@@ -1,0 +1,8 @@
+{
+  "name": "polyfill-service",
+  "description": "AWS Lambda functions for Polyfill service tasks",
+  "role": "arn:aws:iam::410451671880:role/service-role/lambda-s3-processor",
+  "memory": 256,
+  "runtime": "nodejs4.3",
+  "profile": "personal"
+}
