@@ -3,5 +3,9 @@
 		"caniuse:audio-api",
 		"modernizr:webaudio"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext",
+	"install": {
+		"module": "audio-context-polyfill",
+		"paths": ["AudioContext.js"]
+	}
 }
