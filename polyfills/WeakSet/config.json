@@ -3,12 +3,13 @@
 		"es6"
 	],
 	"browsers": {
-		"ie": "7 - *",
-		"ie_mob": "10 - *",
-		"safari": "*",
-		"chrome": "<38",
+		"ie": "7 - 11",
+		"ie_mob": "10 - 11",
+		"safari": "<9",
+		"chrome": "<36",
 		"firefox": "<34",
-		"ios_saf": "*",
+		"android": "<5",
+		"ios_saf": "<9",
 		"opera": "<25",
 		"firefox_mob": "<34"
 	},
