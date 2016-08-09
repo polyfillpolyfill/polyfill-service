@@ -25,5 +25,7 @@
 	"install": {
 		"module": "array.of",
 		"paths": ["array-of.js"]
-	}
+	},
+	"license": "MIT",
+	"repo": "https://github.com/mathiasbynens/Array.of/"
 }
