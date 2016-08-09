@@ -27,20 +27,20 @@
 	var parent = { foo: 'bar', obj: {} };
 	var child = Object.create(parent);
 
-	expect(typeof child).to.be('object');
-	expect(parent).to.not.be(child);
-	expect(child.foo).to.be(parent.foo);
-	expect(child.obj).to.be(parent.obj);
+	proclaim.deepEqual(typeof child, 'object');
+	proclaim.notDeepEqual(parent, child);
+	proclaim.deepEqual(child.foo, parent.foo);
+	proclaim.deepEqual(child.obj, parent.obj);
 });
 
 it("Should create inherited object from a Native Object", function() {
 	var parent = document;
 	var child = Object.create(parent);
 
-	expect(typeof child).to.be('object');
-	expect(parent).to.not.be(child);
-	expect(child.window).to.be(parent.window);
-	expect(child.ELEMENT_NODE).to.be(parent.ELEMENT_NODE);
+	proclaim.deepEqual(typeof child, 'object');
+	proclaim.notDeepEqual(parent, child);
+	proclaim.deepEqual(child.window, parent.window);
+	proclaim.deepEqual(child.ELEMENT_NODE, parent.ELEMENT_NODE);
 });</code></pre>
 
 

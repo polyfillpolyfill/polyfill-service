@@ -1,16 +1,19 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('should be defined', function() {
-	expect(window.location.origin).to.not.be(undefined);
+	proclaim.notEqual(window.location.origin, undefined);
 });
 
 it('should include the protocol', function() {
 	var proto = window.location.protocol;
-	expect(window.location.origin.substr(0,proto.length)).to.equal(proto);
+	proclaim.equal(window.location.origin.substr(0,proto.length), proto);
 });
 
 it('should include the hostname', function() {
-	expect(window.location.origin).to.contain(window.location.hostname);
+	proclaim.include(window.location.origin, window.location.hostname);
 });
 
 it('should include the port', function() {
-	expect(window.location.origin).to.contain(window.location.port);
+	proclaim.include(window.location.origin, window.location.port);
 });

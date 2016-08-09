@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,10 +16,10 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol unscopables as static properties on Symbol', function() {
-	expect(Symbol.unscopables).to.not.be.undefined;
+	proclaim.notEqual(Symbol.unscopables, undefined);
 	if (supportsDescriptors) {
 		var unscopables = Symbol.unscopables;
 		Symbol.unscopables = "nope";
-		expect(Symbol.unscopables).to.be(unscopables);
+		proclaim.equal(Symbol.unscopables, unscopables);
 	}
 });

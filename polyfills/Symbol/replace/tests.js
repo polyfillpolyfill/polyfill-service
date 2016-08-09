@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol replace as static properties on Symbol', function() {
-	expect(Symbol.replace).to.not.be.undefined;
+	proclaim.notEqual(Symbol.replace, undefined);
 
 	if (supportsDescriptors) {
 		var replace = Symbol.replace;
 		Symbol.replace = "nope";
-		expect(Symbol.replace).to.be(replace);
+		proclaim.equal(Symbol.replace, replace);
 	}
 });

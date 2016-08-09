@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 function getNodeList () {
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(document.createElement('div'));
@@ -7,18 +10,18 @@ function getNodeList () {
 
 it('exists', function () {
 	if (!Symbol || !Symbol.iterator) {
-		expect(true).to.be.false;
+		proclaim.fail();
 		return;
 	}
-	expect(getNodeList()[Symbol.iterator]).to.be.a(Function);
+	proclaim.isInstanceOf(getNodeList()[Symbol.iterator], Function);
 });
 
 it('returns a next-able object', function () {
 	var nodeList = getNodeList();
 	var iterator = nodeList[Symbol.iterator]();
 
-	expect(iterator.next).to.be.a(Function);
-	expect(iterator.next()).to.eql({
+	proclaim.isInstanceOf(iterator.next, Function);
+	proclaim.deepEqual(iterator.next(), {
 		value: nodeList[0],
 		done: false
 	});
@@ -29,7 +32,7 @@ it('finally returns a done object', function () {
 	var iterator = nodeList[Symbol.iterator]();
 	iterator.next();
 	iterator.next();
-	expect(iterator.next()).to.eql({
+	proclaim.deepEqual(iterator.next(), {
 		done: true,
 		value: undefined
 	});

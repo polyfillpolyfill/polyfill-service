@@ -1,54 +1,53 @@
-function assertTypeError(e) {
-	expect(e).to.be.a(TypeError);
-}
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("Should create inherited object", function() {
 	var parent = { foo: 'bar', obj: {} };
 	var child = Object.create(parent);
 
-	expect(typeof child).to.be('object');
-	expect(parent).to.not.be(child);
-	expect(child.foo).to.be(parent.foo);
-	expect(child.obj).to.be(parent.obj);
+	proclaim.isTypeOf(child, 'object');
+	proclaim.notStrictEqual(parent, child);
+	proclaim.equal(child.foo, parent.foo);
+	proclaim.equal(child.obj, parent.obj);
 });
 
 it("Should create inherited object from a Native Object", function() {
 	var parent = document;
 	var child = Object.create(parent);
 
-	expect(typeof child).to.be('object');
-	expect(parent).to.not.be(child);
-	expect(child.window).to.be(parent.window);
-	expect(child.ELEMENT_NODE).to.be(parent.ELEMENT_NODE);
+	proclaim.equal(typeof child, 'object');
+	proclaim.notStrictEqual(parent, child);
+	proclaim.equal(child.window, parent.window);
+	proclaim.equal(child.ELEMENT_NODE, parent.ELEMENT_NODE);
 });
 
 it("Should throw a TypeError if called with undefined", function() {
-	expect(function() { Object.create(undefined); }).to.throwException(assertTypeError);
+	proclaim.throws(function() { Object.create(undefined); }, TypeError);
 });
 
 it("Should create an object if called with null", function() {
-	expect(typeof Object.create(null)).to.be('object');
+	proclaim.equal(typeof Object.create(null), 'object');
 });
 
 it("Should throw a TypeError if called with a boolean primitive", function() {
-	expect(function() { Object.create(true); }).to.throwException(assertTypeError);
+	proclaim.throws(function() { Object.create(true); }, TypeError);
 });
 
 it("Should throw a TypeError if called with a number primitive", function() {
-	expect(function() { Object.create(100); }).to.throwException(assertTypeError);
+	proclaim.throws(function() { Object.create(100); }, TypeError);
 });
 
 it("Should not throw a TypeError if called with Function objects", function() {
-	expect(function() {
+	proclaim.doesNotThrow(function() {
 		Object.create(Function);
-	}).to.not.throwException();
-	expect(function() {
+	});
+	proclaim.doesNotThrow(function() {
 		Object.create(Function.prototype);
-	}).to.not.throwException();
+	});
 });
 
 it("Should return an instance of Object", function() {
-	expect(Object.create({})).to.be.an(Object);
+	proclaim.isInstanceOf(Object.create({}), Object);
 });
 
 it("Should set the prototype of the passed-in object", function() {
@@ -59,7 +58,7 @@ it("Should set the prototype of the passed-in object", function() {
 	b = new Base(),
 	bb = Object.create(b);
 
-	expect(supportsProto ? bb.__proto__ : bb.constructor.prototype).to.be(b);
+	proclaim.equal(supportsProto ? bb.__proto__ : bb.constructor.prototype, b);
 });
 it("Should allow additional properties to be defined", function() {
 	function Base() {}
@@ -77,10 +76,10 @@ it("Should allow additional properties to be defined", function() {
 		}
 	});
 
-	expect(bb.x).to.be(true);
-	expect(bb.y).to.be("str");
-	expect(b.x).to.be(undefined);
-	expect(b.y).to.be(undefined);
+	proclaim.equal(bb.x, true);
+	proclaim.equal(bb.y, "str");
+	proclaim.equal(b.x, undefined);
+	proclaim.equal(b.y, undefined);
 });
 
 // http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.5
@@ -99,6 +98,6 @@ it("If the second argument is present and not undefined, add own properties to r
 
 	// var result2 = newObj.hasOwnProperty("prop");
 
-	expect(result1).to.be(true);
-	// expect(result2).to.be(true);
+	proclaim.equal(result1, true);
+	// proclaim.equal(result2, true);
 });

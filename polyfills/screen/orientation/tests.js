@@ -1,12 +1,15 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('returns an object', function () {
-	expect(window.screen.orientation).to.be.an('object');
+	proclaim.isInstanceOf(window.screen.orientation, Object);
 });
 
 it('has type property', function () {
 	var valid = {'landscape-primary': 1, 'landscape-secondary':1, 'portrait-primary':1, 'portrait-secondary':1};
-	expect(window.screen.orientation.type && valid[window.screen.orientation.type]).to.eql(true);
+	proclaim.equal(window.screen.orientation.type && valid[window.screen.orientation.type], true);
 });
 
 it('has angle property', function () {
-	expect(window.screen.orientation.angle).to.be.a('number');
+	proclaim.isTypeOf(window.screen.orientation.angle, 'number');
 });

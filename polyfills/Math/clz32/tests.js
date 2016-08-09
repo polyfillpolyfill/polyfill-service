@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var supportsGetOwnPropertyDescriptor = 'getOwnPropertyDescriptor' in Object && typeof Object.getOwnPropertyDescriptor === 'function' && (function() {
     try {
     	var object = {};
@@ -14,8 +17,8 @@ var supportsGetOwnPropertyDescriptor = 'getOwnPropertyDescriptor' in Object && t
 var functionsHaveNames = (function foo() {}).name === 'foo';
 
 it('should return 32 if passed 0', function() {
-	expect(Math.clz32(0)).to.equal(32);
-	expect(Math.clz32(-0)).to.equal(32);
+	proclaim.equal(Math.clz32(0), 32);
+	proclaim.equal(Math.clz32(-0), 32);
 });
 
 // Copyright (c) 2014 Ryan Lewis. All rights reserved.
@@ -28,7 +31,7 @@ description: Math.clz32 should return 31 if passed 1.
 ---*/
 
 it('should return 31 if passed 1', function() {
-	expect(Math.clz32(1)).to.equal(31);
+	proclaim.equal(Math.clz32(1), 31);
 });
 
 
@@ -42,7 +45,7 @@ description: Math.clz32 should return 0 if passed 2147483648
 ---*/
 
 it('should return 0 if passed 2147483648', function() {
-	expect(Math.clz32(2147483648)).to.equal(0);
+	proclaim.equal(Math.clz32(2147483648), 0);
 });
 
 
@@ -69,7 +72,7 @@ info: |
 ---*/
 
 it('should return 32 if x is NaN', function() {
-	expect(Math.clz32(NaN)).to.equal(32);
+	proclaim.equal(Math.clz32(NaN), 32);
 });
 
 
@@ -96,7 +99,7 @@ includes: [propertyHelper.js]
 
 it('should have name \'clz32\'', function() {
 	if (functionsHaveNames) {
-		expect(Math.clz32.name).to.equal('clz32');
+		proclaim.equal(Math.clz32.name, 'clz32');
 	} else {
 		this.skip();
 	}
@@ -113,7 +116,7 @@ xit('should have name as non-enumerable', function() {
 				writable: false
 		};
 
-		expect(descr).to.eql(expected);
+		proclaim.deepEqual(descr, expected);
 	} else {
 		this.skip();
 	}
@@ -144,7 +147,7 @@ includes: [propertyHelper.js]
 ---*/
 
 it('should have length 1', function() {
-	expect(Math.clz32.length).to.equal(1);
+	proclaim.equal(Math.clz32.length, 1);
 });
 
 // This test is not important to pass for a polyfill
@@ -158,7 +161,7 @@ xit('should have length as non-enumerable', function() {
 				writable: false
 		};
 
-		expect(descr).to.eql(expected);
+		proclaim.deepEqual(descr, expected);
 	} else {
 		this.skip();
 	}
@@ -188,8 +191,8 @@ info: |
 ---*/
 
 it('should return 32 if x is Infinity or -Infinity', function() {
-	expect(Math.clz32(Infinity)).to.equal(32);
-	expect(Math.clz32(-Infinity)).to.equal(32);
+	proclaim.equal(Math.clz32(Infinity), 32);
+	proclaim.equal(Math.clz32(-Infinity), 32);
 });
 
 
@@ -219,27 +222,27 @@ info: |
 ---*/
 
 it('catches the int32bit value in the ToUint32 operation', function() {
-	expect(Math.clz32(4294967295)).to.equal(0);
-	expect(Math.clz32(4294967296)).to.equal(32);
-	expect(Math.clz32(4294967297)).to.equal(31);
+	proclaim.equal(Math.clz32(4294967295), 0);
+	proclaim.equal(Math.clz32(4294967296), 32);
+	proclaim.equal(Math.clz32(4294967297), 31);
 
-	expect(Math.clz32(65535)).to.equal(16);
-	expect(Math.clz32(65536)).to.equal(15);
-	expect(Math.clz32(65537)).to.equal(15);
+	proclaim.equal(Math.clz32(65535), 16);
+	proclaim.equal(Math.clz32(65536), 15);
+	proclaim.equal(Math.clz32(65537), 15);
 
-	expect(Math.clz32(255)).to.equal(24);
-	expect(Math.clz32(256)).to.equal(23);
-	expect(Math.clz32(257)).to.equal(23);
+	proclaim.equal(Math.clz32(255), 24);
+	proclaim.equal(Math.clz32(256), 23);
+	proclaim.equal(Math.clz32(257), 23);
 
-	expect(Math.clz32(-4294967295)).to.equal(31);
-	expect(Math.clz32(-4294967296)).to.equal(32);
-	expect(Math.clz32(-4294967297)).to.equal(0);
+	proclaim.equal(Math.clz32(-4294967295), 31);
+	proclaim.equal(Math.clz32(-4294967296), 32);
+	proclaim.equal(Math.clz32(-4294967297), 0);
 
-	expect(Math.clz32(-65535)).to.equal(0);
-	expect(Math.clz32(-65536)).to.equal(0);
-	expect(Math.clz32(-65537)).to.equal(0);
+	proclaim.equal(Math.clz32(-65535), 0);
+	proclaim.equal(Math.clz32(-65536), 0);
+	proclaim.equal(Math.clz32(-65537), 0);
 
-	expect(Math.clz32(-255)).to.equal(0);
-	expect(Math.clz32(-256)).to.equal(0);
-	expect(Math.clz32(-257)).to.equal(0);
+	proclaim.equal(Math.clz32(-255), 0);
+	proclaim.equal(Math.clz32(-256), 0);
+	proclaim.equal(Math.clz32(-257), 0);
 });
