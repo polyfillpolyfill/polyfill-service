@@ -99,6 +99,11 @@
       "from": "async@>=1.5.2 <1.6.0",
       "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz"
     },
+    "audio-context-polyfill": {
+      "version": "1.0.0",
+      "from": "audio-context-polyfill@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/audio-context-polyfill/-/audio-context-polyfill-1.0.0.tgz"
+    },
     "aws-sign2": {
       "version": "0.6.0",
       "from": "aws-sign2@>=0.6.0 <0.7.0",
