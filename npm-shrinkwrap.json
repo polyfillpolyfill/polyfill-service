@@ -84,6 +84,11 @@
       "from": "array-flatten@1.1.1",
       "resolved": "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz"
     },
+    "array.of": {
+      "version": "0.1.1",
+      "from": "array.of@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/array.of/-/array.of-0.1.1.tgz"
+    },
     "asn1": {
       "version": "0.2.3",
       "from": "asn1@>=0.2.3 <0.3.0",
