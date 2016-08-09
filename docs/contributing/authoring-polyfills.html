@@ -23,7 +23,7 @@
 		<ul>
 			<li><code>polyfill.js</code>: Code to apply the polyfill behaviour.  See <a href="#configuration">configuration</a>.</li>
 			<li><code>detect.js</code>: A single expression that returns true if the feature is present in the browser (and the polyfill is therefore not required), false otherwise.  Can be an <abbr title="Immediately Invoked Function Expression">IIFE</abbr>.  If not present, polyfill cannot be gated (wrapped in a feature-detect).  <strong>Must not have a trailing semicolon</strong>.</li>
-			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
+			<li><code>tests.js</code>: A set of tests written using <a href="http://mochajs.org/">mocha</a> and <a href="https://github.com/rowanmanning/proclaim">proclaim</a>, to test the feature.  See <a href="#test-authoring-guidelines">test authoring guidelines</a>.</li>
 			<li><code>config.json</code>: Required. A config file conforming to the spec below</li>
 		</ul>
 
@@ -68,7 +68,7 @@
         "opera": "11 || 14",
         "safari": "&lt;=4",
         "ios_saf" "&lt;=6",
-        "samsing_mob": "*"
+        "samsung_mob": "*"
     },
     "aliases": [
         "modernizr:es5array"

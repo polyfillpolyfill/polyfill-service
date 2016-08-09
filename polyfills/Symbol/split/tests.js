@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol split as static properties on Symbol', function() {
-	expect(Symbol.split).to.not.be.undefined;
+	proclaim.notEqual(Symbol.split, undefined);
 
 	if (supportsDescriptors) {
 		var split = Symbol.split;
 		Symbol.split = "nope";
-		expect(Symbol.split).to.be(split);
+		proclaim.equal(Symbol.split, split);
 	}
 });

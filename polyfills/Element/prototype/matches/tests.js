@@ -1,7 +1,10 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it("should return true if the element matches the tag selector", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
-	expect(el.matches("p")).to.be(true);
+	proclaim.equal(el.matches("p"), true);
 
 	document.body.removeChild(el);
 });
@@ -11,7 +14,7 @@ it("should return true if the element matches the class selector", function() {
 
 	el.className = "foo";
 
-	expect(el.matches(".foo")).to.be(true);
+	proclaim.equal(el.matches(".foo"), true);
 
 	document.body.removeChild(el);
 });
@@ -21,7 +24,7 @@ it("should return true for more complex selectors", function() {
 
 	el.className = "foo";
 
-	expect(el.matches("p.foo")).to.be(true);
+	proclaim.equal(el.matches("p.foo"), true);
 });
 
 it("should not match non-matching selectors", function() {
@@ -29,7 +32,7 @@ it("should not match non-matching selectors", function() {
 
 	el.className = "bar";
 
-	expect(el.matches("a.bar")).to.be(false);
+	proclaim.equal(el.matches("a.bar"), false);
 
 	document.body.removeChild(el);
 });
@@ -41,7 +44,7 @@ it("should not match inner elements", function() {
 
 	el.appendChild(innerEl);
 
-	expect(el.matches("a")).to.be(false);
+	proclaim.equal(el.matches("a"), false);
 
 	document.body.removeChild(el);
 });
@@ -52,9 +55,9 @@ it("should not match inner elements", function() {
 it("should throw an exception with an invalid selector", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 
-	expect(function () {
+	proclaim.throws(function () {
 		el.matches("an>invalid<:selector");
-	}).to.throwException();
+	});
 
 	document.body.removeChild(el);
 });

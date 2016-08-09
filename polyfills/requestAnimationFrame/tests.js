@@ -1,10 +1,13 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('should be defined', function () {
-    expect(window.requestAnimationFrame).to.be.a('function');
-    expect(window.cancelAnimationFrame).to.be.a('function');
+    proclaim.isInstanceOf(window.requestAnimationFrame, Function);
+    proclaim.isInstanceOf(window.cancelAnimationFrame, Function);
 });
 
 it('should return a number id', function () {
-    expect(requestAnimationFrame(function () {})).to.be.a('number');
+    proclaim.isTypeOf(requestAnimationFrame(function () {}), 'number');
 });
 
 it('should be cancelable', function (done) {
@@ -14,7 +17,7 @@ it('should be cancelable', function (done) {
     });
     cancelAnimationFrame(id);
     setTimeout(function () {
-        expect(called).to.be(false);
+        proclaim.equal(called, false);
         done();
     }, 50);
 });
@@ -22,7 +25,7 @@ it('should be cancelable', function (done) {
 it('should use a high precision timer', function (done) {
     requestAnimationFrame(function (time) {
         // See http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision#feature-detection
-        expect(time).to.be.below(1e12);
+        proclaim.lessThan(time, 1e12);
         done();
     });
 });
