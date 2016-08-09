@@ -349,6 +349,11 @@
       "from": "balanced-match@>=0.4.1 <0.5.0",
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-0.4.2.tgz"
     },
+    "Base64": {
+      "version": "1.0.0",
+      "from": "Base64@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/Base64/-/Base64-1.0.0.tgz"
+    },
     "basic-auth": {
       "version": "1.0.4",
       "from": "basic-auth@>=1.0.3 <1.1.0",
