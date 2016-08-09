@@ -981,6 +981,11 @@
       "from": "hosted-git-info@>=2.1.4 <3.0.0",
       "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.1.5.tgz"
     },
+    "html5shiv": {
+      "version": "3.7.3",
+      "from": "html5shiv@>=3.7.3 <4.0.0",
+      "resolved": "https://registry.npmjs.org/html5shiv/-/html5shiv-3.7.3.tgz"
+    },
     "http-errors": {
       "version": "1.5.0",
       "from": "http-errors@>=1.5.0 <1.6.0",
