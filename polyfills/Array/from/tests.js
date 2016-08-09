@@ -87,6 +87,27 @@ describe('returns an array with', function () {
 			}
 		}
 
+		it('can convert from a user-defined iterator', function () {
+			function iterator(cnt) {
+				return {
+					next: function () {
+						return cnt === 0
+							? {
+								done: true
+							}
+							: {
+								value: cnt--,
+								done: false
+							};
+					}
+				};
+			}
+			expect(Array.from(iterator(0))).to.eql([]);
+			expect(Array.from(iterator(1))).to.eql([1]);
+			expect(Array.from(iterator(2))).to.eql([2, 1]);
+			expect(Array.from(iterator(3))).to.eql([3, 2, 1]);
+		});
+
 	});
 
 	it('strings', function () {
