@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('has correct instance', function () {
 	proclaim.isInstanceOf(Array.from, Function);
@@ -102,10 +102,10 @@ describe('returns an array with', function () {
 					}
 				};
 			}
-			expect(Array.from(iterator(0))).to.eql([]);
-			expect(Array.from(iterator(1))).to.eql([1]);
-			expect(Array.from(iterator(2))).to.eql([2, 1]);
-			expect(Array.from(iterator(3))).to.eql([3, 2, 1]);
+			proclaim.deepEqual(Array.from(iterator(0)), []);
+			proclaim.deepEqual(Array.from(iterator(1)), [1]);
+			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
+			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
 		});
 
 	});
@@ -122,7 +122,7 @@ describe('returns an array with', function () {
 		proclaim.deepEqual(Array.from(0), []);
 		proclaim.deepEqual(Array.from(3), []);
 		// REMOVAL: it may take a rediculous amount of time to calculate this
-		// proclaim.deepEqual(Array.from(Infinity)).to.eql([]);
+		// proclaim.deepEqual(Array.from(Infinity), []);
 	});
 
 	it('regular expressions', function () {

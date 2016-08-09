@@ -1,11 +1,8 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
 
-var expectTypeError = function (e) {
-  expect(e).to.be.a(TypeError);
-}
-var stringsOnly = function(val, idx, obj) {
-	return (typeof val == 'string');
+var stringsOnly = function(val) {
+	return (typeof val === 'string');
 };
 
 it('is a function', function() {
