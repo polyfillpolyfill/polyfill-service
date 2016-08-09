@@ -49,7 +49,7 @@
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^1.0.0",
     "handlebars": "^4.0.5",
-		"html5shiv": "^3.7.3",
+    "html5shiv": "^3.7.3",
     "intersection-observer": "^0.1.1",
     "intl": "^1.2.4",
     "lodash": "^4.14.1",
