@@ -1,71 +1,74 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Array.isArray).to.be.a(Function);
+	proclaim.isInstanceOf(Array.isArray, Function);
 });
 
 it('has correct name', function () {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
-	expect(nameOf(Array.isArray)).to.be('isArray');
+	proclaim.equal(nameOf(Array.isArray), 'isArray');
 });
 
 it('has correct argument length', function () {
-	expect(Array.isArray.length).to.be(1);
+	proclaim.equal(Array.isArray.length, 1);
 });
 
 describe('returns true with', function () {
 	it('arrays', function () {
-		expect(Array.isArray(new Array)).to.be(true);
-		expect(Array.isArray(new Array(10))).to.be(true);
-		expect(Array.isArray([])).to.be(true);
-		expect(Array.isArray(['a', 'b', 'c'])).to.be(true);
+		proclaim.equal(Array.isArray(new Array), true);
+		proclaim.equal(Array.isArray(new Array(10)), true);
+		proclaim.equal(Array.isArray([]), true);
+		proclaim.equal(Array.isArray(['a', 'b', 'c']), true);
 	});
 });
 
 describe('returns false with', function () {
 	it('empty, null, or undefined', function () {
-		expect(Array.isArray()).to.be(false);
-		expect(Array.isArray(undefined)).to.be(false);
-		expect(Array.isArray(null)).to.be(false);
+		proclaim.equal(Array.isArray(), false);
+		proclaim.equal(Array.isArray(undefined), false);
+		proclaim.equal(Array.isArray(null), false);
 	});
 
 	it('arguments', function () {
 		var args = (function () {
 			return arguments;
-		})('a', 'b', 'c');
+		}('a', 'b', 'c'));
 
-		expect(Array.isArray(args)).to.be(false);
+		proclaim.equal(Array.isArray(args), false);
 	});
 
 	it('primatives', function () {
-		expect(Array.isArray(true)).to.be(false);
-		expect(Array.isArray('abc')).to.be(false);
-		expect(Array.isArray(123)).to.be(false);
+		proclaim.equal(Array.isArray(true), false);
+		proclaim.equal(Array.isArray('abc'), false);
+		proclaim.equal(Array.isArray(123), false);
 	});
 
 	it('instances', function () {
-		expect(Array.isArray(new Date)).to.be(false);
-		expect(Array.isArray(new Object)).to.be(false);
-		expect(Array.isArray(new Function)).to.be(false);
-		expect(Array.isArray(new Number)).to.be(false);
-		expect(Array.isArray(new String)).to.be(false);
+		proclaim.equal(Array.isArray(new Date), false);
+		proclaim.equal(Array.isArray(new Object), false);
+		proclaim.equal(Array.isArray(new Function), false);
+		proclaim.equal(Array.isArray(new Number), false);
+		proclaim.equal(Array.isArray(new String), false);
 	});
 
 	it('constructors', function () {
-		expect(Array.isArray(Math)).to.be(false);
-		expect(Array.isArray(Object)).to.be(false);
-		expect(Array.isArray(Number)).to.be(false);
-		expect(Array.isArray(String)).to.be(false);
+		proclaim.equal(Array.isArray(Math), false);
+		proclaim.equal(Array.isArray(Object), false);
+		proclaim.equal(Array.isArray(Number), false);
+		proclaim.equal(Array.isArray(String), false);
 	});
 
 	it('objects', function () {
-		expect(Array.isArray({})).to.be(false);
-		expect(Array.isArray({
+		proclaim.equal(Array.isArray({}), false);
+		proclaim.equal(Array.isArray({
 			0: 'a',
 			1: 'b',
 			2: 'c',
 			length: 3
-		})).to.be(false);
+		}), false);
 	});
 
 	it('objects as array subclasses', function () {
@@ -73,16 +76,16 @@ describe('returns false with', function () {
 
 		NotArray.prototype = new Array;
 
-		expect(Array.isArray(new NotArray)).to.be(false);
+		proclaim.equal(Array.isArray(new NotArray), false);
 	});
 
 	it('functions', function () {
-		expect(Array.isArray(function () {
+		proclaim.equal(Array.isArray(function () {
 			return [];
-		})).to.be(false);
+		}), false);
 	});
 
 	it('regular expressions', function () {
-		expect(Array.isArray(/abc/)).to.be(false);
+		proclaim.equal(Array.isArray(/abc/), false);
 	});
 });

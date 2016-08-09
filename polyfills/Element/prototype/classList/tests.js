@@ -1,9 +1,11 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
 
 it("Should be able to add a class using #toggle", function() {
 	var el = document.createElement("p");
 	var classList = el.classList;
 	classList.toggle("classA");
-	expect(classList.contains("classA")).to.be(true);
+	proclaim.equal(classList.contains("classA"), true);
 });
 
 it("Should be able to remove a class using #toggle and return false when indicating class is removed", function() {
@@ -11,8 +13,8 @@ it("Should be able to remove a class using #toggle and return false when indicat
 	var classList = el.classList;
 	el.className = "classA";
 
-	expect(classList.toggle("classA")).to.be(false);
-	expect(classList.contains("classA")).to.be(false);
+	proclaim.equal(classList.toggle("classA"), false);
+	proclaim.equal(classList.contains("classA"), false);
 });
 
 it("Should allow classes to be added using #add", function() {
@@ -20,7 +22,7 @@ it("Should allow classes to be added using #add", function() {
 	var classList = el.classList;
 
 	classList.add("classA");
-	expect(classList.contains("classA")).to.be(true);
+	proclaim.equal(classList.contains("classA"), true);
 });
 
 it("Should force add a class using toggle if the second argument is true", function() {
@@ -28,7 +30,7 @@ it("Should force add a class using toggle if the second argument is true", funct
 	var classList = el.classList;
 	classList.add("classA");
 	classList.toggle("classA", true);
-	expect(classList.contains("classA")).to.be(true);
+	proclaim.equal(classList.contains("classA"), true);
 });
 
 it("Should be indexable", function() {
@@ -39,8 +41,8 @@ it("Should be indexable", function() {
 	// for old ie
 	classList.toString();
 
-	expect(classList[0]).to.be('a');
-	expect(classList[1]).to.be('b');
+	proclaim.equal(classList[0], 'a');
+	proclaim.equal(classList[1], 'b');
 });
 
 it("Should be indexable using the #item method", function() {
@@ -51,8 +53,8 @@ it("Should be indexable using the #item method", function() {
 	// for old ie
 	classList.toString();
 
-	expect(classList.item(0)).to.be('a');
-	expect(classList.item(1)).to.be('b');
+	proclaim.equal(classList.item(0), 'a');
+	proclaim.equal(classList.item(1), 'b');
 });
 
 it("Should return the length using the #length method", function() {
@@ -63,7 +65,7 @@ it("Should return the length using the #length method", function() {
 	// for old ie
 	classList.toString();
 
-	expect(classList.length).to.be(2);
+	proclaim.equal(classList.length, 2);
 });
 
 it("Should remove duplicate instances of class", function() {
@@ -72,8 +74,8 @@ it("Should remove duplicate instances of class", function() {
 	el.className = "a a a";
 
 	classList.remove("a");
-	expect(classList.contains("a")).to.be(false);
-	expect(el.className).to.be("");
+	proclaim.equal(classList.contains("a"), false);
+	proclaim.equal(el.className, "");
 });
 
 it("Should work on svg elements", function() {
@@ -83,11 +85,11 @@ it("Should work on svg elements", function() {
 		el.setAttribute('class', 'a');
 
 		classList.add("b");
-		expect(classList.contains("b")).to.be(true);
-		expect(el.className.baseVal).to.be("a b");
+		proclaim.equal(classList.contains("b"), true);
+		proclaim.equal(el.className.baseVal, "a b");
 	}
 });
 
 it("Should be configurable", function() {
-	expect(Object.getOwnPropertyDescriptor(Element.prototype, 'classList').configurable).to.be(true);
+	proclaim.equal(Object.getOwnPropertyDescriptor(Element.prototype, 'classList').configurable, true);
 });

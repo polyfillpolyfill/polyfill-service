@@ -1,9 +1,12 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 describe('console', function () {
 
 	it('markTimeline()', function () {
-		expect(function () {
+		proclaim.doesNotThrow(function () {
 			console.markTimeline();
-		}).not.to.throwException();
+		});
 	});
 
 });
