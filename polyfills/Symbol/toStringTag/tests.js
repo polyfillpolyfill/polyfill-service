@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol toStringTag as static properties on Symbol', function() {
-	expect(Symbol.toStringTag).to.not.be.undefined;
+	proclaim.notEqual(Symbol.toStringTag, undefined);
 
 	if (supportsDescriptors) {
 		var toStringTag = Symbol.toStringTag;
 		Symbol.toStringTag = "nope";
-		expect(Symbol.toStringTag).to.be(toStringTag);
+		proclaim.equal(Symbol.toStringTag, toStringTag);
 	}
 });

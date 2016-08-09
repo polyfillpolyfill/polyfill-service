@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol hasInstance as static properties on Symbol', function() {
-	expect(Symbol.hasInstance).to.not.be.undefined;
+	proclaim.notEqual(Symbol.hasInstance, undefined);
 
 	if (supportsDescriptors) {
 		var hasInstance = Symbol.hasInstance;
 		Symbol.hasInstance = "nope";
-		expect(Symbol.hasInstance).to.be(hasInstance);
+		proclaim.equal(Symbol.hasInstance, hasInstance);
 	}
 });

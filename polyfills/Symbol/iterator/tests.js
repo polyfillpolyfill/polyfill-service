@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,12 +16,12 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol iterator as static properties on Symbol', function() {
-	expect(Symbol.iterator).to.not.be.undefined;
+	proclaim.notEqual(Symbol.iterator, undefined);
 
 	if (supportsDescriptors) {
 		var iterator = Symbol.iterator;
 		Symbol.iterator = "nope";
-		expect(Symbol.iterator).to.be(iterator);
+		proclaim.equal(Symbol.iterator, iterator);
 	}
 });
 
@@ -59,5 +62,5 @@ hasNodeListGlobal('can attach to a NodeList correctly', function() {
 		entry.value.innerHTML = 'Test';
 	}
 
-	expect(dom[0].innerHTML).to.be('Test');
+	proclaim.equal(dom[0].innerHTML, 'Test');
 });

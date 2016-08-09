@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert = require('assert');
+var assert = require('proclaim');
 var PolyfillSet = require('../../../service/PolyfillSet');
 
 describe('PolyfillSet', function () {

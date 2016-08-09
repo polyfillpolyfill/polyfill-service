@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 /* The detect and tests for the focusin/focusout polyfill have been shown to not work reliably. See https://github.com/Financial-Times/polyfill-service/issues/213 for details.  The polyfill itself appears to work fine, but events progrmamatically fired during page load while dev tools is open appear not to be observable by the polyfill, which makes the test and detect unreliable.  We're continuing to serve the polyfill as it's pretty simple but would love to get some better insight into this problem. */
 
 it.skip('should dispatch the focusin event', function(done) {
@@ -8,8 +11,8 @@ it.skip('should dispatch the focusin event', function(done) {
 	testEl.focus();
 
 	function listener(e) {
-		expect(e.type).to.be('focusin');
-		expect(e.target).to.be(testEl);
+		proclaim.equal(e.type, 'focusin');
+		proclaim.equal(e.target, testEl);
 		window.removeEventListener('focusin', listener);
 		document.body.removeChild(testEl);
 		done();
@@ -25,8 +28,8 @@ it.skip('should dispatch the focusout event', function(done) {
 	testEl2.blur();
 
 	function listener(e) {
-		expect(e.type).to.be('focusout');
-		expect(e.target).to.be(testEl2);
+		proclaim.equal(e.type, 'focusout');
+		proclaim.equal(e.target, testEl2);
 		document.body.removeChild(testEl2);
 		done();
 	}

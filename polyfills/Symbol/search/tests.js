@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol search as static properties on Symbol', function() {
-	expect(Symbol.search).to.not.be.undefined;
+	proclaim.notEqual(Symbol.search, undefined);
 
 	if (supportsDescriptors) {
 		var search = Symbol.search;
 		Symbol.search = "nope";
-		expect(Symbol.search).to.be(search);
+		proclaim.equal(Symbol.search, search);
 	}
 });

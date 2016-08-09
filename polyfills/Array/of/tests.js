@@ -1,16 +1,19 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Array.of).to.be.a(Function);
+	proclaim.isInstanceOf(Array.of, Function);
 });
 
 it('has correct name', function () {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
-	expect(nameOf(Array.of)).to.be('of');
+	proclaim.equal(nameOf(Array.of), 'of');
 });
 
 it('has correct argument length', function () {
-	expect(Array.of.length).to.be(0);
+	proclaim.equal(Array.of.length, 0);
 });
 
 describe('returns an array with', function () {
@@ -19,27 +22,27 @@ describe('returns an array with', function () {
 	it('one string', function () {
 		array = Array.of('abc');
 
-		expect(array).to.be.an(Array);
-		expect(array.length).to.be(1);
-		expect(array[0]).to.be('abc');
+		proclaim.isInstanceOf(array, Array);
+		proclaim.equal(array.length, 1);
+		proclaim.equal(array[0], 'abc');
 	});
 
 	it('three strings', function () {
 		array = Array.of('a', 'b', 'c');
 
-		expect(array).to.be.an(Array);
-		expect(array.length).to.be(3);
-		expect(array[0]).to.be('a');
-		expect(array[1]).to.be('b');
-		expect(array[2]).to.be('c');
+		proclaim.isInstanceOf(array, Array);
+		proclaim.equal(array.length, 3);
+		proclaim.equal(array[0], 'a');
+		proclaim.equal(array[1], 'b');
+		proclaim.equal(array[2], 'c');
 	});
 
 	it('one number', function () {
 		array = Array.of(123);
 
-		expect(array).to.be.an(Array);
-		expect(array.length).to.be(1);
-		expect(array[0]).to.be(123);
+		proclaim.isInstanceOf(array, Array);
+		proclaim.equal(array.length, 1);
+		proclaim.equal(array[0], 123);
 	});
 
 	it('one object', function () {
@@ -51,8 +54,8 @@ describe('returns an array with', function () {
 		};
 		array = Array.of(object);
 
-		expect(array).to.be.an(Array);
-		expect(array.length).to.be(1);
-		expect(array[0]).to.be(object);
+		proclaim.isInstanceOf(array, Array);
+		proclaim.equal(array.length, 1);
+		proclaim.equal(array[0], object);
 	});
 });

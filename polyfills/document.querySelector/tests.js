@@ -1,9 +1,12 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('returns the right length', function () {
-	expect(document.querySelectorAll('body').length).to.be(1);
+	proclaim.equal(document.querySelectorAll('body').length, 1);
 });
 
 it('matches element by tag', function () {
-	expect(document.querySelector('body')).to.be(document.body);
+	proclaim.equal(document.querySelector('body'), document.body);
 });
 
 it('matches element by id', function () {
@@ -11,7 +14,7 @@ it('matches element by id', function () {
 	element = document.body.appendChild(document.createElement('p')),
 	id = element.id = 'id' + String(Math.random()).slice(3);
 
-	expect(document.querySelector('#' + id)).to.be(element);
+	proclaim.equal(document.querySelector('#' + id), element);
 });
 
 it('matches element by class', function () {
@@ -19,7 +22,7 @@ it('matches element by class', function () {
 
 	element.className = 'foo bar qux';
 
-	expect(document.querySelector('.bar')).to.be(element);
+	proclaim.equal(document.querySelector('.bar'), element);
 });
 
 /*
@@ -28,8 +31,8 @@ it('matches element by class', function () {
  * selector rather than throwing the expected SyntaxError.
  *
 it('throws an exception for invalid selectors', function () {
-	expect(function () {
+	proclaim.throws(function () {
 		document.querySelector("an>invalid<:selector");
-	}).to.throwException();
+	});
 });
  */

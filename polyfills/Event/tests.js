@@ -1,19 +1,20 @@
-/* global expect,it */
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
 
 // Safari fails this test.  However, no-one would ever do this
 // as it would just create an event that can never be dispatched/listened for
 // it doesn't cause any problem
 it.skip('should throw exception when instantiated with no parameters', function() {
-	expect(function() {
+	proclaim.throws(function() {
 		new Event();
-	}).to.throwException();
+	});
 });
 
 it('should have correct default properties', function() {
 	var testEvent = new Event('click');
-	expect(testEvent.type).to.be('click');
-	expect(testEvent.bubbles).to.be(false);
-	expect(testEvent.cancelable).to.be(false);
+	proclaim.equal(testEvent.type, 'click');
+	proclaim.equal(testEvent.bubbles, false);
+	proclaim.equal(testEvent.cancelable, false);
 });
 
 it('should modify default properties if optional EventInit parameter is passed', function() {
@@ -22,9 +23,9 @@ it('should modify default properties if optional EventInit parameter is passed',
 		cancelable: true
 	});
 
-	expect(testEvent.type).to.be('test');
-	expect(testEvent.bubbles).to.be(true);
-	expect(testEvent.cancelable).to.be(true);
+	proclaim.equal(testEvent.type, 'test');
+	proclaim.equal(testEvent.bubbles, true);
+	proclaim.equal(testEvent.cancelable, true);
 });
 
 it('should be able to fire an event that can be listened to', function(done) {
@@ -35,9 +36,9 @@ it('should be able to fire an event that can be listened to', function(done) {
 
 	var testEl = document.createElement('div');
 	testEl.addEventListener('test', function(ev) {
-		expect(ev.type).to.be('test');
-		expect(ev.bubbles).to.be(true);
-		expect(ev.cancelable).to.be(true);
+		proclaim.equal(ev.type, 'test');
+		proclaim.equal(ev.bubbles, true);
+		proclaim.equal(ev.cancelable, true);
 		done();
 	});
 	testEl.dispatchEvent(testEvent);
@@ -52,9 +53,9 @@ it('should bubble the event', function(done) {
 	var testEl = document.createElement('div');
 	document.body.appendChild(testEl);
 	document.body.addEventListener('test', function(ev) {
-		expect(ev.type).to.be('test');
-		expect(ev.bubbles).to.be(true);
-		expect(ev.cancelable).to.be(true);
+		proclaim.equal(ev.type, 'test');
+		proclaim.equal(ev.bubbles, true);
+		proclaim.equal(ev.cancelable, true);
 		done();
 	});
 	testEl.dispatchEvent(testEvent);
@@ -91,7 +92,7 @@ it('should trigger an event handler once added, removed, and added again', funct
 	document.addEventListener('click', listener);
 	// click the document
 	document.dispatchEvent(new Event('click'));
-	expect(fired).to.be(true);
+	proclaim.equal(fired, true);
 });
 
 it('should have the correct target when using delegation', function () {
@@ -106,7 +107,7 @@ it('should have the correct target when using delegation', function () {
 	el.dispatchEvent(new Event('click', {
 		bubbles: true
 	}));
-	expect(fired).to.be(true);
+	proclaim.equal(fired, true);
 });
 
 it('should successfully call window.addEventListener or throw exception', function() {
@@ -142,7 +143,7 @@ it('should successfully call window.addEventListener or throw exception', functi
 		}
 
 		if (typeof (threwLast) != 'undefined') {
-			expect(threw).to.be(threwLast);
+			proclaim.equal(threw, threwLast);
 		}
 		threwLast = threw;
 	}
@@ -154,7 +155,7 @@ it('subclasses should be instances of Event if the UA implements DOM3', function
 
 		// Supported in IE9+
 		if ('MouseEvent' in window) {
-			expect(ev).to.be.an(Event);
+			proclaim.isInstanceOf(ev, Event);
 		}
 	});
 	document.body.appendChild(a);

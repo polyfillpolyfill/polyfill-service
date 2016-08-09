@@ -1,3 +1,5 @@
+import boltsort;
+
 sub vcl_recv {
 #FASTLY recv
 	if ( req.request == "FASTLYPURGE" ) {
@@ -17,10 +19,11 @@ sub vcl_recv {
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
 
-    set req.http.Geo-Lat = geoip.latitude;
-    set req.http.Geo-Lng = geoip.longitude;
-    set req.http.Geo-Country = geoip.country_code;
-    set req.http.Data-Center = server.datacenter;
+	if (req.url ~ "^/v2/recordRumData") {
+		error 204 "No Content";
+	}
+
+	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
 }

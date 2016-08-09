@@ -121,9 +121,14 @@ Now you can push to GitHub:
 git push && git push --tags
 ```
 
-After pushing to Github, you can deploy to [QA][heroku-qa] (This command requires being executed in Bash):
+After pushing to Github, you can deploy to [QA][heroku-qa]:
 ```sh
-npm run deploy-qa
+npm run deploy
+```
+
+When it is time to promote from [QA][heroku-qa] to [production][heroku-production]:
+```sh
+npm run promote
 ```
 
 
