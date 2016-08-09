@@ -14,7 +14,7 @@
 /polyfills/IntersectionObserver/polyfill.js
 /polyfills/Intl/polyfill.js
 /polyfills/Intl/~locale
-
 polyfills/Promise/polyfill.js
-
 polyfills/Array/of/polyfill.js
+polyfills/~html5-elements/polyfill.js
+polyfills/AudioContext/polyfill.js
