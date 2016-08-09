@@ -1,9 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
-
-function assertTypeError(e) {
-	expect(e).to.be.a(TypeError);
-}
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("Should create inherited object", function() {
 	var parent = { foo: 'bar', obj: {} };
