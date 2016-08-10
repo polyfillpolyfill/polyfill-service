@@ -90,7 +90,8 @@ module.exports = function(grunt) {
 				if (config.build && config.build.minify === false) {
 					// skipping any validation or minification process since
 					// the raw source is supposed to be production ready.
-					config.minSource = config.rawSource;
+					// Add a line break in case the final line is a comment
+					config.minSource = config.rawSource + "\n";
 				} else {
 					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
 					config.minSource = uglify.minify(config.rawSource, {
