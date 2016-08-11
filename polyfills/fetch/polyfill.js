@@ -288,7 +288,7 @@
 
     this.type = 'default'
     this.status = options.status
-    this.ok = this.status >= 200 && this.status < 300
+    this.ok = this.status === undefined || this.status >= 200 && this.status < 300
     this.statusText = options.statusText
     this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
     this.url = options.url || ''
@@ -351,8 +351,9 @@
       }
 
       xhr.onload = function() {
-        var status = (xhr.status === 1223) ? 204 : xhr.status
-        if (status < 100 || status > 599) {
+        // At this point, an xhr.status of 0 means we got response from a file:// url
+        var status = (xhr.status === 1223) ? 204 : ((xhr.status === 0) ? undefined : xhr.status)
+        if (status !== undefined && (status < 100 || status > 599)) {
           reject(new TypeError('Network request failed'))
           return
         }
