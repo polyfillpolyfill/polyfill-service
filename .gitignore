@@ -19,3 +19,5 @@ polyfills/Array/of/polyfill.js
 /polyfills/atob/polyfill.js
 /polyfills/AudioContext/polyfill.js
 polyfills/~html5-elements/polyfill.js
+
+polyfills/UserTiming/polyfill.js
