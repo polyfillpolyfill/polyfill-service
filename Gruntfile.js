@@ -93,7 +93,8 @@ module.exports = function(grunt) {
 			options: {
 				ignorePath: './.gitignore'
 			},
-      target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js']
+      target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js', '!polyfills/_ArrayIterator/polyfill.js', '!polyfills/Array/of/polyfill.js', '!polyfills/Array/prototype/values/polyfill.js', '!polyfills/atob/polyfill.js', '!polyfills/AudioContext/polyfill.js', '!polyfills/fetch/polyfill.js', '!polyfills/Function/prototype/bind/polyfill.js', '!polyfills/HTMLPictureElement/polyfill.js', '!polyfills/IntersectionObserver/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', '!polyfills/JSON/polyfill.js', '!polyfills/navigator/sendBeacon/polyfill.js', '!polyfills/Promise/polyfill.js', '!polyfills/setImmediate/polyfill.js', '!polyfills/URL/polyfill.js', '!polyfills/UserTiming/polyfill.js', '!polyfills/WeakSet/polyfill.js', '!polyfills/~html5-elements/polyfill.js',
+			]
     }
 	});
 
