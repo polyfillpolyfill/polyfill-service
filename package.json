@@ -51,7 +51,7 @@
     "handlebars": "^4.0.5",
     "intersection-observer": "^0.1.1",
     "intl": "^1.2.4",
-    "lodash": "^4.14.2",
+    "lodash": "^4.15.0",
     "lru-cache": "^4.0.1",
     "marked": "^0.3.6",
     "measured": "^1.0.0",
