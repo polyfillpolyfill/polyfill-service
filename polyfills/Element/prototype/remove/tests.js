@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var element, child;
 
 function nameOf(fn) {
@@ -12,26 +15,26 @@ beforeEach(function () {
 });
 
 it('has correct instance', function () {
-	expect(element.remove).to.be.a(Function);
+	proclaim.isInstanceOf(element.remove, Function);
 });
 
 it('has correct name', function () {
-	expect(nameOf(element.remove)).to.be('remove');
+	proclaim.equal(nameOf(element.remove), 'remove');
 });
 
 it('has correct argument length', function () {
-	expect(element.remove.length).to.be(0);
+	proclaim.equal(element.remove.length, 0);
 });
 
 it('can remove itself', function () {
-	expect(child.remove()).to.be(undefined);
+	proclaim.equal(child.remove(), undefined);
 
-	expect(element.childNodes.length).to.be(0);
+	proclaim.equal(element.childNodes.length, 0);
 });
 
 it('can remove itself from nothing', function () {
-	expect(child.remove()).to.be(undefined);
-	expect(child.remove()).to.be(undefined);
+	proclaim.equal(child.remove(), undefined);
+	proclaim.equal(child.remove(), undefined);
 
-	expect(element.childNodes.length).to.be(0);
+	proclaim.equal(element.childNodes.length, 0);
 });

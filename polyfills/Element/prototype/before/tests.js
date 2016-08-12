@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var element, child;
 
 function nameOf(fn) {
@@ -12,22 +15,22 @@ beforeEach(function () {
 });
 
 it('has correct instance', function () {
-	expect(element.before).to.be.a(Function);
+	proclaim.isInstanceOf(element.before, Function);
 });
 
 it('has correct name', function () {
-	expect(nameOf(element.before)).to.be('before');
+	proclaim.equal(nameOf(element.before), 'before');
 });
 
 it('has correct argument length', function () {
-	expect(element.before.length).to.be(0);
+	proclaim.equal(element.before.length, 0);
 });
 
 it('can insert elements before itself', function () {
-	expect(child.before('text', document.createElement('div'))).to.be(undefined);
-	expect(child.before(document.createElement('div'))).to.be(undefined);
-	expect(child.before(document.createElement('div'), document.createElement('div'))).to.be(undefined);
+	proclaim.equal(child.before('text', document.createElement('div')), undefined);
+	proclaim.equal(child.before(document.createElement('div')), undefined);
+	proclaim.equal(child.before(document.createElement('div'), document.createElement('div')), undefined);
 
-	expect(element.childNodes.length).to.be(6);
-	expect(element.firstChild.nodeName).to.be('#text');
+	proclaim.equal(element.childNodes.length, 6);
+	proclaim.equal(element.firstChild.nodeName, '#text');
 });

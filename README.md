@@ -3,7 +3,7 @@ Polyfill service
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
-For usage information see the [hosted service](polyfill-service), which formats and displays the service API documentation located in the [docs](docs/) folder.
+For usage information see the [hosted service](https://polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
 [![Build
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
@@ -255,7 +255,7 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
-[polyfill-service]: https://cdn.polyfill.io
+[polyfill-service]: https://polyfill.io
 [sauce]: saucelabs.com
 [semver]: http://semver.org/
-[usage]: https://cdn.polyfill.io/v1/docs/usage
+[usage]: https://polyfill.io/v2/docs/usage

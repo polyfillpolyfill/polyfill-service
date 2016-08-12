@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var spycalls = [];
 
 var spy = function() {
@@ -10,13 +13,13 @@ beforeEach(function () {
 
 it('should pass the correct arguments to the callback', function () {
 	[1,2,3].reduce(spy);
-	expect(spycalls.length).to.be(2);
-	expect(spycalls[0]).to.eql([1, 2, 1, [1,2,3]]);
+	proclaim.equal(spycalls.length, 2);
+	proclaim.deepEqual(spycalls[0], [1, 2, 1, [1,2,3]]);
 });
 it('should start with the right initialValue', function () {
 	[1,2,3].reduce(spy, 0);
-	expect(spycalls.length).to.be(3);
-	expect(spycalls[0]).to.eql([0, 1, 0, [1,2,3]]);
+	proclaim.equal(spycalls.length, 3);
+	proclaim.deepEqual(spycalls[0], [0, 1, 0, [1,2,3]]);
 });
 it('should not affect elements added to the array after it has begun', function () {
 	var arr = [1,2,3], i = 0;
@@ -27,29 +30,29 @@ it('should not affect elements added to the array after it has begun', function 
 		}
 		return b;
 	});
-	expect(arr).to.eql([1,2,3,4,5]);
-	expect(i).to.be(2);
+	proclaim.deepEqual(arr, [1,2,3,4,5]);
+	proclaim.equal(i, 2);
 });
 it('should work as expected for empty arrays', function () {
-	expect(function () {
+	proclaim.throws(function () {
 		[].reduce(spy);
-	}).to.throwException();
-	expect(spycalls.length).to.be(0);
+	});
+	proclaim.equal(spycalls.length, 0);
 });
 it('should throw correctly if no callback is given', function () {
-	expect(function () {
+	proclaim.throws(function () {
 		[1,2,3].reduce();
-	}).to.throwException();
+	});
 });
 it('should return the expected result', function () {
-	expect([1,2,3,4,5,6,7].reduce(function (a, b) {
+	proclaim.equal([1,2,3,4,5,6,7].reduce(function (a, b) {
 		return String(a || '') + String(b || '');
-	})).to.eql([1,2,3,4,5,6,7].join(''));
+	}), [1,2,3,4,5,6,7].join(''));
 });
 it('should return the expected result with a string', function () {
-	expect(Array.prototype.reduce.call('1234567', function (a, b) {
+	proclaim.equal(Array.prototype.reduce.call('1234567', function (a, b) {
 		return String(a || '') + String(b || '');
-	})).to.eql([1,2,3,4,5,6,7].join(''));
+	}), [1,2,3,4,5,6,7].join(''));
 });
 it('should not directly affect the passed array', function () {
 	var test = [1,2,3];
@@ -57,7 +60,7 @@ it('should not directly affect the passed array', function () {
 	test.reduce(function (a, b) {
 		return a + b;
 	});
-	expect(test).to.eql(copy);
+	proclaim.deepEqual(test, copy);
 });
 it('should skip non-set values', function () {
 	var test = [1,2,3];
@@ -68,8 +71,8 @@ it('should skip non-set values', function () {
 		if (b) { visited[b] = true; }
 		return 0;
 	});
-	expect(visited).to.eql({ 1: true, 3: true });
+	proclaim.deepEqual(visited, { 1: true, 3: true });
 });
 it('should return an array with length 1', function () {
-	expect([1,2,3].reduce.length).to.be(1);
+	proclaim.equal([1,2,3].reduce.length, 1);
 });

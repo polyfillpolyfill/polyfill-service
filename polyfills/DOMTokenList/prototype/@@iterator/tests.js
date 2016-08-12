@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 function getDOMTokenList () {
 	var div = document.createElement('div');
 	div.className = 'class1 class2';
@@ -6,18 +9,18 @@ function getDOMTokenList () {
 
 it('exists', function () {
 	if (!Symbol || !Symbol.iterator) {
-		expect(true).to.be.false;
+		proclaim.fail();
 		return;
 	}
-	expect(getDOMTokenList()[Symbol.iterator]).to.be.a(Function);
+	proclaim.isInstanceOf(getDOMTokenList()[Symbol.iterator], Function);
 });
 
 it('returns a next-able object', function () {
 	var tokenList = getDOMTokenList();
 	var iterator = tokenList[Symbol.iterator]();
 
-	expect(iterator.next).to.be.a(Function);
-	expect(iterator.next()).to.eql({
+	proclaim.isInstanceOf(iterator.next, Function);
+	proclaim.deepEqual(iterator.next(), {
 		value: 'class1',
 		done: false
 	});
@@ -28,7 +31,7 @@ it('finally returns a done object', function () {
 	var iterator = tokenList[Symbol.iterator]();
 	iterator.next();
 	iterator.next();
-	expect(iterator.next()).to.eql({
+	proclaim.deepEqual(iterator.next(), {
 		done: true,
 		value: undefined
 	});

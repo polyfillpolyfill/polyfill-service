@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var createArrayLikeFromArray = function createArrayLikeFromArray(arr) {
 	var o = {};
 	Array.prototype.forEach.call(arr, function (e, i) {
@@ -20,9 +23,9 @@ beforeEach(function () {
 it('should pass the right parameters', function () {
 	var args = [];
 	var argsspy = function() { args = [].slice.call(arguments); }
-	array = ['1'];
+	var array = ['1'];
 	array.forEach(argsspy);
-	expect(args).to.eql(['1', 0, array]);
+	proclaim.deepEqual(args, ['1', 0, array]);
 });
 it('should not affect elements added to the array after it has begun', function () {
 	var arr = [1,2,3],
@@ -31,14 +34,14 @@ it('should not affect elements added to the array after it has begun', function 
 		i++;
 		arr.push(a + 3);
 	});
-	expect(arr).to.eql([1,2,3,4,5,6]);
-	expect(i).to.be(3);
+	proclaim.deepEqual(arr, [1,2,3,4,5,6]);
+	proclaim.equal(i, 3);
 });
 
 it('should set the right context when given none', function () {
 	var context;
 	[1].forEach(function () { context = this; });
-	expect(context).to.be(function () { return this; }.call());
+	proclaim.strictEqual(context, function () { return this; }.call());
 });
 
 // IE6-8 does not distinguish between dense and sparse arrays
@@ -47,7 +50,7 @@ it('should set the right context when given none', function () {
 // 		actual[index] = obj;
 // 	});
 
-// 	expect(actual).to.eql(expected);
+// 	proclaim.deepEqual(actual, expected);
 // });
 
 // it('should iterate all using a context', function () {
@@ -56,7 +59,7 @@ it('should set the right context when given none', function () {
 // 	testSubject.forEach(function (obj, index) {
 // 		this.a[index] = obj;
 // 	}, o);
-// 	expect(actual).to.eql(expected);
+// 	proclaim.deepEqual(actual, expected);
 // });
 
 // it('should iterate all in an array-like object', function () {
@@ -66,7 +69,7 @@ it('should set the right context when given none', function () {
 // 		actual[index] = obj;
 // 	});
 
-// 	expect(actual).to.eql(expected);
+// 	proclaim.deepEqual(actual, expected);
 // });
 
 // it('should iterate all in an array-like object using a context', function () {
@@ -76,7 +79,7 @@ it('should set the right context when given none', function () {
 // 	Array.prototype.forEach.call(ts, function (obj, index) {
 // 		this.a[index] = obj;
 // 	}, o);
-// 	expect(actual).to.eql(expected);
+// 	proclaim.deepEqual(actual, expected);
 // });
 
 describe('strings', function () {
@@ -89,7 +92,7 @@ describe('strings', function () {
 			actual[index] = item;
 		});
 
-		expect(actual).to.eql(str.split(''));
+		proclaim.deepEqual(actual, str.split(''));
 	});
 
 	it('should iterate all in a string using a context', function () {
@@ -101,7 +104,7 @@ describe('strings', function () {
 			this.a[index] = item;
 		}, o);
 
-		expect(actual).to.eql(str.split(''));
+		proclaim.deepEqual(actual, str.split(''));
 	});
 });
 
@@ -112,6 +115,6 @@ it('should have a boxed object as list argument of callback', function () {
 		actual = list;
 	});
 
-	expect(typeof actual).to.be('object');
-	expect(Object.prototype.toString.call(actual)).to.be('[object String]');
+	proclaim.isTypeOf(actual, 'object');
+	proclaim.equal(Object.prototype.toString.call(actual), '[object String]');
 });
