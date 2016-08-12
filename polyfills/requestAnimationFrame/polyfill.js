@@ -15,7 +15,7 @@
 		        callback(performance.now());
 		    });
 		};
-		global.cancelAnimationFrame = global[rafPrefix + 'mozCancelAnimationFrame'];
+		global.cancelAnimationFrame = global[rafPrefix + 'CancelAnimationFrame'];
 	} else {
 
 		var lastTime = Date.now();
