@@ -84,6 +84,21 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 });
 
+router.get(/^\/v2\/detect(\.\w+)(\.\w+)?/, (req, res) => {
+	const polyfills = PolyfillSet.fromQueryParam(req.query.features);
+
+	const params = {
+		features: polyfills.get()
+	};
+
+	polyfillio.getDetectString(params).then(op => {
+		res.set('Content-Type', contentTypes['.js']+';charset=utf-8');
+		res.set('Access-Control-Allow-Origin', '*');
+		res.send(op);
+	});
+
+});
+
 router.get("/v2/normalizeUa", (req, res) => {
 
 	if (req.query.ua) {
