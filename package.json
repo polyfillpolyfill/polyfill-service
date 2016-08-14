@@ -42,6 +42,8 @@
     "babel-core": "^6.13.2",
     "babel-preset-es2015": "^6.1.18",
     "blocked": "^1.1.0",
+    "co": "^4.6.0",
+    "common-tags": "^1.3.1",
     "convert-source-map": "^1.3.0",
     "denodeify": "^1.2.1",
     "dotenv": "^2.0.0",
@@ -77,6 +79,7 @@
   },
   "devDependencies": {
     "batch": "^0.5.1",
+    "comment-parser": "^0.4.0",
     "fastly": "Financial-Times/fastly#v2.5.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-simple-mocha": "^0.4.0",
