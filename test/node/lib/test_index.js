@@ -307,5 +307,3 @@ describe("polyfillio", function() {
 		});
 	});
 });
-
-// new vm.Script("(function(undefined) { var featuresToPolyfill = []; if (!('Symbol' in this && 'iterator' in this.Symbol && !!Array.prototype[Symbol.iterator] && !!Array.prototype.values && (Array.prototype[Symbol.iterator] === Array.prototype.values))) { featuresToPolyfill.push('Array.prototype.values')}if (!('Symbol' in this)) { featuresToPolyfill.push('Symbol')} return featuresToPolyfill}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});").runInNewContext()
