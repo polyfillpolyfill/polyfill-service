@@ -1,0 +1,1 @@
+'isFinite' in Number
