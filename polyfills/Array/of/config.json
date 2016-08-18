@@ -14,7 +14,9 @@
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "*",
-		"firefox_mob": "* - 24",
+		"firefox_mob": "<25",
+		"android": "*",
+		"ios_saf": "<9",
 		"samsung_mob": "*"
 	},
 	"dependencies": [
