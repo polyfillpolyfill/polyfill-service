@@ -82,6 +82,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-simple-mocha": "^0.4.0",
     "mkdirp": "^0.5.1",
+    "node-fetch": "^1.6.0",
     "sauce-tunnel": "^2.2.3",
     "uglify-js": "^2.4.14",
     "wd": "^0.4.0"
