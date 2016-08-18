@@ -1,0 +1,20 @@
+{
+	"browsers": {
+		"ie": "8 <",
+		"firefox": "*",
+		"chrome": "*",
+		"safari": "*",
+		"android": "*",
+		"ios_saf": "*",
+		"opera": "*"
+	},
+	"dependencies": [
+		"_ArrayIterator",
+		"Symbol.iterator"
+	],
+	"spec": "https://drafts.csswg.org/cssom/#the-stylesheetlist-interface",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator",
+	"notes": [
+	  "This is not actually in the specification."
+	]
+}
