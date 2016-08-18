@@ -5,11 +5,11 @@
 	"browsers": {
 		"ie": "7 - 11",
 		"ie_mob": "10 - 11",
-		"safari": "<7.1",
+		"safari": "<9",
 		"chrome": "<38",
 		"firefox": "<36",
-		"android": "<5",
-		"ios_saf": "<8",
+		"android": "*",
+		"ios_saf": "<9",
 		"opera": "<25",
 		"firefox_mob": "<36"
 	},
