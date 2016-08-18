@@ -1,7 +1,8 @@
 /* global describe, it */
+'use strict';
 
-var assert  = require('proclaim');
-var polyfillio = require('../../../lib/index');
+const assert = require('proclaim');
+const polyfillio = require('../../../lib/index');
 const vm = require('vm');
 const extract = require('comment-parser');
 
@@ -147,19 +148,21 @@ describe("polyfillio", function() {
 
 	describe('.getDetectString', function() {
 
-		it('should exist', function() {
-		});
-
 		it('should be a function', function() {
+			assert.isFunction(polyfillio.getDetectString);
 		});
 
 		it('should have argument length of 1', function() {
-		});
-
-		it('should throw if not passed an object with a `features` property', function() {
+			assert.equal(polyfillio.getDetectString.length, 1);
 		});
 
 		it('should return valid js', function() {
+			return polyfillio.getDetectString()
+			.then(detectString => {
+				assert.doesNotThrow(function(){
+					new vm.Script(detectString).runInNewContext();
+				});
+			});
 		});
 
 		describe("should understand all the aliases that the service has defined", function() {
@@ -178,7 +181,6 @@ describe("polyfillio", function() {
 						'all': { flags: [] }
 					}
 				}).then(function(polyfillSet) {
-					console.log(1111, new vm.Script(polyfillSet).runInNewContext());
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
 			});
@@ -257,7 +259,7 @@ describe("polyfillio", function() {
 		/**
 		 * This currently fails, I think this is due to a bug in /lib/aliases.js
 		 */
-		xit('should add unknown features to a comment block', function() {
+		it('should add unknown features to a comment block', function() {
 			return polyfillio.getDetectString({
 					features: {
 						'this_feature_does_not_exist': { flags: [] }
@@ -267,7 +269,7 @@ describe("polyfillio", function() {
 				});
 		});
 
-		it('should add known features\' detection code into returned bundle', function() {
+		xit('should add known features\' detection code into returned bundle', function() {
 			// Need to mock polyfills.
 		});
 
@@ -303,7 +305,30 @@ describe("polyfillio", function() {
 				});
 		});
 
-		xit('should execute callback function provided by user, with an array containing the names of each feature requiring a polyfill', function() {
+		it('should execute callback function provided, with an array containing the names of each feature requiring a polyfill', function() {
+			/**
+			 * We are testing it is the array named featuresToPolyfill by
+			 * relying on the features tested previously. If a feature's
+			 * not detected in the users' system it's name will be added to the
+			 * featuresToPolyfill array. Because of this fact, if we request a feature
+			 * we know is going to be added to the featuresToPolyfill array, we can
+			 * test that this feature exists within the array returned by the bundle,
+			 * thereby giving us a high level of certainty that the returned array is
+			 * the same as the array named featuresToPolyfill.
+			 */
+			return polyfillio.getDetectString({
+					features: {
+						'Event.focusin': { flags: [] }
+					},
+					callback: 'hello'
+				}).then(function(polyfillSet) {
+					new vm.Script(polyfillSet).runInNewContext({
+						hello: function (missingFeatures) {
+							assert(Array.isArray(missingFeatures));
+							assert(missingFeatures.includes('Event.focusin'));
+						}
+					});
+				});
 		});
 	});
 });
