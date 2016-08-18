@@ -21,6 +21,7 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
+		"Symbol.iterator",
 		"Object.defineProperty"
 	],
 	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from",
