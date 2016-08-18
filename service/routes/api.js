@@ -88,7 +88,8 @@ router.get(/^\/v2\/detect(\.\w+)(\.\w+)?/, (req, res) => {
 	const polyfills = PolyfillSet.fromQueryParam(req.query.features);
 
 	const params = {
-		features: polyfills.get()
+		features: polyfills.get(),
+		callback: req.query.callback
 	};
 
 	polyfillio.getDetectString(params).then(op => {
