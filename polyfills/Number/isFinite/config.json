@@ -1,0 +1,15 @@
+{
+	"aliases": [
+		"es6"
+	],
+	"browsers": {
+		"ie": "*",
+		"firefox": "<16",
+		"chrome":"<19",
+		"safari": "<9",
+		"opera": "<15"
+	},
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-isfinite-number",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite"
+}
