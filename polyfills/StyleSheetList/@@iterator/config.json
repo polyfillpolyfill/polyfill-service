@@ -1,6 +1,6 @@
 {
 	"browsers": {
-		"ie": "8 <",
+		"ie": "9 <",
 		"firefox": "*",
 		"chrome": "*",
 		"safari": "*",
