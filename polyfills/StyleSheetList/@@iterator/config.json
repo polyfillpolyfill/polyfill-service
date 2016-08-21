@@ -10,7 +10,8 @@
 	},
 	"dependencies": [
 		"_ArrayIterator",
-		"Symbol.iterator"
+		"Symbol.iterator",
+		"StyleSheetList"
 	],
 	"spec": "https://drafts.csswg.org/cssom/#the-stylesheetlist-interface",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator",
