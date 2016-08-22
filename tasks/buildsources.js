@@ -16,7 +16,6 @@ module.exports = function(grunt) {
 	const babel = require("babel-core");
 	const mkdir = require('mkdirp').sync;
 	const tsort = require('tsort');
-	const convert = require('convert-source-map');
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
@@ -91,7 +90,8 @@ module.exports = function(grunt) {
 				if (config.build && config.build.minify === false) {
 					// skipping any validation or minification process since
 					// the raw source is supposed to be production ready.
-					config.minSource = convert.removeComments(config.rawSource);
+					// Add a line break in case the final line is a comment
+					config.minSource = config.rawSource + "\n";
 				} else {
 					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
 					config.minSource = uglify.minify(config.rawSource, {
