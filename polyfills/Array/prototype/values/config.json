@@ -1,4 +1,8 @@
 {
+	"aliases": [
+		"es6",
+		"modernizr:es6array"
+	],
 	"browsers": {
 		"ie": "9 - 12",
 		"firefox": "<38",
