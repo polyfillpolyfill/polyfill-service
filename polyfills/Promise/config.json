@@ -35,6 +35,6 @@
 	"repo": "https://github.com/ysmood/yaku",
 	"install": {
 		"module": "yaku",
-		"paths": ["dist/yaku.browser.global.js"]
+		"paths": ["dist/yaku.browser.global.min.js"]
 	}
 }

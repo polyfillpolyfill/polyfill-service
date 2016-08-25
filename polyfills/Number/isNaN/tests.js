@@ -1,23 +1,26 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Number.isNaN).to.be.a(Function);
+	proclaim.isInstanceOf(Number.isNaN, Function);
 });
 
 it('has correct argument length', function () {
-	expect(Number.isNaN.length).to.be(1);
+	proclaim.equal(Number.isNaN.length, 1);
 });
 
 it('returns true with NaN values', function () {
-	expect(Number.isNaN(NaN)).to.be(true);
-	expect(Number.isNaN(Number.NaN)).to.be(true);
-	expect(Number.isNaN(0/0)).to.be(true);
+	proclaim.equal(Number.isNaN(NaN), true);
+	proclaim.equal(Number.isNaN(Number.NaN), true);
+	proclaim.equal(Number.isNaN(0/0), true);
 });
 
 it('retuns false for valid numbers and non-number data types', function () {
-	expect(Number.isNaN("NaN")).to.be(false);
-	expect(Number.isNaN(undefined)).to.be(false);
-	expect(Number.isNaN({})).to.be(false);
-	expect(Number.isNaN("blabla")).to.be(false);
-	expect(Number.isNaN(true)).to.be(false);
-	expect(Number.isNaN(37)).to.be(false);
-	expect(Number.isNaN("37")).to.be(false);
+	proclaim.equal(Number.isNaN("NaN"), false);
+	proclaim.equal(Number.isNaN(undefined), false);
+	proclaim.equal(Number.isNaN({}), false);
+	proclaim.equal(Number.isNaN("blabla"), false);
+	proclaim.equal(Number.isNaN(true), false);
+	proclaim.equal(Number.isNaN(37), false);
+	proclaim.equal(Number.isNaN("37"), false);
 });

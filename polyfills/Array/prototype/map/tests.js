@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var callback;
 var testSubject;
 beforeEach(function () {
@@ -14,24 +17,24 @@ it('should call callback with the right parameters', function () {
 	var argsspy = function() { args = [].slice.call(arguments); };
 	var array = [1];
 	array.map(argsspy);
-	expect(args).to.eql(['1', 0, array]);
+	proclaim.deepEqual(args, ['1', 0, array]);
 });
 it('should set the context correctly', function () {
 	var context = {};
 	testSubject.map(function (o,i) {
 		this[i] = o;
 	}, context);
-	expect(context).to.eql(testSubject);
+	proclaim.deepEqual(context, testSubject);
 });
 it('should set the right context when given none', function () {
 	var context;
 	[1].map(function () {context = this;});
-	expect(context).to.be(function () { return this; }.call());
+	proclaim.strictEqual(context, function () { return this; }.call());
 });
 it('should not change the array it is called on', function () {
 	var copy = testSubject.slice();
 	testSubject.map(callback);
-	expect(testSubject).to.eql(copy);
+	proclaim.deepEqual(testSubject, copy);
 });
 it('should only run for the number of objects in the array when it started', function () {
 	var arr = [1,2,3],
@@ -41,8 +44,8 @@ it('should only run for the number of objects in the array when it started', fun
 		i++;
 		return o;
 	});
-	expect(arr).to.eql([1, 2, 3, 4, 5, 6]);
-	expect(i).to.be(3);
+	proclaim.deepEqual(arr, [1, 2, 3, 4, 5, 6]);
+	proclaim.equal(i, 3);
 });
 
 // IE6-8 does not distinguish between dense and sparse arrays
@@ -51,7 +54,7 @@ it('should only run for the number of objects in the array when it started', fun
 // 		expected = [0, 0, 1, 2, 3, 4, 5, 6];
 
 // 	delete expected[1];
-// 	expect(result).to.eql(expected);
+// 	proclaim.deepEqual(result, expected);
 // });
 it('should skip non-existing values', function () {
 	var array = [1, 2, 3, 4],
@@ -60,5 +63,5 @@ it('should skip non-existing values', function () {
 	array.map(function () {
 		i++;
 	});
-	expect(i).to.be(3);
+	proclaim.equal(i, 3);
 });

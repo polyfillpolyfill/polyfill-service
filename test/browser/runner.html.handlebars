@@ -9,7 +9,7 @@
 	<!-- Test and expectation libraries -->
 	<link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
 	<script src="/test/libs/mocha/mocha.js"></script>
-	<script src="/test/libs/expect/index.js"></script>
+	<script src="/test/libs/proclaim/proclaim.js"></script>
 
 	<!-- Initalise Mocha -->
 	<script>mocha.setup('bdd')</script>
@@ -24,13 +24,13 @@
 	{{#features}}
 	describe('{{feature}}', function() {
 		it('is running the test framework', function() {
-			expect(true).to.be(true);
+			proclaim.ok(true);
 		});
 		{{#detect}}
 		it('passes a feature detect', function() {
-			expect((function() {
+			proclaim.ok((function() {
 				return ({{{.}}});
-			}).call(window)).to.be.ok();
+			}).call(window));
 		});
 		{{/detect}}
 		{{#tests}}
