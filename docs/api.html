@@ -16,7 +16,7 @@
 				<li>There are changes to the Node API.  See the README for details.</li>
 			</ul>
 
-			<h2>GET /v{{apiversion}}/polyfill<var>:minify</var>.<var>:type</var></h2>
+			<h2>GET /v2/polyfill<var>:minify</var>.<var>:type</var></h2>
 
 			<p>Fetch a polyfill bundle.</p>
 
@@ -83,6 +83,53 @@
 					<td>Set to <code>1</code> to enable <a href='https://en.wikipedia.org/wiki/Real_user_monitoring'>real user monitoring</a>, allowing the polyfill service to gather performance data about itself using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API/Using_the_Resource_Timing_API'>resource timing API</a>, where available, and to perform feature detection to improve our browser targeting.  Turning this on will help us improve the service, and tune our browser targeting to better serve your particular users.  Defaults to 0.  In a future release this will be on by default, so if you want to opt out permanently, set it explicitly to <code>0</code> now.</td>
 				</tr>
 			</table>
+
+			<h2>GET /v2/getRumPerfData</h2>
+
+			<p>Reports network performance data from Real user monitoring, grouped by CDN point of presence and location of origin of the request, covering the last 30 days. Data includes separate statistics for DNS connection, TCP connect, request and response phases of the connection.  Each variable is broken down into separate statistics for each of the following:</p>
+
+			<ul>
+			<li>Count of non-null values recorded (null values can result from beacon data from browsers that do not support the resource timing API)</li>
+			<li>minimum value</li>
+			<li>maximum value</li>
+			<li>mean value</li>
+			<li>Standard deviation</li>
+			<li>95th percentile value (probably the most useful)</li>
+			<li>99th percentile value</li>
+			</ul>
+
+			<p>This endpoint is only available if Real user monitoring is enabled.</p>
+
+			<table class='apidoc'>
+				<tr>
+					<th>Param</th><th>Where</th><th>Description</th>
+				</tr><tr>
+					<td><code>headerrow</code></td>
+					<td>Querystring</td>
+					<td>
+						Whether to include a header row in the CSV output
+					</td>
+				</tr>
+			</table>
+
+			<h2>GET /v2/getRumCompatData</h2>
+
+			<p>Reports compatibility data from Real user monitoring, grouped by browser family and version, covering the last 30 days.</p>
+
+			<p>This endpoint is only available if Real user monitoring is enabled.</p>
+
+			<table class='apidoc'>
+				<tr>
+					<th>Param</th><th>Where</th><th>Description</th>
+				</tr><tr>
+					<td><code>headerrow</code></td>
+					<td>Querystring</td>
+					<td>
+						Whether to include a header row in the CSV output
+					</td>
+				</tr>
+			</table>
+
 		</div>
 
 {{>footer}}
