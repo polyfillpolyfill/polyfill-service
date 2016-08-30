@@ -19,7 +19,7 @@ exports.handle = (event, context, callback) => {
 	}
 
 	const mysqlConn = MySQL.createConnection(process.env.RUM_MYSQL_DSN);
-	const mysqlConnectPromise = denodeify(mysqlConn.connect.bind(mysqlConn))().then(() => console.log('MySQL Connected, env: '+env));
+	const mysqlConnectPromise = denodeify(mysqlConn.connect.bind(mysqlConn))().then(() => console.log('MySQL Connected: '+process.env.RUM_MYSQL_DSN));
 
 	const mysqlQuery = denodeify(mysqlConn.query.bind(mysqlConn));
 
