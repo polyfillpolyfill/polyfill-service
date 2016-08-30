@@ -84,6 +84,7 @@
 				</tr>
 			</table>
 
+			{{#rumEnabled}}
 			<h2>GET /v2/getRumPerfData</h2>
 
 			<p>Reports network performance data from Real user monitoring, grouped by CDN point of presence and location of origin of the request, covering the last 30 days. Data includes separate statistics for DNS connection, TCP connect, request and response phases of the connection.  Each variable is broken down into separate statistics for each of the following:</p>
@@ -129,6 +130,7 @@
 					</td>
 				</tr>
 			</table>
+			{{/rumEnabled}}
 
 		</div>
 

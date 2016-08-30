@@ -291,7 +291,8 @@ function route(req, res, next) {
 		.resolve({
 			apiversion: req.params[0],
 			appversion: appVersion,
-			pageName: (req.params[1] || 'index').replace(/\/$/, '')
+			pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+			rumEnabled: !!process.env.RUM_MYSQL_DSN
 		})
 
 		// Add page-specific data
