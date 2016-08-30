@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 					const envvar = (env !== 'prod') ? 'RUM_MYSQL_DSN_QA' : 'RUM_MYSQL_DSN';
 					console.log('Deploying Lambda functions.  Environment:', env);
 
-					const cmd = `apex deploy -C ./tasks/lambda --profile=${profile} --set ${envvar}=$${envvar}`;
+					const cmd = `apex deploy -C ./tasks/lambda --profile=${profile} --set RUM_MYSQL_DSN=$${envvar}`;
 					return cmd;
 				}
 			}
