@@ -1,21 +1,21 @@
 (function (global) {
+	var rafPrefix;
 
 	if ('mozRequestAnimationFrame' in global) {
-		global.requestAnimationFrame = function (callback) {
-		    return mozRequestAnimationFrame(function () {
-		        callback(performance.now());
-		    });
-		};
-		global.cancelAnimationFrame = mozCancelAnimationFrame;
+		rafPrefix = 'moz';
 
 	} else if ('webkitRequestAnimationFrame' in global) {
+		rafPrefix = 'webkit';
+
+	}
+
+	if (rafPrefix) {
 		global.requestAnimationFrame = function (callback) {
-		    return webkitRequestAnimationFrame(function () {
+		    return global[rafPrefix + 'RequestAnimationFrame'](function () {
 		        callback(performance.now());
 		    });
 		};
-		global.cancelAnimationFrame = webkitCancelAnimationFrame;
-
+		global.cancelAnimationFrame = global[rafPrefix + 'CancelAnimationFrame'];
 	} else {
 
 		var lastTime = Date.now();
@@ -46,4 +46,4 @@
 			clearTimeout(id);
 		};
 	}
-})(this);
+}(this));

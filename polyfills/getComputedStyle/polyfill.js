@@ -112,4 +112,4 @@
 	global.getComputedStyle = function getComputedStyle(element) {
 		return new CSSStyleDeclaration(element);
 	};
-})(this);
+}(this));

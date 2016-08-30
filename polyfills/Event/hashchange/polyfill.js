@@ -15,4 +15,4 @@
 	global.onhashchange = function() {};
 
 	poll();
-})(this);
+}(this));

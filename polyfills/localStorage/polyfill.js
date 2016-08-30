@@ -98,4 +98,4 @@
 
 		global.attachEvent('onunload', updateKeys);
 	}
-})(this);
+}(this));

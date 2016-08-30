@@ -88,7 +88,14 @@ module.exports = function(grunt) {
 			dryrun: { options: {service: "qa", dryRun: true} },
 			qa: { options: {service: "qa"} },
 			prod: { options: {service: "prod"} }
-		}
+		},
+		"eslint": {
+			options: {
+				ignorePath: './.gitignore'
+			},
+      target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js', '!polyfills/_ArrayIterator/polyfill.js', '!polyfills/Array/of/polyfill.js', '!polyfills/Array/prototype/values/polyfill.js', '!polyfills/atob/polyfill.js', '!polyfills/AudioContext/polyfill.js', '!polyfills/fetch/polyfill.js', '!polyfills/Function/prototype/bind/polyfill.js', '!polyfills/HTMLPictureElement/polyfill.js', '!polyfills/IntersectionObserver/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', '!polyfills/JSON/polyfill.js', '!polyfills/navigator/sendBeacon/polyfill.js', '!polyfills/Promise/polyfill.js', '!polyfills/setImmediate/polyfill.js', '!polyfills/URL/polyfill.js', '!polyfills/UserTiming/polyfill.js', '!polyfills/WeakSet/polyfill.js', '!polyfills/~html5-elements/polyfill.js',
+			]
+    }
 	});
 
 	if (process.env.NODE_ENV === 'production') {
@@ -100,6 +107,7 @@ module.exports = function(grunt) {
 		grunt.loadNpmTasks('grunt-contrib-clean');
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-simple-mocha');
+		grunt.loadNpmTasks('grunt-eslint');
 	}
 
 	grunt.registerTask("test", [
