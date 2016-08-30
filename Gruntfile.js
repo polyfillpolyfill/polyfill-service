@@ -93,13 +93,11 @@ module.exports = function(grunt) {
 			"deployrumlambda": {
 				command: env => {
 
-					// These AWS profiles are expected to be in ~/.aws/credentials
-					const profile = (env !== 'prod') ? 'polyfill-qa' : 'polyfill';
+					if (env !== 'prod') env = 'qa';
+					const qasuffix = (env !== 'prod') ? '_QA' : '';
+					const cmd = `AWS_ACCESS_KEY_ID=${process.env['RUM_AWS_ACCESS_KEY'+qasuffix]} AWS_SECRET_ACCESS_KEY=${process.env['RUM_AWS_SECRET_KEY'+qasuffix]} apex deploy -C ./tasks/lambda --env ${env} --set RUM_MYSQL_DSN=${process.env['RUM_MYSQL_DSN'+qasuffix]}`;
 
-					const envvar = (env !== 'prod') ? 'RUM_MYSQL_DSN_QA' : 'RUM_MYSQL_DSN';
 					console.log('Deploying Lambda functions.  Environment:', env);
-
-					const cmd = `apex deploy -C ./tasks/lambda --profile=${profile} --set RUM_MYSQL_DSN=$${envvar}`;
 					return cmd;
 				}
 			}
