@@ -55,6 +55,7 @@
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.1.1",
     "intl": "^1.2.4",
+    "js-polyfills": "^0.1.22",
     "lodash": "^4.15.0",
     "lru-cache": "^4.0.1",
     "marked": "^0.3.6",
