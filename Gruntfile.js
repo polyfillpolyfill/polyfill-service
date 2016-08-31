@@ -103,7 +103,7 @@ module.exports = function(grunt) {
 		require('./tasks/updatelibrary')(grunt);
 		grunt.loadNpmTasks('grunt-contrib-clean');
 	} else {
-		grunt.loadTasks('tasks');
+		grunt.loadTasks('grunt');
 		grunt.loadNpmTasks('grunt-contrib-clean');
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-simple-mocha');
