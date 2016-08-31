@@ -1,11 +1,13 @@
 {
 	"browsers": {
 		"ie": "9-12",
+		"ie_mob": "9 - 12",
 		"safari": "<9",
 		"chrome": "<50",
 		"firefox": "<40",
 		"ios_saf": "*",
-		"opera": "<50"
+		"opera": "<50",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"_ArrayIterator",
