@@ -2,8 +2,6 @@
 
 'use strict';
 
-const polyfillio = require('../../lib');
-const UA = require('../../lib/UA');
 const express = require('express');
 
 let mysql;

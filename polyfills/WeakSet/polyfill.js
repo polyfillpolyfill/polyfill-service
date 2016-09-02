@@ -32,4 +32,4 @@
 	};
 
 	global.WeakSet = WeakSet;
-})(this);
+}(this));

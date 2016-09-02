@@ -3,7 +3,7 @@
 
 /* global Symbol */
 
-var ArrayIterator = (function() {
+var ArrayIterator = (function() { // eslint-disable-line no-unused-vars
 	var Iterator = (function() {
 		var clear = function() {
 			this.length = 0;

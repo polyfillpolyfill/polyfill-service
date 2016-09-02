@@ -88,4 +88,4 @@
 	confirmed = false,
 	// navigator.geolocation
 	geolocation = navigator.geolocation = new Geolocation();
-})(this);
+}(this));

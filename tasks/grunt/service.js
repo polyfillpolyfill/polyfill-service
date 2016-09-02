@@ -123,7 +123,7 @@ module.exports = function(grunt) {
 				proc.on('error', function() {
 					return grunt.log.error('error', arguments);
 				});
-				proc.on('exit', function(err, code) {
+				proc.on('exit', function(err, code) { // eslint-disable-line no-unused-vars
 					// Enable for debug if desired
 					//return grunt.log.writeln('exit', arguments);
 				});

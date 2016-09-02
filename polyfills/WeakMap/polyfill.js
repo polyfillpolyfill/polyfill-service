@@ -11,12 +11,11 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
- (function(global) {
+ (function() {
 	var defineProperty = Object.defineProperty;
 	var counter = Date.now() % 1e9;
 
 	var WeakMap = function(data) {
-		var i, s;
 		this.name = '__st' + (Math.random() * 1e9 >>> 0) + (counter++ + '__');
 
 		// If data is iterable (indicated by presence of a forEach method), pre-populate the map
@@ -54,4 +53,4 @@
 	};
 
 	this.WeakMap = WeakMap;
-})(this);
+}(this));
