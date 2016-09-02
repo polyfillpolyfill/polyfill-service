@@ -21,3 +21,5 @@ polyfills/Array/of/polyfill.js
 polyfills/~html5-elements/polyfill.js
 
 polyfills/UserTiming/polyfill.js
+
+polyfills/URL/polyfill.js
