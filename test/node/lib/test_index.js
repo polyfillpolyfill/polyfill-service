@@ -157,10 +157,10 @@ describe("polyfillio", function() {
 		});
 
 		it('should return valid js', function() {
-			return polyfillio.getDetectString()
+			return polyfillio.getDetectString({callback: 'hello'})
 			.then(detectString => {
 				assert.doesNotThrow(function(){
-					new vm.Script(detectString).runInNewContext();
+					new vm.Script(detectString).runInNewContext({hello:Function});
 				});
 			});
 		});
@@ -179,7 +179,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'all': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -189,7 +190,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'es6': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -199,7 +201,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'modernizr:es6array': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -209,7 +212,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'blissfuljs': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -219,7 +223,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'default': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -229,7 +234,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'es5': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -239,7 +245,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'dom4': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -249,7 +256,8 @@ describe("polyfillio", function() {
 				return polyfillio.getDetectString({
 					features: {
 						'PageVisibility': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.length > smallestLengthOfBundle);
 				});
@@ -263,7 +271,8 @@ describe("polyfillio", function() {
 			return polyfillio.getDetectString({
 					features: {
 						'this_feature_does_not_exist': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(extract(polyfillSet)[0].description.includes('this_feature_does_not_exist'));
 				});
@@ -277,31 +286,10 @@ describe("polyfillio", function() {
 			return polyfillio.getDetectString({
 					features: {
 						'this_feature_does_not_exist': { flags: [] }
-					}
+					},
+					callback: 'hello'
 				}).then(function(polyfillSet) {
 					assert(polyfillSet.includes('var featuresToPolyfill = []'));
-				});
-		});
-
-		it('should add the name of each feature to polyfill to the array returned', function() {
-			/**
-			 * We are testing it is the array named featuresToPolyfill by
-			 * relying on the features tested previously. If a feature's
-			 * not detected in the users' system it's name will be added to the
-			 * featuresToPolyfill array. Because of this fact, if we request a feature
-			 * we know is going to be added to the featuresToPolyfill array, we can
-			 * test that this feature exists within the array returned by the bundle,
-			 * thereby giving us a high level of certainty that the returned array is
-			 * the same as the array named featuresToPolyfill.
-			 */
-			return polyfillio.getDetectString({
-					features: {
-						'Event.focusin': { flags: [] }
-					}
-				}).then(function(polyfillSet) {
-					const returnedValue = new vm.Script(polyfillSet).runInNewContext();
-					assert(Array.isArray(returnedValue));
-					assert(returnedValue.includes('Event.focusin'));
 				});
 		});
 
