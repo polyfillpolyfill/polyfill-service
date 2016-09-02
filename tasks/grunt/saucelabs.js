@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 	const mkdirp = require('mkdirp');
 	const path = require('path');
 	const fs = require('fs');
-	const testResultsPath = path.join(__dirname, '../test/results');
+	const testResultsPath = path.join(__dirname, '../../test/results');
 
 	const pollTick = 1000;
 	const retryLimit = 50;

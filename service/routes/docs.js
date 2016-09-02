@@ -14,8 +14,19 @@ const compatdata = require('../../docs/assets/compat.json');
 const appVersion = require(path.join(__dirname,'../../package.json')).version;
 
 const cache = {};
-const cachettls = {fastly:1800, respTimes:1800, outages:86400};
+const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 const templCache = {};
+let mysql;
+
+if (process.env.RUM_MYSQL_DSN) {
+	require('promise-mysql')
+		.createConnection(process.env.RUM_MYSQL_DSN)
+		.then(conn => {
+			mysql = conn;
+		})
+	;
+}
+
 
 // Template loader
 function template(name) {
@@ -39,6 +50,7 @@ Handlebars.registerHelper({
 	prettifyDate: timestamp => moment(timestamp*1000).format("D MMM YYYY HH:mm"),
 	prettifyDuration: seconds => seconds ? moment.duration(seconds*1000).humanize() : 'None',
 	lower: str => str.toLowerCase(),
+	number_format: str => parseInt(str, 10).toLocaleString(),
 	ifEq: (v1, v2, options) => (v1 === v2) ? options.fn(this) : options.inverse(this),
 	ifPrefix: (v1, v2, options) => (v1.indexOf(v2) === 0) ? options.fn(this) : options.inverse(this),
 	sectionHighlight: (section, pageName) => {
@@ -164,6 +176,31 @@ function getData(type) {
 				}));
 			}));
 		},
+		rumPerf: () => {
+			if (!mysql) return [];
+			const perfFields = ['dns', 'connect', 'req', 'resp'];
+			const perfSQL = perfFields.map(fieldName => `
+				SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_${fieldName}) ORDER BY perf_${fieldName} SEPARATOR ','), ',', FLOOR(0.95 * SUM(perf_${fieldName} IS NOT NULL)) + 1), ',', -1)+0 AS perf_${fieldName}_95
+			`).join(', ');
+			const querySQL = `
+				SELECT data_center, COUNT(perf_dns IS NOT NULL) as count, ${perfSQL},
+					SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_dns+perf_connect+perf_req+perf_resp) ORDER BY (perf_dns+perf_connect+perf_req+perf_resp) SEPARATOR ','), ',', FLOOR(0.95 * SUM((perf_dns+perf_connect+perf_req+perf_resp))) + 1), ',', -1)+0 AS perf_total_95
+				FROM requests
+				WHERE req_time BETWEEN (CURDATE() - INTERVAL 30 DAY) AND CURDATE() AND data_center IS NOT NULL
+				GROUP BY data_center
+				HAVING count > 10
+				ORDER BY count DESC
+			`;
+			return mysql.query(querySQL).then(results => {
+				const highest = results.reduce((max, row) => Math.max(max, (row.perf_dns_95 + row.perf_connect_95 + row.perf_req_95 + row.perf_resp_95)), 0);
+				return results.map(row => {
+					perfFields.forEach(key => {
+						row['perf_'+key+'_95_display_pc'] = Math.round((row['perf_'+key+'_95'] / highest) * 1000) / 10;
+					});
+					return Object.assign({}, row);
+				})
+			});
+		},
 		compat: getCompat
 	};
 
@@ -176,6 +213,10 @@ function getData(type) {
 		}
 		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
 		return cache[type].promise = handlers[type]()
+			.then(result => {
+				console.log('Completed generating docs data: type='+type);
+				return result;
+			})
 			.catch(err => {
 				const errobj = err.error || err;
 				throw {
@@ -250,7 +291,8 @@ function route(req, res, next) {
 		.resolve({
 			apiversion: req.params[0],
 			appversion: appVersion,
-			pageName: (req.params[1] || 'index').replace(/\/$/, '')
+			pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+			rumEnabled: !!process.env.RUM_MYSQL_DSN
 		})
 
 		// Add page-specific data
@@ -263,14 +305,15 @@ function route(req, res, next) {
 				const one_hour = 60 * 60;
 				const one_week = one_hour * 24 * 7;
 				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes')])
-					.then(spread((fastly, outages, respTimes) => {
+				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes'), getData('rumPerf')])
+					.then(spread((fastly, outages, respTimes, rumPerf) => {
 						return Object.assign(locals, {
 							requestsData: fastly.byday,
 							downtime: outages,
 							respTimes: respTimes,
 							hitCount: fastly.rollup.hits,
-							missCount: fastly.rollup.miss
+							missCount: fastly.rollup.miss,
+							rumPerfData: rumPerf
 						});
 					}))
 					.catch(ex => Object.assign(locals, ex))
@@ -299,7 +342,10 @@ function route(req, res, next) {
 		.then(locals => {
 			template(locals.pageName)
 				.then(templFn => res.send(templFn(locals)))
-				.catch(() => next())
+				.catch(err => {
+					console.log(err);
+					next();
+				})
 			;
 		})
 	;
