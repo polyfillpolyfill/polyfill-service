@@ -12,20 +12,11 @@ const PolyfillSet = require('../PolyfillSet');
 const polyfillservice = require('../../lib');
 const compatdata = require('../../docs/assets/compat.json');
 const appVersion = require(path.join(__dirname,'../../package.json')).version;
+const RumReport = require('../RumReport.js').Perf;
 
 const cache = {};
 const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 const templCache = {};
-let mysql;
-
-if (process.env.RUM_MYSQL_DSN) {
-	require('promise-mysql')
-		.createConnection(process.env.RUM_MYSQL_DSN)
-		.then(conn => {
-			mysql = conn;
-		})
-	;
-}
 
 
 // Template loader
@@ -51,6 +42,7 @@ Handlebars.registerHelper({
 	prettifyDuration: seconds => seconds ? moment.duration(seconds*1000).humanize() : 'None',
 	lower: str => str.toLowerCase(),
 	number_format: str => parseInt(str, 10).toLocaleString(),
+	percent: (n, total) => (Math.round((n/total)*10000)/100),
 	ifEq: (v1, v2, options) => (v1 === v2) ? options.fn(this) : options.inverse(this),
 	ifPrefix: (v1, v2, options) => (v1.indexOf(v2) === 0) ? options.fn(this) : options.inverse(this),
 	sectionHighlight: (section, pageName) => {
@@ -177,29 +169,14 @@ function getData(type) {
 			}));
 		},
 		rumPerf: () => {
-			if (!mysql) return [];
-			const perfFields = ['dns', 'connect', 'req', 'resp'];
-			const perfSQL = perfFields.map(fieldName => `
-				SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_${fieldName}) ORDER BY perf_${fieldName} SEPARATOR ','), ',', FLOOR(0.95 * SUM(perf_${fieldName} IS NOT NULL)) + 1), ',', -1)+0 AS perf_${fieldName}_95
-			`).join(', ');
-			const querySQL = `
-				SELECT data_center, COUNT(perf_dns IS NOT NULL) as count, ${perfSQL},
-					SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_dns+perf_connect+perf_req+perf_resp) ORDER BY (perf_dns+perf_connect+perf_req+perf_resp) SEPARATOR ','), ',', FLOOR(0.95 * SUM((perf_dns+perf_connect+perf_req+perf_resp))) + 1), ',', -1)+0 AS perf_total_95
-				FROM requests
-				WHERE req_time BETWEEN (CURDATE() - INTERVAL 30 DAY) AND CURDATE() AND data_center IS NOT NULL
-				GROUP BY data_center
-				HAVING count > 10
-				ORDER BY count DESC
-			`;
-			return mysql.query(querySQL).then(results => {
-				const highest = results.reduce((max, row) => Math.max(max, (row.perf_dns_95 + row.perf_connect_95 + row.perf_req_95 + row.perf_resp_95)), 0);
-				return results.map(row => {
-					perfFields.forEach(key => {
-						row['perf_'+key+'_95_display_pc'] = Math.round((row['perf_'+key+'_95'] / highest) * 1000) / 10;
-					});
-					return Object.assign({}, row);
-				})
-			});
+			return (new RumReport({period:30, minSampleSize:1000, stats:['95P']})).getStats()
+				.then(data => ({
+					rumPerfData: data,
+					rumPerfScaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
+					rumPerfPeriod: 30,
+					rumPerfMinSampleSize: 1000
+				}))
+			;
 		},
 		compat: getCompat
 	};
@@ -307,13 +284,12 @@ function route(req, res, next) {
 				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes'), getData('rumPerf')])
 					.then(spread((fastly, outages, respTimes, rumPerf) => {
-						return Object.assign(locals, {
+						return Object.assign(locals, rumPerf, {
 							requestsData: fastly.byday,
 							downtime: outages,
 							respTimes: respTimes,
 							hitCount: fastly.rollup.hits,
-							missCount: fastly.rollup.miss,
-							rumPerfData: rumPerf
+							missCount: fastly.rollup.miss
 						});
 					}))
 					.catch(ex => Object.assign(locals, ex))
