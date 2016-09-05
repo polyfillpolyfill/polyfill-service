@@ -15,7 +15,6 @@ const appVersion = require(path.join(__dirname,'../../package.json')).version;
 const RumReport = require('../RumReport.js').Perf;
 
 const cache = {};
-const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 const templCache = {};
 
 
@@ -61,7 +60,8 @@ Handlebars.registerHelper({
 });
 
 
-function getData(type) {
+function refreshData() {
+	const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 	const handlers = {
 		fastly: () => {
 			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
@@ -178,78 +178,74 @@ function getData(type) {
 				}))
 			;
 		},
-		compat: getCompat
-	};
-
-	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
-		return cache[type].promise;
-	} else {
-		cache[type] = {};
-		if (cachettls[type]) {
-			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		compat: () => {
+			const sourceslib = sources.getCollection();
+			const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+			const msgs = {
+				'native': 'Supported natively',
+				'polyfilled': 'Supported with polyfill service',
+				'missing': 'Not supported'
+			};
+			return Promise.all(Object.keys(compatdata)
+				.filter(feature => sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
+				.sort()
+				.map(feat => {
+					return sourceslib.getPolyfill(feat).then(polyfill => {
+						const fdata = {
+							feature: feat,
+							slug: feat.replace(/[^\w]/g, '_'),
+							size: polyfill.minSource.length,
+							isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
+							hasTests: polyfill.hasTests,
+							docs: polyfill.docs,
+							baseDir: polyfill.baseDir,
+							spec: polyfill.spec,
+							notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+							license: polyfill.license,
+							licenseIsUrl: polyfill.license && polyfill.license.length > 5
+						};
+						browsers.forEach(browser => {
+							if (compatdata[feat][browser]) {
+								fdata[browser] = [];
+								Object.keys(compatdata[feat][browser])
+									.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
+									.forEach(version => {
+										fdata[browser].push({
+											status: compatdata[feat][browser][version],
+											statusMsg: msgs[compatdata[feat][browser][version]],
+											version: version
+										});
+									});
+								;
+							}
+						});
+						return fdata;
+					});
+				})
+			);
 		}
-		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
-		return cache[type].promise = handlers[type]()
-			.then(result => {
-				console.log('Completed generating docs data: type='+type);
-				return result;
-			})
-			.catch(err => {
-				const errobj = err.error || err;
-				throw {
-					service: type,
-					msg: errobj.error || errobj.message || errobj.msg || errobj.toString()
-				};
-			})
-		;
-	}
-}
-
-function getCompat() {
-	const sourceslib = sources.getCollection();
-	const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
-	const msgs = {
-		'native': 'Supported natively',
-		'polyfilled': 'Supported with polyfill service',
-		'missing': 'Not supported'
 	};
-	return Promise.all(Object.keys(compatdata)
-		.filter(feature => sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
-		.sort()
-		.map(feat => {
-			return sourceslib.getPolyfill(feat).then(polyfill => {
-				const fdata = {
-					feature: feat,
-					slug: feat.replace(/[^\w]/g, '_'),
-					size: polyfill.minSource.length,
-					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-					hasTests: polyfill.hasTests,
-					docs: polyfill.docs,
-					baseDir: polyfill.baseDir,
-					spec: polyfill.spec,
-					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-					license: polyfill.license,
-					licenseIsUrl: polyfill.license && polyfill.license.length > 5
-				};
-				browsers.forEach(browser => {
-					if (compatdata[feat][browser]) {
-						fdata[browser] = [];
-						Object.keys(compatdata[feat][browser])
-							.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
-							.forEach(version => {
-								fdata[browser].push({
-									status: compatdata[feat][browser][version],
-									statusMsg: msgs[compatdata[feat][browser][version]],
-									version: version
-								});
-							});
-						;
+
+	Object.keys(handlers).forEach(type => {
+		if (!cache.hasOwnProperty(type) || ('expires' in cache[type] && cache[type].expires < Date.now())) {
+			if (!cache.hasOwnProperty(type)) {
+				cache[type] = {};
+			}
+			console.log('Generating docs data: type='+type);
+			handlers[type]()
+				.then(result => {
+					cache[type].data = result;
+					if (cachettls[type]) {
+						cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
 					}
-				});
-				return fdata;
-			});
-		})
-	);
+					console.log('Completed generating docs data: type='+type+' expires='+(cache[type].expires || 'never'));
+				})
+				.catch(err => {
+					console.log(err);
+				})
+			;
+		}
+	});
 }
 
 // Quick helper for Promise.all to spread results over separate arguments rather than an array
@@ -282,29 +278,19 @@ function route(req, res, next) {
 				const one_hour = 60 * 60;
 				const one_week = one_hour * 24 * 7;
 				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes'), getData('rumPerf')])
-					.then(spread((fastly, outages, respTimes, rumPerf) => {
-						return Object.assign(locals, rumPerf, {
-							requestsData: fastly.byday,
-							downtime: outages,
-							respTimes: respTimes,
-							hitCount: fastly.rollup.hits,
-							missCount: fastly.rollup.miss
-						});
-					}))
-					.catch(ex => Object.assign(locals, ex))
-				;
+				return Object.assign(locals, cache.rumPerf.data, {
+					requestsData: cache.fastly.data.byday,
+					downtime: cache.outages.data,
+					respTimes: cache.respTimes.data,
+					hitCount: cache.fastly.data.rollup.hits,
+					missCount: cache.fastly.data.rollup.miss
+				});
 
 			} else if (locals.pageName === 'features') {
-				return Promise.all([getData('sizes'), getData('compat')])
-					.then(spread((sizes, compat) => Object.assign(locals, {
-						compat: compat,
-						sizes: sizes
-					}, locals)))
-					.catch(function (err) {
-						console.log(err.stack || err);
-					})
-				;
+				return Object.assign(locals, {
+					compat: cache.compat.data,
+					sizes: cache.sizes.data
+				}, locals);
 
 			} else if (locals.pageName === 'contributing/authoring-polyfills') {
 				return Object.assign(locals, {
@@ -316,15 +302,18 @@ function route(req, res, next) {
 			}
 		})
 		.then(locals => {
-			template(locals.pageName)
+			return template(locals.pageName)
 				.then(templFn => res.send(templFn(locals)))
-				.catch(err => {
-					console.log(err);
-					next();
-				})
 			;
+		})
+		.catch(err => {
+			console.log(err);
+			next();
 		})
 	;
 }
 
 module.exports = route;
+
+setInterval(refreshData, 300000);
+refreshData();
