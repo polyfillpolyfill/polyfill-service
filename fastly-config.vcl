@@ -20,13 +20,23 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
-		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&elapsed_msec=" time.elapsed.msec "&data_center=" server.datacenter "&country=" geoip.country_code;
+		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code;
 		error 204 "No Content";
 	}
+
+	if (req.url == "/esi/data_center") {
+		error 752 "data_center";
+	}
+
 
 	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
+}
+
+sub vcl_fetch {
+#FASTLY fetch
+	esi;
 }
 
 sub vcl_deliver {
@@ -58,6 +68,12 @@ sub vcl_error {
 		set obj.response = "Moved Permanently";
 		set obj.http.Location = "https://" req.http.host req.url;
 		synthetic {""};
+		return (deliver);
+	}
+	if (obj.status == 752) {
+		set obj.status = 200;
+		set obj.response = "OK";
+		synthetic server.datacenter;
 		return (deliver);
 	}
 }
