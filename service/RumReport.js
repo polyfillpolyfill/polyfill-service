@@ -9,7 +9,7 @@ function Perf(options) {
 
 	let dbconn;
 
-	if (!process.env.RUM_MYSQL_DSN) return;
+	if (!process.env.RUM_MYSQL_DSN) throw new Error('RUM disabled.  See README for environment variables required for RUM reporting.');
 
 	options = Object.assign({
 		groupingFields: ['data_center'],

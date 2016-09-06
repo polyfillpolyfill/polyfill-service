@@ -14,7 +14,7 @@ const compatdata = require('../../docs/assets/compat.json');
 const appVersion = require(path.join(__dirname,'../../package.json')).version;
 const RumReport = require('../RumReport.js').Perf;
 
-const cache = {};
+const docsData = {errors:[]};
 const templCache = {};
 
 
@@ -64,7 +64,7 @@ function refreshData() {
 	const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 	const handlers = {
 		fastly: () => {
-			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
+			if (!process.env.FASTLY_SERVICE_ID) throw new Error("Fastly access disabled.  See README for environment variables required for Fastly access.");
 			const endTime = moment().startOf('day');
 			const startTime = moment(endTime).subtract(180, 'days');
 			return request({
@@ -84,7 +84,7 @@ function refreshData() {
 			});
 		},
 		respTimes: () => {
-			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
+			if (!process.env.PINGDOM_CHECK_ID) throw new Error("Pingdom access disabled.  See README for environment variables required for Pingdom access");
 			const to = ((new Date()).getTime()/1000) - 3600;
 			const from = to - (60*60*24*7);
 			return request({
@@ -106,7 +106,7 @@ function refreshData() {
 			});
 		},
 		outages: () => {
-			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
+			if (!process.env.PINGDOM_CHECK_ID) throw new Error("Pingdom access disabled.  See README for environment variables required for Pingdom access");
 			const data = {};
 			const periods = {
 				"30d": 60*60*24*30,
@@ -171,10 +171,10 @@ function refreshData() {
 		rumPerf: () => {
 			return (new RumReport({period:30, minSampleSize:1000, stats:['95P']})).getStats()
 				.then(data => ({
-					rumPerfData: data,
-					rumPerfScaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
-					rumPerfPeriod: 30,
-					rumPerfMinSampleSize: 1000
+					rows: data,
+					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
+					period: 30,
+					minSampleSize: 1000
 				}))
 			;
 		},
@@ -227,23 +227,26 @@ function refreshData() {
 	};
 
 	Object.keys(handlers).forEach(type => {
-		if (!cache.hasOwnProperty(type) || ('expires' in cache[type] && cache[type].expires < Date.now())) {
-			if (!cache.hasOwnProperty(type)) {
-				cache[type] = {};
-			}
+		if (!docsData.hasOwnProperty(type) || (docsData[type] !== null && 'expires' in docsData[type] && docsData[type].expires < Date.now())) {
 			console.log('Generating docs data: type='+type);
-			handlers[type]()
-				.then(result => {
-					cache[type].data = result;
-					if (cachettls[type]) {
-						cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
-					}
-					console.log('Completed generating docs data: type='+type+' expires='+(cache[type].expires || 'never'));
-				})
-				.catch(err => {
-					console.log(err);
-				})
-			;
+			try {
+				handlers[type]()
+					.then(result => {
+						docsData[type] = result;
+						if (result !== null) {
+							if (cachettls[type]) {
+								docsData[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+							}
+							console.log('Completed generating docs data: type='+type+' expires='+(docsData[type].expires || 'never'));
+						}
+					})
+					.catch(err => {
+						docsData.errors.push("["+type+" (in promise)] "+ (err.msg || err.message || err.toString()));
+					})
+				;
+			} catch (err) {
+				docsData.errors.push("["+type+"] "+ (err.msg || err.message || err.toString()));
+			}
 		}
 	});
 }
@@ -260,52 +263,26 @@ function route(req, res, next) {
 	if (req.path.length < "/v2/docs/".length) {
 		return res.redirect('/v2/docs/');
 	}
-	Promise
-		.resolve({
-			apiversion: req.params[0],
-			appversion: appVersion,
-			pageName: (req.params[1] || 'index').replace(/\/$/, ''),
-			rumEnabled: !!process.env.RUM_MYSQL_DSN
-		})
+	const locals = Object.assign({
+		apiversion: req.params[0],
+		appversion: appVersion,
+		pageName: (req.params[1] || 'index').replace(/\/$/, '')
+	}, docsData);
 
-		// Add page-specific data
-		.then(locals => {
-			if (locals.pageName === 'usage') {
+	if (locals.pageName === 'usage') {
 
-				// Set the ttl to one hour for the usage page so the graphs are
-				// updated more frequently, overriding the default cache-control
-				// behaviour set in index.js
-				const one_hour = 60 * 60;
-				const one_week = one_hour * 24 * 7;
-				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-				return Object.assign(locals, cache.rumPerf.data, {
-					requestsData: cache.fastly.data.byday,
-					downtime: cache.outages.data,
-					respTimes: cache.respTimes.data,
-					hitCount: cache.fastly.data.rollup.hits,
-					missCount: cache.fastly.data.rollup.miss
-				});
+		// Set the ttl to one hour for the usage page so the graphs are
+		// updated more frequently, overriding the default cache-control
+		// behaviour set in index.js
+		const one_hour = 60 * 60;
+		const one_week = one_hour * 24 * 7;
+		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+	} else if (locals.pageName === 'contributing/authoring-polyfills') {
+		locals.baselines = require('../../lib/UA').getBaselines()
+	}
 
-			} else if (locals.pageName === 'features') {
-				return Object.assign(locals, {
-					compat: cache.compat.data,
-					sizes: cache.sizes.data
-				}, locals);
-
-			} else if (locals.pageName === 'contributing/authoring-polyfills') {
-				return Object.assign(locals, {
-					baselines: require('../../lib/UA').getBaselines()
-				});
-
-			} else {
-				return locals;
-			}
-		})
-		.then(locals => {
-			return template(locals.pageName)
-				.then(templFn => res.send(templFn(locals)))
-			;
-		})
+	template(locals.pageName)
+		.then(templFn => res.send(templFn(locals)))
 		.catch(err => {
 			console.log(err);
 			next();
