@@ -25,7 +25,7 @@ function Perf(options) {
 		.join(', ')
 	;
 
-	const sqlQuery = `SELECT ${sqlFields} FROM requests WHERE req_time BETWEEN (CURDATE() - INTERVAL ${options.period} DAY) AND CURDATE() AND data_center IS NOT NULL`;
+	const sqlQuery = `SELECT ${sqlFields} FROM requests WHERE req_time BETWEEN (CURDATE() - INTERVAL ${options.period} DAY) AND CURDATE() AND data_center IS NOT NULL LIMIT 1000000`;
 
 	const dataPromise = MySQL.createConnection(process.env.RUM_MYSQL_DSN)
 		.then(conn => {
