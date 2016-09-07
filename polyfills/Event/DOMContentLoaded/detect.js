@@ -1,1 +1,1 @@
-'addEventListener' in this
+'createEvent' in document
