@@ -49,8 +49,8 @@ sub vcl_deliver {
 	}
 
 	if (req.url ~ "[\&\?]rum=1") {
-    	add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
-    }
+		add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
+	}
 
 	return(deliver);
 }
