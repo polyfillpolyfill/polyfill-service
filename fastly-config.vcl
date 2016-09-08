@@ -20,7 +20,7 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
-		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code;
+		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code "&data_center=" if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter);
 		error 204 "No Content";
 	}
 
@@ -32,11 +32,6 @@ sub vcl_recv {
 	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
-}
-
-sub vcl_fetch {
-#FASTLY fetch
-	esi;
 }
 
 sub vcl_deliver {
@@ -57,6 +52,11 @@ sub vcl_deliver {
 	} else if (req.url ~ "^/v\d/polyfill\..*[\?\&]ua=" && req.http.X-Orig-URL && req.http.X-Orig-URL !~ "[\?\&]ua=") {
 		add resp.http.Vary = "User-Agent";
 	}
+
+	if (req.url ~ "[\&\?]rum=1") {
+    	add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
+    }
+
 	return(deliver);
 }
 
@@ -68,12 +68,6 @@ sub vcl_error {
 		set obj.response = "Moved Permanently";
 		set obj.http.Location = "https://" req.http.host req.url;
 		synthetic {""};
-		return (deliver);
-	}
-	if (obj.status == 752) {
-		set obj.status = 200;
-		set obj.response = "OK";
-		synthetic server.datacenter;
 		return (deliver);
 	}
 }
