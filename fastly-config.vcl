@@ -24,11 +24,6 @@ sub vcl_recv {
 		error 204 "No Content";
 	}
 
-	if (req.url == "/esi/data_center") {
-		error 752 "data_center";
-	}
-
-
 	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
