@@ -9,7 +9,7 @@
 	],
 	"browsers": {
 		"bb": "*",
-		"android": "<47",
+		"android": "<5",
 		"chrome": "* - 41",
 		"ie": "*",
 		"ie_mob": "*",
