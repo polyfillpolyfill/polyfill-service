@@ -109,16 +109,16 @@ The Financial Times and Fastly host a public version of this service on [polyfil
 
 ### Release process
 
- 1. The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table. - `grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
- 1. The commit/package is tagged using npm's version command. - `npm version {premajor | preminor | prepatch}` or `npm version prerelease` if the commit/package is already tagged as a `premajor`, `preminor` or `prepatch`.
- 1. The package is published to npm under the `next` dist-tag. - `npm publish --tag next`
- 1. The commits and tags are pushed to the git remote. - `git push origin master --tags`
+ 1. Test the release candidate with the grunt compatgen task to generate an updated compatibility table. - `grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
+ 1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
+ 1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
+ 1. Push the commits and tags to the git remote. - `git push origin master --tags`
  1. Deploy to [QA](http://qa.polyfill.io). - `npm run deploy`
  1. Announce the release on twitter
  1. Wait some number of days for feedback (usually 7 days). If necessary, make fixes and return to step 1
- 1. Tag the commit/package using npm's version command. - `npm version {major | minor | patch}`
- 1. The package is published to npm under the `latest` dist-tag. - `npm publish`
- 1. The commits and tags are pushed to the git remote. - `git push origin master --tags`
+ 1. Tag the commit/package using npm's version command, using the same semver level as you used for the `pre` versions. - `npm version {major | minor | patch}`
+ 1. Publish to npm under the `latest` dist-tag. - `npm publish`
+ 1. Push the commits and tags to the git remote. - `git push origin master --tags`
  1. Deploy to [production](https://polyfill.io). - `npm run promote`
 
 ### Monitoring
