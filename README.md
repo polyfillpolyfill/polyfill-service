@@ -109,73 +109,23 @@ The Financial Times and Fastly host a public version of this service on [polyfil
 
 ### Release process
 
- 1. The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table.
- 2. The commit is tagged vX.Y.Z-rcN where N is initially 1
- 3. Deploy to [QA](http://qa.polyfill.io)
- 4. Announce the release on twitter
- 5. Wait some number of days for feedback (usually 7 days). If necessary, make fixes, increment N, and return to step 1
- 6. Update package.json version and github tag with vX.Y.Z
- 7. Publish to npm
- 8. Push to cdn.polyfill.io
-
-### Deployment
-
-The [production][heroku-production] and [QA][heroku-qa] applications run on [Heroku].  The library is published to the public [npm] registry.
-
-Before creating a new deployment, update the compatability table:
-```sh
-grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'
-```
-
-We use [Semantic Versioning][semver] to tag releases.  Only tagged releases should hit production, which ensures that the `/__about` endpoint is informative.  To tag a new release, use one of the following (this is the only time we allow a commit directly to `master`):
-
-```sh
-npm version major
-npm version minor
-npm version patch
-```
-
-Now you can push to GitHub:
-```sh
-git push && git push --tags
-```
-
-After pushing to Github, you can deploy to [QA][heroku-qa]:
-```sh
-npm run deploy
-```
-
-When it is time to promote from [QA][heroku-qa] to [production][heroku-production]:
-```sh
-npm run promote
-```
-
-### Publishing to npm
-
-To publish to the public [npm] registry, you need to be logged in to the npm CLI.
-
-Check if you are already logged in to npm via the CLI:
-```sh
-npm whoami
-```
-
-If you are not logged in, log in to npm:
-```sh
-npm login
-```
-
-Publish a new version of the package:
-```sh
-npm publish
-```
-
+ 1. Test the release candidate with the grunt compatgen task to generate an updated compatibility table. - `grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
+ 1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
+ 1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
+ 1. Push the commits and tags to the git remote. - `git push origin master --tags`
+ 1. Deploy to [QA](http://qa.polyfill.io). - `npm run deploy`
+ 1. Announce the release on twitter
+ 1. Wait some number of days for feedback (usually 7 days). If necessary, make fixes and return to step 1
+ 1. Tag the commit/package using npm's version command, using the same semver level as you used for the `pre` versions. - `npm version {major | minor | patch}`
+ 1. Publish to npm under the `latest` dist-tag. - `npm publish`
+ 1. Push the commits and tags to the git remote. - `git push origin master --tags`
+ 1. Deploy to [production](https://polyfill.io). - `npm run promote`
 
 ### Monitoring
 
 We use Graphite and [Grafana] to keep track of application metrics. You can view requests, bundle build duration, cache hit ratios, and memory usage. It's important after a deploy to make sure we haven't unexpectedly had an impact on these.
 
 We also use [Pingdom] to track uptime. You should get notifications if you're a member of the Origami team.
-
 
 ## Library
 
