@@ -9,7 +9,7 @@
 		// if the iterable doesn't have next;
 		// it is an iterable if 'next' is a function but it has not been defined on
 		// the object itself.
-		if (typeof arraylike.next === 'function' && arraylike.hasOwnProperty('next') === false) {
+		if (typeof arraylike.next === 'function') {
 			while (!done) {
 				iterableResponse = arraylike.next();
 				if (
@@ -90,11 +90,9 @@
 			}
 
 			while (++index < length) {
-				if (index in arraylike) {
 					value = arraylike[index];
 
 					array[index] = map ? map.call(scope, value, index) : value;
-				}
 			}
 
 			array.length = length;

@@ -1,31 +1,46 @@
-/* eslint-env mocha, browser*/
-/* global expect, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('has correct instance', function () {
-	expect(Array.from).to.be.a(Function);
+	proclaim.isInstanceOf(Array.from, Function);
 });
 
 it('has correct name', function () {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
-	expect(nameOf(Array.from)).to.be('from');
+	proclaim.equal(nameOf(Array.from), 'from');
 });
 
 it('has correct argument length', function () {
-	expect(Array.from.length).to.be(1);
+	proclaim.equal(Array.from.length, 1);
 });
 
 describe('returns an array with', function () {
 	it('arrays', function () {
-		expect(Array.from([])).to.eql([]);
-		expect(Array.from(['a', 'b', 'c'])).to.eql(['a', 'b', 'c']);
+		proclaim.deepEqual(Array.from([]), []);
+		proclaim.deepEqual(Array.from(['a', 'b', 'c']), ['a', 'b', 'c']);
+	});
+
+	it('fills holes in arrays', function () {
+		var arr = [1, 2, 3];
+		delete arr[1];
+		/**
+		 * These are unrolled as expect.js' eql doesn't work on
+		 * arrays created with undefined elements.
+		 * https://github.com/Automattic/expect.js/issues/140
+		 */
+		proclaim.deepEqual(Array.from(arr)[0], 1);
+		proclaim.deepEqual(Array.from(arr)[1], undefined);
+		proclaim.deepEqual(Array.from(arr)[2], 3);
+		/* eslint-disable no-sparse-arrays */
+		proclaim.deepEqual(Array.from([4, , 6])[1], undefined);
 	});
 
 	it('objects', function () {
-		expect(Array.from({})).to.eql([]);
-		expect(Array.from({ 0: 'a' })).to.eql([]);
-		expect(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 })).to.eql(['a', 'b', 'c']);
+		proclaim.deepEqual(Array.from({}), []);
+		proclaim.deepEqual(Array.from({ 0: 'a' }), []);
+		proclaim.deepEqual(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 }), ['a', 'b', 'c']);
 	});
 
 	it('Iterable', function () {
@@ -44,10 +59,10 @@ describe('returns an array with', function () {
 			if (typeof mapIterator.next === 'function') {
 
 				// Test map iterable
-				expect(Array.from(mapIterator)).to.eql([2,4]);
+				proclaim.deepEqual(Array.from(mapIterator), [2,4]);
 
 				it('can convert from Map', function () {
-					expect(Array.from(map)).to.eql([[1,2],[3,4]]);
+					proclaim.deepEqual(Array.from(map), [[1,2],[3,4]]);
 				});
 			}
 		}
@@ -64,47 +79,76 @@ describe('returns an array with', function () {
 			if (typeof setIterator.next === 'function') {
 
 				// Test set iterable
-				expect(Array.from(setIterator)).to.eql([1,2,3,4]);
+				proclaim.deepEqual(Array.from(setIterator), [1,2,3,4]);
 
 				it('can convert from Set', function () {
-					expect(Array.from(set)).to.eql([1,2,3,4]);
+					proclaim.deepEqual(Array.from(set), [1,2,3,4]);
 				});
 			}
 		}
 
+		it('can convert from a user-defined iterator', function () {
+			function iterator(cnt) {
+				return {
+					next: function () {
+						return cnt === 0
+							? {
+								done: true
+							}
+							: {
+								value: cnt--,
+								done: false
+							};
+					}
+				};
+			}
+			proclaim.deepEqual(Array.from(iterator(0)), []);
+			proclaim.deepEqual(Array.from(iterator(1)), [1]);
+			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
+			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
+		});
+
 	});
 
 	it('strings', function () {
-		expect(Array.from('')).to.eql([]);
-		expect(Array.from('abc')).to.eql(['a', 'b', 'c']);
+		proclaim.deepEqual(Array.from(''), []);
+		proclaim.deepEqual(Array.from('abc'), ['a', 'b', 'c']);
 	});
 
 	it('numbers', function () {
-		expect(Array.from(-Infinity)).to.eql([]);
-		expect(Array.from(-3)).to.eql([]);
-		expect(Array.from(-0)).to.eql([]);
-		expect(Array.from(0)).to.eql([]);
-		expect(Array.from(3)).to.eql([]);
+		proclaim.deepEqual(Array.from(-Infinity), []);
+		proclaim.deepEqual(Array.from(-3), []);
+		proclaim.deepEqual(Array.from(-0), []);
+		proclaim.deepEqual(Array.from(0), []);
+		proclaim.deepEqual(Array.from(3), []);
 		// REMOVAL: it may take a rediculous amount of time to calculate this
-		// expect(Array.from(Infinity)).to.eql([]);
+		// proclaim.deepEqual(Array.from(Infinity), []);
 	});
 
 	it('regular expressions', function () {
-		expect(Array.from(/abc/)).to.eql([]);
+		proclaim.deepEqual(Array.from(/abc/), []);
 	});
 
 	it('objects with in-range lengths', function () {
-		expect(Array.from({ length: 0 }).length).to.be(0);
-		expect(Array.from({ length: 3 }).length).to.be(3);
-		expect(Array.from({ length: '+3' }).length).to.be(3);
-		// expect(Array.from({ length: Infinity }).length).to.be();
+		proclaim.equal(Array.from({ length: 0 }).length, 0);
+		proclaim.equal(Array.from({ length: 3 }).length, 3);
+		/**
+		 * These are unrolled as expect.js' eql doesn't work on
+		 * arrays created with undefined elements.
+		 * https://github.com/Automattic/expect.js/issues/140
+		 */
+		proclaim.equal(Array.from({ length: 3 })[0], undefined);
+		proclaim.equal(Array.from({ length: 3 })[1], undefined);
+		proclaim.equal(Array.from({ length: 3 })[2], undefined);
+		proclaim.equal(Array.from({ length: '+3' }).length, 3);
+		// proclaim.equal(Array.from({ length: Infinity }).length, undefined);
 	});
 
 	it('objects with out-of-range lengths', function () {
-		expect(Array.from({ length: -0 }).length).to.be(0);
-		expect(Array.from({ length: -3 }).length).to.be(0);
-		expect(Array.from({ length: '-3' }).length).to.be(0);
-		expect(Array.from({ length: -Infinity }).length).to.be(0);
+		proclaim.equal(Array.from({ length: -0 }).length, 0);
+		proclaim.equal(Array.from({ length: -3 }).length, 0);
+		proclaim.equal(Array.from({ length: '-3' }).length, 0);
+		proclaim.equal(Array.from({ length: -Infinity }).length, 0);
 	});
 
 	it('mapping functions', function () {
@@ -112,13 +156,13 @@ describe('returns an array with', function () {
 			return element + index;
 		}
 
-		expect(Array.from(['a', 'b', 'c'], addElementAndIndex)).to.eql(['a0', 'b1', 'c2']);
-		expect(Array.from({ 0: 'a', 1: 'b', 3: 'c' }, addElementAndIndex)).to.eql([]);
-		expect(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 }, addElementAndIndex)).to.eql(['a0', 'b1', 'c2']);
-		expect(Array.from('abc', addElementAndIndex)).to.eql(['a0', 'b1', 'c2']);
+		proclaim.deepEqual(Array.from(['a', 'b', 'c'], addElementAndIndex), ['a0', 'b1', 'c2']);
+		proclaim.deepEqual(Array.from({ 0: 'a', 1: 'b', 3: 'c' }, addElementAndIndex), []);
+		proclaim.deepEqual(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 }, addElementAndIndex), ['a0', 'b1', 'c2']);
+		proclaim.deepEqual(Array.from('abc', addElementAndIndex), ['a0', 'b1', 'c2']);
 
 		Array.from(['a', 'b', 'c'], function () {
-			expect(arguments.length).to.be(2);
+			proclaim.equal(arguments.length, 2);
 		});
 	});
 
@@ -126,8 +170,8 @@ describe('returns an array with', function () {
 		var context = {};
 
 		Array.from(['a', 'b', 'c'], function (value, index) {
-			expect(this).to.be.an(Object);
-			expect(this.valueOf()).to.eql(context);
+			proclaim.isInstanceOf(this, Object);
+			proclaim.strictEqual(this.valueOf(), context);
 		}, context);
 	});
 
@@ -135,8 +179,8 @@ describe('returns an array with', function () {
 		var context = 42;
 
 		Array.from(['a', 'b', 'c'], function (value, index) {
-			expect(this).to.be.a(Number);
-			expect(this.valueOf()).to.eql(42);
+			proclaim.isInstanceOf(this, Number);
+			proclaim.strictEqual(this.valueOf(), 42);
 		}, context);
 	});
 
@@ -144,54 +188,50 @@ describe('returns an array with', function () {
 		var context = false;
 
 		Array.from(['a', 'b', 'c'], function (value, index) {
-			expect(this).to.be.a(Boolean);
-			expect(this.valueOf()).to.eql(false);
+			proclaim.isInstanceOf(this, Boolean);
+			proclaim.strictEqual(this.valueOf(), false);
 		}, context);
 	});
 });
 
 describe('throws', function () {
 	it('non-iterable objects', function () {
-		expect(function () {
+		proclaim.throws(function () {
 			Array.from();
-		}).to.throwError();
+		});
 
-		expect(function () {
-			Array.from(UNDEFINED);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from(undefined);
+		});
 
-		expect(function () {
-			Array.from(NULL);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from(null);
+		});
 	});
 
 	it('specified, invalid mapping functions', function () {
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, UNDEFINED);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], null);
+		});
 
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, NULL);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], /\*/);
+		});
 
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, REGEX.ALL_CHARS);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], '');
+		});
 
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, EMPTY.STRING);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], []);
+		});
 
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, EMPTY.ARRAY);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], {});
+		});
 
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, EMPTY.OBJECT);
-		}).to.throwError();
-
-		expect(function () {
-			Array.from(ARRAY.WITH_THREE_VALUES, 3);
-		}).to.throwError();
+		proclaim.throws(function () {
+			Array.from([1, 2, 3], 3);
+		});
 	});
 });

@@ -1,10 +1,13 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('Should dispatch the hashchange event', function(done) {
 
 	var listener = function(e) {
-		expect(e.type).to.be('hashchange');
+		proclaim.equal(e.type, 'hashchange');
 		window.removeEventListener('hashchange', listener);
 		done();
-	}
+	};
 
 	window.addEventListener('hashchange', listener);
 

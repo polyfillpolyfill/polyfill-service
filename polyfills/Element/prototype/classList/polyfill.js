@@ -30,7 +30,7 @@ Object.defineProperty(Element.prototype, 'classList', {
 
 		ClassList.prototype = new _DOMTokenList;
 
-		ClassList.prototype.item = function item(index) {
+		ClassList.prototype.item = function item(index) { // eslint-disable-line no-unused-vars
 			return pull(), original.item.apply(classList, arguments);
 		};
 
@@ -42,7 +42,7 @@ Object.defineProperty(Element.prototype, 'classList', {
 			return pull(), original.add.apply(classList, arguments), push();
 		};
 
-		ClassList.prototype.contains = function contains(token) {
+		ClassList.prototype.contains = function contains(token) { // eslint-disable-line no-unused-vars
 			return pull(), original.contains.apply(classList, arguments);
 		};
 

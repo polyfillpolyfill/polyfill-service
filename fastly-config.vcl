@@ -1,3 +1,5 @@
+import boltsort;
+
 sub vcl_recv {
 #FASTLY recv
 	if ( req.request == "FASTLYPURGE" ) {
@@ -12,15 +14,17 @@ sub vcl_recv {
 		error 751 "Force TLS";
 	}
 
-	if (req.url ~ "^/v2/polyfill\." && req.url !~ "[\?\&]ua=") {
+	if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
 	}
 
-    set req.http.Geo-Lat = geoip.latitude;
-    set req.http.Geo-Lng = geoip.longitude;
-    set req.http.Geo-Country = geoip.country_code;
-    set req.http.Data-Center = server.datacenter;
+	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
+		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code "&data_center=" if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter);
+		error 204 "No Content";
+	}
+
+	set req.url = boltsort.sort(req.url);
 
 	return(lookup);
 }
@@ -29,8 +33,9 @@ sub vcl_deliver {
 #FASTLY deliver
 
 	# If the response is to a normalise request and there's a parked "original request", use the normalised UA response to modify the original request and restart it
-	if (req.url ~ "^/v\d/normalizeUa" && resp.status == 200 && req.http.X-Orig-URL) {
+	if (req.url ~ "^/v\d/normalizeUa" && resp.status == 200 && req.http.X-Orig-URL ~ "^/v2/(polyfill\.|recordRumData)") {
 		set req.http.Fastly-force-Shield = "1";
+		set req.http.Normalized-User-Agent = resp.http.Normalized-User-Agent;
 		if (req.http.X-Orig-URL ~ "\?") {
 			set req.url = req.http.X-Orig-URL "&ua=" resp.http.Normalized-User-Agent;
 		} else {
@@ -42,6 +47,11 @@ sub vcl_deliver {
 	} else if (req.url ~ "^/v\d/polyfill\..*[\?\&]ua=" && req.http.X-Orig-URL && req.http.X-Orig-URL !~ "[\?\&]ua=") {
 		add resp.http.Vary = "User-Agent";
 	}
+
+	if (req.url ~ "[\&\?]rum=1") {
+		add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
+	}
+
 	return(deliver);
 }
 

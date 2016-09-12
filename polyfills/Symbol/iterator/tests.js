@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,51 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol iterator as static properties on Symbol', function() {
-	expect(Symbol.iterator).to.not.be.undefined;
+	proclaim.notEqual(Symbol.iterator, undefined);
 
 	if (supportsDescriptors) {
 		var iterator = Symbol.iterator;
 		Symbol.iterator = "nope";
-		expect(Symbol.iterator).to.be(iterator);
+		proclaim.equal(Symbol.iterator, iterator);
 	}
+});
+
+var hasNodeListGlobal = typeof NodeList !== 'undefined' ? it : xit;
+
+hasNodeListGlobal('can attach to a NodeList correctly', function() {
+
+	NodeList.prototype[Symbol.iterator] = function() {
+		var called = false;
+		var that = this;
+		var i = 0;
+		return {
+			next: function() {
+				if (called) {
+					return {
+						done: true
+					};
+				} else {
+					called = true;
+					return {
+						done: false,
+						value: that[0]
+					};
+				}
+			}
+		};
+	};
+	var ul = document.createElement('ul');
+	ul.appendChild(document.createElement('li'));
+
+	var dom = ul.childNodes;
+
+	var iterator = dom[Symbol.iterator]();
+	var entry;
+	while(true) {
+		entry = iterator.next();
+		if (entry.done !== false) break;
+		entry.value.innerHTML = 'Test';
+	}
+
+	proclaim.equal(dom[0].innerHTML, 'Test');
 });

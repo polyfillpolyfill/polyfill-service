@@ -10,12 +10,14 @@
 	"browsers": {
 		"chrome": "<49",
 		"firefox": "<29",
-		"ie": "8 - *",
+		"ie": "9 - 12",
 		"ie_mob": "*",
 		"safari": "*",
 		"firefox_mob": "<29",
 		"opera": "<36",
-		"android": "*"
+		"android": "*",
+		"samsung_mob": "*",
+		"ios_saf": "*"
 	},
 	"dependencies": [
 		"Object.defineProperties",
@@ -27,5 +29,9 @@
 	],
 	"license": "CC0",
 	"repo": "https://github.com/inexorabletash/polyfill",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL",
+	"install": {
+		"module": "js-polyfills",
+		"paths": ["url.js"]
+	}
 }

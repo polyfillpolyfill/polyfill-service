@@ -12,9 +12,7 @@ Array.prototype.forEach = function forEach(callback) {
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
 	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
-	index = -1,
-	result = [],
-	element;
+	index = -1;
 
 	while (++index < length) {
 		if (index in arraylike) {

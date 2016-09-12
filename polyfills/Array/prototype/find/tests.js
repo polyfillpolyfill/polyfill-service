@@ -1,22 +1,25 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Array.prototype.find).to.be.a(Function);
+	proclaim.isInstanceOf(Array.prototype.find, Function);
 });
 
 it('has correct name', function () {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
-	expect(nameOf(Array.prototype.find)).to.be('find');
+	proclaim.equal(nameOf(Array.prototype.find), 'find');
 });
 
 it('has correct argument length', function () {
-	expect(Array.prototype.find.length).to.be(1);
+	proclaim.equal(Array.prototype.find.length, 1);
 });
 
 describe('callback', function () {
 	it('has correct argument length', function () {
 		[0].find(function () {
-			expect(arguments.length).to.be(3);
+			proclaim.equal(arguments.length, 3);
 		});
 	});
 });
@@ -35,8 +38,8 @@ describe('applies callback correctly with', function () {
 	}
 
 	it('arrays', function () {
-		expect([4, 6, 7, 12].find(isPrime)).to.be(7);
-		expect([4, 6, 8, 12].find(isPrime)).to.be(undefined);
+		proclaim.equal([4, 6, 7, 12].find(isPrime), 7);
+		proclaim.equal([4, 6, 8, 12].find(isPrime), undefined);
 	});
 
 	it('array-like objects', function () {
@@ -45,7 +48,7 @@ describe('applies callback correctly with', function () {
 		objectA = { 0: 4, 1: 6, 2: 7, 3: 12, 4: 13, length: 4 },
 		objectB = { 0: 4, 1: 6, 2: 8, 3: 12, 4: 13, length: 4 };
 
-		expect(Array.prototype.find.call(objectA, isPrime)).to.be(7);
-		expect(Array.prototype.find.call(objectB, isPrime)).to.be(undefined);
+		proclaim.equal(Array.prototype.find.call(objectA, isPrime), 7);
+		proclaim.equal(Array.prototype.find.call(objectB, isPrime), undefined);
 	});
 });

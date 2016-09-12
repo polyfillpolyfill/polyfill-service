@@ -15,8 +15,10 @@
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "<9",
-		"firefox_mob": "4 - *",
-		"ios_saf": "3 - 8"
+		"firefox_mob": "<32",
+		"android": "*",
+		"ios_saf": "<9",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"

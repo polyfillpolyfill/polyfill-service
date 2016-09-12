@@ -1,4 +1,4 @@
-/node_modules
+node_modules/
 /npm-debug.log
 /newrelic_agent.log
 /polyfills/__dist
@@ -10,3 +10,16 @@
 /.haikro-cache
 /node-*
 .DS_Store
+/polyfills/HTMLPictureElement/polyfill.js
+/polyfills/IntersectionObserver/polyfill.js
+/polyfills/Intl/polyfill.js
+/polyfills/Intl/~locale
+polyfills/Array/of/polyfill.js
+/polyfills/Promise/polyfill.js
+/polyfills/atob/polyfill.js
+/polyfills/AudioContext/polyfill.js
+polyfills/~html5-elements/polyfill.js
+
+polyfills/UserTiming/polyfill.js
+
+polyfills/URL/polyfill.js

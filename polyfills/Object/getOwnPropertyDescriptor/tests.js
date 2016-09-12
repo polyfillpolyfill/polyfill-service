@@ -1,10 +1,13 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 // Copied from ES5-Shim
 
 describe('Basic functionality', function () {
 	it('should return undefined because the object does not own the property', function () {
         var descr = Object.getOwnPropertyDescriptor({}, 'name');
 
-        expect(descr).to.be(undefined);
+        proclaim.equal(descr, undefined);
     });
 
     it('should return a data descriptor', function () {
@@ -12,17 +15,18 @@ describe('Basic functionality', function () {
         var expected = {
             enumerable: true,
             configurable: true,
-            value: 'Testing'
+            value: 'Testing',
+            writable: true
         };
 
-        expect(descr).to.eql(expected);
+        proclaim.deepEqual(descr, expected);
     });
 
     if ('create' in Object) {
 	    it('should return undefined because the object does not own the property', function () {
 	        var descr = Object.getOwnPropertyDescriptor(Object.create({ name: 'Testing' }, {}), 'name');
 
-	        expect(descr).to.be(undefined);
+	        proclaim.equal(descr, undefined);
 	    });
 
     	it('should return a data descriptor', function () {
@@ -36,13 +40,13 @@ describe('Basic functionality', function () {
 
 	        var descr = Object.getOwnPropertyDescriptor(obj, 'name');
 
-	        expect(descr).to.eql(expected);
+	        proclaim.deepEqual(descr, expected);
 	    });
     }
 
     it('should throw error for non object', function () {
-    	expect(function() {
+    	proclaim.throws(function() {
         	Object.getOwnPropertyDescriptor(42, 'name');
-    	}).to.throwError()
+    	});
     });
 });

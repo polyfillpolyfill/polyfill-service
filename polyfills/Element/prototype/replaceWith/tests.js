@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var element, child;
 
 function nameOf(fn) {
@@ -12,19 +15,19 @@ beforeEach(function () {
 });
 
 it('has correct instance', function () {
-	expect(element.replaceWith).to.be.a(Function);
+	proclaim.isInstanceOf(element.replaceWith, Function);
 });
 
 it('has correct name', function () {
-	expect(nameOf(element.replaceWith)).to.be('replaceWith');
+	proclaim.equal(nameOf(element.replaceWith), 'replaceWith');
 });
 
 it('has correct argument length', function () {
-	expect(element.replaceWith.length).to.be(0);
+	proclaim.equal(element.replaceWith.length, 0);
 });
 
 it('can replace itself', function () {
-	expect(child.replaceWith(child.cloneNode(true))).to.be(undefined);
+	proclaim.equal(child.replaceWith(child.cloneNode(true)), undefined);
 
-	expect(element.childNodes.length).to.be(1);
+	proclaim.equal(element.childNodes.length, 1);
 });

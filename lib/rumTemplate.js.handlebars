@@ -1,6 +1,6 @@
 (function() {
 	var beacon = new Image();
-	beacon.src = '{{{baseurl}}}/v2/recordRumData?X' +
+	beacon.src = '//{{{host}}}/v2/recordRumData?X';
 	{{#each features}}
 	{{#if this.detect}}"&{{{@key}}}=" + (({{{this.detect}}})?1:0) +{{/if}}{{/each}}
 	(('performance' in window && 'getEntriesByType' in window.performance && 'find' in Array.prototype) ? (function() {

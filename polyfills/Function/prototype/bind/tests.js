@@ -1,8 +1,10 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
 
 it("Should be able to return a function with 'this' bound to the specified value", function(done){
 	var thisVal = {foo:'bar'};
 	var func = function(){
-		expect(this).to.equal(thisVal);
+		proclaim.deepEqual(this, thisVal);
 		done();
 	};
 	var testFunc = func.bind(thisVal);
@@ -12,7 +14,7 @@ it("Should be able to return a function with 'this' bound to the specified value
 it("Handles new BoundFunction", function(done) {
 	var thisVal = {foo:'bar'};
 	function MyClass(){
-		expect(this).to.not.equal(thisVal);
+		proclaim.notDeepEqual(this, thisVal);
 		done();
 	};
 	var MyClassThing = MyClass.bind(thisVal);
@@ -22,9 +24,9 @@ it("Handles new BoundFunction", function(done) {
 it('Should be able to return a function with the given arguments bound', function(done){
 	var thisVal = {foo:'bar'};
 	var func = function(arg1, arg2){
-		expect(this).to.equal(thisVal);
-		expect(arg1).to.equal('foo');
-		expect(arg2).to.equal('bar');
+		proclaim.deepEqual(this, thisVal);
+		proclaim.equal(arg1, 'foo');
+		proclaim.equal(arg2, 'bar');
 		done();
 	};
 	var testFunc = func.bind(thisVal, 'foo');

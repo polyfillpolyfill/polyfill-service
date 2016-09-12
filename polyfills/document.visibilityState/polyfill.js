@@ -13,7 +13,7 @@
 
 	normalizeState();
 
-	document.addEventListener(prefix + 'visibilitychange', function (ev) {
+	document.addEventListener(prefix + 'visibilitychange', function () {
 		normalizeState();
 		document.dispatchEvent(new CustomEvent('visibilitychange'));
 	});

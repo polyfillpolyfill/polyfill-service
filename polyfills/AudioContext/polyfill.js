@@ -1,7 +1,8 @@
-(function (global) {
+(function () {
+	'use strict';
+
 	var
-	// <Global>.AudioContext
-	AudioContext = global.AudioContext = global.AudioContext || global.webkitAudioContext,
+	AudioContext = window.AudioContext = window.AudioContext || window.webkitAudioContext,
 	AudioContextPrototype = AudioContext.prototype;
 
 	Object.defineProperties(AudioContextPrototype, {
