@@ -4,4 +4,4 @@
 	} catch (e) {
 		return false;
 	}
-}());
+}())
