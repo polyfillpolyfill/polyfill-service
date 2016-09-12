@@ -84,6 +84,9 @@ function Perf(options) {
 							if (options.stats.includes('max')) {
 								row[metric+'_max'] = row[metric].range()[1];
 							}
+							if (options.stats.includes('count')) {
+								row[metric+'_count'] = row[metric].length;
+							}
 							if (options.stats.length) {
 								delete row[metric];
 							}

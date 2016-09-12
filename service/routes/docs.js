@@ -169,7 +169,7 @@ function refreshData() {
 			}));
 		},
 		rumPerf: () => {
-			return (new RumReport({period:30, minSampleSize:1000, stats:['95P']})).getStats()
+			return (new RumReport({period:30, minSampleSize:1000, stats:['95P', 'count']})).getStats()
 				.then(data => ({
 					rows: data,
 					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping

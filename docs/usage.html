@@ -101,7 +101,7 @@
 		<tr>
 			<td class="rum-perf-data__pop">{{data_center}}</td>
 			<td class="rum-perf-data__count">{{number_format count}}</td>
-			<td class='rum-perf-data__nettimeline'><div class="nettimeline nettimeline--dns" style="width:{{percent perf_dns_95 @root.rumPerf.scaleMax}}%" title="DNS lookup: {{perf_dns_95}}ms"></div><div class="nettimeline nettimeline--connect" style="width:{{percent perf_connect_95 @root.rumPerf.scaleMax}}%" title="TCP connect / SSL: {{perf_connect_95}}ms"></div><div class="nettimeline nettimeline--req" style="width:{{percent perf_req_95 @root.rumPerf.scaleMax}}%" title="Request: {{perf_req_95}}ms"></div><div class="nettimeline nettimeline--resp" style="width:{{percent perf_resp_95 @root.rumPerf.scaleMax}}%" title="Response: {{perf_resp_95}}ms"></div></td>
+			<td class='rum-perf-data__nettimeline'><div class="nettimeline nettimeline--dns" style="width:{{percent perf_dns_95 @root.rumPerf.scaleMax}}%" title="DNS lookup: {{perf_dns_95}}ms, {{perf_dns_count}} non-zero samples"></div><div class="nettimeline nettimeline--connect" style="width:{{percent perf_connect_95 @root.rumPerf.scaleMax}}%" title="TCP connect / SSL: {{perf_connect_95}}ms, {{perf_connect_count}} non-zero samples"></div><div class="nettimeline nettimeline--req" style="width:{{percent perf_req_95 @root.rumPerf.scaleMax}}%" title="Request: {{perf_req_95}}ms, {{perf_req_count}} non-zero samples"></div><div class="nettimeline nettimeline--resp" style="width:{{percent perf_resp_95 @root.rumPerf.scaleMax}}%" title="Response: {{perf_resp_95}}ms, {{perf_resp_count}} non-zero samples"></div></td>
 			<td class="rum-perf-data__total">{{number_format perf_total_95}}ms</td>
 		</tr>
 		{{/each}}
