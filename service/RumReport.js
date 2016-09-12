@@ -37,7 +37,7 @@ function Perf(options) {
 				const objdata = results[0].reduce((out, row) => {
 					const key = options.groupingFields.map(fieldName => row[fieldName]).join('-');
 					if (!(key in out)) {
-						const aggregateRow = {};
+						const aggregateRow = {count:0};
 						options.groupingFields.forEach(fieldName => {
 							aggregateRow[fieldName] = row[fieldName];
 						});
@@ -55,14 +55,13 @@ function Perf(options) {
 					.map(key => objdata[key])
 
 					// Remove any rows that don't have enough datapoints
-					.filter(row => row[options.metricFields[0]].length > options.minSampleSize)
+					.filter(row => row.count > options.minSampleSize)
 
 					// Sort by number of datapoints
 					.sort((a, b) => a[options.metricFields[0]].length < b[options.metricFields[0]].length ? 1 : -1)
 
 					// Add derived data
 					.map(row => {
-						row.count = row[options.metricFields[0]].length;
 						options.metricFields.forEach(metric => {
 							if (options.stats.includes('95P')) {
 								row[metric+'_95'] = row[metric].percentile(95);
