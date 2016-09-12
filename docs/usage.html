@@ -106,6 +106,8 @@
 		</tr>
 		{{/each}}
 		</table>
+
+		<p>Only non-zero samples are counted, which in practice means there are far fewer DNS lookup and TCP connect datapoints, because if reusing a keep-alive connection, both will be zero.</p>
 		{{/if}}
 
 	</div>

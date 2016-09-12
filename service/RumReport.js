@@ -46,7 +46,10 @@ function Perf(options) {
 						});
 						out[key] = aggregateRow;
 					}
-					options.metricFields.forEach(fieldName => out[key][fieldName].push(row[fieldName]));
+					options.metricFields.forEach(fieldName => {
+						if (row[fieldName]) out[key][fieldName].push(row[fieldName]);
+					});
+					out[key].count++;
 					return out;
 				}, {});
 				return Object.keys(objdata)
