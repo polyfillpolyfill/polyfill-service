@@ -2,7 +2,7 @@
 	"browsers": {
 		"android": "* - 4.4.4",
 		"bb": "10 - *",
-		"ie": "< 14",
+		"ie": "< 15",
 		"ie_mob": "*",
 		"firefox": "* - 38",
 		"opera": "* - 28",
