@@ -17,9 +17,6 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"Object.defineProperty"
-	],
 	"license": "CC0",
 	"spec": "https://github.com/tc39/Array.prototype.includes",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"
