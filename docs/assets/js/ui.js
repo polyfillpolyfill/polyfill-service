@@ -17,19 +17,19 @@ Array.from(document.querySelectorAll('.demo')).forEach(function(el) {
 function charts() {
 	var chart1, data1, chart2, data2, chart3, data3, drawCharts;
 	drawCharts = function() {
-		chart1 && chart1.draw(data1, {
+		chart1.draw(data1, {
 			chartArea:{left:0,top:0,width:'100%',height:'90%'},
 			hAxis: {title: 'Time (by day)'},
 			vAxis: {textPosition: 'in', minValue:0},
 			legend: {position: 'none'}
 		});
-		chart2 && chart2.draw(data2, {
+		chart2.draw(data2, {
 			pieHole: 0.6,
 			chartArea:{left:'5%',top:'5%',width:'100%',height:'90%'},
 			legend: {position: 'labeled'},
 			pieSliceText: 'none'
 		});
-		chart3 && chart3.draw(data3, {
+		chart3.draw(data3, {
 			chartArea:{left:30,top:10,width:'100%',height:'80%'},
 			legend: {position: 'none'},
 			hAxis: {textPosition: 'none'},
@@ -41,40 +41,34 @@ function charts() {
 			packages: ['corechart'],
 			callback: function() {
 				var chartel = document.getElementById('chart-requests');
-				if (chartel) {
-					data1 = google.visualization.arrayToDataTable(
-						Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
-							return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
-								return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
-							});
-						})
-					);
-					chart1 = new google.visualization.LineChart(chartel);
-				}
+				data1 = google.visualization.arrayToDataTable(
+					Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
+						return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
+							return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
+						});
+					})
+				);
+				chart1 = new google.visualization.LineChart(chartel);
 
 				chartel = document.getElementById('chart-hitratio');
-				if (chartel) {
-					data2 = google.visualization.arrayToDataTable(
-						Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
-							return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
-								return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
-							});
-						})
-					);
-					chart2 = new google.visualization.PieChart(chartel);
-				}
+				data2 = google.visualization.arrayToDataTable(
+					Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
+						return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
+							return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
+						});
+					})
+				);
+				chart2 = new google.visualization.PieChart(chartel);
 
 				chartel = document.getElementById('chart-resptime');
-				if (chartel) {
-					data3 = google.visualization.arrayToDataTable(
-						Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
-							return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
-								return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
-							});
-						})
-					);
-					chart3 = new google.visualization.LineChart(chartel);
-				}
+				data3 = google.visualization.arrayToDataTable(
+					Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
+						return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
+							return isNaN(cellel.textContent) ? cellel.textContent : parseFloat(cellel.textContent);
+						});
+					})
+				);
+				chart3 = new google.visualization.LineChart(chartel);
 
 				drawCharts();
 			}
