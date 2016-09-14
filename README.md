@@ -53,16 +53,15 @@ grunt dev
 
 You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
-* `PORT`: The port on which to listen for HTTP requests (default 3000).
-* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
-* `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
-* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
-* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
-* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
-* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
-* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
-* `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
+	* `PORT`: The port on which to listen for HTTP requests (default 3000).
+	* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
+	* `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
+	* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
+	* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
+	* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+	* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
+	* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+	* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 
 
 ## Testing
@@ -80,14 +79,14 @@ We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull
 
 ## Real User Monitoring
 
-We have shipped experimental support for using RUM to monitor feature support and performance in browsers.  This involves a number of parts, all activated by the presence `RUM_MYSQL_DSN` and `RUM_BEACON_HOST` env vars:
+We have shipped experimental support for using RUM to monitor feature support and performance in browsers.  This involves a number of parts, all activated by the presence `RUM_MYSQL_DSN` env var:
 
 * **RUM client code**: a [small snippet](lib/rumTemplate.js.handlebars) of legacy-compatible code that will evaluate feature detects on the client, sample resource timing data, and beacon the results back to the service. This is shipped as part of the Node app.
 * **Beacon endpoint**: an [endpoint to collect RUM data](fastly-config.vcl), terminated at the CDN, logging query data out to Amazon S3 to avoid overloading the backend.  To clarify, the backend node server does not provide a route handler for the RUM data collection URL, so this is shipped when we deploy VCL to Fastly.  It also requires log streaming to be configured in the Fastly UI.
 * **Lambda processing function**: an [AWS Lambda function](tasks/lambda/functions/rum-process/index.js) is used to move the data from the raw log files on S3 into the MySQL backend.  This is shipped using a dedicated process with [Apex](http://apex.run), see below.
 * **Reporting endpoints**: [API routes that deliver useful analysis of the RUM data](service/routes/rum.js) are provided in the node server.  These return CSV data intended to populate a spreadsheet.  This is shipped as part of the Node app.
 
-Because this requires a fair amount of orchestration, we recommend only enabling it for the FT hosted version.  If you want to run the service yourself, you can opt out of this RUM feature by not setting a `RUM_MYSQL_DSN` or `RUM_BEACON_HOST`.
+Because this requires a fair amount of orchestration, we recommend only enabling it for the FT hosted version.  If you want to run the service yourself, you can opt out of this RUM feature by not setting a `RUM_MYSQL_DSN`.
 
 ### Routes
 
