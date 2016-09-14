@@ -11,11 +11,6 @@
 			return nativeDefineProperty(object, property, descriptor);
 		}
 
-		var propertyString = String(property);
-		var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
-		var getterType = 'get' in descriptor && typeof descriptor.get;
-		var setterType = 'set' in descriptor && typeof descriptor.set;
-
 		if (object === null || !(object instanceof Object || typeof object === 'object')) {
 			throw new TypeError('Object must be an object (Object.defineProperty polyfill)');
 		}
@@ -23,6 +18,11 @@
 		if (!(descriptor instanceof Object)) {
 			throw new TypeError('Descriptor must be an object (Object.defineProperty polyfill)');
 		}
+
+		var propertyString = String(property);
+		var hasValueOrWritable = 'value' in descriptor || 'writable' in descriptor;
+		var getterType = 'get' in descriptor && typeof descriptor.get;
+		var setterType = 'set' in descriptor && typeof descriptor.set;
 
 		// handle descriptor.get
 		if (getterType) {
