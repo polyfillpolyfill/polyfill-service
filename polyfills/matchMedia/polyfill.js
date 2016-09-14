@@ -63,7 +63,9 @@
 			throw new TypeError('Not enough arguments to matchMedia');
 		}
 
-		list.media = String(query);
+		query = String(query).replace(/(\([^)]*$)/, '$1)');
+
+		list.media = query;
 		list.matches = evalQuery(list.media);
 		list.addListener.listeners = [];
 
