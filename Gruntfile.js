@@ -88,18 +88,40 @@ module.exports = function(grunt) {
 			dryrun: { options: {service: "qa", dryRun: true} },
 			qa: { options: {service: "qa"} },
 			prod: { options: {service: "prod"} }
+		},
+		"shell": {
+			"deployrumlambda": {
+				command: env => {
+
+					if (env !== 'prod') env = 'qa';
+					const qasuffix = (env !== 'prod') ? '_QA' : '';
+					const cmd = `AWS_ACCESS_KEY_ID=${process.env['RUM_AWS_ACCESS_KEY'+qasuffix]} AWS_SECRET_ACCESS_KEY=${process.env['RUM_AWS_SECRET_KEY'+qasuffix]} apex deploy -C ./tasks/lambda --env ${env} --set RUM_MYSQL_DSN=${process.env['RUM_MYSQL_DSN'+qasuffix]}`;
+
+					console.log('Deploying Lambda functions.  Environment:', env);
+					return cmd;
+				}
+			}
+		},
+		"eslint": {
+			options: {
+				ignorePath: './.gitignore'
+			},
+			target: ['bin', 'lib', 'service', 'tasks', 'polyfills/**/polyfill.js', '!polyfills/_ArrayIterator/polyfill.js', '!polyfills/Array/of/polyfill.js', '!polyfills/Array/prototype/values/polyfill.js', '!polyfills/atob/polyfill.js', '!polyfills/AudioContext/polyfill.js', '!polyfills/fetch/polyfill.js', '!polyfills/Function/prototype/bind/polyfill.js', '!polyfills/HTMLPictureElement/polyfill.js', '!polyfills/IntersectionObserver/polyfill.js', '!polyfills/Intl/polyfill.js', '!polyfills/Intl/**/polyfill.js', '!polyfills/JSON/polyfill.js', '!polyfills/navigator/sendBeacon/polyfill.js', '!polyfills/Promise/polyfill.js', '!polyfills/setImmediate/polyfill.js', '!polyfills/URL/polyfill.js', '!polyfills/UserTiming/polyfill.js', '!polyfills/WeakSet/polyfill.js', '!polyfills/~html5-elements/polyfill.js',
+			]
 		}
 	});
 
 	if (process.env.NODE_ENV === 'production') {
-		require('./tasks/buildsources')(grunt);
-		require('./tasks/updatelibrary')(grunt);
+		require('./tasks/grunt/buildsources')(grunt);
+		require('./tasks/grunt/updatelibrary')(grunt);
 		grunt.loadNpmTasks('grunt-contrib-clean');
 	} else {
-		grunt.loadTasks('tasks');
+		grunt.loadTasks('tasks/grunt');
 		grunt.loadNpmTasks('grunt-contrib-clean');
 		grunt.loadNpmTasks('grunt-contrib-watch');
 		grunt.loadNpmTasks('grunt-simple-mocha');
+		grunt.loadNpmTasks('grunt-shell');
+		grunt.loadNpmTasks('grunt-eslint');
 	}
 
 	grunt.registerTask("test", [

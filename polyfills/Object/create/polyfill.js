@@ -6,7 +6,7 @@
 	Object.create = function create(prototype, properties) {
 	/* jshint evil: true */
     if (prototype !== null && isPrimitive(prototype)) {
-      throw TypeError('Object prototype may only be an Object or null');
+      throw new TypeError('Object prototype may only be an Object or null');
     }
 
 	var

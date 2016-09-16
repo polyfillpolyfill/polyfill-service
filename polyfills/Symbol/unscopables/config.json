@@ -1,4 +1,7 @@
 {
+	"aliases": [
+		"es6"
+	],
 	"browsers": {
 		"ie": "*",
 		"ie_mob": "*",
@@ -7,7 +10,8 @@
 		"firefox": "< 40",
 		"ios_saf": "*",
 		"opera": "< 50",
-		"samsung_mob": "*"
+		"samsung_mob": "*",
+		"android": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty",

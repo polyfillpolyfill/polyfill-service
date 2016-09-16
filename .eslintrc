@@ -29,13 +29,5 @@
 		"no-var": 2,
 		"prefer-const": 1,
 		"no-const-assign": 2
-	},
-	"globals": {
-		"require": false,
-		"module": false,
-		"exports": false,
-		"requireText": false,
-		"__dirname": false,
-		"process": false
 	}
 }

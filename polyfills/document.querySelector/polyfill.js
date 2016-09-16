@@ -1,4 +1,4 @@
-(function (global) {
+(function () {
 	var
 	head = document.getElementsByTagName('head')[0];
 
@@ -51,4 +51,4 @@
 	Document.prototype.querySelectorAll = Element.prototype.querySelectorAll = function querySelectorAll(selector) {
 		return getElementsByQuery(this, selector, false);
 	};
-})(this);
+}(this));

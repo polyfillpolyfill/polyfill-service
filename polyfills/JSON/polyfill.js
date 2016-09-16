@@ -305,12 +305,12 @@
 
 			if (className === 'Date') {
 				return '"' + value.getUTCFullYear() + '-' +
-				pad(value.getUTCMonth() + 1, 2)     + '-' +
-				pad(value.getUTCDate(), 2)          + 'T' +
-				pad(value.getUTCHours(), 2)         + ':' +
-				pad(value.getUTCMinutes(), 2)       + ':' +
-				pad(value.getUTCSeconds(), 2)       + '.' +
-				pad(value.getUTCMilliseconds(), 3)  + 'Z' + '"';
+				pad(value.getUTCMonth() + 1, 2) + '-' +
+				pad(value.getUTCDate(), 2) + 'T' +
+				pad(value.getUTCHours(), 2) + ':' +
+				pad(value.getUTCMinutes(), 2) + ':' +
+				pad(value.getUTCSeconds(), 2) + '.' +
+				pad(value.getUTCMilliseconds(), 3) + 'Z' + '"';
 			}
 
 			if (className === 'String') {
@@ -342,4 +342,4 @@
 			}
 		}
 	};
-})(this);
+}(this));

@@ -172,4 +172,4 @@
 
     attachTo.setImmediate = setImmediate;
     attachTo.clearImmediate = clearImmediate;
-}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+}(this)); // eslint-disable-line no-undef

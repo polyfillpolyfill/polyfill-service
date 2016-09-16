@@ -1,5 +1,6 @@
 {
 	"aliases": [
+		"es6",
 		"default-3.6",
 		"default"
 	],
@@ -8,11 +9,11 @@
 		"safari": "<7.1",
 		"firefox": "<29",
 		"chrome": "<38",
-		"android": "*",
+		"android": "<5.1",
 		"firefox_mob": "<29",
 		"ie_mob": "*",
 		"opera_mob": "*",
-		"ios_saf": "<8"
+		"ios_saf": "<7.1"
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",

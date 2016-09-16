@@ -16,15 +16,14 @@ module.exports = function(grunt) {
 	const babel = require("babel-core");
 	const mkdir = require('mkdirp').sync;
 	const tsort = require('tsort');
-	const convert = require('convert-source-map');
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
-		const polyfillSourceFolder = path.join(__dirname, '../polyfills');
+		const polyfillSourceFolder = path.join(__dirname, '../../polyfills');
 		const configuredAliases = {};
 		const errors = [];
 		const dirs = [];
-		const destFolder = path.join(__dirname, '../polyfills/__dist');
+		const destFolder = path.join(__dirname, '../../polyfills/__dist');
 		const depGraph = tsort();
 
 		grunt.log.writeln('Writing compiled polyfill sources to '+destFolder+'/...');
@@ -56,7 +55,7 @@ module.exports = function(grunt) {
 				try {
 					if (!fs.existsSync(configPath)) return;
 					config = JSON.parse(fs.readFileSync(configPath));
-					config.baseDir = path.relative(path.join(__dirname,'../polyfills'), polyfillPath);
+					config.baseDir = path.relative(path.join(__dirname,'../../polyfills'), polyfillPath);
 				} catch (e) {
 					throw {name:"Invalid config", message:"Unable to read config from "+configPath};
 				}
@@ -91,7 +90,8 @@ module.exports = function(grunt) {
 				if (config.build && config.build.minify === false) {
 					// skipping any validation or minification process since
 					// the raw source is supposed to be production ready.
-					config.minSource = convert.removeComments(config.rawSource);
+					// Add a line break in case the final line is a comment
+					config.minSource = config.rawSource + "\n";
 				} else {
 					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
 					config.minSource = uglify.minify(config.rawSource, {
@@ -161,7 +161,7 @@ module.exports = function(grunt) {
 			grunt.fail.warn('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
 		}
 
-		fs.writeFileSync(path.join(__dirname, '../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
+		fs.writeFileSync(path.join(__dirname, '../../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
 		grunt.log.oklns('Sources built successfully');
 
 	});

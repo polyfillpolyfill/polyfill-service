@@ -60,4 +60,4 @@
 	XMLHttpRequestPrototype.setRequestHeader = function setRequestHeader(header, value) {
 		this._request.setRequestHeader(header, value);
 	};
-})(this, this.XMLHttpRequest);
+}(this, this.XMLHttpRequest));
