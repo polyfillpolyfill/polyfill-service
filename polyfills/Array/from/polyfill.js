@@ -1,20 +1,32 @@
 
 // Wrapped in IIFE to prevent leaking to global scope.
 (function () {
+	var mozIterator = '@@iterator';
+	var hasSymbol = typeof Symbol === 'function';
+	var hasMozIterator = typeof [][mozIterator] === 'function';
 	function parseIterable(arraylike) {
-		if (typeof arraylike[Symbol.iterator] !== 'function') {
+		var iterator = findIterator(arraylike);
+		if (typeof arraylike[iterator] !== 'function') {
 			return typeof arraylike === 'string'
 				? arraylike.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || []
 				: undefined;
 		}
 		var array = [];
-		var iter = arraylike[Symbol.iterator]();
+		var iter = arraylike[iterator]();
 		while (true) {
 			var result = iter.next();
 			if (result.done) return array;
 			array.push(result.value);
 		}
 
+	}
+	function findIterator(arraylike) {
+		if (hasSymbol && typeof arraylike[Symbol.iterator] === 'function') {
+			return Symbol.iterator;
+		}
+		if (hasMozIterator && typeof arraylike[mozIterator] === 'function') {
+			return mozIterator;
+		}
 	}
 
 	Object.defineProperty(Array, 'from', {
