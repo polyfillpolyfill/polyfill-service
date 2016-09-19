@@ -11,7 +11,8 @@
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "*",
-		"firefox_mob": "*"
+		"firefox_mob": "*",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Function.prototype.bind",
