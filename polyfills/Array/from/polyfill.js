@@ -58,7 +58,7 @@
 		return done ? tempArray : false;
 	};
 
-	var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
+	var hasSymbols = 'Symbol' in this && 'iterator' in Symbol;
 	var iteratorSymbol;
 	var forOf;
 	var hasSet = !!this.Set && isCallable(Set.prototype.values);
