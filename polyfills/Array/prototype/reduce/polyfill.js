@@ -1,6 +1,6 @@
 Array.prototype.reduce = function reduce(callback) {
 	if (this === undefined || this === null) {
-		throw new TypeError(this + 'is not an object');
+		throw new TypeError(this + ' is not an object');
 	}
 
 	if (!(callback instanceof Function)) {
