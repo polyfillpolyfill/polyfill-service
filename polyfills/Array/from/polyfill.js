@@ -19,7 +19,7 @@
 		return len;
 	}
 	function isCallable(value) {
-		return typeof value !== 'function' && typeof value !== 'object';
+		return typeof value === 'function';
 	};
 	function isString (value) {
 		return typeof value === 'string';
