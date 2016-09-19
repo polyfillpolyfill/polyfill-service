@@ -1,4 +1,4 @@
-(function(){
+(function(global){
 	'use strict';
 
 	function toObject(value) {
@@ -58,11 +58,11 @@
 		return done ? tempArray : false;
 	};
 
-	var hasSymbols = 'Symbol' in this && 'iterator' in Symbol;
+	var hasSymbols = 'Symbol' in global && 'iterator' in Symbol;
 	var iteratorSymbol;
 	var forOf;
-	var hasSet = !!this.Set && isCallable(Set.prototype.values);
-	var hasMap = !!this.Map && isCallable(Map.prototype.entries);
+	var hasSet = !!global.Set && isCallable(Set.prototype.values);
+	var hasMap = !!global.Map && isCallable(Map.prototype.entries);
 
 	if (hasSymbols) {
 		iteratorSymbol = Symbol.iterator;
@@ -161,7 +161,7 @@
 	};
 
 	/*! https://mths.be/array-from v0.2.0 by @mathias */
-	Array.prototype.from = function from(items) {
+	Array.from = function from(items) {
 		var defineProperty = Object.defineProperty;
 		var C = this;
 		if (items === null || typeof items === 'undefined') {
@@ -202,4 +202,4 @@
 		A.length = len;
 		return A;
 	};
-}());
+}(this));
