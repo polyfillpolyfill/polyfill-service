@@ -3,7 +3,7 @@
 		"es6"
 	],
 	"browsers": {
-		"ie": "*",
+		"ie": "< 13",
 		"ie_mob": "*",
 		"safari": "<9",
 		"chrome": "< 50",
