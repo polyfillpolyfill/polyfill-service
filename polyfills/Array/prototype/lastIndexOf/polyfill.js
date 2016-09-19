@@ -1,6 +1,6 @@
 Array.prototype.lastIndexOf = function lastIndexOf(searchElement) {
 	if (this === undefined || this === null) {
-		throw new TypeError(this + 'is not an object');
+		throw new TypeError(this + ' is not an object');
 	}
 
 	var
