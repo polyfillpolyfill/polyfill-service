@@ -12,20 +12,10 @@ const PolyfillSet = require('../PolyfillSet');
 const polyfillservice = require('../../lib');
 const compatdata = require('../../docs/assets/compat.json');
 const appVersion = require(path.join(__dirname,'../../package.json')).version;
+const RumReport = require('../RumReport.js').Perf;
 
-const cache = {};
-const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
+const docsData = {errors:[]};
 const templCache = {};
-let mysql;
-
-if (process.env.RUM_MYSQL_DSN) {
-	require('promise-mysql')
-		.createConnection(process.env.RUM_MYSQL_DSN)
-		.then(conn => {
-			mysql = conn;
-		})
-	;
-}
 
 
 // Template loader
@@ -51,6 +41,7 @@ Handlebars.registerHelper({
 	prettifyDuration: seconds => seconds ? moment.duration(seconds*1000).humanize() : 'None',
 	lower: str => str.toLowerCase(),
 	number_format: str => parseInt(str, 10).toLocaleString(),
+	percent: (n, total) => (Math.round((n/total)*10000)/100),
 	ifEq: (v1, v2, options) => (v1 === v2) ? options.fn(this) : options.inverse(this),
 	ifPrefix: (v1, v2, options) => (v1.indexOf(v2) === 0) ? options.fn(this) : options.inverse(this),
 	sectionHighlight: (section, pageName) => {
@@ -69,10 +60,11 @@ Handlebars.registerHelper({
 });
 
 
-function getData(type) {
+function refreshData() {
+	const cachettls = {fastly:1800, respTimes:1800, outages:86400, rumPerf:86400};
 	const handlers = {
 		fastly: () => {
-			if (!process.env.FASTLY_SERVICE_ID) return Promise.reject("Fastly environment vars not set");
+			if (!process.env.FASTLY_SERVICE_ID) throw new Error("Fastly access disabled.  See README for environment variables required for Fastly access.");
 			const endTime = moment().startOf('day');
 			const startTime = moment(endTime).subtract(180, 'days');
 			return request({
@@ -92,7 +84,7 @@ function getData(type) {
 			});
 		},
 		respTimes: () => {
-			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
+			if (!process.env.PINGDOM_CHECK_ID) throw new Error("Pingdom access disabled.  See README for environment variables required for Pingdom access");
 			const to = ((new Date()).getTime()/1000) - 3600;
 			const from = to - (60*60*24*7);
 			return request({
@@ -114,7 +106,7 @@ function getData(type) {
 			});
 		},
 		outages: () => {
-			if (!process.env.PINGDOM_CHECK_ID) return Promise.reject("Pingdom environment vars not set");
+			if (!process.env.PINGDOM_CHECK_ID) throw new Error("Pingdom access disabled.  See README for environment variables required for Pingdom access");
 			const data = {};
 			const periods = {
 				"30d": 60*60*24*30,
@@ -177,102 +169,86 @@ function getData(type) {
 			}));
 		},
 		rumPerf: () => {
-			if (!mysql) return [];
-			const perfFields = ['dns', 'connect', 'req', 'resp'];
-			const perfSQL = perfFields.map(fieldName => `
-				SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_${fieldName}) ORDER BY perf_${fieldName} SEPARATOR ','), ',', FLOOR(0.95 * SUM(perf_${fieldName} IS NOT NULL)) + 1), ',', -1)+0 AS perf_${fieldName}_95
-			`).join(', ');
-			const querySQL = `
-				SELECT data_center, COUNT(perf_dns IS NOT NULL) as count, ${perfSQL},
-					SUBSTRING_INDEX(SUBSTRING_INDEX(GROUP_CONCAT(ROUND(perf_dns+perf_connect+perf_req+perf_resp) ORDER BY (perf_dns+perf_connect+perf_req+perf_resp) SEPARATOR ','), ',', FLOOR(0.95 * SUM((perf_dns+perf_connect+perf_req+perf_resp))) + 1), ',', -1)+0 AS perf_total_95
-				FROM requests
-				WHERE req_time BETWEEN (CURDATE() - INTERVAL 30 DAY) AND CURDATE() AND data_center IS NOT NULL
-				GROUP BY data_center
-				HAVING count > 10
-				ORDER BY count DESC
-			`;
-			return mysql.query(querySQL).then(results => {
-				const highest = results.reduce((max, row) => Math.max(max, (row.perf_dns_95 + row.perf_connect_95 + row.perf_req_95 + row.perf_resp_95)), 0);
-				return results.map(row => {
-					perfFields.forEach(key => {
-						row['perf_'+key+'_95_display_pc'] = Math.round((row['perf_'+key+'_95'] / highest) * 1000) / 10;
-					});
-					return Object.assign({}, row);
-				})
-			});
+			return (new RumReport({period:30, minSampleSize:1000, stats:['95P', 'count']})).getStats()
+				.then(data => ({
+					rows: data,
+					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
+					period: 30,
+					minSampleSize: 1000
+				}))
+			;
 		},
-		compat: getCompat
-	};
-
-	if (cache.hasOwnProperty(type) && (!('expires' in cache[type]) || cache[type].expires > Date.now())) {
-		return cache[type].promise;
-	} else {
-		cache[type] = {};
-		if (cachettls[type]) {
-			cache[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+		compat: () => {
+			const sourceslib = sources.getCollection();
+			const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+			const msgs = {
+				'native': 'Supported natively',
+				'polyfilled': 'Supported with polyfill service',
+				'missing': 'Not supported'
+			};
+			return Promise.all(Object.keys(compatdata)
+				.filter(feature => sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
+				.sort()
+				.map(feat => {
+					return sourceslib.getPolyfill(feat).then(polyfill => {
+						const fdata = {
+							feature: feat,
+							slug: feat.replace(/[^\w]/g, '_'),
+							size: polyfill.minSource.length,
+							isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
+							hasTests: polyfill.hasTests,
+							docs: polyfill.docs,
+							baseDir: polyfill.baseDir,
+							spec: polyfill.spec,
+							notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+							license: polyfill.license,
+							licenseIsUrl: polyfill.license && polyfill.license.length > 5
+						};
+						browsers.forEach(browser => {
+							if (compatdata[feat][browser]) {
+								fdata[browser] = [];
+								Object.keys(compatdata[feat][browser])
+									.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
+									.forEach(version => {
+										fdata[browser].push({
+											status: compatdata[feat][browser][version],
+											statusMsg: msgs[compatdata[feat][browser][version]],
+											version: version
+										});
+									});
+								;
+							}
+						});
+						return fdata;
+					});
+				})
+			);
 		}
-		console.log('Generating docs data: type='+type+' expires='+cache[type].expires);
-		return cache[type].promise = handlers[type]()
-			.then(result => {
-				console.log('Completed generating docs data: type='+type);
-				return result;
-			})
-			.catch(err => {
-				const errobj = err.error || err;
-				throw {
-					service: type,
-					msg: errobj.error || errobj.message || errobj.msg || errobj.toString()
-				};
-			})
-		;
-	}
-}
-
-function getCompat() {
-	const sourceslib = sources.getCollection();
-	const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
-	const msgs = {
-		'native': 'Supported natively',
-		'polyfilled': 'Supported with polyfill service',
-		'missing': 'Not supported'
 	};
-	return Promise.all(Object.keys(compatdata)
-		.filter(feature => sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
-		.sort()
-		.map(feat => {
-			return sourceslib.getPolyfill(feat).then(polyfill => {
-				const fdata = {
-					feature: feat,
-					slug: feat.replace(/[^\w]/g, '_'),
-					size: polyfill.minSource.length,
-					isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-					hasTests: polyfill.hasTests,
-					docs: polyfill.docs,
-					baseDir: polyfill.baseDir,
-					spec: polyfill.spec,
-					notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-					license: polyfill.license,
-					licenseIsUrl: polyfill.license && polyfill.license.length > 5
-				};
-				browsers.forEach(browser => {
-					if (compatdata[feat][browser]) {
-						fdata[browser] = [];
-						Object.keys(compatdata[feat][browser])
-							.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
-							.forEach(version => {
-								fdata[browser].push({
-									status: compatdata[feat][browser][version],
-									statusMsg: msgs[compatdata[feat][browser][version]],
-									version: version
-								});
-							});
-						;
-					}
-				});
-				return fdata;
-			});
-		})
-	);
+
+	Object.keys(handlers).forEach(type => {
+		if (!docsData.hasOwnProperty(type) || (docsData[type] !== null && 'expires' in docsData[type] && docsData[type].expires < Date.now())) {
+			console.log('Generating docs data: type='+type);
+			try {
+				handlers[type]()
+					.then(result => {
+						docsData[type] = result;
+						if (result !== null) {
+							if (cachettls[type]) {
+								docsData[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
+							}
+							console.log('Completed generating docs data: type='+type+' expires='+(docsData[type].expires || 'never'));
+						}
+					})
+					.catch(err => {
+						docsData.errors.push("["+type+" (in promise)] "+ (err.msg || err.message || err.toString()));
+					})
+				;
+			} catch (err) {
+				docsData.errors.push("["+type+"] "+ (err.msg || err.message || err.toString()));
+			}
+		}
+	});
 }
 
 // Quick helper for Promise.all to spread results over separate arguments rather than an array
@@ -287,68 +263,34 @@ function route(req, res, next) {
 	if (req.path.length < "/v2/docs/".length) {
 		return res.redirect('/v2/docs/');
 	}
-	Promise
-		.resolve({
-			apiversion: req.params[0],
-			appversion: appVersion,
-			pageName: (req.params[1] || 'index').replace(/\/$/, ''),
-			rumEnabled: !!process.env.RUM_MYSQL_DSN
-		})
+	const locals = Object.assign({
+		apiversion: req.params[0],
+		appversion: appVersion,
+		pageName: (req.params[1] || 'index').replace(/\/$/, '')
+	}, docsData);
 
-		// Add page-specific data
-		.then(locals => {
-			if (locals.pageName === 'usage') {
+	if (locals.pageName === 'usage') {
 
-				// Set the ttl to one hour for the usage page so the graphs are
-				// updated more frequently, overriding the default cache-control
-				// behaviour set in index.js
-				const one_hour = 60 * 60;
-				const one_week = one_hour * 24 * 7;
-				res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-				return Promise.all([getData('fastly'), getData('outages'), getData('respTimes'), getData('rumPerf')])
-					.then(spread((fastly, outages, respTimes, rumPerf) => {
-						return Object.assign(locals, {
-							requestsData: fastly.byday,
-							downtime: outages,
-							respTimes: respTimes,
-							hitCount: fastly.rollup.hits,
-							missCount: fastly.rollup.miss,
-							rumPerfData: rumPerf
-						});
-					}))
-					.catch(ex => Object.assign(locals, ex))
-				;
+		// Set the ttl to one hour for the usage page so the graphs are
+		// updated more frequently, overriding the default cache-control
+		// behaviour set in index.js
+		const one_hour = 60 * 60;
+		const one_week = one_hour * 24 * 7;
+		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+	} else if (locals.pageName === 'contributing/authoring-polyfills') {
+		locals.baselines = require('../../lib/UA').getBaselines()
+	}
 
-			} else if (locals.pageName === 'features') {
-				return Promise.all([getData('sizes'), getData('compat')])
-					.then(spread((sizes, compat) => Object.assign(locals, {
-						compat: compat,
-						sizes: sizes
-					}, locals)))
-					.catch(function (err) {
-						console.log(err.stack || err);
-					})
-				;
-
-			} else if (locals.pageName === 'contributing/authoring-polyfills') {
-				return Object.assign(locals, {
-					baselines: require('../../lib/UA').getBaselines()
-				});
-
-			} else {
-				return locals;
-			}
-		})
-		.then(locals => {
-			template(locals.pageName)
-				.then(templFn => res.send(templFn(locals)))
-				.catch(err => {
-					console.log(err);
-					next();
-				})
-			;
+	template(locals.pageName)
+		.then(templFn => res.send(templFn(locals)))
+		.catch(err => {
+			console.log(err);
+			next();
 		})
 	;
 }
 
 module.exports = route;
+
+setInterval(refreshData, 300000);
+refreshData();
