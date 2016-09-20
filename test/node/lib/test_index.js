@@ -134,12 +134,21 @@ describe("polyfillio", function() {
 		});
 	});
 
-	/*
-	// TODO: Not sure how to test this reliably - need a mock polyfill source?
 	describe('.getPolyfillstring', function() {
 
-		it('should include the non-gated source when a feature-detect is unavailable', function() {
+		it('should produce different output when gated flag is enabled', function() {
+			return Promise.all([
+				polyfillio.getPolyfillString({
+					features: { default: { flags: [] } },
+					uaString: 'chrome/30'
+				}),
+				polyfillio.getPolyfillString({
+					features: { default: { flags: ['gated'] } },
+					uaString: 'chrome/30'
+				})
+			]).then(results => {
+				assert.notEqual(results[0], results[1]);
+			})
 		});
 	});
-	*/
 });
