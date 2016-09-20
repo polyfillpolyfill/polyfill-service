@@ -9,7 +9,7 @@
 		"chrome": "< 50",
 		"firefox": "< 40",
 		"ios_saf": "*",
-		"opera": "< 50",
+		"opera": "< 37",
 		"samsung_mob": "*",
 		"android": "*"
 	},
