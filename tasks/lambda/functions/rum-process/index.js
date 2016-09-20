@@ -63,7 +63,7 @@ exports.handle = (event, context) => {
 							data.ua_family = uaparts[0];
 							data.ua_version = uaparts[1];
 						} else {
-							data.feature_tests[k] = !!v;
+							data.feature_tests[k] = (parseInt(v, 10) === 1) ? 1 : 0;
 						}
 						return data;
 					}, null)
