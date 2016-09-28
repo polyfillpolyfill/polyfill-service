@@ -6,4 +6,4 @@
 		},
 		writable: true
 	});
-})(Object.prototype.toString);
+}(Object.prototype.toString));

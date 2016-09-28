@@ -104,6 +104,23 @@
 			</tbody>
 		</table>
 
+		<h2 id='default-sets'>Default sets</h2>
+
+		<p>The alias <code>default</code> includes a set of polyfills that comprise features with high demands, small polyfill sizes, good performance and at least one good native implementation in a stable browser.  The set evolves over time to include new features as they become a more stable part of the web platform.</p>
+
+		<p>Although you cannot request an immutable version of a polyfill, you can reduce the risk of future releases of the polyfill service breaking compatibility with your code by using an immutable default set.  Each time we make a release, if we have changed the features included in the default set we will issue a new immutable alias for the set, which won't change when the default set changes again.  The components of these sets are shown below:</p>
+
+		<table>
+			<thead>
+				<tr><th>Alias</th><th>Constituents</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><code style='white-space: nowrap'>default-3.3</code></td><td>Array.isArray, Array.prototype.every, Array.prototype.filter, Array.prototype.forEach, Array.prototype.indexOf, Array.prototype.lastIndexOf, Array.prototype.map, Array.prototype.reduce, Array.prototype.reduceRight, Array.prototype.some, atob, CustomEvent, Date.now, Date.prototype.toISOString, Document, document.querySelector, document.visibilityState, DOMTokenList, Element, Element.prototype.classList, Element.prototype.cloneNode, Element.prototype.closest, Element.prototype.matches, Event, Event.DOMContentLoaded, Event.focusin, Event.hashchange, Function.prototype.bind, JSON, Object.assign, Object.create, Object.defineProperties, Object.defineProperty, Object.getOwnPropertyNames, Object.getPrototypeOf, Object.keys, requestAnimationFrame, String.prototype.includes, String.prototype.trim, Window, XMLHttpRequest, ~html5-elements</td></tr>
+				<tr><td><code style='white-space: nowrap'>default-3.4</code></td><td><strong>Added</strong> Array.from, Array.of, Array.prototype.fill, Element.prototype.after, Element.prototype.append, Element.prototype.before, Element.prototype.prepend, Element.prototype.remove, Element.prototype.replaceWith, Node.prototype.contains, Number.isNaN, Promise, String.prototype.endsWith, String.prototype.startsWith, URL, location.origin</td></tr>
+				<tr><td><code style='white-space: nowrap'>default-3.5</code></td><td><strong>Added</strong> Object.getOwnPropertyDescriptor</td></tr>
+				<tr><td><code style='white-space: nowrap'>default-3.6</code></td><td><strong>Added</strong> Map, Set</td></tr>
+			</tbody>
+		</table>
 	</div>
 
 {{>footer}}

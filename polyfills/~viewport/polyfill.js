@@ -48,4 +48,4 @@
 		window.attachEvent('onscroll', setStatically);
 		setStatically();
 	}
-})(this);
+}(this));

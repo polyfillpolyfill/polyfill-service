@@ -9,7 +9,8 @@
 		"ie": "6 - *",
 		"ie_mob": "10 - *",
 		"ios_saf": "*",
-		"firefox_mob": "3.6 - 17"
+		"firefox_mob": "3.6 - 17",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"String.prototype.includes"

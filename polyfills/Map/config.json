@@ -1,14 +1,19 @@
 {
 	"aliases": [
+		"es6",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
 		"ie": "<12",
+		"safari": "<9",
 		"firefox": "<29",
-		"safari": "<8",
-		"ios_saf": "<7.1",
 		"chrome": "<38",
-		"firefox_mob": "<29"
+		"android": "<5.1",
+		"firefox_mob": "<29",
+		"ie_mob": "*",
+		"opera_mob": "*",
+		"ios_saf": "<9"
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",

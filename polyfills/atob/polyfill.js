@@ -1,55 +1,61 @@
-(function (global) {
-	var keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=', keysRe = new RegExp('[^' + keys + ']');
+;(function () {
 
-	// <Global>.atob
-	global.atob = function atob(input) {
-		var output = [], buffer, bufferB, chrs, index = 0, indexB, length = input.length;
+  var object = typeof exports != 'undefined' ? exports : self; // #8: web workers
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
-		if ((keysRe.test(input)) || (/=/.test(input) && (/=[^=]/.test(input) || /={3}/.test(input)))) {
-			throw new Error('Invalid base64 data');
-		}
+  function InvalidCharacterError(message) {
+    this.message = message;
+  }
+  InvalidCharacterError.prototype = new Error;
+  InvalidCharacterError.prototype.name = 'InvalidCharacterError';
 
-		if (length % 4 > 0) {
-			input += Array(4 - length % 4 + 1).join("=");
-			length = input.length;
-		}
+  // encoder
+  // [https://gist.github.com/999166] by [https://github.com/nignag]
+  object.btoa || (
+  object.btoa = function (input) {
+    var str = String(input);
+    for (
+      // initialize result and counter
+      var block, charCode, idx = 0, map = chars, output = '';
+      // if the next str index does not exist:
+      //   change the mapping table to "="
+      //   check if d has no fractional digits
+      str.charAt(idx | 0) || (map = '=', idx % 1);
+      // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+      output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+    ) {
+      charCode = str.charCodeAt(idx += 3/4);
+      if (charCode > 0xFF) {
+        throw new InvalidCharacterError("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+      }
+      block = block << 8 | charCode;
+    }
+    return output;
+  });
 
-		while (index < length) {
-			for (bufferB = [], indexB = index; index < indexB + 4;) {
-				bufferB.push(keys.indexOf(input.charAt(index++)));
-			}
+  // decoder
+  // [https://gist.github.com/1020396] by [https://github.com/atk]
+  object.atob || (
+  object.atob = function (input) {
+    var str = String(input).replace(/=+$/, '');
+    if (str.length % 4 == 1) {
+      throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+    }
+    for (
+      // initialize result and counters
+      var bc = 0, bs, buffer, idx = 0, output = '';
+      // get next character
+      buffer = str.charAt(idx++);
+      // character found in table? initialize bit storage and add its ascii value;
+      ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+        // and if not first of each 4 characters,
+        // convert the first 8 bits to one ascii character
+        bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+    ) {
+      // try to find character in table (0-63, not found => -1)
+      buffer = chars.indexOf(buffer);
+    }
+    return output;
+  });
 
-			buffer = (bufferB[0] << 18) + (bufferB[1] << 12) + ((bufferB[2] & 63) << 6) + (bufferB[3] & 63);
-
-			chrs = [(buffer & (255 << 16)) >> 16, bufferB[2] === 64 ? -1 : (buffer & (255 << 8)) >> 8, bufferB[3] === 64 ? -1 : buffer & 255];
-
-			for (indexB = 0; indexB < 3; ++indexB) {
-				if (chrs[indexB] >= 0 || indexB === 0) {
-					output.push(String.fromCharCode(chrs[indexB]));
-				}
-			}
-		}
-
-		return output.join('');
-	};
-
-	// <Global>.btoa
-	global.btoa = function btoa(input) {
-		var output = [], buffer, chrs, index = 0, length = input.length;
-
-		while (index < length) {
-			chrs = [input.charCodeAt(index++), input.charCodeAt(index++), input.charCodeAt(index++)];
-
-			buffer = (chrs[0] << 16) + ((chrs[1] || 0) << 8) + (chrs[2] || 0);
-
-			output.push(
-				keys.charAt((buffer & (63 << 18)) >> 18),
-				keys.charAt((buffer & (63 << 12)) >> 12),
-				keys.charAt(isNaN(chrs[1]) ? 64 : (buffer & (63 << 6)) >> 6),
-				keys.charAt(isNaN(chrs[2]) ? 64 : (buffer & 63))
-			);
-		}
-
-		return output.join('');
-	};
-})(this);
+}());

@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var element, child;
 
 function nameOf(fn) {
@@ -12,22 +15,22 @@ beforeEach(function () {
 });
 
 it('has correct instance', function () {
-	expect(element.prepend).to.be.a(Function);
+	proclaim.isInstanceOf(element.prepend, Function);
 });
 
 it('has correct name', function () {
-	expect(nameOf(element.prepend)).to.be('prepend');
+	proclaim.equal(nameOf(element.prepend), 'prepend');
 });
 
 it('has correct argument length', function () {
-	expect(element.prepend.length).to.be(0);
+	proclaim.equal(element.prepend.length, 0);
 });
 
 it('can prepend elements to itself', function () {
-	expect(child.prepend(document.createElement('div'))).to.be(undefined);
-	expect(child.prepend(document.createElement('div'), document.createElement('div'))).to.be(undefined);
-	expect(child.prepend('text', document.createElement('div'))).to.be(undefined);
+	proclaim.equal(child.prepend(document.createElement('div')), undefined);
+	proclaim.equal(child.prepend(document.createElement('div'), document.createElement('div')), undefined);
+	proclaim.equal(child.prepend('text', document.createElement('div')), undefined);
 
-	expect(child.childNodes.length).to.be(5);
-	expect(child.firstChild.nodeName).to.be('#text');
+	proclaim.equal(child.childNodes.length, 5);
+	proclaim.equal(child.firstChild.nodeName, '#text');
 });

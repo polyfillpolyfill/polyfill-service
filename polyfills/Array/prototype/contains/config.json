@@ -6,7 +6,8 @@
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"safari": "*",
-		"firefox_mob": "*"
+		"firefox_mob": "*",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Array.prototype.includes"

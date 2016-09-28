@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var assert  = require('assert');
+var assert  = require('proclaim');
 var polyfillio = require('../../../lib/index');
 
 describe("polyfillio", function() {
@@ -126,7 +126,6 @@ describe("polyfillio", function() {
 					excludes: ["Promise", "non-existent-feature"],
 					uaString: 'chrome/30'
 				}).then(function(polyfillSet) {
-					console.log(polyfillSet, 2);
 					assert.deepEqual(polyfillSet, {
 						fetch: { flags: [] }
 					});
@@ -135,12 +134,21 @@ describe("polyfillio", function() {
 		});
 	});
 
-	/*
-	// TODO: Not sure how to test this reliably - need a mock polyfill source?
 	describe('.getPolyfillstring', function() {
 
-		it('should include the non-gated source when a feature-detect is unavailable', function() {
+		it('should produce different output when gated flag is enabled', function() {
+			return Promise.all([
+				polyfillio.getPolyfillString({
+					features: { default: { flags: [] } },
+					uaString: 'chrome/30'
+				}),
+				polyfillio.getPolyfillString({
+					features: { default: { flags: ['gated'] } },
+					uaString: 'chrome/30'
+				})
+			]).then(results => {
+				assert.notEqual(results[0], results[1]);
+			})
 		});
 	});
-	*/
 });

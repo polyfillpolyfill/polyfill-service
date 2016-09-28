@@ -5,5 +5,5 @@ Element.prototype.cloneNode = (function(nativeFunc) {
 		if ('checked' in this) clone.checked = this.checked;
 
 		return clone;
-	}
-})(Element.prototype.cloneNode);
+	};
+}(Element.prototype.cloneNode));

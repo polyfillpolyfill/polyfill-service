@@ -1,4 +1,6 @@
-/*global describe, it, expect*/
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 describe('Basic functionality', function () {
 	var
 	object = {},
@@ -6,11 +8,11 @@ describe('Basic functionality', function () {
 	value = 'bar';
 
 	it('Returns the object being defined', function () {
-		expect(Object.defineProperty(object, property, {
+		proclaim.deepEqual(Object.defineProperty(object, property, {
 			configurable: true,
 			enumerable: true,
 			writable: true
-		})).to.equal(object);
+		}), object);
 	});
 
 	it('Assigns a property', function () {
@@ -19,7 +21,7 @@ describe('Basic functionality', function () {
 			enumerable: true,
 			writable: true
 		});
-		expect(property in object).to.equal(true);
+		proclaim.equal(property in object, true);
 	});
 
 	it('Assigns a property with a value', function () {
@@ -30,7 +32,7 @@ describe('Basic functionality', function () {
 			writable: true
 		});
 
-		expect(object[property]).to.equal(value);
+		proclaim.equal(object[property], value);
 	});
 
 	it('Assigns a property with a getter if getters are supported by the engine, else throws', function () {
@@ -48,7 +50,7 @@ describe('Basic functionality', function () {
 			}
 		}
 
-		expect(object[property]).to.equal(value);
+		proclaim.equal(object[property], value);
 	});
 });
 
@@ -59,43 +61,47 @@ describe('Error handling', function () {
 	value = 'bar';
 
 	it('Throws an error when called on a non-object', function() {
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty();
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(undefined);
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(null);
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty('');
-		}).to.throwException();
+		});
 	});
 
 	it('Throws an error when descriptor is a non-object', function() {
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property);
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, undefined);
 		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, null);
 		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, '');
 		});
+
+		proclaim.throws(function () {
+			Object.defineProperty(object, property);
+		}, 'Descriptor must be an object (Object.defineProperty polyfill)');
 	});
 
 	it('Throws an error when both an accessor and a value are specified', function () {
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				value: value,
 				writable: true,
@@ -103,9 +109,9 @@ describe('Error handling', function () {
 				configurable: true,
 				get: function () {}
 			});
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				value: value,
 				writable: true,
@@ -113,36 +119,36 @@ describe('Error handling', function () {
 				configurable: true,
 				set: function () {}
 			});
-		}).to.throwException();
+		});
 	});
 
 	it('Throws an error when an accessor is specified and writable is set', function () {
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				get: function () {},
 				writable: false
 			});
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				get: function () {},
 				writable: true
 			});
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				set: function () {},
 				writable: false
 			});
-		}).to.throwException();
+		});
 
-		expect(function () {
+		proclaim.throws(function () {
 			Object.defineProperty(object, property, {
 				set: function () {},
 				writable: true
 			});
-		}).to.throwException();
+		});
 	});
 });

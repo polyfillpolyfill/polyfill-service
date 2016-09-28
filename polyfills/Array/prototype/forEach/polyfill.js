@@ -1,6 +1,6 @@
 Array.prototype.forEach = function forEach(callback) {
 	if (this === undefined || this === null) {
-		throw new TypeError(this + 'is not an object');
+		throw new TypeError(this + ' is not an object');
 	}
 
 	if (!(callback instanceof Function)) {
@@ -12,9 +12,7 @@ Array.prototype.forEach = function forEach(callback) {
 	scope = arguments[1],
 	arraylike = object instanceof String ? object.split('') : object,
 	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
-	index = -1,
-	result = [],
-	element;
+	index = -1;
 
 	while (++index < length) {
 		if (index in arraylike) {

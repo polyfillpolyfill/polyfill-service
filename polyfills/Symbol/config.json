@@ -1,15 +1,22 @@
 {
+	"aliases": [
+		"es6"
+	],
 	"browsers": {
-		"ie": "*",
+		"ie": "< 13",
+		"ie_mob": "*",
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",
 		"ios_saf": "*",
-		"opera": "< 50"
+		"opera": "< 37",
+		"samsung_mob": "*",
+		"android": "<5.1"
 	},
 	"dependencies": [
 		"Array.prototype.forEach",
 		"Array.prototype.filter",
+		"Array.prototype.map",
 		"Math.random",
 		"Object.create",
 		"Object.defineProperty",

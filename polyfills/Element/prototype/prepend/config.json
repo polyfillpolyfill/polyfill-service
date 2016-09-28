@@ -1,12 +1,15 @@
 {
 	"aliases": [
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
 		"default"
 	],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
 		"chrome": "*",
-		"firefox": "3.6 - *",
+		"firefox": "<49",
 		"ios_chr": "*",
 		"ios_saf": "*",
 		"ie": "6 - *",
@@ -14,7 +17,8 @@
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "4 - *",
-		"firefox_mob": "3.6 - *"
+		"firefox_mob": "<49",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Document",
