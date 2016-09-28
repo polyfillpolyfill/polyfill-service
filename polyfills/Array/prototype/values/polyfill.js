@@ -1,2 +1,6 @@
 /* global Symbol */
-Array.prototype.values = Array.prototype[Symbol.iterator];
+Object.defineProperty(Array.prototype, 'values', {
+	value: Array.prototype[Symbol.iterator],
+	enumerable: false,
+	writable: false
+});
