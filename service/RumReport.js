@@ -119,7 +119,7 @@ function Compat() {
 	if (!process.env.RUM_MYSQL_DSN) return;
 
 	const querySQL = `
-		SELECT dr.feature_name, r.ua_family, r.ua_version, ROUND(SUM(dr.result)/COUNT(*)) as pass_rate, COUNT(DISTINCT r.ip) as ip_count, COUNT(*) as total_count
+		SELECT dr.feature_name, r.ua_family, r.ua_version, ROUND((SUM(dr.result)/COUNT(*))*100) as pass_rate, COUNT(DISTINCT r.ip) as ip_count, COUNT(DISTINCT refer_domain) as refer_source_count, COUNT(*) as total_count
 		FROM requests r INNER JOIN detect_results dr ON r.id=dr.request_id
 		WHERE req_time BETWEEN (CURDATE() - INTERVAL 30 DAY) AND CURDATE()
 		GROUP BY dr.feature_name, r.ua_family, r.ua_version
@@ -143,11 +143,11 @@ function Compat() {
 							rec.is_targeted = isTargeted ? 'Yes' : 'No';
 							if (rec.ip_count < 5) {
 								rec.targeting_status = 'Not enough data';
-							} else if ((isTargeted && rec.pass_rate < 0.2) || (!isTargeted && rec.pass_rate > 0.8)) {
+							} else if ((isTargeted && rec.pass_rate < 20) || (!isTargeted && rec.pass_rate > 80)) {
 								rec.targeting_status = 'Correct';
-							} else if (isTargeted && rec.pass_rate > 0.8) {
+							} else if (isTargeted && rec.pass_rate > 80) {
 								rec.targeting_status = 'False positive';
-							} else if (!isTargeted && rec.pass_rate < 0.2) {
+							} else if (!isTargeted && rec.pass_rate < 20) {
 								rec.targeting_status = 'False negative';
 							} else {
 								rec.targeting_status = 'Inconclusive';

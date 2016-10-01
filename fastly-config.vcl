@@ -11,7 +11,11 @@ sub vcl_recv {
 	}
 
 	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io")) {
-		error 751 "Force TLS";
+		error 751 "Canonicalise";
+	}
+
+	if (req.http.Host ~ "polyfills.io") {
+		error 751 "Canonicalise";
 	}
 
 	if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
@@ -61,7 +65,7 @@ sub vcl_error {
 	if (obj.status == 751) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
-		set obj.http.Location = "https://" req.http.host req.url;
+		set obj.http.Location = "https://polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
 	}

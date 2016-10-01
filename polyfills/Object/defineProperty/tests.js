@@ -94,6 +94,10 @@ describe('Error handling', function () {
 		proclaim.throws(function () {
 			Object.defineProperty(object, property, '');
 		});
+
+		proclaim.throws(function () {
+			Object.defineProperty(object, property);
+		}, 'Descriptor must be an object (Object.defineProperty polyfill)');
 	});
 
 	it('Throws an error when both an accessor and a value are specified', function () {
