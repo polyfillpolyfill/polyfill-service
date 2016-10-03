@@ -9,7 +9,7 @@
 	"browsers": {
 		"firefox": "* - 8",
 		"safari": "* - 2",
-		"ie": "*",
+		"ie": "<14",
 		"ie_mob": "10 - *",
 		"firefox_mob": "* - 8"
 	},
