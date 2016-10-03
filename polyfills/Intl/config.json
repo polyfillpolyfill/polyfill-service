@@ -6,7 +6,7 @@
 		"firefox": "<29",
 		"opera": "<15",
 		"chrome": "<24",
-		"safari": "*",
+		"safari": "<10",
 		"ios_saf": "*",
 		"firefox_mob": "*",
 		"samsung_mob": "*"
