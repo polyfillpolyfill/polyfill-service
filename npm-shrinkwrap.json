@@ -1348,9 +1348,9 @@
       "resolved": "https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.1.1.tgz"
     },
     "intl": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "from": "intl@>=1.2.4 <2.0.0",
-      "resolved": "https://registry.npmjs.org/intl/-/intl-1.2.4.tgz"
+      "resolved": "https://registry.npmjs.org/intl/-/intl-1.2.5.tgz"
     },
     "invariant": {
       "version": "2.2.1",
@@ -2041,6 +2041,11 @@
       "version": "1.0.1",
       "from": "read-pkg-up@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/read-pkg-up/-/read-pkg-up-1.0.1.tgz"
+    },
+    "readable-stream": {
+      "version": "1.0.34",
+      "from": "readable-stream@>=1.0.26 <1.1.0",
+      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz"
     },
     "readline2": {
       "version": "1.0.1",
