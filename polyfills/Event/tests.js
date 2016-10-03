@@ -161,3 +161,46 @@ it('subclasses should be instances of Event if the UA implements DOM3', function
 	document.body.appendChild(a);
 	a.click();
 })
+
+it('should separete namespaces with capture option of EventListenerOptions', function () {
+	var cnt = 0;
+	var testEl = document.createElement('div');
+	var listener = function() {
+		++cnt;
+	};
+
+	// capture false
+	testEl.addEventListener('test', listener, {});
+	testEl.removeEventListener('test', listener, true);
+	testEl.removeEventListener('test', listener, { capture: true });
+	testEl.dispatchEvent(new Event('test', {
+		bubbles: true,
+		cancelable: true
+	}));
+	proclaim.equal(cnt, 1);
+
+	testEl.removeEventListener('test', listener);
+	testEl.dispatchEvent(new Event('test', {
+		bubbles: true,
+		cancelable: true
+	}));
+	proclaim.equal(cnt, 1);
+
+	// capture true
+	testEl.addEventListener('test', listener, { capture: true });
+	testEl.removeEventListener('test', listener);
+	testEl.removeEventListener('test', listener, false);
+	testEl.removeEventListener('test', listener, { capture: false });
+	testEl.dispatchEvent(new Event('test', {
+		bubbles: true,
+		cancelable: true
+	}));
+	proclaim.equal(cnt, 2);
+
+	testEl.removeEventListener('test', listener, true);
+	testEl.dispatchEvent(new Event('test', {
+		bubbles: true,
+		cancelable: true
+	}));
+	proclaim.equal(cnt, 2);
+})
