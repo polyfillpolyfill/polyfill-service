@@ -11,7 +11,8 @@
 		"android": "*",
 		"ios_saf": "<9",
 		"opera": "<25",
-		"firefox_mob": "<36"
+		"firefox_mob": "<36",
+		"bb": ">=10"
 	},
 	"dependencies": [
 		"Object.defineProperty",

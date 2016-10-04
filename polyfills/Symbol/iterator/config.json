@@ -11,7 +11,8 @@
 		"ios_saf": "*",
 		"opera": "< 37",
 		"samsung_mob": "*",
-		"android": "<5.1"
+		"android": "<5.1",
+		"bb": ">=10"
 	},
 	"dependencies": [
 		"Object.defineProperty",
