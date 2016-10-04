@@ -14,7 +14,7 @@
 		"ie_mob": "*",
 		"opera_mob": "*",
 		"ios_saf": "<7.1",
-		"bb": ">=10"
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",

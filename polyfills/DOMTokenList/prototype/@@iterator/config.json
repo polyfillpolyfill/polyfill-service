@@ -8,7 +8,7 @@
 		"ios_saf": "*",
 		"opera": "<50",
 		"samsung_mob": "*",
-		"bb": ">=10"
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"_ArrayIterator",

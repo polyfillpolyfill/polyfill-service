@@ -12,7 +12,7 @@
 		"ios_saf": "<9",
 		"opera": "<25",
 		"firefox_mob": "<34",
-		"bb": ">=10"
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Object.defineProperty",

@@ -19,7 +19,7 @@
 		"android": "*",
 		"ios_saf": "<9",
 		"samsung_mob": "*",
-		"bb": ">=10"
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Object.defineProperty"
