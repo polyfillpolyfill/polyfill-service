@@ -8,15 +8,15 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
+		"chrome": "<55",
 		"firefox": "<49",
 		"ios_chr": "*",
-		"ios_saf": "*",
+		"ios_saf": "<10",
 		"ie": "6 - *",
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
-		"safari": "4 - *",
+		"safari": "<10",
 		"firefox_mob": "<49",
 		"samsung_mob": "*"
 	},
@@ -26,5 +26,6 @@
 		"Text",
 		"_mutation"
 	],
-	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before"
+	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before"
 }
