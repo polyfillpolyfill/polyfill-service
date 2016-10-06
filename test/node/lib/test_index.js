@@ -1,7 +1,8 @@
 /* global describe, it */
 
-var assert  = require('proclaim');
-var polyfillio = require('../../../lib/index');
+const assert  = require('proclaim');
+const polyfillio = require('../../../lib/index');
+const ReadableStream = require('stream').Readable;
 
 describe("polyfillio", function() {
 	describe(".getPolyfills(features)", function() {
@@ -150,5 +151,24 @@ describe("polyfillio", function() {
 				assert.notEqual(results[0], results[1]);
 			})
 		});
+
+		it('should support streaming output', function(done) {
+			const buf = [];
+			const s = polyfillio.getPolyfillString({
+				features: { default: { flags: [] } },
+				uaString: 'chrome/30',
+				stream: true,
+				minify: false
+			});
+			assert.instanceOf(s, ReadableStream);
+			s.on('data', chunk => buf.push(chunk));
+			s.on('end', () => {
+				const bundle = buf.join('');
+				assert.include(bundle, 'Polyfill service');
+				assert.include(bundle, "function(undefined)");
+				done();
+			})
+		});
+
 	});
 });
