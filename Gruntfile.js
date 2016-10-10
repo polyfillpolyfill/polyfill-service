@@ -142,6 +142,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
+		"eslint",
 		"build",
 		"simplemocha",
 		"service",

@@ -23,12 +23,12 @@ exports.handle = (event, context) => {
 		return denodeify(mysqlConn.connect.bind(mysqlConn))()
 			.then(() => console.log('MySQL Connected to '+process.env.RUM_MYSQL_DSN))
 		;
-	}
+	};
 	const mysqlDisconnect = () => {
 		return denodeify(mysqlConn.end.bind(mysqlConn))()
 			.then(() => console.log('MySQL disconnected'))
 		;
-	}
+	};
 	const mysqlQuery = denodeify(mysqlConn.query.bind(mysqlConn));
 
 	s3.getObject(s3params).promise()
@@ -63,7 +63,7 @@ exports.handle = (event, context) => {
 							data.ua_family = uaparts[0];
 							data.ua_version = uaparts[1];
 						} else {
-							data.feature_tests[k] = !!v;
+							data.feature_tests[k] = (parseInt(v, 10) === 1) ? 1 : 0;
 						}
 						return data;
 					}, null)

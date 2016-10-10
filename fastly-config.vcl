@@ -11,7 +11,11 @@ sub vcl_recv {
 	}
 
 	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io")) {
-		error 751 "Force TLS";
+		error 751 "Canonicalise";
+	}
+
+	if (req.http.Host ~ "polyfills.io") {
+		error 751 "Canonicalise";
 	}
 
 	if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
@@ -20,7 +24,7 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
-		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&elapsed_msec=" time.elapsed.msec "&data_center=" server.datacenter "&country=" geoip.country_code;
+		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code "&data_center=" if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter);
 		error 204 "No Content";
 	}
 
@@ -47,6 +51,11 @@ sub vcl_deliver {
 	} else if (req.url ~ "^/v\d/polyfill\..*[\?\&]ua=" && req.http.X-Orig-URL && req.http.X-Orig-URL !~ "[\?\&]ua=") {
 		add resp.http.Vary = "User-Agent";
 	}
+
+	if (req.url ~ "[\&\?]rum=1") {
+		add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
+	}
+
 	return(deliver);
 }
 
@@ -56,7 +65,7 @@ sub vcl_error {
 	if (obj.status == 751) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
-		set obj.http.Location = "https://" req.http.host req.url;
+		set obj.http.Location = "https://polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
 	}
