@@ -63,7 +63,7 @@
 
 			<p>We recommend the use of the <code>async</code> and <code>defer</code> attributes on <code>&lt;script></code> tags that load from the polyfill service, but loading from us in a non-blocking way means you can't know for certain whether your own code will execute before or after the polyfills are done loading.</p>
 
-			<p>To make sure the polyfills are present before you try to run your own code, you can attach an <code>onload</code> handler t the polyfill.io script tag, use a more sophisticated <a href='https://davidwalsh.name/javascript-loader'>script loader</a> or simply use our <code>callback</code> argument to evaluate a global callback when the polyfills are loaded:
+			<p>To make sure the polyfills are present before you try to run your own code, you can attach an <code>onload</code> handler to the polyfill.io script tag, use a more sophisticated <a href='https://davidwalsh.name/javascript-loader'>script loader</a> or simply use our <code>callback</code> argument to evaluate a global callback when the polyfills are loaded:
 
 			<pre><code>&lt;script src="https://polyfill.io/v2/polyfill.min.js?callback=polyfillsAreLoaded" defer async>&lt;/script>
 &lt;script>
