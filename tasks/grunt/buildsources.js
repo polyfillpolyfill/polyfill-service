@@ -44,10 +44,12 @@ module.exports = function(grunt) {
 
 		dirs.forEach(polyfillPath => {
 			let config;
+			const sources = {};
 			const configPath = path.join(polyfillPath, 'config.json');
 			const detectPath = path.join(polyfillPath, 'detect.js');
 			const polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
 			const featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/(\/|\\)/g, '.');
+			const destFeatureFolder = path.join(destFolder, featureName);
 
 			try {
 
@@ -66,21 +68,19 @@ module.exports = function(grunt) {
 					throw 'Incorrect spelling of license property in '+featureName;
 				}
 
-				if (!config.rawSource) {
-					if (!fs.existsSync(polyfillSourcePath)) {
-						throw {name:"Missing polyfill source file", message:"Path "+polyfillSourcePath+" not found"};
-					}
-					config.rawSource = fs.readFileSync(polyfillSourcePath, 'utf8');
+				if (!fs.existsSync(polyfillSourcePath)) {
+					throw {name:"Missing polyfill source file", message:"Path "+polyfillSourcePath+" not found"};
 				}
+				sources.raw = fs.readFileSync(polyfillSourcePath, 'utf8');
 
 				// At time of writing no current browsers support the full ES6 language syntax, so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all cases (also note that uglify currently cannot minify ES6 syntax).  When browsers start shipping with complete ES6 support, the ES6 source versions should be served where appropriate, which will require another set of variations on the source properties of the polyfill.  At this point it might be better to create a collection of sources with different properties, eg config.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
 				if (config.esversion && config.esversion > 5) {
 					if (config.esversion === 6) {
-						const result = babel.transform(config.rawSource, {"presets": ["es2015"]});
+						const result = babel.transform(sources.raw, {"presets": ["es2015"]});
 
 						// Don't add a "use strict"
 						// Super annoying to have to drop the preset and list all babel plugins individually, so hack to remove the "use strict" added by Babel (see also http://stackoverflow.com/questions/33821312/how-to-remove-global-use-strict-added-by-babel)
-						config.rawSource = result.code.replace(/^\s*"use strict";\s*/i, '');
+						sources.raw = result.code.replace(/^\s*"use strict";\s*/i, '');
 
 					} else {
 						throw {name:"Unsupported ES version", message:"Feature "+featureName+' uses ES'+config.esversion+' but no transpiler is available for that version'};
@@ -91,10 +91,10 @@ module.exports = function(grunt) {
 					// skipping any validation or minification process since
 					// the raw source is supposed to be production ready.
 					// Add a line break in case the final line is a comment
-					config.minSource = config.rawSource + "\n";
+					sources.min = sources.raw + "\n";
 				} else {
-					validateSource(config.rawSource, featureName+' from '+polyfillSourcePath);
-					config.minSource = uglify.minify(config.rawSource, {
+					validateSource(sources.raw, featureName+' from '+polyfillSourcePath);
+					sources.min = uglify.minify(sources.raw, {
 						fromString: true,
 						compress: { screw_ie8: false},
 						mangle:   { screw_ie8: false},
@@ -110,19 +110,12 @@ module.exports = function(grunt) {
 				}
 
 				// Add start-of-module marker comments to unminifed source
-				config.rawSource = '\n// '+featureName + '\n' + config.rawSource;
+				sources.raw = '\n// '+featureName + '\n' + sources.raw;
 
-				const featurePath = path.join(destFolder, featureName+'.json');
-				const featureDir = path.dirname(featurePath);
-				mkdir(featureDir, function(err) {
-					if (!err) {
-						fs.writeFileSync(featurePath, JSON.stringify(config));
-					}
-					else {
-						grunt.log.errorlns("Can't create directory " + featureDir + "due to the following error: " + err);
-					}
-				});
-				fs.writeFileSync(featurePath, JSON.stringify(config));
+				mkdir(destFeatureFolder);
+				fs.writeFileSync(path.join(destFeatureFolder, 'meta.json'), JSON.stringify(config));
+				fs.writeFileSync(path.join(destFeatureFolder, 'raw.js'), sources.raw);
+				fs.writeFileSync(path.join(destFeatureFolder, 'min.js'), sources.min);
 				grunt.log.writeln('+ '+featureName);
 
 				// Store alias names in a map for efficient lookup, mapping aliases to

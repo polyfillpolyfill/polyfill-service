@@ -32,7 +32,7 @@ PolyfillSet.fromQueryParam = function(polyfillList, additionalFlags) {
 	return new PolyfillSet(list.sort().reduce((obj, name) => {
 		const nameAndFlags = name.split('|');
 		obj[nameAndFlags[0]] = {
-			flags:   nameAndFlags.slice(1).concat(additionalFlags)
+			flags: new Set(nameAndFlags.slice(1).concat(additionalFlags))
 		};
 		return obj;
 	}, {}));
