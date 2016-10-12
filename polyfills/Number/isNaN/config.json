@@ -12,7 +12,7 @@
 		"firefox": "<16",
 		"firefox_mob":"<44",
 		"chrome":"<19",
-		"android": "<47",
+		"android": "<4.1",
 		"safari": "<9",
 		"ios_saf": "<9",
 		"opera": "<21",
