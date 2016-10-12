@@ -49,11 +49,64 @@
 			<p>And this example applies both flags to the whole request:</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from&amp;flags=always,gated'></div>
 
-			<h2 id='rum'>Data collection</h2>
+			<h2 id='rum'>Real user monitoring</h2>
 
 			<p>To help out the project with collecting compatibility data, please consider enabling the `rum` option:</p>
 
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Element.prototype.classList,Array.from&amp;rum=1&amp;flags=always'></div>
+
+			<h2 id='feature-detection'>Loading strategies</h2>
+
+			<p>There are many ways you can incorporate the polyfill service into your site's resource loading strategy, to suit different standards and rules.</p>
+
+			<h3>Async with callback</h3>
+
+			<p>We recommend the use of the <code>async</code> and <code>defer</code> attributes on <code>&lt;script></code> tags that load from the polyfill service, but loading from us in a non-blocking way means you can't know for certain whether your own code will execute before or after the polyfills are done loading.</p>
+
+			<p>To make sure the polyfills are present before you try to run your own code, you can attach an <code>onload</code> handler to the polyfill.io script tag, use a more sophisticated <a href='https://davidwalsh.name/javascript-loader'>script loader</a> or simply use our <code>callback</code> argument to evaluate a global callback when the polyfills are loaded:
+
+			<pre><code>&lt;script src="https://polyfill.io/v2/polyfill.min.js?callback=polyfillsAreLoaded" defer async>&lt;/script>
+&lt;script>
+  function polyfillsAreLoaded() {
+    console.log('Now to do the cool stuff...');
+  }
+&lt;/script></code></pre>
+
+			<h3>Feature detection</h3>
+
+			<p>The polyfill service uses (and advocates) server side feature detection based on <code>User-Agent</code> identification, but you can also use the service with feature detection in the browser if you like.  Just run the tests you want and construct a polyfill.io URL, with an <code>always</code> flag to disable our user-agent feature-detection, and a <code>ua</code> identifier set to a supported browser:</p>
+
+			<pre><code>// Create a list of the features this browser needs.
+// Beware of overly simplistic detects!
+var features = [];
+('Promise' in window) || features.push('Promise');
+('IntersectionObserver' in window) || features.push('IntersectionObserver');
+('after' in Element.prototype) || features.push('Element.prototype.after');
+
+// If any features need to be polyfilled, construct
+// a script tag to load the polyfills and append it
+// to the document
+if (features.length) {
+  var s = document.createElement('script');
+
+  // Include a `ua` argument set to a supported browser to skip UA identification
+  // (improves response time) and avoid being treated as unknown UA (which would
+  // otherwise result in no polyfills, even with `always`, if UA is unknown)
+  s.src = 'https://polyfill.io/v2/polyfill.min.js?features='+features.join(',')+'&flags=gated,always&ua=chrome/50&callback=main';
+  s.async = true;
+  document.head.appendChild(s);
+} else {
+	
+	// If no polyfills are required, invoke the app
+	// without delay
+	main();
+}
+
+function main() {
+	console.log('Now to do the cool stuff...');
+}</code></pre>
+
+			<p>You can view the above example <a href='http://jsbin.com/sufiboz/'>in a JSBin demo</a>.  Doing live feature detection in the browser is one of our oldest feature requests, and we hope to support this out of the box at some point.  Follow <a href='https://github.com/Financial-Times/polyfill-service/issues/84'>issue 84</a> for updates.</p>
 
 		</div>
 
