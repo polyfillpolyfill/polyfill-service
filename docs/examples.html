@@ -88,6 +88,10 @@ var features = [];
 // to the document
 if (features.length) {
   var s = document.createElement('script');
+
+  // Include a `ua` argument set to a supported browser to skip UA identification
+  // (improves response time) and avoid being treated as unknown UA (which would
+  // otherwise result in no polyfills, even with `always`, if UA is unknown)
   s.src = 'https://polyfill.io/v2/polyfill.min.js?features='+features.join(',')+'&flags=gated,always&ua=chrome/50&callback=main';
   s.async = true;
   document.head.appendChild(s);
