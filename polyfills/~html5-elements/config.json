@@ -16,5 +16,8 @@
 	"install": {
 		"module": "html5shiv",
 		"paths": ["dist/html5shiv.min.js"]
-	}
+	},
+	"dependencies": [
+		"Document"
+	]
 }

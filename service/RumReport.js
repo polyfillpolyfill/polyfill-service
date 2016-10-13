@@ -1,3 +1,4 @@
+"use strict";
 
 const MySQL = require('mysql2/promise');
 const Stats = require('fast-stats').Stats;
