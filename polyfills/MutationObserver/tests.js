@@ -54,13 +54,15 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    proclaim(records[0], {
+    // expectRecord(records[0], {
       type: 'attributes',
       target: div,
       attributeName: 'a',
       attributeNamespace: null
     });
-    expectRecord(records[1], {
+    proclaim(records[1], {
+    // expectRecord(records[1], {
       type: 'attributes',
       target: div,
       attributeName: 'a',
@@ -82,14 +84,16 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: div,
       attributeName: 'a',
       attributeNamespace: null,
       oldValue: null
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'attributes',
       target: div,
       attributeName: 'a',
@@ -130,12 +134,14 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: child,
       attributeName: 'a'
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'attributes',
       target: child,
       attributeName: 'a'
@@ -164,18 +170,21 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 3);
     proclaim.strictEqual(records.length, 3);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: div,
       attributeName: 'a'
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'attributes',
       target: div,
       attributeName: 'a',
       oldValue: 'A'
     });
-    expectRecord(records[2], {
+    // expectRecord(records[2], {
+    proclaim(records[2], {
       type: 'attributes',
       target: div,
       attributeName: 'b'
@@ -185,7 +194,8 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 1);
     proclaim.strictEqual(records.length, 1);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: div,
       attributeName: 'b'
@@ -214,18 +224,21 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 3);
     proclaim.strictEqual(records.length, 3);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: child,
       attributeName: 'a'
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'attributes',
       target: child,
       attributeName: 'a',
       oldValue: 'A'
     });
-    expectRecord(records[2], {
+    // expectRecord(records[2], {
+    proclaim(records[2], {
       type: 'attributes',
       target: child,
       attributeName: 'b'
@@ -251,7 +264,8 @@ describe('MutationObserver attributes', function() {
     // assert.strictEqual(records.length, 1);
     proclaim.strictEqual(records.length, 1);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'attributes',
       target: div,
       attributeName: 'b'
@@ -300,7 +314,8 @@ describe('MutationObserver attributes', function() {
     var records2 = observer2.takeRecords();
     // assert.strictEqual(records2.length, 1);
     proclaim.strictEqual(records2.length, 1);
-    expectRecord(records2[0], {
+    // expectRecord(records2[0], {
+    proclaim(records2[0], {
       type: 'attributes',
       target: div,
       attributeName: 'a'
@@ -315,7 +330,8 @@ describe('MutationObserver attributes', function() {
     records2 = observer2.takeRecords();
     // assert.strictEqual(records2.length, 1);
     proclaim.strictEqual(records2.length, 1);
-    expectRecord(records2[0], {
+    // expectRecord(records2[0], {
+    proclaim(records2[0], {
       type: 'attributes',
       target: div,
       attributeName: 'b'
@@ -359,11 +375,13 @@ describe('MutationObserver characterData', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'characterData',
       target: text
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'characterData',
       target: text
     });
@@ -383,12 +401,14 @@ describe('MutationObserver characterData', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'characterData',
       target: text,
       oldValue: 'abc'
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'characterData',
       target: text,
       oldValue: 'def'
@@ -425,11 +445,13 @@ describe('MutationObserver characterData', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'characterData',
       target: text
     });
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'characterData',
       target: text
     });
@@ -476,7 +498,7 @@ describe('MutationObserver childList', function() {
     records.forEach(function(record) {
       for (var propertyName in expectedProperties) {
         // assert.strictEqual(record[propertyName], expectedProperties[propertyName]);
-        proclaim.strictEqual(records[propertyName], expectedProperties[propertyName]);
+        proclaim.strictEqual(record[propertyName], expectedProperties[propertyName]);
       }
     });
   }
@@ -497,13 +519,15 @@ describe('MutationObserver childList', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: div,
       addedNodes: [a]
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: div,
       addedNodes: [b],
@@ -530,14 +554,16 @@ describe('MutationObserver childList', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: div,
       addedNodes: [b],
       nextSibling: a
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: div,
       addedNodes: [c],
@@ -565,7 +591,8 @@ describe('MutationObserver childList', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: div,
       removedNodes: [b],
@@ -573,7 +600,8 @@ describe('MutationObserver childList', function() {
       previousSibling: a
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: div,
       removedNodes: [a],
@@ -598,20 +626,23 @@ describe('MutationObserver childList', function() {
     // assert.strictEqual(records.length, 3);
     proclaim.strictEqual(records.length, 3);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: div,
       addedNodes: [a]
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: div,
       nextSibling: a,
       addedNodes: [b]
     });
 
-    expectRecord(records[2], {
+    // expectRecord(records[2], {
+    proclaim(records[2], {
       type: 'childList',
       target: div,
       nextSibling: a,
@@ -638,20 +669,23 @@ describe('MutationObserver childList', function() {
     // IE11+ native impl fails on this, adding a spurious 4th record
     //assert.strictEqual(records.length, 3);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: child,
       addedNodes: [a]
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: child,
       //nextSibling: a,			// Native impl fail in IE11
       addedNodes: [b]
     });
 
-    expectRecord(records[2], {
+    // expectRecord(records[2], {
+    proclaim(records[2], {
       type: 'childList',
       target: child,
       //nextSibling: a,     // Native impl fail in IE11
@@ -681,13 +715,15 @@ describe('MutationObserver childList', function() {
     // assert.strictEqual(records.length, 2);
     proclaim.strictEqual(records.length, 2);
 
-    expectRecord(records[0], {
+    // expectRecord(records[0], {
+    proclaim(records[0], {
       type: 'childList',
       target: child,
       addedNodes: [a]
     });
 
-    expectRecord(records[1], {
+    // expectRecord(records[1], {
+    proclaim(records[1], {
       type: 'childList',
       target: div,
       addedNodes: [b],
@@ -881,13 +917,15 @@ describe('MutationObserver mixed types', function() {
 		// expect(records.length).to.be(2);
     proclaim.strictEqual(records.length, 2);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
 			attributeNamespace: null
 		});
-		expectRecord(records[1], {
+		// expectRecord(records[1], {
+    proclaim(records[1], {
 			type: 'characterData',
 			target: div.firstChild
 		});
@@ -912,13 +950,15 @@ describe('MutationObserver callback', function() {
 			// expect(records.length).to.be(2);
       proclaim.strictEqual(records.length, 2);
 
-			expectRecord(records[0], {
+			// expectRecord(records[0], {
+      proclaim(records[0], {
 				type: 'attributes',
 				target: div,
 				attributeName: 'a',
 				attributeNamespace: null
 			});
-			expectRecord(records[1], {
+			// expectRecord(records[1], {
+      proclaim(records[1], {
 				type: 'attributes',
 				target: div,
 				attributeName: 'a',
@@ -944,7 +984,8 @@ describe('MutationObserver callback', function() {
       proclaim.strictEqual(records.length, 1);
 
 			if (i === 0) {
-				expectRecord(records[0], {
+				// expectRecord(records[0], {
+        proclaim(records[0], {
 					type: 'attributes',
 					target: div,
 					attributeName: 'a',
@@ -953,7 +994,8 @@ describe('MutationObserver callback', function() {
 				div.setAttribute('b', 'B');
 				i++;
 			} else {
-				expectRecord(records[0], {
+				// expectRecord(records[0], {
+        proclaim(records[0], {
 					type: 'attributes',
 					target: div,
 					attributeName: 'b',
@@ -1009,7 +1051,8 @@ describe('MutationObserver transient', function() {
 		// expect(records.length).to.be(1);
     proclaim.strictEqual(records.length, 1);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a',
@@ -1022,7 +1065,8 @@ describe('MutationObserver transient', function() {
 		// expect(records.length).to.be(1);
     proclaim.strictEqual(records.length, 1);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'b',
@@ -1044,7 +1088,8 @@ describe('MutationObserver transient', function() {
 			// expect(records.length).to.be(1);
       proclaim.strictEqual(records.length, 1);
 
-			expectRecord(records[0], {
+			// expectRecord(records[0], {
+      proclaim(records[0], {
 				type: 'attributes',
 				target: child,
 				attributeName: 'a',
@@ -1083,7 +1128,8 @@ describe('MutationObserver transient', function() {
 			// expect(records.length).to.be(1);
       proclaim.strictEqual(records.length, 1);
 
-			expectRecord(records[0], {
+			// expectRecord(records[0], {
+      proclaim(records[0], {
 				type: 'attributes',
 				target: child,
 				attributeName: 'a',
@@ -1113,7 +1159,8 @@ describe('MutationObserver transient', function() {
 				// expect(records.length).to.be(1);
         proclaim.strictEqual(records.length, 1);
 
-				expectRecord(records[0], {
+				// expectRecord(records[0], {
+        proclaim(records[0], {
 					type: 'attributes',
 					target: child,
 					attributeName: 'b',
@@ -1148,7 +1195,8 @@ describe('MutationObserver transient', function() {
 		// expect(records.length).to.be(1);
     proclaim.strictEqual(records.length, 1);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'characterData',
 			target: child
 		});
@@ -1159,7 +1207,8 @@ describe('MutationObserver transient', function() {
 		// expect(records.length).to.be(1);
     proclaim.strictEqual(records.length, 1);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'characterData',
 			target: child
 		});
@@ -1179,7 +1228,8 @@ describe('MutationObserver transient', function() {
 			// expect(records.length).to.be(1);
       proclaim.strictEqual(records.length, 1);
 
-			expectRecord(records[0], {
+			// expectRecord(records[0], {
+      proclaim(records[0], {
 				type: 'characterData',
 				target: child
 			});
@@ -1215,13 +1265,15 @@ describe('MutationObserver transient', function() {
 		// expect(records.length).to.be(2);
     proclaim.strictEqual(records.length, 2);
 
-		expectRecord(records[0], {
+		// expectRecord(records[0], {
+    proclaim(records[0], {
 			type: 'childList',
 			target: div,
 			removedNodes: [child]
 		});
 
-		expectRecord(records[1], {
+		// expectRecord(records[1], {
+    proclaim(records[1], {
 			type: 'childList',
 			target: child,
 			addedNodes: [grandChild]
@@ -1232,13 +1284,14 @@ describe('MutationObserver transient', function() {
 		records = observer.takeRecords();
 
 		// IE fails this in IE9/10
-		/* expect(records.length).to.be(1);
+		//  expect(records.length).to.be(1);
 
-		expectRecord(records[0], {
-			type: 'childList',
-			target: child,
-			removedNodes: [grandChild]
-		});*/
+		// // expectRecord(records[0], {
+    // proclaim(records[0], {
+		// 	type: 'childList',
+		// 	target: child,
+		// 	removedNodes: [grandChild]
+		// });
 	});
 
 	it('childList callback', function(cont) {
@@ -1255,13 +1308,15 @@ describe('MutationObserver transient', function() {
 			// expect(records.length).to.be(2);
       proclaim.strictEqual(records.length, 2);
 
-			expectRecord(records[0], {
+			// expectRecord(records[0], {
+      proclaim(records[0], {
 				type: 'childList',
 				target: div,
 				removedNodes: [child]
 			});
 
-			expectRecord(records[1], {
+			// expectRecord(records[1], {
+      proclaim(records[1], {
 				type: 'childList',
 				target: child,
 				addedNodes: [grandChild]
