@@ -229,7 +229,7 @@
 				opts = opts.capture;
 			}
 			return _addEventListener.call(this, type, listener, opts);
-		}
+		};
 		var _removeEventListener = window.removeEventListener;
 		window.removeEventListener = Window.prototype.removeEventListener = Document.prototype.removeEventListener = Element.prototype.removeEventListener = function removeEventListener (type, listener) {
 			var opts = arguments[2];
@@ -237,6 +237,6 @@
 				opts = opts.capture;
 			}
 			return _removeEventListener.call(this, type, listener, opts);
-		}
+		};
 	}
 }());
