@@ -141,6 +141,12 @@ it("exhibits correct iterator behaviour", function () {
 	// new element shows up in iterators that didn't yet finish
 	proclaim.equal(entriesagain.next().value[0], "4");
 	proclaim.equal(entriesagain.next().done, true);
+	// value is present but undefined when done is true, so that Array.from and other noncompliant
+	// interfaces recognize it as a valid iterator
+	var lastResult = entriesagain.next();
+	proclaim.equal(lastResult.done, true);
+	proclaim.ok(lastResult.hasOwnProperty('value'));
+	proclaim.equal(lastResult.value, void 0);
 });
 
 it("implements .forEach()", function () {

@@ -24,7 +24,7 @@
 					while (setInst._values[nextIdx] === undefMarker) nextIdx++;
 					return {value: getter.call(setInst, nextIdx++), done: false};
 				} else {
-					return {done:true};
+					return {value: void 0, done:true};
 				}
 			}
 		};

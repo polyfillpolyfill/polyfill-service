@@ -23,12 +23,12 @@ exports.handle = (event, context) => {
 		return denodeify(mysqlConn.connect.bind(mysqlConn))()
 			.then(() => console.log('MySQL Connected to '+process.env.RUM_MYSQL_DSN))
 		;
-	}
+	};
 	const mysqlDisconnect = () => {
 		return denodeify(mysqlConn.end.bind(mysqlConn))()
 			.then(() => console.log('MySQL disconnected'))
 		;
-	}
+	};
 	const mysqlQuery = denodeify(mysqlConn.query.bind(mysqlConn));
 
 	s3.getObject(s3params).promise()
