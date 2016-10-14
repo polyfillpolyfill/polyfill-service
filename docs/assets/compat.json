@@ -839,48 +839,6 @@
       "9.2": "native"
     }
   },
-  "Event.DOMContentLoaded": {
-    "chrome": {
-      "30": "native",
-      "35": "native",
-      "40": "native",
-      "42": "native",
-      "46": "native",
-      "48": "native"
-    },
-    "firefox": {
-      "20": "native",
-      "30": "native",
-      "33": "native",
-      "41": "native",
-      "42": "native",
-      "44": "native"
-    },
-    "ie": {
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "native",
-      "10": "native",
-      "11": "native",
-      "12": "native",
-      "13": "native"
-    },
-    "safari": {
-      "8": "native",
-      "9": "native",
-      "5.1": "native"
-    },
-    "android": {
-      "4.4": "native",
-      "4.3": "native",
-      "4.2": "native",
-      "4.1": "native"
-    },
-    "ios_saf": {
-      "9.1": "native",
-      "9.2": "native"
-    }
-  },
   "Event.focusin": {
     "chrome": {
       "30": "native",
