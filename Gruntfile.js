@@ -142,6 +142,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask("ci", [
+		"eslint",
 		"build",
 		"simplemocha",
 		"service",
@@ -171,8 +172,8 @@ const browsers = {
 	quick: [
 		'chrome/48',
 		'firefox/44',
+		'ie/14',
 		'ie/13',
-		'ie/12',
 		'ie/11',
 		'ie/8',
 		'android/4.4'
@@ -182,8 +183,8 @@ const browsers = {
 		'chrome/40',
 		'firefox/42',
 		'firefox/30',
+		'ie/14',
 		'ie/13',
-		'ie/12',
 		'ie/11',
 		'ie/10',
 		'ie/9',
@@ -206,8 +207,8 @@ const browsers = {
 		'firefox/33',
 		'firefox/30',
 		'firefox/20',
+		'ie/14',
 		'ie/13',
-		'ie/12',
 		'ie/11',
 		'ie/10',
 		'ie/9',

@@ -24,7 +24,7 @@
 					while (mapInst._keys[nextIdx] === undefMarker) nextIdx++;
 					return {value: getter.call(mapInst, nextIdx++), done: false};
 				} else {
-					return {done:true};
+					return {value: void 0, done:true};
 				}
 			}
 		};

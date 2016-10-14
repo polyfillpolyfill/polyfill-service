@@ -13,7 +13,8 @@
 		"firefox_mob": "<29",
 		"ie_mob": "*",
 		"opera_mob": "*",
-		"ios_saf": "<9"
+		"ios_saf": "<9",
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Array.prototype.indexOf",
