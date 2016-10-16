@@ -129,7 +129,8 @@ function charts() {
 	function runTests() {
 		window.receiveTestResult = processLiveResult;
 		if ('postMessage' in window) {
-			window.addEventListener("message", function(message) {
+			window.addEventListener("message", function(msg) {
+				var data;
 				try {
 					data = JSON.parse(msg.data);
 				} catch (e) {
