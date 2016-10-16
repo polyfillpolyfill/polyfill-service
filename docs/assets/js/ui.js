@@ -16,7 +16,7 @@ Array.from(document.querySelectorAll('.demo')).forEach(function(el) {
 });
 
 // Perf charts
-function charts() {
+function charts() { // eslint-disable-line no-unused-vars
 	var chart1;
 	var data1;
 	var chart2;
