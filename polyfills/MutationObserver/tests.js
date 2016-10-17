@@ -4,17 +4,17 @@
 var expectRecord = function (src, model) {
 	Object.keys(model).forEach(function(key) {
 		// proclaim(src[key]).to.eql(model[key]);
-		proclaim(src[key], model[key]);
+		proclaim.deepEqual(src[key], model[key]);
 	});
 };
 var assertArrayEqual = function(src, model) {
 	// proclaim(src).to.eql(model);
-	proclaim(src, model);
+	proclaim.deepEqual(src, model);
 };
 var assert = {
 	strictEqual: function(src, model) {
 		// proclaim(src).to.be(model);
-		proclaim(src, model);
+		proclaim.strictEqual(src, model);
 	}
 };
 
