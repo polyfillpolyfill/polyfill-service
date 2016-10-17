@@ -24,10 +24,6 @@
 		"no-irregular-whitespace": 1,
 		"no-multi-spaces": 2,
 		"one-var": [2, "never"],
-		"constructor-super": 2,
-		"no-this-before-super": 2,
-		"no-var": 0,
-		"prefer-const": 0,
-		"no-const-assign": 2
+		"no-var": 0
 	}
 }
