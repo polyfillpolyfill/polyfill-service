@@ -3,17 +3,14 @@
 
 var expectRecord = function (src, model) {
 	Object.keys(model).forEach(function(key) {
-		// proclaim(src[key]).to.eql(model[key]);
 		proclaim.deepEqual(src[key], model[key]);
 	});
 };
 var assertArrayEqual = function(src, model) {
-	// proclaim(src).to.eql(model);
 	proclaim.deepEqual(src, model);
 };
 var assert = {
 	strictEqual: function(src, model) {
-		// proclaim(src).to.be(model);
 		proclaim.strictEqual(src, model);
 	}
 };
@@ -1012,7 +1009,7 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				proclaim().fail();
+				proclaim.fail();
 			}
 
 			proclaim.strictEqual(records.length, 1);
@@ -1048,7 +1045,7 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				proclaim().fail();
+				proclaim.fail();
 			}
 
 			proclaim.strictEqual(records.length, 1);
@@ -1076,7 +1073,7 @@ describe('MutationObserver transient', function() {
 			var observer2 = new MutationObserver(function(records) {
 				i++;
 				if (i > 2){
-					proclaim().fail();
+					proclaim.fail();
 				}
 
 				proclaim.strictEqual(records.length, 1);
@@ -1138,7 +1135,7 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				proclaim().fail();
+				proclaim.fail();
 			}
 
 			proclaim.strictEqual(records.length, 1);
@@ -1210,7 +1207,7 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				proclaim().fail();
+				proclaim.fail();
 			}
 
 			proclaim.strictEqual(records.length, 2);
