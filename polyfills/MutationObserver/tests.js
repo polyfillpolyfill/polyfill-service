@@ -51,18 +51,17 @@ describe('MutationObserver attributes', function() {
 		div.setAttribute('a', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
+
 		proclaim.strictEqual(records.length, 2);
 
-		proclaim(records[0], {
-		// expectRecord(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
 			attributeNamespace: null
 		});
-		proclaim(records[1], {
-		// expectRecord(records[1], {
+
+		expectRecord(records[1], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
@@ -81,19 +80,18 @@ describe('MutationObserver attributes', function() {
 		div.setAttribute('a', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
+
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
 			attributeNamespace: null,
 			oldValue: null
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		
+		expectRecord(records[1], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
@@ -114,7 +112,6 @@ describe('MutationObserver attributes', function() {
 		child.setAttribute('a', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 0);
 		proclaim.strictEqual(records.length, 0);
 	});
 
@@ -131,17 +128,16 @@ describe('MutationObserver attributes', function() {
 		child.setAttribute('a', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
+
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a'
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+
+		expectRecord(records[1], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a'
@@ -167,35 +163,30 @@ describe('MutationObserver attributes', function() {
 		div.setAttribute('b', 'B');
 
 		var records = observer1.takeRecords();
-		// assert.strictEqual(records.length, 3);
+
 		proclaim.strictEqual(records.length, 3);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a'
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
 			oldValue: 'A'
 		});
-		// expectRecord(records[2], {
-		proclaim(records[2], {
+		expectRecord(records[2], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'b'
 		});
 
 		records = observer2.takeRecords();
-		// assert.strictEqual(records.length, 1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'b'
@@ -221,24 +212,20 @@ describe('MutationObserver attributes', function() {
 		child.setAttribute('b', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 3);
 		proclaim.strictEqual(records.length, 3);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a'
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a',
 			oldValue: 'A'
 		});
-		// expectRecord(records[2], {
-		proclaim(records[2], {
+		expectRecord(records[2], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'b'
@@ -261,11 +248,9 @@ describe('MutationObserver attributes', function() {
 		div.setAttribute('b', 'B');
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'b'
@@ -283,13 +268,11 @@ describe('MutationObserver attributes', function() {
 
 		observer.disconnect();
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 0);
 		proclaim.strictEqual(records.length, 0);
 
 		div.setAttribute('b', 'B');
 
 		records = observer.takeRecords();
-		// assert.strictEqual(records.length, 0);
 		proclaim.strictEqual(records.length, 0);
 	});
 
@@ -308,14 +291,11 @@ describe('MutationObserver attributes', function() {
 
 		observer1.disconnect();
 		var records1 = observer1.takeRecords();
-		// assert.strictEqual(records1.length, 0);
 		proclaim.strictEqual(records1.length, 0);
 
 		var records2 = observer2.takeRecords();
-		// assert.strictEqual(records2.length, 1);
 		proclaim.strictEqual(records2.length, 1);
-		// expectRecord(records2[0], {
-		proclaim(records2[0], {
+		expectRecord(records2[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a'
@@ -324,14 +304,11 @@ describe('MutationObserver attributes', function() {
 		div.setAttribute('b', 'B');
 
 		records1 = observer1.takeRecords();
-		// assert.strictEqual(records1.length, 0);
 		proclaim.strictEqual(records1.length, 0);
 
 		records2 = observer2.takeRecords();
-		// assert.strictEqual(records2.length, 1);
 		proclaim.strictEqual(records2.length, 1);
-		// expectRecord(records2[0], {
-		proclaim(records2[0], {
+		expectRecord(records2[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'b'
@@ -372,16 +349,13 @@ describe('MutationObserver characterData', function() {
 		text.data = 'ghi';
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'characterData',
 			target: text
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'characterData',
 			target: text
 		});
@@ -398,17 +372,14 @@ describe('MutationObserver characterData', function() {
 		text.data = 'ghi';
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'characterData',
 			target: text,
 			oldValue: 'abc'
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'characterData',
 			target: text,
 			oldValue: 'def'
@@ -426,7 +397,6 @@ describe('MutationObserver characterData', function() {
 		text.data = 'ghi';
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 0);
 		proclaim.strictEqual(records.length, 0);
 	});
 
@@ -442,16 +412,13 @@ describe('MutationObserver characterData', function() {
 		text.data = 'ghi';
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'characterData',
 			target: text
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'characterData',
 			target: text
 		});
@@ -516,18 +483,15 @@ describe('MutationObserver childList', function() {
 		div.appendChild(b);
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: div,
 			addedNodes: [a]
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: div,
 			addedNodes: [b],
@@ -551,19 +515,16 @@ describe('MutationObserver childList', function() {
 		div.insertBefore(c, a);
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: div,
 			addedNodes: [b],
 			nextSibling: a
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: div,
 			addedNodes: [c],
@@ -588,11 +549,9 @@ describe('MutationObserver childList', function() {
 		div.removeChild(a);
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: div,
 			removedNodes: [b],
@@ -600,8 +559,7 @@ describe('MutationObserver childList', function() {
 			previousSibling: a
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: div,
 			removedNodes: [a],
@@ -623,26 +581,22 @@ describe('MutationObserver childList', function() {
 		div.removeChild(b);
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 3);
 		proclaim.strictEqual(records.length, 3);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: div,
 			addedNodes: [a]
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: div,
 			nextSibling: a,
 			addedNodes: [b]
 		});
 
-		// expectRecord(records[2], {
-		proclaim(records[2], {
+		expectRecord(records[2], {
 			type: 'childList',
 			target: div,
 			nextSibling: a,
@@ -669,23 +623,20 @@ describe('MutationObserver childList', function() {
 		// IE11+ native impl fails on this, adding a spurious 4th record
 		//assert.strictEqual(records.length, 3);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: child,
 			addedNodes: [a]
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: child,
 			//nextSibling: a,			// Native impl fail in IE11
 			addedNodes: [b]
 		});
 
-		// expectRecord(records[2], {
-		proclaim(records[2], {
+		expectRecord(records[2], {
 			type: 'childList',
 			target: child,
 			//nextSibling: a,     // Native impl fail in IE11
@@ -712,18 +663,15 @@ describe('MutationObserver childList', function() {
 		div.appendChild(b);
 
 		var records = observer.takeRecords();
-		// assert.strictEqual(records.length, 2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: child,
 			addedNodes: [a]
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: div,
 			addedNodes: [b],
@@ -875,13 +823,9 @@ describe('MutationObserver childList', function() {
 		var records = observer.takeRecords();
 
 		if(records.length == 1) {
-			// assert.strictEqual(records[0].target, div);
-			// assert.strictEqual(records[0].addedNodes[0].firstChild, div3);
 			proclaim.strictEqual(records[0].target, div);
 			proclaim.strictEqual(records[0].addedNodes[0].firstChild, div3);
 		} else {
-			// assert.strictEqual(records[0].target, div);
-			// assert.strictEqual(records[1].target, div2);
 			proclaim.strictEqual(records[0].target, div);
 			proclaim.strictEqual(records[1].target, div2);
 		}
@@ -914,18 +858,15 @@ describe('MutationObserver mixed types', function() {
 		div.firstChild.data = 'changed';
 
 		var records = observer.takeRecords();
-		// expect(records.length).to.be(2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: div,
 			attributeName: 'a',
 			attributeNamespace: null
 		});
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'characterData',
 			target: div.firstChild
 		});
@@ -947,18 +888,15 @@ describe('MutationObserver callback', function() {
 	it('One observer, two attribute changes', function(cont) {
 		var div = document.createElement('div');
 		var observer = new MutationObserver(function(records) {
-			// expect(records.length).to.be(2);
 			proclaim.strictEqual(records.length, 2);
 
-			// expectRecord(records[0], {
-			proclaim(records[0], {
+			expectRecord(records[0], {
 				type: 'attributes',
 				target: div,
 				attributeName: 'a',
 				attributeNamespace: null
 			});
-			// expectRecord(records[1], {
-			proclaim(records[1], {
+			expectRecord(records[1], {
 				type: 'attributes',
 				target: div,
 				attributeName: 'a',
@@ -980,12 +918,10 @@ describe('MutationObserver callback', function() {
 		var div = document.createElement('div');
 		var i = 0;
 		var observer = new MutationObserver(function(records) {
-			// expect(records.length).to.be(1);
 			proclaim.strictEqual(records.length, 1);
 
 			if (i === 0) {
-				// expectRecord(records[0], {
-				proclaim(records[0], {
+				expectRecord(records[0], {
 					type: 'attributes',
 					target: div,
 					attributeName: 'a',
@@ -994,8 +930,7 @@ describe('MutationObserver callback', function() {
 				div.setAttribute('b', 'B');
 				i++;
 			} else {
-				// expectRecord(records[0], {
-				proclaim(records[0], {
+				expectRecord(records[0], {
 					type: 'attributes',
 					target: div,
 					attributeName: 'b',
@@ -1048,11 +983,9 @@ describe('MutationObserver transient', function() {
 		child.setAttribute('a', 'A');
 
 		var records = observer.takeRecords();
-		// expect(records.length).to.be(1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'a',
@@ -1062,11 +995,9 @@ describe('MutationObserver transient', function() {
 		child.setAttribute('b', 'B');
 
 		records = observer.takeRecords();
-		// expect(records.length).to.be(1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'attributes',
 			target: child,
 			attributeName: 'b',
@@ -1081,15 +1012,12 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				// expect().fail();
 				proclaim().fail();
 			}
 
-			// expect(records.length).to.be(1);
 			proclaim.strictEqual(records.length, 1);
 
-			// expectRecord(records[0], {
-			proclaim(records[0], {
+			expectRecord(records[0], {
 				type: 'attributes',
 				target: child,
 				attributeName: 'a',
@@ -1099,7 +1027,6 @@ describe('MutationObserver transient', function() {
 			// The transient observers are removed before the callback is called.
 			child.setAttribute('b', 'B');
 			records = observer.takeRecords();
-			// expect(records.length).to.be(0);
 			proclaim.strictEqual(records.length, 0);
 
 			cont();
@@ -1121,15 +1048,12 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				// expect().fail();
 				proclaim().fail();
 			}
 
-			// expect(records.length).to.be(1);
 			proclaim.strictEqual(records.length, 1);
 
-			// expectRecord(records[0], {
-			proclaim(records[0], {
+			expectRecord(records[0], {
 				type: 'attributes',
 				target: child,
 				attributeName: 'a',
@@ -1152,15 +1076,12 @@ describe('MutationObserver transient', function() {
 			var observer2 = new MutationObserver(function(records) {
 				i++;
 				if (i > 2){
-					// expect().fail();
 					proclaim().fail();
 				}
 
-				// expect(records.length).to.be(1);
 				proclaim.strictEqual(records.length, 1);
 
-				// expectRecord(records[0], {
-				proclaim(records[0], {
+				expectRecord(records[0], {
 					type: 'attributes',
 					target: child,
 					attributeName: 'b',
@@ -1192,11 +1113,9 @@ describe('MutationObserver transient', function() {
 		child.data = 'changed';
 
 		var records = observer.takeRecords();
-		// expect(records.length).to.be(1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'characterData',
 			target: child
 		});
@@ -1204,11 +1123,9 @@ describe('MutationObserver transient', function() {
 		child.data += ' again';
 
 		records = observer.takeRecords();
-		// expect(records.length).to.be(1);
 		proclaim.strictEqual(records.length, 1);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'characterData',
 			target: child
 		});
@@ -1221,15 +1138,12 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				// expect().fail();
 				proclaim().fail();
 			}
 
-			// expect(records.length).to.be(1);
 			proclaim.strictEqual(records.length, 1);
 
-			// expectRecord(records[0], {
-			proclaim(records[0], {
+			expectRecord(records[0], {
 				type: 'characterData',
 				target: child
 			});
@@ -1237,7 +1151,6 @@ describe('MutationObserver transient', function() {
 			// The transient observers are removed before the callback is called.
 			child.data += ' again';
 			records = observer.takeRecords();
-			// expect(records.length).to.be(0);
 			proclaim.strictEqual(records.length, 0);
 
 			cont();
@@ -1262,18 +1175,15 @@ describe('MutationObserver transient', function() {
 		var grandChild = child.appendChild(document.createElement('span'));
 
 		var records = observer.takeRecords();
-		// expect(records.length).to.be(2);
 		proclaim.strictEqual(records.length, 2);
 
-		// expectRecord(records[0], {
-		proclaim(records[0], {
+		expectRecord(records[0], {
 			type: 'childList',
 			target: div,
 			removedNodes: [child]
 		});
 
-		// expectRecord(records[1], {
-		proclaim(records[1], {
+		expectRecord(records[1], {
 			type: 'childList',
 			target: child,
 			addedNodes: [grandChild]
@@ -1286,8 +1196,7 @@ describe('MutationObserver transient', function() {
 		// IE fails this in IE9/10
 		//  expect(records.length).to.be(1);
 
-		// // expectRecord(records[0], {
-		// proclaim(records[0], {
+		// expectRecord(records[0], {
 		// 	type: 'childList',
 		// 	target: child,
 		// 	removedNodes: [grandChild]
@@ -1301,22 +1210,18 @@ describe('MutationObserver transient', function() {
 		var observer = new MutationObserver(function(records) {
 			i++;
 			if (i > 1){
-				// expect().fail();
 				proclaim().fail();
 			}
 
-			// expect(records.length).to.be(2);
 			proclaim.strictEqual(records.length, 2);
 
-			// expectRecord(records[0], {
-			proclaim(records[0], {
+			expectRecord(records[0], {
 				type: 'childList',
 				target: div,
 				removedNodes: [child]
 			});
 
-			// expectRecord(records[1], {
-			proclaim(records[1], {
+			expectRecord(records[1], {
 				type: 'childList',
 				target: child,
 				addedNodes: [grandChild]
@@ -1326,7 +1231,6 @@ describe('MutationObserver transient', function() {
 			child.removeChild(grandChild);
 
 			records = observer.takeRecords();
-			// expect(records.length).to.be(0);
 			proclaim.strictEqual(records.length, 0);
 
 			cont();
