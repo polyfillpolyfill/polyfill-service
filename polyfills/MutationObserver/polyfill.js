@@ -572,4 +572,4 @@
 		JsMutationObserver._isPolyfilled = true;
 	}
 
-})(self);
+}(self));
