@@ -10,8 +10,13 @@ sub vcl_recv {
 		return(pass);
 	}
 
-	if (!req.http.Fastly-SSL && (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io" || req.http.Host == "qa.polyfill.io")) {
-		error 751 "Canonicalise";
+	if (!req.http.Fastly-SSL) {
+		if (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io") {
+			error 751 "Canonicalise";
+		}
+		if (req.http.Host == "qa.polyfill.io") {
+			error 752 "HTTPS";
+		}
 	}
 
 	if (req.http.Host ~ "polyfills.io") {
@@ -61,11 +66,20 @@ sub vcl_deliver {
 
 sub vcl_error {
 
-	# Redirect to SSL
+	# Redirect production to SSL
 	if (obj.status == 751) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
 		set obj.http.Location = "https://polyfill.io" req.url;
+		synthetic {""};
+		return (deliver);
+	}
+	
+	# Redirect qa to SSL
+	if (obj.status == 752) {
+		set obj.status = 301;
+		set obj.response = "Moved Permanently";
+		set obj.http.Location = "https://qa.polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
 	}
