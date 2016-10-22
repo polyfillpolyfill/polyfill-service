@@ -9,12 +9,6 @@ const PolyfillSet = function(polyfillset) {
 	this.data = polyfillset;
 };
 
-PolyfillSet.prototype.stringify = function() {
-	return Object.keys(this.data).map(featureName => {
-		const flags = this.data[featureName].flags;
-		return featureName + (flags.length ? '|' + flags.join('|') : '');
-	}).join(',');
-};
 PolyfillSet.prototype.get = function() {
 	return this.data;
 };

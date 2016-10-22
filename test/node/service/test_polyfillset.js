@@ -23,10 +23,4 @@ describe('PolyfillSet', function () {
 		});
 	});
 
-	describe('#stringify()', function () {
-		it('should be a reversible process', function () {
-			var querystring = "poly1|gated,poly2|always";
-			assert.equal(PolyfillSet.fromQueryParam(querystring).stringify(), querystring);
-		});
-	});
 });
