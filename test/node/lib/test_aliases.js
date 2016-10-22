@@ -194,18 +194,6 @@ describe("AliasResolver", function() {
 			});
 		});
 
-		it('should handle resolvers that return promises', function() {
-			var localresolver = AliasResolver([
-				function(name) { return Promise.resolve(['alias']); }
-			]);
 
-			return localresolver({
-				name: {},
-			}).then(function(resolved) {
-				assert.deepEqual(resolved, {
-					alias: { flags: [], aliasOf: ["name"] },
-				});
-			});
-		});
 	});
 });
