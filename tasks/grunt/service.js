@@ -116,20 +116,16 @@ module.exports = function(grunt) {
 			}
 			if (proc) {
 				grunt.log.writeln("Service Child PID = " + proc.pid);
-				proc.on('close', function(err, code) {
+				proc.on('close', function(code) {
 					grunt.log.writeln('Child process exited, code:', code);
 					return closed();
 				});
 				proc.on('error', function() {
 					return grunt.log.error('error', arguments);
 				});
-				proc.on('exit', function(err, code) { // eslint-disable-line no-unused-vars
+				proc.on('exit', function() {
 					// Enable for debug if desired
 					//return grunt.log.writeln('exit', arguments);
-				});
-				proc.on('close', function() {
-					// Enable for debug if desired
-					//return grunt.log.writeln('close', arguments);
 				});
 				proc.on('disconnect', function() {
 					return grunt.log.writeln('disconnect', arguments);
