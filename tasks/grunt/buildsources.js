@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 	const mkdir = require('mkdirp').sync;
 	const tsort = require('tsort');
 	const denodeify = require('denodeify');
-	const writeFile = denodeify(fs.writeFile)
+	const writeFile = denodeify(fs.writeFile);
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
