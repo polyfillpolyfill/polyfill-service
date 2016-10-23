@@ -16,6 +16,8 @@ module.exports = function(grunt) {
 	const babel = require("babel-core");
 	const mkdir = require('mkdirp').sync;
 	const tsort = require('tsort');
+	const denodeify = require('denodeify');
+	const writeFile = denodeify(fs.writeFile)
 
 	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
 
@@ -25,6 +27,8 @@ module.exports = function(grunt) {
 		const dirs = [];
 		const destFolder = path.join(__dirname, '../../polyfills/__dist');
 		const depGraph = tsort();
+		const done = this.async();
+		const writeQueue = [];
 
 		grunt.log.writeln('Writing compiled polyfill sources to '+destFolder+'/...');
 
@@ -113,9 +117,9 @@ module.exports = function(grunt) {
 				sources.raw = '\n// '+featureName + '\n' + sources.raw;
 
 				mkdir(destFeatureFolder);
-				fs.writeFileSync(path.join(destFeatureFolder, 'meta.json'), JSON.stringify(config));
-				fs.writeFileSync(path.join(destFeatureFolder, 'raw.js'), sources.raw);
-				fs.writeFileSync(path.join(destFeatureFolder, 'min.js'), sources.min);
+				writeQueue.push(writeFile(path.join(destFeatureFolder, 'meta.json'), JSON.stringify(config)));
+				writeQueue.push(writeFile(path.join(destFeatureFolder, 'raw.js'), sources.raw));
+				writeQueue.push(writeFile(path.join(destFeatureFolder, 'min.js'), sources.min));
 				grunt.log.writeln('+ '+featureName);
 
 				// Store alias names in a map for efficient lookup, mapping aliases to
@@ -154,8 +158,15 @@ module.exports = function(grunt) {
 			grunt.fail.warn('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
 		}
 
-		fs.writeFileSync(path.join(__dirname, '../../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases));
-		grunt.log.oklns('Sources built successfully');
-
+		writeQueue.push(writeFile(path.join(__dirname, '../../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases)));
+		
+		grunt.log.writeln('Waiting for files to be written to disk...');
+		Promise.all(writeQueue)
+			.then(() => {
+				grunt.log.oklns('Sources built successfully');
+				done();
+			})
+			.catch(e => grunt.warn(e))
+		;
 	});
 };
