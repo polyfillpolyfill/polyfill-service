@@ -11,7 +11,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [""],
+	"dependencies": [],
 	"build": {
 		"minify": false
 	},
