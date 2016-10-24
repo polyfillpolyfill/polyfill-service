@@ -19,7 +19,7 @@
 		return {
 			next: function() {
 				while (setInst._values[nextIdx] === undefMarker) nextIdx++;
-				if (nextIdx === setInst._values.length)  {
+				if (nextIdx === setInst._values.length) {
 					return {value: void 0, done: true};
 				}
 				else {
