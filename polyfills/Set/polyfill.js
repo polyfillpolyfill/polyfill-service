@@ -16,15 +16,14 @@
 
 	function makeIterator(setInst, getter) {
 		var nextIdx = 0;
-		var done = false;
 		return {
 			next: function() {
-				if (nextIdx === setInst._values.length) done = true;
-				if (!done) {
-					while (setInst._values[nextIdx] === undefMarker) nextIdx++;
+				while (setInst._values[nextIdx] === undefMarker) nextIdx++;
+				if (nextIdx === setInst._values.length)  {
+					return {value: void 0, done: true};
+				}
+				else {
 					return {value: getter.call(setInst, nextIdx++), done: false};
-				} else {
-					return {value: void 0, done:true};
 				}
 			}
 		};
