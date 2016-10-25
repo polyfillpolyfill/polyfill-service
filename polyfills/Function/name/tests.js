@@ -33,8 +33,7 @@ it('returns the name of named function expressions', function () {
 });
 
 it('returns an empty string for anonymous function expressions', function () {
-	var anon = function () {};
-	proclaim.equal(anon.name, '');
+	proclaim.equal((function () {}).name, '');
 });
 
 it('returns the name "anonymous" for functions created with the Function constructor', function () {
