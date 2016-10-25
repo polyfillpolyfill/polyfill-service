@@ -27,6 +27,10 @@ it('returns the name of named function declarations', function () {
 });
 
 it('returns the name of named function expressions', function () {
+	proclaim.equal((function bar() {}).name, 'bar');
+});
+
+it('returns the name of named function expressions that are assigned to variables', function () {
 	var foo = function bar() {};
 
 	proclaim.equal(foo.name, 'bar');
