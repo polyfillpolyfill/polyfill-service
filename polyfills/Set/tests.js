@@ -46,21 +46,21 @@ it("implements .add()", function () {
 });
 
 it("implements .delete()", function () {
-    o.add(callback);
-    o.add(generic);
-    o.add(o);
-    proclaim.equal(o.has(callback), true);
-    proclaim.equal(o.has(generic), true);
-    proclaim.equal(o.has(o), true);
-    o["delete"](callback);
-    o["delete"](generic);
-    o["delete"](o);
-    proclaim.equal(o.has(callback), false);
-    proclaim.equal(o.has(generic), false);
-    proclaim.equal(o.has(o), false);
-    proclaim.equal(o["delete"](o), false);
-    o.add(o);
-    proclaim.equal(o["delete"](o), true);
+	o.add(callback);
+	o.add(generic);
+	o.add(o);
+	proclaim.equal(o.has(callback), true);
+	proclaim.equal(o.has(generic), true);
+	proclaim.equal(o.has(o), true);
+	o["delete"](callback);
+	o["delete"](generic);
+	o["delete"](o);
+	proclaim.equal(o.has(callback), false);
+	proclaim.equal(o.has(generic), false);
+	proclaim.equal(o.has(o), false);
+	proclaim.equal(o["delete"](o), false);
+	o.add(o);
+	proclaim.equal(o["delete"](o), true);
 });
 
 it("exhibits correct iterator behaviour", function () {
@@ -111,6 +111,52 @@ it("implements .forEach()", function () {
 		o["delete"](value);
 	});
 	proclaim.equal(o.size, 0);
+});
+
+it("implements .entries()", function () {
+	var o, entries, current;
+	
+	// Iterator is correct when first item is deleted
+	o = new Set([1, 2, 3]);
+	o["delete"](1);
+	entries = o.entries();
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(2, current.value[0]);
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(3, current.value[0]);
+	current = entries.next();
+	proclaim.equal(true, current.done);
+	proclaim.equal("undefined", typeof current.value);
+	
+	// Iterator is correct when middle item is deleted
+	o = new Set([1, 2, 3]);
+	o["delete"](2);
+	entries = o.entries();
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(1, current.value[0]);
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(3, current.value[0]);
+	current = entries.next();
+	proclaim.equal(true, current.done);
+	proclaim.equal("undefined", typeof current.value);
+	
+	// Iterator is correct when last item is deleted
+	o = new Set([1, 2, 3]);
+	o["delete"](3);
+	entries = o.entries();
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(1, current.value[0]);
+	current = entries.next();
+	proclaim.equal(false, current.done);
+	proclaim.equal(2, current.value[0]);
+	current = entries.next();
+	proclaim.equal(true, current.done);
+	proclaim.equal("undefined", typeof current.value);
 });
 
 it("supports mutations during forEach loops", function () {
