@@ -24,8 +24,8 @@
 		scripts = document.getElementsByTagName('script');
 
 		// Guaranteed accurate for IE 6-10 (but NOT IE11!).
-		for (var i = scripts.length; i--; ) {
-			if (scripts[i] && scripts[i].readyState === 'interactive') {
+		for (var i = scripts.length; scripts[--i]; ) {
+			if (scripts[i].readyState === 'interactive') {
 				return scripts[i];
 			}
 		}
