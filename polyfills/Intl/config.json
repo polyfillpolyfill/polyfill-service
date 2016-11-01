@@ -1,7 +1,7 @@
 {
 	"browsers": {
 		"android": "<=4.3",
-		"ie": "8 - 11",
+		"ie": "9 - 11",
 		"ie_mob": "10",
 		"firefox": "<29",
 		"opera": "<15",
