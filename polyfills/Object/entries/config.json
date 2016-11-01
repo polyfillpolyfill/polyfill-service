@@ -17,10 +17,10 @@
 		"op_mini": "*",
 		"samsung_mob": "*",
 		"bb": "*"
-},
-"dependencies": [
-	"Array.prototype.reduce",
-	"Object.keys"
-],
-"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"
+	},
+	"dependencies": [
+		"Array.prototype.reduce",
+		"Object.keys"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"
 }
