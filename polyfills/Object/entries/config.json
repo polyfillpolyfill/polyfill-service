@@ -1,6 +1,6 @@
 {
 	"aliases": [
-		"es6"
+		"es2017"
 	],
 	"browsers": {
 		"ie": "< 14",
