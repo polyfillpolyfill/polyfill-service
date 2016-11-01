@@ -30,6 +30,14 @@ var functionsHaveNames = (function foo() {}).name === 'foo';
 
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
+var objectKeysWorksWithPrimitives = (function() {
+	try {
+		return Object.keys(2) === undefined;
+	} catch (e) {
+		return false;
+	}
+}());
+
 it('should have name `entries`', function() {
 	if (functionsHaveNames) {
 		proclaim.equal(Object.entries.name, 'entries');
@@ -58,13 +66,13 @@ it('should terminate if getting a value throws an exception', function() {
 it('should throw TypeError when called with `null`', function() {
 	proclaim.throws(function() {
 		Object.entries(null);
-	},TypeError);
+	}, TypeError);
 });
 
 it('should throw TypeError when called with `undefined`', function() {
 	proclaim.throws(function() {
 		Object.entries(undefined);
-	},TypeError);
+	}, TypeError);
 });
 
 it('does not see a new element added by a getter that is hit during iteration', function() {
@@ -170,40 +178,49 @@ it('does not see inherited properties', function() {
 });
 
 it('accepts boolean primitives', function() {
+	if (objectKeysWorksWithPrimitives) {
+		var trueResult = Object.entries(true);
 
-	var trueResult = Object.entries(true);
+		proclaim.isArray(trueResult, 'trueResult is an array');
+		proclaim.equal(trueResult.length, 0, 'trueResult has 0 items');
 
-	proclaim.isArray(trueResult, 'trueResult is an array');
-	proclaim.equal(trueResult.length, 0, 'trueResult has 0 items');
+		var falseResult = Object.entries(false);
 
-	var falseResult = Object.entries(false);
-
-	proclaim.isArray(falseResult, 'falseResult is an array');
-	proclaim.equal(falseResult.length, 0, 'falseResult has 0 items');
+		proclaim.isArray(falseResult, 'falseResult is an array');
+		proclaim.equal(falseResult.length, 0, 'falseResult has 0 items');
+	} else {
+		this.skip();
+	}
 });
 
 it('accepts number primitives', function() {
-
-	proclaim.equal(Object.entries(0).length, 0, '0 has zero entries');
-	proclaim.equal(Object.entries(-0).length, 0, '-0 has zero entries');
-	proclaim.equal(Object.entries(Infinity).length, 0, 'Infinity has zero entries');
-	proclaim.equal(Object.entries(-Infinity).length, 0, '-Infinity has zero entries');
-	proclaim.equal(Object.entries(NaN).length, 0, 'NaN has zero entries');
-	proclaim.equal(Object.entries(Math.PI).length, 0, 'Math.PI has zero entries');
+	if (objectKeysWorksWithPrimitives) {
+		proclaim.equal(Object.entries(0).length, 0, '0 has zero entries');
+		proclaim.equal(Object.entries(-0).length, 0, '-0 has zero entries');
+		proclaim.equal(Object.entries(Infinity).length, 0, 'Infinity has zero entries');
+		proclaim.equal(Object.entries(-Infinity).length, 0, '-Infinity has zero entries');
+		proclaim.equal(Object.entries(NaN).length, 0, 'NaN has zero entries');
+		proclaim.equal(Object.entries(Math.PI).length, 0, 'Math.PI has zero entries');
+	} else {
+		this.skip();
+	}
 });
 
 it('accepts string primitives', function() {
+	if (objectKeysWorksWithPrimitives) {
+		var result = Object.entries('abc');
 
-	var result = Object.entries('abc');
+		proclaim.isArray(result, 'result is an array');
+		proclaim.equal(result.length, 3, 'result has 3 items');
 
-	proclaim.isArray(result, 'result is an array');
-	proclaim.equal(result.length, 3, 'result has 3 items');
-
-	proclaim.deepEqual(result, [
-		['0', 'a'],
-		['1', 'b'],
-		['2', 'c']
-	]);
+		proclaim.deepEqual(result, [
+			['0', 'a'],
+			['1', 'b'],
+			['2', 'c']
+		]);
+	} else {
+		this.skip();
+	}
 });
 
 
