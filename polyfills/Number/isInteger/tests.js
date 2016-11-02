@@ -15,7 +15,7 @@ it('returns true with integer values', function () {
   proclaim.equal(Number.isInteger(-100000), true);
 });
 
-it('retuns false for non integer values values', function () {
+it('returns false for non integer values', function () {
   proclaim.equal(Number.isInteger(0.1), false);
   proclaim.equal(Number.isInteger(Math.PI), false);
 
