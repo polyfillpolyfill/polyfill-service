@@ -3,7 +3,7 @@
 		"chrome": "<50",
 		"firefox": "<19",
 		"safari": "*",
-		"ie": "9 - 10",
+		"ie": "10",
 		"opera": "*"
 	},
 	"dependencies": [
