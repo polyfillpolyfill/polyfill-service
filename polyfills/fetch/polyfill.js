@@ -3,10 +3,6 @@
 (function(self) {
   'use strict';
 
-  if (self.fetch) {
-    return;
-  }
-
   function normalizeName(name) {
     if (typeof name !== 'string') {
       name = String(name);
