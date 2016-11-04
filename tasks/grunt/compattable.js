@@ -1,4 +1,5 @@
 'use strict';
+const _ = require('lodash');
 
 // All elements of A (this) that also belong to B (other)
 function intersection(a, b) {
@@ -72,14 +73,17 @@ module.exports = function(grunt) {
 				delete builtCompatTable['1'];
 			}
 
-			fs.writeFile(compatFile, JSON.stringify(builtCompatTable, null, 2), err => {
-				if (err) {
-					throw err;
-				}
+			fs.readFile(compatFile, (err, filedata) => {
 
-				grunt.log.oklns("Updated compat.json");
-				done(true);
+				fs.writeFile(compatFile, JSON.stringify(_.merge(JSON.parse(filedata),builtCompatTable), null, 2), err => {
+					if (err) {
+						throw err;
+					}
 
+					grunt.log.oklns("Updated compat.json");
+					done(true);
+
+				});
 			});
 		});
 	});
