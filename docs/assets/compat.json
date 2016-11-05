@@ -2398,13 +2398,13 @@
       "35": "native",
       "40": "native",
       "42": "native",
-      "46": "missing",
-      "48": "missing",
-      "54": "missing"
+      "46": "native",
+      "48": "native",
+      "54": "native"
     },
     "ios_saf": {
-      "9.2": "missing",
-      "9.1": "missing"
+      "9.2": "native",
+      "9.1": "native"
     },
     "android": {
       "4.2": "native",
@@ -2414,7 +2414,7 @@
     },
     "safari": {
       "8": "native",
-      "9": "missing",
+      "9": "native",
       "5.1": "native"
     },
     "ie": {
@@ -2423,16 +2423,16 @@
       "9": "native",
       "10": "native",
       "11": "native",
-      "13": "missing",
-      "14": "missing"
+      "13": "native",
+      "14": "native"
     },
     "firefox": {
       "30": "native",
       "33": "native",
-      "41": "missing",
-      "42": "missing",
-      "44": "missing",
-      "49": "missing"
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
     }
   },
   "Object.getOwnPropertyNames": {
@@ -3393,12 +3393,12 @@
       "14": "native"
     },
     "firefox": {
-      "30": "missing",
-      "33": "missing",
-      "41": "missing",
-      "42": "missing",
-      "44": "missing",
-      "49": "missing"
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
     }
   },
   "console.clear": {
@@ -5545,7 +5545,7 @@
   },
   "IntersectionObserver": {
     "chrome": {
-      "35": "polyfilled",
+      "35": "missing",
       "40": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled",
@@ -5580,7 +5580,7 @@
       "33": "polyfilled",
       "41": "polyfilled",
       "42": "polyfilled",
-      "44": "missing",
+      "44": "polyfilled",
       "49": "polyfilled"
     }
   },
@@ -6258,27 +6258,27 @@
   },
   "Object.defineProperty": {
     "chrome": {
-      "35": "missing",
-      "40": "missing",
-      "42": "missing",
-      "46": "missing",
-      "48": "missing",
-      "54": "missing"
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
     },
     "ios_saf": {
-      "9.2": "missing",
-      "9.1": "missing"
+      "9.2": "native",
+      "9.1": "native"
     },
     "android": {
-      "4.2": "missing",
-      "5.1": "missing",
-      "4.4": "missing",
-      "4.3": "missing"
+      "4.2": "native",
+      "5.1": "native",
+      "4.4": "native",
+      "4.3": "native"
     },
     "safari": {
-      "8": "missing",
-      "9": "missing",
-      "5.1": "missing"
+      "8": "native",
+      "9": "native",
+      "5.1": "native"
     },
     "ie": {
       "7": "polyfilled",
@@ -6343,6 +6343,90 @@
   "IntersectionObserver (timeout after 30000ms, 2 retries)": {
     "chrome": {
       "54": "missing"
+    }
+  },
+  "Number.isInteger": {
+    "ie": {
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "native",
+      "14": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "5.1": "native",
+      "4.4": "polyfilled",
+      "4.3": "polyfilled",
+      "4.2": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native",
+      "9.2": "native"
+    },
+    "chrome": {
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
+    }
+  },
+  "document.currentScript": {
+    "ie": {
+      "7": "missing",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "missing",
+      "13": "native",
+      "14": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "missing"
+    },
+    "android": {
+      "5.1": "native",
+      "4.4": "native",
+      "4.3": "missing",
+      "4.2": "missing"
+    },
+    "ios_saf": {
+      "9.1": "native",
+      "9.2": "native"
+    },
+    "chrome": {
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
     }
   }
 }
