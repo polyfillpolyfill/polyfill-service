@@ -55,7 +55,7 @@
     "handlebars": "^4.0.5",
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.1.1",
-    "intl": "^1.2.4",
+    "intl": "^1.2.5",
     "js-polyfills": "^0.1.22",
     "json3": "^3.3.2",
     "lodash": "^4.15.0",
@@ -82,6 +82,7 @@
   "devDependencies": {
     "batch": "^0.5.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
+    "graceful-fs": "^4.1.9",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-eslint": "^19.0.0",
     "grunt-shell": "^1.3.1",
@@ -92,5 +93,5 @@
     "uglify-js": "^2.4.14",
     "wd": "^0.4.0"
   },
-  "version": "3.13.0-1"
+  "version": "3.13.0"
 }

@@ -1,0 +1,1 @@
+'isInteger' in Number
