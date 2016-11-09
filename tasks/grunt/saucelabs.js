@@ -1,12 +1,14 @@
 'use strict';
 
 const useragentToSauce = {
+	'chrome/54': ['chrome', '54.0', 'Windows 10'],
 	'chrome/48': ['chrome', '48.0', 'Windows 7'],
 	'chrome/46': ['chrome', '46.0', 'Windows 7'],
 	'chrome/42': ['chrome', '42.0', 'Windows 7'],
 	'chrome/40': ['chrome', '40.0', 'OS X 10.11'],
 	'chrome/35': ['chrome', '35.0', 'OS X 10.11'],
 	'chrome/30': ['chrome', '30.0', 'Windows 7'],
+	'firefox/49': ['firefox', '49.0', 'OS X 10.11'],
 	'firefox/44': ['firefox', '44.0', 'Linux'],
 	'firefox/42': ['firefox', '42.0', 'Linux'],
 	'firefox/41': ['firefox', '41', 'Linux'],
@@ -24,6 +26,7 @@ const useragentToSauce = {
 	'safari/9': ['safari', '9.0', 'OSX 10.11'],
 	'safari/8': ['safari', '8.0', 'OSX 10.10'],
 	'safari/5.1': ['safari', '5.1', 'Windows 7'],
+	'android/5.1': ['android', '5.1', 'linux', 'Android Emulator'],
 	'android/4.4': ['android', '4.4', 'linux', 'Android Emulator'],
 	'android/4.3': ['android', '4.3', 'linux', 'Android Emulator'],
 	'android/4.2': ['android', '4.2', 'linux', 'Android Emulator'],
