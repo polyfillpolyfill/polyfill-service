@@ -63,6 +63,7 @@
     "marked": "^0.3.6",
     "measured": "^1.0.0",
     "minimist": "^1.2.0",
+    "mississippi": "^1.2.0",
     "mkdirp": "^0.5.0",
     "mocha": "^3.0.2",
     "moment": "^2.8.3",
