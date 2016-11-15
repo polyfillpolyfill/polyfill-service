@@ -48,6 +48,7 @@
     "exists-sync": "0.0.3",
     "express": "^4.4.4",
     "fast-stats": "0.0.3",
+    "graceful-fs": "^4.1.10",
     "graphite": "0.0.6",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
