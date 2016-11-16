@@ -7,7 +7,7 @@ const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
 const miss = require('mississippi');
-const mergeStream = require('merge-stream');
+const mergeStream = require('merge2');
 const streamFromString = require('from2-string');
 
 const router = express.Router();  // eslint-disable-line new-cap
