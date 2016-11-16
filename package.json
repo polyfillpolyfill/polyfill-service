@@ -55,7 +55,7 @@
     "handlebars": "^4.0.5",
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.1.1",
-    "intl": "^1.2.4",
+    "intl": "^1.2.5",
     "js-polyfills": "^0.1.22",
     "json3": "^3.3.2",
     "lodash": "^4.15.0",
@@ -93,5 +93,5 @@
     "uglify-js": "^2.4.14",
     "wd": "^0.4.0"
   },
-  "version": "3.13.0"
+  "version": "3.14.0-0"
 }

@@ -23,7 +23,9 @@
 		"Array.prototype.indexOf",
 		"Array.prototype.map",
 		"Array.prototype.some",
-		"Function.prototype.bind"
+		"Event",
+		"Function.prototype.bind",
+		"perfomance.now"
 	],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
