@@ -6,6 +6,7 @@ const polyfillio = require('../../lib');
 const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
+const miss = require('mississippi');
 
 const router = express.Router();  // eslint-disable-line new-cap
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
@@ -72,12 +73,20 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	res.set('Access-Control-Allow-Origin', '*');
 
 	const outputStream = polyfillio.getPolyfillString(params);
-	outputStream.pipe(res, {end: false});
-	outputStream.on('end', () => {
-		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
-			res.write("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();");
+	const callbackWrapper = miss.through(function () {},
+		function (cb) {
+			if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+				cb(null, "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();");
+			} else {
+				cb();
+			}
 		}
-		res.end();
+	);
+
+	miss.pipe(outputStream, callbackWrapper, res, (err) => {
+		if (err) {
+			console.error(err);
+		}
 		respTimeTimer.end();
 	});
 });
