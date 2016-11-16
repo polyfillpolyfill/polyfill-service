@@ -7,6 +7,8 @@ const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
 const miss = require('mississippi');
+const mergeStream = require('merge-stream');
+const streamFromString = require('from2-string');
 
 const router = express.Router();  // eslint-disable-line new-cap
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
@@ -72,18 +74,15 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
 
-	const outputStream = polyfillio.getPolyfillString(params);
-	const callbackWrapper = miss.through(function () {},
-		function (cb) {
-			if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
-				cb(null, "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();");
-			} else {
-				cb();
-			}
-		}
-	);
+	const outputStream = mergeStream();
 
-	miss.pipe(outputStream, callbackWrapper, res, (err) => {
+	outputStream.add(polyfillio.getPolyfillString(params));
+
+	if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+		outputStream.add(streamFromString("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();"));
+	}
+
+	miss.pipe(outputStream, res, (err) => {
 		if (err) {
 			console.error(err);
 		}
