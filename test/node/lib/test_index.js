@@ -138,7 +138,6 @@ describe("polyfillio", () => {
 		});
 
 		it('should support streaming output', done => {
-			const ReadableStream = require('stream').Readable;
 			const buf = [];
 			const s = polyfillio.getPolyfillString({
 				features: { default: {} },
@@ -146,7 +145,6 @@ describe("polyfillio", () => {
 				stream: true,
 				minify: false
 			});
-			assert.instanceOf(s, ReadableStream);
 			s.on('data', chunk => buf.push(chunk));
 			s.on('end', () => {
 				const bundle = buf.join('');
