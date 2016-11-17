@@ -6,7 +6,7 @@ const polyfillio = require('../../lib');
 const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
-const miss = require('mississippi');
+const pump = require('pump');
 const mergeStream = require('merge2');
 const streamFromString = require('from2-string');
 
@@ -82,7 +82,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		outputStream.add(streamFromString("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();"));
 	}
 
-	miss.pipe(outputStream, res, (err) => {
+	pump(outputStream, res, (err) => {
 		if (err) {
 			console.error(err);
 		}
