@@ -3,7 +3,7 @@
 		"es2017"
 	],
 	"browsers": {
-		"ie": "< 14",
+		"ie": "9 - 14",
 		"ie_mob": "*",
 		"chrome": "< 51",
 		"ios_chr": "*",
