@@ -80,7 +80,7 @@
     "request-promise": "^4.1.1",
     "semver": "^5.3.0",
     "stream-from-promise": "^1.0.0",
-    "stream-to-promise": "^2.2.0",
+    "stream-to-string": "^1.1.0",
     "tsort": "0.0.1",
     "useragent": "^2.1.9",
     "usertiming": "^0.1.8",
