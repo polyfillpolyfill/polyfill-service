@@ -9,6 +9,7 @@
 		"modernizr:requestanimationframe"
 	],
 	"browsers": {
+		"android": "<4.4",
 		"bb": "7",
 		"chrome": "1 - 23",
 		"ie": "6 - 9",

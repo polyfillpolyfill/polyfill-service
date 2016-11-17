@@ -13,7 +13,7 @@ Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shie
 * [Configuration](#configuration)
 * [Testing](#testing)
 * [Real user monitoring](#real-user-monitoring)
-* [polyfill.io CDN](polyfill.io-cdn)
+* [polyfill.io CDN](#polyfillio-cdn)
 * [Library](#library)
 * [License](#license)
 
