@@ -70,7 +70,7 @@ sub vcl_error {
 	if (obj.status == 751 || obj.status == 752) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
-		set obj.http.Location = "https://" if(obj.status == 752, "qa.", "") "polyfill.io" req.url;
+		set obj.http.Location = "https://" if(obj.status == 751, "", "qa.") "polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
 	}
