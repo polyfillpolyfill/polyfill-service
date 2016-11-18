@@ -10,8 +10,8 @@ const testResultsFile = path.join(testResultsPath, 'results.json');
 const SauceTunnel = require('sauce-tunnel');
 const mkdirp = denodeify(require('mkdirp'));
 const cli = require('cli-color');
-const pollTick = 500;
-const testBrowserTimeout = 40000;
+const pollTick = 1000;
+const testBrowserTimeout = 60000;
 const sauceConnectPort = 4445;
 
 const useragentToSauce = {
@@ -74,13 +74,9 @@ const printProgress = (jobs, overwrite) => {
 	jobs.forEach(job => {
 		const prefix = ' • ' + rightPad(job.ua, 10) + ' ' + rightPad(job.mode, 8) + ' ';
 		let msg = '';
-		if (job.state === 'ready') {
-			msg = '[ready]';
-		} else if (job.state === 'started') {
-			msg = 'Starting browser...';
-		} else if (job.state === 'running') {
+		if (job.state === 'running') {
 			const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
-			const bar = '['+rightPad('='.repeat(Math.ceil(doneFrac*barLen)), barLen)+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
+			const bar = '['+('█'.repeat(Math.ceil(doneFrac*barLen)))+('░'.repeat(Math.floor((1-doneFrac)*barLen)))+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
 			const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
 			const waitStr = (timeWaiting > 4) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
 			const errStr = (job.results.failed) ? cli.red('  ✘ ' + job.results.failed) : '';
@@ -91,9 +87,11 @@ const printProgress = (jobs, overwrite) => {
 			} else {
 				msg = cli.green('✓ ' + job.results.total + ' tests');
 			}
-			msg += ' ('+job.mode+')';
+			msg += ', ' + job.duration + 's';
 		} else if (job.state === 'error') {
 			msg = cli.red('⚠️  ' + job.results);
+		} else {
+			msg = job.state;
 		}
 		out.push(prefix + msg);
 	});
@@ -126,6 +124,7 @@ class TestJob {
 		this.url = url;
 		this.results = null;
 		this.lastUpdateTime = 0;
+		this.duration = 0;
 		this.ua = ua;
 		this.sessionName = sessionName;
 	}
@@ -136,10 +135,11 @@ class TestJob {
 				if (browserdata && browserdata.state === 'complete') {
 					this.browser.quit();
 					this.results = browserdata;
+					this.duration = Math.floor((Date.now() - this.startTime) / 1000);
 					this.state = 'complete';
 					return this;
 				} else if (this.lastUpdateTime && this.lastUpdateTime < (Date.now() - testBrowserTimeout)) {
-					throw new Error('Timed out');
+					throw new Error('Timed out at \'' + this.state + '\'');
 				} else {
 					if (browserdata && browserdata.state === 'running') {
 						if (!this.results || browserdata.runnerCompletedCount > this.results.runnerCompletedCount) {
@@ -171,14 +171,15 @@ class TestJob {
 			"tunnelIdentifier": this.sessionName
 		};
 
-		this.state = 'started';
+		this.state = 'initialising browser';
 		this.lastUpdateTime = Date.now();
+		this.startTime = Date.now();
 
 		return Promise.resolve()
-			.then(() => this.browser.init(wdConf))
-			.then(() => this.browser.get(this.url))
-			.then(() => this.browser.refresh())
-			.then(() => wait(pollTick))
+			.then(() => this.browser.init(wdConf).then(() => { this.state = 'started'; }))
+			.then(() => this.browser.get(this.url).then(() => { this.state = 'loaded URL'; }))
+			.then(() => this.browser.refresh().then(() => { this.state = 'refreshed'; }))
+			.then(() => wait(pollTick).then(() => { this.state = 'waiting for results'; }))
 			.then(() => this.pollForResults())
 			.catch(e => {
 				this.browser.quit();
@@ -304,7 +305,7 @@ module.exports = function(grunt) {
 				if (totalFailureCount) {
 					console.log(cli.bold.white('\nFailures:'));
 					jobs.forEach(job => {
-						if (job.results && job.results.failing) {
+						if (job.results && job.results.failed) {
 							console.log(' • '+job.ua+' ('+job.mode+') [' + job.getResultsURL() + ']');
 							Object.keys(job.results.failingSuites).forEach(feature => {
 								const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
@@ -312,7 +313,7 @@ module.exports = function(grunt) {
 								console.log('       '+url);
 							});
 						} else if (job.state !== 'complete') {
-							console.log(' - ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
+							console.log(' • ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
 						}
 					});
 					console.log('');

@@ -27,8 +27,8 @@ module.exports = function(grunt) {
 			debug: {
 				options: {
 					urls: { all: 'http://127.0.0.1:3000/test/director?mode=all' },
-					browsers: browsers.full,
-					concurrency: 1
+					browsers: browsers.quick,
+					concurrency: 3
 				}
 			},
 			compat: {
@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("debugsauce", [
 		"service",
-		"saucelabs:quick",
+		"saucelabs:debug",
 		"service:polyfillservice:stop"
 	]);
 
