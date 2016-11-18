@@ -10,10 +10,10 @@
 	"browsers": {
 		"chrome": "<=44",
 		"firefox": "* - 24",
-		"ie": "*",
+		"ie": "<14",
 		"ie_mob": "10 - *",
 		"opera": "*",
-		"safari": "*",
+		"safari": "<9.1",
 		"firefox_mob": "<25",
 		"android": "*",
 		"ios_saf": "<9",

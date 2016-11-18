@@ -32,8 +32,5 @@ it('finally returns a done object', function () {
 	var iterator = nodeList[Symbol.iterator]();
 	iterator.next();
 	iterator.next();
-	proclaim.deepEqual(iterator.next(), {
-		done: true,
-		value: undefined
-	});
+	proclaim.equal(iterator.next().done, true);
 });

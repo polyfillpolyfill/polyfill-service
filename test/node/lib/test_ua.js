@@ -4,30 +4,30 @@
 const proclaim = require('proclaim');
 const UA = require('../../../lib/UA');
 
-describe("UA", function() {
-	describe(".normalize", function() {
+describe("UA", () => {
+	describe(".normalize", () => {
 
-		it("should resolve user agents of core supported browsers", function() {
+		it("should resolve user agents of core supported browsers", () => {
 			const test = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
 			proclaim.equal(test, "chrome/39.0.0");
 		});
 
-		it("should resolve user agents of browsers that map all versions to a constant", function() {
+		it("should resolve user agents of browsers that map all versions to a constant", () => {
 			const phantom = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.0 Safari/534.34");
 			proclaim.equal(phantom, "safari/5.0.0");
 		});
 
-		it("should resolve user agents of browsers with granular version mapping", function() {
+		it("should resolve user agents of browsers with granular version mapping", () => {
 			const yandex = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/14.10.2062.12057 Safari/537.36");
 			proclaim.equal(yandex, "chrome/37.0.0");
 		});
 
-		it("should resolve edge mobile to the ie family", function() {
+		it("should resolve edge mobile to the ie family", () => {
 			const test = UA.normalize("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
 			proclaim.equal(test, "ie/12.10130.0");
 		});
 
-		it("should resolve Facebook iOS App to the version of iOS it is running within", function() {
+		it("should resolve Facebook iOS App to the version of iOS it is running within", () => {
 			let test = UA.normalize("Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 [FBAN/FBIOS;FBAV/6.0.1;FBBV/180945;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.0.1;FBSS/1; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
 			proclaim.equal(test, "ios_saf/6.0.0");
 
@@ -39,8 +39,8 @@ describe("UA", function() {
 		});
 	});
 
-	describe(".isUnknown", function() {
-		it("should resolve false for user agents we have a baseline version for", function() {
+	describe(".isUnknown", () => {
+		it("should resolve false for user agents we have a baseline version for", () => {
 			proclaim.equal(new UA("ie/6").isUnknown(), true);
 			proclaim.equal(new UA("ie/7").isUnknown(), false);
 			proclaim.equal(new UA("ie/14").isUnknown(), false);

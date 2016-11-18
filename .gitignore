@@ -1,4 +1,5 @@
 node_modules/
+.vscode/
 /npm-debug.log
 /newrelic_agent.log
 /polyfills/__dist
@@ -14,12 +15,11 @@ node_modules/
 /polyfills/IntersectionObserver/polyfill.js
 /polyfills/Intl/polyfill.js
 /polyfills/Intl/~locale
-polyfills/Array/of/polyfill.js
+/polyfills/Array/of/polyfill.js
 /polyfills/Promise/polyfill.js
 /polyfills/atob/polyfill.js
 /polyfills/AudioContext/polyfill.js
-polyfills/~html5-elements/polyfill.js
-
-polyfills/UserTiming/polyfill.js
-
-polyfills/URL/polyfill.js
+/polyfills/~html5-elements/polyfill.js
+/polyfills/JSON/polyfill.js
+/polyfills/UserTiming/polyfill.js
+/polyfills/URL/polyfill.js

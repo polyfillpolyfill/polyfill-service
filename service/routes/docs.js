@@ -179,7 +179,6 @@ function refreshData() {
 			;
 		},
 		compat: () => {
-			const sourceslib = sources.getCollection();
 			const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
 			const msgs = {
 				'native': 'Supported natively',
@@ -187,10 +186,10 @@ function refreshData() {
 				'missing': 'Not supported'
 			};
 			return Promise.all(Object.keys(compatdata)
-				.filter(feature => sourceslib.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
+				.filter(feature => sources.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
 				.sort()
 				.map(feat => {
-					return sourceslib.getPolyfill(feat).then(polyfill => {
+					return sources.getPolyfill(feat).then(polyfill => {
 						const fdata = {
 							feature: feat,
 							slug: feat.replace(/[^\w]/g, '_'),
@@ -278,7 +277,7 @@ function route(req, res, next) {
 		const one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 	} else if (locals.pageName === 'contributing/authoring-polyfills') {
-		locals.baselines = require('../../lib/UA').getBaselines()
+		locals.baselines = require('../../lib/UA').getBaselines();
 	}
 
 	template(locals.pageName)
