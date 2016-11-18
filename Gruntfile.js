@@ -24,18 +24,25 @@ module.exports = function(grunt) {
 			}
 		},
 		"saucelabs": {
+			debug: {
+				options: {
+					urls: { all: 'http://127.0.0.1:3000/test/director?mode=all' },
+					browsers: browsers.full,
+					concurrency: 1
+				}
+			},
 			compat: {
 				options: {
 					urls: {
 						all: 'http://127.0.0.1:3000/test/director?mode=all',
 						control: 'http://127.0.0.1:3000/test/director?mode=control'
 					},
-					browsers: browsers.full
+					browsers: browsers.full,
+					continueOnFail: true
 				}
 			},
 			ci: {
 				options: {
-					cibuild: true,
 					urls: {
 						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
@@ -44,7 +51,6 @@ module.exports = function(grunt) {
 			},
 			quick: {
 				options: {
-					cibuild: true,
 					urls: {
 						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
 					},
@@ -132,6 +138,12 @@ module.exports = function(grunt) {
 		"service:polyfillservice:stop"
 	]);
 
+	grunt.registerTask("debugsauce", [
+		"service",
+		"saucelabs:quick",
+		"service:polyfillservice:stop"
+	]);
+
 	grunt.registerTask("compatgen", [
 		"build",
 		"simplemocha",
@@ -173,7 +185,6 @@ const browsers = {
 		'chrome/54',
 		'firefox/49',
 		'ie/14',
-		'ie/13',
 		'ie/11',
 		'ie/8',
 		'android/4.4'

@@ -1,5 +1,19 @@
 'use strict';
 
+const path = require('path');
+const wd = require('wd');
+const denodeify = require('denodeify');
+const readFile = denodeify(require('graceful-fs').readFile);
+const writeFile = denodeify(require('graceful-fs').writeFile);
+const testResultsPath = path.join(__dirname, '../../test/results');
+const testResultsFile = path.join(testResultsPath, 'results.json');
+const SauceTunnel = require('sauce-tunnel');
+const mkdirp = denodeify(require('mkdirp'));
+const cli = require('cli-color');
+const pollTick = 500;
+const testBrowserTimeout = 40000;
+const sauceConnectPort = 4445;
+
 const useragentToSauce = {
 	'chrome/54': ['chrome', '54.0', 'Windows 10'],
 	'chrome/48': ['chrome', '48.0', 'Windows 7'],
@@ -34,306 +48,281 @@ const useragentToSauce = {
 	'ios_saf/9.1': ['iphone', '9.1', 'OS X 10.10', 'iPhone 6'],
 	'ios_saf/9.2': ['iphone', '9.2', 'OS X 10.10', 'iPhone 6 Plus']
 };
+const wait = duration => new Promise(resolve => setTimeout(resolve, duration));
 
-const promiseTimer = function(time) {
-	return new Promise(resolve => setTimeout(resolve, time));
+const whitespace = ' '.repeat(200);
+const leftPad = (str, len) => (whitespace+str).slice(-1*len);
+const rightPad = (str, len) => (str+whitespace).slice(0, len);
+
+const readResultsFrom = filePath => {
+	return readFile(filePath, 'UTF-8')
+		.then(data => JSON.parse(data))
+		.catch(err => {
+			// No problem if file does not exist
+			if (err.code === 'ENOENT') {
+				return {};
+			}
+			throw err;
+		})
+	;
 };
+
+const printProgress = (jobs, overwrite) => {
+	const lineLen = 80;
+	const barLen = 25;
+	const out = ['', cli.bold.white('Running tests:')];
+	jobs.forEach(job => {
+		const prefix = ' • ' + rightPad(job.ua, 10) + ' ' + rightPad(job.mode, 8) + ' ';
+		let msg = '';
+		if (job.state === 'ready') {
+			msg = '[ready]';
+		} else if (job.state === 'started') {
+			msg = 'Starting browser...';
+		} else if (job.state === 'running') {
+			const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
+			const bar = '['+rightPad('='.repeat(Math.ceil(doneFrac*barLen)), barLen)+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
+			const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
+			const waitStr = (timeWaiting > 4) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
+			const errStr = (job.results.failed) ? cli.red('  ✘ ' + job.results.failed) : '';
+			msg = bar + errStr + waitStr;
+		} else if (job.state === 'complete') {
+			if (job.results.failed) {
+				msg = cli.red('✘ '+ job.results.total + ' tests, ' + job.results.failed + ' failures');
+			} else {
+				msg = cli.green('✓ ' + job.results.total + ' tests');
+			}
+			msg += ' ('+job.mode+')';
+		} else if (job.state === 'error') {
+			msg = cli.red('⚠️  ' + job.results);
+		}
+		out.push(prefix + msg);
+	});
+	process.stdout.write(out.map(str => rightPad(str, lineLen)).join('\n')+'\n');
+	if (overwrite) {
+		process.stdout.write(cli.move.lines(-out.length));
+	}
+};
+
+const openTunnel = tunnel => {
+	return new Promise(resolve => {
+		tunnel.start(tunnelStatus => {
+			if (tunnelStatus !== true) {
+				throw new Error("Failed to open tunnel");
+			}
+			resolve();
+		});
+	});
+};
+const closeTunnel = tunnel => {
+	return denodeify(tunnel.stop.bind(tunnel))().then(() => console.log("Tunnel closed"));
+};
+
+class TestJob {
+
+	constructor (url, mode, ua, sessionName, creds) {
+		this.browser = wd.promiseRemote("127.0.0.1", sauceConnectPort, creds.username, creds.key);
+		this.state = 'ready';
+		this.mode = mode;
+		this.url = url;
+		this.results = null;
+		this.lastUpdateTime = 0;
+		this.ua = ua;
+		this.sessionName = sessionName;
+	}
+
+	pollForResults() {
+		return this.browser.eval('window.global_test_results || window.global_test_progress')
+			.then(browserdata => {
+				if (browserdata && browserdata.state === 'complete') {
+					this.browser.quit();
+					this.results = browserdata;
+					this.state = 'complete';
+					return this;
+				} else if (this.lastUpdateTime && this.lastUpdateTime < (Date.now() - testBrowserTimeout)) {
+					throw new Error('Timed out');
+				} else {
+					if (browserdata && browserdata.state === 'running') {
+						if (!this.results || browserdata.runnerCompletedCount > this.results.runnerCompletedCount) {
+							this.results = browserdata;
+							this.lastUpdateTime = Date.now();
+						}
+						this.state = 'running';
+					}
+
+					// Recurse
+					return wait(pollTick).then(() => this.pollForResults());
+				}
+			})
+		;
+	}
+
+	run() {
+		const sauceUA = useragentToSauce[this.ua];
+
+		// See https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options
+		const wdConf = {
+			"name": this.sessionName,
+			"browserName": sauceUA[0],
+			"version": sauceUA[1],
+			"platform": sauceUA[2],
+			"deviceName": sauceUA[3] || null,
+			"recordVideo": true,
+			"recordScreenshots": true,
+			"tunnelIdentifier": this.sessionName
+		};
+
+		this.state = 'started';
+		this.lastUpdateTime = Date.now();
+
+		return Promise.resolve()
+			.then(() => this.browser.init(wdConf))
+			.then(() => this.browser.get(this.url))
+			.then(() => this.browser.refresh())
+			.then(() => wait(pollTick))
+			.then(() => this.pollForResults())
+			.catch(e => {
+				this.browser.quit();
+				this.results = e;
+				this.state = 'error';
+				return this;
+			})
+		;
+	}
+
+	getResultSummary() {
+		if (!this.results) throw new Error('Results not available yet');
+		return {
+			passed: this.results.passed,
+			failed: this.results.failed,
+			failingSuites: this.results.failingSuites ? Object.keys(this.results.failingSuites) : [],
+			testedSuites: Array.from(this.results.testedSuites)
+		};
+	}
+
+	getResultsURL() {
+		return 'https://saucelabs.com/tests/' + this.browser.sessionID;
+	}
+}
+
+
 
 module.exports = function(grunt) {
 
-	const wd = require('wd');
-	const Batch = require('batch');
-	const SauceTunnel = require('sauce-tunnel');
-	const mkdirp = require('mkdirp');
-	const path = require('path');
-	const fs = require('fs');
-	const testResultsPath = path.join(__dirname, '../../test/results');
-
-	const pollTick = 1000;
-	const retryLimit = 50;
-	const sauceConnectPort = 4445;
-
 	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
-		const gruntDone = this.async();
-		const nameSuffix = process.env.TRAVIS_BUILD_NUMBER ? "-travis-build:" + process.env.TRAVIS_BUILD_NUMBER : ':' + (new Date()).toUTCString();
-		let tunnel;
-		const tunnelId = 'SauceTunnel' + nameSuffix;
 
 		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
-			grunt.fail.warn(new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment'));
+			grunt.fail.warn(new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment to run tests on Sauce Labs.  For more information about how to set this up or for alternative methods of testing, see https://polyfill.io/v2/docs/contributing/testing'));
 		}
+		const sauceCreds = { username: process.env.SAUCE_USER_NAME, key: process.env.SAUCE_API_KEY };
 
+		const gruntDone = this.async();
 		const options = this.options({
-			name: 'grunt-test' + nameSuffix,
-			build: null,
-			username: process.env.SAUCE_USER_NAME,
-			key: process.env.SAUCE_API_KEY,
 			browsers: [],
-			url: {},
+			urls: {},
 			concurrency: 3,
-			tags: [],
-			video: true,
-			screenshots: true,
-			cibuild: false
+			continueOnFail: false
 		});
+		let testResults = {};
+		let jobs = [];
 
-		options.browsers = options.browsers.map(b => {
-			const ua = b.split('/');
-			const sauce = useragentToSauce[b];
-			const def = { browserName:ua[0], browserVersion:ua[1], sauce: {
-				browserName: sauce[0],
-				version: sauce[1],
-				platform: sauce[2]
-			}};
-			if (sauce[3]) def['sauce']['deviceName'] = sauce[3];
-			return def;
-		});
+		const tunnelId = 'ci:' + (process.env.TRAVIS_BUILD_NUMBER || 'null') + '_' + (new Date()).toISOString();
+		const tunnel = new SauceTunnel(sauceCreds.username, sauceCreds.key, tunnelId);
 
-		const batch = new Batch();
-		batch.concurrency(options.concurrency);
-		batch.throws(false);
+		console.log("Sauce tunnel name: " + tunnelId);
 
-		// Create a new job to pass into the Batch runner, returns a function
-		function runTestJob(url, urlName, ua) {
+		Promise.resolve()
 
-			// Variadic like console.log(...);
-			function log() {
-				const leader = (new Date()).toString() + ' ' + ua.browserName + "/" + ua.browserVersion + ": ";
-				const args = Array.prototype.slice.call(arguments);
-				args.unshift(leader);
-				grunt.log.writeln.apply(grunt.log, args);
-			}
+			// Load existing test results
+			.then(() => mkdirp(testResultsPath))
+			.then(() => {
+				readResultsFrom(testResultsFile)
+				.then(r => {
+					testResults = r;
+				});
+			})
 
-			const browser = wd.promiseRemote("127.0.0.1", sauceConnectPort, options.username, options.key);
-			const conf = Object.assign({
-				"name": options.name,
-				"record-video": options.video,
-				"record-screenshots": options.screenshots,
-				"tunnel-identifier": tunnelId
-			}, ua.sauce);
-			if (options.tags && options.tags.length) conf['tags'] = options.tags;
-			if (options.build) conf['build'] = options.build;
-
-			let remainingCount = null;
-			let retryCount = 0;
-
-			function waitOnResults() {
-				return browser.eval('window.global_test_results || window.remainingCount');
-			}
-			function processResults(data) {
-
-				// Result polling code
-				if (typeof data !== 'object' || data === null) {
-					if (retryCount > retryLimit) {
-						log('Timed out');
-						browser.quit();
-						throw new Error('Timeout waiting on ' + ua.browserName + '/' +ua.browserVersion);
-					}
-
-					if (typeof data === 'number' && data !== remainingCount) {
-						remainingCount = data;
-						retryCount = 0;
-						log(remainingCount + ' test pages remaining');
-					} else {
-						retryCount++;
-						log('no changes, waiting');
-					}
-
-					// Recurse waitOnResults and processResults
-					return promiseTimer(pollTick).then(waitOnResults).then(processResults);
-				}
-
-				log("results received (" + data.passed + " passed, " + data.failed + " failed), closing remote browser");
-
-				// Close the browser as soon as we have the
-				// results.  No need to keep it hanging around
-				// until the rest of the job is complete.
-				browser.quit();
-				log("Browser closing");
-
-				return {
-					id: browser.sessionID,
-					ua: ua,
-					urlName: urlName,
-					results: data
-				};
-			}
-
-			log("requested browser");
-
-			return browser.init(conf).then(() => {
-				log("browser launched");
-
-				return browser
-					.get(url)
-					.then(() => browser.refresh())
-					.then(() => {
-						log("kicked");
-
-						// Once refreshed, wait `pollTick` before continuing
-						return promiseTimer(pollTick);
-					})
-					.then(waitOnResults)
-					.then(processResults)
-				;
-			});
-		}
-
-		function readResultsFile(cb) {
-			const file = path.join(testResultsPath, 'results.json');
-			mkdirp(testResultsPath, err => {
-				if (err) {
-					grunt.warn('Cannot write test results - '+testResultsPath+' cannot be written');
-					cb({});
-				} else {
-					fs.readFile(file, (err, filedata) => {
-						if (err) {
-							// If ENOENT, continue as writeFile will create it later
-							if (err.code !== 'ENOENT') {
-								throw err;
-							}
-						}
-						cb((filedata && filedata.length) ? JSON.parse(filedata) : {});
-					});
-				}
-			});
-		}
-
-		function writeResultsFile(data) {
-			const file = path.join(testResultsPath, 'results.json');
-			const output = JSON.stringify(data, null, 2);
-			console.log('Wrote '+output.length+' bytes to result file');
-			fs.writeFile(file, output, err => {
-				if (err) {
-					grunt.warn(err);
-					throw err;
-				}
-			});
-		}
-
-
-		grunt.log.writeln("travis_fold:start:Sauce test progress");
-		grunt.log.writeln("Sauce job name: "+options.name);
-		readResultsFile(testResults => {
-			let noop = true;
-
-			options.browsers.forEach(ua => {
-				Object.keys(options.urls).forEach(urlName => {
-					const url = options.urls[urlName];
-					let state;
+			// Figure out which jobs need to be run, create them
+			.then(() => {
+				let existingCount = 0;
+				jobs = options.browsers.reduce((out, ua) => out.concat(Object.keys(options.urls).reduce((out, mode) => {
+					const url = options.urls[mode];
 					try {
-						testResults[ua.browserName][ua.browserVersion][urlName].length;
-						state = 'skipped - data already in result file';
+						testResults[ua][mode].length;
+						existingCount++;
 					} catch(e) {
-						batch.push(done => {
-							runTestJob(url, urlName, ua)
-								.then(data => done(null, data))
-								.catch(e => {
-									console.log(e.stack || e);
-									done(e);
-								})
-							;
-						});
-						state = 'queued';
-						noop = false;
+						out.push((new TestJob(url, mode, ua, tunnelId, sauceCreds)));
 					}
-					grunt.log.writeln(ua.browserName + '/' + ua.browserVersion + ' (' + urlName + ' mode): ' + state);
-				});
-			});
+					return out;
+				}, [])), []);
 
-			if (noop) {
-				grunt.log.oklns("Nothing to do");
-				return gruntDone();
-			}
-
-			grunt.log.writeln('Opening tunnel to Sauce Labs');
-			tunnel = new SauceTunnel(options.username, options.key, tunnelId, true);
-			tunnel.start(status => {
-
-				let cumFailCount = 0;
-
-				grunt.log.writeln("Tunnel Started");
-				if (status !== true) {
-					gruntDone(status);
+				if (!jobs.length) {
+					console.log("Nothing to do");
+					return gruntDone();
+				} else if (existingCount) {
+					console.log(existingCount + ' results already available.  To rerun these tests, delete the results.json file.');
 				}
+			})
 
-				grunt.log.writeln("Starting test jobs");
+			.then(() => openTunnel(tunnel))
 
-				batch.on('progress', function(e) {
-					if (e.error) {
-						throw e.error;
-					}
-
-					if (e.value.ua) {
-						if (!testResults[e.value.ua.browserName]) {
-							testResults[e.value.ua.browserName] = {};
+			// Run jobs within concurrency limits
+			.then(() => new Promise(resolve => {
+				const results = [];
+				const writeQueue = [];
+				const cliFeedbackTimer = setInterval(() => printProgress(jobs, true), pollTick);
+				let resolvedCount = 0;
+				function pushJob() {
+					results.push(jobs[results.length].run().then(job => {
+						if (job.state === 'complete') {
+							const [family, version] = job.ua.split('/');
+							if (testResults[family] === undefined) testResults[family] = {};
+							if (testResults[family][version] === undefined) testResults[family][version] = {};
+							testResults[family][version][job.mode] = job.getResultSummary();
+							const output = JSON.stringify(testResults, null, 2);
+							writeQueue.push(writeFile(testResultsFile, output));
 						}
-
-						if (!testResults[e.value.ua.browserName][e.value.ua.browserVersion]) {
-							testResults[e.value.ua.browserName][e.value.ua.browserVersion]	= {};
+						resolvedCount++;
+						if (results.length < jobs.length) {
+							pushJob();
+						} else if (resolvedCount === jobs.length) {
+							clearTimeout(cliFeedbackTimer);
+							printProgress(jobs, false);
+							Promise.all(writeQueue).then(() => resolve(testResults));
 						}
+						return job;
+					}).catch(e => console.log(e.stack || e)));
+				}
+				for (let i=0, s = options.concurrency; i<s; i++) {
+					pushJob();
+				}
+			}))
 
-						testResults[e.value.ua.browserName][e.value.ua.browserVersion][e.value.urlName] = {
-							passed: e.value.results.passed,
-							failed: e.value.results.failed,
-							failingSuites: e.value.results.failingSuites ? Object.keys(e.value.results.failingSuites) : [],
-							testedSuites: Array.from(e.value.results.testedSuites)
-						};
-						cumFailCount += e.value.results.failed;
-						writeResultsFile(testResults);
-					}
+			.then(() => closeTunnel(tunnel))
 
-					// Pending count appears to have an off by one error
-					grunt.log.writeln("Progress (browsers): " + e.complete + ' / ' + e.total + ' (' + (e.pending-1) + ' browsers remaining, ' + cumFailCount + ' test failures so far)');
-				});
-
-
-				batch.end((err, jobresults) => {
-					grunt.log.writeln('All jobs complete');
-					tunnel.stop(() => {
-						const passingUAs = [];
-						let failed = false;
-						grunt.log.writeln('Sauce tunnel stopped');
-						grunt.log.writeln("travis_fold:end:Sauce test progress");
-						grunt.log.writeln("Failed tests:");
-						jobresults.forEach(job => {
-							if (!job.results) {
-								grunt.warn('No results reported for '+ job.ua.browserName+'/'+job.ua.browserVersion+' '+job.urlName);
-								return true;
-							}
-							if (job.results.failed) {
-								grunt.log.writeln(' - '+job.ua.browserName+' '+job.ua.browserVersion+' (Sauce results: https://saucelabs.com/tests/' + job.id+')');
-								if (job.results.failingSuites) {
-									Object.keys(job.results.failingSuites).forEach(feature => {
-										const url = options.urls[job.urlName].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-										grunt.log.writeln('    -> '+feature);
-										grunt.log.writeln('       '+url);
-									});
-								}
-								failed = true;
-							} else {
-								passingUAs.push(job.ua.browserName+'/'+job.ua.browserVersion);
-							}
-						});
-						if (!failed) {
-							grunt.log.writeln(' - None!');
+			.then(() => {
+				const totalFailureCount = jobs.reduce((out, job) => out + (job.state === 'complete' ? job.results.failed : 1), 0);
+				if (totalFailureCount) {
+					console.log(cli.bold.white('\nFailures:'));
+					jobs.forEach(job => {
+						if (job.results && job.results.failing) {
+							console.log(' • '+job.ua+' ('+job.mode+') [' + job.getResultsURL() + ']');
+							Object.keys(job.results.failingSuites).forEach(feature => {
+								const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
+								console.log('    -> '+feature);
+								console.log('       '+url);
+							});
+						} else if (job.state !== 'complete') {
+							console.log(' - ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
 						}
-						if (passingUAs.length) {
-							grunt.log.writeln('Browsers tested with no failures: '+passingUAs.join(', '));
-						}
-
-						process.nextTick(() => {
-
-							// Always report the grunt task as successful if not running as CI
-							if (!options.cibuild) {
-								gruntDone(null, true);
-							} else {
-								gruntDone(!failed, failed);
-							}
-						});
 					});
-				});
-			});
-		});
+					console.log('');
+				}
+				gruntDone(options.continueOnFail ? null : !totalFailureCount);
+			})
+
+			.catch(e => {
+				console.log(e.stack || e);
+			})
+		;
 	});
 };

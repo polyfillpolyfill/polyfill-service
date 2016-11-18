@@ -17,12 +17,14 @@ const data = Measured.createCollection(metricsNS + '.' + envName + '.' + process
 
 const failures = data.counter('graphiteReportingFailures');
 
-blocked(function(ms) {
-	if (ms < 100) return;
-	console.warn('Event loop blocked for '+ms+'ms');
-	data.counter('eventloop.blocks').inc();
-	data.counter('eventloop.delay').inc(ms);
-});
+if (process.env.NODE_ENV === 'production') {
+	blocked(function(ms) {
+		if (ms < 100) return;
+		console.log('Event loop blocked for '+ms+'ms');
+		data.counter('eventloop.blocks').inc();
+		data.counter('eventloop.delay').inc(ms);
+	});
+}
 
 if (graphiteHost) {
 
