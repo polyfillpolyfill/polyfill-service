@@ -5,7 +5,7 @@
 		"android": "4.4 - *",
 		"bb": "7 - 10",
 		"chrome": "<51",
-		"firefox": "*",
+		"firefox": "<52",
 		"firefox_mob": "47 - *",
 		"ie": "7 - *",
 		"ie_mob": "11 - *",
@@ -23,7 +23,9 @@
 		"Array.prototype.indexOf",
 		"Array.prototype.map",
 		"Array.prototype.some",
-		"Function.prototype.bind"
+		"Event",
+		"Function.prototype.bind",
+		"perfomance.now"
 	],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
