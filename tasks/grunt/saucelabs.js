@@ -73,24 +73,28 @@ const printProgress = (jobs, overwrite) => {
 	jobs.forEach(job => {
 		const prefix = ' • ' + rightPad(job.ua, 10) + ' ' + rightPad(job.mode, 8) + ' ';
 		let msg = '';
-		if (job.state === 'running') {
-			const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
-			const bar = '['+('█'.repeat(Math.ceil(doneFrac*barLen)))+('░'.repeat(Math.floor((1-doneFrac)*barLen)))+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
-			const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
-			const waitStr = (timeWaiting > 4) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
-			const errStr = (job.results.failed) ? cli.red('  ✘ ' + job.results.failed) : '';
-			msg = bar + errStr + waitStr;
-		} else if (job.state === 'complete') {
+		if (job.state === 'complete') {
 			if (job.results.failed) {
 				msg = cli.red('✘ '+ job.results.total + ' tests, ' + job.results.failed + ' failures');
 			} else {
 				msg = cli.green('✓ ' + job.results.total + ' tests');
 			}
-			msg += ', ' + job.duration + 's';
+			msg += '  ' + job.duration + 's';
 		} else if (job.state === 'error') {
 			msg = cli.red('⚠️  ' + job.results);
 		} else {
-			msg = job.state;
+			if (job.state === 'running') {
+				const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
+				const bar = '['+('█'.repeat(Math.ceil(doneFrac*barLen)))+('░'.repeat(Math.floor((1-doneFrac)*barLen)))+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
+				const errStr = (job.results.failed) ? cli.red('  ✘ ' + job.results.failed) : '';
+				msg = bar + errStr;
+			} else {
+				msg = job.state;
+			}
+			if (job.state !== 'ready') {
+				const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
+				msg += (timeWaiting > 5) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
+			}
 		}
 		out.push(prefix + msg);
 	});
@@ -118,7 +122,6 @@ class TestJob {
 
 	constructor (url, mode, ua, sessionName, creds) {
 		this.browser = wd.promiseRemote("127.0.0.1", sauceConnectPort, creds.username, creds.key);
-		this.state = 'ready';
 		this.mode = mode;
 		this.url = url;
 		this.results = null;
@@ -126,6 +129,7 @@ class TestJob {
 		this.duration = 0;
 		this.ua = ua;
 		this.sessionName = sessionName;
+		this.setState('ready');
 	}
 
 	pollForResults() {
@@ -135,7 +139,7 @@ class TestJob {
 					this.browser.quit();
 					this.results = browserdata;
 					this.duration = Math.floor((Date.now() - this.startTime) / 1000);
-					this.state = 'complete';
+					this.setState('complete');
 					return this;
 				} else if (this.lastUpdateTime && this.lastUpdateTime < (Date.now() - testBrowserTimeout)) {
 					throw new Error('Timed out at \'' + this.state + '\'');
@@ -145,7 +149,7 @@ class TestJob {
 							this.results = browserdata;
 							this.lastUpdateTime = Date.now();
 						}
-						this.state = 'running';
+						this.setState('running');
 					}
 
 					// Recurse
@@ -170,23 +174,27 @@ class TestJob {
 			"tunnelIdentifier": this.sessionName
 		};
 
-		this.state = 'initialising browser';
-		this.lastUpdateTime = Date.now();
+		this.setState('initialising browser');
 		this.startTime = Date.now();
 
 		return Promise.resolve()
-			.then(() => this.browser.init(wdConf).then(() => { this.state = 'started'; }))
-			.then(() => this.browser.get(this.url).then(() => { this.state = 'loaded URL'; }))
-			.then(() => this.browser.refresh().then(() => { this.state = 'refreshed'; }))
-			.then(() => wait(pollTick).then(() => { this.state = 'waiting for results'; }))
+			.then(() => this.browser.init(wdConf).then(() => this.setState('started')))
+			.then(() => this.browser.get(this.url).then(() => this.setState('loaded URL')))
+			.then(() => this.browser.refresh().then(() => this.setState('refreshed')))
+			.then(() => wait(pollTick).then(() => this.setState('waiting for results')))
 			.then(() => this.pollForResults())
 			.catch(e => {
 				this.browser.quit();
 				this.results = e;
-				this.state = 'error';
+				this.setState('error');
 				return this;
 			})
 		;
+	}
+
+	setState(newState) {
+		this.state = newState;
+		this.lastUpdateTime = Date.now();
 	}
 
 	getResultSummary() {
