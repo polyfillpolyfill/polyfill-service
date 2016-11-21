@@ -5545,7 +5545,7 @@
   },
   "IntersectionObserver": {
     "chrome": {
-      "35": "missing",
+      "35": "polyfilled",
       "40": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled",
@@ -6427,6 +6427,48 @@
       "42": "native",
       "44": "native",
       "49": "native"
+    }
+  },
+  "HTMLCanvasElement.protoype.toBlob": {
+    "ios_saf": {
+      "9.2": "polyfilled",
+      "9.1": "polyfilled"
+    },
+    "android": {
+      "4.2": "missing",
+      "4.3": "missing",
+      "5.1": "polyfilled",
+      "4.4": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "missing"
+    },
+    "ie": {
+      "7": "missing",
+      "8": "missing",
+      "9": "missing",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "polyfilled",
+      "14": "polyfilled"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
+    },
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "54": "native"
     }
   }
 }
