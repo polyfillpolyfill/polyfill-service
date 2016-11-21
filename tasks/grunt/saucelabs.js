@@ -51,7 +51,6 @@ const useragentToSauce = {
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration));
 
 const whitespace = ' '.repeat(200);
-const leftPad = (str, len) => (whitespace+str).slice(-1*len);
 const rightPad = (str, len) => (str+whitespace).slice(0, len);
 
 const readResultsFrom = filePath => {
