@@ -17,7 +17,7 @@ const data = Measured.createCollection(metricsNS + '.' + envName + '.' + process
 
 const failures = data.counter('graphiteReportingFailures');
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'ci') {
 	blocked(function(ms) {
 		if (ms < 100) return;
 		console.log('Event loop blocked for '+ms+'ms');

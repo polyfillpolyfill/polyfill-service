@@ -69,7 +69,7 @@ const readResultsFrom = filePath => {
 const printProgress = (jobs, overwrite) => {
 	const lineLen = 80;
 	const barLen = 25;
-	const out = [];
+	const out = [''];
 	let readyCount = 0;
 	jobs.forEach(job => {
 		const prefix = ' • ' + rightPad(job.ua, 10) + ' ' + rightPad(job.mode, 8) + ' ';
