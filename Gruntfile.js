@@ -3,6 +3,7 @@
 require('dotenv').config({silent: true});
 const path = require('path');
 const process = require('process');
+const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 
 module.exports = function(grunt) {
 
@@ -26,7 +27,7 @@ module.exports = function(grunt) {
 		"saucelabs": {
 			debug: {
 				options: {
-					urls: { all: 'http://127.0.0.1:3000/test/director?mode=all' },
+					urls: { all: serviceHost + '/test/director?mode=all' },
 					browsers: browsers.quick,
 					concurrency: 3
 				}
@@ -34,8 +35,8 @@ module.exports = function(grunt) {
 			compat: {
 				options: {
 					urls: {
-						all: 'http://127.0.0.1:3000/test/director?mode=all',
-						control: 'http://127.0.0.1:3000/test/director?mode=control'
+						all: serviceHost + '/test/director?mode=all',
+						control: serviceHost + '/test/director?mode=control'
 					},
 					browsers: browsers.full,
 					continueOnFail: true
@@ -44,7 +45,7 @@ module.exports = function(grunt) {
 			ci: {
 				options: {
 					urls: {
-						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: serviceHost + '/test/director?mode=targeted'
 					},
 					browsers: browsers.ci
 				}
@@ -52,7 +53,7 @@ module.exports = function(grunt) {
 			quick: {
 				options: {
 					urls: {
-						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: serviceHost + '/test/director?mode=targeted'
 					},
 					browsers: browsers.quick
 				}
