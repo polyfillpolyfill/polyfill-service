@@ -69,19 +69,27 @@ const readResultsFrom = filePath => {
 const printProgress = (jobs, overwrite) => {
 	const lineLen = 80;
 	const barLen = 25;
-	const out = ['', cli.bold.white('Running tests:')];
+	const out = [];
+	let readyCount = 0;
 	jobs.forEach(job => {
 		const prefix = ' • ' + rightPad(job.ua, 10) + ' ' + rightPad(job.mode, 8) + ' ';
 		let msg = '';
 		if (job.state === 'complete') {
-			if (job.results.failed) {
-				msg = cli.red('✘ '+ job.results.total + ' tests, ' + job.results.failed + ' failures');
-			} else {
-				msg = cli.green('✓ ' + job.results.total + ' tests');
+			if (!job.outputComplete) {
+				if (job.results.failed) {
+					msg = cli.red('✘ '+ job.results.total + ' tests, ' + job.results.failed + ' failures');
+				} else {
+					msg = cli.green('✓ ' + job.results.total + ' tests');
+				}
+				msg += '  ' + job.duration + 's';
+				process.stdout.write(rightPad(cli.white.bold(prefix) + msg, lineLen)+'\n');
+				msg = null;
+				job.outputComplete = true;
 			}
-			msg += '  ' + job.duration + 's';
 		} else if (job.state === 'error') {
 			msg = cli.red('⚠️  ' + job.results);
+		} else if (job.state === 'ready') {
+			readyCount++;
 		} else {
 			if (job.state === 'running') {
 				const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
@@ -91,13 +99,14 @@ const printProgress = (jobs, overwrite) => {
 			} else {
 				msg = job.state;
 			}
-			if (job.state !== 'ready') {
-				const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
-				msg += (timeWaiting > 5) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
-			}
+			const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
+			msg += (timeWaiting > 5) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
 		}
-		out.push(prefix + msg);
+		if (msg) out.push(prefix + msg);
 	});
+	if (readyCount) {
+		out.push(' + ' + readyCount + ' jobs queued');
+	}
 	process.stdout.write(out.map(str => rightPad(str, lineLen)).join('\n')+'\n');
 	if (overwrite) {
 		process.stdout.write(cli.move.lines(-out.length));
@@ -181,7 +190,7 @@ class TestJob {
 			.then(() => this.browser.init(wdConf).then(() => this.setState('started')))
 			.then(() => this.browser.get(this.url).then(() => this.setState('loaded URL')))
 			.then(() => this.browser.refresh().then(() => this.setState('refreshed')))
-			.then(() => wait(pollTick).then(() => this.setState('waiting for results')))
+			.then(() => wait(pollTick).then(() => this.setState('polling for results')))
 			.then(() => this.pollForResults())
 			.catch(e => {
 				this.browser.quit();
