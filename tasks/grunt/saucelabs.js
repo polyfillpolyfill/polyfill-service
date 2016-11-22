@@ -82,7 +82,7 @@ const printProgress = (jobs, overwrite) => {
 					msg = cli.green('✓ ' + job.results.total + ' tests');
 				}
 				msg += '  ' + job.duration + 's';
-				process.stdout.write(rightPad(cli.white.bold(prefix) + msg, lineLen)+'\n');
+				process.stdout.write(rightPad(prefix + msg, lineLen)+'\n');
 				msg = null;
 				job.outputComplete = true;
 			}
@@ -105,7 +105,7 @@ const printProgress = (jobs, overwrite) => {
 		if (msg) out.push(prefix + msg);
 	});
 	if (readyCount) {
-		out.push(' + ' + readyCount + ' jobs queued');
+		out.push(' + ' + readyCount + ' job(s) queued');
 	}
 	process.stdout.write(out.map(str => rightPad(str, lineLen)).join('\n')+'\n');
 	if (overwrite) {
