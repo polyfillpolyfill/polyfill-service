@@ -1,0 +1,1 @@
+'toBlob' in HTMLCanvasElement.prototype

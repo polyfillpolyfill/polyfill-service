@@ -236,7 +236,6 @@ function refreshData() {
 							if (cachettls[type]) {
 								docsData[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
 							}
-							console.log('Completed generating docs data: type='+type+' expires='+(docsData[type].expires || 'never'));
 						}
 					})
 					.catch(err => {
