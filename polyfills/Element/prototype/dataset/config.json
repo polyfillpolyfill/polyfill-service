@@ -1,0 +1,17 @@
+{
+	"browsers": {
+		"chrome": "< 8",
+		"firefox": "< 6",
+		"ie": "9 - 10",
+		"safari": "< 6",
+		"firefox_mob":  "< 6"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Object.getOwnPropertyDescriptor",
+		"document.querySelector",
+		"Element"
+	],
+	"spec": "https://html.spec.whatwg.org/multipage/dom.html#dom-dataset",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset"
+}
