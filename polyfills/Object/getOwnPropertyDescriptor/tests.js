@@ -45,8 +45,11 @@ describe('Basic functionality', function () {
     }
 
     it('should throw error for non object', function () {
-    	proclaim.throws(function() {
-        	Object.getOwnPropertyDescriptor(42, 'name');
-    	});
+	try {
+		// note: in ES6, we expect this to return undefined.
+		proclaim.isUndefined(Object.getOwnPropertyDescriptor(42, 'name'));
+	} catch (err) {
+		proclaim.isInstanceOf(err, TypeError);
+	}
     });
 });

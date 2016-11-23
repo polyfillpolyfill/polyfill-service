@@ -1,172 +1,258 @@
 'use strict';
 
+const fs = require('graceful-fs');
+const path = require('path');
+const uglify = require('uglify-js');
+const babel = require("babel-core");
+const mkdirp = require('mkdirp');
+const tsort = require('tsort');
+const denodeify = require('denodeify');
+
+const writeFile = denodeify(fs.writeFile);
+const readFile = denodeify(fs.readFile);
+const makeDirectory = denodeify(mkdirp);
+
 function validateSource(code, label) {
-	try {
-		new Function(code);
-	} catch(e) {
-		throw {name:"Parse error", message:"Error parsing source code for "+label, error:e};
-	}
+    try {
+        new Function(code);
+    }
+    catch (error) {
+        throw {
+            name: "Parse error",
+            message: `Error parsing source code for ${label}`,
+            error
+        };
+    }
 }
 
+function flattenPolyfillDirectories(directory) {
+    // Recursively discover all subfolders and produce a flattened list.
+    // Directories prefixed with '__' are not polyfill features and are not included.
+    let results = [];
+    for (const item of fs.readdirSync(directory)) {
+        const joined = path.join(directory, item);
+        if (fs.lstatSync(joined).isDirectory() && item.indexOf('__') !== 0) {
+            results = results
+                .concat(flattenPolyfillDirectories(joined))
+                .concat(joined);
+        }
+    }
+    return results;
+}
 
-module.exports = function(grunt) {
-	const fs = require('fs');
-	const path = require('path');
-	const uglify = require('uglify-js');
-	const babel = require("babel-core");
-	const mkdir = require('mkdirp').sync;
-	const tsort = require('tsort');
-	const denodeify = require('denodeify');
-	const writeFile = denodeify(fs.writeFile);
+function checkForCircularDependencies(polyfills) {
+    const graph = tsort();
 
-	grunt.registerTask('buildsources', 'Build polyfill sources', function() {
+    for (const polyfill of polyfills) {
+        for (const dependency of polyfill.dependencies) {
+            graph.add(dependency, polyfill.name);
+        }
+    }
 
-		const polyfillSourceFolder = path.join(__dirname, '../../polyfills');
-		const configuredAliases = {};
-		const errors = [];
-		const dirs = [];
-		const destFolder = path.join(__dirname, '../../polyfills/__dist');
-		const depGraph = tsort();
-		const done = this.async();
-		const writeQueue = [];
+    try {
+        graph.sort();
 
-		grunt.log.writeln('Writing compiled polyfill sources to '+destFolder+'/...');
+        return Promise.resolve();
+    }
+    catch (err) {
+        return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
+    }
+}
 
-		mkdir(destFolder);
+function writeAliasFile(polyfills, dir) {
+    const aliases = {};
 
-		// Recursively discover all subfolders and build into a list (__-prefixed directories are not polyfill features)
-		function scanDir(dir) {
-			fs.readdirSync(dir).forEach(item => {
-				const d = path.join(dir, item);
-				if (fs.lstatSync(d).isDirectory() && item.indexOf('__') !== 0) {
-					scanDir(d);
-					dirs.push(d);
-				}
-			});
-		}
-		scanDir(polyfillSourceFolder);
+    for (const polyfill of polyfills) {
+        for (const alias of polyfill.aliases) {
+            aliases[alias] = (aliases[alias] || []).concat(polyfill.name);
+        }
+    }
 
-		dirs.forEach(polyfillPath => {
-			let config;
-			const sources = {};
-			const configPath = path.join(polyfillPath, 'config.json');
-			const detectPath = path.join(polyfillPath, 'detect.js');
-			const polyfillSourcePath = path.join(polyfillPath, 'polyfill.js');
-			const featureName = polyfillPath.substr(polyfillSourceFolder.length+1).replace(/(\/|\\)/g, '.');
-			const destFeatureFolder = path.join(destFolder, featureName);
+    return writeFile(path.join(dir, 'aliases.json'), JSON.stringify(aliases));
+}
 
-			try {
+class Polyfill {
+    constructor(absolute, relative) {
+        this.path = { absolute, relative };
+        this.name = relative.replace(/(\/|\\)/g, '.');
+        this.config = {};
+        this.sources = {};
+    }
 
-				// Load the polyfill's configuration
-				try {
-					if (!fs.existsSync(configPath)) return;
-					config = JSON.parse(fs.readFileSync(configPath));
-					config.baseDir = path.relative(path.join(__dirname,'../../polyfills'), polyfillPath);
-				} catch (e) {
-					throw {name:"Invalid config", message:"Unable to read config from "+configPath};
-				}
+    get aliases() {
+        return this.config.aliases || [];
+    }
 
-				config.hasTests = fs.existsSync(path.join(polyfillPath, 'tests.js'));
+    get dependencies() {
+        return this.config.dependencies || [];
+    }
 
-				if (config.licence) {
-					throw 'Incorrect spelling of license property in '+featureName;
-				}
+    get configPath() {
+        return path.join(this.path.absolute, 'config.json');
+    }
 
-				if (!fs.existsSync(polyfillSourcePath)) {
-					throw {name:"Missing polyfill source file", message:"Path "+polyfillSourcePath+" not found"};
-				}
-				sources.raw = fs.readFileSync(polyfillSourcePath, 'utf8');
+    get detectPath() {
+        return path.join(this.path.absolute, 'detect.js');
+    }
 
-				// At time of writing no current browsers support the full ES6 language syntax, so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all cases (also note that uglify currently cannot minify ES6 syntax).  When browsers start shipping with complete ES6 support, the ES6 source versions should be served where appropriate, which will require another set of variations on the source properties of the polyfill.  At this point it might be better to create a collection of sources with different properties, eg config.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
-				if (config.esversion && config.esversion > 5) {
-					if (config.esversion === 6) {
-						const result = babel.transform(sources.raw, {"presets": ["es2015"]});
+    get sourcePath() {
+        return path.join(this.path.absolute, 'polyfill.js');
+    }
 
-						// Don't add a "use strict"
-						// Super annoying to have to drop the preset and list all babel plugins individually, so hack to remove the "use strict" added by Babel (see also http://stackoverflow.com/questions/33821312/how-to-remove-global-use-strict-added-by-babel)
-						sources.raw = result.code.replace(/^\s*"use strict";\s*/i, '');
+    get hasConfigFile() {
+        return fs.existsSync(this.configPath);
+    }
 
-					} else {
-						throw {name:"Unsupported ES version", message:"Feature "+featureName+' uses ES'+config.esversion+' but no transpiler is available for that version'};
-					}
-				}
+    loadConfig() {
+        return readFile(this.configPath)
+            .catch(error => {
+                throw {
+                    name: "Invalid config",
+                    message: `Unable to read config from ${this.configPath}`,
+                    error
+                };
+            })
+            .then(data => {
+                this.config = JSON.parse(data);
+                this.config.detectSource = '';
+                this.config.baseDir = this.path.relative;
 
-				if (config.build && config.build.minify === false) {
-					// skipping any validation or minification process since
-					// the raw source is supposed to be production ready.
-					// Add a line break in case the final line is a comment
-					sources.min = sources.raw + "\n";
-				} else {
-					validateSource(sources.raw, featureName+' from '+polyfillSourcePath);
-					sources.min = uglify.minify(sources.raw, {
-						fromString: true,
-						compress: { screw_ie8: false},
-						mangle:   { screw_ie8: false},
-						output:   { screw_ie8: false, beautify: false }
-					}).code;
-				}
+                if ('licence' in this.config) {
+                    throw `Incorrect spelling of license property in ${this.name}`;
+                }
 
-				if (fs.existsSync(detectPath)) {
-					config.detectSource = fs.readFileSync(detectPath, 'utf8').replace(/\s*$/, '') || null;
-					validateSource("if ("+config.detectSource+") true;", featureName+' feature detect from '+detectPath);
-				} else {
-					config.detectSource = '';
-				}
+                this.config.hasTests = fs.existsSync(path.join(this.path.absolute, 'tests.js'));
 
-				// Add start-of-module marker comments to unminifed source
-				sources.raw = '\n// '+featureName + '\n' + sources.raw;
+                if (fs.existsSync(this.detectPath)) {
+                    this.config.detectSource = fs.readFileSync(this.detectPath, 'utf8').replace(/\s*$/, '') || '';
+                    validateSource(`if (${this.config.detectSource}) true;`, `${this.name} feature detect from ${this.detectPath}`);
+                }
+            });
+    }
 
-				mkdir(destFeatureFolder);
-				writeQueue.push(writeFile(path.join(destFeatureFolder, 'meta.json'), JSON.stringify(config)));
-				writeQueue.push(writeFile(path.join(destFeatureFolder, 'raw.js'), sources.raw));
-				writeQueue.push(writeFile(path.join(destFeatureFolder, 'min.js'), sources.min));
-				grunt.log.writeln('+ '+featureName);
+    loadSources() {
+        return readFile(this.sourcePath, 'utf8')
+            .catch(error => {
+                throw {
+                    name: "Invalid source",
+                    message: `Unable to read source from ${this.sourcePath}`,
+                    error
+                };
+            })
+            .then(raw => this.transpile(raw))
+            .catch(error => { 
+                throw { 
+                    message: `Error transpiling ${this.name}`, 
+                    error 
+                }; 
+            })
+            .then(transpiled => this.minify(transpiled))
+            .catch(error => { 
+                throw { 
+                    message: `Error minifying ${this.name}`, 
+                    error 
+                }; 
+            })
+            .then(sources => {
+                this.sources = sources;
+            });
+    }
 
-				// Store alias names in a map for efficient lookup, mapping aliases to
-				// featureNames.  An alias can map to many polyfill names. So a group
-				// of polyfills can be aliased under the same name.  This is why an
-				// array is created and used for the value in the map.
-				if (config.aliases) {
-					config.aliases.forEach(function(aliasName) {
-						if (configuredAliases[aliasName]) {
-							configuredAliases[aliasName].push(featureName);
-						} else {
-							configuredAliases[aliasName] = [ featureName ];
-						}
-					});
-				}
+    transpile(source) {
+        // At time of writing no current browsers support the full ES6 language syntax, 
+        // so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all 
+        // cases (also note that uglify currently cannot minify ES6 syntax).  When browsers 
+        // start shipping with complete ES6 support, the ES6 source versions should be served 
+        // where appropriate, which will require another set of variations on the source properties 
+        // of the polyfill.  At this point it might be better to create a collection of sources with 
+        // different properties, eg config.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
+        if (this.config.esversion && this.config.esversion > 5) {
+            if (this.config.esversion === 6) {
+                const transpiled = babel.transform(source, { presets: ["es2015"] });
 
-				if (config.dependencies) {
-					config.dependencies.forEach(function(depFeatureName) {
-						depGraph.add(depFeatureName, featureName);
-					});
-				}
+                // Don't add a "use strict"
+                // Super annoying to have to drop the preset and list all babel plugins individually, so hack to remove the "use strict" added by Babel (see also http://stackoverflow.com/questions/33821312/how-to-remove-global-use-strict-added-by-babel)
+                return transpiled.code.replace(/^\s*"use strict";\s*/i, '');
 
-			} catch (ex) {
-				grunt.fail.warn(ex);
-				errors.push(ex);
-			}
-		});
+            } else {
+                throw {
+                    name: "Unsupported ES version",
+                    message: `Feature ${this.name} uses ES${this.config.esversion} but no transpiler is available for that version`
+                };
+            }
+        }
 
-		if (errors.length) {
-			grunt.fail.warn('\n' + errors.length + ' error(s) encountered parsing polyfill sources.');
-		}
+        return source;
+    }
 
-		try {
-			depGraph.sort();
-		} catch(e) {
-			grunt.fail.warn('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
-		}
+    minify(source) {
+        const raw = `\n// ${this.name}\n${source}`;
 
-		writeQueue.push(writeFile(path.join(__dirname, '../../polyfills/__dist/aliases.json'), JSON.stringify(configuredAliases)));
-		
-		grunt.log.writeln('Waiting for files to be written to disk...');
-		Promise.all(writeQueue)
-			.then(() => {
-				grunt.log.oklns('Sources built successfully');
-				done();
-			})
-			.catch(e => grunt.warn(e))
-		;
-	});
+        if (this.config.build && this.config.build.minify === false) {
+            // skipping any validation or minification process since
+            // the raw source is supposed to be production ready.
+            // Add a line break in case the final line is a comment
+            return { raw, min: source + '\n' };
+        }
+        else {
+            validateSource(source, `${this.name} from ${this.sourcePath}`);
+
+            const minified = uglify.minify(source, {
+                fromString: true,
+                compress: { screw_ie8: false },
+                mangle: { screw_ie8: false },
+                output: { screw_ie8: false, beautify: false }
+            });
+
+            return { raw, min: minified.code };
+        }
+    }
+
+    writeOutput(root) {
+        const dest = path.join(root, this.name);
+        const files = [
+                ['meta.json', JSON.stringify(this.config)],
+                ['raw.js', this.sources.raw],
+                ['min.js', this.sources.min]
+            ];
+
+        return makeDirectory(dest)
+            .then(() => Promise.all(files
+                .map(([name, contents]) => [path.join(dest, name), contents])
+                .map(([path, contents]) => writeFile(path, contents))));
+    }
+}
+
+module.exports = function (grunt) {
+
+    grunt.registerTask('buildsources', 'Build polyfill sources', function () {
+
+        const done = this.async();
+        const src = path.join(__dirname, '../../polyfills');
+        const dest = path.join(src, '__dist');
+
+        grunt.log.writeln(`Writing compiled polyfill sources to ${dest}/...`);
+
+        Promise.resolve()
+            .then(() => Promise.all(flattenPolyfillDirectories(src)
+                .map(absolute => new Polyfill(absolute, path.relative(src, absolute)))
+                .filter(polyfill => polyfill.hasConfigFile)
+                .map(polyfill => polyfill.loadConfig()
+                    .then(() => grunt.verbose.writeln(`Started processing sources for ${polyfill.name}`))
+                    .then(() => polyfill.loadSources())
+                    .then(() => grunt.verbose.writeln(`Finished processing sources for ${polyfill.name}`))
+                    .then(() => polyfill))))
+            .then(polyfills => checkForCircularDependencies(polyfills)
+                .then(() => makeDirectory(dest))
+                .then(() => grunt.log.writeln('Waiting for files to be written to disk...'))
+                .then(() => writeAliasFile(polyfills, dest))
+                .then(() => Promise.all(polyfills
+                    .map(polyfill => polyfill.writeOutput(dest)
+                        .then(() => grunt.verbose.writeln(`Finished writing output for ${polyfill.name}`))))))
+            .then(() => grunt.log.oklns('Sources built successfully'))
+            .then(() => done())
+            .catch(e => grunt.fail.warn(e));
+
+    });
+
 };
