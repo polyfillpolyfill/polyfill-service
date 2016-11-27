@@ -25,38 +25,7 @@
 	<!-- Polyfills must load sync, since they need to be active before other script runs -->
 	<script src="/v2/polyfill.min.js?features=default,Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent,Element.prototype.closest&amp;rum=1"></script>
 
-	<!-- Other scripts can be loaded async -->
-	<script>
-		(function(srces, fn) {
-			if (!cutsTheMustard) return;
-			var firstScript = document.getElementsByTagName('script')[0];
-			var re = /ded|co/;
-			var onload = 'onload';
-			var onreadystatechange = 'onreadystatechange';
-			var readyState = 'readyState';
-			var count = 0;
-
-			if (typeof srces === 'string') srces = [srces];
-			srces.forEach(function(src) {
-				var script = document.createElement('script');
-				script[onload] = script[onreadystatechange] = function() {
-					if(!this[readyState] || re.test(this[readyState])){
-						script[onload] = script[onreadystatechange] = null;
-						if (++count === srces.length) {
-							fn && fn();
-						}
-					}
-				};
-				script.async = script.defer = true;
-				script.src = src;
-				firstScript.parentNode.insertBefore(script, firstScript);
-			});
-		})([
-			'https://origami-build.ft.com/v2/bundles/js?modules=o-techdocs@^5.0.0,o-grid@^4.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0,o-forms@^2.0.0',
-			'https://www.google.com/jsapi',
-			'/v2/assets/js/ui.js'
-		], function() { charts(); });
-	</script>
+	<!-- Other scripts can be loaded async: see footer -->
 </head>
 <body class='o-techdocs'>
 
