@@ -264,7 +264,8 @@ function route(req, res, next) {
 	const locals = Object.assign({
 		apiversion: req.params[0],
 		appversion: appVersion,
-		pageName: (req.params[1] || 'index').replace(/\/$/, '')
+		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+		rumEnabled: !!process.env.RUM_MYSQL_DSN
 	}, docsData);
 
 	if (locals.pageName === 'usage') {
