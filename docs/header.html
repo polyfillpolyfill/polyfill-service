@@ -6,7 +6,7 @@
 	<title>Polyfill service</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script>
-		var cutsTheMustard = ('querySelector' in document && 'localStorage' in window && 'addEventListener' in window);
+		var cutsTheMustard = ('MutationObserver' in window); // IE11, Chr27, FF14, Saf6, Op15, BB10
 		if (cutsTheMustard) {
 			document.documentElement.className = document.documentElement.className.replace(/\bcore\b/g, 'enhanced');
 		}
