@@ -106,12 +106,12 @@ module.exports = function(grunt) {
 							hasStarted = true;
 						}
 					}
-					return grunt.log.writeln(d);
+					return process.stdout.write(d);
 				});
 			}
 			if (proc.stderr) {
 				proc.stderr.on('data', function(d) {
-					return grunt.log.writeln(d);
+					return process.stdout.write(d);
 				});
 			}
 			if (proc) {
