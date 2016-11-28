@@ -10,7 +10,7 @@
 	"browsers": {
 		"chrome": "<49",
 		"firefox": "<29",
-		"ie": "9 - 12",
+		"ie": "9 - *",
 		"ie_mob": "*",
 		"safari": "*",
 		"firefox_mob": "<29",

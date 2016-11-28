@@ -3,6 +3,7 @@
 require('dotenv').config({silent: true});
 const path = require('path');
 const process = require('process');
+const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 
 module.exports = function(grunt) {
 
@@ -24,29 +25,35 @@ module.exports = function(grunt) {
 			}
 		},
 		"saucelabs": {
+			debug: {
+				options: {
+					urls: { all: serviceHost + '/test/director?mode=all' },
+					browsers: browsers.quick,
+					concurrency: 3
+				}
+			},
 			compat: {
 				options: {
 					urls: {
-						all: 'http://127.0.0.1:3000/test/director?mode=all',
-						control: 'http://127.0.0.1:3000/test/director?mode=control'
+						all: serviceHost + '/test/director?mode=all',
+						control: serviceHost + '/test/director?mode=control'
 					},
-					browsers: browsers.full
+					browsers: browsers.full,
+					continueOnFail: true
 				}
 			},
 			ci: {
 				options: {
-					cibuild: true,
 					urls: {
-						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: serviceHost + '/test/director?mode=targeted'
 					},
 					browsers: browsers.ci
 				}
 			},
 			quick: {
 				options: {
-					cibuild: true,
 					urls: {
-						targeted: 'http://127.0.0.1:3000/test/director?mode=targeted'
+						targeted: serviceHost + '/test/director?mode=targeted'
 					},
 					browsers: browsers.quick
 				}
@@ -132,6 +139,12 @@ module.exports = function(grunt) {
 		"service:polyfillservice:stop"
 	]);
 
+	grunt.registerTask("debugsauce", [
+		"service",
+		"saucelabs:debug",
+		"service:polyfillservice:stop"
+	]);
+
 	grunt.registerTask("compatgen", [
 		"build",
 		"simplemocha",
@@ -170,19 +183,18 @@ module.exports = function(grunt) {
 
 const browsers = {
 	quick: [
-		'chrome/48',
-		'firefox/44',
+		'chrome/54',
+		'firefox/49',
 		'ie/14',
-		'ie/13',
 		'ie/11',
 		'ie/8',
 		'android/4.4'
 	],
 	ci: [
+		'chrome/54',
 		'chrome/48',
-		'chrome/40',
-		'firefox/42',
-		'firefox/30',
+		'firefox/49',
+		'firefox/44',
 		'ie/14',
 		'ie/13',
 		'ie/11',
@@ -192,21 +204,22 @@ const browsers = {
 		'ie/7',
 		'safari/9',
 		'safari/8',
+		'android/5.1',
 		'android/4.4'
 	],
 	full: [
+		'chrome/54',
 		'chrome/48',
 		'chrome/46',
 		'chrome/42',
 		'chrome/40',
 		'chrome/35',
-		'chrome/30',
+		'firefox/49',
 		'firefox/44',
 		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
-		'firefox/20',
 		'ie/14',
 		'ie/13',
 		'ie/11',
@@ -217,10 +230,10 @@ const browsers = {
 		'safari/9',
 		'safari/8',
 		'safari/5.1',
+		'android/5.1',
 		'android/4.4',
 		'android/4.3',
 		'android/4.2',
-		'android/4.1',
 		'ios_saf/9.1',
 		'ios_saf/9.2'
 	]
