@@ -1,1 +1,1 @@
-'onhashchange' in this && typeof this.onhashchange === 'object'
+'onhashchange' in this && (this.onhashchange == null || typeof this.onhashchange === 'function')
