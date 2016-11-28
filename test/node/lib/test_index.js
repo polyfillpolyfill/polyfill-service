@@ -1,7 +1,7 @@
 /* global describe, it */
 
 const assert = require('proclaim');
-const setsToArrays = require('../utils/sets_to_arrays');
+const setsToArrays = require('../../utils/sets_to_arrays');
 
 const polyfillio = require('../../../lib/index');
 

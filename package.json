@@ -29,7 +29,8 @@
     "container-test": "npm run container-build && docker run -p 3000:3000 -it registry.heroku.com/ft-polyfill-service-qa/web",
     "deploy": "npm run container-build && docker push registry.heroku.com/ft-polyfill-service-qa/web && grunt deployvcl:qa && ./tasks/purge.js",
     "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && grunt deployvcl:prod && NODE_ENV=production ./tasks/purge.js",
-    "test": "grunt test"
+    "test": "npm run test:unit && grunt test",
+    "test:unit": "mocha test/unit/*.js test/unit/**/*.js"
   },
   "license": "CC0-1.0",
   "engines": {
@@ -96,8 +97,11 @@
     "grunt-shell": "^1.3.1",
     "grunt-simple-mocha": "^0.4.0",
     "mkdirp": "^0.5.1",
+    "mockery": "^1.7.0",
     "node-fetch": "^1.6.0",
     "sauce-tunnel": "^2.2.3",
+    "sinon": "^1.17.6",
+    "sinon-as-promised": "^4.0.2",
     "uglify-js": "^2.4.14",
     "wd": "^0.4.0"
   },
