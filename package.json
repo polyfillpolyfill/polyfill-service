@@ -42,6 +42,7 @@
     "babel-core": "^6.13.2",
     "babel-preset-es2015": "^6.1.18",
     "blocked": "^1.1.0",
+    "cli-color": "^1.1.0",
     "convert-source-map": "^1.3.0",
     "denodeify": "^1.2.1",
     "dotenv": "^2.0.0",

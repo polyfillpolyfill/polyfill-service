@@ -23,7 +23,7 @@
 						<input type="radio" name="compatMode" value="live" class="compatMode o-forms-radio o-forms-radio--small" id="compatMode_live">
 						<label for="compatMode_live" class="o-forms-label">Live test</label>
 					</th>
-					<th class='compatibility__data'><span class='compat_name'>IE</span><span class='compat_icon'><i class='fa fa-internet-explorer'></i></span></th>
+					<th class='compatibility__data'><span class='compat_name'>IE &amp; Edge</span><span class='compat_icon'><i class='fa fa-internet-explorer'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Firefox</span><span class='compat_icon'><i class='fa fa-chrome'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Chrome</span><span class='compat_icon'><i class='fa fa-firefox'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Safari</span><span class='compat_icon'><i class='fa fa-safari'></i></span></th>
@@ -78,8 +78,8 @@
 		</table>
 
 		<aside>
-			<h4>Microsoft Edge as IE12</h4>
-			<p>Currently the <a href='https://github.com/3rd-Eden/useragent'>useragent</a> module identifies Edge as IE12, so we follow that, although Edge's official version number is actually in a different range starting at 20.</p>
+			<h4>Microsoft: Edge vs IE</h4>
+			<p>Since the version ranges of Internet Explorer and Edge form a continuous sequence, we refer to them as the same family, which for compatibility reasons is <code>ie</code> and <code>ie_mob</code>.</p>
 		</aside>
 
 		<h2 id='understanding-polyfill-sizes'>Bundle sizes</h2>
