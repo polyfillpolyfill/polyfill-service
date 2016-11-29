@@ -39,7 +39,8 @@ function Perf(rawopts) {
 		.join(', ')
 	;
 
-	const sqlQuery = `SELECT ${sqlFields} FROM requests WHERE req_time BETWEEN (CURDATE() - INTERVAL ${options.period} DAY) AND CURDATE() AND data_center IS NOT NULL LIMIT 1000000`;
+	const sqlQuery = `SELECT ${sqlFields} FROM requests WHERE req_time BETWEEN (CURDATE() - INTERVAL ${options.period} DAY) AND CURDATE() AND data_center IS NOT NULL AND perf_req IS NOT NULL LIMIT 1000000`;
+console.log(options.minSample);
 
 	const dataPromise = MySQL.createConnection(process.env.RUM_MYSQL_DSN)
 		.then(conn => {
@@ -191,7 +192,7 @@ const validateOptions = (raw, schema) => {
 				out[k] = candidate;
 			}
 		} else if (schema[k].type === 'number') {
-			let candidate = Number.parseFloat(raw);
+			let candidate = Number.parseFloat(raw[k]);
 			if (!Number.isNaN(candidate)) {
 				if ('min' in schema[k]) candidate = Math.max(candidate, schema[k].min);
 				if ('max' in schema[k]) candidate = Math.min(candidate, schema[k].max);
