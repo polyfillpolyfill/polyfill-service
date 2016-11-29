@@ -8,22 +8,6 @@ const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-		"clean": {
-			dist: [path.resolve(__dirname, 'polyfills/__dist')],
-			testResults: [path.resolve(__dirname, 'test/results')]
-		},
-		"simplemocha": {
-			options: {
-				globals: ['should'],
-				timeout: 5000,
-				ignoreLeaks: false,
-				ui: 'bdd',
-				reporter: 'spec'
-			},
-			all: {
-				src: ['test/node/**/*.js']
-			}
-		},
 		"saucelabs": {
 			debug: {
 				options: {

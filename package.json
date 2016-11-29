@@ -24,12 +24,16 @@
   },
   "scripts": {
     "start": "bin/polyfill-service",
+    "clean-dist": "rm -rf ./polyfills/dist",
+    "clean-testdata": "rm -rf ./test/results",
+    "clean": "npm run clean-dist && npm run clean-testdata",
     "dev": "tasks/node/service && tasks/node/watch",
     "prepublish": "grunt build",
     "container-build": "docker build -t registry.heroku.com/ft-polyfill-service-qa/web .",
     "container-test": "npm run container-build && docker run -p 3000:3000 -it registry.heroku.com/ft-polyfill-service-qa/web",
     "deploy": "npm run container-build && docker push registry.heroku.com/ft-polyfill-service-qa/web && grunt deployvcl:qa && ./tasks/purge.js",
     "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && grunt deployvcl:prod && NODE_ENV=production ./tasks/purge.js",
+    "test-node": "mocha test/node/**/*.js",
     "test": "grunt test"
   },
   "license": "CC0-1.0",
