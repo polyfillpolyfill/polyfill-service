@@ -7,6 +7,7 @@
 		"ios_saf": "<9",
 		"firefox": "<15",
 		"opera": "<15",
+		"op_mini": "*",
 		"op_mob": "<24",
 		"safari": "<8",
 		"firefox_mob": "<15"
