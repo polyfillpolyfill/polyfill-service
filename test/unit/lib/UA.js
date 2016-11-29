@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-/* eslint-env mocha */
+
 "use strict";
 
 const assert = require('proclaim');
