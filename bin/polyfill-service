@@ -17,8 +17,8 @@ process.on('uncaughtException', (err) => {
 
 startService(port, function(err, app){
 	if (err) {
-		console.error('Error while starting service:', err);
-		throw err;
+		console.error(err);
+		process.exit(1);
 	}
 
 	// This output is string-matched by the service.js task

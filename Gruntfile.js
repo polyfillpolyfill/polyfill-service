@@ -1,85 +1,11 @@
 'use strict';
 
 require('dotenv').config({silent: true});
-const path = require('path');
 const process = require('process');
-const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-		"saucelabs": {
-			debug: {
-				options: {
-					urls: { all: serviceHost + '/test/director?mode=all' },
-					browsers: browsers.quick,
-					concurrency: 3
-				}
-			},
-			compat: {
-				options: {
-					urls: {
-						all: serviceHost + '/test/director?mode=all',
-						control: serviceHost + '/test/director?mode=control'
-					},
-					browsers: browsers.full,
-					continueOnFail: true
-				}
-			},
-			ci: {
-				options: {
-					urls: {
-						targeted: serviceHost + '/test/director?mode=targeted'
-					},
-					browsers: browsers.ci
-				}
-			},
-			quick: {
-				options: {
-					urls: {
-						targeted: serviceHost + '/test/director?mode=targeted'
-					},
-					browsers: browsers.quick
-				}
-			}
-		},
-		"watch": {
-			options: {
-				spawn: false
-			},
-			js: {
-				files: ['bin/*', 'docs/*.html', 'service/**/*.js', 'lib/*.js'],
-				tasks: ['service:polyfillservice:restart']
-			},
-			polyfills: {
-				files: ['polyfills/**/*.js', 'polyfills/**/config.json', '!polyfills/__dist/**'],
-				tasks: ['service:polyfillservice:stop', 'build', 'service:polyfillservice:start']
-			}
-		},
-		"service": {
-			polyfillservice: {
-				shellCommand: __dirname + '/bin/polyfill-service',
-				pidFile: __dirname+'/.service.pid',
-				generatePID: true,
-				options: {
-					cwd: __dirname,
-					failOnError: true
-				}
-			}
-		},
-		"updatelibrary": {
-			options: {
-				expand: true
-			},
-			tasks: {
-				src: ['polyfills/**/config.json'],
-			}
-		},
-		"deployvcl": {
-			dryrun: { options: {service: "qa", dryRun: true} },
-			qa: { options: {service: "qa"} },
-			prod: { options: {service: "prod"} }
-		},
 		"shell": {
 			"deployrumlambda": {
 				command: env => {
@@ -102,18 +28,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	if (process.env.NODE_ENV === 'production') {
-		require('./tasks/grunt/buildsources')(grunt);
-		require('./tasks/grunt/updatelibrary')(grunt);
-		grunt.loadNpmTasks('grunt-contrib-clean');
-	} else {
-		grunt.loadTasks('tasks/grunt');
-		grunt.loadNpmTasks('grunt-contrib-clean');
-		grunt.loadNpmTasks('grunt-contrib-watch');
-		grunt.loadNpmTasks('grunt-simple-mocha');
-		grunt.loadNpmTasks('grunt-shell');
-		grunt.loadNpmTasks('grunt-eslint');
-	}
 
 	grunt.registerTask("test", [
 		"build",
@@ -163,62 +77,4 @@ module.exports = function(grunt) {
 		"service",
 		"watch"
 	]);
-};
-
-const browsers = {
-	quick: [
-		'chrome/54',
-		'firefox/49',
-		'ie/14',
-		'ie/11',
-		'ie/8',
-		'android/4.4'
-	],
-	ci: [
-		'chrome/54',
-		'chrome/48',
-		'firefox/49',
-		'firefox/44',
-		'ie/14',
-		'ie/13',
-		'ie/11',
-		'ie/10',
-		'ie/9',
-		'ie/8',
-		'ie/7',
-		'safari/9',
-		'safari/8',
-		'android/5.1',
-		'android/4.4'
-	],
-	full: [
-		'chrome/54',
-		'chrome/48',
-		'chrome/46',
-		'chrome/42',
-		'chrome/40',
-		'chrome/35',
-		'firefox/49',
-		'firefox/44',
-		'firefox/42',
-		'firefox/41',
-		'firefox/33',
-		'firefox/30',
-		'ie/14',
-		'ie/13',
-		'ie/11',
-		'ie/10',
-		'ie/9',
-		'ie/8',
-		'ie/7',
-		'safari/9',
-		'safari/8',
-		'safari/5.1',
-		'android/5.1',
-		'android/4.4',
-		'android/4.3',
-		'android/4.2',
-		'ios_saf/9.1',
-		'ios_saf/9.2'
-	]
 };
