@@ -21,8 +21,8 @@
 			<p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent.  No <code>.min</code> here so the result is not minified.</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'>Your browser is too old to run the enhanced experience of polyfill.io.  Please upgrade to see this content.</div>
 
-			<p>If you don't specify any <code>features</code>, 'default' is assumed, but you can also specify default explicitly if you want to combine it with something else.  This example uses the default set plus Array.from:</p>
-			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=default,Array.from'>Your browser is too old to run the enhanced experience of polyfill.io.  Please upgrade to see this content.</div>
+			<p>If you don't specify any <code>features</code>, 'default' is assumed, but you can also specify default explicitly if you want to combine it with something else.  This example uses the default set plus fetch:</p>
+			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=default,fetch'>Your browser is too old to run the enhanced experience of polyfill.io.  Please upgrade to see this content.</div>
 
 			<p>Use the <code>es6</code> alias to include all features that are part of ECMAScript 6 (for which we currently have polyfills):</p>
 			<div class='demo' data-src='/v{{apiversion}}/polyfill.js?features=es6'>Your browser is too old to run the enhanced experience of polyfill.io.  Please upgrade to see this content.</div>
@@ -96,7 +96,7 @@ if (features.length) {
   s.async = true;
   document.head.appendChild(s);
 } else {
-	
+
 	// If no polyfills are required, invoke the app
 	// without delay
 	main();
