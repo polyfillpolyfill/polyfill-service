@@ -12,7 +12,7 @@ const serviceIds = {
 };
 
 const options = {
-    service: argv.service || 'qa',
+    service: argv.env || 'qa',
     vclFilePath: argv.vclPath || path.join(__dirname, '../../fastly-config.vcl'),
     vclName: argv.vclName || 'default',
     dryRun: argv.dryRun
