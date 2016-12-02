@@ -22,3 +22,12 @@ it('returns the current script element when invoked during synchronous evaluatio
 it('returns null when not invoked during synchronous evaluation', function () {
 	proclaim.isNull(document.currentScript);
 });
+
+it('returns the current script element when invoked during dynamic evaluation', function () {
+	var script = document.createElement('script');
+	script.id = 'rnd' + (Math.random() * 1e9 | 0);
+	script['text' in script ? 'text' : 'innerHTML'] = 'if (document.currentScript === document.getElementById("' + script.id + '")) document.currentScript.className = "' + script.id + '";';
+	document.body.appendChild(script);
+	proclaim.equal(script.id, script.className);
+	document.body.removeChild(script);
+});
