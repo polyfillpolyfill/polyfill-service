@@ -100,6 +100,7 @@
   },
   "devDependencies": {
     "batch": "^0.5.1",
+    "eslint": "^3.11.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
     "gaze": "^1.1.2",
     "glob": "^7.1.1",
