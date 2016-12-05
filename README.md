@@ -96,10 +96,10 @@ Because this requires a fair amount of orchestration, we recommend only enabling
 
 ### Deploying Lambda
 
-All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run) (included as a devDependency so should be installed by npm).  To deploy the Lambda functions:
+All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run).  To deploy the Lambda functions:
 
-1. Create the following 6 environment variables in your local environment or the `.env` file in the project root: `RUM_MYSQL_DSN`, `RUM_AWS_ACCESS_KEY`, `RUM_AWS_SECRET_KEY`; and a second copy of each of these suffixed with `_QA`. FT devs can get the correct values for these variables from Heroku config or Lastpass.
-3. Run `grunt shell:deployrumlambda:qa` or `grunt shell:deployrumlambda:prod` as appropriate
+1. Create the following 7 environment variables in your local environment or the `.env` file in the project root: `RUM_MYSQL_DSN`, `RUM_AWS_ACCESS_KEY`, `RUM_AWS_SECRET_KEY`, a second copy of each of these suffixed with `_QA`, and `RUM_AWS_REGION`. FT devs can get the correct values for these variables from Heroku config or Lastpass.
+3. Run `npm run deploy-lambda` or `npm run deploy-lambda -- --env=prod` as appropriate
 4. If this is the first time you've deployed the function to this AWS profile, you then need to configure the function in the AWS UI:
 	- Set up a trigger to invoke the function whenever a file is written to the appropriate S3 bucket
 
