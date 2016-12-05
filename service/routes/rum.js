@@ -11,18 +11,9 @@ router.get('/v2/getRumPerfData', (req, res) => {
 
 	res.set('Cache-Control', 'no-cache, stale-while-revalidate=86400');
 
-	const rumConfig = { minSampleSize: 10 };
-	if (/^\d+$/.test(req.query.period)) {
-		rumConfig.period = req.query.period;
-	}
-	if (req.query.groupingFields) {
-		rumConfig.groupingFields = req.query.groupingFields.split(',');
-	}
-	rumConfig.stats = (req.query.stats && req.query.stats.split(',')) || ['mean', '95P', '99P', 'std', 'min', 'max'];
-
-	(new RumReport.Perf(rumConfig))
+	(new RumReport.Perf(req.query))
 		.getStats()
-		.then(toCSV.bind(null, req.query.headerrow))
+		.then(toCSV.bind(null, req.query.header))
 		.then(res.end.bind(res))
 	;
 });
@@ -33,7 +24,7 @@ router.get('/v2/getRumCompatData', (req, res) => {
 
 	(new RumReport.Compat())
 		.getStats()
-		.then(toCSV.bind(null, req.query.headerrow))
+		.then(toCSV.bind(null, req.query.header))
 		.then(res.end.bind(res))
 	;
 });

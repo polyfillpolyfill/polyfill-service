@@ -87,28 +87,48 @@
 			{{#rumEnabled}}
 			<h2>GET /v2/getRumPerfData</h2>
 
-			<p>Reports network performance data from Real user monitoring, grouped by CDN point of presence and location of origin of the request, covering the last 30 days. Data includes separate statistics for DNS connection, TCP connect, request and response phases of the connection.  Each variable is broken down into separate statistics for each of the following:</p>
+			<p>Reports network performance data from real user monitoring. Data includes separate statistics for each phase of the connection.</p>
 
-			<ul>
-			<li>Count of non-null values recorded (null values can result from beacon data from browsers that do not support the resource timing API)</li>
-			<li>minimum value</li>
-			<li>maximum value</li>
-			<li>mean value</li>
-			<li>Standard deviation</li>
-			<li>95th percentile value (probably the most useful)</li>
-			<li>99th percentile value</li>
-			</ul>
-
-			<p>This endpoint is only available if Real user monitoring is enabled.</p>
+			<p>This endpoint is only available because real user monitoring is enabled.  See README for details.</p>
 
 			<table class='apidoc'>
 				<tr>
 					<th>Param</th><th>Where</th><th>Description</th>
 				</tr><tr>
-					<td><code>headerrow</code></td>
+					<td><code>header</code></td>
 					<td>Querystring</td>
 					<td>
 						Whether to include a header row in the CSV output (`1` for yes, `0` for no).  Default no.
+					</td>
+				</tr><tr>
+					<td><code>metrics</code></td>
+					<td>Querystring</td>
+					<td>
+						Which connection metrics to report on.  Comma-delimited list.  Choose from 'perf_dns', 'perf_connect', 'perf_req', 'perf_resp', 'perf_total'
+					</td>
+				</tr><tr>
+					<td><code>dimensions</code></td>
+					<td>Querystring</td>
+					<td>
+						How to group results.  Comma-delimited list.  Choose from 'data_center', 'country', 'refer_domain'
+					</td>
+				</tr><tr>
+					<td><code>stats</code></td>
+					<td>Querystring</td>
+					<td>
+						Aggregation functions to run on grouped metrics.  Comma-delimited list.  Choose from 'mean', 'median', '95P', '99P', 'std', 'min', 'max', 'count'
+					</td>
+				</tr><tr>
+					<td><code>period</code></td>
+					<td>Querystring</td>
+					<td>
+						Number of days to draw data from, ending now.  Must be in range 1-60.
+					</td>
+				</tr><tr>
+					<td><code>minSample</code></td>
+					<td>Querystring</td>
+					<td>
+						Minimum number of records to require for a result to be created.  Must be at least 500.
 					</td>
 				</tr>
 			</table>
@@ -123,13 +143,16 @@
 				<tr>
 					<th>Param</th><th>Where</th><th>Description</th>
 				</tr><tr>
-					<td><code>headerrow</code></td>
+					<td><code>header</code></td>
 					<td>Querystring</td>
 					<td>
 						Whether to include a header row in the CSV output (`1` for yes, `0` for no).  Default no.
 					</td>
 				</tr>
 			</table>
+			{{/rumEnabled}}
+			{{^rumEnabled}}
+			<aside>RUM Reporting endpoints become available if you enable RUM.  See README for more details.</aside>
 			{{/rumEnabled}}
 
 		</div>
