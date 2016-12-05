@@ -1,5 +1,5 @@
 /*
- * This module will copy all of the localisation language files from the Intl
+ * This script will copy all of the localisation language files from the Intl
  * module and install them within a folder in this directory named ~locale.
  *
  * The detect.js file used for Intl is copied into every ~locale polyfill for
@@ -40,46 +40,42 @@ function writeFileIfChanged (filePath, newFile) {
 	}
 }
 
-// this is not really a grunt task, but a function that is suppose
-// to be sync, and receive access to grunt instance for convenience.
-module.exports = function(grunt) {
-	const detectFileSource = fs.readFileSync(path.join(IntlPolyfillOutput, 'detect.js'));
-	const configSource = require(path.join(IntlPolyfillOutput, 'config.json'));
-	delete configSource.install;
+const detectFileSource = fs.readFileSync(path.join(IntlPolyfillOutput, 'detect.js'));
+const configSource = require(path.join(IntlPolyfillOutput, 'config.json'));
+delete configSource.install;
 
-	if (!existsSync(LocalesPolyfillOutput)) {
-		mkdirp.sync(LocalesPolyfillOutput);
+if (!existsSync(LocalesPolyfillOutput)) {
+	mkdirp.sync(LocalesPolyfillOutput);
+}
+
+// customizing the config to add intl as a dependency
+configSource.dependencies.push('Intl');
+
+// don't test every single locale - it will be too slow
+configSource.test = { ci: false };
+
+const configFileSource = JSON.stringify(configSource, null, 4);
+
+console.log('Importing Intl.~locale.* polyfill from ' + LocalesPath);
+const locales = fs.readdirSync(LocalesPath);
+locales.forEach(function (file) {
+	const locale = file.slice(0, file.indexOf('.'));
+	const localeOutputPath = path.join(LocalesPolyfillOutput, locale);
+
+	if (!existsSync(localeOutputPath)) {
+		mkdirp.sync(localeOutputPath);
 	}
 
-	// customizing the config to add intl as a dependency
-	configSource.dependencies.push('Intl');
+	const localePolyfillSource = fs.readFileSync(path.join(LocalesPath, file));
+	const polyfillOutputPath = path.join(localeOutputPath, 'polyfill.js');
+	const detectOutputPath = path.join(localeOutputPath, 'detect.js');
+	const configOutputPath = path.join(localeOutputPath, 'config.json');
 
-	// don't test every single locale - it will be too slow
-	configSource.test = { ci: false };
-
-	const configFileSource = JSON.stringify(configSource, null, 4);
-
-	grunt.log.writeln('Importing Intl.~locale.* polyfill from ' + LocalesPath);
-	const locales = fs.readdirSync(LocalesPath);
-	locales.forEach(function (file) {
-		const locale = file.slice(0, file.indexOf('.'));
-		const localeOutputPath = path.join(LocalesPolyfillOutput, locale);
-
-		if (!existsSync(localeOutputPath)) {
-			mkdirp.sync(localeOutputPath);
-		}
-
-		const localePolyfillSource = fs.readFileSync(path.join(LocalesPath, file));
-		const polyfillOutputPath = path.join(localeOutputPath, 'polyfill.js');
-		const detectOutputPath = path.join(localeOutputPath, 'detect.js');
-		const configOutputPath = path.join(localeOutputPath, 'config.json');
-
-		writeFileIfChanged(polyfillOutputPath, localePolyfillSource);
-		writeFileIfChanged(detectOutputPath, detectFileSource);
-		writeFileIfChanged(configOutputPath, configFileSource);
-	});
+	writeFileIfChanged(polyfillOutputPath, localePolyfillSource);
+	writeFileIfChanged(detectOutputPath, detectFileSource);
+	writeFileIfChanged(configOutputPath, configFileSource);
+});
 
 
-	grunt.log.writeln(locales.length + ' imported locales');
-	grunt.log.writeln('Intl polyfill imported successfully');
-};
+console.log(locales.length + ' imported locales');
+console.log('Intl polyfill imported successfully');

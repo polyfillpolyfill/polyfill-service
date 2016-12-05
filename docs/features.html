@@ -10,6 +10,10 @@
 
 		<h2 id='feature-list'>Feature list</h2>
 
+		<div class="o-forms">
+			<label for="filter-features" class="o-forms-label">Filter features</label>
+			<input id="filter-features" type="text" class="o-forms-text o-forms-text--small" value="" placeholder="Type to filter by name"></input>
+		</div>
 
 		<table class='compatibility compatibility--data'>
 			<caption>
@@ -33,7 +37,7 @@
 			</thead>
 			<tbody>
 			{{#compat}}
-				<tr id='{{slug}}' class='feature{{#if notes}} has-notes{{/if}}'>
+				<tr id='{{slug}}' data-feature-name='{{feature}}' class='feature{{#if notes}} has-notes{{/if}}'>
 					<td class='compatibility__label'>
 						<h3>{{feature}}<a class='o-techdocs__permalink' href='#{{slug}}'>¶</a></h3>
 						<ul class='feature-meta'>
