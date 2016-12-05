@@ -160,9 +160,40 @@ function initNotesToggles() {
 	});
 }
 
+function initFeatureFilter() {
+	var filterInput = document.getElementById('filter-features');
+	var featuresRows;
+
+	if (filterInput) {
+		featuresRows = document.querySelectorAll('[data-feature-name]');
+		filterInput.addEventListener('keyup', filterFeatures);
+	}
+
+	function resetFeaturesList() {
+		return Array.from(featuresRows).forEach(function(el) {
+			el.removeAttribute('aria-hidden');
+		});
+	}
+
+	function filterFeatures(e) {
+		var inputVal = e.currentTarget.value.toUpperCase();
+
+		if (inputVal === '') resetFeaturesList();
+
+		Array.from(featuresRows).forEach(function(el) {
+			if (el.getAttribute('data-feature-name').toUpperCase().indexOf(inputVal) > -1) {
+				el.removeAttribute('aria-hidden');
+			} else {
+				el.setAttribute('aria-hidden', true);
+			}
+		});
+	}
+}
+
 function init() { // eslint-disable-line no-unused-vars
 	initDemos();
 	initNotesToggles();
 	initTestCurrentBrowser();
 	initCharts();
+	initFeatureFilter();
 }
