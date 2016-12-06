@@ -44,7 +44,8 @@
     "deploy": "npm run container-build && npm run container-push && npm run deploy-vcl -- --env=qa && npm run purge-cdn -- --env=qa",
     "deploy-vcl": "node tasks/node/deployvcl",
     "deploy-lambda": "node tasks/node/deploylambda",
-    "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && npm run deploy-vcl -- --env=prod && npm run purge-cdn -- --env=prod"
+    "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && npm run deploy-vcl -- --env=prod && npm run purge-cdn -- --env=prod",
+    "purge-cdn": "node tasks/node/purge"
   },
   "license": "CC0-1.0",
   "engines": {
