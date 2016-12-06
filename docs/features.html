@@ -10,6 +10,10 @@
 
 		<h2 id='feature-list'>Feature list</h2>
 
+		<div class="o-forms">
+			<label for="filter-features" class="o-forms-label">Filter features</label>
+			<input id="filter-features" type="text" class="o-forms-text o-forms-text--small" value="" placeholder="Type to filter by name"></input>
+		</div>
 
 		<table class='compatibility compatibility--data'>
 			<caption>
@@ -33,13 +37,13 @@
 			</thead>
 			<tbody>
 			{{#compat}}
-				<tr id='{{slug}}' class='feature{{#if notes}} has-notes{{/if}}'>
+				<tr id='{{slug}}' data-feature-name='{{feature}}' class='feature{{#if notes}} has-notes{{/if}}'>
 					<td class='compatibility__label'>
 						<h3>{{feature}}<a class='o-techdocs__permalink' href='#{{slug}}'>¶</a></h3>
 						<ul class='feature-meta'>
 							<li title="Maximum size, minifed, before gzip">{{dispBytes size}}</li>
 							{{#if isDefault}}<li><i title='Part of the default set' class="fa fa-star"></i></li>{{/if}}
-							{{#if notes}}<li><i title='Show/hide notes' class="fa fa-info-circle notes-toggle"></i></li>{{/if}}
+							{{#if notes}}<li class='o--if-js'><i title='Show/hide notes' class="fa fa-info-circle notes-toggle"></i></li>{{/if}}
 						</ul>
 						<script type="text/template" id="overlay-src-{{slug}}">
 							<ul class='hover-menu o-techdocs-content'>
@@ -62,7 +66,7 @@
 					<td class='compatibility__data'>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
 					<td class='compatibility__data'>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
 					<td class='compatibility__live'></td>
-					<td class='compatibility__menu'><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
+					<td class='compatibility__menu o--if-js'><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
 				</tr>
 				{{#if notes}}
 					<tr class='notes'><td colspan='7'>
