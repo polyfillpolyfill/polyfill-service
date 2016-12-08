@@ -1,3 +1,9 @@
+# We ignore the polyfill.js files for third-party polyfills
+# because we do not control their implementation.
+
+# We do not ignore the config.json, detect.js or tests.js
+# because we do control their implementation.
+
 polyfills/_ArrayIterator/polyfill.js
 polyfills/Array/of/polyfill.js
 polyfills/Array/prototype/values/polyfill.js
