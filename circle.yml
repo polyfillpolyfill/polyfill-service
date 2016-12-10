@@ -3,8 +3,7 @@ machine:
     version: 6.0.0
 dependencies:
   override:
-    - npm install -g grunt-cli
     - npm install
 test:
   override:
-    - grunt ci --stack
+    - npm run ci

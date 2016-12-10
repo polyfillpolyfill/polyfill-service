@@ -126,16 +126,16 @@
 
 		<h2 id='update-tasks'>Update tasks for 3rd party polyfills</h2>
 
-		<p>If a polyfill comes from a third party source, it's a good idea to write an update task that can be run to import the latest version of the polyfill code from its master repo.  An update task is called <code>update.task.js</code> and lives alongside the <code>polyfill.js</code> and <code>config.json</code> files. It must export a function that accepts the <code>grunt</code> object, and currently must complete its work synchronously.  Example:</p>
+		<p>If a polyfill comes from a third party source, it's a good idea to write an update task that can be run to import the latest version of the polyfill code from its master repo.  An update task is called <code>update.task.js</code> and lives alongside the <code>polyfill.js</code> and <code>config.json</code> files. It must complete its work synchronously.  Example:</p>
 
 		<pre><code>'use strict';
 var path = require('path');
-module.exports = function(grunt) {
-	// ... download/import latest source here
-	// ... do any required source modification
-	var newSource = 'test';
-	grunt.file.write(path.join(__dirname, 'polyfill.js'), newSource);
-};</code></pre>
+var fs = require('fs');
+// ... download/import latest source here
+// ... do any required source modification
+var newSource = 'test';
+fs.writeFileSync(path.join(__dirname, 'polyfill.js'), newSource);
+</code></pre>
 
 		<p>Often changes are required (or desirable) to support the format of polyfills needed by the polyfill service, for example:</p>
 
