@@ -129,7 +129,8 @@ sub custom_syslog {
 			{" fastly_datacenter="} server.datacenter
 			{" fastly_node="} server.identity
 			{" fastly_state="} fastly_info.state
-			{" duration_ms="} time.elapsed.msec;
+			{" duration_ms="} time.elapsed.msec
+			{" is_ipv6="} req.is_ipv6;
 	}
 }
 
