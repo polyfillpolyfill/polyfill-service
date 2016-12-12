@@ -10,8 +10,8 @@ it('has correct argument length', function () {
 });
 
 it('returns NaN with NaN values', function () {
-	proclaim.equal(Number.parseFloat('Hello'), NaN);
-	proclaim.equal(Number.parseFloat('H546'), NaN);
+	proclaim.equal(Number.parseFloat('Hello').toString(), NaN.toString());
+	proclaim.equal(Number.parseFloat('H546').toString(), NaN.toString());
 });
 
 it('returns 15 for valid numbers and non-number data types', function () {
