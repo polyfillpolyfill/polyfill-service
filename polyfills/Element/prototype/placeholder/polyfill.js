@@ -28,6 +28,7 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 		xPlaceholderRuntimeStyle.backgroundColor = 'transparent';
 		xPlaceholderRuntimeStyle.fontFamily = elementCurrentStyle.fontFamily;
 		xPlaceholderRuntimeStyle.fontSize = elementCurrentStyle.fontSize;
+		xPlaceholderRuntimeStyle.fontWeight = elementCurrentStyle.fontWeight;
 		xPlaceholderRuntimeStyle.margin = '2px 0 0 2px';
 		xPlaceholderRuntimeStyle.padding = elementCurrentStyle.padding;
 		xPlaceholderRuntimeStyle.position = 'absolute';
