@@ -4,7 +4,7 @@ Object.defineProperty(Element.prototype, 'placeholder', {
 	},
 
 	set: function (value) {
-		if (!value || !/^(input|textarea)$/i.test(this.nodeName) || !/^(email|number|password|search|tel|text|url|)$/i.test(this.getAttribute('type'))) {
+		if (!value || !/^(input|textarea)$/i.test(this.nodeName) || (/^(input)$/i.test(this.nodeName) && !/^(email|number|password|search|tel|text|url|)$/i.test(this.getAttribute('type')))) {
 			return;
 		}
 
