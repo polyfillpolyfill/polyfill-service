@@ -1,4 +1,4 @@
-global.Object.entries = function (object) {
+Object.entries = function entries(object) {
 	var keys = Object.keys(object);
 
 	return keys
