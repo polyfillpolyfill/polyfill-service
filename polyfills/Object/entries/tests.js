@@ -225,7 +225,7 @@ it('accepts string primitives', function() {
 
 
 it('accepts Symbol primitives', function() {
-	if (hasSymbols) {
+	if (hasSymbols && objectKeysWorksWithPrimitives) {
 		var result = Object.entries(Symbol());
 
 		proclaim.isArray(result, 'result is an array');
