@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config({silent: true});
+
 const path = require('path');
 const wd = require('wd');
 const denodeify = require('denodeify');
@@ -9,6 +11,7 @@ const testResultsPath = path.join(__dirname, '../../test/results');
 const testResultsFile = path.join(testResultsPath, 'results.json');
 const SauceTunnel = require('sauce-tunnel');
 const mkdirp = denodeify(require('mkdirp'));
+const argv = require('minimist')(process.argv.slice(2));
 const cli = require('cli-color');
 const pollTick = 1000;
 const testBrowserTimeout = 60000;
@@ -48,6 +51,19 @@ const useragentToSauce = {
 	'ios_saf/9.1': ['iphone', '9.1', 'OS X 10.10', 'iPhone 6'],
 	'ios_saf/9.2': ['iphone', '9.2', 'OS X 10.10', 'iPhone 6 Plus']
 };
+
+const browserSets = {
+	"quick": [
+		'chrome/54', 'firefox/49', 'ie/14', 'ie/11', 'ie/8', 'android/4.4'
+	],
+	"ci": [
+		'chrome/54', 'chrome/48', 'firefox/49', 'firefox/44', 'ie/14', 'ie/13', 'ie/11', 'ie/10', 'ie/9', 'ie/8', 'ie/7', 'safari/9', 'safari/8', 'android/5.1', 'android/4.4'
+	],
+	"full": [
+		'chrome/54', 'chrome/48', 'chrome/46', 'chrome/42', 'chrome/40', 'chrome/35', 'firefox/49', 'firefox/44', 'firefox/42', 'firefox/41', 'firefox/33', 'firefox/30', 'ie/14', 'ie/13', 'ie/11', 'ie/10', 'ie/9', 'ie/8', 'ie/7', 'safari/9', 'safari/8', 'safari/5.1', 'android/5.1', 'android/4.4', 'android/4.3', 'android/4.2', 'ios_saf/9.1', 'ios_saf/9.2'
+	]
+};
+
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration));
 
 const whitespace = ' '.repeat(200);
@@ -223,123 +239,128 @@ class TestJob {
 
 
 
-module.exports = function(grunt) {
 
-	grunt.registerMultiTask('saucelabs', 'Perform tests on Sauce', function() {
+if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
+	throw new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment to run tests on Sauce Labs.  For more information about how to set this up or for alternative methods of testing, see https://polyfill.io/v2/docs/contributing/testing');
+}
+const sauceCreds = { username: process.env.SAUCE_USER_NAME, key: process.env.SAUCE_API_KEY };
 
-		if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
-			grunt.fail.warn(new Error('SAUCE_USER_NAME and SAUCE_API_KEY must be set in the environment to run tests on Sauce Labs.  For more information about how to set this up or for alternative methods of testing, see https://polyfill.io/v2/docs/contributing/testing'));
-		}
-		const sauceCreds = { username: process.env.SAUCE_USER_NAME, key: process.env.SAUCE_API_KEY };
 
-		const gruntDone = this.async();
-		const options = this.options({
-			browsers: [],
-			urls: {},
-			concurrency: 3,
-			continueOnFail: false
-		});
-		let testResults = {};
-		let jobs = [];
-
-		const tunnelId = 'ci:' + (process.env.TRAVIS_BUILD_NUMBER || 'null') + '_' + (new Date()).toISOString();
-		const tunnel = new SauceTunnel(sauceCreds.username, sauceCreds.key, tunnelId);
-
-		console.log("Sauce tunnel name: " + tunnelId);
-
-		Promise.resolve()
-
-			// Load existing test results
-			.then(() => mkdirp(testResultsPath))
-			.then(() => {
-				readResultsFrom(testResultsFile)
-				.then(r => {
-					testResults = r;
-				});
-			})
-
-			// Figure out which jobs need to be run, create them
-			.then(() => {
-				let existingCount = 0;
-				jobs = options.browsers.reduce((out, ua) => out.concat(Object.keys(options.urls).reduce((out, mode) => {
-					const url = options.urls[mode];
-					try {
-						testResults[ua][mode].length;
-						existingCount++;
-					} catch(e) {
-						out.push((new TestJob(url, mode, ua, tunnelId, sauceCreds)));
-					}
-					return out;
-				}, [])), []);
-
-				if (!jobs.length) {
-					console.log("Nothing to do");
-					return gruntDone();
-				} else if (existingCount) {
-					console.log(existingCount + ' results already available.  To rerun these tests, delete the results.json file.');
-				}
-			})
-
-			.then(() => openTunnel(tunnel))
-
-			// Run jobs within concurrency limits
-			.then(() => new Promise(resolve => {
-				const results = [];
-				const writeQueue = [];
-				const cliFeedbackTimer = setInterval(() => printProgress(jobs, true), pollTick);
-				let resolvedCount = 0;
-				function pushJob() {
-					results.push(jobs[results.length].run().then(job => {
-						if (job.state === 'complete') {
-							const [family, version] = job.ua.split('/');
-							if (testResults[family] === undefined) testResults[family] = {};
-							if (testResults[family][version] === undefined) testResults[family][version] = {};
-							testResults[family][version][job.mode] = job.getResultSummary();
-							const output = JSON.stringify(testResults, null, 2);
-							writeQueue.push(writeFile(testResultsFile, output));
-						}
-						resolvedCount++;
-						if (results.length < jobs.length) {
-							pushJob();
-						} else if (resolvedCount === jobs.length) {
-							clearTimeout(cliFeedbackTimer);
-							printProgress(jobs, false);
-							Promise.all(writeQueue).then(() => resolve(testResults));
-						}
-						return job;
-					}).catch(e => console.log(e.stack || e)));
-				}
-				for (let i=0, s = options.concurrency; i<s; i++) {
-					pushJob();
-				}
-			}))
-
-			.then(() => closeTunnel(tunnel))
-
-			.then(() => {
-				const totalFailureCount = jobs.reduce((out, job) => out + (job.state === 'complete' ? job.results.failed : 1), 0);
-				if (totalFailureCount) {
-					console.log(cli.bold.white('\nFailures:'));
-					jobs.forEach(job => {
-						if (job.results && job.results.failed) {
-							console.log(' • '+job.ua+' ('+job.mode+') [' + job.getResultsURL() + ']');
-							Object.keys(job.results.failingSuites).forEach(feature => {
-								const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-								console.log('    -> '+feature);
-								console.log('       '+url);
-							});
-						} else if (job.state !== 'complete') {
-							console.log(' • ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
-						}
-					});
-					console.log('');
-				}
-				gruntDone(options.continueOnFail ? null : !totalFailureCount);
-			})
-
-			.catch(e => {
-				console.log(e.stack || e);
-			})
-		;
-	});
+const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
+const options = { 
+    browserSet: argv.set || 'quick',
+	modes: ['all', 'targeted', 'control'].filter(x => x in argv),
+	concurrency: argv.concurrency || 3,
+	continueOnFail: argv.continueOnFail 
 };
+options.browsers = browserSets[options.browserSet];
+options.urls = options.modes.reduce((out, mode) => {
+    out[mode] = serviceHost + '/test/director?mode='+mode;
+    return out;
+}, {});
+
+let testResults = {};
+let jobs = [];
+
+const tunnelId = 'build:' + (process.env.CIRCLE_BUILD_NUM || process.env.NODE_ENV || 'null') + '_' + (new Date()).toISOString();
+const tunnel = new SauceTunnel(sauceCreds.username, sauceCreds.key, tunnelId);
+
+console.log("Sauce tunnel name: " + tunnelId);
+
+Promise.resolve()
+
+	// Load existing test results
+	.then(() => mkdirp(testResultsPath))
+	.then(() => {
+		readResultsFrom(testResultsFile)
+		.then(r => {
+			testResults = r;
+		});
+	})
+
+	// Figure out which jobs need to be run, create them
+	.then(() => {
+		let existingCount = 0;
+		jobs = options.browsers.reduce((out, ua) => out.concat(Object.keys(options.urls).reduce((out, mode) => {
+			const url = options.urls[mode];
+			try {
+				testResults[ua][mode].length;
+				existingCount++;
+			} catch(e) {
+				out.push((new TestJob(url, mode, ua, tunnelId, sauceCreds)));
+			}
+			return out;
+		}, [])), []);
+
+		if (!jobs.length) {
+			console.log("Nothing to do");
+			process.exit(0);
+		} else if (existingCount) {
+			console.log(existingCount + ' results already available.  To rerun these tests, delete the results.json file.');
+		}
+	})
+
+	.then(() => openTunnel(tunnel))
+
+	// Run jobs within concurrency limits
+	.then(() => new Promise(resolve => {
+		const results = [];
+		const writeQueue = [];
+		const cliFeedbackTimer = setInterval(() => printProgress(jobs, true), pollTick);
+		let resolvedCount = 0;
+		function pushJob() {
+			results.push(jobs[results.length].run().then(job => {
+				if (job.state === 'complete') {
+					const [family, version] = job.ua.split('/');
+					if (testResults[family] === undefined) testResults[family] = {};
+					if (testResults[family][version] === undefined) testResults[family][version] = {};
+					testResults[family][version][job.mode] = job.getResultSummary();
+					const output = JSON.stringify(testResults, null, 2);
+					writeQueue.push(writeFile(testResultsFile, output));
+				}
+				resolvedCount++;
+				if (results.length < jobs.length) {
+					pushJob();
+				} else if (resolvedCount === jobs.length) {
+					clearTimeout(cliFeedbackTimer);
+					printProgress(jobs, false);
+					Promise.all(writeQueue).then(() => resolve(testResults));
+				}
+				return job;
+			}).catch(e => console.log(e.stack || e)));
+		}
+		for (let i=0, s = options.concurrency; i<s; i++) {
+			pushJob();
+		}
+	}))
+
+	.then(() => closeTunnel(tunnel))
+
+	.then(() => {
+		const totalFailureCount = jobs.reduce((out, job) => out + (job.state === 'complete' ? job.results.failed : 1), 0);
+		if (totalFailureCount) {
+			console.log(cli.bold.white('\nFailures:'));
+			jobs.forEach(job => {
+				if (job.results && job.results.failed) {
+					console.log(' • '+job.ua+' ('+job.mode+') [' + job.getResultsURL() + ']');
+					Object.keys(job.results.failingSuites).forEach(feature => {
+						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
+						console.log('    -> '+feature);
+						console.log('       '+url);
+					});
+				} else if (job.state !== 'complete') {
+					console.log(' • ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
+				}
+			});
+			console.log('');
+		}
+		if (!options.continueOnFail && totalFailureCount) {
+            throw new Error('Failures detected');
+        }
+	})
+
+	.catch(e => {
+		console.log(e.stack || e);
+        process.exit(1);
+	})
+;

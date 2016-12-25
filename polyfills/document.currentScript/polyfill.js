@@ -2,13 +2,10 @@
 
 	var
 
-	// Live NodeList collection
-	scripts = document.getElementsByTagName('script'),
-
 	// Check if the browser supports the `readyState` property on `script` elements.
 	// Guaranteed accurate in IE 6-10.
 	// Not correctly supported in any other browsers. =(
-	supportsScriptReadyState = 'readyState' in (scripts[0] || document.createElement('script')),
+	supportsScriptReadyState = 'readyState' in document.createElement('script'),
 
 	// Unfortunately necessary browser detection for Opera.
 	isOpera = this.opera && this.opera.toString() === '[object Opera]',
@@ -21,9 +18,14 @@
 	// Get the currently "executing" (i.e. EVALUATING) `script` DOM element per the
 	// spec requirements for `document.currentScript`.
 	_currentEvaluatingScript = function() {
+		var
+
+		// Live NodeList collection
+		scripts = document.getElementsByTagName('script');
+
 		// Guaranteed accurate for IE 6-10 (but NOT IE11!).
-		for (var i = scripts.length; i--; ) {
-			if (scripts[i] && scripts[i].readyState === 'interactive') {
+		for (var i = scripts.length; scripts[--i]; ) {
+			if (scripts[i].readyState === 'interactive') {
 				return scripts[i];
 			}
 		}
