@@ -169,12 +169,12 @@ function refreshData() {
 			}));
 		},
 		rumPerf: () => {
-			return (new RumReport({period:30, minSampleSize:1000, stats:['95P', 'count']})).getStats()
+			return (new RumReport({period:30, minSample:10000, dimensions:['data_center'], stats:['median', '95P', 'count']})).getStats()
 				.then(data => ({
 					rows: data,
-					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95+row.perf_connect_95+row.perf_req_95+row.perf_resp_95), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
+					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95P+row.perf_connect_95P+row.perf_req_95P+row.perf_resp_95P), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
 					period: 30,
-					minSampleSize: 1000
+					minSample: 10000
 				}))
 			;
 		},
@@ -236,7 +236,6 @@ function refreshData() {
 							if (cachettls[type]) {
 								docsData[type].expires = Date.now() + Math.floor((cachettls[type]*1000)*(Math.random()+1));
 							}
-							console.log('Completed generating docs data: type='+type+' expires='+(docsData[type].expires || 'never'));
 						}
 					})
 					.catch(err => {
@@ -265,7 +264,8 @@ function route(req, res, next) {
 	const locals = Object.assign({
 		apiversion: req.params[0],
 		appversion: appVersion,
-		pageName: (req.params[1] || 'index').replace(/\/$/, '')
+		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+		rumEnabled: !!process.env.RUM_MYSQL_DSN
 	}, docsData);
 
 	if (locals.pageName === 'usage') {
