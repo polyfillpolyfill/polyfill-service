@@ -77,7 +77,6 @@ locales.forEach(function (file) {
 	const polyfillOutputPath = path.join(localeOutputPath, 'polyfill.js');
 	const detectOutputPath = path.join(localeOutputPath, 'detect.js');
 	const configOutputPath = path.join(localeOutputPath, 'config.json');
-// locale
 	writeFileIfChanged(polyfillOutputPath, localePolyfillSource);
 	writeFileIfChanged(detectOutputPath, intlLocaleDetectFor(locale));
 	writeFileIfChanged(configOutputPath, configFileSource);
