@@ -42,7 +42,7 @@ Install the dependencies:
 npm install
 ```
 
-Build the polyfill sources and start the server, rebuiling and restarting whenever any changes are made to the project:
+Build the polyfill sources and start the server, rebuilding and restarting whenever any changes are made to the project:
 ```sh
 npm run dev
 ```
