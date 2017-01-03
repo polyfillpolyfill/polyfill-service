@@ -97,7 +97,7 @@
     "tsort": "0.0.1",
     "useragent": "^2.1.9",
     "usertiming": "^0.1.8",
-    "yaku": "^0.16.6"
+    "yaku": "^0.17.6"
   },
   "devDependencies": {
     "batch": "^0.5.1",
@@ -112,5 +112,5 @@
     "uglify-js": "^2.4.14",
     "wd": "^0.4.0"
   },
-  "version": "3.15.0"
+  "version": "3.16.0"
 }

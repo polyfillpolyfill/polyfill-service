@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 /*
  * This script will copy all of the localisation language files from the Intl
  * module and install them within a folder in this directory named ~locale.
@@ -40,7 +42,6 @@ function writeFileIfChanged (filePath, newFile) {
 	}
 }
 
-const detectFileSource = fs.readFileSync(path.join(IntlPolyfillOutput, 'detect.js'));
 const configSource = require(path.join(IntlPolyfillOutput, 'config.json'));
 delete configSource.install;
 
@@ -56,6 +57,12 @@ configSource.test = { ci: false };
 
 const configFileSource = JSON.stringify(configSource, null, 4);
 
+function intlLocaleDetectFor(locale) {
+    return `'Intl' in this && Intl.Collator.supportedLocalesOf('${locale}').length === 1 &&
+			Intl.DateTimeFormat.supportedLocalesOf('${locale}').length === 1 &&
+			Intl.NumberFormat.supportedLocalesOf('${locale}').length === 1`;
+}
+
 console.log('Importing Intl.~locale.* polyfill from ' + LocalesPath);
 const locales = fs.readdirSync(LocalesPath);
 locales.forEach(function (file) {
@@ -70,9 +77,8 @@ locales.forEach(function (file) {
 	const polyfillOutputPath = path.join(localeOutputPath, 'polyfill.js');
 	const detectOutputPath = path.join(localeOutputPath, 'detect.js');
 	const configOutputPath = path.join(localeOutputPath, 'config.json');
-
 	writeFileIfChanged(polyfillOutputPath, localePolyfillSource);
-	writeFileIfChanged(detectOutputPath, detectFileSource);
+	writeFileIfChanged(detectOutputPath, intlLocaleDetectFor(locale));
 	writeFileIfChanged(configOutputPath, configFileSource);
 });
 
