@@ -31,15 +31,15 @@ const paths = [
 	'/v2/assets/images/logo.svg',
 	'/v2/assets/js/ui.js',
 	'/v2/docs/',
-	'/v2/docs/features/',
 	'/v2/docs/api',
-	'/v2/docs/examples',
-	'/v2/docs/usage',
 	'/v2/docs/contributing',
 	'/v2/docs/contributing/authoring-polyfills',
-	'/v2/docs/contributing/testing',
 	'/v2/docs/contributing/common-scenarios',
-	'/v2/docs/contributing/docs/assets/compat.json'
+	'/v2/docs/contributing/docs/assets/compat.json',
+	'/v2/docs/contributing/testing',
+	'/v2/docs/examples',
+	'/v2/docs/features/',
+	'/v2/docs/usage'
 ];
 const endpoints = flatten(paths.map(path => hostnames.map(host => host + path)));
 
