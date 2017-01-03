@@ -26,6 +26,10 @@ const productionHostNames = [
 const hostnames = PRODUCTION ? productionHostNames : qaHostNames;
 const paths = [
 	'/v2/',
+	'/v2/assets/css/style.css',
+	'/v2/assets/images/fastly-logo.png',
+	'/v2/assets/images/logo.svg',
+	'/v2/assets/js/ui.js',
 	'/v2/docs/',
 	'/v2/docs/features/',
 	'/v2/docs/api',
