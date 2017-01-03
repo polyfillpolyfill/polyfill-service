@@ -209,7 +209,7 @@ Except where indicated in selected polyfill config files, the polyfill service c
 
 
 [ci]: https://circleci.com/gh/Financial-Times/polyfill-service
-[contribution terms]: https://github.com/Financial-Times/polyfill-service/blob/master/CONTRIBUTING.md
+[contribution terms]: https://polyfill.io/v2/docs/contributing#contribution-terms
 [Git]: https://git-scm.com/
 [grafana]: http://grafana.ft.com/dashboard/db/origami-polyfill-service
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
