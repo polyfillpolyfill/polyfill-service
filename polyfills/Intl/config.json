@@ -7,7 +7,7 @@
 		"opera": "<15",
 		"chrome": "<=34",
 		"safari": "<10",
-		"ios_saf": "*",
+		"ios_saf": "<10",
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
