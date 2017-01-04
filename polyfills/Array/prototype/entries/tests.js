@@ -22,8 +22,10 @@ it('returns a next-able object', function () {
 it('finally returns a done object', function () {
 	var array = ['val1', 'val2'];
 	var iterator = array.entries();
+
 	iterator.next();
 	iterator.next();
+
 	proclaim.deepEqual(iterator.next(), {
 		value: undefined,
 		done: true
