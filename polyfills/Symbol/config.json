@@ -8,7 +8,7 @@
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",
-		"ios_saf": "*",
+		"ios_saf": "<9",
 		"opera": "< 37",
 		"samsung_mob": "*",
 		"android": "<5.1",
