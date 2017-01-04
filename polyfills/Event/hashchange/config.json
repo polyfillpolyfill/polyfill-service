@@ -11,7 +11,8 @@
 	"browsers": {
 		"ie": "6 - 7",
 		"safari": "4",
-		"samsung_mob": "*"
+		"samsung_mob": "*",
+		"ios_saf": "< 9.3.0"
 	},
 	"dependencies": [
 		"Event"
