@@ -12,6 +12,7 @@
 		"ie": "6 - 7",
 		"safari": "4",
 		"samsung_mob": "*",
+		"chrome": "<52.0.0",
 		"ios_saf": "< 9.3.0"
 	},
 	"dependencies": [
