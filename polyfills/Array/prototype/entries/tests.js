@@ -29,3 +29,14 @@ it('finally returns a done object', function () {
 		done: true
 	});
 });
+
+it('property isn\'t enumerable', function () {
+	var array = ['val1', 'val2'];
+	var enumerableLength = 0;
+
+	for (var i in array) {
+		enumerableLength++;
+	}
+
+	proclaim.equal(enumerableLength, array.length);
+});
