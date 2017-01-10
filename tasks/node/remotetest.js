@@ -293,6 +293,6 @@ Promise.resolve()
 
 	.catch(e => {
 		console.log(e.stack || e);
-		throw e;
+		process.exit(1);
 	})
 ;
