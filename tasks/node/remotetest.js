@@ -310,7 +310,7 @@ Promise.resolve()
 		}
 	}))
 
-	.then(() => tunnel.closeTunnel())
+	.then(() => tunnel.closeTunnel().then(() => console.log("Tunnel closed")))
 
 	.then(() => {
 		const totalFailureCount = jobs.reduce((out, job) => out + (job.state === 'complete' ? job.results.failed : 1), 0);

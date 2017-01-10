@@ -23,7 +23,7 @@ module.exports = {
 					resolve();
 				});
 			}),
-			closeTunnel: () => denodeify(tunnel.stop.bind(tunnel))().then(() => console.log("Tunnel closed"))
+			closeTunnel: () => denodeify(tunnel.stop.bind(tunnel))()
 		};
 	},
 	host: "hub-cloud.browserstack.com",

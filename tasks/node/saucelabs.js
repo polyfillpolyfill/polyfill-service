@@ -22,7 +22,7 @@ module.exports = {
 					resolve();
 				});
 			}),
-			closeTunnel: () => denodeify(tunnel.stop.bind(tunnel))().then(() => console.log("Tunnel closed"))
+			closeTunnel: () => denodeify(tunnel.stop.bind(tunnel))()
 		};
 	},
 	host: "127.0.0.1",
