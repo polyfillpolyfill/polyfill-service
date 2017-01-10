@@ -227,7 +227,7 @@ const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 const options = {
 	browserSet: argv.set || 'quick',
 	modes: ['all', 'targeted', 'control'].filter(x => x in argv),
-	concurrency: argv.concurrency || 1,
+	concurrency: argv.concurrency || 3,
 	continueOnFail: argv.continueOnFail
 };
 options.browsers = browserSets[options.browserSet];
