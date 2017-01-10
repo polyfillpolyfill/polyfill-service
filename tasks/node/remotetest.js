@@ -19,13 +19,59 @@ const testProvider = require(`./${environment}`);
 
 const browserSets = {
 	"quick": [
-		'chrome/54', 'firefox/49', 'ie/14', 'ie/11', 'ie/8', 'android/4.4'
+		'chrome/54',
+		'firefox/49',
+		'ie/14',
+		'ie/11',
+		'ie/8',
+		'android/4.4'
 	],
 	"ci": [
-		'chrome/54', 'chrome/48', 'firefox/49', 'firefox/44', 'ie/14', 'ie/13', 'ie/11', 'ie/10', 'ie/9', 'ie/8', 'ie/7', 'safari/9', 'safari/8', 'android/5.1', 'android/4.4'
+		'chrome/54',
+		'chrome/48',
+		'firefox/49',
+		'firefox/44',
+		'ie/14',
+		'ie/13',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'safari/9',
+		'safari/8',
+		'android/5.1',
+		'android/4.4'
 	],
 	"full": [
-		'chrome/54', 'chrome/48', 'chrome/46', 'chrome/42', 'chrome/40', 'chrome/35', 'firefox/49', 'firefox/44', 'firefox/42', 'firefox/41', 'firefox/33', 'firefox/30', 'ie/14', 'ie/13', 'ie/11', 'ie/10', 'ie/9', 'ie/8', 'ie/7', 'safari/9', 'safari/8', 'safari/5.1', 'android/5.1', 'android/4.4', 'android/4.3', 'android/4.2', 'ios_saf/9.1', 'ios_saf/9.2'
+		'chrome/54',
+		'chrome/48',
+		'chrome/46',
+		'chrome/42',
+		'chrome/40',
+		'chrome/35',
+		'firefox/49',
+		'firefox/44',
+		'firefox/42',
+		'firefox/41',
+		'firefox/33',
+		'firefox/30',
+		'ie/14',
+		'ie/13',
+		'ie/11',
+		'ie/10',
+		'ie/9',
+		'ie/8',
+		'ie/7',
+		'safari/9',
+		'safari/8',
+		'safari/5.1',
+		'android/5.1',
+		'android/4.4',
+		'android/4.3',
+		'android/4.2',
+		'ios_saf/9.1',
+		'ios_saf/9.2'
 	]
 };
 
