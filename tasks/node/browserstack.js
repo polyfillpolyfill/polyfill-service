@@ -176,13 +176,6 @@ module.exports = {
         "browser": "safari",
         "browser_version": "5.1"
     },
-		'android/5.1': {
-        "os": "android",
-        "os_version": "5.1",
-        "browser": "android",
-        "device": "Google Nexus 9",
-        "browser_version": null
-    },
 		'android/4.4': {
         "os": "android",
         "os_version": "4.4",
@@ -214,13 +207,6 @@ module.exports = {
 		'ios_saf/9.1': {
         "os": "ios",
         "os_version": "9.1",
-        "browser": "iphone",
-        "device": "iPhone 6S",
-        "browser_version": null
-    },
-		'ios_saf/9.2': {
-        "os": "ios",
-        "os_version": "9.2",
         "browser": "iphone",
         "device": "iPhone 6S",
         "browser_version": null

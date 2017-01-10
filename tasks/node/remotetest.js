@@ -40,7 +40,6 @@ const browserSets = {
 		'ie/7',
 		'safari/9',
 		'safari/8',
-		'android/5.1',
 		'android/4.4'
 	],
 	"full": [
@@ -66,12 +65,10 @@ const browserSets = {
 		'safari/9',
 		'safari/8',
 		'safari/5.1',
-		'android/5.1',
 		'android/4.4',
 		'android/4.3',
 		'android/4.2',
-		'ios_saf/9.1',
-		'ios_saf/9.2'
+		'ios_saf/9.1'
 	]
 };
 
