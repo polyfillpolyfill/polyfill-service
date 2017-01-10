@@ -275,7 +275,6 @@ Promise.resolve()
 			console.log(cli.bold.white('\nFailures:'));
 			jobs.forEach(job => {
 				if (job.results && job.results.failed) {
-					console.log(' • '+job.ua+' ('+job.mode+') [' + job.getResultsURL() + ']');
 					Object.keys(job.results.failingSuites).forEach(feature => {
 						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
 						console.log('    -> '+feature);
