@@ -65,11 +65,11 @@ it("Should create inherited object from a Native Object", function() {
 		<p><a href="http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted">http://127.0.0.1:3000/test/tests?feature=Array.from&amp;mode=targeted</a></p>
 
 
-		<h2 id="running-tests-sauce">Running tests on Sauce Labs</h2>
+		<h2 id="running-tests-browserstack">Running tests on BrowserStack</h2>
 
-		<p>If you do not have a local install of the browser you want to test, you can also run our tests using Sauce Labs.</p>
+		<p>If you do not have a local install of the browser you want to test, you can also run our tests using BrowserStack.</p>
 
-		<p>The package.json file contains tasks to run the tests on Sauce Labs, but these require API keys that are not public.  If you have your own Sauce Labs account you can run the tests by setting the <code>SAUCE_API_KEY</code> and <code>SAUCE_USER_NAME</code> environment variables, and then run <code>npm run ci</code>:</p>
+		<p>The package.json file contains tasks to run the tests on BrowserStack, but these require API keys that are not public.  If you have your own BrowserStack account you can run the tests by setting the <code>BROWSERSTACK_ACCESS_KEY</code> and <code>BROWSERSTACK_USERNAME</code> environment variables, and then run <code>npm run ci</code>:</p>
 
 		<pre class='cli'>
 <kbd>npm run ci</kbd>
@@ -79,7 +79,7 @@ Writing compiled polyfill sources to ~/polyfill-service/polyfills/__dist/...
 + Array.isArray
 ...</output></pre>
 
-		<p>You can also load the local test URLs described above directly on any remote browser testing service including Sauce or Browserstack, as long as the service provider has a mechanism for tunnelling outbound connections to your machine (otherwise <code>127.0.0.1</code> URLs will not work).  Both Sauce and Browserstack have utilities to do this.  Alternatively, you can expose your local machine to the internet by using a utlity like [ngrok](https://ngrok.io), and then use the public URL with the cloud testing service of your choice.</p>
+		<p>You can also load the local test URLs described above directly on any remote browser testing service including SauceLabs or Browserstack, as long as the service provider has a mechanism for tunnelling outbound connections to your machine (otherwise <code>127.0.0.1</code> URLs will not work).  Both SauceLabs and Browserstack have utilities to do this.  Alternatively, you can expose your local machine to the internet by using a utlity like [ngrok](https://ngrok.io), and then use the public URL with the cloud testing service of your choice.</p>
 
 	</div>
 

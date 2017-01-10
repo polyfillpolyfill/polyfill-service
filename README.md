@@ -58,7 +58,7 @@ You can configure the Polyfill service using environment variables. In developme
 * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
 * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
-* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for test tasks (not used by the service itself)
+* `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`: [BrowserStack][browserstack] credentials for test tasks (not used by the service itself)
 * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
 * `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
@@ -66,7 +66,7 @@ You can configure the Polyfill service using environment variables. In developme
 
 ## Testing
 
-The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
+The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
 npm run test           # run service tests and polyfill tests on a small set of browsers
@@ -221,6 +221,6 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
 [polyfill-service]: https://polyfill.io
-[sauce]: saucelabs.com
+[browserstack]: browserstack.com
 [semver]: http://semver.org/
 [usage]: https://polyfill.io/v2/docs/usage
