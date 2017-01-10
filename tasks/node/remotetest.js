@@ -1,6 +1,8 @@
 'use strict';
 
-require('dotenv').config({silent: true});
+require('dotenv').config({
+	silent: true
+});
 
 const path = require('path');
 const wd = require('wd');
@@ -75,7 +77,7 @@ const browserSets = {
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration));
 
 const whitespace = ' '.repeat(200);
-const rightPad = (str, len) => (str+whitespace).slice(0, len);
+const rightPad = (str, len) => (str + whitespace).slice(0, len);
 
 const readResultsFrom = filePath => {
 	return readFile(filePath, 'UTF-8')
@@ -86,8 +88,7 @@ const readResultsFrom = filePath => {
 				return {};
 			}
 			throw err;
-		})
-	;
+		});
 };
 
 const printProgress = (jobs, overwrite) => {
@@ -101,12 +102,12 @@ const printProgress = (jobs, overwrite) => {
 		if (job.state === 'complete') {
 			if (!job.outputComplete) {
 				if (job.results.failed) {
-					msg = cli.red('✘ '+ job.results.total + ' tests, ' + job.results.failed + ' failures');
+					msg = cli.red('✘ ' + job.results.total + ' tests, ' + job.results.failed + ' failures');
 				} else {
 					msg = cli.green('✓ ' + job.results.total + ' tests');
 				}
 				msg += '  ' + job.duration + 's';
-				process.stdout.write(rightPad(prefix + msg, lineLen)+'\n');
+				process.stdout.write(rightPad(prefix + msg, lineLen) + '\n');
 				msg = null;
 				job.outputComplete = true;
 			}
@@ -116,22 +117,22 @@ const printProgress = (jobs, overwrite) => {
 			readyCount++;
 		} else {
 			if (job.state === 'running') {
-				const doneFrac = (job.results.runnerCompletedCount/job.results.runnerCount);
-				const bar = '['+('█'.repeat(Math.ceil(doneFrac*barLen)))+('░'.repeat(Math.floor((1-doneFrac)*barLen)))+']  ' + job.results.runnerCompletedCount+'/'+job.results.runnerCount;
+				const doneFrac = (job.results.runnerCompletedCount / job.results.runnerCount);
+				const bar = '[' + ('█'.repeat(Math.ceil(doneFrac * barLen))) + ('░'.repeat(Math.floor((1 - doneFrac) * barLen))) + ']  ' + job.results.runnerCompletedCount + '/' + job.results.runnerCount;
 				const errStr = (job.results.failed) ? cli.red('  ✘ ' + job.results.failed) : '';
 				msg = bar + errStr;
 			} else {
 				msg = job.state;
 			}
 			const timeWaiting = Math.floor((Date.now() - job.lastUpdateTime) / 1000);
-			msg += (timeWaiting > 5) ? cli.yellow('  🕒  '+timeWaiting+'s') : '';
+			msg += (timeWaiting > 5) ? cli.yellow('  🕒  ' + timeWaiting + 's') : '';
 		}
 		if (msg) out.push(prefix + msg);
 	});
 	if (readyCount) {
 		out.push(' + ' + readyCount + ' job(s) queued');
 	}
-	process.stdout.write(out.map(str => rightPad(str, lineLen)).join('\n')+'\n');
+	process.stdout.write(out.map(str => rightPad(str, lineLen)).join('\n') + '\n');
 	if (overwrite) {
 		process.stdout.write(cli.move.lines(-out.length));
 	}
@@ -139,7 +140,7 @@ const printProgress = (jobs, overwrite) => {
 
 class TestJob {
 
-	constructor (url, mode, ua, sessionName, creds) {
+	constructor(url, mode, ua, sessionName, creds) {
 		this.browser = wd.promiseRemote(testProvider.host, testProvider.port, creds.username, creds.key);
 		this.mode = mode;
 		this.url = url;
@@ -174,8 +175,7 @@ class TestJob {
 					// Recurse
 					return wait(pollTick).then(() => this.pollForResults());
 				}
-			})
-		;
+			});
 	}
 
 	run() {
@@ -204,8 +204,7 @@ class TestJob {
 				this.results = e;
 				this.setState('error');
 				return this;
-			})
-		;
+			});
 	}
 
 	setState(newState) {
@@ -226,15 +225,15 @@ class TestJob {
 
 const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
 const options = {
-    browserSet: argv.set || 'quick',
+	browserSet: argv.set || 'quick',
 	modes: ['all', 'targeted', 'control'].filter(x => x in argv),
 	concurrency: argv.concurrency || 1,
 	continueOnFail: argv.continueOnFail
 };
 options.browsers = browserSets[options.browserSet];
 options.urls = options.modes.reduce((out, mode) => {
-    out[mode] = serviceHost + '/test/director?mode='+mode;
-    return out;
+	out[mode] = serviceHost + '/test/director?mode=' + mode;
+	return out;
 }, {});
 
 let testResults = {};
@@ -249,9 +248,9 @@ Promise.resolve()
 	.then(() => mkdirp(testResultsPath))
 	.then(() => {
 		readResultsFrom(testResultsFile)
-		.then(r => {
-			testResults = r;
-		});
+			.then(r => {
+				testResults = r;
+			});
 	})
 
 	// Figure out which jobs need to be run, create them
@@ -262,7 +261,7 @@ Promise.resolve()
 			try {
 				testResults[ua][mode].length;
 				existingCount++;
-			} catch(e) {
+			} catch (e) {
 				out.push((new TestJob(url, mode, ua, tunnelId, testProvider.creds)));
 			}
 			return out;
@@ -284,6 +283,7 @@ Promise.resolve()
 		const writeQueue = [];
 		const cliFeedbackTimer = setInterval(() => printProgress(jobs, true), pollTick);
 		let resolvedCount = 0;
+
 		function pushJob() {
 			results.push(jobs[results.length].run().then(job => {
 				if (job.state === 'complete') {
@@ -305,7 +305,7 @@ Promise.resolve()
 				return job;
 			}).catch(e => console.log(e.stack || e)));
 		}
-		for (let i=0, s = options.concurrency; i<s; i++) {
+		for (let i = 0, s = options.concurrency; i < s; i++) {
 			pushJob();
 		}
 	}))
@@ -319,23 +319,22 @@ Promise.resolve()
 			jobs.forEach(job => {
 				if (job.results && job.results.failed) {
 					Object.keys(job.results.failingSuites).forEach(feature => {
-						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests')+'&feature='+feature;
-						console.log('    -> '+feature);
-						console.log('       '+url);
+						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + feature;
+						console.log('    -> ' + feature);
+						console.log('       ' + url);
 					});
 				} else if (job.state !== 'complete') {
-					console.log(' • ' + job.ua+' ('+job.mode+'): ' + cli.red(job.results || 'No results'));
+					console.log(' • ' + job.ua + ' (' + job.mode + '): ' + cli.red(job.results || 'No results'));
 				}
 			});
 			console.log('');
 		}
 		if (!options.continueOnFail && totalFailureCount) {
-            throw new Error('Failures detected');
-        }
+			throw new Error('Failures detected');
+		}
 	})
 
 	.catch(e => {
 		console.log(e.stack || e);
 		process.exit(1);
-	})
-;
+	});

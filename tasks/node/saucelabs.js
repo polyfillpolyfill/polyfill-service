@@ -6,8 +6,11 @@ if (!process.env.SAUCE_USER_NAME || !process.env.SAUCE_API_KEY) {
 }
 
 module.exports = {
-	creds: { username: process.env.SAUCE_USER_NAME, key: process.env.SAUCE_API_KEY },
-	tunnel: function(tunnelId) {
+	creds: {
+		username: process.env.SAUCE_USER_NAME,
+		key: process.env.SAUCE_API_KEY
+	},
+	tunnel: function (tunnelId) {
 		const Tunnel = require('sauce-tunnel');
 		const tunnel = new Tunnel(process.env.SAUCE_USER_NAME, process.env.SAUCE_API_KEY, tunnelId);
 		return {
@@ -29,151 +32,151 @@ module.exports = {
 			"browserName": 'chrome',
 			"version": '54.0',
 			"platform": 'Windows 10',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/48': {
 			"browserName": 'chrome',
 			"version": '48.0',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/46': {
 			"browserName": 'chrome',
 			"version": '46.0',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/42': {
 			"browserName": 'chrome',
 			"version": '42.0',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/40': {
 			"browserName": 'chrome',
 			"version": '40.0',
 			"platform": 'Windows OS X 10.11',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/35': {
 			"browserName": 'chrome',
 			"version": '35.0',
 			"platform": 'OS X 10.11',
-			"deviceName":null
+			"deviceName": null
 		},
 		'chrome/30': {
 			"browserName": 'chrome',
 			"version": '30.0',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/49': {
 			"browserName": 'firefox',
 			"version": '49.0',
 			"platform": 'OS X 10.11',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/44': {
 			"browserName": 'firefox',
 			"version": '44.0',
 			"platform": 'Linux',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/42': {
 			"browserName": 'firefox',
 			"version": '42.0',
 			"platform": 'Linux',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/41': {
 			"browserName": 'firefox',
 			"version": '41.0',
 			"platform": 'Linux',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/33': {
 			"browserName": 'firefox',
 			"version": '33.0',
 			"platform": 'Linux',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/30': {
 			"browserName": 'firefox',
 			"version": '30.0',
 			"platform": 'OSX 10.11',
-			"deviceName":null
+			"deviceName": null
 		},
 		'firefox/20': {
 			"browserName": 'firefox',
 			"version": '20.0',
 			"platform": 'Linux',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/14': {
 			"browserName": 'microsoftedge',
 			"version": '14',
 			"platform": 'Windows 10',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/13': {
 			"browserName": 'MicrosoftEdge',
 			"version": '13.10586',
 			"platform": 'Windows 10',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/11': {
 			"browserName": 'internet explorer',
 			"version": '11',
 			"platform": 'Windows 10',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/10': {
 			"browserName": 'internet explorer',
 			"version": '10',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/9': {
 			"browserName": 'internet explorer',
 			"version": '9',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/8': {
 			"browserName": 'internet explorer',
 			"version": '8',
 			"platform": 'Windows XP',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/7': {
 			"browserName": 'internet explorer',
 			"version": '7',
 			"platform": 'Windows XP',
-			"deviceName":null
+			"deviceName": null
 		},
 		'ie/6': {
 			"browserName": 'internet explorer',
 			"version": '6',
 			"platform": 'Windows XP',
-			"deviceName":null
+			"deviceName": null
 		},
 		'safari/9': {
 			"browserName": 'safari',
 			"version": '9.0',
 			"platform": 'OSX 10.11',
-			"deviceName":null
+			"deviceName": null
 		},
 		'safari/8': {
 			"browserName": 'safari',
 			"version": '8.0',
 			"platform": 'OSX 10.10',
-			"deviceName":null
+			"deviceName": null
 		},
 		'safari/5.1': {
 			"browserName": 'safari',
 			"version": '5.1',
 			"platform": 'Windows 7',
-			"deviceName":null
+			"deviceName": null
 		},
 		'android/5.1': {
 			"browserName": 'android',
