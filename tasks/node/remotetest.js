@@ -14,7 +14,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const cli = require('cli-color');
 const pollTick = 1000;
 const testBrowserTimeout = 60000;
-const environment = ['browserstack', 'saucelabs'].filter(x => x in argv)[0] || 'saucelabs';
+const environment = ['browserstack', 'saucelabs'].filter(x => x in argv)[0] || 'browserstack';
 const testProvider = require(`./${environment}`);
 
 const browserSets = {
