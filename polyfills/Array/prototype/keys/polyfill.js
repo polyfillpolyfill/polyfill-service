@@ -1,4 +1,6 @@
 /* global ArrayIterator*/
-Array.prototype.keys = function keys () {
-	return new ArrayIterator(this, 'key');
-};
+Object.defineProperty(Array.prototype, 'keys', {
+	value: function () {
+		return new ArrayIterator(this, 'key');
+	}
+});

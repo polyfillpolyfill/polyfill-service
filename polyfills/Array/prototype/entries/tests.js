@@ -22,10 +22,23 @@ it('returns a next-able object', function () {
 it('finally returns a done object', function () {
 	var array = ['val1', 'val2'];
 	var iterator = array.entries();
+
 	iterator.next();
 	iterator.next();
+
 	proclaim.deepEqual(iterator.next(), {
 		value: undefined,
 		done: true
 	});
+});
+
+it('property isn\'t enumerable', function () {
+	var array = ['val1', 'val2'];
+	var enumerableLength = 0;
+
+	for (var i in array) {
+		enumerableLength++;
+	}
+
+	proclaim.equal(enumerableLength, array.length);
 });
