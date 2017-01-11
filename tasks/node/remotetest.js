@@ -180,7 +180,8 @@ class TestJob {
 
 	run() {
 
-		// See https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options
+		// Sauce Labs options https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options
+		// BrowserStack options https://www.browserstack.com/automate/capabilities
 		const wdConf = Object.assign({
 			"name": this.sessionName,
 			"recordVideo": true,
