@@ -23,7 +23,7 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "clean-dist": "rm -rf ./polyfills/dist",
+    "clean-dist": "rm -rf ./polyfills/__dist",
     "clean-testdata": "rm -rf ./test/results",
     "clean": "npm run clean-dist && npm run clean-testdata",
     "build": "npm run clean && node tasks/node/updatesources && node tasks/node/buildsources",
