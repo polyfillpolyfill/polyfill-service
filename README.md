@@ -221,6 +221,6 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
 [polyfill-service]: https://polyfill.io
-[browserstack]: browserstack.com
+[browserstack]: https://browserstack.com
 [semver]: http://semver.org/
 [usage]: https://polyfill.io/v2/docs/usage
