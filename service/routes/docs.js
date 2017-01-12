@@ -179,7 +179,10 @@ function refreshData() {
 			;
 		},
 		compat: () => {
-			const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+			const allBrowsers = ['ie', 'ie_mob', 'chrome', 'ios_chr', 'safari', 'ios_saf', 'firefox', 'firefox_mob', 'android', 'opera', 'op_mob', 'op_mini', 'samsung_mob', 'bb']
+			const ciBrowsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
+			const nonCiBrowsers = allBrowsers.filter(browser => ciBrowsers.indexOf(browser) === -1)
+
 			const msgs = {
 				'native': 'Supported natively',
 				'polyfilled': 'Supported with polyfill service',
@@ -203,7 +206,7 @@ function refreshData() {
 							license: polyfill.license,
 							licenseIsUrl: polyfill.license && polyfill.license.length > 5
 						};
-						browsers.forEach(browser => {
+						ciBrowsers.forEach(browser => {
 							if (compatdata[feat][browser]) {
 								fdata[browser] = [];
 								Object.keys(compatdata[feat][browser])
@@ -218,6 +221,18 @@ function refreshData() {
 								;
 							}
 						});
+
+						fdata.nonCiBrowsers = nonCiBrowsers
+							.map(browser => {
+								const meta = polyfill.browsers || {};
+								return {
+									name: browser,
+									versionRange: meta[browser] || '?',
+									status: meta[browser] ? 'polyfilled' : 'missing'
+								}
+							})
+							// console.log('fdata', fdata.nonCiBrowsers);
+							// fdata.nonCiBrowsers = [];
 						return fdata;
 					});
 				})
