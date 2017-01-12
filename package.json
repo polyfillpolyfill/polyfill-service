@@ -23,16 +23,16 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "clean-dist": "rm -rf ./polyfills/dist",
+    "clean-dist": "rm -rf ./polyfills/__dist",
     "clean-testdata": "rm -rf ./test/results",
     "clean": "npm run clean-dist && npm run clean-testdata",
     "build": "npm run clean && node tasks/node/updatesources && node tasks/node/buildsources",
     "start": "bin/polyfill-service",
     "dev": "node tasks/node/spawn service-with-watch",
     "lint": "eslint polyfills/**/polyfill.js bin lib service tasks",
-    "test-browser-quick": "node tasks/node/spawn service saucelabs:quick",
-    "test-browser-compat": "node tasks/node/spawn service saucelabs:compat",
-    "test-browser-ci": "node tasks/node/spawn service saucelabs:ci",
+    "test-browser-quick": "node tasks/node/spawn service remote-test:quick",
+    "test-browser-compat": "node tasks/node/spawn service remote-test:compat",
+    "test-browser-ci": "node tasks/node/spawn service remote-test:ci",
     "test-node": "mocha test/node/**/*.js",
     "test": "npm run build && npm run test-node && npm run test-browser-quick",
     "ci": "npm run lint && npm run build && npm run test-node && npm run test-browser-ci && npm run deploy-vcl -- --dryRun",
@@ -101,6 +101,7 @@
   },
   "devDependencies": {
     "batch": "^0.5.1",
+    "browserstack-local": "^1.3.0",
     "eslint": "^3.11.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
     "gaze": "^1.1.2",
