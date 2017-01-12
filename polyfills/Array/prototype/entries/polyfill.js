@@ -1,3 +1,5 @@
-Array.prototype.entries = function entries () {
-	return new ArrayIterator(this, 'key+value');
-};
+Object.defineProperty(Array.prototype, 'entries', {
+	value: function () {
+		return new ArrayIterator(this, 'key+value');
+	}
+});
