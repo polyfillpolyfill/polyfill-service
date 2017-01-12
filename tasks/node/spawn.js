@@ -2,7 +2,7 @@
 
 const path = require('path');
 const gaze = require('gaze');
-const child_process = require('child_process'); 
+const child_process = require('child_process');
 const spawn = child_process.spawn;
 const exec = child_process.execSync;
 const argv = require('minimist')(process.argv.slice(2));
@@ -24,9 +24,9 @@ const availableTasks = {
             }}
         ]
     },
-    "saucelabs:quick": { cmd: "node tasks/node/saucelabs --targeted", waitForExit: true },
-    "saucelabs:compat": { cmd: "node tasks/node/saucelabs --control --all --set='full' --continueOnFail", waitForExit: true },
-    "saucelabs:ci": { cmd: "node tasks/node/saucelabs --targeted --set='ci'", waitForExit: true }
+    "remote-test:quick": { cmd: "node tasks/node/remotetest --targeted", waitForExit: true },
+    "remote-test:compat": { cmd: "node tasks/node/remotetest --control --all --set='full' --continueOnFail", waitForExit: true },
+    "remote-test:ci": { cmd: "node tasks/node/remotetest --targeted --set='ci'", waitForExit: true }
 };
 
 const taskRunners = argv._.map(taskName => {
@@ -52,7 +52,7 @@ const taskRunners = argv._.map(taskName => {
             shell = "/bin/sh";
             args = ["-c", task.cmd];
         }
-        
+
         function doSpawn() {
             proc = spawn(shell, args, spawnOptions);
 
