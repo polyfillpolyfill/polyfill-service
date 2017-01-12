@@ -16,7 +16,6 @@
 	},
 	"dependencies": [
 		"Document",
-		"Element",
-		"Text"
+		"Element"
 	]
 }

@@ -23,7 +23,6 @@
 	"dependencies": [
 		"Document",
 		"Element",
-		"Text",
 		"_mutation"
 	],
 	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before",
