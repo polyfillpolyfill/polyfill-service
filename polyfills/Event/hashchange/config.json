@@ -14,7 +14,7 @@
 		"samsung_mob": "*",
 		"chrome": "<55",
 		"firefox": "<51",
-		"ios_saf": "< 10"
+		"ios_saf": "<10"
 	},
 	"dependencies": [
 		"Event"
