@@ -87,10 +87,10 @@ describe('Error handling', function () {
 			Object.defineProperty(object, property, undefined);
 		});
 
-		// Crashes Edge 14 on SauceLabs, works on my local version ¯\_(ツ)_/¯
-		// proclaim.throws(function () {
-		// 	Object.defineProperty(object, property, null);
-		// });
+		// Crashes Edge 14 on Sauce Labs, works on BrowserStack
+		proclaim.throws(function () {
+			Object.defineProperty(object, property, null);
+		});
 
 		proclaim.throws(function () {
 			Object.defineProperty(object, property, '');

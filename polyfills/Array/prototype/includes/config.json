@@ -8,14 +8,15 @@
 		"firefox": "<=42",
 		"ie": "*",
 		"opera": "*",
-		"safari": "*",
-		"ios_saf": "*",
+		"safari": "<9",
+		"ios_saf": "<9",
 		"ios_chr": "*",
 		"android": "*",
 		"op_mob": "*",
 		"ie_mob": "*",
 		"firefox_mob": "*",
-		"samsung_mob": "*"
+		"samsung_mob": "*",
+		"bb": "10 - *"
 	},
 	"license": "CC0",
 	"spec": "https://github.com/tc39/Array.prototype.includes",
