@@ -70,7 +70,7 @@
     "graphite": "0.0.6",
     "handlebars": "^4.0.5",
     "html5shiv": "^3.7.3",
-    "intersection-observer": "^0.1.1",
+    "intersection-observer": "^0.2.0",
     "intl": "^1.2.5",
     "js-polyfills": "^0.1.22",
     "json3": "^3.3.2",

@@ -1166,9 +1166,9 @@
       "resolved": "https://registry.npmjs.org/interpret/-/interpret-1.0.1.tgz"
     },
     "intersection-observer": {
-      "version": "0.1.1",
-      "from": "intersection-observer@>=0.1.1 <0.2.0",
-      "resolved": "https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.1.1.tgz"
+      "version": "0.2.0",
+      "from": "intersection-observer@0.2.0",
+      "resolved": "https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.2.0.tgz"
     },
     "intl": {
       "version": "1.2.5",
