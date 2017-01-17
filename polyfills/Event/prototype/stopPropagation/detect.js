@@ -1,0 +1,1 @@
+"stopPropagation" in Event.prototype
