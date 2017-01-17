@@ -8,7 +8,7 @@
 		"firefox": "*",
 		"ios_chr": "*",
 		"ios_saf": "*",
-		"ie": "*",
+		"ie": "8<*",
 		"ie_mob": "*",
 		"opera": "*",
 		"op_mini": "*",
