@@ -1,0 +1,28 @@
+{
+	"aliases": [
+	],
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"Promise",
+		"Function.prototype.bind"
+	],
+	"notes": [
+		"In IE8, the `finally` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"finally\"]` if intend to run your code in IE8"
+	],
+	"license": "MIT",
+	"docs": "https://tc39.github.io/proposal-promise-finally/"
+}
