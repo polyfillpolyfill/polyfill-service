@@ -1,1 +1,0 @@
-"Element" in this && "lastElementChild" in document.documentElement

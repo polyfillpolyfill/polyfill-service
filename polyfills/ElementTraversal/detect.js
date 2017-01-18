@@ -1,0 +1,1 @@
+"Element" in this && "childElementCount" in document.documentElement && "firstElementChild" in document.documentElement && "lastElementChild" in document.documentElement && "previousElementSibling" in document.documentElement && "nextElementSibling" in document.documentElement 

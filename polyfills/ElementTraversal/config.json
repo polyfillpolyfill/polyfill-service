@@ -1,0 +1,24 @@
+{
+  "browsers": {
+    "chrome": "<4",
+    "firefox": "<3.5",
+    "ie": "6 - 8",
+    "opera": "<9.8",
+    "op_mob": "<9.8",
+    "safari": "<4"
+  },
+  "license": "ISC",
+  "repo": "https://github.com/Alhadis/Fix-IE",
+  "spec": "https://www.w3.org/TR/ElementTraversal",
+  "docs": [
+    "https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/childElementCount",
+    "https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/firstElementChild",
+    "https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/lastElementChild",
+    "https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/previousElementSibling",
+    "https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/nextElementSibling"
+  ],
+  "install": {
+    "module": "fix-ie",
+    "paths": ["src/IE8-child-elements.js"]
+  }
+}

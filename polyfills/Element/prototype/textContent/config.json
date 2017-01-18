@@ -5,7 +5,7 @@
     "safari": "<3"
   },
   "license": "ISC",
-  "repo": "https://github.com/Alhadis/Fix-IE/blob/master/src/text-content.js",
+  "repo": "https://github.com/Alhadis/Fix-IE",
   "spec": "https://dom.spec.whatwg.org/#dom-node-textcontent",
   "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent"
 }
