@@ -2,26 +2,24 @@
 	"aliases": [
 	],
 	"browsers": {
-		"android": "*",
-		"bb": "*",
-		"chrome": "*",
-		"firefox": "*",
-		"ios_chr": "*",
-		"ios_saf": "*",
-		"ie": ">7",
+		"android": ">4.4",
+		"bb": ">10",
+		"chrome": ">31",
+		"firefox": ">28",
+		"ios_saf": ">7.1",
+		"ie": ">12",
 		"ie_mob": "*",
-		"opera": "*",
+		"opera": ">19",
 		"op_mini": "*",
-		"safari": "*",
-		"firefox_mob": "*",
-		"samsung_mob": "*"
+		"safari": ">7",
+		"firefox_mob": ">28"
 	},
 	"dependencies": [
 		"Promise",
 		"Function.prototype.bind"
 	],
 	"notes": [
-		"In IE8, the `finally` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"finally\"]` if intend to run your code in IE8"
+		"The Promise polyfill includes `Promise.prototype.finally`, to avoid needlessly serving this polyfill to those browsers, we have configured the browser targets for this polyfill to not include those configured in the Promise polyfill."
 	],
 	"license": "MIT",
 	"docs": "https://tc39.github.io/proposal-promise-finally/"
