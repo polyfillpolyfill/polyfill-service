@@ -12,7 +12,7 @@
 		"android": "<5.1",
 		"ios_saf": "<8",
 		"opera": "<25",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"_ArrayIterator",
