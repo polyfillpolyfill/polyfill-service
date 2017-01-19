@@ -7,7 +7,7 @@
 		"firefox": "<40",
 		"ios_saf": "*",
 		"opera": "<50",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"bb": "10 - *"
 	},
 	"dependencies": [

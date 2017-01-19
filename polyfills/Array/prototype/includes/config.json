@@ -15,7 +15,7 @@
 		"op_mob": "*",
 		"ie_mob": "*",
 		"firefox_mob": "*",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"bb": "10 - *"
 	},
 	"license": "CC0",

@@ -19,7 +19,7 @@
 		"firefox_mob": "<32",
 		"android": "*",
 		"ios_saf": "<9",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"bb": "10 - *"
 	},
 	"dependencies": [
