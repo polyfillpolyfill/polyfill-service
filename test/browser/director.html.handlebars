@@ -28,8 +28,8 @@
 			uaString: 'unknown'
 		};
 		var queue = "{{#features}}{{{feature}}},{{/features}}".split(',').slice(0,-1);
-		var remainingCount = queue.length;
-		var totalCount = queue.length;
+		var runnerCompletedCount = 0;
+		var runnerTotalCount = queue.length;
 		var windowQueryString = "?mode={{{mode}}}";
 		var timeout = 30000;
 		var timeoutMaxRetries = 2;
@@ -47,7 +47,7 @@
 		function executeTest() {
 			var feature = queue.pop();
 			var url = '/test/tests' + windowQueryString + '&feature=' + feature;
-			log('['+(totalCount-remainingCount+1)+'/'+totalCount+'] Testing <a target="runner" href="'+url+'">'+feature+'</a>...');
+			log('['+(runnerCompletedCount+1)+'/'+runnerTotalCount+'] Testing <a target="runner" href="'+url+'">'+feature+'</a>...');
 			runner.src = url;
 			timer = setTimeout(function() {
 				receiveTestResults([feature]);
@@ -110,11 +110,13 @@
 			}
 
 			log(resultsummary.join(', ') + ' ('+featureList.join(', ')+')');
-			remainingCount = queue.length;
+			runnerCompletedCount = runnerTotalCount - queue.length;
 
 			if (!queue.length) {
 
-				window.global_test_results = globalresults;
+				globalresults.state = 'complete';
+				globalresults.runnerCount = runnerTotalCount;
+				window.global_test_results = window.global_test_progress = globalresults;
 
 				resultsummary = [];
 				if (globalresults.passed) resultsummary.push('<span class="pass">'+globalresults.passed+' pass</span>');
@@ -122,6 +124,7 @@
 				if (!resultsummary.length) resultsummary.push('No tests to run');
 				log('<strong>All tests complete, result data populated into global_test_results.  Total: '+resultsummary.join(', ')+'.</strong>');
 			} else {
+				window.global_test_progress = { state: 'running', runnerCompletedCount: runnerCompletedCount, runnerCount: runnerTotalCount, failed: globalresults.failed, passed: globalresults.passed };
 				executeTest();
 			}
 		}

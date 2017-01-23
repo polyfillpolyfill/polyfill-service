@@ -1,11 +1,13 @@
-#!/usr/bin/env node
-
 'use strict';
 
 require('dotenv').config({silent: true});
 
+const argv = require('minimist')(process.argv.slice(2));
+
+const DRY_RUN = argv.dryRun;
+const PRODUCTION = argv.env === 'prod';
+
 const FASTLY_API_KEY = process.env.FASTLY_API_KEY;
-const DRY_RUN = process.env.DRY_RUN;
 
 if (!FASTLY_API_KEY) {
 	console.error('In order to purge assets from Fastly, you need to have set the environment variable "FASTLY_API_KEY". This can be done by creating a file named ".env" in the root of this repository with the contents "FASTLY_API_KEY=XXXXXX", where XXXXXX is your Fastly API key.');
@@ -13,7 +15,6 @@ if (!FASTLY_API_KEY) {
 }
 
 const flatten = require('lodash').flattenDeep;
-const production = process.env.NODE_ENV === 'production';
 const qaHostNames = [
 	'http://qa.polyfill.io'
 ];
@@ -22,19 +23,23 @@ const productionHostNames = [
 	'https://polyfill.webservices.ft.com',
 	'https://cdn.polyfill.io'
 ];
-const hostnames = production ? productionHostNames : qaHostNames;
+const hostnames = PRODUCTION ? productionHostNames : qaHostNames;
 const paths = [
 	'/v2/',
+	'/v2/assets/css/style.css',
+	'/v2/assets/images/fastly-logo.png',
+	'/v2/assets/images/logo.svg',
+	'/v2/assets/js/ui.js',
 	'/v2/docs/',
-	'/v2/docs/features/',
 	'/v2/docs/api',
-	'/v2/docs/examples',
-	'/v2/docs/usage',
 	'/v2/docs/contributing',
 	'/v2/docs/contributing/authoring-polyfills',
-	'/v2/docs/contributing/testing',
 	'/v2/docs/contributing/common-scenarios',
-	'/v2/docs/contributing/docs/assets/compat.json'
+	'/v2/docs/contributing/docs/assets/compat.json',
+	'/v2/docs/contributing/testing',
+	'/v2/docs/examples',
+	'/v2/docs/features/',
+	'/v2/docs/usage'
 ];
 const endpoints = flatten(paths.map(path => hostnames.map(host => host + path)));
 

@@ -17,7 +17,7 @@
 		"firefox_mob": "<25",
 		"android": "*",
 		"ios_saf": "<9",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Object.defineProperty"

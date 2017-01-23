@@ -14,11 +14,12 @@
 		"ie": "6 - 11",
 		"ie_mob": "10 - *",
 		"opera": "*",
+		"op_mini": "*",
 		"safari": "<9",
 		"firefox_mob": "<32",
 		"android": "*",
 		"ios_saf": "<9",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"bb": "10 - *"
 	},
 	"dependencies": [

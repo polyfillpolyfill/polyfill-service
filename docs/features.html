@@ -6,10 +6,14 @@
 
 		<h1>Features and browsers supported</h1>
 
-		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the Tests link in the feature list.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>.</p>
+		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the Tests link in the feature list.  The results below are generated using browsers hosted by <a href='https://www.browserstack.com'>BrowserStack</a>.</p>
 
 		<h2 id='feature-list'>Feature list</h2>
 
+		<div class="o-forms o--if-js">
+			<label for="filter-features" class="o-forms-label">Filter features</label>
+			<input id="filter-features" type="text" class="o-forms-text o-forms-text--small" value="" placeholder="Type to filter by name"/>
+		</div>
 
 		<table class='compatibility compatibility--data'>
 			<caption>
@@ -23,7 +27,7 @@
 						<input type="radio" name="compatMode" value="live" class="compatMode o-forms-radio o-forms-radio--small" id="compatMode_live">
 						<label for="compatMode_live" class="o-forms-label">Live test</label>
 					</th>
-					<th class='compatibility__data'><span class='compat_name'>IE</span><span class='compat_icon'><i class='fa fa-internet-explorer'></i></span></th>
+					<th class='compatibility__data'><span class='compat_name'>IE &amp; Edge</span><span class='compat_icon'><i class='fa fa-internet-explorer'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Firefox</span><span class='compat_icon'><i class='fa fa-chrome'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Chrome</span><span class='compat_icon'><i class='fa fa-firefox'></i></span></th>
 					<th class='compatibility__data'><span class='compat_name'>Safari</span><span class='compat_icon'><i class='fa fa-safari'></i></span></th>
@@ -33,13 +37,13 @@
 			</thead>
 			<tbody>
 			{{#compat}}
-				<tr id='{{slug}}' class='feature{{#if notes}} has-notes{{/if}}'>
+				<tr id='{{slug}}' data-feature-name='{{feature}}' class='feature{{#if notes}} has-notes{{/if}}'>
 					<td class='compatibility__label'>
 						<h3>{{feature}}<a class='o-techdocs__permalink' href='#{{slug}}'>¶</a></h3>
 						<ul class='feature-meta'>
 							<li title="Maximum size, minifed, before gzip">{{dispBytes size}}</li>
 							{{#if isDefault}}<li><i title='Part of the default set' class="fa fa-star"></i></li>{{/if}}
-							{{#if notes}}<li><i title='Show/hide notes' class="fa fa-info-circle notes-toggle"></i></li>{{/if}}
+							{{#if notes}}<li class='o--if-js'><i title='Show/hide notes' class="fa fa-info-circle notes-toggle"></i></li>{{/if}}
 						</ul>
 						<script type="text/template" id="overlay-src-{{slug}}">
 							<ul class='hover-menu o-techdocs-content'>
@@ -62,7 +66,7 @@
 					<td class='compatibility__data'>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
 					<td class='compatibility__data'>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
 					<td class='compatibility__live'></td>
-					<td class='compatibility__menu'><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
+					<td class='compatibility__menu o--if-js'><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
 				</tr>
 				{{#if notes}}
 					<tr class='notes'><td colspan='7'>
@@ -78,8 +82,8 @@
 		</table>
 
 		<aside>
-			<h4>Microsoft Edge as IE12</h4>
-			<p>Currently the <a href='https://github.com/3rd-Eden/useragent'>useragent</a> module identifies Edge as IE12, so we follow that, although Edge's official version number is actually in a different range starting at 20.</p>
+			<h4>Microsoft: Edge vs IE</h4>
+			<p>Since the version ranges of Internet Explorer and Edge form a continuous sequence, we refer to them as the same family, which for compatibility reasons is <code>ie</code> and <code>ie_mob</code>.</p>
 		</aside>
 
 		<h2 id='understanding-polyfill-sizes'>Bundle sizes</h2>

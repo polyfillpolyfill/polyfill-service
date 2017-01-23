@@ -250,10 +250,17 @@ pre.bigcode code {
 .rum-perf-data__nettimeline {
 	width: 70%;
 }
+.nettimeline__container {
+	line-height: 0;
+	margin-bottom: 1px;
+}
 .nettimeline {
-	height:15px;
+	height: 15px;
 	overflow: hidden;
 	display: inline-block;
+}
+.nettimeline--smaller {
+	height: 8px;
 }
 .nettimeline--dns {
 	background-color: #328073;

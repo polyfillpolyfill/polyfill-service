@@ -3,13 +3,10 @@
 
 require('dotenv').config({silent: true});
 
-const minimist = require('minimist');
-
 const packageJSON = require('../package.json');
 const startService = require('../service');
 
-const argv = minimist(process.argv.slice(2));
-const port = argv.port || Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 process.on('uncaughtException', (err) => {
   console.log('uncaught exception', err.stack || err);
@@ -17,10 +14,10 @@ process.on('uncaughtException', (err) => {
 
 startService(port, function(err, app){
 	if (err) {
-		console.error('Error while starting service:', err);
-		throw err;
+		console.error(err);
+		process.exit(1);
 	}
 
-	// This output is string-matched by the service.js grunt task
-	console.log(packageJSON.name + '@' + packageJSON.version + ' started' ,'pid='+process.pid, 'port='+port, 'env='+ app.get('env'));
+	// This output is string-matched by the service.js task
+	console.log(packageJSON.name + '@' + packageJSON.version + ' started [procstatus:started]' ,'pid='+process.pid, 'port='+port, 'env='+ app.get('env'));
 });

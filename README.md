@@ -24,7 +24,6 @@ Running the polyfill service requires a few tools:
 
 * [Git]: For downloading the source code
 * [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
-* [Grunt] 0.1.x: Used for automating tasks such as testing
 
 ## Running locally
 
@@ -43,9 +42,9 @@ Install the dependencies:
 npm install
 ```
 
-Build the polyfill sources and start the server, rebuiling and restarting whenever any changes are made to the project:
+Build the polyfill sources and start the server, rebuilding and restarting whenever any changes are made to the project:
 ```sh
-grunt dev
+npm run dev
 ```
 
 
@@ -59,7 +58,7 @@ You can configure the Polyfill service using environment variables. In developme
 * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
 * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
-* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
+* `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`: [BrowserStack][browserstack] credentials for test tasks (not used by the service itself)
 * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
 * `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
@@ -67,15 +66,15 @@ You can configure the Polyfill service using environment variables. In developme
 
 ## Testing
 
-The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
+The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
-grunt test           # run service tests and polyfill tests on a small set of browsers
-grunt simplemocha    # run the service tests
-grunt ci             # run the service tests and polyfills tests on a large set of browsers
+npm run test           # run service tests and polyfill tests on a small set of browsers
+npm run test-node    # run the service tests
+npm run ci             # run the service tests and polyfills tests on a large set of browsers
 ```
 
-We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull request.
+We run the tests [on CircleCI][ci].  `npm run ci` must pass before we merge a pull request.
 
 
 ## Real User Monitoring
@@ -96,10 +95,10 @@ Because this requires a fair amount of orchestration, we recommend only enabling
 
 ### Deploying Lambda
 
-All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run) (included as a devDependency so should be installed by npm).  To deploy the Lambda functions:
+All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run).  To deploy the Lambda functions:
 
-1. Create the following 6 environment variables in your local environment or the `.env` file in the project root: `RUM_MYSQL_DSN`, `RUM_AWS_ACCESS_KEY`, `RUM_AWS_SECRET_KEY`; and a second copy of each of these suffixed with `_QA`. FT devs can get the correct values for these variables from Heroku config or Lastpass.
-3. Run `grunt shell:deployrumlambda:qa` or `grunt shell:deployrumlambda:prod` as appropriate
+1. Create the following 7 environment variables in your local environment or the `.env` file in the project root: `RUM_MYSQL_DSN`, `RUM_AWS_ACCESS_KEY`, `RUM_AWS_SECRET_KEY`, a second copy of each of these suffixed with `_QA`, and `RUM_AWS_REGION`. FT devs can get the correct values for these variables from Heroku config or Lastpass.
+3. Run `npm run deploy-lambda` or `npm run deploy-lambda -- --env=prod` as appropriate
 4. If this is the first time you've deployed the function to this AWS profile, you then need to configure the function in the AWS UI:
 	- Set up a trigger to invoke the function whenever a file is written to the appropriate S3 bucket
 
@@ -110,7 +109,7 @@ The Financial Times and Fastly host a public version of this service on [polyfil
 
 ### Release process
 
-1. Test the release candidate with the grunt compatgen task to generate an updated compatibility table. - `grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
+1. Test the release candidate with the npm run compatgen task to generate an updated compatibility table. - `npm run compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
 1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
 1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
 1. Push the commits and tags to the git remote. - `git push origin master --tags`
@@ -210,10 +209,9 @@ Except where indicated in selected polyfill config files, the polyfill service c
 
 
 [ci]: https://circleci.com/gh/Financial-Times/polyfill-service
-[contribution terms]: https://github.com/Financial-Times/polyfill-service/blob/master/CONTRIBUTING.md
+[contribution terms]: https://polyfill.io/v2/docs/contributing#contribution-terms
 [Git]: https://git-scm.com/
-[grafana]: http://grafana.ft.com/dashboard/db/origami-polyfill-service
-[grunt]: https://www.npmjs.com/package/grunt-cli
+[grafana]: https://grafana.ft.com/dashboard/db/origami-polyfill-service
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
 [heroku-qa]: https://dashboard.heroku.com/apps/ft-polyfill-service-qa
 [heroku]: https://heroku.com/
@@ -223,6 +221,6 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
 [polyfill-service]: https://polyfill.io
-[sauce]: saucelabs.com
+[browserstack]: https://browserstack.com
 [semver]: http://semver.org/
 [usage]: https://polyfill.io/v2/docs/usage
