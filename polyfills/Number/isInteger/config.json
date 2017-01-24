@@ -15,7 +15,7 @@
 		"opera": "<22",
 		"op_mob": "*",
 		"op_mini": "*",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"bb": "*"
 	},
 	"license": "MIT",

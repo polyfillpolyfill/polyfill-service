@@ -14,7 +14,7 @@
 		"chrome": "< 45",
 		"android": "*",
 		"ios_saf": "<= 7",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Object.defineProperty"

@@ -12,7 +12,7 @@
 		"android": "*",
 		"ios_saf": "<9",
 		"opera": "*",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Symbol.iterator",
