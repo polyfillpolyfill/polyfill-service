@@ -1,0 +1,7 @@
+{
+  "browsers": {
+    "ie": "8"
+  },
+  "spec": "http://www.w3.org/TR/ElementTraversal/#attribute-lastElementChild",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/lastElementChild"
+}

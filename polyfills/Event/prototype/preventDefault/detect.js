@@ -1,1 +1,0 @@
-"preventDefault" in Event.prototype

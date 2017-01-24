@@ -1,7 +1,0 @@
-{
-  "browsers": {
-    "ie": "6 - 8",
-  },
-  "spec": "https://dom.spec.whatwg.org/#dom-event-stoppropagation",
-  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation"
-}
