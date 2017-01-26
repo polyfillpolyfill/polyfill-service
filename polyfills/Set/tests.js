@@ -24,11 +24,6 @@ it ("can be pre-populated", function() {
 	proclaim.equal(s.has(2), true);
 	proclaim.equal(s.has(3), false);
 	proclaim.equal(s.size, 2);
-	var copy = new Set(s);
-	proclaim.equal(copy.has(1), true);
-	proclaim.equal(copy.has(2), true);
-	proclaim.equal(copy.has(3), false);
-	proclaim.equal(copy.size, 2);
 });
 
 it("implements .size()", function () {
@@ -120,7 +115,7 @@ it("implements .forEach()", function () {
 
 it("implements .entries()", function () {
 	var o, entries, current;
-
+	
 	// Iterator is correct when first item is deleted
 	o = new Set([1, 2, 3]);
 	o["delete"](1);
@@ -134,7 +129,7 @@ it("implements .entries()", function () {
 	current = entries.next();
 	proclaim.equal(true, current.done);
 	proclaim.equal("undefined", typeof current.value);
-
+	
 	// Iterator is correct when middle item is deleted
 	o = new Set([1, 2, 3]);
 	o["delete"](2);
@@ -148,7 +143,7 @@ it("implements .entries()", function () {
 	current = entries.next();
 	proclaim.equal(true, current.done);
 	proclaim.equal("undefined", typeof current.value);
-
+	
 	// Iterator is correct when last item is deleted
 	o = new Set([1, 2, 3]);
 	o["delete"](3);
