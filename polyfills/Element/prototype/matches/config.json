@@ -10,7 +10,7 @@
 	],
 	"browsers": {
 		"ie": "6 - *",
-		"ie_mob": "10 - *",
+		"ie_mob": "10 - 11",
 		"chrome": "* - 33",
 		"firefox": "* - 33",
 		"safari": "4 - 7.0",
