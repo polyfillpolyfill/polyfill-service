@@ -43,11 +43,19 @@
 	var Map = function(data) {
 		this._keys = [];
 		this._values = [];
-
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
-		data && (typeof data.forEach === 'function') && data.forEach(function (item) {
-			this.set.apply(this, item);
-		}, this);
+		if (data && (typeof data.forEach === 'function')){
+			if (data instanceof Map){
+				data.forEach(function (value, key) {
+					debugger;
+					this.set.apply(this, [key, value]);
+				}, this);
+			} else {
+				data.forEach(function (item) {
+					this.set.apply(this, item);
+				}, this);
+			}
+		}
 
 		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
 	};
