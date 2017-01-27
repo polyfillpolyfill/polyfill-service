@@ -11,6 +11,7 @@ npm-debug.log
 /polyfills/Array/of/polyfill.js
 /polyfills/atob/polyfill.js
 /polyfills/AudioContext/polyfill.js
+/polyfills/EventSource/polyfill.js
 /polyfills/HTMLPictureElement/polyfill.js
 /polyfills/IntersectionObserver/polyfill.js
 /polyfills/Intl/polyfill.js
