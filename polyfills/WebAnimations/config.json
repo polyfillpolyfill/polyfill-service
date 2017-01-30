@@ -12,8 +12,8 @@
 	},
 	"dependencies": [],
 	"license": "Apache-2.0",
-	"spec": "https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content",
-	"repo": "https://www.w3.org/TR/web-animations-1/",
+	"spec": "https://w3c.github.io/web-animations/",
+	"repo": "https://github.com/web-animations/web-animations-js",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API",
 	"install": {
 		"module": "web-animations-js",
