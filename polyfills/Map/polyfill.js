@@ -40,37 +40,14 @@
 
 	var ACCESSOR_SUPPORT = true;
 
-	function hasProtoMethod(instance, method){
-		return typeof instance[method] === 'function';
-	}
-
 	var Map = function(data) {
 		this._keys = [];
 		this._values = [];
+
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
-		if (data && hasProtoMethod(data, 'forEach')){
-			// Fastpath: If `data` is a Map, shortcircuit all following the checks
-			if (data instanceof Map ||
-				// If `data` is not an instance of Map, it could be because you have a Map from an iframe or a worker or something.
-				// Check if  `data` has all the `Map` methods and if so, assume data is another Map
-				hasProtoMethod(data, 'clear') &&
-				hasProtoMethod(data, 'delete') &&
-				hasProtoMethod(data, 'entries') &&
-				hasProtoMethod(data, 'forEach') &&
-				hasProtoMethod(data, 'get') &&
-				hasProtoMethod(data, 'has') &&
-				hasProtoMethod(data, 'keys') &&
-				hasProtoMethod(data, 'set') &&
-				hasProtoMethod(data, 'values')){
-				data.forEach(function (value, key) {
-					this.set.apply(this, [key, value]);
-				}, this);
-			} else {
-				data.forEach(function (item) {
-					this.set.apply(this, item);
-				}, this);
-			}
-		}
+		data && (typeof data.forEach === 'function') && data.forEach(function (item) {
+			this.set.apply(this, item);
+		}, this);
 
 		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
 	};
