@@ -9,7 +9,7 @@
 
 		"ie": "*",
 		"ie_mob": "*",
-		"android": "<=4.3"
+		"android": "<4.4"
 	},
 	"dependencies": [],
 	"spec": "http://www.w3.org/TR/eventsource",
