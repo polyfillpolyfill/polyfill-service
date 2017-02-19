@@ -1,6 +1,10 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
 
+it("should define MediaQueryList in window", function() {
+	proclaim.include(window, 'MediaQueryList');
+});
+
 it("should match screen", function() {
 	var mql = window.matchMedia('screen');
 	proclaim.equal(mql.matches, true);
