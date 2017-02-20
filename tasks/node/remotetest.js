@@ -1,8 +1,6 @@
 'use strict';
 
-require('dotenv').config({
-	silent: true
-});
+require('dotenv').config();
 
 const path = require('path');
 const wd = require('wd');
