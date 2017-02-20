@@ -224,33 +224,3 @@ it('should resolve Promise.all when all promises resolve', function(done) {
 		done(e);
 	});
 });
-
-describe('finally' , function() {
-	it("does not take any arguments", function () {
-			return Promise.resolve("ok")['finally'](function (val) {
-				proclaim.equal(val, undefined);
-			});
-	});
-
-	it("can throw errors and be caught", function () {
-			return Promise.resolve("ok")['finally'](function () {
-					throw "error";
-			})['catch'](function (e) {
-					proclaim.equal(e, 'error');
-			});
-	});
-
-	it("resolves with resolution value if finally method doesn't throw", function () {
-			return Promise.resolve("ok")['finally'](function () {
-			}).then(function(val) {
-				proclaim.equal(val, 'ok');
-			});
-	});
-
-	it("rejects with rejection value if finally method doesn't throw", function () {
-			return Promise.reject("error")['finally'](function () {
-			})['catch'](function(val) {
-				proclaim.equal(val, 'error');
-			});
-	});
-});
