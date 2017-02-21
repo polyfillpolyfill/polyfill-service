@@ -71,7 +71,7 @@
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.2.1",
     "intl": "^1.2.5",
-    "js-polyfills": "^0.1.32",
+    "js-polyfills": "0.1.31",
     "json3": "^3.3.2",
     "lazystream": "^1.0.0",
     "lodash": "^4.17.4",

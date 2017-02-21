@@ -1409,9 +1409,9 @@
       "resolved": "https://registry.npmjs.org/jodid25519/-/jodid25519-1.0.2.tgz"
     },
     "js-polyfills": {
-      "version": "0.1.32",
-      "from": "js-polyfills@0.1.32",
-      "resolved": "https://registry.npmjs.org/js-polyfills/-/js-polyfills-0.1.32.tgz"
+      "version": "0.1.31",
+      "from": "js-polyfills@0.1.31",
+      "resolved": "https://registry.npmjs.org/js-polyfills/-/js-polyfills-0.1.31.tgz"
     },
     "js-tokens": {
       "version": "2.0.0",
