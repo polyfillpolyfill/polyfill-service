@@ -31,7 +31,8 @@
     "promote": "docker pull registry.heroku.com/ft-polyfill-service-qa/web && docker tag registry.heroku.com/ft-polyfill-service-qa/web registry.heroku.com/ft-polyfill-service/web && docker push registry.heroku.com/ft-polyfill-service/web && grunt deployvcl:prod && NODE_ENV=production ./tasks/purge.js",
     "test": "npm run test:unit && grunt test",
     "test:unit": "nyc mocha test/unit --recursive",
-    "test:coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90"
+    "test:coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
+    "coverage": "nyc report --reporter=lcov"
   },
   "license": "CC0-1.0",
   "engines": {
