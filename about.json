@@ -4,7 +4,7 @@
 	"systemCode": "origami-polyfill-service",
 	"purpose": "Stores a library of FT-approved polyfills and serves them to FT websites that need them in older browsers.",
 	"audience": "public",
-	"primaryUrl": "https://polyfill.webservices.ft.com",
+	"primaryUrl": "https://polyfill.io",
 	"serviceTier": "silver",
 	"apiVersion": 2,
 	"apiVersions": [

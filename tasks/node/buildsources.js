@@ -192,7 +192,7 @@ class Polyfill {
             // skipping any validation or minification process since
             // the raw source is supposed to be production ready.
             // Add a line break in case the final line is a comment
-            return { raw, min: source + '\n' };
+            return { raw: raw + '\n', min: source + '\n' };
         }
         else {
             validateSource(source, `${this.name} from ${this.sourcePath}`);
@@ -223,36 +223,31 @@ class Polyfill {
     }
 }
 
-module.exports = function (grunt) {
+const src = path.join(__dirname, '../../polyfills');
+const dest = path.join(src, '__dist');
 
-    grunt.registerTask('buildsources', 'Build polyfill sources', function () {
+console.log(`Writing compiled polyfill sources to ${dest}/...`);
 
-        const done = this.async();
-        const src = path.join(__dirname, '../../polyfills');
-        const dest = path.join(src, '__dist');
-
-        grunt.log.writeln(`Writing compiled polyfill sources to ${dest}/...`);
-
-        Promise.resolve()
-            .then(() => Promise.all(flattenPolyfillDirectories(src)
-                .map(absolute => new Polyfill(absolute, path.relative(src, absolute)))
-                .filter(polyfill => polyfill.hasConfigFile)
-                .map(polyfill => polyfill.loadConfig()
-                    .then(() => grunt.verbose.writeln(`Started processing sources for ${polyfill.name}`))
-                    .then(() => polyfill.loadSources())
-                    .then(() => grunt.verbose.writeln(`Finished processing sources for ${polyfill.name}`))
-                    .then(() => polyfill))))
-            .then(polyfills => checkForCircularDependencies(polyfills)
-                .then(() => makeDirectory(dest))
-                .then(() => grunt.log.writeln('Waiting for files to be written to disk...'))
-                .then(() => writeAliasFile(polyfills, dest))
-                .then(() => Promise.all(polyfills
-                    .map(polyfill => polyfill.writeOutput(dest)
-                        .then(() => grunt.verbose.writeln(`Finished writing output for ${polyfill.name}`))))))
-            .then(() => grunt.log.oklns('Sources built successfully'))
-            .then(() => done())
-            .catch(e => grunt.fail.warn(e));
-
-    });
-
-};
+Promise.resolve()
+    .then(() => Promise.all(flattenPolyfillDirectories(src)
+        .map(absolute => new Polyfill(absolute, path.relative(src, absolute)))
+        .filter(polyfill => polyfill.hasConfigFile)
+        .map(polyfill => polyfill.loadConfig()
+            .then(() => polyfill.loadSources())
+            .then(() => polyfill)
+        )
+    ))
+    .then(polyfills => checkForCircularDependencies(polyfills)
+        .then(() => makeDirectory(dest))
+        .then(() => console.log('Waiting for files to be written to disk...'))
+        .then(() => writeAliasFile(polyfills, dest))
+        .then(() => Promise.all(
+            polyfills.map(polyfill => polyfill.writeOutput(dest))
+        ))
+    )
+    .then(() => console.log('Sources built successfully'))
+    .catch(e => {
+        console.log(e);
+        process.exit(1);
+    })
+;
