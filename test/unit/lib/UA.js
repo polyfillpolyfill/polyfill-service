@@ -2,12 +2,13 @@
 
 "use strict";
 
+const useragent = require('useragent')
 const assert = require('proclaim');
 // const mockery = require('mockery');
 const sinon = require('sinon');
 require('sinon-as-promised');
 
-describe("lib/UA", function() {
+describe("lib/UA", function () {
 	let useragent;
 	let UA;
 
@@ -69,31 +70,182 @@ describe("lib/UA", function() {
 				assert.equal(spy.returned(iOS), true);
 			});
 		});
+
+		describe('this.ua', () => {
+			context('when given a normalized ua', () => {
+				it('constructs a new useragent.Agent', () => {
+					const ie = new UA("ie/11.3.0");
+					assert.equal(ie.ua.family, 'ie');
+					assert.equal(ie.ua.toVersion(), '11.3.0');
+					assert.isInstanceOf(ie.ua, useragent.Agent);
+				});
+
+				it('assigns 0 to minor and patch versions if ommitted', () => {
+					const ie = new UA("ie/11");
+					assert.equal(ie.ua.toVersion(), '11.0.0');
+				});
+
+			});
+		});
+
+		describe('this.ua.family', () => {
+			it('uses browser family name if no alias found', () => {
+				const firefox = new UA("Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.12) Gecko/20101027 Ubuntu/10.04 (lucid) Firefox/3.6.12");
+				assert.equal(firefox.ua.family, 'firefox');
+
+				const safari = new UA("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_5; en-us) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0.2 Safari/533.18.5");
+				assert.equal(safari.ua.family, 'safari');
+
+				const android = new UA("Mozilla/5.0 (Linux; U; Android 3.0.1; en-us; GT-P7510 Build/HRI83) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13");
+				assert.equal(android.ua.family, 'android');
+
+				const opera = new UA("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.10 Safari/537.36 OPR/27.0.1689.22 (Edition developer)");
+				assert.equal(opera.ua.family, 'opera');
+
+				const chrome = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
+				assert.equal(chrome.ua.family, 'chrome');
+			});
+
+			it('uses alias for browser family name if alias exists', () => {
+				const blackberryWebKit = new UA("Mozilla/5.0 (BB10; Touch) AppleWebKit/537.3+ (KHTML, like Gecko) Version/10.0.9.388 Mobile Safari/537.3+");
+				assert.equal(blackberryWebKit.ua.family, "bb");
+
+				const blackberry = new UA("Mozilla/5.0 (BlackBerry; U; BlackBerry 9930; en) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0.362 Mobile Safari/534.11+");
+				assert.equal(blackberry.ua.family, "bb");
+
+				// const blackberry = new UA("BlackBerry8520/5.0.0.592 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/168");
+				// assert.equal(blackberry.ua.family, "BlackBerry");
+
+				const palemoon = new UA("Mozilla/5.0 (Windows NT 5.1; rv:2.0) Gecko/20110407 Firefox/4.0.3 PaleMoon/4.0.3");
+				assert.equal(palemoon.ua.family, "firefox");
+
+				const firefoxMobile = new UA("Mozilla/5.0 (Android 5.0; Tablet; rv:41.0) Gecko/41.0 Firefox/41.0");
+				assert.equal(firefoxMobile.ua.family, "firefox_mob");
+
+				const firefoxBeta = new UA("Mozilla/5.0 (X11; Linux i686 (x86_64); rv:2.0b4) Gecko/20100818 Firefox/4.0b4");
+				assert.equal(firefoxBeta.ua.family, "firefox");
+
+				const mozillaDeveloperPreview = new UA("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.3a1) Gecko/20100208 MozillaDeveloperPreview/3.7a1 (.NET CLR 3.5.30729)");
+				assert.equal(mozillaDeveloperPreview.ua.family, "firefox");
+
+				const operaTablet = new UA("Opera/9.80 (Android 3.2; Linux; Opera Tablet/ADR-1106291546; U; en) Presto/2.8.149 Version/11.10");
+				assert.equal(operaTablet.ua.family, "opera");
+
+				const operaMobile = new UA("Opera/9.80 (S60; SymbOS; Opera Mobi/275; U; es-ES) Presto/2.4.13 Version/10.00");
+				assert.equal(operaMobile.ua.family, "op_mob");
+
+				const operaMini = new UA("SAMSUNG GT-S3330 Opera/9.80 (J2ME/MIDP; Opera Mini/7.1.32840/37.9143; U; en) Presto/2.12.423 Version/12.16");
+				assert.equal(operaMini.ua.family, "op_mini");
+
+				const chromeMobile = new UA("Mozilla/5.0 (Linux; Android 4.1.2; GT-S7710 Build/JZO54K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile");
+				assert.equal(chromeMobile.ua.family, "chrome");
+
+				const chromeFrame = new UA("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; chromeframe/11.0.660.0)");
+				assert.equal(chromeFrame.ua.family, "chrome");
+
+				const chromium = new UA("Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Ubuntu/10.10 Chromium/10.0.648.133 Chrome/10.0.648.133 Safari/534.16");
+				assert.equal(chromium.ua.family, "chrome");
+
+				const ieMobile = new UA("Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; SAMSUNG; SGH-i917)");
+				assert.equal(ieMobile.ua.family, "ie_mob");
+
+				const ieLargeScreen = new UA("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; XBLWP7; ZuneWP7)");
+				assert.equal(ieLargeScreen.ua.family, "ie");
+
+				const ie = new UA("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; chromeframe; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729)");
+				assert.equal(ie.ua.family, "ie");
+
+				const edge = new UA("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.9600");
+				assert.equal(edge.ua.family, "ie");
+
+				const edgeMobile = new UA("Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 930) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0");
+				assert.equal(edgeMobile.ua.family, "ie");
+
+				const ucBrowser = new UA("Mozilla/5.0 (Linux; U; Android 2.2.1; en-US; GT-P1000 Build/FROYO) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/10.0.1.512 U3/0.8.0 Mobile Safari/534.30");
+				assert.equal(ucBrowser.ua.family, "uc browser");
+
+				const chromeMobileIos = new UA("Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_2 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/30.0.1599.12 Mobile/11A501 Safari/8536.25");
+				assert.equal(chromeMobileIos.ua.family, "ios_saf");
+
+				const mobileSafari = new UA("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10");
+				assert.equal(mobileSafari.ua.family, "ios_saf");
+
+				const mobileSafariUIWebView = new UA("Mozilla/5.0 (iPod touch; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69");
+				assert.equal(mobileSafariUIWebView.ua.family, "ios_saf");
+
+				const facebookIOS = new UA("Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 [FBAN/FBIOS;FBAV/6.1;FBBV/201075;FBDV/iPhone3,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/5.1.1;FBSS/2; FBCR/Vodafone.de;FBID/phone;FBLC/en_US;FBOP/1]");
+				assert.equal(facebookIOS.ua.family, "ios_saf");
+
+				const samsungInternet = new UA("Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG GT-I9506-ORANGE Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.1 Chrome/34.0.1847.76 Mobile Safari/537.36");
+				assert.equal(samsungInternet.ua.family, 'samsung_mob');
+
+				const phantomjs = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.6.0 Safari/534.34");
+				assert.equal(phantomjs.ua.family, 'safari');
+
+				const yandex = new UA("Mozilla/5.0 (Linux; Android 5.0.1; GT-I9505 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 YaBrowser/14.2.1.1239.00 Mobile Safari/537.36");
+				assert.equal(yandex.ua.family, 'chrome');
+			});
+		});
 	});
 
-	describe(".normalize", function() {
+	describe('.getFamily', () => {
+		it('returns browser family from useragent', () => {
+			const chrome = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
+			assert.equal(chrome.getFamily(), 'chrome');
 
-		it("should resolve user agents of core supported browsers", function() {
+			const phantom = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.0 Safari/534.34");
+			assert.equal(phantom.getFamily(), "safari");
+
+			const yandex = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/14.10.2062.12057 Safari/537.36");
+			assert.equal(yandex.getFamily(), "chrome");
+
+			const ie = new UA("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
+			assert.equal(ie.getFamily(), "ie");
+
+			const ios1 = new UA("Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 [FBAN/FBIOS;FBAV/6.0.1;FBBV/180945;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.0.1;FBSS/1; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
+			assert.equal(ios1.getFamily(), "ios_saf");
+
+			const ios2 = new UA("Mozilla/5.0 (iPad; CPU OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329 [FBAN/FBIOS;FBAV/6.0.2;FBBV/183159;FBDV/iPad3,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.1.3;FBSS/2; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
+			assert.equal(ios2.getFamily(), "ios_saf");
+
+			const ios3 = new UA("Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329 [FBAN/FBIOS;FBAV/6.0.2;FBBV/183159;FBDV/iPhone4,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/6.1.3;FBSS/2; FBCR/AT&T;FBID/phone;FBLC/en_US;FBOP/1]");
+			assert.equal(ios3.getFamily(), "ios_saf");
+		});
+	});
+
+	describe('.getVersion', () => {
+		it('returns the full version of the ua', () => {
+			const ua = new UA("ie/11.3.0");
+			assert.equal(ua.getVersion(), '11.3.0');
+		});
+	});
+
+	describe('.satisfies', () => {
+	});
+
+	describe(".normalize", function () {
+
+		it("should resolve user agents of core supported browsers", function () {
 			const test = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
 			assert.equal(test, "chrome/39.0.0");
 		});
 
-		it("should resolve user agents of browsers that map all versions to a constant", function() {
+		it("should resolve user agents of browsers that map all versions to a constant", function () {
 			const phantom = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.0 Safari/534.34");
 			assert.equal(phantom, "safari/5.0.0");
 		});
 
-		it("should resolve user agents of browsers with granular version mapping", function() {
+		it("should resolve user agents of browsers with granular version mapping", function () {
 			const yandex = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/14.10.2062.12057 Safari/537.36");
 			assert.equal(yandex, "chrome/37.0.0");
 		});
 
-		it("should resolve edge mobile to the ie family", function() {
+		it("should resolve edge mobile to the ie family", function () {
 			const test = UA.normalize("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
 			assert.equal(test, "ie/12.10130.0");
 		});
 
-		it("should resolve Facebook iOS App to the version of iOS it is running within", function() {
+		it("should resolve Facebook iOS App to the version of iOS it is running within", function () {
 			let test = UA.normalize("Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 [FBAN/FBIOS;FBAV/6.0.1;FBBV/180945;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.0.1;FBSS/1; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
 			assert.equal(test, "ios_saf/6.0.0");
 
@@ -105,8 +257,8 @@ describe("lib/UA", function() {
 		});
 	});
 
-	describe(".isUnknown", function() {
-		it("should resolve false for user agents we have a baseline version for", function() {
+	describe(".isUnknown", function () {
+		it("should resolve false for user agents we have a baseline version for", function () {
 			assert.equal(new UA("ie/6").isUnknown(), true);
 			assert.equal(new UA("ie/7").isUnknown(), false);
 			assert.equal(new UA("ie/14").isUnknown(), false);
