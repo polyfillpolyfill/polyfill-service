@@ -15,7 +15,7 @@ var arePropertyDescriptorsSupported = function () {
 };
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
-// http://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol-constructor
+// https://tc39.github.io/ecma262/#sec-symbol-constructor
 it('should throw if being used via `new`', function() {
 	var test = function () {
 		return new Symbol();

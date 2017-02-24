@@ -11,6 +11,6 @@
 	"browsers": {
 		"ie": "6 - 8"
 	},
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.reduceright",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.reduceright",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight"
 }
