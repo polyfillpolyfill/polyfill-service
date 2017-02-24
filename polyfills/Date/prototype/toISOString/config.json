@@ -11,6 +11,6 @@
 	"browsers": {
 		"ie": "6 - 8"
 	},
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-date.prototype.toisostring",
+	"spec": "https://tc39.github.io/ecma262/#sec-date.prototype.toisostring",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString"
 }
