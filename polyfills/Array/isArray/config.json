@@ -18,6 +18,6 @@
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-isarray",
+	"spec": "https://tc39.github.io/ecma262/#sec-isarray",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"
 }
