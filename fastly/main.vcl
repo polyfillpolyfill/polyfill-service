@@ -39,20 +39,16 @@ sub vcl_recv {
 
 	if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
 		set req.backend = origami_polyfill_service_us;
-		set req.http.Host = "origami-polyfill-service-us.herokuapp.com";
 
 		if (!req.backend.healthy) {
 			set req.backend = origami_polyfill_service_eu;
-			set req.http.Host = "ft-polyfill-service.herokuapp.com";
 		}
 
 	} else {
 		set req.backend = origami_polyfill_service_eu;
-		set req.http.Host = "ft-polyfill-service.herokuapp.com";
 
 		if (!req.backend.healthy) {
 			set req.backend = origami_polyfill_service_us;
-			set req.http.Host = "origami-polyfill-service-us.herokuapp.com";
 		}
 	}
 
