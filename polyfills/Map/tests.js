@@ -27,6 +27,12 @@ it ("can be pre-populated", function() {
 	proclaim.equal(m.has(b), true);
 	proclaim.equal(m.has(c), true);
 	proclaim.equal(m.size, 3);
+
+	var d = new Map(m);
+	proclaim.equal(d.has(a), true);
+	proclaim.equal(d.has(b), true);
+	proclaim.equal(d.has(c), true);
+	proclaim.equal(d.size, 3);
 });
 
 it("implements .size()", function () {
