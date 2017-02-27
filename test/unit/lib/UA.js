@@ -2,10 +2,10 @@
 
 "use strict";
 
-const useragent = require('useragent')
 const assert = require('proclaim');
-// const mockery = require('mockery');
 const sinon = require('sinon');
+const semver = require('semver');
+
 require('sinon-as-promised');
 
 describe("lib/UA", function () {
@@ -221,9 +221,45 @@ describe("lib/UA", function () {
 	});
 
 	describe('.satisfies', () => {
+		it('returns false if browser is not within the supported browsers', () => {
+			const ua = new UA("abcdefghi/11.0");
+			assert.equal(ua.satisfies('^11.0.0'), false);
+		});
+
+		it('returns false if browser is within the supported browser-versions list but version is lower than the baseline', () => {
+			const ua = new UA("ie/5.0");
+			assert.equal(ua.satisfies('^5.0.0'), false);
+		});
+
+		it('returns false if browser is within the supported browser-versions list but not within the range being requested ', () => {
+			const ua = new UA("ie/11.0");
+			assert.equal(ua.satisfies('^12.0.0'), false);
+		});
+
+		it('returns true if browser is within the supported browser-versions list and within the range being requested ', () => {
+			const ua = new UA("ie/11.0");
+			assert.equal(ua.satisfies('^11.0.0'), true);
+		});
+	});
+
+	describe('.getBaseline', () => {
+		it('returns the baseline version for the browser if it is in our supported list', () => {
+			const ua = new UA("ie/11.0");
+			assert.isString(ua.getBaseline());
+		});
+
+		it('returns undefined if the browser is not in our supported list', () => {
+			const ua = new UA("abcdefghi/11.0");
+			assert.isUndefined(ua.getBaseline());
+		});
 	});
 
 	describe(".normalize", function () {
+
+		it('should return UA string lowercase if already normalized', () => {
+			const normalizedUa = UA.normalize("IE/11.3.0");
+			assert.equal(normalizedUa, 'ie/11.3.0');
+		});
 
 		it("should resolve user agents of core supported browsers", function () {
 			const test = UA.normalize("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
@@ -331,4 +367,21 @@ describe("lib/UA", function () {
 			assert.equal(new UA("samsung_mob/4").isUnknown(), false);
 		});
 	});
+
+	describe('.getBaselines', () => {
+		it('returns the browsers we support and the minimum supported version as a semver range', () => {
+			const browserMinimumVersions = UA.getBaselines();
+			assert.isObject(browserMinimumVersions, Object);
+
+			describe('Each browser should have a valid semver range', () => {
+				const browsers = Object.keys(browserMinimumVersions);
+				for (const browser of browsers) {
+					it(`${browser} uses a valid semver range`, () => {
+						assert.isNotNull(semver.validRange(browserMinimumVersions[browser]));
+					});
+				}
+			});
+		});
+	});
+
 });
