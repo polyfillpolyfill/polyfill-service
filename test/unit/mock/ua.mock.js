@@ -12,11 +12,7 @@ const mockUAInstance = module.exports.mockUAInstance = {
 	satisfies: sinon.stub(),
 	getBaseline: sinon.stub(),
 	meetsBaseline: sinon.stub(),
-	isUnknown: sinon.stub(),
-	getGoodToGoFunction: sinon.stub(),
-	getGoodToGoFunction: sinon.stub(),
-	getGoodToGoFunction: sinon.stub(),
-	getGoodToGoFunction: sinon.stub(),
+	isUnknown: sinon.stub()
 };
 
 UA.normalize = sinon.stub();
