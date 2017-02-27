@@ -5,16 +5,20 @@
 const assert = require('proclaim');
 const sinon = require('sinon');
 const semver = require('semver');
+const mockery = require('mockery');
 
 require('sinon-as-promised');
 
 describe("lib/UA", function () {
 	let useragent;
 	let UA;
+	let lruCache;
 
 	beforeEach(() => {
 		useragent = require('useragent');
 		UA = require('../../../lib/UA');
+		lruCache = require('../mock/lru-cache.mock');
+		mockery.registerMock('lru-cache', lruCache);
 	});
 
 	it('exports a UA constructor', () => {
