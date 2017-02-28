@@ -17,8 +17,8 @@ describe('lib/aliases', () => {
 		assert.isFunction(aliasResolver);
 	});
 
-	it('has a length of 1', () => {
-		assert.equal(aliasResolver.length, 1);
+	it('has a length of 0', () => {
+		assert.equal(aliasResolver.length, 0);
 	});
 
 	describe('aliasResolver(resolvers)', () => {
@@ -199,7 +199,7 @@ describe('lib/aliases', () => {
 							"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 						};
 
-						const resolver = aliasResolver([
+						const resolver = aliasResolver(
 
 							// Map only first_alias_name_a to another alias
 							function(name) {
@@ -208,7 +208,7 @@ describe('lib/aliases', () => {
 							function(name) {
 								return configuredAliases[name];
 							}
-						]);
+						);
 
 						return resolver({
 							first_alias_name_a: {
@@ -266,7 +266,7 @@ describe('lib/aliases', () => {
 							"alias_name_b": ["resolved_name_c", "resolved_name_b"]
 						};
 
-						const resolver = aliasResolver([
+						const resolver = aliasResolver(
 
 							// Map only first_alias_name_a to another alias
 							function(name) {
@@ -275,7 +275,7 @@ describe('lib/aliases', () => {
 							function(name) {
 								return configuredAliases[name];
 							}
-						]);
+						);
 
 						return resolver({
 							first_alias_name_a: {
@@ -303,11 +303,11 @@ describe('lib/aliases', () => {
 					});
 
 					it('should be able to resolve an alias to one of the other inputs', () => {
-						const resolver = aliasResolver([
+						const resolver = aliasResolver(
 							function(name) {
 								return (name === 'alias_name_a') ? ['name_b'] : undefined;
 							}
-						]);
+						);
 
 						return resolver({
 							alias_name_a: {
@@ -327,11 +327,11 @@ describe('lib/aliases', () => {
 					});
 
 					it('should be able to resolve an alias to itself', () => {
-						const resolver = aliasResolver([
+						const resolver = aliasResolver(
 							function(name) {
 								return [name];
 							}
-						]);
+						);
 
 						return resolver({
 							name_a: {},
