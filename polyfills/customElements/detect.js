@@ -1,3 +1,1 @@
-(function() {
-	return window.customElements;
-}())
+'customElements' in this
