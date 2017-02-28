@@ -8,9 +8,9 @@
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",
-		"ios_saf": "<9",
+		"ios_saf": "<10",
 		"opera": "< 37",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"android": "<5.1",
 		"bb": "10 - *"
 	},

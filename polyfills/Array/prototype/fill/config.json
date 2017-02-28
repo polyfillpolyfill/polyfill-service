@@ -14,11 +14,11 @@
 		"chrome": "< 45",
 		"android": "*",
 		"ios_saf": "<= 7",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.fill",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.fill",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill"
 }
