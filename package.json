@@ -50,6 +50,7 @@
     "node": ">6.0.0"
   },
   "dependencies": {
+    "@webcomponents/custom-elements": "^1.0.0-alpha.3",
     "Base64": "^1.0.0",
     "array.of": "^0.1.1",
     "audio-context-polyfill": "^1.0.0",
