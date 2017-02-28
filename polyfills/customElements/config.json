@@ -1,0 +1,26 @@
+{
+	"browsers": {
+		"android": "*",
+		"chrome": "<54",
+		"firefox": "*",
+		"firefox_mob": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"ios_saf": "*",
+		"opera": "<43",
+		"safari": "<10.1",
+		"samsung_mob": "*"
+	},
+	"spec": "https://html.spec.whatwg.org/multipage/scripting.html#custom-elements",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements",
+	"install": {
+		"module": "@webcomponents/custom-elements",
+		"paths": ["custom-elements.min.js"]
+	},
+	"license": "BSD-3-Clause",
+	"repo": "https://github.com/webcomponents/custom-elements",
+	"notes": [
+		"Make sure that you review the [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill before using it.",
+		"Also, if you're using ES2015 modules that are transpiled to ES5, make sure to include the native shim mention in the polyfill's README."
+	]
+}
