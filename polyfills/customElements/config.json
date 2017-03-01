@@ -23,7 +23,6 @@
 	"license": "BSD-3-Clause",
 	"repo": "https://github.com/webcomponents/custom-elements",
 	"notes": [
-		"The [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill should be reviewed before using it.",
-		"When using ES2015 classes that are transpiled to ES5, the native shim mentioned in the [polyfill's README](https://github.com/webcomponents/custom-elements#es5-vs-es2015) must also be included, to provide compatibility with native implementations of `customElements.define`."
+		"The [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill should be reviewed before using it."
 	]
 }

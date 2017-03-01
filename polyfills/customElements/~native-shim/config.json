@@ -1,0 +1,32 @@
+{
+	"browsers": {
+		"android": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"firefox_mob": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"ios_saf": "*",
+		"opera": "*",
+		"safari": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"Map",
+		"customElements"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements",
+	"build": {
+		"minify": false
+	},
+	"install": {
+		"module": "@webcomponents/custom-elements",
+		"paths": ["src/native-shim.js"],
+		"postinstall": "update.task.js"
+	},
+	"license": "BSD-3-Clause",
+	"repo": "https://github.com/webcomponents/custom-elements#es5-vs-es2015",
+	"notes": [
+		"The native shim is required when using `customElements.define` with an ES5-style class. It is included by default with the `customElements` polyfill since most users won't be sending ES6 classes to the browser."
+	]
+}
