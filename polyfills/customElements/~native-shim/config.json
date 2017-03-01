@@ -15,7 +15,6 @@
 		"Map",
 		"customElements"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements",
 	"build": {
 		"minify": false
 	},
@@ -25,8 +24,10 @@
 		"postinstall": "update.task.js"
 	},
 	"license": "BSD-3-Clause",
-	"repo": "https://github.com/webcomponents/custom-elements#es5-vs-es2015",
+	"docs": "https://github.com/webcomponents/custom-elements#es5-vs-es2015",
+	"repo": "https://github.com/webcomponents/custom-elements",
+	"spec": "https://html.spec.whatwg.org/multipage/scripting.html#custom-elements",
 	"notes": [
-		"The native shim is required when using `customElements.define` with an ES5-style class. It is included by default with the `customElements` polyfill since most users won't be sending ES6 classes to the browser."
+		"The native shim is required when using `customElements.define` with an ES5-style class. If classes are defined directly in ES6 and not transpiled, `customElements` must be used _without_ the `native-shim`."
 	]
 }
