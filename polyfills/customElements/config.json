@@ -14,15 +14,16 @@
 	"dependencies": [
 		"Promise"
 	],
-	"spec": "https://html.spec.whatwg.org/multipage/scripting.html#custom-elements",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements",
 	"install": {
 		"module": "@webcomponents/custom-elements",
 		"paths": ["custom-elements.min.js"]
 	},
 	"license": "BSD-3-Clause",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements",
 	"repo": "https://github.com/webcomponents/custom-elements",
+	"spec": "https://html.spec.whatwg.org/multipage/scripting.html#custom-elements",
 	"notes": [
-		"The [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill should be reviewed before using it."
+		"The [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill should be reviewed before using it.",
+		"Note that by default, `customElements` requires that elements are defined using native ES6 classes; ES5-style classes, or transpilied classes, will not work. If support for ES5 classes is required, `customElements.~native-shim` should be used instead."
 	]
 }
