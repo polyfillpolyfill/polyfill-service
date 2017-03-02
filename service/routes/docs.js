@@ -189,11 +189,11 @@ function refreshData() {
 				.filter(feature => sources.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
 				.sort()
 				.map(feat => {
-					return sources.getPolyfill(feat).then(polyfill => {
+					return sources.getPolyfillMetaSync(feat).then(polyfill => {
 						const fdata = {
 							feature: feat,
 							slug: feat.replace(/[^\w]/g, '_'),
-							size: polyfill.minSource.length,
+							size: polyfill.size,
 							isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 							hasTests: polyfill.hasTests,
 							docs: polyfill.docs,

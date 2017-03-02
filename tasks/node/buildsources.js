@@ -101,7 +101,11 @@ class Polyfill {
 
     get hasConfigFile() {
         return fs.existsSync(this.configPath);
-    }
+	}
+
+	updateConfig() {
+		this.config.size = this.sources.min.length;
+	}
 
     loadConfig() {
         return readFile(this.configPath)
@@ -115,7 +119,7 @@ class Polyfill {
             .then(data => {
                 this.config = JSON.parse(data);
                 this.config.detectSource = '';
-                this.config.baseDir = this.path.relative;
+				this.config.baseDir = this.path.relative;
 
                 if ('licence' in this.config) {
                     throw `Incorrect spelling of license property in ${this.name}`;
@@ -140,18 +144,18 @@ class Polyfill {
                 };
             })
             .then(raw => this.transpile(raw))
-            .catch(error => { 
-                throw { 
-                    message: `Error transpiling ${this.name}`, 
-                    error 
-                }; 
+            .catch(error => {
+                throw {
+                    message: `Error transpiling ${this.name}`,
+                    error
+                };
             })
             .then(transpiled => this.minify(transpiled))
-            .catch(error => { 
-                throw { 
-                    message: `Error minifying ${this.name}`, 
-                    error 
-                }; 
+            .catch(error => {
+                throw {
+                    message: `Error minifying ${this.name}`,
+                    error
+                };
             })
             .then(sources => {
                 this.sources = sources;
@@ -159,12 +163,12 @@ class Polyfill {
     }
 
     transpile(source) {
-        // At time of writing no current browsers support the full ES6 language syntax, 
-        // so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all 
-        // cases (also note that uglify currently cannot minify ES6 syntax).  When browsers 
-        // start shipping with complete ES6 support, the ES6 source versions should be served 
-        // where appropriate, which will require another set of variations on the source properties 
-        // of the polyfill.  At this point it might be better to create a collection of sources with 
+        // At time of writing no current browsers support the full ES6 language syntax,
+        // so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all
+        // cases (also note that uglify currently cannot minify ES6 syntax).  When browsers
+        // start shipping with complete ES6 support, the ES6 source versions should be served
+        // where appropriate, which will require another set of variations on the source properties
+        // of the polyfill.  At this point it might be better to create a collection of sources with
         // different properties, eg config.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
         if (this.config.esversion && this.config.esversion > 5) {
             if (this.config.esversion === 6) {
@@ -233,14 +237,15 @@ Promise.resolve()
         .map(absolute => new Polyfill(absolute, path.relative(src, absolute)))
         .filter(polyfill => polyfill.hasConfigFile)
         .map(polyfill => polyfill.loadConfig()
-            .then(() => polyfill.loadSources())
+			.then(() => polyfill.loadSources())
+			.then(() => polyfill.updateConfig())
             .then(() => polyfill)
         )
     ))
     .then(polyfills => checkForCircularDependencies(polyfills)
         .then(() => makeDirectory(dest))
-        .then(() => console.log('Waiting for files to be written to disk...'))
-        .then(() => writeAliasFile(polyfills, dest))
+		.then(() => console.log('Waiting for files to be written to disk...'))
+		.then(() => writeAliasFile(polyfills, dest))
         .then(() => Promise.all(
             polyfills.map(polyfill => polyfill.writeOutput(dest))
         ))

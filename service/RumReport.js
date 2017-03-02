@@ -40,7 +40,7 @@ function Perf(rawopts) {
 	;
 
 	const sqlQuery = `SELECT ${sqlFields} FROM requests WHERE req_time BETWEEN (CURDATE() - INTERVAL ${options.period} DAY) AND CURDATE() AND data_center IS NOT NULL AND perf_req IS NOT NULL LIMIT 1000000`;
-console.log(options.minSample);
+	console.log(options.minSample);
 
 	const dataPromise = MySQL.createConnection(process.env.RUM_MYSQL_DSN)
 		.then(conn => {
@@ -151,9 +151,8 @@ function Compat() {
 		})
 		.then(results => {
 			return dbconn.end().then(() => {
-				return Promise.all(results[0].map(rec => {
-					return polyfillio.describePolyfill(rec.feature_name)
-					.then(polyfill => {
+				return results[0].map(rec => {
+					const polyfill = polyfillio.describePolyfill(rec.feature_name);
 						if (!polyfill) {
 							return null;
 						} else {
@@ -169,8 +168,7 @@ function Compat() {
 							}
 							return rec;
 						}
-					});
-				}));
+				});
 			});
 		})
 		.then(results => results.filter(rec => rec !== null))

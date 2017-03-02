@@ -39,9 +39,12 @@ function createEndpoint(type, polyfillio) {
 				featuresList = featuresList.filter(featureName => (!req.query.feature || req.query.feature === featureName));
 
 				// Fetch polyfill configs for all the features to be tested
-				return Promise.all(featuresList.map(featureName => {
-					return polyfillio.describePolyfill(featureName).then(config => ({[featureName]: config}) );
-				})).then(featureObjs => Object.assign({}, ...featureObjs));
+				const featureObjs = featuresList.map(featureName => {
+					const config = polyfillio.describePolyfill(featureName);
+					return { [featureName]: config };
+				});
+
+				return Object.assign({}, ...featureObjs);
 			})
 			.then(polyfillSet => {
 
