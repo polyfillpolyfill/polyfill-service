@@ -6,13 +6,13 @@
 
 		<h1>Features and browsers supported</h1>
 
-		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the Tests link in the feature list.  The results below are generated using browsers hosted by <a href='https://www.saucelabs.com'>Sauce Labs</a>.</p>
+		<p>We test browser support with a test suite for each feature.  A browser is considered compliant only if it passes all the tests, so this is a reasonably comprehensive test rather than a naive feature-detect.  To view the test suite for a feature in the browser you're using right now, click the Tests link in the feature list.  The results below are generated using browsers hosted by <a href='https://www.browserstack.com'>BrowserStack</a>.</p>
 
 		<h2 id='feature-list'>Feature list</h2>
 
-		<div class="o-forms">
+		<div class="o-forms o--if-js">
 			<label for="filter-features" class="o-forms-label">Filter features</label>
-			<input id="filter-features" type="text" class="o-forms-text o-forms-text--small" value="" placeholder="Type to filter by name"></input>
+			<input id="filter-features" type="text" class="o-forms-text o-forms-text--small" value="" placeholder="Type to filter by name"/>
 		</div>
 
 		<table class='compatibility compatibility--data'>
@@ -51,7 +51,7 @@
 									{{#if licenseIsUrl }}
 									<li class='license license-proprietary'><a title='This polyfill has a specific licence' href='{{license}}'><i class='fa fa-warning'></i> Proprietary license</a></li>
 									{{else}}
-									<li class='license'><a title='This polyfill has a specific licence' href='http://choosealicense.com/licenses/{{lower license}}'>License: {{license}}</a></li>
+									<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{lower license}}'>License: {{license}}</a></li>
 									{{/if}}
 								{{/if}}
 								{{#if hasTests}}<li><a href='/test/tests?feature={{feature}}'>Run tests</a></li>{{/if}}

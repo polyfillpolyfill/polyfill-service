@@ -13,7 +13,7 @@
 		"bb": "*",
 		"chrome": "1 - 44",
 		"firefox": "1 - 33",
-		"ie": "<14",
+		"ie": "<13",
 		"ie_mob": "*",
 		"ios_chr": "*",
 		"ios_saf": "<9",
@@ -22,7 +22,7 @@
 		"op_mini": "*",
 		"safari": "1 - 8",
 		"firefox_mob": "1 - 33",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
 }

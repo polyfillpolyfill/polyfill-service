@@ -44,7 +44,7 @@ function initCharts() {
 		));
 		drawFns[drawFns.length-1]();
 	});
-	
+
 	google.charts.setOnLoadCallback(function() {
 		var chartel = document.getElementById('chart-hitratio');
 		if (!chartel) return;
@@ -162,12 +162,17 @@ function initNotesToggles() {
 
 function initFeatureFilter() {
 	var filterInput = document.getElementById('filter-features');
+	var featuresCache = {};
 	var featuresRows;
 
-	if (filterInput) {
-		featuresRows = document.querySelectorAll('[data-feature-name]');
-		filterInput.addEventListener('keyup', filterFeatures);
-	}
+	if (!filterInput) return;
+
+	featuresRows = document.querySelectorAll('tr.feature');
+	Array.from(featuresRows).forEach(function (el) {
+		featuresCache[el.getAttribute('data-feature-name')] = el;
+	});
+	filterInput.addEventListener('keyup', filterFeatures);
+	filterInput.addEventListener('paste', filterFeatures);
 
 	function resetFeaturesList() {
 		return Array.from(featuresRows).forEach(function(el) {
@@ -176,16 +181,19 @@ function initFeatureFilter() {
 	}
 
 	function filterFeatures(e) {
-		var inputVal = e.currentTarget.value.toUpperCase();
+		var inputVal = e.target.value;
+
+		if (e.type === 'paste') {
+			var clipboardData = e.clipboardData || window.clipboardData;
+			inputVal = clipboardData.getData('Text');
+		}
 
 		if (inputVal === '') resetFeaturesList();
 
-		Array.from(featuresRows).forEach(function(el) {
-			if (el.getAttribute('data-feature-name').toUpperCase().indexOf(inputVal) > -1) {
-				el.removeAttribute('aria-hidden');
-			} else {
-				el.setAttribute('aria-hidden', true);
-			}
+		Object.keys(featuresCache).map(function (key) {
+			var featureEl = featuresCache[key];
+			return (featureEl.getAttribute('data-feature-name').toUpperCase().indexOf(inputVal.toUpperCase()) > -1) ?
+				featureEl.removeAttribute('aria-hidden') : featureEl.setAttribute('aria-hidden', true);
 		});
 	}
 }

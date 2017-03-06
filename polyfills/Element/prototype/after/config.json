@@ -8,7 +8,7 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "<55",
+		"chrome": "<54",
 		"firefox": "<49",
 		"ios_chr": "*",
 		"ios_saf": "<10",
@@ -23,7 +23,6 @@
 	"dependencies": [
 		"Document",
 		"Element",
-		"Text",
 		"_mutation"
 	],
 	"spec": "http://dom.spec.whatwg.org/#dom-childnode-after",
