@@ -113,7 +113,7 @@ The Financial Times and Fastly host a public version of this service on [polyfil
 1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
 1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
 1. Push the commits and tags to the git remote. - `git push origin master --tags`
-1. Deploy to [QA](http://qa.polyfill.io). - `npm run deploy`
+1. Deploy to [QA](https://qa.polyfill.io). - `npm run deploy`
 1. Announce the release on twitter
 1. Wait some number of days for feedback (usually 7 days). If necessary, make fixes and return to step 1
 1. Tag the commit/package using npm's version command, using the same semver level as you used for the `pre` versions. - `npm version {major | minor | patch}`
