@@ -9,7 +9,7 @@
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
-		"opera": "*",
+		"opera": "<32",
 		"safari": "* - 7.1",
 		"ios_saf": "* - 8.0",
 		"ios_chr": "* - 8.0",

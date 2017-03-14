@@ -4426,7 +4426,7 @@
       "4.2": "missing",
       "5.1": "native",
       "4.4": "polyfilled",
-      "4.3": "missing"
+      "4.3": "polyfilled"
     },
     "safari": {
       "8": "native",
@@ -6511,6 +6511,210 @@
     "ios_saf": {
       "9.1": "native",
       "9.2": "native"
+    }
+  },
+  "MutationObserver": {
+    "chrome": {
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
+    },
+    "safari": {
+      "8": "native",
+      "9": "native",
+      "5.1": "native"
+    },
+    "android": {
+      "4.3": "native",
+      "4.4": "native",
+      "4.2": "native"
+    },
+    "ie": {
+      "7": "native",
+      "8": "native",
+      "9": "native",
+      "10": "native",
+      "11": "native",
+      "13": "native",
+      "14": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Number.parseFloat": {
+    "chrome": {
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.3": "polyfilled",
+      "4.4": "polyfilled",
+      "4.2": "polyfilled"
+    },
+    "ie": {
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "native",
+      "14": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Number.parseInt": {
+    "chrome": {
+      "35": "native",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "native",
+      "33": "native",
+      "41": "native",
+      "42": "native",
+      "44": "native",
+      "49": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.3": "polyfilled",
+      "4.4": "polyfilled",
+      "4.2": "polyfilled"
+    },
+    "ie": {
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "native",
+      "14": "native"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Promise.prototype.finally": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "54": "polyfilled"
+    },
+    "firefox": {
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled",
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "missing"
+    },
+    "android": {
+      "4.3": "missing",
+      "4.4": "missing",
+      "4.2": "missing"
+    },
+    "ie": {
+      "7": "missing",
+      "8": "missing",
+      "9": "missing",
+      "10": "missing",
+      "11": "missing",
+      "13": "polyfilled",
+      "14": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "Object.entries": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "54": "native"
+    },
+    "firefox": {
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled",
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.3": "polyfilled",
+      "4.4": "polyfilled",
+      "4.2": "polyfilled"
+    },
+    "ie": {
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "polyfilled",
+      "14": "native"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "Object.entries (timeout after 30000ms, 2 retries)": {
+    "ie": {
+      "7": "missing",
+      "8": "missing"
     }
   }
 }
