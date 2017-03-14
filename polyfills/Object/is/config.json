@@ -10,7 +10,7 @@
 		"firefox": "3.6 - 21",
 		"ie": "*",
 		"ie_mob": "10 - *",
-		"opera": "*",
+		"opera": "<32",
 		"op_mini": "*",
 		"op_mob": "*",
 		"safari": "*",

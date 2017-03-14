@@ -12,6 +12,6 @@
 	"browsers": {
 		"ie": "6 - 8"
 	},
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.indexof",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.indexof",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf"
 }

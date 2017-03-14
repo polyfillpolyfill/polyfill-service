@@ -192,7 +192,7 @@ class Polyfill {
             // skipping any validation or minification process since
             // the raw source is supposed to be production ready.
             // Add a line break in case the final line is a comment
-            return { raw, min: source + '\n' };
+            return { raw: raw + '\n', min: source + '\n' };
         }
         else {
             validateSource(source, `${this.name} from ${this.sourcePath}`);
