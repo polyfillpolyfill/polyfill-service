@@ -11,6 +11,9 @@
 	"browsers": {
 		"ie": "6 - 7",
 		"safari": "4",
+		"chrome": "<55",
+		"firefox": "<51",
+		"ios_saf": "<10",
 		"samsung_mob": "<5"
 	},
 	"dependencies": [

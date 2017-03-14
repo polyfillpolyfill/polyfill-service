@@ -9,7 +9,7 @@
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
-		"opera": "*",
+		"opera": "<32",
 		"safari": "* - 7.1",
 		"ios_saf": "* - 8.0",
 		"ios_chr": "* - 8.0",
@@ -20,6 +20,6 @@
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.find",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.find",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
 }
