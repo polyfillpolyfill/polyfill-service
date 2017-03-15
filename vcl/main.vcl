@@ -3,6 +3,7 @@ import boltsort;
 sub vcl_recv {
 #FASTLY recv
 
+	# Enable API key authentication for URL purge requests
 	if ( req.request == "FASTLYPURGE" ) {
 		set req.http.Fastly-Purge-Requires-Auth = "1";
 	}
@@ -11,18 +12,16 @@ sub vcl_recv {
 		return(pass);
 	}
 
-	if (!req.http.Fastly-SSL) {
-		if (req.http.Host == "cdn.polyfill.io" || req.http.Host == "polyfill.io") {
-			error 751 "Redirect to prod HTTPS";
-		}
-		if (req.http.Host == "qa.polyfill.io") {
-			error 752 "Redirect to QA HTTPS";
-		}
-	}
-
 	if (req.http.Host ~ "polyfills.io") {
+		# Do the canonicalise check before the SSL check to avoid a double redirect
 		error 751 "Canonicalise";
 	}
+
+	if (!req.http.Fastly-SSL) {
+		# 801 is a special error code that Fastly uses to Force SSL on the request
+		error 801 "Redirect to prod HTTPS";
+	}
+
 
 	if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
@@ -85,10 +84,10 @@ sub vcl_error {
 #FASTLY error
 
 	# Redirect to canonical prod/qa origins
-	if (obj.status == 751 || obj.status == 752) {
+	if (obj.status == 751) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
-		set obj.http.Location = "https://" if(obj.status == 751, "", "qa.") "polyfill.io" req.url;
+		set obj.http.Location = "https://polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
 	}
