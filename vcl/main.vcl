@@ -92,6 +92,10 @@ sub vcl_deliver {
 		add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
 	}
 
+	if (req.http.Fastly-Debug) {
+		set resp.http.Debug-Host = req.http.Host;
+	}
+
 	return(deliver);
 }
 
