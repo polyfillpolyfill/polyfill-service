@@ -52,6 +52,9 @@ if (!existsSync(LocalesPolyfillOutput)) {
 // customizing the config to add intl as a dependency
 configSource.dependencies.push('Intl');
 
+// don't test every single locale - it will be too slow
+configSource.test = { ci: false };
+
 const configFileSource = JSON.stringify(configSource, null, 4);
 
 function intlLocaleDetectFor(locale) {
