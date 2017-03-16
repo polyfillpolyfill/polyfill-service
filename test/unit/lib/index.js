@@ -29,7 +29,7 @@ describe("polyfillio", () => {
 
 
 	beforeEach(() => {
-		fs = require('../mock/fs.mock');
+		fs = require('../mock/graceful-fs.mock');
 		mockery.registerMock('graceful-fs', fs);
 
 		path = require('../mock/path.mock');

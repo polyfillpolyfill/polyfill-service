@@ -19,8 +19,8 @@ describe('lib/sources', () => {
 		denodeify = require('../mock/denodeify.mock');
 		mockery.registerMock('denodeify', denodeify);
 
-		fs = require('../mock/fs.mock');
-		mockery.registerMock('fs', fs);
+		fs = require('../mock/graceful-fs.mock');
+		mockery.registerMock('graceful-fs', fs);
 		fs.readdirSync.returns([]);
 
 		process = require('../mock/process.mock');
@@ -38,6 +38,7 @@ describe('lib/sources', () => {
 
 	it('exports an object', () => {
 		sources = require('../../../lib/sources');
+		console.log(sources)
 		assert.isObject(sources);
 	});
 
