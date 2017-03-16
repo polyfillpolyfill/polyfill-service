@@ -1,8 +1,6 @@
 'use strict';
 
-require('dotenv').config({
-	silent: true
-});
+require('dotenv').config();
 
 const path = require('path');
 const wd = require('wd');
@@ -319,6 +317,7 @@ Promise.resolve()
 			console.log(cli.bold.white('\nFailures:'));
 			jobs.forEach(job => {
 				if (job.results && job.results.failed) {
+					console.log(' - ' + job.ua + ':');
 					Object.keys(job.results.failingSuites).forEach(feature => {
 						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + feature;
 						console.log('    -> ' + feature);
