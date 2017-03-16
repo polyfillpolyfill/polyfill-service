@@ -35,19 +35,34 @@ sub vcl_recv {
 
 	set req.url = boltsort.sort(req.url);
 
+	declare local var.isQA BOOL;
+
+	set var.isQA = (req.http.host == "qa.polyfill.io");
 
 	if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
 		set req.backend = origami_polyfill_service_us;
+		set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
 
 		if (!req.backend.healthy) {
 			set req.backend = origami_polyfill_service_eu;
+			set req.http.Host = "ft-polyfill-service.herokuapp.com";
 		}
 
 	} else {
 		set req.backend = origami_polyfill_service_eu;
+		set req.http.Host = "ft-polyfill-service.herokuapp.com";
 
 		if (!req.backend.healthy) {
 			set req.backend = origami_polyfill_service_us;
+			set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
+		}
+	}
+
+	if (var.isQA) {
+		if (req.backend == origami_polyfill_service_us) {
+			set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
+		} else {
+			set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
 		}
 	}
 
@@ -75,6 +90,10 @@ sub vcl_deliver {
 
 	if (req.url ~ "[\&\?]rum=1") {
 		add resp.http.Set-Cookie = "FastlyDC=" server.datacenter "; Path=/; HttpOnly; max-age=60";
+	}
+
+	if (req.http.Fastly-Debug) {
+		set resp.http.Debug-Host = req.http.Host;
 	}
 
 	return(deliver);
