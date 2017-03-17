@@ -27,6 +27,11 @@ describe("UA", () => {
 			proclaim.equal(test, "ie/12.10130.0");
 		});
 
+		it("should resolve wkwebview to the iOS family", () => {
+			const test = UA.normalize("Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27");
+			proclaim.equal(test, "ios_saf/10.2.0");
+		});
+
 		it("should resolve Facebook iOS App to the version of iOS it is running within", () => {
 			let test = UA.normalize("Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 [FBAN/FBIOS;FBAV/6.0.1;FBBV/180945;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.0.1;FBSS/1; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
 			proclaim.equal(test, "ios_saf/6.0.0");
