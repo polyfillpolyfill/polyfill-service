@@ -66,6 +66,19 @@ sub vcl_recv {
 		}
 	}
 
+	if (req.http.Fastly-Orig-Accept-Encoding) {
+		if (req.http.User-Agent ~ "MSIE 6") {
+			# For that 0.3% of stubborn users out there
+			unset req.http.Accept-Encoding;
+		} elsif (req.http.Fastly-Orig-Accept-Encoding ~ "br") {
+			set req.http.Accept-Encoding = "br";
+		} elsif (req.http.Fastly-Orig-Accept-Encoding ~ "gzip") {
+			set req.http.Accept-Encoding = "gzip";
+		} else {
+			unset req.http.Accept-Encoding;
+		}
+	}
+
 	return(lookup);
 }
 
