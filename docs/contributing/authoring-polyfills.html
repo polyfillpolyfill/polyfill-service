@@ -52,9 +52,9 @@
 			</li>
 			<li><code>install</code>: Object, used to specify how to install the third-party polyfill into the polyfill-service.
 				<ul>
-					<li><code>module</code>: String, name of the package on NPMJS to install.</li>
+					<li><code>module</code>: String, name of the package on NPMJS to install. Must be available in the project's dependencies (so add it to <code>dependencies</code> collection in <code>package.json</code>)</li>
 					<li><code>paths</code>: Array, paths of the files inside the package to combine together to create the polyfill. If not included, defaults to the packages default entry point.</li>
-					<li><code>postinstall</code>: String, path to a javascript module to execute after creating the polyfill. This can be used to create any helper files for the polyfill.</li>
+					<li><code>postinstall</code>: String, path to a javascript file to execute after creating the polyfill. This can be used to create any helper files for the polyfill.</li>
 				</ul>
 			</li>
 		</ul>
@@ -94,9 +94,9 @@
 				<li>must not contain any polyfills for features other than the one it is intended to provide.  For example, many polyfills depend on <code>Object.defineProperty</code>, but <em>must not</em> embed a polyfill for it</li>
 			</ul></li>
 			<li><strong>third party polyfills</strong> are maintained elsewhere can be identified by the presence of a <code>repo</code> property in their config.  Third party polyfills:<ul>
+				<li>should be installed using the <code>install</code> directive in <code>config.json</code> (see <a href='#configuration'>Configuration</a>)</li>
 				<li>must not be modified from their original source (even stylistically) except where we have to in order to make the polyfill work in the context of the polyfill service (and where that modification doesn't make sense to the polyfill outside of the polyfill service).  All other desired changes must be made upstream;</li>
-				<li>should have an update task to check the source repo and update the polyfill service version</li>
-				<li>may have their own license terms, in which case a <code>license</code> property must be present in their config (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
+				<li>may have their own license terms, in which case a <code>license</code> property must be present in the config.json (which must be CC0, MIT, BSD or the URL of a compatible license);</li>
 				<li>may contain embedded polyfills for things for which we already have polyfills in the service, and in general, these should be left as they are in order to maintain sync with the upstream repo, even though we could make the polyfill smaller.  Ideally, we should encourage the polyfill author to remove the embedded dependencies;</li>
 				<li>may contain a feature detect.  Ideally they wouldn't, because the service will wrap the polyfill in a detect, but we'll tolerate a detect in order to maintain sync with the upstream source, provided that it is strict enough to fail in the case of broken implementations, as well as missing ones.</li>
 			</ul></li>
@@ -126,18 +126,18 @@
 
 		<h2 id='update-tasks'>Update tasks for 3rd party polyfills</h2>
 
-		<p>If a polyfill comes from a third party source, it's a good idea to write an update task that can be run to import the latest version of the polyfill code from its master repo.  An update task is called <code>update.task.js</code> and lives alongside the <code>polyfill.js</code> and <code>config.json</code> files. It must complete its work synchronously.  Example:</p>
+		<p>If a polyfill comes from a third party source, you can automatically install it by creating the appropriate <code>install</code> section in the <code>config.json</code> file.  You should avoid committing third party polyfill sources into the polyfill service.  If the third party source needs to be modified from the upstream form, and we cannot push that modification upstream, you can create a <code>postinstall</code> task to complete whatever additional work is needed.  This task should be in a JavaScript file that is conventionally called <code>update.task.js</code> and lives alongside the <code>polyfill.js</code> and <code>config.json</code> files. It must complete its work synchronously.  Example:</p>
 
 		<pre><code>'use strict';
-var path = require('path');
-var fs = require('fs');
-// ... download/import latest source here
+cost fs = require('fs');
+const srccode = fs.readFileSync('./polyfill.js');
+
 // ... do any required source modification
-var newSource = 'test';
-fs.writeFileSync(path.join(__dirname, 'polyfill.js'), newSource);
+
+fs.writeFileSync('./polyfill.js', srccode);
 </code></pre>
 
-		<p>Often changes are required (or desirable) to support the format of polyfills needed by the polyfill service, for example:</p>
+		<p>Sometimes changes are required (or desirable) to support the format of polyfills needed by the polyfill service, for example:</p>
 
 		<ul>
 			<li><strong>Private dependencies:</strong> some polyfill authors will create polyfill collections that abstract common tasks into shared functions that are not themselves public web platform APIs.  The polyfill service supports this via private polyfills (which are prefixed <code>_</code>), and will import and declare them in the parent scope so that the polyfill can consider them to be globals.  Polyfills may therefore need to be amended to remove import or require statements (or to provide an import or require implementation that will satisfy them), and to provide the necessary dependency via other means (either as a separate private polyfill or by inlining it)</li>
