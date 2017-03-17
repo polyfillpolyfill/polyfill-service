@@ -49,7 +49,7 @@
 					value: {}
 				});
 			} catch (e) {
-				o.internalSymbol = {};
+				o[internalSymbol] = {};
 			}
 		}
 		o[internalSymbol]['@@' + uid] = enumerable;
@@ -133,9 +133,15 @@
 			defineProperty(o, key, descriptor);
 		}
 		return o;
+	};
+
+	var onlyInternalSymbols = function (obj) {
+		return function (name) {
+			return hOP.call(obj, internalSymbol) && hOP.call(obj[internalSymbol], '@@' + name);
 		};
+	};
 	var $getOwnPropertySymbols = function getOwnPropertySymbols(o) {
-		return gOPN(o).filter(onlySymbols).map(sourceMap);
+		return gOPN(o).filter(o === ObjectProto ? onlyInternalSymbols(o) : onlySymbols).map(sourceMap);
 		}
 	;
 
@@ -216,7 +222,9 @@
 		var protoDescriptor = gOPD(ObjectProto, key);
 		delete ObjectProto[key];
 		defineProperty(o, key, descriptor);
-		defineProperty(ObjectProto, key, protoDescriptor);
+		if (o !== ObjectProto) {
+			defineProperty(ObjectProto, key, protoDescriptor);
+		}
 	};
 
 }(Object, 'getOwnPropertySymbols', this));
