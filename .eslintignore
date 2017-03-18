@@ -25,3 +25,4 @@ polyfills/UserTiming/polyfill.js
 polyfills/WeakSet/polyfill.js
 polyfills/~html5-elements/polyfill.js
 tasks/**/node_modules
+polyfills/fetch/polyfill.js
