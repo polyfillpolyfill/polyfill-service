@@ -4,11 +4,16 @@ const express = require('express');
 const path = require('path');
 const Raven = require('raven');
 const morgan = require('morgan');
+const shrinkRay = require('shrink-ray');
 
 const app = express().enable("strict routing");
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
 const one_year = one_day * 365;
+
+app.use(shrinkRay({
+  brotli: {quality: 11}
+}));
 
 let ravenClient;
 
