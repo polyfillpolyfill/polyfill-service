@@ -66,6 +66,7 @@ sub vcl_recv {
 		}
 	}
 
+	# https://community.fastly.com/t/brotli-compression-support/578/6
 	if (req.http.Fastly-Orig-Accept-Encoding) {
 		if (req.http.User-Agent ~ "MSIE 6") {
 			# For that 0.3% of stubborn users out there
