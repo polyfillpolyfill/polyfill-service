@@ -50,7 +50,7 @@
     "node": ">6.0.0"
   },
   "dependencies": {
-    "@webcomponents/custom-elements": "github:webcomponents/custom-elements#v1.0.0-alpha.4",
+    "@webcomponents/custom-elements": "github:webcomponents/custom-elements#v1.0.0-rc.1",
     "Base64": "^1.0.0",
     "array.of": "^0.1.1",
     "audio-context-polyfill": "^1.0.0",
