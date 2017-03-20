@@ -5,7 +5,7 @@
 		"android": "4.4 - *",
 		"bb": "7 - 10",
 		"chrome": "<51",
-		"firefox": "<52",
+		"firefox": "*",
 		"firefox_mob": "47 - *",
 		"ie": "7 - *",
 		"ie_mob": "11 - *",
