@@ -14,5 +14,8 @@
 		"ios_saf": "<10",
 		"firefox_mob": "<48"
 	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padEnd"
 }
