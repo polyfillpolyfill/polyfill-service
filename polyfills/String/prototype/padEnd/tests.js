@@ -19,6 +19,6 @@ it('works with strings', function () {
 	proclaim.equal('a'.padEnd(5, 5), 'a5555');
 	proclaim.equal('a'.padEnd(5, { nil: 0 }), 'a[obj');
 	proclaim.equal('a'.padEnd(5, [0, 1, 2]), 'a0,1,');
-	proclaim.equal('a'.padEnd(10, [0, "hello!", 2]), 'a0,hello,');
+	proclaim.equal('a'.padEnd(10, [0, "hello!", 2]), 'a0,hello!,');
 	proclaim.equal('a'.padEnd(10), 'a         ');
 });

@@ -19,6 +19,6 @@ it('works with strings', function () {
 	proclaim.equal('a'.padStart(5, 5), '5555a');
 	proclaim.equal('a'.padStart(5, { nil: 0 }), '[obja'); // String(x:Object) = [object Object]
 	proclaim.equal('a'.padStart(5, [0, 1, 2]), '0,1,a');  // String(x:Array)  = x.toString()
-	proclaim.equal('a'.padStart(10, [0, "hello!", 2]), '0,hello,a');
+	proclaim.equal('a'.padStart(10, [0, "hello!", 2]), '0,hello!,a');
 	proclaim.equal('a'.padStart(10), '         a');
 });
