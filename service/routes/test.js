@@ -4,7 +4,7 @@
 
 const polyfillio = require('../../lib');
 const express = require('express');
-const fs = require('fs');
+const fs = require('graceful-fs');
 const path = require('path');
 
 const router = express.Router();  // eslint-disable-line new-cap

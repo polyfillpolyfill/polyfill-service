@@ -4,11 +4,16 @@ const express = require('express');
 const path = require('path');
 const Raven = require('raven');
 const morgan = require('morgan');
+const shrinkRay = require('shrink-ray');
 
 const app = express().enable("strict routing");
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
 const one_year = one_day * 365;
+
+app.use(shrinkRay({
+  brotli: {quality: 11}
+}));
 
 let ravenClient;
 
@@ -31,12 +36,26 @@ if (process.env.SENTRY_DSN) {
 	app.use(Raven.middleware.express.requestHandler(ravenClient));
 }
 
+// Do not send the X-Powered-By header.
+app.disable("x-powered-by");
+
 // Default response headers
 app.use((req, res, next) => {
-	res.set('Strict-Transport-Security', `max-age=${one_year}`);
+
+	// Ensure our site is only served over TLS and reduce the chances of someone performing a MITM attack.
+	res.set('Strict-Transport-Security', `max-age=${one_year}; includeSubdomains; preload`);
+
+	// Enables the cross-site scripting filter built into most modern web browsers.
+	res.set('X-XSS-Protection', `1; mode=block`);
+
+	// Prevents MIME-sniffing a response away from the declared content type.
+	res.set('X-Content-Type-Options', `nosniff`);
+
+	// Prevents clickjacking by prohibiting our site from being included on other domains in an iframe.
+	res.set('X-Frame-Options', `sameorigin`);
+
 	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
 	res.set('Timing-Allow-Origin', '*');
-	res.removeHeader("x-powered-by");
 	return next();
 });
 
