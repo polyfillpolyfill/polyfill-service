@@ -12,7 +12,8 @@ backend origami_polyfill_service_us {
         .threshold = 1;
         .timeout = 5s;
         .initial = 1;
-        .dummy = true;
+        .expected_response = 200;
+        .interval = 30s;
     }
 }
 
@@ -30,6 +31,7 @@ backend origami_polyfill_service_eu {
         .threshold = 1;
         .timeout = 5s;
         .initial = 1;
-        .dummy = true;
+        .expected_response = 200;
+        .interval = 30s;
     }
 }
