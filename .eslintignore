@@ -10,6 +10,7 @@ polyfills/Array/prototype/values/polyfill.js
 polyfills/atob/polyfill.js
 polyfills/AudioContext/polyfill.js
 polyfills/fetch/polyfill.js
+polyfills/EventSource/polyfill.js
 polyfills/Function/prototype/bind/polyfill.js
 polyfills/HTMLPictureElement/polyfill.js
 polyfills/IntersectionObserver/polyfill.js

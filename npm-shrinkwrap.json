@@ -673,6 +673,11 @@
       "from": "event-emitter@>=0.3.4 <0.4.0",
       "resolved": "https://registry.npmjs.org/event-emitter/-/event-emitter-0.3.5.tgz"
     },
+    "event-source-polyfill": {
+      "version": "0.0.9",
+      "from": "event-source-polyfill@>=0.0.9 <0.0.10",
+      "resolved": "https://registry.npmjs.org/event-source-polyfill/-/event-source-polyfill-0.0.9.tgz"
+    },
     "exists-sync": {
       "version": "0.0.4",
       "from": "exists-sync@0.0.4",
