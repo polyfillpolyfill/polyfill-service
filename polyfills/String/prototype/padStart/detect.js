@@ -1,0 +1,1 @@
+'padStart' in String.prototype
