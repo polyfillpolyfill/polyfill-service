@@ -152,11 +152,13 @@ describe("polyfillio", () => {
 
 				assert.notCalled(sourceslib.listPolyfillsSync);
 
-				// Second argument to createAliasResolver contains the aliasAll function we are testing
-				const aliasAll = createAliasResolver.firstCall.args[1];
+				return polyfillio.getPolyfills({}).then(() => {
+					// Second argument to createAliasResolver contains the aliasAll function we are testing
+					const aliasAll = createAliasResolver.firstCall.args[1];
 
-				aliasAll('all');
-				assert.calledOnce(sourceslib.listPolyfillsSync);
+					aliasAll('all');
+					assert.calledOnce(sourceslib.listPolyfillsSync);
+				});
 			});
 		});
 
@@ -169,11 +171,13 @@ describe("polyfillio", () => {
 
 				assert.notCalled(sourceslib.listPolyfillsSync);
 
-				// Second argument to createAliasResolver contains the aliasAll function we are testing
-				const aliasAll = createAliasResolver.firstCall.args[1];
+				return polyfillio.getPolyfills({}).then(() => {
+					// Second argument to createAliasResolver contains the aliasAll function we are testing
+					const aliasAll = createAliasResolver.firstCall.args[1];
 
-				aliasAll('es6');
-				assert.notCalled(sourceslib.listPolyfillsSync);
+					aliasAll('es6');
+					assert.notCalled(sourceslib.listPolyfillsSync);
+				});
 			});
 		});
 
