@@ -38,7 +38,6 @@ describe('lib/sources', () => {
 
 	it('exports an object', () => {
 		sources = require('../../../lib/sources');
-		console.log(sources)
 		assert.isObject(sources);
 	});
 
