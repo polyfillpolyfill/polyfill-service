@@ -8,46 +8,6 @@ const polyfillio = require('../../../lib/index');
 describe("polyfillio", () => {
 	describe(".getPolyfills(features)", () => {
 
-		it("should remove features not appropriate for the current UA", () => {
-			const input = {
-				features: {
-					'Array.prototype.map': {}
-				},
-				uaString: 'chrome/38'
-			};
-			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), {}));
-		});
-
-		it("should respect the always flag", () => {
-			const input = {
-				features: {
-					'Array.prototype.map': { flags: new Set(['always']) }
-				},
-				uaString: 'chrome/38'
-			};
-			const expectedResult = {
-				'Array.prototype.map': { flags:['always'] }
-			};
-			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), expectedResult));
-		});
-
-		it("should include dependencies", () => {
-			const input = {
-				features: {
-					'Element.prototype.placeholder': { flags: new Set() }
-				},
-				uaString: 'ie/8'
-			};
-			const expectedResult = {
-				'Element.prototype.placeholder': { flags:[] },
-				'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
-				'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
-				'Element': { flags: [], aliasOf: ['Element.prototype.placeholder', 'document.querySelector'] },
-				'Document': { flags: [], aliasOf: ['Element', 'Element.prototype.placeholder', 'document.querySelector'] }
-			};
-			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), expectedResult));
-		});
-
 		it("should not include unused dependencies", () => {
 			const input = {
 				features: {
