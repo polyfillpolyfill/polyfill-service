@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-require('dotenv').config({silent: true});
+require('dotenv').config();
 
 const packageJSON = require('../package.json');
 const startService = require('../service');

@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config({silent: true});
+require('dotenv').config();
 
 const argv = require('minimist')(process.argv.slice(2));
 

@@ -10,7 +10,7 @@ const router = express.Router();  // eslint-disable-line new-cap
 const serviceInfo = Object.assign({}, require(path.join(__dirname, '../../about.json')), {
 	appVersion: require(path.join(__dirname,'../../package.json')).version,
 	hostname: require("os").hostname(),
-	dateDeployed: require('fs').statSync(path.join(__dirname,'../../package.json')).mtime
+	dateDeployed: require('graceful-fs').statSync(path.join(__dirname,'../../package.json')).mtime
 });
 
 // Allow robots to index the site, including polyfill bundles,
