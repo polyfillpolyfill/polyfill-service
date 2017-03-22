@@ -98,7 +98,7 @@ describe('lib/sources', () => {
 		const error = new Error;
 		fs.readdirSync.throws(error);
 		assert.doesNotThrow(() => require('../../../lib/sources'));
-		assert.calledWithExactly(consoleMock.log, "No polyfill sources found.  Run `npm run build` to build them");
+		assert.calledOnce(consoleMock.log);
 		assert.calledWithExactly(process.exit, 1);
 	});
 
