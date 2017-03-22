@@ -11,6 +11,8 @@ const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;
 const one_year = one_day * 365;
 
+app.get('/_____ping_____', (req, res) => res.send('ok'));
+
 app.use(shrinkRay({
   brotli: {quality: 11}
 }));
