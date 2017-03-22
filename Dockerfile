@@ -10,7 +10,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 ADD package.json npm-shrinkwrap.json /app/
-RUN npm install --silent
+RUN npm install --silent --production && npm cache clean
 
 ADD bin/ /app/bin/
 ADD lib/ /app/lib/
