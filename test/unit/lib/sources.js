@@ -76,10 +76,6 @@ describe('lib/sources', () => {
 		assert.isFunction(sources.getPolyfill);
 	});
 
-	it.skip('loads the polyfill aliases file', () => {
-		// TODO
-	});
-
 	it('reads the polyfill directory', () => {
 		pathMock.join.returnsArg(1);
 		sources = require('../../../lib/sources');
