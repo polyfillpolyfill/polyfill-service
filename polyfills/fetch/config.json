@@ -24,7 +24,8 @@
 		"Makes use of FormData, FileReader and Blob if they exist. Readable streams not supported."
 	],
 	"install": {
-		"module": "whatwg-fetch"
+		"module": "whatwg-fetch",
+		"postinstall": "update.task.js"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
 }
