@@ -82,7 +82,7 @@ if (process.env.SENTRY_DSN) {
 function startService(port, callback) {
 	callback = callback || function() {};
 
-	app
+	app.server = app
 		.listen(port, function (err) {
 			callback(err, app);
 		})
