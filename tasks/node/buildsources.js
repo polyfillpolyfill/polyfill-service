@@ -125,7 +125,9 @@ class Polyfill {
                     throw `Incorrect spelling of license property in ${this.name}`;
                 }
 
-                this.config.hasTests = fs.existsSync(path.join(this.path.absolute, 'tests.js'));
+				this.config.hasTests = fs.existsSync(path.join(this.path.absolute, 'tests.js'));
+				this.config.isTestable = !('test' in this.config && 'ci' in this.config.test && this.config.test.ci === false);
+				this.config.isPublic = this.name.indexOf('_') !== 0;
 
                 if (fs.existsSync(this.detectPath)) {
                     this.config.detectSource = fs.readFileSync(this.detectPath, 'utf8').replace(/\s*$/, '') || '';
