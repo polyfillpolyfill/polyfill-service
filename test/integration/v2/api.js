@@ -15,6 +15,8 @@ describe('GET /v2/polyfill.js', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 
 	it('responds with valid javascript', function() {
 		return this.request.expect(response => {
@@ -29,6 +31,8 @@ describe('GET /v2/polyfill.min.js', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 
 	it('responds with valid javascript', function() {
 		return this.request.expect(response => {
@@ -45,6 +49,8 @@ describe('GET /v2/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&f
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 
 	it('responds with valid javascript', function() {
 		return this.request.expect(response => {
@@ -60,6 +66,8 @@ describe('GET /v2/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 
 	it('responds with valid javascript', function() {
 		return this.request.expect(response => {

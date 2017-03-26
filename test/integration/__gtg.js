@@ -13,6 +13,7 @@ describe('GET /__gtg', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/plain');
 	itRespondsWithHeader('cache-control', 'no-cache');
+	itRespondsWithHeader('surrogate-control', 'no-cache');
 
 	it('responds with OK', function() {
 		return this.request.expect(response => {

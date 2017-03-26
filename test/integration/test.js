@@ -12,6 +12,8 @@ describe('GET /test/test', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/test/', function () {
@@ -19,6 +21,8 @@ describe('GET /test/test/', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/tests', function() {
@@ -26,6 +30,8 @@ describe('GET /test/tests', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/tests/', function() {
@@ -33,6 +39,8 @@ describe('GET /test/tests/', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/libs/mocha/mocha.css', function() {
@@ -40,6 +48,8 @@ describe('GET /test/libs/mocha/mocha.css', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/css');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/libs/mocha/mocha.js', function () {
@@ -47,6 +57,8 @@ describe('GET /test/libs/mocha/mocha.js', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/libs/proclaim/proclaim.js', function () {
@@ -54,6 +66,8 @@ describe('GET /test/libs/proclaim/proclaim.js', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/director/', function() {
@@ -61,6 +75,8 @@ describe('GET /test/director/', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/director/', function() {
@@ -68,6 +84,8 @@ describe('GET /test/director/', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
 describe('GET /test/director/', function() {
@@ -75,4 +93,6 @@ describe('GET /test/director/', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'no-store');
+	itRespondsWithHeader('surrogate-control', 'no-store');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });

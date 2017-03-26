@@ -3,9 +3,6 @@
 'use strict';
 
 const assert = require('proclaim');
-const itRespondsWithContentType = require('../helpers/it-responds-with-content-type');
-const itRespondsWithHeader = require('../helpers/it-responds-with-header');
-const itRespondsWithStatus = require('../helpers/it-responds-with-status');
 const setupRequest = require('../helpers/setup-request');
 
 const vm = require('vm');
