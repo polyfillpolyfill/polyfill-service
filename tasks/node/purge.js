@@ -44,6 +44,6 @@ fastly.key(FASTLY_SERVICE_ID, key, {
 		console.error(`Failed to purge endpoints. ${error}`);
 		process.exit(1);
 	} else {
-		console.log(`Purged key: ${key} from ${PRODUCTION ? 'production' : 'qa'} service - ${FASTLY_SERVICE_ID}`);
+		console.log(`Purged key: ${key} from ${PRODUCTION ? 'production' : 'qa'} service - https://manage.fastly.com/dashboard/services/${FASTLY_SERVICE_ID}/datacenters/all`);
 	}
 });
