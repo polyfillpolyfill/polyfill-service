@@ -54,6 +54,7 @@ router.get('/__health', (req, res) => {
 	};
 
 	res.set('Cache-Control', 'no-cache');
+	res.set('Surrogate-Control', 'no-cache');
 	res.type('application/json;charset=utf-8');
 	res.json(info);
 });

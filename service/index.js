@@ -54,7 +54,8 @@ app.use((req, res, next) => {
 	// Prevents clickjacking by prohibiting our site from being included on other domains in an iframe.
 	res.set('X-Frame-Options', `sameorigin`);
 
-	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
+	res.set('Cache-Control', 'public, max-age=' + one_week + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+	res.set('Surrogate-Control', 'public, max-age=' + one_year + ', stale-while-revalidate=' + one_year + ', stale-if-error=' + one_year);
 	res.set('Timing-Allow-Origin', '*');
 	return next();
 });
