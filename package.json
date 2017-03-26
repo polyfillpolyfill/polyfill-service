@@ -112,6 +112,7 @@
     "diff": "^3.2.0",
     "eslint": "^3.11.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
+    "fastly-purge": "^1.0.1",
     "gaze": "^1.1.2",
     "graceful-fs": "^4.1.11",
     "minimist": "^1.2.0",
