@@ -47,10 +47,7 @@ function createEndpoint(type, polyfillio) {
 
 						const config = polyfillio.describePolyfill(featureName);
 
-						const isTestable = config.isTestable;
-						const isPublic = config.isPublic;
-
-						if (isTestable && isPublic && config.hasTests) {
+						if (config.isTestable && config.isPublic && config.hasTests) {
 							const baseDir = path.join(__dirname, '../../polyfills');
 							const testFile = path.join(baseDir, config.baseDir, '/tests.js');
 							return readFile(testFile)
@@ -60,7 +57,8 @@ function createEndpoint(type, polyfillio) {
 										detect: config.detectSource ? config.detectSource : false,
 										tests
 									};
-								});
+								})
+							;
 						}
 					});
 				}));
