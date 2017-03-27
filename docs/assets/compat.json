@@ -6429,7 +6429,7 @@
       "49": "native"
     }
   },
-  "HTMLCanvasElement.protoype.toBlob": {
+  "HTMLCanvasElement.prototype.toBlob": {
     "ios_saf": {
       "9.2": "polyfilled",
       "9.1": "polyfilled"
