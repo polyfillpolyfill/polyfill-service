@@ -2,9 +2,7 @@
 
 require('dotenv').config();
 
-const argv = require('minimist')(process.argv.slice(2));
-
-const PRODUCTION = argv.env === 'prod';
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const FASTLY_API_KEY = process.env.FASTLY_API_KEY;
 const SURROGATE_KEY = process.env.SURROGATE_KEY;
