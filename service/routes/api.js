@@ -73,7 +73,6 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
-	res.set('Cache-Control', 'public, s-maxage=' + one_year + ', max-age=' + one_week + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 
 	const outputStream = mergeStream();
 

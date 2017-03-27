@@ -43,7 +43,7 @@ describe('GET /test/libs/mocha/mocha.css', function() {
 	setupRequest('GET', '/test/libs/mocha/mocha.css');
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/css');
-	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('cache-control', 'public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -51,7 +51,7 @@ describe('GET /test/libs/mocha/mocha.js', function () {
 	setupRequest('GET', '/test/libs/mocha/mocha.js');
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
-	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('cache-control', 'public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -59,7 +59,7 @@ describe('GET /test/libs/proclaim/proclaim.js', function () {
 	setupRequest('GET', '/test/libs/proclaim/proclaim.js');
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/javascript');
-	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('cache-control', 'public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
