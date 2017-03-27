@@ -120,11 +120,15 @@ describe("polyfillio", () => {
 			polyfillio = require('../../../lib/index');
 		});
 
-		it('calls and returns sourceslib.describePolyfill() with passed argument', () => {
-			sourceslib.getPolyfill.returns('return value for sourceslib.getPolyfill');
-			assert.equal(polyfillio.describePolyfill('test'), 'return value for sourceslib.getPolyfill');
-			assert.calledOnce(sourceslib.getPolyfill);
-			assert.calledWithExactly(sourceslib.getPolyfill, 'test');
+		it('calls and returns sourceslib.getPolyfillMetaSync() with passed argument', () => {
+			sourceslib.getPolyfillMetaSync.returns('return value for sourceslib.getPolyfillMetaSync');
+			return polyfillio.describePolyfill('test')
+				.then(result => {
+					assert.equal(result, 'return value for sourceslib.getPolyfillMetaSync');
+					assert.calledOnce(sourceslib.getPolyfillMetaSync);
+					assert.calledWithExactly(sourceslib.getPolyfillMetaSync, 'test');
+				})
+			;
 		});
 	});
 
