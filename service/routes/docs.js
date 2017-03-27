@@ -276,7 +276,6 @@ function route(req, res, next) {
 		const one_hour = 60 * 60;
 		const one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
-		res.set('Surrogate-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 	} else if (locals.pageName === 'contributing/authoring-polyfills') {
 		locals.baselines = require('../../lib/UA').getBaselines();
 	}

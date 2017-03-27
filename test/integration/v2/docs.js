@@ -12,7 +12,6 @@ describe('GET /v2', function() {
 	itRespondsWithStatus(302);
 	itRespondsWithHeader('Location', '/v2/docs/');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -21,7 +20,6 @@ describe('GET /v2/docs/', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -30,7 +28,6 @@ describe('GET /v2/docs/usage', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=3600, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=3600, stale-while-revalidate=604800, stale-if-error=604800');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -39,7 +36,6 @@ describe('GET /v2/docs/api', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -48,7 +44,6 @@ describe('GET /v2/docs/contributing', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -57,7 +52,6 @@ describe('GET /v2/docs/examples', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -66,7 +60,6 @@ describe('GET /v2/docs/features', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -75,7 +68,6 @@ describe('GET /v2/docs/contributing/authoring-polyfills', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -84,7 +76,6 @@ describe('GET /v2/docs/contributing/common-scenarios', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
 
@@ -93,6 +84,5 @@ describe('GET /v2/docs/contributing/testing', function () {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('text/html');
 	itRespondsWithHeader('cache-control', 'public, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
-	itRespondsWithHeader('surrogate-control', 'public, max-age=31536000, stale-while-revalidate=31536000, stale-if-error=31536000');
 	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });

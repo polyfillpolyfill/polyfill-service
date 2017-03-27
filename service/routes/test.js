@@ -69,7 +69,6 @@ function createEndpoint(type, polyfillio) {
 				});
 
 				res.set('Cache-Control', 'no-store');
-				res.set('Surrogate-Control', 'no-store');
 				res.send(template({
 					loadPolyfill: (mode !== 'control'),
 					forceAlways: (mode !== 'targeted'),

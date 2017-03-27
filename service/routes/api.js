@@ -73,6 +73,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
 	res.set('Access-Control-Allow-Origin', '*');
+	res.set('Cache-Control', 'public, s-maxage=' + one_year + ', max-age=' + one_week + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 
 	const outputStream = mergeStream();
 
@@ -95,7 +96,6 @@ router.get("/v2/normalizeUa", (req, res) => {
 	if (req.query.ua) {
 		res.status(200);
 		res.set('Cache-Control', 'public, max-age=' + one_year + ', stale-if-error=' + (one_year + one_week));
-		res.set('Surrogate-Control', 'public, max-age=' + one_year + ', stale-if-error=' + (one_year + one_week));
 		res.set('Normalized-User-Agent', encodeURIComponent(polyfillio.normalizeUserAgent(req.query.ua)));
 		res.send();
 	} else {
