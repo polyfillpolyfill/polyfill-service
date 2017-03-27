@@ -7,6 +7,12 @@ const argv = require('minimist')(process.argv.slice(2));
 const PRODUCTION = argv.env === 'prod';
 
 const FASTLY_API_KEY = process.env.FASTLY_API_KEY;
+const SURROGATE_KEY = process.env.SURROGATE_KEY;
+
+if (!FASTLY_API_KEY) {
+	console.error('In order to purge assets from Fastly, you need to have set the environment variable "SURROGATE_KEY". This can be done by creating a file named ".env" in the root of this repository with the contents "SURROGATE_KEY=XXXXXX", where XXXXXX is the surrogate-key used in your polyfill-service application.');
+	process.exit(1);
+}
 
 let FASTLY_SERVICE_ID;
 
@@ -35,15 +41,14 @@ const fastly = new FastlyPurge(FASTLY_API_KEY, {
 	softPurge: true
 });
 
-const key = 'polyfill-service';
 
-fastly.key(FASTLY_SERVICE_ID, key, {
+fastly.key(FASTLY_SERVICE_ID, SURROGATE_KEY, {
 	apiKey: FASTLY_API_KEY
 }, error => {
 	if (error) {
 		console.error(`Failed to purge endpoints. ${error}`);
 		process.exit(1);
 	} else {
-		console.log(`Purged key: ${key} from ${PRODUCTION ? 'production' : 'qa'} service - https://manage.fastly.com/dashboard/services/${FASTLY_SERVICE_ID}/datacenters/all`);
+		console.log(`Purged key: ${SURROGATE_KEY} from ${PRODUCTION ? 'production' : 'qa'} service - https://manage.fastly.com/dashboard/services/${FASTLY_SERVICE_ID}/datacenters/all`);
 	}
 });

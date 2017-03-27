@@ -62,6 +62,7 @@ You can configure the Polyfill service using environment variables. In developme
 * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
 * `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
+* `SURROGATE_KEY`: The surrogate key assigned to all responses. Useful for purging cached responses from a CDN. (default `polyfill-service`);
 
 
 ## Testing

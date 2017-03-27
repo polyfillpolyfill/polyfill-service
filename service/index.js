@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 
 	res.set('Cache-Control', 'public, max-age=' + one_week + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 	res.set('Surrogate-Control', 'public, max-age=' + one_year + ', stale-while-revalidate=' + one_year + ', stale-if-error=' + one_year);
-	res.set('Surrogate-Key', 'polyfill-service');
+	res.set('Surrogate-Key', process.env.SURROGATE_KEY || 'polyfill-service');
 	res.set('Timing-Allow-Origin', '*');
 	return next();
 });
