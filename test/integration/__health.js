@@ -12,4 +12,5 @@ describe('GET /__health', function() {
 	itRespondsWithStatus(200);
 	itRespondsWithContentType('application/json');
 	itRespondsWithHeader('cache-control', 'no-cache');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });

@@ -10,4 +10,5 @@ describe('GET /', function() {
 	setupRequest('GET', '/');
 	itRespondsWithStatus(302);
 	itRespondsWithHeader('Location', '/v2/docs/');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
 });
