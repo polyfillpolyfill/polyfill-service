@@ -11,7 +11,6 @@ const patch = fs.readFileSync(path.join(__dirname, './patch.jsdiff'), 'utf8');
 const patched = diff.applyPatch(polyfill, patch);
 
 if (patched === false) {
-	console.log(patched)
 	process.exit(1);
 }
 fs.writeFileSync(path.join(__dirname, './polyfill.js'), patched);
