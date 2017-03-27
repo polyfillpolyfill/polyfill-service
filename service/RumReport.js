@@ -150,8 +150,9 @@ function Compat() {
 		})
 		.then(results => {
 			return dbconn.end().then(() => {
-				return results[0].map(rec => {
-					const polyfill = polyfillio.describePolyfill(rec.feature_name);
+				return Promise.all(results[0].map(rec => {
+					return polyfillio.describePolyfill(rec.feature_name)
+					.then(polyfill => {
 						if (!polyfill) {
 							return null;
 						} else {
@@ -167,7 +168,8 @@ function Compat() {
 							}
 							return rec;
 						}
-				});
+					});
+				}));
 			});
 		})
 		.then(results => results.filter(rec => rec !== null))
