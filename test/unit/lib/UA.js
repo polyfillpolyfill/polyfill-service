@@ -75,6 +75,34 @@ describe("lib/UA", function () {
 			});
 		});
 
+		describe('removes Electron browsers from uastring to enable them to report as Chrome', () => {
+			let spy;
+
+			beforeEach(() => {
+				spy = sinon.spy(String.prototype, 'replace');
+			});
+
+			afterEach(() => {
+				spy.restore();
+			});
+
+			it('Electron for OS X', () => {
+				const electron = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Electron/1.4.13 Safari/537.36";
+				const chrome = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Safari/537.36";
+				new UA(electron);
+				assert.calledOn(spy, electron);
+				assert.equal(spy.returned(chrome), true);
+			});
+
+			it('Electron for Windows', () => {
+				const electron = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Electron/1.4.13 Safari/537.36";
+				const chrome = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Safari/537.36";
+				new UA(electron);
+				assert.calledOn(spy, electron);
+				assert.equal(spy.returned(chrome), true);
+			});
+		});
+
 		describe('this.ua', () => {
 			context('when given a normalized ua', () => {
 				it('constructs a new useragent.Agent', () => {
