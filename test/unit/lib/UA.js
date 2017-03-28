@@ -103,6 +103,34 @@ describe("lib/UA", function () {
 			});
 		});
 
+		describe('removes Facebook in-app browsers from uastring', () => {
+			let spy;
+
+			beforeEach(() => {
+				spy = sinon.spy(String.prototype, 'replace');
+			});
+
+			afterEach(() => {
+				spy.restore();
+			});
+
+			it('Facebook for iOS', () => {
+				const facebook = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75 [FBAN/FBIOS;FBAV/46.0.0.54.156;FBBV/18972819;FBDV/iPhone8,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/9.2;FBSS/2; FBCR/Telenor;FBID/phone;FBLC/nb_NO;FBOP/5]";
+				const expected = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75";
+				new UA(facebook);
+				assert.calledOn(spy, facebook);
+				assert.equal(spy.returned(expected), true);
+			});
+
+			it('Facebook for Android, using Chrome browser', () => {
+				const facebook = "Mozilla/5.0 (Linux; Android 4.4.2; SCH-I535 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]";
+				const expected = "Mozilla/5.0 (Linux; Android 4.4.2; SCH-I535 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36";
+				new UA(facebook);
+				assert.calledOn(spy, facebook);
+				assert.equal(spy.returned(expected), true);
+			});
+		});
+
 		describe('this.ua', () => {
 			context('when given a normalized ua', () => {
 				it('constructs a new useragent.Agent', () => {
