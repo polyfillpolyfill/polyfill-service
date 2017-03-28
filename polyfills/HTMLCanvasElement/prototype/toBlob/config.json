@@ -1,4 +1,7 @@
 {
+	"alias": [
+		"HTMLCanvasElement.protoype.toBlob"
+	],
 	"browsers": {
 		"chrome": "<50",
 		"firefox": "<19",

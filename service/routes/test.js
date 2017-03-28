@@ -6,6 +6,8 @@ const polyfillio = require('../../lib');
 const express = require('express');
 const fs = require('graceful-fs');
 const path = require('path');
+const denodeify = require('denodeify');
+const readFile = denodeify(fs.readFile);
 
 const router = express.Router();  // eslint-disable-line new-cap
 
@@ -40,30 +42,28 @@ function createEndpoint(type, polyfillio) {
 
 				// Fetch polyfill configs for all the features to be tested
 				return Promise.all(featuresList.map(featureName => {
-					return polyfillio.describePolyfill(featureName).then(config => ({[featureName]: config}) );
-				})).then(featureObjs => Object.assign({}, ...featureObjs));
+					return polyfillio.describePolyfill(featureName)
+						.then(config => {
+							if (config.isTestable && config.isPublic && config.hasTests) {
+								const baseDir = path.join(__dirname, '../../polyfills');
+								const testFile = path.join(baseDir, config.baseDir, '/tests.js');
+								return readFile(testFile)
+									.then(tests => {
+										return {
+											feature: featureName,
+											detect: config.detectSource ? config.detectSource : false,
+											tests
+										};
+									})
+								;
+							}
+						})
+					;
+				}));
 			})
-			.then(polyfillSet => {
+			.then(polyfilldata => {
 
-				// Eliminate those that are not testable or not public
-				const polyfilldata = Object.keys(polyfillSet).reduce((acc, featureName) => {
-					const baseDir = path.join(__dirname, '../../polyfills');
-					const config = polyfillSet[featureName];
-					const detectFile = path.join(baseDir, config.baseDir, '/detect.js');
-					const testFile = path.join(baseDir, config.baseDir, '/tests.js');
-					const isTestable = !('test' in config && 'ci' in config.test && config.test.ci === false);
-					const isPublic = featureName.indexOf('_') !== 0;
-
-					if (isTestable && isPublic) {
-						acc.push({
-							feature: featureName,
-							detect: fs.existsSync(detectFile) ? fs.readFileSync(detectFile, {encoding: 'utf-8'}).trim() : false,
-							tests: fs.existsSync(testFile) ? fs.readFileSync(testFile) : false
-						});
-					}
-					return acc;
-				}, []);
-
+				polyfilldata = polyfilldata.filter(obj => !!obj);
 				polyfilldata.sort(function(a,b) {
 					return (a.feature > b.feature) ? -1 : 1;
 				});

@@ -22,6 +22,7 @@ polyfills/navigator/sendBeacon/polyfill.js
 polyfills/MutationObserver/polyfill.js
 polyfills/Promise/polyfill.js
 polyfills/setImmediate/polyfill.js
+polyfills/String/fromCodePoint/polyfill.js
 polyfills/URL/polyfill.js
 polyfills/UserTiming/polyfill.js
 polyfills/WeakSet/polyfill.js
