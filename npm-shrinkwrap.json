@@ -789,7 +789,7 @@
     },
     "glob": {
       "version": "7.1.1",
-      "from": "glob@>=7.1.1 <8.0.0",
+      "from": "https://registry.npmjs.org/glob/-/glob-7.1.1.tgz",
       "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.1.tgz"
     },
     "globals": {
@@ -1711,6 +1711,11 @@
       "version": "1.0.2",
       "from": "string-width@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/string-width/-/string-width-1.0.2.tgz"
+    },
+    "string.fromcodepoint": {
+      "version": "0.2.1",
+      "from": "string.fromcodepoint@latest",
+      "resolved": "https://registry.npmjs.org/string.fromcodepoint/-/string.fromcodepoint-0.2.1.tgz"
     },
     "stringstream": {
       "version": "0.0.5",
