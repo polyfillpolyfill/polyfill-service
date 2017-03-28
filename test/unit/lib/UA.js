@@ -75,6 +75,62 @@ describe("lib/UA", function () {
 			});
 		});
 
+		describe('removes Electron browsers from uastring to enable them to report as Chrome', () => {
+			let spy;
+
+			beforeEach(() => {
+				spy = sinon.spy(String.prototype, 'replace');
+			});
+
+			afterEach(() => {
+				spy.restore();
+			});
+
+			it('Electron for OS X', () => {
+				const electron = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Electron/1.4.13 Safari/537.36";
+				const chrome = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Safari/537.36";
+				new UA(electron);
+				assert.calledOn(spy, electron);
+				assert.equal(spy.returned(chrome), true);
+			});
+
+			it('Electron for Windows', () => {
+				const electron = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Electron/1.4.13 Safari/537.36";
+				const chrome = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) WELLMessenger/1.1.0 Chrome/53.0.2785.143 Safari/537.36";
+				new UA(electron);
+				assert.calledOn(spy, electron);
+				assert.equal(spy.returned(chrome), true);
+			});
+		});
+
+		describe('removes Facebook in-app browsers from uastring', () => {
+			let spy;
+
+			beforeEach(() => {
+				spy = sinon.spy(String.prototype, 'replace');
+			});
+
+			afterEach(() => {
+				spy.restore();
+			});
+
+			it('Facebook for iOS', () => {
+				const facebook = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75 [FBAN/FBIOS;FBAV/46.0.0.54.156;FBBV/18972819;FBDV/iPhone8,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/9.2;FBSS/2; FBCR/Telenor;FBID/phone;FBLC/nb_NO;FBOP/5]";
+				const expected = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75";
+				new UA(facebook);
+				assert.calledOn(spy, facebook);
+				assert.equal(spy.returned(expected), true);
+			});
+
+			it('Facebook for Android, using Chrome browser', () => {
+				const facebook = "Mozilla/5.0 (Linux; Android 4.4.2; SCH-I535 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 [FBAN/FB4A;FBAV/20.0.0.25.15;]";
+				const expected = "Mozilla/5.0 (Linux; Android 4.4.2; SCH-I535 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36";
+				new UA(facebook);
+				assert.calledOn(spy, facebook);
+				assert.equal(spy.returned(expected), true);
+			});
+		});
+
 		describe('this.ua', () => {
 			context('when given a normalized ua', () => {
 				it('constructs a new useragent.Agent', () => {
