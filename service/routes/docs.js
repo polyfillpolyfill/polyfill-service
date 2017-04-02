@@ -189,11 +189,11 @@ function refreshData() {
 				.filter(feature => sources.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
 				.sort()
 				.map(feat => {
-					return sources.getPolyfill(feat).then(polyfill => {
+					return sources.getPolyfillMetaSync(feat).then(polyfill => {
 						const fdata = {
 							feature: feat,
 							slug: feat.replace(/[^\w]/g, '_'),
-							size: polyfill.minSource.length,
+							size: polyfill.size,
 							isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
 							hasTests: polyfill.hasTests,
 							docs: polyfill.docs,
@@ -275,7 +275,7 @@ function route(req, res, next) {
 		// behaviour set in index.js
 		const one_hour = 60 * 60;
 		const one_week = one_hour * 24 * 7;
-		res.set('Cache-Control', 'public, max-age=' + one_hour +', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+		res.set('Cache-Control', 'public, max-age=' + one_hour + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 	} else if (locals.pageName === 'contributing/authoring-polyfills') {
 		locals.baselines = require('../../lib/UA').getBaselines();
 	}
