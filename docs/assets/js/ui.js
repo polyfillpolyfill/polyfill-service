@@ -28,7 +28,7 @@ function initCharts() {
 		var chartel = document.getElementById('chart-requests');
 		if (!chartel) return;
 		var chart = new google.visualization.LineChart(chartel);
-		drawFns.push(chart.draw.bind(chart,
+		var fn = chart.draw.bind(chart,
 			google.visualization.arrayToDataTable(
 				Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
 					return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
@@ -41,15 +41,16 @@ function initCharts() {
 				vAxis: { textPosition: 'in', minValue: 0 },
 				legend: {position: 'none' }
 			}
-		));
-		drawFns[drawFns.length-1]();
+		);
+		drawFns.push(fn);
+		fn();
 	});
 
 	google.charts.setOnLoadCallback(function() {
 		var chartel = document.getElementById('chart-hitratio');
 		if (!chartel) return;
 		var chart = new google.visualization.PieChart(chartel);
-		drawFns.push(chart.draw.bind(chart,
+		var fn = chart.draw.bind(chart,
 			google.visualization.arrayToDataTable(
 				Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
 					return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
@@ -62,14 +63,16 @@ function initCharts() {
 				legend: { position: 'labeled' },
 				pieSliceText: 'none'
 			}
-		));
+		);
+		drawFns.push(fn);
+		fn();
 	});
 
 	google.charts.setOnLoadCallback(function() {
 		var chartel = document.getElementById('chart-resptime');
 		if (!chartel) return;
 		var chart = new google.visualization.LineChart(chartel);
-		drawFns.push(chart.draw.bind(chart,
+		var fn = chart.draw.bind(chart,
 			google.visualization.arrayToDataTable(
 				Array.from(chartel.querySelectorAll('tr')).map(function(rowel) {
 					return Array.from(rowel.querySelectorAll('td,th')).map(function(cellel) {
@@ -82,7 +85,9 @@ function initCharts() {
 				hAxis: { textPosition: 'none' },
 				vAxis: { minValue: 0 }
 			}
-		));
+		);
+		drawFns.push(fn);
+		fn();
 	});
 
 	window.addEventListener('resize', function() {
