@@ -18,8 +18,7 @@
 		"_Iterator",
 		"Object.create",
 		"Object.defineProperty",
-		"Object.setPrototypeOf",
-		"String.prototype.contains"
+		"Object.setPrototypeOf"
 	],
 	"license": "MIT",
 	"repo": "https://github.com/medikoo/es6-iterator"
