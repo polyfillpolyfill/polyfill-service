@@ -15,11 +15,13 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
-		"_Iterator",
-		"Object.create",
+		"Function.prototype.bind",
+		"Object.assign",
+		"Object.defineProperties",
 		"Object.defineProperty",
-		"Object.setPrototypeOf",
-		"String.prototype.contains"
+		"Symbol",
+		"Symbol.iterator",
+		"Symbol.toStringTag"
 	],
 	"license": "MIT",
 	"repo": "https://github.com/medikoo/es6-iterator"
