@@ -1,5 +1,7 @@
 # Polyfill service
 
+[![Join the chat at https://gitter.im/Financial-Times/polyfill-service](https://badges.gitter.im/Financial-Times/polyfill-service.svg)](https://gitter.im/Financial-Times/polyfill-service?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
 For usage information see the [hosted service](https://polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
