@@ -27,3 +27,23 @@ it("should generate valid Javascript for dppx", function() {
 		window.matchMedia('(min-resolution: 2dppx)');
 	});
 });
+
+it("should accept media queries without a trailing parenthesis", function() {
+	var query = '(max-width: 1000px';
+
+	proclaim.doesNotThrow(function() {
+		window.matchMedia(query);
+	});
+
+	proclaim.equal(
+		window.matchMedia(query).media,
+		window.matchMedia(query + ')').media
+	);
+	
+	const innerWidth = global.innerWidth;
+	global.innerWidth = 1000;
+
+	proclaim.equal(window.matchMedia(query).matches, true);
+
+	global.innerWidth = innerWidth;
+});
