@@ -1898,9 +1898,9 @@
       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
     },
     "yaku": {
-      "version": "0.17.9",
-      "from": "yaku@>=0.17.8 <0.18.0",
-      "resolved": "https://registry.npmjs.org/yaku/-/yaku-0.17.9.tgz"
+      "version": "0.17.11",
+      "from": "yaku@0.17.11",
+      "resolved": "https://registry.npmjs.org/yaku/-/yaku-0.17.11.tgz"
     },
     "yallist": {
       "version": "2.1.2",
