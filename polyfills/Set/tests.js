@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Set, Set);
 	proclaim.isInstanceOf(new Set(), Set);
+	proclaim.equal((new Set()).constructor, Set);
+	proclaim.equal((new Set()).constructor.name, "Set");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Set).__proto__.isPrototypeOf(new Set()), true);
 		proclaim.equal((new Set).__proto__ === Set.prototype, true);

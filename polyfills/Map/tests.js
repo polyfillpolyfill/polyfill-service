@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Map, Map);
 	proclaim.isInstanceOf(new Map(), Map);
+	proclaim.equal((new Map()).constructor, Map);
+	proclaim.equal((new Map()).constructor.name, "Map");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Map).__proto__.isPrototypeOf(new Map()), true);
 		proclaim.equal((new Map).__proto__ === Map.prototype, true);

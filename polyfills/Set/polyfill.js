@@ -105,6 +105,9 @@
 
 	Set.length = 0;
 
+	Set.prototype.constructor = Set;
+	Set.name = "Set";
+
 	// Export the object
 	this.Set = Set;
 

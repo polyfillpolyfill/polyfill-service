@@ -141,6 +141,9 @@
 
 	Map.length = 0;
 
+	Map.prototype.constructor = Map;
+	Map.name = "Map";
+
 	// Export the object
 	this.Map = Map;
 
