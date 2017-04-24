@@ -20,7 +20,7 @@
 	// This polyfill depends on availability of `document` so will not run in a worker
 	// However, we asssume there are no browsers with worker support that lack proper
 	// support for `Event` within the worker
-	if (!document || !window) return;
+	if (typeof document === 'undefined' || typeof window === 'undefined') return;
 
 	function indexOf(array, element) {
 		var
