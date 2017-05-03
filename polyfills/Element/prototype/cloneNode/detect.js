@@ -1,6 +1,8 @@
 'document' in this && "cloneNode" in document.documentElement && (function() {
-	var test = document.createElement('input');
+	var div = document.createElement('div'), test = document.createElement('input');
 	test.checked = true;
+	div.appendChild(test);
 	var result = test.cloneNode();
-	return !!result.checked;
+	var result2 = div.cloneNode();
+	return !!result.checked && (result2.childNodes.length === 0);
 })()
