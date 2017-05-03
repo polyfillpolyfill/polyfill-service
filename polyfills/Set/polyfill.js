@@ -106,6 +106,6 @@
 	Set.length = 0;
 
 	// Export the object
-	this.Set = Set;
+	global.Set = Set;
 
 }(this));
