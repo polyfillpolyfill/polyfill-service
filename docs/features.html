@@ -65,6 +65,10 @@
 					<td class='compatibility__data'>{{#firefox}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/firefox}}</td>
 					<td class='compatibility__data'>{{#chrome}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/chrome}}</td>
 					<td class='compatibility__data'>{{#safari}}<span class='status-{{status}}' title='{{statusMsg}}'>{{version}}</span>{{/safari}}</td>
+					<td class='compatibility__targeting'>{{#nonCiBrowsers}}
+						<span class="lesser-browser">{{name}}<span class='status-{{status}}'>{{versionRange}}</span></span>
+
+					{{/nonCiBrowsers}}</td>
 					<td class='compatibility__live'></td>
 					<td class='compatibility__menu o--if-js'><i class="o-overlay-trigger fa fa-bars" data-o-overlay-src="#overlay-src-{{slug}}" data-o-overlay-id="overlay-{{slug}}" data-o-overlay-compact="true" data-o-overlay-arrow-position="right" title='Links'></i></td>
 				</tr>
