@@ -1,5 +1,6 @@
 'document' in this && "cloneNode" in document.documentElement && (function() {
 	var div = document.createElement('div'), test = document.createElement('input');
+	test.type = "radio";
 	test.checked = true;
 	div.appendChild(test);
 	var result = test.cloneNode();

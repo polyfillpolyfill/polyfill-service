@@ -142,6 +142,6 @@
 	Map.length = 0;
 
 	// Export the object
-	this.Map = Map;
+	global.Map = Map;
 
 }(this));
