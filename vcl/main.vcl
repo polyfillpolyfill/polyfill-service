@@ -22,7 +22,6 @@ sub vcl_recv {
 		error 801 "Redirect to prod HTTPS";
 	}
 
-
 	if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
 		set req.http.X-Orig-URL = req.url;
 		set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
@@ -35,34 +34,47 @@ sub vcl_recv {
 
 	set req.url = boltsort.sort(req.url);
 
-	declare local var.isQA BOOL;
+	if (req.restarts == 0) {
+		set req.http.X-Original-Host = req.http.Host;
 
-	set var.isQA = (req.http.host == "qa.polyfill.io");
+		if (req.http.Host == "qa.polyfill.io") {
+			if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
+				set req.backend = origami_polyfill_service_us;
+				set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
 
-	if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
-		set req.backend = origami_polyfill_service_us;
-		set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
+				if (!req.backend.healthy) {
+					set req.backend = origami_polyfill_service_eu;
+					set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
+				}
 
-		if (!req.backend.healthy) {
-			set req.backend = origami_polyfill_service_eu;
-			set req.http.Host = "ft-polyfill-service.herokuapp.com";
-		}
+			} else {
+				set req.backend = origami_polyfill_service_eu;
+				set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
 
-	} else {
-		set req.backend = origami_polyfill_service_eu;
-		set req.http.Host = "ft-polyfill-service.herokuapp.com";
-
-		if (!req.backend.healthy) {
-			set req.backend = origami_polyfill_service_us;
-			set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
-		}
-	}
-
-	if (var.isQA) {
-		if (req.backend == origami_polyfill_service_us) {
-			set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
+				if (!req.backend.healthy) {
+					set req.backend = origami_polyfill_service_us;
+					set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
+				}
+			}
 		} else {
-			set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
+			if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
+				set req.backend = origami_polyfill_service_us;
+				set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
+
+				if (!req.backend.healthy) {
+					set req.backend = origami_polyfill_service_eu;
+					set req.http.Host = "ft-polyfill-service.herokuapp.com";
+				}
+
+			} else {
+				set req.backend = origami_polyfill_service_eu;
+				set req.http.Host = "ft-polyfill-service.herokuapp.com";
+
+				if (!req.backend.healthy) {
+					set req.backend = origami_polyfill_service_us;
+					set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
+				}
+			}
 		}
 	}
 
@@ -108,6 +120,7 @@ sub vcl_deliver {
 
 	if (req.http.Fastly-Debug) {
 		set resp.http.Debug-Host = req.http.Host;
+		set resp.http.Debug-X-Original-Host = req.http.X-Original-Host;
 	}
 
 	return(deliver);

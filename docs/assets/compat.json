@@ -6,7 +6,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -38,7 +39,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.@@iterator": {
@@ -48,7 +50,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -80,7 +83,8 @@
       "41": "missing",
       "42": "missing",
       "44": "missing",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.entries": {
@@ -90,7 +94,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -122,7 +127,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.every": {
@@ -132,7 +138,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -164,7 +171,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.filter": {
@@ -174,7 +182,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -206,7 +215,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.forEach": {
@@ -216,7 +226,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -248,7 +259,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.indexOf": {
@@ -258,7 +270,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -290,7 +303,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.keys": {
@@ -300,7 +314,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -332,7 +347,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.lastIndexOf": {
@@ -342,7 +358,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -374,7 +391,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.map": {
@@ -384,7 +402,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -416,7 +435,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.reduce": {
@@ -426,7 +446,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -458,7 +479,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.reduceRight": {
@@ -468,7 +490,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -500,7 +523,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.some": {
@@ -510,7 +534,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -542,7 +567,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "AudioContext": {
@@ -594,7 +620,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -626,7 +653,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "DOMTokenList": {
@@ -678,7 +706,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -710,7 +739,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Date.now": {
@@ -762,7 +792,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -794,7 +825,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Document": {
@@ -888,7 +920,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "polyfilled"
     },
     "ios_saf": {
       "9.2": "native",
@@ -920,7 +953,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "polyfilled"
     }
   },
   "Element.prototype.closest": {
@@ -930,7 +964,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -962,7 +997,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.matches": {
@@ -972,7 +1008,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1004,7 +1041,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.placeholder": {
@@ -1056,7 +1094,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1088,7 +1127,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Event": {
@@ -1098,7 +1138,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1130,7 +1171,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Event.focusin": {
@@ -1140,7 +1182,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1172,7 +1215,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Function.name": {
@@ -1182,7 +1226,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1214,7 +1259,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Function.prototype.bind": {
@@ -1224,7 +1270,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1256,7 +1303,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "HTMLDocument": {
@@ -1434,7 +1482,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1466,7 +1515,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Math.asinh": {
@@ -1476,7 +1526,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1508,7 +1559,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Math.atanh": {
@@ -1602,7 +1654,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -1634,7 +1687,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Math.cosh": {
@@ -2106,7 +2160,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2138,7 +2193,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Number.MAX_SAFE_INTEGER": {
@@ -2148,7 +2204,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2180,7 +2237,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Number.MIN_SAFE_INTEGER": {
@@ -2190,7 +2248,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2222,7 +2281,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Number.isFinite": {
@@ -2232,7 +2292,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2264,7 +2325,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Number.isNaN": {
@@ -2274,7 +2336,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2306,7 +2369,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.create": {
@@ -2316,7 +2380,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2348,7 +2413,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.defineProperties": {
@@ -2400,7 +2466,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2432,7 +2499,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.getOwnPropertyNames": {
@@ -2442,7 +2510,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2474,7 +2543,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.getPrototypeOf": {
@@ -2568,7 +2638,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2600,7 +2671,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.setPrototypeOf": {
@@ -2610,7 +2682,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2642,7 +2715,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Promise": {
@@ -2652,7 +2726,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2684,7 +2759,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Set": {
@@ -2694,7 +2770,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2726,7 +2803,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "String.prototype.endsWith": {
@@ -2736,7 +2814,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2768,7 +2847,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "String.prototype.includes": {
@@ -2820,7 +2900,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2852,7 +2933,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "String.prototype.startsWith": {
@@ -2904,7 +2986,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2936,7 +3019,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol": {
@@ -2946,7 +3030,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -2978,7 +3063,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.iterator": {
@@ -2988,7 +3074,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3020,7 +3107,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.unscopables": {
@@ -3030,7 +3118,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3062,7 +3151,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "UserTiming": {
@@ -3072,7 +3162,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -3104,7 +3195,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "WeakMap": {
@@ -3114,7 +3206,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3146,7 +3239,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "WeakSet": {
@@ -3156,7 +3250,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3188,7 +3283,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Window": {
@@ -3240,7 +3336,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3272,7 +3369,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "atob": {
@@ -3282,7 +3380,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3314,7 +3413,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console": {
@@ -3324,7 +3424,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3356,7 +3457,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.assert": {
@@ -3366,7 +3468,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3398,7 +3501,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.clear": {
@@ -3408,7 +3512,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3440,7 +3545,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.count": {
@@ -3450,7 +3556,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3482,7 +3589,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.debug": {
@@ -3492,7 +3600,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3524,7 +3633,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.dir": {
@@ -3534,7 +3644,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3566,7 +3677,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.dirxml": {
@@ -3576,7 +3688,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3608,7 +3721,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.error": {
@@ -3618,7 +3732,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3650,7 +3765,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.group": {
@@ -3660,7 +3776,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3692,7 +3809,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.groupCollapsed": {
@@ -3702,7 +3820,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3734,7 +3853,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.groupEnd": {
@@ -3744,7 +3864,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3776,7 +3897,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.info": {
@@ -3786,7 +3908,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3818,7 +3941,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.log": {
@@ -3828,7 +3952,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3860,7 +3985,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.markTimeline": {
@@ -3870,7 +3996,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -3902,7 +4029,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.table": {
@@ -3912,7 +4040,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -3944,7 +4073,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.time": {
@@ -3954,7 +4084,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "missing",
@@ -3986,7 +4117,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.timeEnd": {
@@ -3996,7 +4128,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4028,7 +4161,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.timeStamp": {
@@ -4038,7 +4172,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4070,7 +4205,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.timeline": {
@@ -4080,7 +4216,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -4112,7 +4249,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.timelineEnd": {
@@ -4122,7 +4260,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -4154,7 +4293,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.trace": {
@@ -4164,7 +4304,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4196,7 +4337,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "console.warn": {
@@ -4206,7 +4348,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4238,7 +4381,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "devicePixelRatio": {
@@ -4290,7 +4434,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4322,7 +4467,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "document.head": {
@@ -4374,7 +4520,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4406,7 +4553,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "document.visibilityState": {
@@ -4416,7 +4564,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4448,7 +4597,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "fetch": {
@@ -4584,7 +4734,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4616,7 +4767,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "matchMedia": {
@@ -4626,7 +4778,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4658,7 +4811,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "navigator.geolocation": {
@@ -4794,7 +4948,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -4826,17 +4981,19 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "screen.orientation": {
     "chrome": {
       "35": "polyfilled",
-      "40": "native",
-      "42": "native",
-      "46": "native",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -4868,7 +5025,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "~html5-elements": {
@@ -4962,7 +5120,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -4994,7 +5153,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "native"
     }
   },
   "setImmediate": {
@@ -5046,7 +5206,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5078,7 +5239,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "String.prototype.contains": {
@@ -5130,7 +5292,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5162,7 +5325,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.values": {
@@ -5172,7 +5336,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "polyfilled"
+      "54": "polyfilled",
+      "56": "polyfilled"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5204,7 +5369,8 @@
       "41": "missing",
       "42": "missing",
       "44": "missing",
-      "49": "native"
+      "49": "native",
+      "52": "polyfilled"
     }
   },
   "Array.prototype.find": {
@@ -5214,7 +5380,8 @@
       "42": "polyfilled",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5246,7 +5413,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.fill": {
@@ -5256,7 +5424,8 @@
       "42": "polyfilled",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5288,7 +5457,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "NodeList.prototype.@@iterator": {
@@ -5298,7 +5468,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5330,7 +5501,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.prepend": {
@@ -5340,7 +5512,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5372,7 +5545,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.search": {
@@ -5382,7 +5556,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5414,7 +5589,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.of": {
@@ -5424,7 +5600,8 @@
       "42": "polyfilled",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5456,7 +5633,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.hasInstance": {
@@ -5466,7 +5644,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5498,7 +5677,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "native"
     }
   },
   "console.exception": {
@@ -5508,7 +5688,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "polyfilled"
+      "54": "polyfilled",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5540,7 +5721,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "IntersectionObserver": {
@@ -5549,7 +5731,8 @@
       "40": "polyfilled",
       "42": "polyfilled",
       "46": "polyfilled",
-      "48": "polyfilled"
+      "48": "polyfilled",
+      "56": "polyfilled"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5581,7 +5764,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "polyfilled"
     }
   },
   "Element.prototype.replaceWith": {
@@ -5591,7 +5775,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5623,7 +5808,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.includes": {
@@ -5633,7 +5819,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5665,7 +5852,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.from": {
@@ -5675,7 +5863,8 @@
       "42": "polyfilled",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5707,7 +5896,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.toPrimitive": {
@@ -5717,7 +5907,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5749,7 +5940,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Array.prototype.findIndex": {
@@ -5759,7 +5951,8 @@
       "42": "polyfilled",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -5791,7 +5984,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "URL": {
@@ -5801,7 +5995,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5833,7 +6028,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.split": {
@@ -5843,7 +6039,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5875,7 +6072,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.after": {
@@ -5885,7 +6083,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5917,7 +6116,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.replace": {
@@ -5927,7 +6127,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -5959,7 +6160,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.append": {
@@ -5969,7 +6171,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -6001,7 +6204,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Element.prototype.before": {
@@ -6011,7 +6215,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -6043,7 +6248,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Symbol.species": {
@@ -6053,7 +6259,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -6085,7 +6292,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Event.hashchange": {
@@ -6095,7 +6303,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -6127,7 +6336,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.assign": {
@@ -6179,7 +6389,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "polyfilled"
+      "54": "polyfilled",
+      "56": "polyfilled"
     },
     "ios_saf": {
       "9.2": "polyfilled",
@@ -6211,7 +6422,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "polyfilled"
     }
   },
   "Element.prototype.classList": {
@@ -6221,7 +6433,8 @@
       "42": "missing",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "missing",
@@ -6253,7 +6466,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "Object.defineProperty": {
@@ -6263,7 +6477,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "missing"
     },
     "ios_saf": {
       "9.2": "native",
@@ -6295,7 +6510,8 @@
       "41": "missing",
       "42": "missing",
       "44": "missing",
-      "49": "missing"
+      "49": "missing",
+      "52": "missing"
     }
   },
   "Map": {
@@ -6305,7 +6521,8 @@
       "42": "missing",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "ios_saf": {
       "9.2": "native",
@@ -6337,7 +6554,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "IntersectionObserver (timeout after 30000ms, 2 retries)": {
@@ -6376,7 +6594,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "native",
@@ -6384,7 +6603,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
   "document.currentScript": {
@@ -6418,7 +6638,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "native",
@@ -6426,10 +6647,11 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     }
   },
-  "HTMLCanvasElement.protoype.toBlob": {
+  "HTMLCanvasElement.prototype.toBlob": {
     "ios_saf": {
       "9.2": "polyfilled",
       "9.1": "polyfilled"
@@ -6460,7 +6682,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     },
     "chrome": {
       "35": "polyfilled",
@@ -6468,7 +6691,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     }
   },
   "Element.prototype.dataset": {
@@ -6478,7 +6702,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "native",
@@ -6486,7 +6711,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     },
     "ie": {
       "7": "missing",
@@ -6560,7 +6786,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "native",
@@ -6568,7 +6795,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     },
     "safari": {
       "8": "polyfilled",
@@ -6600,7 +6828,8 @@
       "42": "native",
       "46": "native",
       "48": "native",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "native",
@@ -6608,7 +6837,8 @@
       "41": "native",
       "42": "native",
       "44": "native",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     },
     "safari": {
       "8": "polyfilled",
@@ -6640,7 +6870,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "polyfilled"
+      "54": "polyfilled",
+      "56": "polyfilled"
     },
     "firefox": {
       "30": "polyfilled",
@@ -6648,7 +6879,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "polyfilled"
+      "49": "polyfilled",
+      "52": "polyfilled"
     },
     "safari": {
       "8": "polyfilled",
@@ -6680,7 +6912,8 @@
       "42": "polyfilled",
       "46": "polyfilled",
       "48": "polyfilled",
-      "54": "native"
+      "54": "native",
+      "56": "native"
     },
     "firefox": {
       "30": "polyfilled",
@@ -6688,7 +6921,8 @@
       "41": "polyfilled",
       "42": "polyfilled",
       "44": "polyfilled",
-      "49": "native"
+      "49": "native",
+      "52": "native"
     },
     "safari": {
       "8": "polyfilled",
@@ -6715,6 +6949,114 @@
     "ie": {
       "7": "missing",
       "8": "missing"
+    }
+  },
+  "String.prototype.@@iterator": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "native",
+      "42": "native",
+      "46": "native",
+      "48": "native",
+      "56": "native"
+    },
+    "firefox": {
+      "42": "native",
+      "44": "native",
+      "49": "native",
+      "52": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "native"
+    }
+  },
+  "Object.values": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "56": "native"
+    },
+    "firefox": {
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "native",
+      "52": "native"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "String.prototype.padStart": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "56": "missing"
+    },
+    "firefox": {
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "missing",
+      "52": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
+    }
+  },
+  "String.prototype.padEnd": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "56": "missing"
+    },
+    "firefox": {
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "missing",
+      "52": "polyfilled"
+    },
+    "safari": {
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "4.4": "polyfilled"
+    },
+    "ios_saf": {
+      "9.1": "polyfilled"
     }
   }
 }
