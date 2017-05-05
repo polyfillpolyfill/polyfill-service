@@ -56,7 +56,8 @@ app.use((req, res, next) => {
 	// Prevents clickjacking by prohibiting our site from being included on other domains in an iframe.
 	res.set('X-Frame-Options', `sameorigin`);
 
-	res.set('Cache-Control', 'public, max-age='+one_week+', stale-while-revalidate='+one_week+', stale-if-error='+one_week);
+	res.set('Cache-Control', 'public, s-maxage=' + one_year + ', max-age=' + one_week + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
+	res.set('Surrogate-Key', process.env.SURROGATE_KEY || 'polyfill-service');
 	res.set('Timing-Allow-Origin', '*');
 	return next();
 });
@@ -84,7 +85,7 @@ if (process.env.SENTRY_DSN) {
 function startService(port, callback) {
 	callback = callback || function() {};
 
-	app
+	app.server = app
 		.listen(port, function (err) {
 			callback(err, app);
 		})
