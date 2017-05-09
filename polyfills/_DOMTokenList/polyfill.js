@@ -1,4 +1,4 @@
-var _DOMTokenList = (function (global) {
+var _DOMTokenList = (function () { // eslint-disable-line no-unused-vars
 
 	function tokenize(token) {
 		if (/^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/.test(token)) {
@@ -76,4 +76,4 @@ var _DOMTokenList = (function (global) {
 
 	return DTL;
 
-})(this);
+}());

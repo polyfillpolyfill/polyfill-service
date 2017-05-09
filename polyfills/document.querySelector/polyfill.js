@@ -1,10 +1,10 @@
-(function (global) {
+(function () {
 	var
 	head = document.getElementsByTagName('head')[0];
 
 	function getElementsByQuery(node, selector, one) {
 		var
-		generator = document.createElement(),
+		generator = document.createElement('div'),
 		id = 'qsa' + String(Math.random()).slice(3),
 		style, elements;
 
@@ -51,4 +51,4 @@
 	Document.prototype.querySelectorAll = Element.prototype.querySelectorAll = function querySelectorAll(selector) {
 		return getElementsByQuery(this, selector, false);
 	};
-})(this);
+}(this));

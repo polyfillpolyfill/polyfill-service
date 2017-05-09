@@ -2,23 +2,37 @@
 	"aliases": [
 	],
 	"browsers": {
-		"firefox": "*",
-		"safari": "*",
-		"android": "*",
-		"opera": "*",
+		"android": "4.4 - *",
+		"bb": "7 - 10",
 		"chrome": "<51",
-		"ie": "*"
+		"firefox": "*",
+		"firefox_mob": "47 - *",
+		"ie": "7 - *",
+		"ie_mob": "11 - *",
+		"ios_saf": "7 - *",
+		"op_mini": "17 - *",
+		"opera": "*",
+		"safari": "6 - *",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"getComputedStyle",
 		"Array.isArray",
 		"Array.prototype.filter",
 		"Array.prototype.forEach",
+		"Array.prototype.indexOf",
 		"Array.prototype.map",
 		"Array.prototype.some",
-		"Function.prototype.bind"
+		"Event",
+		"Function.prototype.bind",
+		"perfomance.now"
 	],
 	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
-	"notes": []
+	"notes": [],
+	"repo": "https://github.com/WICG/IntersectionObserver",
+	"install": {
+		"module": "intersection-observer",
+		"paths": ["intersection-observer"]
+	}
 }

@@ -1,10 +1,9 @@
 // A modification of https://github.com/WebReflection/get-own-property-symbols
 // (C) Andrea Giammarchi - MIT Licensed
 
-(function (Object, GOPS) {
+(function (Object, GOPS, global) {
 
 	var	setDescriptor;
-	var	G = typeof global === typeof G ? window : global;
 	var id = 0;
 	var random = '' + Math.random();
 	var prefix = '__\x01symbol:';
@@ -32,7 +31,7 @@
 			}
 		}
 		return nGOPN(obj);
-	}
+	};
 	var gOPD = Object[GOPD];
 	var create = Object.create;
 	var keys = Object.keys;
@@ -40,10 +39,6 @@
 	var defineProperty = Object[DP];
 	var $defineProperties = Object[DPies];
 	var descriptor = gOPD(Object, GOPN);
-	var indexOf = Array.prototype.indexOf || function (v) {
-		for (var i = this.length; i-- && this[i] !== v;) {}
-		return i;
-	};
 	var addInternalIfNeeded = function (o, uid, enumerable) {
 		if (!hOP.call(o, internalSymbol)) {
 			try {
@@ -54,7 +49,7 @@
 					value: {}
 				});
 			} catch (e) {
-				o.internalSymbol = value
+				o[internalSymbol] = {};
 			}
 		}
 		o[internalSymbol]['@@' + uid] = enumerable;
@@ -75,11 +70,11 @@
 	};
 	var get = function get(){};
 	var onlyNonSymbols = function (name) {
-		return  name != internalSymbol &&
+		return name != internalSymbol &&
 			!hOP.call(source, name);
 	};
 	var onlySymbols = function (name) {
-		return  name != internalSymbol &&
+		return name != internalSymbol &&
 			hOP.call(source, name);
 	};
 	var propertyIsEnumerable = function propertyIsEnumerable(key) {
@@ -88,7 +83,7 @@
 			hOP.call(this, uid) &&
 			this[internalSymbol]['@@' + uid]
 		) : pIE.call(this, key);
-	}
+	};
 	var setAndGetSymbol = function (uid) {
 		var descriptor = {
 			enumerable: false,
@@ -138,9 +133,15 @@
 			defineProperty(o, key, descriptor);
 		}
 		return o;
+	};
+
+	var onlyInternalSymbols = function (obj) {
+		return function (name) {
+			return hOP.call(obj, internalSymbol) && hOP.call(obj[internalSymbol], '@@' + name);
 		};
+	};
 	var $getOwnPropertySymbols = function getOwnPropertySymbols(o) {
-		return gOPN(o).filter(onlySymbols).map(sourceMap);
+		return gOPN(o).filter(o === ObjectProto ? onlyInternalSymbols(o) : onlySymbols).map(sourceMap);
 		}
 	;
 
@@ -174,7 +175,7 @@
 	defineProperty(ObjectProto, PIE, descriptor);
 
 	descriptor.value = Symbol;
-	defineProperty(G, 'Symbol', descriptor);
+	defineProperty(global, 'Symbol', descriptor);
 
 	// defining `Symbol.for(key)`
 	descriptor.value = function (key) {
@@ -221,7 +222,9 @@
 		var protoDescriptor = gOPD(ObjectProto, key);
 		delete ObjectProto[key];
 		defineProperty(o, key, descriptor);
-		defineProperty(ObjectProto, key, protoDescriptor);
+		if (o !== ObjectProto) {
+			defineProperty(ObjectProto, key, protoDescriptor);
+		}
 	};
 
-}(Object, 'getOwnPropertySymbols'));
+}(Object, 'getOwnPropertySymbols', this));

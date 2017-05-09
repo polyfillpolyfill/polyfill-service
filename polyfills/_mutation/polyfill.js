@@ -1,5 +1,5 @@
 // http://dom.spec.whatwg.org/#mutation-method-macro
-function _mutation(nodes) {
+function _mutation(nodes) { // eslint-disable-line no-unused-vars
 	if (!nodes.length) {
 		throw new Error('DOM Exception 8');
 	} else if (nodes.length === 1) {

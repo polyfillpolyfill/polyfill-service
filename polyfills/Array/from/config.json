@@ -13,14 +13,18 @@
 		"firefox": "4 - 31",
 		"ie": "6 - 11",
 		"ie_mob": "10 - *",
-		"opera": "*",
+		"opera": "<32",
+		"op_mini": "*",
 		"safari": "<9",
-		"firefox_mob": "4 - *",
-		"ios_saf": "3 - 8"
+		"firefox_mob": "<32",
+		"android": "*",
+		"ios_saf": "<9",
+		"samsung_mob": "<5",
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.from",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
 }

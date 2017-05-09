@@ -10,7 +10,7 @@
 		"ie": "*",
 		"ie_mob": "10 - *",
 		"ios_chr": "*",
-		"ios_saf": "4 - 6.1",
+		"ios_saf": "4 - 8",
 		"opera": "10 - 20",
 		"op_mob": "*",
 		"op_mini": "*",
@@ -18,5 +18,5 @@
 		"firefox_mob": "1 - 24"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc",
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.trunc"
+	"spec": "https://tc39.github.io/ecma262/#sec-math.trunc"
 }

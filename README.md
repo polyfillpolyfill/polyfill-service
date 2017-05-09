@@ -1,40 +1,31 @@
-Polyfill service
-=====================
+# Polyfill service
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
-For usage information see the [hosted service](polyfill-service), which formats and displays the service API documentation located in the [docs](docs/) folder.
+For usage information see the [hosted service](https://polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
 [![Build
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)][license]
 
-
-Table Of Contents
------------------
-
 * [Requirements](#requirements)
-* [Running Locally](#running-locally)
+* [Running locally](#running-locally)
 * [Configuration](#configuration)
 * [Testing](#testing)
-* [Release Process](#release-process)
-* [Deployment](#deployment)
-* [Publishing](#publishing)
-* [Monitoring](#monitoring)
-* [Library API Reference](#library-api-reference)
+* [Real user monitoring](#real-user-monitoring)
+* [polyfill.io CDN](#polyfillio-cdn)
+* [Library](#library)
 * [License](#license)
 
 
-Requirements
-------------
+## Requirements
 
-Running Origami Build Service requires a few tools:
-	* [Git]: For downloading the source code
-	* [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
-	* [Grunt] 0.1.x: Used for automating tasks such as testing
+Running the polyfill service requires a few tools:
 
-Running Locally
----------------
+* [Git]: For downloading the source code
+* [Node.js] 6.x and [npm] 3.x: For installing the dependencies and running the application (npm is installed with Node.js)
+
+## Running locally
 
 Clone the project to your system:
 ```sh
@@ -51,113 +42,95 @@ Install the dependencies:
 npm install
 ```
 
-Build the polyfill sources and start the server, rebuiling and restarting whenever any changes are made to the project:
+Build the polyfill sources and start the server, rebuilding and restarting whenever any changes are made to the project:
 ```sh
-grunt dev
+npm run dev
 ```
 
 
-Configuration
--------------
+## Configuration
 
 You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
-	* `PORT`: The port on which to listen for HTTP requests (default 3000).
-	* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
-	* `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
-	* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
-	* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
-	* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
-	* `SAUCE_USER_NAME` and `SAUCE_API_KEY`: [Sauce Labs][sauce] credentials for grunt test tasks (not used by the service itself)
-	* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+* `PORT`: The port on which to listen for HTTP requests (default 3000).
+* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
+* `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
+* `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
+* `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
+* `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
+* `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`: [BrowserStack][browserstack] credentials for test tasks (not used by the service itself)
+* `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
+* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
+* `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
+* `SURROGATE_KEY`: The surrogate key assigned to all responses. Useful for purging cached responses from a CDN. (default `polyfill-service`);
 
 
-Testing
--------
+## Testing
 
-The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `SAUCE_USER_NAME` and `SAUCE_API_KEY` to be configured, view the [configuration](#configuration) section for more information.
-
-```sh
-grunt test           # run service tests and polyfill tests on a small set of browsers
-grunt simplemocha    # run the service tests
-grunt ci             # run the service tests and polyfills tests on a large set of browsers
-```
-
-We run the tests [on CircleCI][ci].  `grunt ci` must pass before we merge a pull request.
-
-Release Process
----------------
-
- 1. The release candidate is tested with the full grunt compatgen task to generate an updated compatibility table.
- 2. The commit is tagged vX.Y.Z-rcN where N is initially 1
- 3. Deploy to [QA](http://qa.polyfill.io)
- 4. Announce the release on twitter
- 5. Wait some number of days for feedback (usually 7 days). If necessary, make fixes, increment N, and return to step 1
- 6. Update package.json version and github tag with vX.Y.Z
- 7. Publish to npm
- 8. Push to cdn.polyfill.io
-
-
-Deployment
-----------
-
-The [production][heroku-production] and [QA][heroku-qa] applications run on [Heroku].  The library is published to the public [npm] registry.
-
-Before creating a new deployment, update the compatability table:
-```sh
-grunt compatgen && git commit docs/assets/compat.json -m 'update compat.json'
-```
-
-We use [Semantic Versioning][semver] to tag releases.  Only tagged releases should hit production, which ensures that the `/__about` endpoint is informative.  To tag a new release, use one of the following (this is the only time we allow a commit directly to `master`):
+The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
-npm version major
-npm version minor
-npm version patch
+npm run test           # run service tests and polyfill tests on a small set of browsers
+npm run test-node    # run the service tests
+npm run ci             # run the service tests and polyfills tests on a large set of browsers
 ```
 
-Now you can push to GitHub:
-```sh
-git push && git push --tags
-```
-
-After pushing to Github, you can deploy to [QA][heroku-qa] (This command requires being executed in Bash):
-```sh
-npm run deploy-qa
-```
+We run the tests [on CircleCI][ci].  `npm run ci` must pass before we merge a pull request.
 
 
-Publishing
-----------
-To publish to the public [npm] registry, you need to be logged in to the NPM CLI.
+## Real User Monitoring
 
-Check if you are already logged in to NPM via the CLI:
-```sh
-npm whoami
-```
+We have shipped experimental support for using RUM to monitor feature support and performance in browsers.  This involves a number of parts, all activated by the presence `RUM_MYSQL_DSN` and `RUM_BEACON_HOST` env vars:
 
-If you are not logged in, log in to NPM:
-```sh
-npm login
-```
+* **RUM client code**: a [small snippet](lib/rumTemplate.js.handlebars) of legacy-compatible code that will evaluate feature detects on the client, sample resource timing data, and beacon the results back to the service. This is shipped as part of the Node app.
+* **Beacon endpoint**: an [endpoint to collect RUM data](fastly-config.vcl), terminated at the CDN, logging query data out to Amazon S3 to avoid overloading the backend.  To clarify, the backend node server does not provide a route handler for the RUM data collection URL, so this is shipped when we deploy VCL to Fastly.  It also requires log streaming to be configured in the Fastly UI.
+* **Lambda processing function**: an [AWS Lambda function](tasks/lambda/functions/rum-process/index.js) is used to move the data from the raw log files on S3 into the MySQL backend.  This is shipped using a dedicated process with [Apex](http://apex.run), see below.
+* **Reporting endpoints**: [API routes that deliver useful analysis of the RUM data](service/routes/rum.js) are provided in the node server.  These return CSV data intended to populate a spreadsheet.  This is shipped as part of the Node app.
 
-Publish a new version of the package:
-```sh
-npm publish
-```
+Because this requires a fair amount of orchestration, we recommend only enabling it for the FT hosted version.  If you want to run the service yourself, you can opt out of this RUM feature by not setting a `RUM_MYSQL_DSN` or `RUM_BEACON_HOST`.
+
+### Routes
+
+* `/v2/getRumPerfData`: Return stats for resource timing metrics, grouped by CDN POP and country of request origin
+* `/v2/getRumCompatData`: Return stats for differences between current targeting configuration and live feature detect results from browers, grouped by feature name, browser family and version.
+
+### Deploying Lambda
+
+All the bits of the RUM solution are deployed as part of our existing deployment workflow except the Lambda functions, which require [Apex](http://apex.run).  To deploy the Lambda functions:
+
+1. Create the following 7 environment variables in your local environment or the `.env` file in the project root: `RUM_MYSQL_DSN`, `RUM_AWS_ACCESS_KEY`, `RUM_AWS_SECRET_KEY`, a second copy of each of these suffixed with `_QA`, and `RUM_AWS_REGION`. FT devs can get the correct values for these variables from Heroku config or Lastpass.
+3. Run `npm run deploy-lambda` or `npm run deploy-lambda -- --env=prod` as appropriate
+4. If this is the first time you've deployed the function to this AWS profile, you then need to configure the function in the AWS UI:
+	- Set up a trigger to invoke the function whenever a file is written to the appropriate S3 bucket
 
 
-Monitoring
-----------
+## polyfill.io CDN
+
+The Financial Times and Fastly host a public version of this service on [polyfill.io](https://polyfill.io).
+
+### Release process
+
+1. Test the release candidate with the npm run compatgen task to generate an updated compatibility table. - `npm run compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
+1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
+1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
+1. Push the commits and tags to the git remote. - `git push origin master --tags`
+1. Deploy to [QA](https://qa.polyfill.io). - `npm run deploy`
+1. Announce the release on twitter
+1. Wait some number of days for feedback (usually 7 days). If necessary, make fixes and return to step 1
+1. Tag the commit/package using npm's version command, using the same semver level as you used for the `pre` versions. - `npm version {major | minor | patch}`
+1. Publish to npm under the `latest` dist-tag. - `npm publish`
+1. Push the commits and tags to the git remote. - `git push origin master --tags`
+1. Deploy to [production](https://polyfill.io). - `npm run promote`
+
+### Monitoring
 
 We use Graphite and [Grafana] to keep track of application metrics. You can view requests, bundle build duration, cache hit ratios, and memory usage. It's important after a deploy to make sure we haven't unexpectedly had an impact on these.
 
 We also use [Pingdom] to track uptime. You should get notifications if you're a member of the Origami team.
 
-Library API Reference
----------------------
+## Library
 
-### Using as a library
+### API reference
 
 The Polyfill service can also be used as a library in NodeJS projects.  To do this:
 
@@ -231,17 +204,15 @@ Example:
 require('polyfill-service').listAllPolyfills();
 ```
 
-License
--------
+## License
 
 Except where indicated in selected polyfill config files, the polyfill service codebase is licensed under the terms of the [MIT license]. Contributors must accept our [contribution terms].
 
 
 [ci]: https://circleci.com/gh/Financial-Times/polyfill-service
-[contribution terms]: https://github.com/Financial-Times/polyfill-service/blob/master/CONTRIBUTING.md
+[contribution terms]: https://polyfill.io/v2/docs/contributing#contribution-terms
 [Git]: https://git-scm.com/
-[grafana]: http://grafana.ft.com/dashboard/db/origami-polyfill-service
-[grunt]: https://www.npmjs.com/package/grunt-cli
+[grafana]: https://grafana.ft.com/dashboard/db/origami-polyfill-service
 [heroku-production]: https://dashboard.heroku.com/apps/ft-polyfill-service
 [heroku-qa]: https://dashboard.heroku.com/apps/ft-polyfill-service-qa
 [heroku]: https://heroku.com/
@@ -250,7 +221,7 @@ Except where indicated in selected polyfill config files, the polyfill service c
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [pingdom]: https://my.pingdom.com/reports/uptime#check=1299983
-[polyfill-service]: https://cdn.polyfill.io
-[sauce]: saucelabs.com
+[polyfill-service]: https://polyfill.io
+[browserstack]: https://browserstack.com
 [semver]: http://semver.org/
-[usage]: https://cdn.polyfill.io/v1/docs/usage
+[usage]: https://polyfill.io/v2/docs/usage

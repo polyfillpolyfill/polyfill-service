@@ -16,7 +16,7 @@
 				<li>There are changes to the Node API.  See the README for details.</li>
 			</ul>
 
-			<h2>GET /v{{apiversion}}/polyfill<var>:minify</var>.<var>:type</var></h2>
+			<h2>GET /v2/polyfill<var>:minify</var>.<var>:type</var></h2>
 
 			<p>Fetch a polyfill bundle.</p>
 
@@ -47,7 +47,7 @@
 							<dt><code>|gated</code></dt>
 							<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
 						</dl>
-						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for <a href='/{{apiversion}}/docs/features/#default-sets'>a curated list of the most popular polyfills</a>.  Setting the value "all" will select every feature in the library (this is an extremely bad idea and will be removed in a future version)</p>
+						<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for <a href='/v{{apiversion}}/docs/features/#default-sets'>a curated list of the most popular polyfills</a>.  Setting the value "all" will select every feature in the library (this is an extremely bad idea and will be removed in a future version)</p>
 					</td>
 				</tr><tr>
 					<td><code>excludes</code></td>
@@ -83,6 +83,78 @@
 					<td>Set to <code>1</code> to enable <a href='https://en.wikipedia.org/wiki/Real_user_monitoring'>real user monitoring</a>, allowing the polyfill service to gather performance data about itself using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API/Using_the_Resource_Timing_API'>resource timing API</a>, where available, and to perform feature detection to improve our browser targeting.  Turning this on will help us improve the service, and tune our browser targeting to better serve your particular users.  Defaults to 0.  In a future release this will be on by default, so if you want to opt out permanently, set it explicitly to <code>0</code> now.</td>
 				</tr>
 			</table>
+
+			{{#rumEnabled}}
+			<h2>GET /v2/getRumPerfData</h2>
+
+			<p>Reports network performance data from real user monitoring. Data includes separate statistics for each phase of the connection.</p>
+
+			<p>This endpoint is only available because real user monitoring is enabled.  See README for details.</p>
+
+			<table class='apidoc'>
+				<tr>
+					<th>Param</th><th>Where</th><th>Description</th>
+				</tr><tr>
+					<td><code>header</code></td>
+					<td>Querystring</td>
+					<td>
+						Whether to include a header row in the CSV output (`1` for yes, `0` for no).  Default no.
+					</td>
+				</tr><tr>
+					<td><code>metrics</code></td>
+					<td>Querystring</td>
+					<td>
+						Which connection metrics to report on.  Comma-delimited list.  Choose from 'perf_dns', 'perf_connect', 'perf_req', 'perf_resp', 'perf_total'
+					</td>
+				</tr><tr>
+					<td><code>dimensions</code></td>
+					<td>Querystring</td>
+					<td>
+						How to group results.  Comma-delimited list.  Choose from 'data_center', 'country', 'refer_domain'
+					</td>
+				</tr><tr>
+					<td><code>stats</code></td>
+					<td>Querystring</td>
+					<td>
+						Aggregation functions to run on grouped metrics.  Comma-delimited list.  Choose from 'mean', 'median', '95P', '99P', 'std', 'min', 'max', 'count'
+					</td>
+				</tr><tr>
+					<td><code>period</code></td>
+					<td>Querystring</td>
+					<td>
+						Number of days to draw data from, ending now.  Must be in range 1-60.
+					</td>
+				</tr><tr>
+					<td><code>minSample</code></td>
+					<td>Querystring</td>
+					<td>
+						Minimum number of records to require for a result to be created.  Must be at least 500.
+					</td>
+				</tr>
+			</table>
+
+			<h2>GET /v2/getRumCompatData</h2>
+
+			<p>Reports compatibility data from Real user monitoring, grouped by browser family and version, covering the last 30 days.</p>
+
+			<p>This endpoint is only available if Real user monitoring is enabled.</p>
+
+			<table class='apidoc'>
+				<tr>
+					<th>Param</th><th>Where</th><th>Description</th>
+				</tr><tr>
+					<td><code>header</code></td>
+					<td>Querystring</td>
+					<td>
+						Whether to include a header row in the CSV output (`1` for yes, `0` for no).  Default no.
+					</td>
+				</tr>
+			</table>
+			{{/rumEnabled}}
+			{{^rumEnabled}}
+			<aside>RUM Reporting endpoints become available if you enable RUM.  See README for more details.</aside>
+			{{/rumEnabled}}
+
 		</div>
 
 {{>footer}}

@@ -1,145 +1,120 @@
 /* global describe, it */
 
-var assert  = require('assert');
-var polyfillio = require('../../../lib/index');
+const assert = require('proclaim');
+const setsToArrays = require('../../utils/sets_to_arrays');
 
-describe("polyfillio", function() {
-	describe(".getPolyfills(features)", function() {
+const polyfillio = require('../../../lib/index');
 
-		it("should remove features not appropriate for the current UA", function() {
-			return polyfillio.getPolyfills({
+describe("polyfillio", () => {
+	describe(".getPolyfills(features)", () => {
+
+		it("should not include unused dependencies", () => {
+			const input = {
 				features: {
-					'Array.prototype.map': { flags:[] }
-				},
-				uaString: 'chrome/38'
-			}).then(function(polyfillSet) {
-				assert.deepEqual(polyfillSet, {});
-			});
-		});
-
-		it("should respect the always flag", function() {
-			return polyfillio.getPolyfills({
-				features: {
-					'Array.prototype.map': { flags:['always'] }
-				},
-				uaString: 'chrome/38'
-			}).then(function(polyfillSet) {
-				assert.deepEqual(polyfillSet, {
-					'Array.prototype.map': { flags:['always'] }
-				});
-			});
-		});
-
-		it("should include dependencies", function() {
-			return polyfillio.getPolyfills({
-				features: {
-					'Element.prototype.placeholder': { flags: [] }
-				},
-				uaString: 'ie/8'
-			}).then(function(polyfillSet) {
-				assert.deepEqual(polyfillSet, {
-					'Element.prototype.placeholder': { flags:[] },
-					'Object.defineProperty': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
-					'document.querySelector': { flags:[], aliasOf: ['Element.prototype.placeholder'] },
-					'Element': { flags: [], aliasOf: ['Element.prototype.placeholder', 'document.querySelector'] },
-					'Document': { flags: [], aliasOf: ['Element', 'Element.prototype.placeholder', 'document.querySelector'] }
-				});
-			});
-		});
-
-		it("should not include unused dependencies", function() {
-			return polyfillio.getPolyfills({
-				features: {
-					'Promise': { flags: [] }
+					'Promise': {}
 				},
 				uaString: 'chrome/45'
-			}).then(function(polyfillSet) {
-				assert.deepEqual(polyfillSet, {});
-			});
+			};
+			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), {}));
 		});
 
-		it("should return no polyfills for unknown UA unless unknown is set", function() {
-
+		it("should return no polyfills for unknown UA unless unknown is set", () => {
 			return Promise.all([
 
-				// Without unknown, no polyfills
+				// Without `unknown`, no polyfills for unrecognised UA
 				polyfillio.getPolyfills({
-					features: {'Math.sign': { flags: [] }},
+					features: {'Math.sign': {}},
 					uaString: ''
-				}).then(function(polyfillSet) {
-					assert.deepEqual(polyfillSet, {});
-				}),
+				}).then(result => assert.deepEqual(setsToArrays(result), {})),
 
-				// With unknown=polyfill, default variant polyfills
+				// With unknown=polyfill, all requested polyfills are included
 				polyfillio.getPolyfills({
-					features: {'Math.sign': { flags: [] }},
+					features: {'Math.sign': {}},
 					unknown: 'polyfill',
 					uaString: ''
-				}).then(function(polyfillSet) {
-					assert.deepEqual(polyfillSet, {
-						'Math.sign': { flags:[] }
-					});
-				}),
+				}).then(result => assert.deepEqual(setsToArrays(result), {
+					'Math.sign': { flags:[] }
+				})),
 
-				// With unknown=polyfill, default variant polyfills (UA not specified)
+				// ... even when `uaString` param is missing entirely
 				polyfillio.getPolyfills({
-					features: {'Math.sign': { flags: [] }},
+					features: {'Math.sign': {}},
 					unknown: 'polyfill',
-				}).then(function(polyfillSet) {
-					assert.deepEqual(polyfillSet, {
-						'Math.sign': { flags:[] }
-					});
-				})
+				}).then(result => assert.deepEqual(setsToArrays(result), {
+					'Math.sign': { flags:[] }
+				}))
 			]);
-
 		});
 
-		it("should understand the 'all' alias", function() {
+		it("should understand the 'all' alias", () => {
 			return polyfillio.getPolyfills({
 				features: {
 					'all': { flags: [] }
 				},
 				uaString: 'ie/7'
-			}).then(function(polyfillSet) {
-				assert(Object.keys(polyfillSet).length > 0);
-			});
+			}).then(result => assert(Object.keys(result).length > 0));
 		});
 
-		it("should respect the excludes option", function() {
+		it("should respect the excludes option", () => {
 			return Promise.all([
 				polyfillio.getPolyfills({
 					features: {
-						'fetch': { flags:[] }
+						'fetch': {}
 					},
 					uaString: 'chrome/30'
-				}).then(function(polyfillSet) {
-					assert.deepEqual(polyfillSet, {
-						fetch: { flags: [] },
-						Promise: { flags: [], aliasOf: [ 'fetch' ] },
-						setImmediate: { flags: [], aliasOf: [ 'Promise', 'fetch' ] }
-					});
-				}),
+				}).then(result => assert.deepEqual(setsToArrays(result), {
+					fetch: { flags: [] },
+					Promise: { flags: [], aliasOf: [ 'fetch' ] },
+					setImmediate: { flags: [], aliasOf: [ 'Promise', 'fetch' ] }
+				})),
 				polyfillio.getPolyfills({
 					features: {
-						'fetch': { flags:[] }
+						'fetch': {}
 					},
 					excludes: ["Promise", "non-existent-feature"],
 					uaString: 'chrome/30'
-				}).then(function(polyfillSet) {
-					assert.deepEqual(polyfillSet, {
-						fetch: { flags: [] }
-					});
-				})
+				}).then(result => assert.deepEqual(setsToArrays(result), {
+					fetch: { flags: [] }
+				}))
 			]);
 		});
 	});
 
-	/*
-	// TODO: Not sure how to test this reliably - need a mock polyfill source?
-	describe('.getPolyfillstring', function() {
+	describe('.getPolyfillString', () => {
 
-		it('should include the non-gated source when a feature-detect is unavailable', function() {
+		it('should produce different output when gated flag is enabled', () => {
+			return Promise.all([
+				polyfillio.getPolyfillString({
+					features: { default: {} },
+					uaString: 'chrome/30'
+				}),
+				polyfillio.getPolyfillString({
+					features: { default: { flags: new Set(['gated']) } },
+					uaString: 'chrome/30'
+				})
+			]).then(results => {
+				assert.notEqual(setsToArrays(results[0]), setsToArrays(results[1]));
+			});
 		});
+
+		it('should support streaming output', done => {
+			const ReadableStream = require('stream').Readable;
+			const buf = [];
+			const s = polyfillio.getPolyfillString({
+				features: { default: {} },
+				uaString: 'chrome/30',
+				stream: true,
+				minify: false
+			});
+			assert.instanceOf(s, ReadableStream);
+			s.on('data', chunk => buf.push(chunk));
+			s.on('end', () => {
+				const bundle = buf.join('');
+				assert.include(bundle, 'Polyfill service');
+				assert.include(bundle, "function(undefined)");
+				done();
+			});
+		});
+
 	});
-	*/
 });

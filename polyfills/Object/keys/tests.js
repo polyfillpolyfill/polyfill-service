@@ -1,30 +1,33 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Object.keys).to.be.a(Function);
+	proclaim.isInstanceOf(Object.keys, Function);
 });
 
 it('has correct argument length', function () {
-	expect(Object.keys.length).to.be(1);
+	proclaim.equal(Object.keys.length, 1);
 });
 
 it('works with objects', function () {
-	expect(Object.keys({}).length).to.be(0);
+	proclaim.equal(Object.keys({}).length, 0);
 
-	expect(Object.keys({
+	proclaim.equal(Object.keys({
 		foo: true
-	}).length).to.be(1);
+	}).length, 1);
 
-	expect(Object.keys({
+	proclaim.equal(Object.keys({
 		foo: true,
 		bar: false
-	}).length).to.be(2);
+	}).length, 2);
 });
 
 it('works with objects containing otherwise non-enumerable keys', function () {
-	expect(Object.keys({
+	proclaim.equal(Object.keys({
 		toString: function () {}
-	}).length).to.be(1);
+	}).length, 1);
 
-	expect(Object.keys({
+	proclaim.equal(Object.keys({
 		constructor: 0,
 		hasOwnProperty: 0,
 		isPrototypeOf: 0,
@@ -32,5 +35,5 @@ it('works with objects containing otherwise non-enumerable keys', function () {
 		toString: 0,
 		toLocaleString: 0,
 		valueOf: 0
-	}).length).to.be(7);
+	}).length, 7);
 });

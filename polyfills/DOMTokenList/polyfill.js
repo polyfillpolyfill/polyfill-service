@@ -1,4 +1,4 @@
-(function (global, join, splice) {
+(function (global) {
 	var nativeImpl = "DOMTokenList" in global && global.DOMTokenList;
 
 	if (!nativeImpl) {
@@ -21,4 +21,4 @@
 
 	}
 
-})(this, Array.prototype.join, Array.prototype.splice);
+}(this));

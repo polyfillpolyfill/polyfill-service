@@ -1,0 +1,19 @@
+{
+	"browsers": {
+		"ie": "9-12",
+		"ie_mob": "9 - 12",
+		"safari": "<9",
+		"chrome": "<50",
+		"firefox": "<40",
+		"ios_saf": "*",
+		"opera": "<50",
+		"samsung_mob": "<5",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"_ArrayIterator",
+		"Symbol.iterator"
+	],
+	"license": "MIT",
+	"spec": "https://dom.spec.whatwg.org/#domtokenlist"
+}

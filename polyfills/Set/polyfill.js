@@ -16,18 +16,17 @@
 
 	function makeIterator(setInst, getter) {
 		var nextIdx = 0;
-		var done = false;
 		return {
 			next: function() {
-				if (nextIdx === setInst._values.length) done = true;
-				if (!done) {
-					while (setInst._values[nextIdx] === undefMarker) nextIdx++;
+				while (setInst._values[nextIdx] === undefMarker) nextIdx++;
+				if (nextIdx === setInst._values.length) {
+					return {value: void 0, done: true};
+				}
+				else {
 					return {value: getter.call(setInst, nextIdx++), done: false};
-				} else {
-					return {done:true};
 				}
 			}
-		}
+		};
 	}
 
 	function calcSize(setInst) {
@@ -95,7 +94,7 @@
 	Set.prototype['forEach'] = function(callbackFn, thisArg) {
 		thisArg = thisArg || global;
 		var iterator = this.entries();
-		result = iterator.next();
+		var result = iterator.next();
 		while (result.done === false) {
 			callbackFn.call(thisArg, result.value[1], result.value[0], this);
 			result = iterator.next();
@@ -107,6 +106,6 @@
 	Set.length = 0;
 
 	// Export the object
-	this.Set = Set;
+	global.Set = Set;
 
-})(this);
+}(this));

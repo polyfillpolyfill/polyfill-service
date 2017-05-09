@@ -2,7 +2,7 @@
 	"browsers": {
 		"android": "* - 4.4.4",
 		"bb": "10 - *",
-		"ie": "< 14",
+		"ie": "< 15",
 		"ie_mob": "*",
 		"firefox": "* - 38",
 		"opera": "* - 28",
@@ -21,7 +21,11 @@
 	"spec": "https://fetch.spec.whatwg.org/",
 	"repo": "https://github.com/github/fetch",
 	"notes": [
-		"Makes use of FormData, FileReader and Blob if they exist"
+		"Makes use of FormData, FileReader and Blob if they exist. Readable streams not supported."
 	],
+	"install": {
+		"module": "whatwg-fetch",
+		"postinstall": "update.task.js"
+	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
 }

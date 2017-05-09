@@ -1,0 +1,18 @@
+{
+	"alias": [
+		"HTMLCanvasElement.protoype.toBlob"
+	],
+	"browsers": {
+		"chrome": "<50",
+		"firefox": "<19",
+		"safari": "*",
+		"ie": "10",
+		"opera": "*"
+	},
+	"dependencies": [
+		"atob",
+		"Object.defineProperty"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob",
+	"license": "MIT"
+}

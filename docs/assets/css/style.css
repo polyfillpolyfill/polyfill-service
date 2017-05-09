@@ -243,3 +243,34 @@ pre.bigcode code {
 	padding: 0;
 	margin: 0;
 }
+
+.rum-perf-data__count, .rum-perf-data__total {
+	text-align: right !important;
+}
+.rum-perf-data__nettimeline {
+	width: 70%;
+}
+.nettimeline__container {
+	line-height: 0;
+	margin-bottom: 1px;
+}
+.nettimeline {
+	height: 15px;
+	overflow: hidden;
+	display: inline-block;
+}
+.nettimeline--smaller {
+	height: 8px;
+}
+.nettimeline--dns {
+	background-color: #328073;
+}
+.nettimeline--connect {
+	background-color: #ef8b26;
+}
+.nettimeline--req {
+	background-color: #4cb442;
+}
+.nettimeline--resp {
+	background-color: #3299ec;
+}
