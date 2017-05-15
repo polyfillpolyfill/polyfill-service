@@ -3,7 +3,9 @@
 	test.type = "radio";
 	test.checked = true;
 	div.appendChild(test);
-	var result = test.cloneNode();
-	var result2 = div.cloneNode();
-	return !!result.checked && (result2.childNodes.length === 0);
+	var result = test.cloneNode(false), result2;
+	try {
+		result2 = div.cloneNode();
+	} catch (e) {}
+	return !!result.checked && (!result2 || result2.childNodes.length === 0);
 })()
