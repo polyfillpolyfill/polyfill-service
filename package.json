@@ -42,7 +42,7 @@
     "ci": "npm run lint && npm run build && npm run test-node && npm run test-node-unit && npm run test-integration && npm run test-browser-ci && npm run deploy-vcl -- --dryRun",
     "compatgen": "npm run build && npm run test-node && npm run test-browser-compat && node tasks/node/compattable",
     "prepublish": "npm run build",
-    "deploy": "git push https://git.heroku.com/ft-polyfill-service-qa.git master && npm run deploy-vcl -- --env=qa && NODE_ENV=\"qa\" npm run purge-cdn",
+    "deploy": "git push https://git.heroku.com/ft-polyfill-service-qa.git master && git push https://git.heroku.com/ft-polyfill-service-us-qa.git master && npm run deploy-vcl -- --env=qa && NODE_ENV=\"qa\" npm run purge-cdn",
     "deploy-vcl": "node tasks/node/deployvcl",
     "deploy-lambda": "node tasks/node/deploylambda",
     "promote": "heroku pipelines:promote --app ft-polyfill-service-qa && npm run deploy-vcl -- --env=prod && NODE_ENV=\"production\" npm run purge-cdn",
@@ -128,5 +128,5 @@
     "uglify-js": "^2.7.5",
     "wd": "^0.4.0"
   },
-  "version": "3.17.0"
+  "version": "3.18.1"
 }
