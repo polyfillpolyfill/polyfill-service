@@ -94,7 +94,7 @@ router.get("/v2/normalizeUa", (req, res) => {
 
 	if (req.query.ua) {
 		res.status(200);
-		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
+		res.set('Cache-Control', 'public, max-age=' + one_year + ', stale-if-error=' + (one_year + one_week));
 		res.set('Normalized-User-Agent', encodeURIComponent(polyfillio.normalizeUserAgent(req.query.ua)));
 		res.send();
 	} else {

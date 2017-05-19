@@ -15,7 +15,7 @@ var arePropertyDescriptorsSupported = function () {
 };
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
-// http://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol-constructor
+// https://tc39.github.io/ecma262/#sec-symbol-constructor
 it('should throw if being used via `new`', function() {
 	var test = function () {
 		return new Symbol();
@@ -137,6 +137,33 @@ if (supportsDescriptors) {
 		proclaim.equal(passed, true);
 		proclaim.equal(Object.keys(object).length, 0);
 		proclaim.equal(Object.getOwnPropertyNames(object).length, 0);
+		proclaim.equal(Object.prototype.propertyIsEnumerable.call(object, symbol), true);
+	});
+
+	it('should return false from propertyIsEnumerable for symbols defined non-enumerable', function() {
+		var object = {};
+		var symbol = Symbol();
+		Object.defineProperty(object, symbol, { enumerable: false });
+
+		for (var x in object){}
+		var passed = !x;
+
+		proclaim.equal(passed, true);
+		proclaim.equal(Object.keys(object).length, 0);
+		proclaim.equal(Object.getOwnPropertyNames(object).length, 0);
+		proclaim.equal(Object.prototype.propertyIsEnumerable.call(object, symbol), false);
+	});
+
+	it('should not fail on propertyIsEnumerable for deep clones', function() {
+		// See: https://github.com/Financial-Times/polyfill-service/issues/1058
+		var symbol0 = Symbol();
+		var symbol1 = Symbol();
+
+		proclaim.equal(Object.getOwnPropertySymbols(Object.prototype).length, 0);
+		Object.prototype[symbol0] = 'Symbol(0)';
+		proclaim.equal(Object.getOwnPropertySymbols(Object.prototype).length, 1);
+		Object.defineProperty(Object.prototype, symbol1, { value: 'Symbol(1)'});
+		proclaim.equal(Object.getOwnPropertySymbols(Object.prototype).length, 2);
 	});
 }
 

@@ -11,7 +11,7 @@
 		"android": "<5",
 		"safari": "<9",
 		"ios_saf": "<9",
-		"opera": "*",
+		"opera": "<32",
 		"op_mini": "*",
 		"op_mob": "*",
 		"bb": "*"
