@@ -105,6 +105,7 @@
     "tsort": "0.0.1",
     "useragent": "^2.1.12",
     "usertiming": "^0.1.8",
+    "web-animations-js": "^2.2.2",
     "whatwg-fetch": "^2.0.3",
     "yaku": "0.17.11"
   },
