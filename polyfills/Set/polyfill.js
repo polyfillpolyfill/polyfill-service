@@ -109,6 +109,6 @@
 	Set.name = "Set";
 
 	// Export the object
-	this.Set = Set;
+	global.Set = Set;
 
 }(this));

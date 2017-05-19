@@ -145,6 +145,6 @@
 	Map.name = "Map";
 
 	// Export the object
-	this.Map = Map;
+	global.Map = Map;
 
 }(this));

@@ -150,22 +150,22 @@ function refreshData() {
 					polyfillservice.getPolyfillString(Object.assign({minify: true}, opts)),
 					polyfillservice.getPolyfillString(Object.assign({minify: false}, opts))
 				]).then(spread((minsrc, rawsrc) => {
-					const item = {
-						family: browser.family,
-						ver: browser.ver,
-						minsrc: minsrc,
-						rawbytes: rawsrc.length,
-						minbytes: minsrc.length
-					};
-					return new Promise(resolve => {
-						zlib.gzip(item.minsrc, (err, gzipsrc) => {
-							if (!err) {
-								item.gzipbytes = gzipsrc.length;
-							}
-							resolve(item);
+						const item = {
+							family: browser.family,
+							ver: browser.ver,
+							minsrc: minsrc,
+							rawbytes: rawsrc.length,
+							minbytes: minsrc.length
+						};
+						return new Promise(resolve => {
+							zlib.gzip(item.minsrc, (err, gzipsrc) => {
+								if (!err) {
+									item.gzipbytes = gzipsrc.length;
+								}
+								resolve(item);
+							});
 						});
-					});
-				}));
+					}));
 			}));
 		},
 		rumPerf: () => {
@@ -189,37 +189,37 @@ function refreshData() {
 				.filter(feature => sources.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
 				.sort()
 				.map(feat => {
-					return sources.getPolyfillMetaSync(feat).then(polyfill => {
-						const fdata = {
-							feature: feat,
-							slug: feat.replace(/[^\w]/g, '_'),
-							size: polyfill.size,
-							isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
-							hasTests: polyfill.hasTests,
-							docs: polyfill.docs,
-							baseDir: polyfill.baseDir,
-							spec: polyfill.spec,
-							notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
-							license: polyfill.license,
-							licenseIsUrl: polyfill.license && polyfill.license.length > 5
-						};
-						browsers.forEach(browser => {
-							if (compatdata[feat][browser]) {
-								fdata[browser] = [];
-								Object.keys(compatdata[feat][browser])
-									.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
-									.forEach(version => {
-										fdata[browser].push({
-											status: compatdata[feat][browser][version],
-											statusMsg: msgs[compatdata[feat][browser][version]],
-											version: version
-										});
+					const polyfill = sources.getPolyfillMetaSync(feat);
+					const fdata = {
+						feature: feat,
+						slug: feat.replace(/[^\w]/g, '_'),
+						size: polyfill.size,
+						isDefault: (polyfill.aliases && polyfill.aliases.indexOf('default') !== -1),
+						hasTests: polyfill.hasTests,
+						docs: polyfill.docs,
+						baseDir: polyfill.baseDir,
+						spec: polyfill.spec,
+						notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+						license: polyfill.license,
+						licenseIsUrl: polyfill.license && polyfill.license.length > 5
+					};
+
+					browsers.forEach(browser => {
+						if (compatdata[feat][browser]) {
+							fdata[browser] = [];
+							Object.keys(compatdata[feat][browser])
+								.sort((a, b) => isNaN(a) ? 1 : (isNaN(b) || parseFloat(a) < parseFloat(b)) ? -1 : 1)
+								.forEach(version => {
+									fdata[browser].push({
+										status: compatdata[feat][browser][version],
+										statusMsg: msgs[compatdata[feat][browser][version]],
+										version: version
 									});
-								;
-							}
-						});
-						return fdata;
+								});
+							;
+						}
 					});
+					return fdata;
 				})
 			);
 		}
