@@ -2,7 +2,7 @@
 	"browsers": {
 		"ie": "9 - *",
 		"ie_mob": "9 - *",
-		"safari": "<9",
+		"safari": "<10",
 		"chrome": "<50",
 		"firefox": "<40",
 		"ios_saf": "*",

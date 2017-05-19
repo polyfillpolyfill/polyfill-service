@@ -44,18 +44,18 @@ function createEndpoint(type, polyfillio) {
 				return Promise.all(featuresList.map(featureName => {
 					return polyfillio.describePolyfill(featureName)
 						.then(config => {
-							if (config.isTestable && config.isPublic && config.hasTests) {
-								const baseDir = path.join(__dirname, '../../polyfills');
-								const testFile = path.join(baseDir, config.baseDir, '/tests.js');
-								return readFile(testFile)
-									.then(tests => {
-										return {
-											feature: featureName,
-											detect: config.detectSource ? config.detectSource : false,
-											tests
-										};
-									})
-								;
+							if (config.isTestable && config.isPublic) {
+								let testsPromise = Promise.resolve([]);
+								if (config.hasTests) {
+									const baseDir = path.join(__dirname, '../../polyfills');
+									const testFile = path.join(baseDir, config.baseDir, '/tests.js');
+									testsPromise = readFile(testFile);
+								}
+								return testsPromise.then(tests => ({
+									feature: featureName,
+									detect: config.detectSource ? config.detectSource : false,
+									tests
+								}));
 							}
 						})
 					;
