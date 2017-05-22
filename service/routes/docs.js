@@ -68,20 +68,39 @@ function refreshData() {
 			const endTime = moment().startOf('day');
 			const startTime = moment(endTime).subtract(180, 'days');
 			return request({
-				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from='+startTime.unix()+'&to='+endTime.unix()+'&by=day',
+				url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=' + startTime.unix() + '&to=' + endTime.unix() + '&by=day',
 				headers: { 'fastly-key': process.env.FASTLY_API_KEY },
 				json: true
 			}).then(data => {
-				const rollup = {requests:0, hits:0, miss:0, bandwidth:0};
-				const byday = data.data.map(function(result) {
+				const rollup = { requests: 0, hits: 0, miss: 0, bandwidth: 0 };
+				const byday = data.data.map(function (result) {
 					rollup.requests += result.requests;
 					rollup.hits += result.hits;
 					rollup.miss += result.miss;
 					rollup.bandwidth += result.bandwidth;
-					return {date: result.start_time, requests:result.requests, hits:result.hits, miss:result.miss};
+					return { date: result.start_time, requests: result.requests, hits: result.hits, miss: result.miss };
 				});
-				return {byday:byday, rollup:rollup};
-			});
+				return { byday: byday, rollup: rollup };
+			})
+				.then(data => {
+					const endTime = moment().startOf('day');
+					const startTime = moment(endTime).subtract(7, 'days');
+					return request({
+						url: 'https://api.fastly.com/stats/service/' + process.env.FASTLY_SERVICE_ID + '?from=' + startTime.unix() + '&to=' + endTime.unix() + '&by=day',
+						headers: { 'fastly-key': process.env.FASTLY_API_KEY },
+						json: true
+					})
+						.then(data7days => {
+							const rollup = { requests: 0, hits: 0, miss: 0};
+							data7days.data.forEach(function (result) {
+								rollup.requests += result.requests;
+								rollup.hits += result.hits;
+								rollup.miss += result.miss;
+							});
+							data.rollup7days = rollup;
+							return data;
+						});
+				});
 		},
 		respTimes: () => {
 			if (!process.env.PINGDOM_CHECK_ID) throw new Error("Pingdom access disabled.  See README for environment variables required for Pingdom access");
