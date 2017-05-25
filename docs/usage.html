@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			{{/if}}
-			{{#if fastly.rollup}}
+			{{#if fastly.rollup7days}}
 			<div data-o-grid-colspan='S12 M6 L4'>
 				<h3>Caching</h3>
 				<p>Hit ratio, last 7 days, from <strong>Fastly</strong>:</p>
@@ -61,8 +61,8 @@
 					<table class='chart-data o-techdocs-table'>
 						<thead><tr><th>Cache result</th><th>Requests</th></tr></thead>
 						<tbody>
-							<tr><td>Hits</td><td>{{fastly.rollup.hits}}</td></tr>
-							<tr><td>Misses</td><td>{{fastly.rollup.miss}}</td></tr>
+							<tr><td>Hits</td><td>{{fastly.rollup7days.hits}}</td></tr>
+							<tr><td>Misses</td><td>{{fastly.rollup7days.miss}}</td></tr>
 						</tbody>
 					</table>
 				</div>
