@@ -27,4 +27,5 @@ polyfills/URL/polyfill.js
 polyfills/UserTiming/polyfill.js
 polyfills/WeakSet/polyfill.js
 polyfills/~html5-elements/polyfill.js
+polyfills/WebAnimations/polyfill.js
 tasks/**/node_modules
