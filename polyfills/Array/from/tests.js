@@ -87,25 +87,36 @@ describe('returns an array with', function () {
 			}
 		}
 
-		it('can convert from a user-defined iterator', function () {
-			function iterator(cnt) {
-				return {
-					next: function () {
-						return cnt === 0
-							? {
-								done: true
-							}
-							: {
-								value: cnt--,
-								done: false
-							};
+		it('can convert from a custom iterator', function () {
+			if (typeof Symbol !== 'function' || ![][Symbol.iterator] && ![]['@@iterator']) return this.skip();
+
+			function iterable(count) {
+				var iterator = {
+					'@@iterator': function () {
+						throw new Error();
 					}
 				};
+				iterator[Symbol.iterator] = function () {
+					var cnt = count;
+					return {
+						next: function () {
+							return cnt === 0
+								? {
+									done: true
+								}
+								: {
+									value: cnt--,
+									done: false
+								};
+						}
+					};
+				};
+				return iterator;
 			}
-			proclaim.deepEqual(Array.from(iterator(0)), []);
-			proclaim.deepEqual(Array.from(iterator(1)), [1]);
-			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
-			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
+			proclaim.deepEqual(Array.from(iterable(0)), []);
+			proclaim.deepEqual(Array.from(iterable(1)), [1]);
+			proclaim.deepEqual(Array.from(iterable(2)), [2, 1]);
+			proclaim.deepEqual(Array.from(iterable(3)), [3, 2, 1]);
 		});
 
 	});
@@ -113,6 +124,11 @@ describe('returns an array with', function () {
 	it('strings', function () {
 		proclaim.deepEqual(Array.from(''), []);
 		proclaim.deepEqual(Array.from('abc'), ['a', 'b', 'c']);
+		proclaim.deepEqual(Array.from('a\nb\nc\n\n'), ['a', '\n', 'b', '\n', 'c', '\n', '\n']);
+		proclaim.deepEqual(Array.from('foo\uD834\uDF06bar'), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
+		proclaim.deepEqual(Array.from('foo\uD834bar'), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
+		proclaim.deepEqual(Array.from('foo\uDF06bar'), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
+		proclaim.deepEqual(Array.from('☺⛺✅㊗🆘🌀🌟🌾🍨🍬🍰🎃🎄🎍🎨🏃💞💤😭😒'), ["☺", "⛺", "✅", "㊗", "🆘", "🌀", "🌟", "🌾", "🍨", "🍬", "🍰", "🎃", "🎄", "🎍", "🎨", "🏃", "💞", "💤", "😭", "😒"]);
 	});
 
 	it('numbers', function () {
@@ -169,7 +185,7 @@ describe('returns an array with', function () {
 	it('this as an object', function () {
 		var context = {};
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Object);
 			proclaim.strictEqual(this.valueOf(), context);
 		}, context);
@@ -178,7 +194,7 @@ describe('returns an array with', function () {
 	it('this as 42', function () {
 		var context = 42;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Number);
 			proclaim.strictEqual(this.valueOf(), 42);
 		}, context);
@@ -187,7 +203,7 @@ describe('returns an array with', function () {
 	it('this as false', function () {
 		var context = false;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Boolean);
 			proclaim.strictEqual(this.valueOf(), false);
 		}, context);
