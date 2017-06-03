@@ -30,16 +30,6 @@
 		};
 	}
 
-	function calcSize(mapInst) {
-		var size = 0;
-		for (var i=0, s=mapInst._keys.length; i<s; i++) {
-			if (mapInst._keys[i] !== undefMarker) size++;
-		}
-		return size;
-	}
-
-	var ACCESSOR_SUPPORT = true;
-
 	function hasProtoMethod(instance, method){
 		return typeof instance[method] === 'function';
 	}
@@ -47,6 +37,7 @@
 	var Map = function(data) {
 		this._keys = [];
 		this._values = [];
+		this.size = this._size = 0;
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
 		if (data && hasProtoMethod(data, 'forEach')){
 			// Fastpath: If `data` is a Map, shortcircuit all following the checks
@@ -71,8 +62,6 @@
 				}, this);
 			}
 		}
-
-		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
 	};
 	Map.prototype = {};
 
@@ -80,11 +69,10 @@
 	try {
 		Object.defineProperty(Map.prototype, 'size', {
 			get: function() {
-				return calcSize(this);
+				return this._size;
 			}
 		});
 	} catch(e) {
-		ACCESSOR_SUPPORT = false;
 	}
 
 	Map.prototype['get'] = function(key) {
@@ -98,7 +86,8 @@
 		} else {
 			this._keys.push(encodeKey(key));
 			this._values.push(value);
-			if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
+
+			this.size = ++this._size;
 		}
 		return this;
 	};
@@ -110,12 +99,13 @@
 		if (idx === -1) return false;
 		this._keys[idx] = undefMarker;
 		this._values[idx] = undefMarker;
-		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
+
+		this.size = --this._size;
 		return true;
 	};
 	Map.prototype['clear'] = function() {
 		this._keys = this._values = [];
-		if (!ACCESSOR_SUPPORT) this.size = 0;
+		this.size = this._size = 0;
 	};
 	Map.prototype['values'] = function() {
 		return makeIterator(this, function(i) { return this._values[i]; });
@@ -142,6 +132,6 @@
 	Map.length = 0;
 
 	// Export the object
-	this.Map = Map;
+	global.Map = Map;
 
 }(this));

@@ -90,6 +90,23 @@
 			<li>Open a pull request, with a description of the deficiency of the polyfill and how you've fixed it. Ideally link to spec documentation that specifies the behaviour that you are correcting.  Finally, tell us how this aspect of the feature is treated in native implementations (so, for example if you can correct a polyfill to acheive better conformance to the spec but this then deviates from how all browsers have consistently implemented it natively, we'll probably prefer to respect the implementation rather than the spec)</li>
 			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
+		
+		<h3 id='bug-polyfill'>The polyfill bundle is causing an error in your app</h3>
+
+		<p>You've got an error in your website that you've tracked down to the code you're loading from the polyfill service.</p>
+
+		<ol>
+			<li>Create a test case using an online tool like <a href="https://jsbin.com">JSBin</a>, which loads <strong>only</strong> the polyfill service script, and then includes inline any code required to trigger the problem (which should be no more than a few lines).</li>
+			<li>Raise a new issue on our issue tracker, and include:
+			<ul>
+				<li>A description of the problem (what you expected, what actually happened)</li>
+				<li>A link to your test case on JSBin (or jsfiddle/codepen/whatever)</li>
+				<li>The exact name and version number of the browser you're testing in</li>
+				<li>If relevant, the console output or a screenshot of the problem</li>
+			</ul></li>
+		</ol>
+		
+		<p>We ask for a JSBin demo because often these kinds of errors are actually errors in the host website's code, and even if they are a problem in the polyfill, we don't have the resources to debug your application.  Please also make sure you disable any browser plugins when you are testing in JSBin, so you are certain that you are only running the test code.</p>
 	</div>
 
 {{>footer}}
