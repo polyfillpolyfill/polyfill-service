@@ -23,6 +23,7 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
+		"Symbol.iterator",
 		"Object.defineProperty"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.from",
