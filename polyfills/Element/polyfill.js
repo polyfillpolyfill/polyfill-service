@@ -10,12 +10,15 @@
 	window.Element = window.HTMLElement = new Function('return function Element() {}')();
 
 	// generate sandboxed iframe
-	var vbody = document.appendChild(document.createElement('body'));
-	var frame = vbody.appendChild(document.createElement('iframe'));
+	var vbody = null;
+	if (!document.body) {
+		vbody = document.appendChild(document.createElement('body'));
+	}
+	var frame = (document.body||vbody).appendChild(document.createElement('iframe'));
 
 	// use sandboxed iframe to replicate Element functionality
 	var frameDocument = frame.contentWindow.document;
-	var prototype = Element.prototype = frameDocument.appendChild(frameDocument.createElement('*'));
+	var prototype = Element.prototype = (frameDocument.body||frameDocument.appendChild(frameDocument.createElement('body'))).appendChild(frameDocument.createElement('_'));
 	var cache = {};
 
 	// polyfill Element.prototype on an element
@@ -46,25 +49,27 @@
 	var interval;
 	var loopLimit = 100;
 
-	prototype.attachEvent('onpropertychange', function (event) {
-		var
-		propertyName = event.propertyName,
-		nonValue = !cache.hasOwnProperty(propertyName),
-		newValue = prototype[propertyName],
-		oldValue = cache[propertyName],
-		index = -1,
-		element;
+	if ('attachEvent' in prototype) {
+		prototype.attachEvent('onpropertychange', function (event) {
+			var
+			propertyName = event.propertyName,
+			nonValue = !cache.hasOwnProperty(propertyName),
+			newValue = prototype[propertyName],
+			oldValue = cache[propertyName],
+			index = -1,
+			element;
 
-		while (element = elements[++index]) {
-			if (element.nodeType === 1) {
-				if (nonValue || element[propertyName] === oldValue) {
-					element[propertyName] = newValue;
+			while (element = elements[++index]) {
+				if (element.nodeType === 1) {
+					if (nonValue || element[propertyName] === oldValue) {
+						element[propertyName] = newValue;
+					}
 				}
 			}
-		}
 
-		cache[propertyName] = newValue;
-	});
+			cache[propertyName] = newValue;
+		});
+	}
 
 	prototype.constructor = Element;
 
@@ -97,5 +102,7 @@
 	};
 
 	// remove sandboxed iframe
-	document.removeChild(vbody);
+	if (vbody) {
+		document.removeChild(vbody);
+	}
 }());
