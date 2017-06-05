@@ -12,7 +12,8 @@
 		"ie": "<15",
 		"ie_mob": "*",
 		"ios_saf": "<10",
-		"firefox_mob": "<48"
+		"firefox_mob": "<48",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"
