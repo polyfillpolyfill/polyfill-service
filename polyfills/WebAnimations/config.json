@@ -1,0 +1,22 @@
+{
+	"browsers": {
+		"ie": "10 - *",
+		"ie_mob": "10 - *",
+		"firefox": "27 - 50",
+		"opera": "11.6 - 42",
+		"safari": "9 - *",
+		"chrome": "* - 38",
+		"ios_saf": "7.1 - *",
+		"firefox_mob": "27 - 50",
+		"android": "<53"
+	},
+	"dependencies": [],
+	"license": "Apache-2.0",
+	"spec": "https://w3c.github.io/web-animations/",
+	"repo": "https://github.com/web-animations/web-animations-js",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API",
+	"install": {
+		"module": "web-animations-js",
+		"paths": ["web-animations.min.js"]
+	}
+}
