@@ -19,21 +19,21 @@ const testProvider = require('./' + ((['browserstack', 'saucelabs'].includes(arg
 
 const browserSets = {
 	"quick": [
-		'chrome/56',
-		'firefox/52',
-		'ie/14',
+		'chrome/58',
+		'firefox/53',
+		'ie/15',
 		'ie/11',
 		'ie/8',
 		'android/4.4',
 		'safari/10',
 	],
 	"ci": [
-		'chrome/56',
+		'chrome/58',
 		'chrome/48',
-		'firefox/52',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
-		'ie/14',
+		'ie/15',
 		'ie/13',
 		'ie/11',
 		'ie/10',
@@ -46,19 +46,20 @@ const browserSets = {
 		'android/4.4'
 	],
 	"full": [
-		'chrome/56',
+		'chrome/58',
 		'chrome/48',
 		'chrome/46',
 		'chrome/42',
 		'chrome/40',
 		'chrome/35',
-		'firefox/52',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
 		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
+		'ie/15',
 		'ie/14',
 		'ie/13',
 		'ie/11',
@@ -69,11 +70,24 @@ const browserSets = {
 		'safari/10',
 		'safari/9',
 		'safari/8',
+		'safari/7',
+		'safari/6',
 		'safari/5.1',
+		'android/7.1',
+		'android/7',
+		'android/6',
+		'android/5.1',
+		'android/5',
 		'android/4.4',
 		'android/4.3',
 		'android/4.2',
-		'ios_saf/9.1'
+		'ios_saf/10.3',
+		'ios_saf/9.1',
+		'ios_saf/8',
+		'ios_saf/7',
+		'ios_saf/6',
+		'ios_saf/5',
+		'ios_saf/4'
 	]
 };
 
@@ -227,11 +241,11 @@ class TestJob {
 	}
 }
 
-const serviceHost = 'http://127.0.0.1:' + (process.env.PORT || 3000);
+const serviceHost = 'http://b43e4a41.ngrok.io';
 const options = {
 	browserSet: argv.set || 'quick',
 	modes: ['all', 'targeted', 'control'].filter(x => x in argv),
-	concurrency: argv.concurrency || 3,
+	concurrency: argv.concurrency || 1,
 	continueOnFail: argv.continueOnFail
 };
 options.browsers = browserSets[options.browserSet];
