@@ -204,3 +204,15 @@ it('does not break when an iframe is added', function () {
 	}, 0);
 	proclaim.equal(Object.prototype.toString.call(Object.getOwnPropertyNames(window)) === '[object Array]', true);
 });
+
+it('should create Object without symbols', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype);
+	expect(obj instanceof Obj).to.be(true);
+});
+
+it('should create Object without symbols, second argument undefined', function () {
+	var Obj = function () {};
+	var obj = Object.create(Obj.prototype, undefined);
+	expect(obj instanceof Obj).to.be(true);
+});
