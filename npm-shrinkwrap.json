@@ -1872,6 +1872,11 @@
       "from": "verror@1.3.6",
       "resolved": "https://registry.npmjs.org/verror/-/verror-1.3.6.tgz"
     },
+    "web-animations-js": {
+      "version": "2.2.5",
+      "from": "web-animations-js@>=2.2.2 <3.0.0",
+      "resolved": "https://registry.npmjs.org/web-animations-js/-/web-animations-js-2.2.5.tgz"
+    },
     "whatwg-fetch": {
       "version": "2.0.3",
       "from": "whatwg-fetch@>=2.0.3 <3.0.0",
