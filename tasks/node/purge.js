@@ -19,18 +19,20 @@ if (!FASTLY_API_KEY) {
 	process.exit(1);
 }
 
-if (PRODUCTION && !process.env.FASTLY_SERVICE_ID) {
-	console.error('In order to purge assets from the production Fastly service, you need to have set the environment variable "FASTLY_SERVICE_ID". This can be done by creating a file named ".env" in the root of this repository with the contents "FASTLY_SERVICE_ID=XXXXXX", where XXXXXX is your Fastly service ID.');
-	process.exit(1);
+if (PRODUCTION) {
+	if (process.env.FASTLY_SERVICE_ID) {
+		FASTLY_SERVICE_ID = process.env.FASTLY_SERVICE_ID;
+	} else {
+		console.error('In order to purge assets from the production Fastly service, you need to have set the environment variable "FASTLY_SERVICE_ID". This can be done by creating a file named ".env" in the root of this repository with the contents "FASTLY_SERVICE_ID=XXXXXX", where XXXXXX is your Fastly service ID.');
+		process.exit(1);
+	}
 } else {
-	FASTLY_SERVICE_ID = process.env.FASTLY_SERVICE_ID;
-}
-
-if (!PRODUCTION && !process.env.FASTLY_SERVICE_ID_QA) {
-	console.error('In order to purge assets from the QA Fastly service, you need to have set the environment variable "FASTLY_SERVICE_ID_QA". This can be done by creating a file named ".env" in the root of this repository with the contents "FASTLY_SERVICE_ID_QA=XXXXXX", where XXXXXX is your Fastly service ID.');
-	process.exit(1);
-} else {
-	FASTLY_SERVICE_ID = process.env.FASTLY_SERVICE_ID_QA;
+	if (process.env.FASTLY_SERVICE_ID_QA) {
+		FASTLY_SERVICE_ID = process.env.FASTLY_SERVICE_ID_QA;
+	} else {
+		console.error('In order to purge assets from the QA Fastly service, you need to have set the environment variable "FASTLY_SERVICE_ID_QA". This can be done by creating a file named ".env" in the root of this repository with the contents "FASTLY_SERVICE_ID_QA=XXXXXX", where XXXXXX is your Fastly service ID.');
+		process.exit(1);
+	}
 }
 
 const FastlyPurge = require('fastly-purge');
