@@ -64,7 +64,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		stream: true
 	};
 	if (req.query.unknown) {
-		params.unknown = req.query.unknown;
+		params.unknown = (req.query.unknown === 'polyfill') ? 'polyfill' : 'ignore';
 	}
 	if (uaString) {
 		params.uaString = uaString;
