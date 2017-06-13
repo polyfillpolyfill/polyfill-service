@@ -25,6 +25,21 @@ describe('GET /v2/polyfill.js', function() {
 	});
 });
 
+describe('GET /v2/polyfill.js?callback=AAA&callback=BBB', function() {
+	setupRequest('GET', '/v2/polyfill.js?callback=AAA&callback=BBB');
+	itRespondsWithStatus(200);
+	itRespondsWithContentType('application/javascript');
+	itRespondsWithHeader('cache-control', 'public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800');
+	itRespondsWithHeader('surrogate-key', 'polyfill-service');
+
+	it('responds with valid javascript', function() {
+		return this.request.expect(response => {
+			assert.isString(response.text);
+			assert.doesNotThrow(() => new vm.Script(response.text));
+		});
+	});
+});
+
 describe('GET /v2/polyfill.min.js', function() {
 	setupRequest('GET', '/v2/polyfill.min.js');
 	itRespondsWithStatus(200);
