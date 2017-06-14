@@ -79,8 +79,8 @@ const browserSets = {
 		'android/5.1',
 		'android/5',
 		'android/4.4',
-		'android/4.3',
-		'android/4.2',
+		// 'android/4.3', // Not working correctly on BrowserStack or SauceLabs
+		// 'android/4.2', // Not working correctly on BrowserStack or SauceLabs
 		'ios_saf/10.3',
 		'ios_saf/9.1',
 		'ios_saf/8',
