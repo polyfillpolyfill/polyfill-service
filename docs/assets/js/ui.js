@@ -20,9 +20,9 @@ function initDemos() {
 function initCharts() {
 	var drawFns = [];
 
-	if (document.getElementById('chart-requests')) {
-		google.charts.load('current', {'packages':['corechart']});
-	}
+	if (!document.getElementById('chart-requests') || !google || !google.charts) return;
+
+	google.charts.load('current', {'packages':['corechart']});
 
 	google.charts.setOnLoadCallback(function() {
 		var chartel = document.getElementById('chart-requests');
