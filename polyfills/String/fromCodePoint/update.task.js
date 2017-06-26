@@ -10,7 +10,6 @@ const patch = fs.readFileSync(path.join(__dirname, './patch.jsdiff'), 'utf8');
 const patched = diff.applyPatch(polyfill, patch);
 
 if (patched === false) {
-	console.error(patched);
 	throw new Error('patch did not apply cleanly');
 }
 fs.writeFileSync(path.join(__dirname, './polyfill.js'), patched);
