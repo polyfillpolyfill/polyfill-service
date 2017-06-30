@@ -64,7 +64,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		stream: true
 	};
 	if (req.query.unknown) {
-		params.unknown = req.query.unknown;
+		params.unknown = (req.query.unknown === 'polyfill') ? 'polyfill' : 'ignore';
 	}
 	if (uaString) {
 		params.uaString = uaString;
@@ -78,7 +78,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	outputStream.add(polyfillio.getPolyfillString(params));
 
-	if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+	if (req.query.callback && typeof req.query.callback === 'string' && req.query.callback.match(/^[\w\.]+$/)) {
 		outputStream.add(streamFromString("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();"));
 	}
 

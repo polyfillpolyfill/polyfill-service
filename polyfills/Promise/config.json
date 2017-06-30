@@ -22,11 +22,6 @@
 		"safari": "* - 7",
 		"firefox_mob": "6 - 28"
 	},
-	"dependencies": [
-		"setImmediate",
-		"Array.isArray",
-		"Event"
-	],
 	"notes": [
 		"In IE8, the `catch` & `finally` method cannot be invoked directly since they are reserved words.  Instead, use `[\"catch\"]` and `[\"finally\"]` if intend to run your code in IE8"
 	],
