@@ -2,7 +2,7 @@
 /* global proclaim, it */
 
 it("should define MediaQueryList in window", function() {
-	proclaim.ok('MediaQueryList' in window))
+	proclaim.ok(Object.prototype.hasOwnProperty.call(window, 'MediaQueryList'))
 });
 
 it("should match screen", function() {
