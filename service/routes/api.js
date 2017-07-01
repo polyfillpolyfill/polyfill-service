@@ -64,7 +64,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		stream: true
 	};
 	if (req.query.unknown) {
-		params.unknown = req.query.unknown;
+		params.unknown = (req.query.unknown === 'polyfill') ? 'polyfill' : 'ignore';
 	}
 	if (uaString) {
 		params.uaString = uaString;
@@ -78,7 +78,7 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 
 	outputStream.add(polyfillio.getPolyfillString(params));
 
-	if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
+	if (req.query.callback && typeof req.query.callback === 'string' && req.query.callback.match(/^[\w\.]+$/)) {
 		outputStream.add(streamFromString("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();"));
 	}
 
@@ -94,7 +94,7 @@ router.get("/v2/normalizeUa", (req, res) => {
 
 	if (req.query.ua) {
 		res.status(200);
-		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
+		res.set('Cache-Control', 'public, max-age=' + one_year + ', stale-if-error=' + (one_year + one_week));
 		res.set('Normalized-User-Agent', encodeURIComponent(polyfillio.normalizeUserAgent(req.query.ua)));
 		res.send();
 	} else {
