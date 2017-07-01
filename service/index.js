@@ -62,6 +62,8 @@ app.use((req, res, next) => {
 	return next();
 });
 
+// Middleware to enable polyfill-service to function under a path as well as a domain
+app.use(require('./middleware/getBasePath')());
 
 /* Routes */
 
