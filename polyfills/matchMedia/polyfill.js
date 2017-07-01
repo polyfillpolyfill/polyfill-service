@@ -54,6 +54,8 @@
 		this.addListener.listeners.splice(this.addListener.listeners.indexOf(listener), 1);
 	};
 
+	global.MediaQueryList = MediaQueryList;
+
 	// <Global>.matchMedia
 	global.matchMedia = function matchMedia(query) {
 		var
