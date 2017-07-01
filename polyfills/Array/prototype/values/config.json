@@ -6,13 +6,13 @@
 	"browsers": {
 		"ie": "9 - 12",
 		"ie_mob": "9 - 12",
-		"firefox": "<38",
+		"firefox": "*",
 		"chrome": "*",
 		"safari": "<9",
 		"android": "*",
 		"ios_saf": "<9",
 		"opera": "*",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Symbol.iterator",

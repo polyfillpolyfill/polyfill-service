@@ -12,12 +12,12 @@
 		"android": "<5.1",
 		"ios_saf": "<9",
 		"opera": "<25",
-		"samsung_mob": "*"
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"_ArrayIterator",
 		"Symbol.iterator"
 	],
-	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype-@@iterator",
+	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype-@@iterator",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator"
 }

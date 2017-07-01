@@ -27,6 +27,12 @@ it ("can be pre-populated", function() {
 	proclaim.equal(m.has(b), true);
 	proclaim.equal(m.has(c), true);
 	proclaim.equal(m.size, 3);
+
+	var d = new Map(m);
+	proclaim.equal(d.has(a), true);
+	proclaim.equal(d.has(b), true);
+	proclaim.equal(d.has(c), true);
+	proclaim.equal(d.size, 3);
 });
 
 it("implements .size()", function () {
@@ -187,4 +193,14 @@ it("implements .clear()", function(){
 	o.set(3, '3');
 	o.clear();
 	proclaim.equal(o.size, 0);
+});
+
+it("allows set after clear", function(){
+	var o = new Map();
+	o.set(1, '1');
+	o.clear();
+	proclaim.equal(o.size, 0);
+	o.set(2, '2');
+	proclaim.equal(o.size, 1);
+	proclaim.equal(o.get(2), '2');
 });

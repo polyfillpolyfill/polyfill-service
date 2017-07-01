@@ -1,8 +1,6 @@
 'use strict';
 
-require('dotenv').config({
-	silent: true
-});
+require('dotenv').config();
 
 const path = require('path');
 const wd = require('wd');
@@ -21,42 +19,47 @@ const testProvider = require('./' + ((['browserstack', 'saucelabs'].includes(arg
 
 const browserSets = {
 	"quick": [
-		'chrome/54',
-		'firefox/49',
-		'ie/14',
+		'chrome/58',
+		'firefox/53',
+		'ie/15',
 		'ie/11',
 		'ie/8',
-		'android/4.4'
+		'android/4.4',
+		'safari/10',
 	],
 	"ci": [
-		'chrome/54',
+		'chrome/58',
 		'chrome/48',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
-		'ie/14',
+		'ie/15',
 		'ie/13',
 		'ie/11',
 		'ie/10',
 		'ie/9',
 		'ie/8',
 		'ie/7',
+		'safari/10',
 		'safari/9',
 		'safari/8',
 		'android/4.4'
 	],
 	"full": [
-		'chrome/54',
+		'chrome/58',
 		'chrome/48',
 		'chrome/46',
 		'chrome/42',
 		'chrome/40',
 		'chrome/35',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
 		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
+		'ie/15',
 		'ie/14',
 		'ie/13',
 		'ie/11',
@@ -64,13 +67,27 @@ const browserSets = {
 		'ie/9',
 		'ie/8',
 		'ie/7',
+		'safari/10',
 		'safari/9',
 		'safari/8',
+		'safari/7',
+		'safari/6',
 		'safari/5.1',
+		'android/7.1',
+		'android/7',
+		'android/6',
+		'android/5.1',
+		'android/5',
 		'android/4.4',
-		'android/4.3',
-		'android/4.2',
-		'ios_saf/9.1'
+		// 'android/4.3', // Not working correctly on BrowserStack or SauceLabs
+		// 'android/4.2', // Not working correctly on BrowserStack or SauceLabs
+		'ios_saf/10.3',
+		'ios_saf/9.1',
+		'ios_saf/8',
+		'ios_saf/7',
+		'ios_saf/6',
+		'ios_saf/5',
+		'ios_saf/4'
 	]
 };
 
@@ -319,6 +336,7 @@ Promise.resolve()
 			console.log(cli.bold.white('\nFailures:'));
 			jobs.forEach(job => {
 				if (job.results && job.results.failed) {
+					console.log(' - ' + job.ua + ':');
 					Object.keys(job.results.failingSuites).forEach(feature => {
 						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + feature;
 						console.log('    -> ' + feature);

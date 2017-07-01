@@ -16,7 +16,7 @@
 		"firefox_mob": "<29",
 		"opera": "<36",
 		"android": "*",
-		"samsung_mob": "*",
+		"samsung_mob": "<5",
 		"ios_saf": "*"
 	},
 	"dependencies": [

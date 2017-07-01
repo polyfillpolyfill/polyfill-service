@@ -22,13 +22,8 @@
 		"safari": "* - 7",
 		"firefox_mob": "6 - 28"
 	},
-	"dependencies": [
-		"setImmediate",
-		"Array.isArray",
-		"Event"
-	],
 	"notes": [
-		"In IE8, the `catch` method cannot be invoked directly since it is a reserved word.  Instead, use `[\"catch\"]` if intend to run your code in IE8"
+		"In IE8, the `catch` & `finally` method cannot be invoked directly since they are reserved words.  Instead, use `[\"catch\"]` and `[\"finally\"]` if intend to run your code in IE8"
 	],
 	"license": "MIT",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
