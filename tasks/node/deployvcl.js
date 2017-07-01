@@ -26,7 +26,7 @@ if (!fs.statSync(options.vclFilePath).isFile()) {
     throw new Error ("Missing VCL file");
 }
 
-const backends = options.service === 'prod' ? fs.readFileSync(path.join(__dirname, '../../vcl/backends-prod.vcl', 'UTF-8')) : fs.readFileSync(path.join(__dirname, '../../vcl/backends-qa.vcl'), 'UTF-8');
+const backends = options.service === 'prod' ? fs.readFileSync(path.join(__dirname, '../../vcl/backends-prod.vcl'), 'UTF-8') : fs.readFileSync(path.join(__dirname, '../../vcl/backends-qa.vcl'), 'UTF-8');
 
 const vclContent = backends + fs.readFileSync(options.vclFilePath, 'UTF-8');
 
