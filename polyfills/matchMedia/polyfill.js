@@ -47,7 +47,7 @@
 	}
 
 	MediaQueryList.prototype.addListener = function addListener(listener) {
-		const listenerIndex = this.addListener.listeners.indexOf(listener);
+		var listenerIndex = this.addListener.listeners.indexOf(listener);
 
 		if (listenerIndex === -1) {
 			this.addListener.listeners.push(listener);
@@ -55,7 +55,7 @@
 	};
 
 	MediaQueryList.prototype.removeListener = function removeListener(listener) {
-		const listenerIndex = this.addListener.listeners.indexOf(listener);
+		var listenerIndex = this.addListener.listeners.indexOf(listener);
 
 		if (listenerIndex >= 0) {
 			this.addListener.listeners.splice(listenerIndex, 1);
