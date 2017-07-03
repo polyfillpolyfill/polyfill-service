@@ -278,13 +278,15 @@ function spread(fn) {
 
 function route(req, res, next) {
 	if (req.path.length < "/v2/docs/".length) {
-		return res.redirect('/v2/docs/');
+		return res.redirect(`${req.basePath}v2/docs/`);
 	}
 	const locals = Object.assign({
 		apiversion: req.params[0],
 		appversion: appVersion,
 		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
-		rumEnabled: !!process.env.RUM_MYSQL_DSN
+		rumEnabled: !!process.env.RUM_MYSQL_DSN,
+		basePath: req.basePath || '/',
+		host: 'https://' + req.get('host') || 'https://polyfill.io',
 	}, docsData);
 
 	if (locals.pageName === 'usage') {
