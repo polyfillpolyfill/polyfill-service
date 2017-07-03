@@ -62,6 +62,8 @@
 		}
 	};
 
+	global.MediaQueryList = MediaQueryList;
+
 	// <Global>.matchMedia
 	global.matchMedia = function matchMedia(query) {
 		var

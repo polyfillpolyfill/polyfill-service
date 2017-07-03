@@ -104,7 +104,8 @@
 		return true;
 	};
 	Map.prototype['clear'] = function() {
-		this._keys = this._values = [];
+		this._keys = [];
+		this._values = [];
 		this.size = this._size = 0;
 	};
 	Map.prototype['values'] = function() {
