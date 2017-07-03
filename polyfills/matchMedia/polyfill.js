@@ -47,11 +47,19 @@
 	}
 
 	MediaQueryList.prototype.addListener = function addListener(listener) {
-		this.addListener.listeners.push(listener);
+		const listenerIndex = this.addListener.listeners.indexOf(listener);
+
+		if (listenerIndex === -1) {
+			this.addListener.listeners.push(listener);
+		}
 	};
 
 	MediaQueryList.prototype.removeListener = function removeListener(listener) {
-		this.addListener.listeners.splice(this.addListener.listeners.indexOf(listener), 1);
+		const listenerIndex = this.addListener.listeners.indexOf(listener);
+
+		if (listenerIndex >= 0) {
+			this.addListener.listeners.splice(listenerIndex, 1);
+		}
 	};
 
 	global.MediaQueryList = MediaQueryList;
