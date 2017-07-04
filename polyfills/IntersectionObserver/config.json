@@ -7,7 +7,7 @@
 		"chrome": "<51",
 		"firefox": "*",
 		"firefox_mob": "47 - *",
-		"ie": "7 - *",
+		"ie": "7 - 14",
 		"ie_mob": "11 - *",
 		"ios_saf": "7 - *",
 		"op_mini": "17 - *",
