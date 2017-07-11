@@ -104,6 +104,7 @@
     "stream-to-string": "^1.1.0",
     "string.fromcodepoint": "0.2.1",
     "tsort": "0.0.1",
+    "uglify-js": "^2.7.5",
     "useragent": "^2.1.12",
     "usertiming": "^0.1.8",
     "web-animations-js": "^2.2.5",
@@ -123,8 +124,7 @@
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2",
     "supertest": "^3.0.0",
-    "uglify-js": "^2.7.5",
     "wd": "^0.4.0"
   },
-  "version": "3.20.0-1"
+  "version": "3.20.0"
 }
