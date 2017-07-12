@@ -51,7 +51,7 @@
   },
   "license": "CC0-1.0",
   "engines": {
-    "node": "6 - 8"
+    "node": "6.11.1 - 8"
   },
   "dependencies": {
     "Base64": "^1.0.0",
