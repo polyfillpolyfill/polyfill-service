@@ -286,7 +286,7 @@ function route(req, res, next) {
 		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
 		rumEnabled: !!process.env.RUM_MYSQL_DSN,
 		basePath: req.basePath || '/',
-		host: 'https://' + req.get('host') || 'https://polyfill.io',
+		host: process.env.HOSTNAME || 'https://' + req.get('host') || 'https://polyfill.io',
 	}, docsData);
 
 	if (locals.pageName === 'usage') {
