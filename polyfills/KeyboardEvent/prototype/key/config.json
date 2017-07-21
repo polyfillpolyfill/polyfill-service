@@ -1,0 +1,29 @@
+{
+	"aliases": [
+	
+	],
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "<51",
+		"firefox": "<23",
+		"firefox_mob": "<54",
+		"ie": "<9",
+		"ie_mob": "<10",
+		"ios_chr": "*",
+		"ios_saf": "<10.3",
+		"opera": "<38",
+		"op_mini": "*",
+		"safari": "<10.1",
+		"samsung_mob": "<5"
+	},
+	"dependencies": [
+		"Array.isArray",
+		"Object.defineProperty"
+	],
+	"spec": "https://w3c.github.io/uievents/#events-keyboardevents",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key",
+	"notes": [
+		"This polyfill is derived from work of Chris Van Wiemeersch which is [published under the **Creative Commons Zero v1.0 Universal** license (CC0 1.0 Universal; Public Domain Dedication)](https://github.com/cvan/keyboardevent-key-polyfill)"
+	]
+}
