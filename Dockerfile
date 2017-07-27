@@ -1,4 +1,4 @@
-FROM node:7.7.3-slim
+FROM node:8.2.1-slim
 
 ENV NODE_ENV=production \
     ENABLE_ACCESS_LOG=true
