@@ -18,9 +18,6 @@
 		"samsung_mob": "*",
 		"bb": "*"
 	},
-	"dependencies": [
-		"Array.prototype.reduce",
-		"Object.keys"
-	],
+	"dependencies": [],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"
 }
