@@ -1,4 +1,3 @@
-
 // Wrapped in IIFE to prevent leaking to global scope.
 (function () {
 	function parseIterable (arraylike) {
@@ -12,22 +11,18 @@
 		if (typeof arraylike.next === 'function') {
 			while (!done) {
 				iterableResponse = arraylike.next();
-				if (
-					iterableResponse.hasOwnProperty('value') &&
-					iterableResponse.hasOwnProperty('done')
-				) {
+				if (typeof iterableResponse.done === 'boolean') {
 					if (iterableResponse.done === true) {
 						done = true;
 						break;
-
-					// handle the case where the done value is not Boolean
-					} else if (iterableResponse.done !== false) {
+					}
+					//was using hasownProperty but changed as 'value' property might be inherited through prototype chain and could still be a valid iterable response
+					if ('value' in iterableResponse){ 
+						tempArray.push(iterableResponse.value);
+					} else {
 						break;
 					}
-
-					tempArray.push(iterableResponse.value);
 				} else {
-
 					// it does not conform to the iterable pattern
 					break;
 				}
@@ -37,11 +32,21 @@
 		if (done) {
 			return tempArray;
 		} else {
-
 			// something went wrong return false;
 			return false;
 		}
-
+	}
+	
+	function iterateForEach(arraylike, asKeyValArrays) {
+		if (typeof arraylike.forEach !== 'function') {
+			return false;
+		}
+		var tempArray = [];
+		var addEl = asKeyValArrays
+			? function (val, key) { tempArray.push([key, val]); } 
+			: function (val) { tempArray.push(val); };
+		arraylike.forEach(addEl);
+		return tempArray;
 	}
 
 	Object.defineProperty(Array, 'from', {
@@ -72,15 +77,11 @@
 			arrayFromIterable = parseIterable(arraylike);
 
 			//if it is a Map or a Set then handle them appropriately
-			if (
-				typeof arraylike.entries === 'function' &&
-				typeof arraylike.values === 'function'
-			) {
-				if (arraylike.constructor.name === 'Set' && 'values' in Set.prototype) {
-					arrayFromIterable = parseIterable(arraylike.values());
-				}
-				if (arraylike.constructor.name === 'Map' && 'entries' in Map.prototype) {
-					arrayFromIterable = parseIterable(arraylike.entries());
+			if (!arrayFromIterable) {
+				if (arraylike instanceof Map) {
+					arrayFromIterable = iterateForEach(arraylike, true);
+				} else if (arraylike instanceof Set) {
+					arrayFromIterable = iterateForEach(arraylike);
 				}
 			}
 

@@ -49,41 +49,45 @@ describe('returns an array with', function () {
 		var map;
 		var mapIterator;
 
-		if ('Map' in window && 'entries' in Map.prototype) {
+		function returnArgs(){
+			return Array.prototype.slice.call(arguments);
+		}
 
+		if ('Map' in window) {
 			map = new Map();
 			map.set(1,2);
 			map.set(3,4);
-			mapIterator = map.values();
-
-			if (typeof mapIterator.next === 'function') {
-
-				// Test map iterable
-				proclaim.deepEqual(Array.from(mapIterator), [2,4]);
-
-				it('can convert from Map', function () {
-					proclaim.deepEqual(Array.from(map), [[1,2],[3,4]]);
-				});
+			it('can convert from Map', function () {
+				proclaim.deepEqual(Array.from(map), [[1,2],[3,4]]);
+				proclaim.deepEqual(Array.from(map, returnArgs), [[[1,2],0],[[3,4],1]]);
+			});
+			if (typeof map.values == 'function') {
+				mapIterator = map.values();
+				if (typeof mapIterator.next === 'function') {
+					it('can convert from map iterator', function () {
+						proclaim.deepEqual(Array.from(mapIterator), [2,4]);
+					});
+				}
 			}
 		}
 
-		if ('Set' in window && 'values' in Set.prototype) {
-
+		if ('Set' in window) {
 			set = new Set();
 			set.add(1);
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			setIterator = set.values();
-
-			if (typeof setIterator.next === 'function') {
-
-				// Test set iterable
-				proclaim.deepEqual(Array.from(setIterator), [1,2,3,4]);
-
-				it('can convert from Set', function () {
-					proclaim.deepEqual(Array.from(set), [1,2,3,4]);
-				});
+			it('can convert from Set', function () {
+				proclaim.deepEqual(Array.from(set), [1,2,3,4]);
+				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3]]);
+			});
+			if (typeof set.values == 'function') {
+				setIterator = set.values();
+				if (typeof setIterator.next === 'function') {
+					it('can convert from set iterator', function () {
+						proclaim.deepEqual(Array.from(setIterator), [1,2,3,4]);
+					});
+				}
 			}
 		}
 
@@ -121,7 +125,7 @@ describe('returns an array with', function () {
 		proclaim.deepEqual(Array.from(-0), []);
 		proclaim.deepEqual(Array.from(0), []);
 		proclaim.deepEqual(Array.from(3), []);
-		// REMOVAL: it may take a rediculous amount of time to calculate this
+		// REMOVAL: it may take a ridiculous amount of time to calculate this
 		// proclaim.deepEqual(Array.from(Infinity), []);
 	});
 
