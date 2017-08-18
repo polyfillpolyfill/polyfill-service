@@ -1,0 +1,7 @@
+# We ignore the polyfill.js files for third-party polyfills
+# because we do not control their implementation.
+
+# We do not ignore the config.json, detect.js or tests.js
+# because we do control their implementation.
+
+tasks/**/node_modules
