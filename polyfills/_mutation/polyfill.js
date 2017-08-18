@@ -3,7 +3,7 @@ function _mutation(nodes) { // eslint-disable-line no-unused-vars
 	if (!nodes.length) {
 		throw new Error('DOM Exception 8');
 	} else if (nodes.length === 1) {
-		return typeof nodes[0] === 'string' ? document.createTextNode(nodes[0]) : nodes[0];
+		return nodes[0] instanceof Node ? nodes[0] : document.createTextNode(nodes[0]+'');
 	} else {
 		var
 		fragment = document.createDocumentFragment(),
@@ -14,7 +14,7 @@ function _mutation(nodes) { // eslint-disable-line no-unused-vars
 		while (++index < length) {
 			node = nodes[index];
 
-			fragment.appendChild(typeof node === 'string' ? document.createTextNode(node) : node);
+			fragment.appendChild(node instanceof Node ? node :  document.createTextNode(node+''));
 		}
 
 		return fragment;
