@@ -55,6 +55,7 @@
     "semver": "^5.3.0",
     "stream-from-promise": "^1.0.0",
     "stream-to-string": "^1.1.0",
+    "tsort": "0.0.1",
     "useragent": "^2.1.12"
   },
   "devDependencies": {
