@@ -1,0 +1,1 @@
+function ToInt16(t){var a=Number(t);if(isNaN(a)||0===a||-0===a||a===Infinity||a===-Infinity)return 0;var n=(a<0?-1:1)*Math.floor(Math.abs(a)),r=n%Math.pow(2,16);return r>=Math.pow(2,15)?r-Math.pow(2,16):r}

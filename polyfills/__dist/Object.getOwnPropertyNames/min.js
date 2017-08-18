@@ -1,0 +1,1 @@
+Object.getOwnPropertyNames=function(e){var r,n=[],t=["length","name","arguments","caller","prototype","observe","unobserve"];if(void 0===e||null===e)throw new TypeError("Cannot convert undefined or null to object");e=Object(e);for(r in e)Object.prototype.hasOwnProperty.call(e,r)&&n.push(r);for(var o=0,l=t.length;o<l;o++)t[o]in e&&n.push(t[o]);return n};

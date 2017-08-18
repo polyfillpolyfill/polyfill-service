@@ -1,0 +1,1 @@
+Document.prototype.remove=Element.prototype.remove=function(){this.parentNode&&this.parentNode.removeChild(this)},"Text"in this&&(Text.prototype.remove=Element.prototype.remove);

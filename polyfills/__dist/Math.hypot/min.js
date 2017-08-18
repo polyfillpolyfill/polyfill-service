@@ -1,0 +1,1 @@
+Math.hypot=function(){for(var t=arguments,n=-1,i=0;++n in t&&Math.abs(i)!==Infinity;)i+=t[n]*t[n];return Math.abs(i)===Infinity?Infinity:Math.sqrt(i)};
