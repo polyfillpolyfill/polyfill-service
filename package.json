@@ -7,7 +7,7 @@
     "install": "npm run install:library && npm run install:service",
     "install:library": "cd packages/polyfill-library && npm install && npm link && cd ../..",
     "install:service": "cd packages/polyfill-service && npm link polyfill-library && npm install && cd ../..",
-    "ci": "npm ci:library && npm ci:service",
+    "ci": "npm run ci:library && npm run ci:service",
     "ci:library": "cd packages/polyfill-library && npm install && npm link && cd ../..",
     "ci:service": "cd packages/polyfill-service && npm link polyfill-library && npm install && cd ../.."
   },
