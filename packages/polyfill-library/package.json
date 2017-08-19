@@ -57,7 +57,8 @@
     "stream-from-promise": "^1.0.0",
     "stream-to-string": "^1.1.0",
     "tsort": "0.0.1",
-    "useragent": "^2.1.12"
+    "useragent": "^2.1.12",
+		"usertiming": "^0.1.8"
   },
   "devDependencies": {
     "Base64": "^1.0.0",
