@@ -1,7 +1,3 @@
-# We ignore the polyfill.js files for third-party polyfills
-# because we do not control their implementation.
-
-# We do not ignore the config.json, detect.js or tests.js
-# because we do control their implementation.
+# We ignore the node_modules folder of the AWS Lambda function that is used to gather RUM data from Fastly
 
 tasks/**/node_modules
