@@ -4,7 +4,7 @@
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
-    "install": "npm install:library && npm install:service",
+    "install": "npm run install:library && npm run install:service",
     "install:library": "cd packages/polyfill-library && npm install && npm link && cd ../..",
     "install:service": "cd packages/polyfill-service && npm link polyfill-library && npm install && cd ../..",
     "ci": "npm ci:library && npm ci:service",
