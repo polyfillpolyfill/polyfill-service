@@ -1,7 +1,7 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
 
-describe('IntersectionObserver', function() {
+describe.skip('IntersectionObserver', function() {
 
 	before(function(done) {
 		var head = head = document.head || document.getElementsByTagName('head')[0];
