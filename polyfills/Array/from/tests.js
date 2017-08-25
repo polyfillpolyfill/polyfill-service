@@ -77,15 +77,16 @@ describe('returns an array with', function () {
 			set.add(2);
 			set.add(3);
 			set.add(4);
+			set.add(undefined)
 			it('can convert from Set', function () {
-				proclaim.deepEqual(Array.from(set), [1,2,3,4]);
-				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3]]);
+				proclaim.deepEqual(Array.from(set), [1,2,3,4,undefined]);
+				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3],[undefined,4]]);
 			});
 			if (typeof set.values == 'function') {
 				setIterator = set.values();
 				if (typeof setIterator.next === 'function') {
 					it('can convert from set iterator', function () {
-						proclaim.deepEqual(Array.from(setIterator), [1,2,3,4]);
+						proclaim.deepEqual(Array.from(setIterator), [1,2,3,4,undefined]);
 					});
 				}
 			}
