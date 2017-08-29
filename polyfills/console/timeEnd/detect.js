@@ -1,1 +1,1 @@
-'timeEnd' in this.console
+'console' in this && 'timeEnd' in this.console
