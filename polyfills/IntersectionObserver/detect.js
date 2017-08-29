@@ -1,4 +1,4 @@
-'IntersectionObserver' in self &&
-'IntersectionObserverEntry' in self &&
-'intersectionRatio' in self.IntersectionObserverEntry.prototype &&
-'isIntersecting' in self.IntersectionObserverEntry.prototype
+'IntersectionObserver' in this &&
+'IntersectionObserverEntry' in this &&
+'intersectionRatio' in this.IntersectionObserverEntry.prototype &&
+'isIntersecting' in this.IntersectionObserverEntry.prototype
