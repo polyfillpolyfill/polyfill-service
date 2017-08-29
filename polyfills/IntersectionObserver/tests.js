@@ -175,9 +175,17 @@ describe('IntersectionObserver', function() {
         }, /threshold/i);
       } catch (err) {
         // Chrome 60's error text does not contain the word `threshold`.
-        proclaim.throws(function () {
-          io = new IntersectionObserver(noop, { threshold: ['foo'] });
-        }, "Failed to construct 'IntersectionObserver': The provided double value is non-finite.");
+        try {
+          proclaim.throws(function () {
+            io = new IntersectionObserver(noop, { threshold: ['foo'] });
+          }, "Failed to construct 'IntersectionObserver': The provided double value is non-finite.");
+        } catch (err) {
+          // Firefox 55's error text does not contain the word `threshold`.
+          proclaim.throws(function () {
+            io = new IntersectionObserver(noop, { threshold: ['foo'] });
+          }, "Element of member of DoubleOrDoubleSequence is not a finite floating-point value.");
+        }
+
       }
     });
 
@@ -193,11 +201,20 @@ describe('IntersectionObserver', function() {
 
   describe('observe', function() {
 
-    it('throws when target is not an Element', function() {
-      proclaim.throws(function() {
-        io = new IntersectionObserver(noop);
-        io.observe(null);
-      }, /element/i);
+    it('throws when target is not an Element', function () {
+      debugger;
+      try {
+        proclaim.throws(function () {
+          io = new IntersectionObserver(noop);
+          io.observe(null);
+        }, /element/i);
+      } catch (err) {
+        // Firefox 55's error text does not contain the word `element`.
+        proclaim.throws(function () {
+          io = new IntersectionObserver(noop);
+          io.observe(null);
+        }, 'Argument 1 of IntersectionObserver.observe is not an object.');
+      }
     });
 
 
