@@ -21,7 +21,10 @@ before(function(done) {
 
 this.timeout(10000);
 
-/*  The following copy-paste from https://raw.githubusercontent.com/philipwalton/IntersectionObserver/ddc47f358db7624ac52a524451ef9f2a3d5ce8f7/polyfill/intersection-observer-test.js */
+/**
+ * The following copy-paste from https://github.com/WICG/IntersectionObserver/blob/9e1b3808720f477906257d7428a558155dd393d8/polyfill/intersection-observer-test.js
+ * Changing from expect to proclaim
+*/
 
 
 /**
@@ -94,7 +97,7 @@ describe('IntersectionObserver', function() {
     it('throws when callback is not a function', function() {
       proclaim.throws(function() {
         io = new IntersectionObserver(null);
-      }, /function/i);
+      });
     });
 
 
@@ -108,9 +111,9 @@ describe('IntersectionObserver', function() {
 
 
     it('throws when root is not an Element', function() {
-      proclaim.throws(function() {
-        io = new IntersectionObserver(noop, {root: 'foo'});
-      }, /element/i);
+      proclaim.throws(function () {
+        io = new IntersectionObserver(noop, { root: 'foo' });
+      });
     });
 
 
@@ -137,11 +140,13 @@ describe('IntersectionObserver', function() {
     });
 
 
-    it('throws when rootMargin is not in pixels or pecernt', function() {
-      proclaim.throws(function() {
-        io = new IntersectionObserver(noop, {rootMargin: '0'});
-      }, /pixels.*percent/i);
-    });
+    // TODO(philipwalton): this doesn't throw in FF, consider readding once
+    // expected behavior is clarified.
+    // it('throws when rootMargin is not in pixels or pecernt', function() {
+    //   proclaim.throws(function() {
+    //     io = new IntersectionObserver(noop, {rootMargin: '0'});
+    //   });
+    // });
 
 
     // Chrome's implementation in version 51 doesn't include the thresholds
@@ -163,6 +168,20 @@ describe('IntersectionObserver', function() {
     }
 
 
+    it('throws when a threshold is not a number', function() {
+      try {
+        proclaim.throws(function () {
+          io = new IntersectionObserver(noop, { threshold: ['foo'] });
+        }, /threshold/i);
+      } catch (err) {
+        // Chrome 60's error text does not contain the word `threshold`.
+        proclaim.throws(function () {
+          io = new IntersectionObserver(noop, { threshold: ['foo'] });
+        }, "Failed to construct 'IntersectionObserver': The provided double value is non-finite.");
+      }
+    });
+
+
     it('throws when a threshold value is not between 0 and 1', function() {
       proclaim.throws(function() {
         io = new IntersectionObserver(noop, {threshold: [0, -1]});
@@ -182,40 +201,33 @@ describe('IntersectionObserver', function() {
     });
 
 
-    it('triggers if target intersects when observing begins', function(done) {
+    it('triggers for all targets when observing begins', function(done) {
       io = new IntersectionObserver(function(records) {
-        proclaim.equal(records.length, 1);
+        proclaim.equal(records.length, 2);
         proclaim.equal(records[0].intersectionRatio, 1);
+        proclaim.equal(records[1].intersectionRatio, 0);
         done();
       }, {root: rootEl});
+
+      targetEl2.style.top = '-40px';
       io.observe(targetEl1);
+      io.observe(targetEl2);
     });
 
 
     it('triggers with the correct arguments', function(done) {
       io = new IntersectionObserver(function(records, observer) {
-        proclaim.equal(records.length, 1);
+        proclaim.equal(records.length, 2);
         proclaim.isInstanceOf(records[0], IntersectionObserverEntry);
+        proclaim.isInstanceOf(records[1], IntersectionObserverEntry);
         proclaim.equal(observer, io);
         proclaim.equal(this, io);
         done();
       }, {root: rootEl});
-      io.observe(targetEl1);
-    });
-
-
-    it('does not trigger if target does not intersect when observing begins',
-        function(done) {
-
-      var spy = sinon.spy();
-      io = new IntersectionObserver(spy, {root: rootEl});
 
       targetEl2.style.top = '-40px';
+      io.observe(targetEl1);
       io.observe(targetEl2);
-      setTimeout(function() {
-        proclaim.equal(spy.callCount, 0);
-        done();
-      }, ASYNC_TIMEOUT);
     });
 
 
@@ -332,11 +344,13 @@ describe('IntersectionObserver', function() {
           setTimeout(function() {
             proclaim.equal(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            proclaim.equal(records.length, 2);
+            proclaim.equal(records.length, 3);
             proclaim.equal(records[0].target, targetEl1);
             proclaim.equal(records[0].intersectionRatio, 0.25);
             proclaim.equal(records[1].target, targetEl2);
             proclaim.equal(records[1].intersectionRatio, 0.75);
+            proclaim.equal(records[2].target, targetEl3);
+            proclaim.equal(records[2].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -433,20 +447,20 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl2);
           io.observe(targetEl3);
           io.observe(targetEl4);
-
-          // Force a new frame to fix https://crbug.com/612323
-          window.requestAnimationFrame && requestAnimationFrame(function(){});
         },
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            proclaim.equal(records.length, 3);
+            proclaim.equal(records.length, 4);
             proclaim.equal(records[0].target, targetEl1);
             proclaim.equal(records[0].intersectionRatio, 0.5);
-            proclaim.equal(records[1].target, targetEl3);
-            proclaim.equal(records[1].intersectionRatio, 0.5);
-            proclaim.equal(records[2].target, targetEl4);
+            proclaim.equal(records[1].target, targetEl2);
+            proclaim.equal(records[1].intersectionRatio, 0);
+            proclaim.equal(records[2].target, targetEl3);
             proclaim.equal(records[2].intersectionRatio, 0.5);
+            proclaim.equal(records[3].target, targetEl4);
+            proclaim.equal(records[3].intersectionRatio, 0.5);
+
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '-10px 10%'});
@@ -455,18 +469,19 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl2);
           io.observe(targetEl3);
           io.observe(targetEl4);
-
-          // Force a new frame to fix https://crbug.com/612323
-          window.requestAnimationFrame && requestAnimationFrame(function(){});
         },
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            proclaim.equal(records.length, 2);
+            proclaim.equal(records.length, 4);
             proclaim.equal(records[0].target, targetEl1);
             proclaim.equal(records[0].intersectionRatio, 0.5);
-            proclaim.equal(records[1].target, targetEl4);
-            proclaim.equal(records[1].intersectionRatio, 0.5);
+            proclaim.equal(records[1].target, targetEl2);
+            proclaim.equal(records[1].intersectionRatio, 0);
+            proclaim.equal(records[2].target, targetEl3);
+            proclaim.equal(records[2].intersectionRatio, 0);
+            proclaim.equal(records[3].target, targetEl4);
+            proclaim.equal(records[3].intersectionRatio, 0.5);
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '-5% -2.5% 0px'});
@@ -475,20 +490,19 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl2);
           io.observe(targetEl3);
           io.observe(targetEl4);
-
-          // Force a new frame to fix https://crbug.com/612323
-          window.requestAnimationFrame && requestAnimationFrame(function(){});
         },
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            proclaim.equal(records.length, 3);
+            proclaim.equal(records.length, 4);
             proclaim.equal(records[0].target, targetEl1);
             proclaim.equal(records[0].intersectionRatio, 0.5);
             proclaim.equal(records[1].target, targetEl2);
             proclaim.equal(records[1].intersectionRatio, 0.5);
-            proclaim.equal(records[2].target, targetEl4);
-            proclaim.equal(records[2].intersectionRatio, 0.25);
+            proclaim.equal(records[2].target, targetEl3);
+            proclaim.equal(records[2].intersectionRatio, 0);
+            proclaim.equal(records[3].target, targetEl4);
+            proclaim.equal(records[3].intersectionRatio, 0.25);
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '5% -2.5% -10px -190px'});
@@ -497,9 +511,6 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl2);
           io.observe(targetEl3);
           io.observe(targetEl4);
-
-          // Force a new frame to fix https://crbug.com/612323
-          window.requestAnimationFrame && requestAnimationFrame(function(){});
         }
       ], done);
     });
@@ -521,9 +532,13 @@ describe('IntersectionObserver', function() {
           setTimeout(function() {
             proclaim.equal(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            proclaim.equal(records.length, 1);
+            proclaim.equal(records.length, 2);
             proclaim.equal(records[0].intersectionRatio, 0);
-            proclaim.equal(records[0].target, targetEl2);
+            proclaim.equal(records[0].target, targetEl1);
+            proclaim.equal(records[0].isIntersecting, false);
+            proclaim.equal(records[1].intersectionRatio, 0);
+            proclaim.equal(records[1].target, targetEl2);
+            proclaim.equal(records[1].isIntersecting, true);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -568,7 +583,8 @@ describe('IntersectionObserver', function() {
 
       io = new IntersectionObserver(function(records) {
         proclaim.equal(records.length, 1);
-        proclaim.equal(records[0].intersectionRatio, 0);
+        proclaim.equal(records[0].isIntersecting, true);
+        proclaim.equal(records[0].intersectionRatio, 1);
         done();
       }, {root: rootEl});
 
@@ -580,72 +596,164 @@ describe('IntersectionObserver', function() {
     });
 
 
-    it('handles root/target elements not yet in the DOM', function(done) {
-
-      rootEl.parentNode.removeChild(rootEl);
-      targetEl1.parentNode.removeChild(targetEl1);
+    it('handles elements with display set to none', function(done) {
 
       var spy = sinon.spy();
       io = new IntersectionObserver(spy, {root: rootEl});
 
       runSequence([
         function(done) {
+          rootEl.style.display = 'none';
           io.observe(targetEl1);
-          setTimeout(done, 0);
-        },
-        function(done) {
-          document.getElementById('fixtures').appendChild(rootEl);
-          setTimeout(function() {
-            proclaim.equal(spy.callCount, 0);
-            done();
-          }, ASYNC_TIMEOUT);
-        },
-        function(done) {
-          parentEl.insertBefore(targetEl1, targetEl2);
           setTimeout(function() {
             proclaim.equal(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
             proclaim.equal(records.length, 1);
-            proclaim.equal(records[0].intersectionRatio, 1);
-            proclaim.equal(records[0].target, targetEl1);
+            proclaim.equal(records[0].isIntersecting, false);
+            proclaim.equal(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
-          grandParentEl.parentNode.removeChild(grandParentEl);
+          rootEl.style.display = 'block';
           setTimeout(function() {
             proclaim.equal(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
             proclaim.equal(records.length, 1);
-            proclaim.equal(records[0].intersectionRatio, 0);
-            proclaim.equal(records[0].target, targetEl1);
+            proclaim.equal(records[0].isIntersecting, true);
+            proclaim.equal(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
-          rootEl.appendChild(targetEl1);
+          parentEl.style.display = 'none';
           setTimeout(function() {
             proclaim.equal(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
             proclaim.equal(records.length, 1);
-            proclaim.equal(records[0].intersectionRatio, 1);
-            proclaim.equal(records[0].target, targetEl1);
+            proclaim.equal(records[0].isIntersecting, false);
+            proclaim.equal(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
-          rootEl.parentNode.removeChild(rootEl);
+          parentEl.style.display = 'block';
           setTimeout(function() {
             proclaim.equal(spy.callCount, 4);
             var records = sortRecords(spy.lastCall.args[0]);
             proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].isIntersecting, true);
+            proclaim.equal(records[0].intersectionRatio, 1);
+            done();
+          }, ASYNC_TIMEOUT);
+        },
+        function(done) {
+          targetEl1.style.display = 'none';
+          setTimeout(function() {
+            proclaim.equal(spy.callCount, 5);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].isIntersecting, false);
             proclaim.equal(records[0].intersectionRatio, 0);
-            proclaim.equal(records[0].target, targetEl1);
             done();
           }, ASYNC_TIMEOUT);
         }
       ], done);
     });
+
+
+    it('handles target elements not yet added to the DOM', function(done) {
+      var spy = sinon.spy();
+      io = new IntersectionObserver(spy, {root: rootEl});
+
+      // targetEl5 is initially not in the DOM. Note that this element must be
+      // created outside of the addFixtures() function to catch the IE11 error
+      // described here: https://github.com/WICG/IntersectionObserver/pull/205
+      var targetEl5 = document.createElement('div');
+      targetEl5.setAttribute('id', 'target5');
+
+      runSequence([
+        function(done) {
+          io.observe(targetEl5);
+          setTimeout(function() {
+            // Initial observe should trigger with no intersections since
+            // targetEl5 is not yet in the DOM.
+            proclaim.equal(spy.callCount, 1);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].isIntersecting, false);
+            proclaim.equal(records[0].intersectionRatio, 0);
+            proclaim.equal(records[0].target, targetEl5);
+            done();
+          }, ASYNC_TIMEOUT);
+        },
+        function(done) {
+          // Adding targetEl5 inside rootEl should trigger.
+          parentEl.insertBefore(targetEl5, targetEl2);
+          setTimeout(function() {
+            proclaim.equal(spy.callCount, 2);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].intersectionRatio, 1);
+            proclaim.equal(records[0].target, targetEl5);
+            done();
+          }, ASYNC_TIMEOUT);
+        },
+        function(done) {
+          // Removing an ancestor of targetEl5 should trigger.
+          grandParentEl.parentNode.removeChild(grandParentEl);
+          setTimeout(function() {
+            proclaim.equal(spy.callCount, 3);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].intersectionRatio, 0);
+            proclaim.equal(records[0].target, targetEl5);
+            done();
+          }, ASYNC_TIMEOUT);
+        },
+        function(done) {
+          // Adding the previously removed targetEl5 (via grandParentEl)
+          // back directly inside rootEl should trigger.
+          rootEl.appendChild(targetEl5);
+          setTimeout(function() {
+            proclaim.equal(spy.callCount, 4);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].intersectionRatio, 1);
+            proclaim.equal(records[0].target, targetEl5);
+            done();
+          }, ASYNC_TIMEOUT);
+        },
+        function(done) {
+          // Removing rootEl should trigger.
+          rootEl.parentNode.removeChild(rootEl);
+          setTimeout(function() {
+            proclaim.equal(spy.callCount, 5);
+            var records = sortRecords(spy.lastCall.args[0]);
+            proclaim.equal(records.length, 1);
+            proclaim.equal(records[0].intersectionRatio, 0);
+            proclaim.equal(records[0].target, targetEl5);
+            done();
+          }, ASYNC_TIMEOUT);
+        }
+      ], done);
+    });
+
+
+    if ('attachShadow' in Element.prototype) {
+      it('handles targets in shadow DOM', function(done) {
+        grandParentEl.attachShadow({mode: 'open'});
+        grandParentEl.shadowRoot.appendChild(parentEl);
+
+        io = new IntersectionObserver(function(records) {
+          proclaim.equal(records.length, 1);
+          proclaim.equal(records[0].intersectionRatio, 1);
+          done();
+        }, {root: rootEl});
+
+        io.observe(targetEl1);
+      });
+    }
 
 
     it('handles sub-root element scrolling', function(done) {
@@ -664,7 +772,7 @@ describe('IntersectionObserver', function() {
 
     // Only run this test in browsers that support CSS transitions.
     if ('transform' in document.documentElement.style &&
-        'transform' in document.documentElement.style) {
+        'transition' in document.documentElement.style) {
 
       it('supports CSS transitions and transforms', function(done) {
 
@@ -695,8 +803,10 @@ describe('IntersectionObserver', function() {
 
     it('uses the viewport when no root is specified', function(done) {
       io = new IntersectionObserver(function(records) {
-        var viewportWidth = document.documentElement.clientWidth || document.body.clientWidth;
-        var viewportHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        var viewportWidth =
+            document.documentElement.clientWidth || document.body.clientWidth;
+        var viewportHeight =
+            document.documentElement.clientHeight || document.body.clientHeight;
 
         proclaim.equal(records.length, 1);
         proclaim.equal(records[0].rootBounds.top, 0);
@@ -918,7 +1028,7 @@ function addStyles() {
       '  height: 200px;' +
       '  background: #ddd;' +
       '}' +
-      '#target1, #target2, #target3, #target4 {' +
+      '#target1, #target2, #target3, #target4, #target5 {' +
       '  position: absolute;' +
       '  top: 0px;' +
       '  left: 0px;' +
