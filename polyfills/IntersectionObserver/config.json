@@ -7,7 +7,7 @@
 		"chrome": "<51",
 		"firefox": "*",
 		"firefox_mob": "47 - *",
-		"ie": "7 - 15",
+		"ie": "7 - 14",
 		"ie_mob": "11 - *",
 		"ios_saf": "7 - *",
 		"op_mini": "17 - *",
@@ -25,9 +25,8 @@
 		"Array.prototype.some",
 		"Event",
 		"Function.prototype.bind",
-		"perfomance.now",
-		"Object.defineProperty"
-	],
+		"perfomance.now"
+		],
 	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
 	"notes": [],
