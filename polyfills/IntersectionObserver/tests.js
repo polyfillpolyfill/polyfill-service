@@ -781,10 +781,10 @@ describe('IntersectionObserver', function() {
 				targetEl1.style.left = '220px';
 
 				io = new IntersectionObserver(function(records) {
-					proclaim.equal(records.length, 1);
+					proclaim.equal(records.length, 1, 'Expected 1 record but found: 0');
 					// Chrome's native implementation sometimes incorrectly reports
 					// the intersection ratio as a number > 1.
-					proclaim.isTrue(records[0].intersectionRatio >= 1);
+					proclaim.isTrue(records[0].intersectionRatio >= 1, 'Expected an intersectionRatio of 1 or above but found: ' + records[0].intersectionRatio);
 					done();
 				}, {root: rootEl, threshold: [1]});
 
