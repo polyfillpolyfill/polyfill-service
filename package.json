@@ -75,7 +75,7 @@
     "graphite": "0.0.7",
     "handlebars": "^4.0.6",
     "html5shiv": "^3.7.3",
-    "intersection-observer": "^0.2.1",
+    "intersection-observer": "^0.4.1",
     "intl": "github:andyearnshaw/Intl.js#b66fbfa5a15bb762844992639b97c1e1ababf410",
     "js-polyfills": "^0.1.33",
     "json3": "^3.3.2",
