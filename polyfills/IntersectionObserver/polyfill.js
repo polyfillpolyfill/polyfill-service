@@ -48,7 +48,11 @@ function IntersectionObserverEntry(entry) {
   this.rootBounds = entry.rootBounds;
   this.boundingClientRect = entry.boundingClientRect;
   this.intersectionRect = entry.intersectionRect || getEmptyRect();
-  this.isIntersecting = !!entry.intersectionRect;
+  try {
+    this.isIntersecting = !!entry.intersectionRect;
+  } catch (err) {
+    // This means we are using the IntersectionObserverEntry polyfill which has only defined a getter
+  }
 
   // Calculates the intersection ratio.
   var targetRect = this.boundingClientRect;
