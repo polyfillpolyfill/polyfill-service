@@ -20,7 +20,14 @@ if ('IntersectionObserverEntry' in window && !('isIntersecting' in window.Inters
 		this.target = entry.target;
 		this.rootBounds = entry.rootBounds;
 		this.boundingClientRect = entry.boundingClientRect;
-		this.intersectionRect = entry.intersectionRect || getEmptyRect();
+		this.intersectionRect = entry.intersectionRect || {
+			top: 0,
+			bottom: 0,
+			left: 0,
+			right: 0,
+			width: 0,
+			height: 0
+		};
 		try {
 			this.isIntersecting = !!entry.intersectionRect;
 		} catch (err) {
