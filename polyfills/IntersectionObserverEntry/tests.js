@@ -2,7 +2,7 @@
 /* global proclaim, it */
 
 describe('IntersectionObserverEntry', function () {
-	it('has an isIntersecting property', function () {
-		proclaim.ok('isIntersecting' in IntersectionObserverEntry.prototype);
+	it('adds IntersectionObserverEntry to window', function () {
+		proclaim.ok('IntersectionObserverEntry' in window);
 	});
 });
