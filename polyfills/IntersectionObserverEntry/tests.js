@@ -3,6 +3,6 @@
 
 describe('IntersectionObserverEntry', function () {
 	it('has an isIntersecting property', function () {
-		proclaim.include(IntersectionObserverEntry, 'isIntersecting');
+		proclaim.ok('isIntersecting' in IntersectionObserverEntry.prototype);
 	});
 });
