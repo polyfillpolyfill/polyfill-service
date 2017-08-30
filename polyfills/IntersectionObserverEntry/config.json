@@ -2,7 +2,18 @@
 	"aliases": [
 	],
 	"browsers": {
-		"ie": "15"
+		"android": "4.4 - *",
+		"bb": "7 - 10",
+		"chrome": "<51",
+		"firefox": "*",
+		"firefox_mob": "47 - *",
+		"ie": "7 - 15",
+		"ie_mob": "11 - *",
+		"ios_saf": "7 - *",
+		"op_mini": "17 - *",
+		"opera": "*",
+		"safari": "6 - *",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty"
