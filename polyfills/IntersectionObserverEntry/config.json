@@ -5,7 +5,6 @@
 		"ie": "15"
 	},
 	"dependencies": [
-		"IntersectionObserver",
 		"Object.defineProperty"
 		],
 	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",

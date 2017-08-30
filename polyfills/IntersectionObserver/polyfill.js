@@ -35,41 +35,6 @@ if ('IntersectionObserver' in window &&
  */
 var registry = [];
 
-
-/**
- * Creates the global IntersectionObserverEntry constructor.
- * https://wicg.github.io/IntersectionObserver/#intersection-observer-entry
- * @param {Object} entry A dictionary of instance properties.
- * @constructor
- */
-function IntersectionObserverEntry(entry) {
-  this.time = entry.time;
-  this.target = entry.target;
-  this.rootBounds = entry.rootBounds;
-  this.boundingClientRect = entry.boundingClientRect;
-  this.intersectionRect = entry.intersectionRect || getEmptyRect();
-  try {
-    this.isIntersecting = !!entry.intersectionRect;
-  } catch (err) {
-    // This means we are using the IntersectionObserverEntry polyfill which has only defined a getter
-  }
-
-  // Calculates the intersection ratio.
-  var targetRect = this.boundingClientRect;
-  var targetArea = targetRect.width * targetRect.height;
-  var intersectionRect = this.intersectionRect;
-  var intersectionArea = intersectionRect.width * intersectionRect.height;
-
-  // Sets intersection ratio.
-  if (targetArea) {
-    this.intersectionRatio = intersectionArea / targetArea;
-  } else {
-    // If area is zero and is intersecting, sets to 1, otherwise to 0
-    this.intersectionRatio = this.isIntersecting ? 1 : 0;
-  }
-}
-
-
 /**
  * Creates the global IntersectionObserver constructor.
  * https://wicg.github.io/IntersectionObserver/#intersection-observer-interface
@@ -711,8 +676,7 @@ function getParentNode(node) {
 }
 
 
-// Exposes the constructors globally.
+// Exposes the constructor globally.
 window.IntersectionObserver = IntersectionObserver;
-window.IntersectionObserverEntry = IntersectionObserverEntry;
 
 }(window, document));
