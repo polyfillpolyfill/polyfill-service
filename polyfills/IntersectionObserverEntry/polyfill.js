@@ -48,5 +48,6 @@ if ('IntersectionObserverEntry' in window && !('isIntersecting' in window.Inters
 			this.intersectionRatio = this.isIntersecting ? 1 : 0;
 		}
 	}
+	IntersectionObserverEntry.prototype.isIntersecting = false;
 	window.IntersectionObserverEntry = IntersectionObserverEntry;
 }
