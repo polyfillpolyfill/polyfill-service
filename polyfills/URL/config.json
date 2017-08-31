@@ -8,7 +8,7 @@
 		"default"
 	],
 	"browsers": {
-		"chrome": "<49",
+		"chrome": "<51",
 		"firefox": "<29",
 		"ie": "9 - *",
 		"ie_mob": "*",
