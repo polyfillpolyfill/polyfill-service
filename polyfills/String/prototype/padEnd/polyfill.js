@@ -2,10 +2,10 @@
 	Object.defineProperty(String.prototype, 'padEnd', {
 		configurable: true,
 		enumerable: false,
-		value: function padEnd (targetLength, padString) {
+		value: function padEnd (targetLength) {
 			targetLength = targetLength | 0;
 			if (targetLength <= this.length) return String(this);
-			padString = String(padString || " ");
+			var padString = String(arguments[1] || " ");
 			var repeat = Math.ceil((targetLength - this.length) / padString.length);
 			while (repeat--) {
 				padString += padString;

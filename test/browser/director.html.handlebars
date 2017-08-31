@@ -8,7 +8,7 @@
 	<style>
 		* { box-sizing: border-box; }
 		html, body { width: 100%; height: 100%; padding:0; margin: 0; overflow: hidden; }
-		#runner { width: 100%; height: 70%; z-index:1; overflow: auto; border: 0; }
+		#runner { width: 100%; height: 100%; z-index:1; overflow: auto; border: none; display: block;}
 		#log { width: 100%; height:30%; z-index: 2; font-size: 14px; font-family: monospace; border: 0; background: white; background: rgba(255,255,255,0.8); padding: 3px 10px; overflow-y: auto; }
 		#log p { margin: 0.2em 0; }
 		.pass { color: #6b6;}
@@ -132,7 +132,9 @@
 		function log(str) {
 			var t = new Date();
 			var el = document.getElementById('log');
-			el.innerHTML += '<p>' + ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str + '</p>';
+			var p = document.createElement('p');
+			p.innerHTML = ((t.getHours()<10)?'0':'') + t.getHours() + ":" + ((t.getMinutes()<10)?'0':'') + t.getMinutes() + ":" + ((t.getSeconds()<10)?'0':'') + t.getSeconds() + ' ' + str;
+			el.appendChild(p);
 			el.scrollTop = 99999999;
 		}
 	</script>

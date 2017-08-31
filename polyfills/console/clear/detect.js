@@ -1,1 +1,1 @@
-'clear' in this.console
+'console' in this && 'clear' in this.console
