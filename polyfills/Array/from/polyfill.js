@@ -53,7 +53,7 @@
 			}
 
 			// handle maps that are not functions
-			if (1 in arguments && !(arguments[1] instanceof Function)) {
+			if (1 in arguments && typeof arguments[1] !== 'function') {
 				throw new TypeError(arguments[1] + ' is not a function');
 			}
 
