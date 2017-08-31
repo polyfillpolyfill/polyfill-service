@@ -1,4 +1,4 @@
-var _mutation;
+var _mutation; // eslint-disable-line no-unused-vars
 (function () {
 
 	// it's missing DocumentFragment, Text, Comment.. but they probably don't exist too on ie8-
