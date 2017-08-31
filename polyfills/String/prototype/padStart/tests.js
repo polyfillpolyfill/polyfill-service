@@ -6,7 +6,7 @@ it('has correct instance', function () {
 });
 
 it('has correct argument length', function () {
-	proclaim.equal(String.prototype.padStart.length, 2);
+	proclaim.equal(String.prototype.padStart.length, 1);
 });
 
 it('works with strings', function () {
