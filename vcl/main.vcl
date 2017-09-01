@@ -122,6 +122,8 @@ sub vcl_deliver {
 		set resp.http.Debug-Host = req.http.Host;
 		set resp.http.Debug-X-Original-Host = req.http.X-Original-Host;
 	}
+	
+	unset resp.http.Age;
 
 	return(deliver);
 }
