@@ -12,7 +12,7 @@
 		"firefox": "<49",
 		"ios_chr": "*",
 		"ios_saf": "<10",
-		"ie": "6 - *",
+		"ie": "8 - *",
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
