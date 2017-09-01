@@ -26,13 +26,9 @@
 		"Event",
 		"Function.prototype.bind",
 		"perfomance.now"
-	],
-	"docs": "https://github.com/WICG/IntersectionObserver/blob/master/explainer.md",
-	"spec": "http://rawgit.com/WICG/IntersectionObserver/master/index.html",
+		],
+	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
+	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
 	"notes": [],
-	"repo": "https://github.com/WICG/IntersectionObserver",
-	"install": {
-		"module": "intersection-observer",
-		"paths": ["intersection-observer"]
-	}
+	"repo": "https://github.com/w3c/IntersectionObserver"
 }
