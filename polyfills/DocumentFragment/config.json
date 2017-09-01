@@ -5,7 +5,7 @@
 		"firefox": "<4",
 		"ios_chr": "<4",
 		"ios_saf": "<4",
-		"ie": "<9",
+		"ie": "8 - 9",
 		"ie_mob": "<9",
 		"opera": "<11",
 		"op_mini": "<11",
