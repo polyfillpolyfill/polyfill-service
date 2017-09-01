@@ -5,7 +5,7 @@ Object.defineProperty(Array.prototype, 'findIndex', {
 			throw new TypeError(this + ' is not an object');
 		}
 
-		if (!(callback instanceof Function)) {
+		if (typeof callback !== 'function') {
 			throw new TypeError(callback + ' is not a function');
 		}
 

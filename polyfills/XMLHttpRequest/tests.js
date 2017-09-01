@@ -22,6 +22,14 @@ it.skip('has correct argument length', function () {
 	proclaim.equal(XMLHttpRequest.length, 0);
 });
 
+it('has correct states', function () {
+	proclaim.equal(XMLHttpRequest.UNSENT, 0);
+	proclaim.equal(XMLHttpRequest.OPENED, 1);
+	proclaim.equal(XMLHttpRequest.HEADERS_RECEIVED, 2);
+	proclaim.equal(XMLHttpRequest.LOADING, 3);
+	proclaim.equal(XMLHttpRequest.DONE, 4);
+});
+
 it('can create instance', function () {
 	xhr = new XMLHttpRequest;
 });
