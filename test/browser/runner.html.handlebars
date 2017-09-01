@@ -90,7 +90,8 @@
 				name: test.fullTitle(),
 				result: false,
 				message: err.message,
-				stack: err.stack
+				stack: err.stack,
+				failingSuite: getFirstLevelSuite(test)
 			});
 		});
 

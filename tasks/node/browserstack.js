@@ -18,7 +18,9 @@ module.exports = {
 			openTunnel: () => new Promise(resolve => {
 				tunnel.start({}, error => {
 					if (error) {
-						throw new Error("Failed to open tunnel");
+						console.error("Failed to open tunnel");
+						console.error(error);
+						throw error;
 					}
 					resolve();
 				});
