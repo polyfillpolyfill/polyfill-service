@@ -1,38 +1,29 @@
-var _mutation; // eslint-disable-line no-unused-vars
-(function () {
+var _mutation = (function () { // eslint-disable-line no-unused-vars
 
-	// it's missing DocumentFragment, Text, Comment.. but they probably don't exist too on ie8-
-	var _Node = typeof window.Node === 'function' ? window.Node : window.Element;
-
-	function isDOM(object) {
+	function isNode(object) {
 		// DOM, Level2
-		if ("HTMLElement" in window) {
-			try {
-				return (object && object instanceof _Node);
-			} catch (err) {
-				// We enter here if the object is not an instanceof _Node, likely object is a string.
-			}
+		if (typeof Node === 'function') {
+			return object instanceof Node;
 		}
-		// Older browsers
-		return !!(object && typeof object === "object" && object.nodeType === 1 && object.nodeName);
+		// Older browsers, check if it looks like a Node instance)
+		return object &&
+			typeof object === "object" && 
+			object.nodeName && 
+			object.nodeType >= 1 &&
+			object.nodeType <= 12;
 	}
 
 	// http://dom.spec.whatwg.org/#mutation-method-macro
-	function mutation(nodes) { // eslint-disable-line no-unused-vars
-
-
+	return function mutation(nodes) {
 		if (nodes.length === 1) {
-			return isDOM(nodes[0]) ? nodes[0] : document.createTextNode(nodes[0] + '');
+			return isNode(nodes[0]) ? nodes[0] : document.createTextNode(nodes[0] + '');
 		}
 
 		var fragment = document.createDocumentFragment();
 		for (var i = 0; i < nodes.length; i++) {
-			fragment.appendChild(isDOM(nodes[i]) ? nodes[i] : document.createTextNode(nodes[i] + ''));
+			fragment.appendChild(isNode(nodes[i]) ? nodes[i] : document.createTextNode(nodes[i] + ''));
 
 		}
-
 		return fragment;
-	}
-
-	_mutation = mutation;
+	};
 }());
