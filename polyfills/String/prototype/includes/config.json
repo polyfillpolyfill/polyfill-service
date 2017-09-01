@@ -14,6 +14,7 @@
 		"chrome": "<=40",
 		"firefox": "<=39",
 		"opera": "10 - 18",
+		"op_mini": "*",
 		"safari": "<9",
 		"ie": "<14",
 		"ie_mob": "10 - *",
