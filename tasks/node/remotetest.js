@@ -19,21 +19,21 @@ const testProvider = require('./' + ((['browserstack', 'saucelabs'].includes(arg
 
 const browserSets = {
 	"quick": [
-		'chrome/56',
-		'firefox/52',
-		'ie/14',
+		'chrome/58',
+		'firefox/53',
+		'ie/15',
 		'ie/11',
 		'ie/8',
 		'android/4.4',
 		'safari/10',
 	],
 	"ci": [
-		'chrome/56',
+		'chrome/58',
 		'chrome/48',
-		'firefox/52',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
-		'ie/14',
+		'ie/15',
 		'ie/13',
 		'ie/11',
 		'ie/10',
@@ -46,19 +46,20 @@ const browserSets = {
 		'android/4.4'
 	],
 	"full": [
-		'chrome/56',
+		'chrome/58',
 		'chrome/48',
 		'chrome/46',
 		'chrome/42',
 		'chrome/40',
 		'chrome/35',
-		'firefox/52',
+		'firefox/53',
 		'firefox/49',
 		'firefox/44',
 		'firefox/42',
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
+		'ie/15',
 		'ie/14',
 		'ie/13',
 		'ie/11',
@@ -69,11 +70,24 @@ const browserSets = {
 		'safari/10',
 		'safari/9',
 		'safari/8',
+		'safari/7',
+		'safari/6',
 		'safari/5.1',
+		'android/7.1',
+		'android/7',
+		'android/6',
+		'android/5.1',
+		'android/5',
 		'android/4.4',
-		'android/4.3',
-		'android/4.2',
-		'ios_saf/9.1'
+		// 'android/4.3', // Not working correctly on BrowserStack or SauceLabs
+		// 'android/4.2', // Not working correctly on BrowserStack or SauceLabs
+		'ios_saf/10.3',
+		'ios_saf/9.1',
+		'ios_saf/8',
+		'ios_saf/7',
+		'ios_saf/6',
+		'ios_saf/5',
+		'ios_saf/4'
 	]
 };
 
@@ -221,6 +235,7 @@ class TestJob {
 		return {
 			passed: this.results.passed,
 			failed: this.results.failed,
+			failingTests: this.results.tests,
 			failingSuites: this.results.failingSuites ? Object.keys(this.results.failingSuites) : [],
 			testedSuites: Array.from(this.results.testedSuites)
 		};
@@ -321,12 +336,13 @@ Promise.resolve()
 		if (totalFailureCount) {
 			console.log(cli.bold.white('\nFailures:'));
 			jobs.forEach(job => {
-				if (job.results && job.results.failed) {
-					console.log(' - ' + job.ua + ':');
-					Object.keys(job.results.failingSuites).forEach(feature => {
-						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + feature;
-						console.log('    -> ' + feature);
+				if (job.results && job.results.tests) {
+					job.results.tests.forEach((test) => {
+						console.log(' - ' + job.ua + ':');
+						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + test.failingSuite;
+						console.log('    -> ' + test.name);
 						console.log('       ' + url);
+						console.log('       ' + test.message);
 					});
 				} else if (job.state !== 'complete') {
 					console.log(' • ' + job.ua + ' (' + job.mode + '): ' + cli.red(job.results || 'No results'));
@@ -341,5 +357,5 @@ Promise.resolve()
 
 	.catch(e => {
 		console.log(e.stack || e);
-		process.exit(1);
+		process.exitCode = 1;
 	});

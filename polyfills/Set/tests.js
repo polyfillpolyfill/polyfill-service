@@ -104,6 +104,10 @@ it("exhibits correct iterator behaviour", function () {
 	proclaim.equal(lastResult.value, void 0);
 });
 
+it("implements @@iterator() as an alias for .values()", function () {
+	proclaim.equal(o.values, o[Symbol.iterator]);
+});
+
 it("implements .forEach()", function () {
 	var o = new Set(), i = 0;
 	o.add("val 0");

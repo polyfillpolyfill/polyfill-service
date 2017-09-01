@@ -1,0 +1,16 @@
+Index: polyfill.js
+===================================================================
+--- polyfill.js
++++ polyfill.js
+@@ -1,11 +1,7 @@
+ (function(self) {
+   'use strict';
+ 
+-  if (self.fetch) {
+-    return
+-  }
+-
+   var support = {
+     searchParams: 'URLSearchParams' in self,
+     iterable: 'Symbol' in self && 'iterator' in Symbol,
+     blob: 'FileReader' in self && 'Blob' in self && (function() {

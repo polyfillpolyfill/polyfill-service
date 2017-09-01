@@ -1,0 +1,1 @@
+'padEnd' in String.prototype

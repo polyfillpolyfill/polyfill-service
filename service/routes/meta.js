@@ -7,8 +7,8 @@ const path = require('path');
 
 const router = express.Router();  // eslint-disable-line new-cap
 
-const serviceInfo = Object.assign({}, require(path.join(__dirname, '../../about.json')), {
-	appVersion: require(path.join(__dirname,'../../package.json')).version,
+const serviceInfo = Object.assign({}, require('../../about.json'), {
+	appVersion: require('../../package.json').version,
 	hostname: require("os").hostname(),
 	dateDeployed: require('graceful-fs').statSync(path.join(__dirname,'../../package.json')).mtime
 });

@@ -1,9 +1,12 @@
 {
+	"alias": [
+		"HTMLCanvasElement.protoype.toBlob"
+	],
 	"browsers": {
 		"chrome": "<50",
 		"firefox": "<19",
 		"safari": "*",
-		"ie": "10",
+		"ie": "10-11",
 		"opera": "*"
 	},
 	"dependencies": [
