@@ -1,1 +1,1 @@
-'assert' in this.console
+'console' in this && 'assert' in this.console
