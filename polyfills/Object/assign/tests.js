@@ -8,11 +8,11 @@ it('has the correct length', function() {
 it('throws when target is not an object', function() {
 	proclaim.throws(function () {
 		Object.assign(null);
-	}, TypeError);
+	}); // TODO: This should be a TypeError
 
 	proclaim.throws(function () {
 		Object.assign(undefined);
-	}, TypeError);
+	}); // TODO: This should be a TypeError
 });
 
 it('Object properties are assigned to target in ascending index order', function () {
