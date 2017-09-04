@@ -70,12 +70,6 @@ it('returns the target object', function() {
 	proclaim.deepEqual(returned, target);
 });
 
-it('support `Object.create(null)` objects', function() {
-	var obj = Object.create(null);
-	obj.foo = true;
-	proclaim.deepEqual(Object.assign({}, obj), {foo: true});
-});
-
 it('converts primitives as the target into Objects', function() {
 	var target = Object.assign(true, {foo: 'bar'});
 	var booleanObject = Object(true);
