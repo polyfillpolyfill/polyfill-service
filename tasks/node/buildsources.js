@@ -216,7 +216,7 @@ class Polyfill {
 	}
 
 	removeSourceMaps(source) {
-		var re = /^\/\/#\ssourceMappingURL(.+)$/gm;
+		const re = /^\/\/#\ssourceMappingURL(.+)$/gm;
 
 		return { raw: source.raw.replace(re, ''), min: source.min.replace(re, '') };
 	}
