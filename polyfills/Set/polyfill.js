@@ -29,43 +29,32 @@
 		};
 	}
 
-	function calcSize(setInst) {
-		var size = 0;
-		for (var i=0, s=setInst._values.length; i<s; i++) {
-			if (setInst._values[i] !== undefMarker) size++;
-		}
-		return size;
-	}
-
-	var ACCESSOR_SUPPORT = true;
-
-	var Set = function(data) {
+	var Set = function() {
+		var data = arguments[0];
 		this._values = [];
+		this.size = this._size = 0;
 
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the set
 		data && (typeof data.forEach === 'function') && data.forEach(function (item) {
 			this.add.call(this, item);
 		}, this);
-
-		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
 	};
 
 	// Some old engines do not support ES5 getters/setters.  Since Set only requires these for the size property, we can fall back to setting the size property statically each time the size of the set changes.
 	try {
 		Object.defineProperty(Set.prototype, 'size', {
 			get: function() {
-				return calcSize(this);
+				return this._size;
 			}
 		});
 	} catch(e) {
-		ACCESSOR_SUPPORT = false;
 	}
 
 	Set.prototype['add'] = function(value) {
 		value = encodeVal(value);
 		if (this._values.indexOf(value) === -1) {
 			this._values.push(value);
-			if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
+			this.size = ++this._size;
 		}
 		return this;
 	};
@@ -76,19 +65,19 @@
 		var idx = this._values.indexOf(encodeVal(value));
 		if (idx === -1) return false;
 		this._values[idx] = undefMarker;
-		if (!ACCESSOR_SUPPORT) this.size = calcSize(this);
+		this.size = --this._size;
 		return true;
 	};
 	Set.prototype['clear'] = function() {
 		this._values = [];
-		if (!ACCESSOR_SUPPORT) this.size = 0;
+		this.size = this._size = 0;
 	};
 	Set.prototype['values'] =
-	Set.prototype['keys'] = function() {
+	Set.prototype['keys'] =
+	Set.prototype[Symbol.iterator] = function() {
 		return makeIterator(this, function(i) { return decodeVal(this._values[i]); });
 	};
-	Set.prototype['entries'] =
-	Set.prototype[Symbol.iterator] = function() {
+	Set.prototype['entries'] = function() {
 		return makeIterator(this, function(i) { return [decodeVal(this._values[i]), decodeVal(this._values[i])]; });
 	};
 	Set.prototype['forEach'] = function(callbackFn, thisArg) {
@@ -102,8 +91,6 @@
 	};
 	Set.prototype['constructor'] =
 	Set.prototype[Symbol.species] = Set;
-
-	Set.length = 0;
 
 	Set.prototype.constructor = Set;
 	Set.name = "Set";

@@ -11,7 +11,7 @@ function initDemos() {
 		});
 		xhr.send();
 		code.classList.add('prettyprint');
-		code.innerHTML = '<code>&lt;script src="https://cdn.polyfill.io' + el.getAttribute('data-src') + '"&gt;&lt;/script&gt;</code>';
+		code.innerHTML = '<code>&lt;script src="' + el.getAttribute('data-src') + '"&gt;&lt;/script&gt;</code>';
 		el.textContent = 'Loading...';
 		el.parentNode.insertBefore(code, el);
 	});
@@ -20,9 +20,9 @@ function initDemos() {
 function initCharts() {
 	var drawFns = [];
 
-	if (document.getElementById('chart-requests')) {
-		google.charts.load('current', {'packages':['corechart']});
-	}
+	if (!document.getElementById('chart-requests') || !google || !google.charts) return;
+
+	google.charts.load('current', {'packages':['corechart']});
 
 	google.charts.setOnLoadCallback(function() {
 		var chartel = document.getElementById('chart-requests');

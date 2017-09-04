@@ -1,22 +1,29 @@
-// http://dom.spec.whatwg.org/#mutation-method-macro
-function _mutation(nodes) { // eslint-disable-line no-unused-vars
-	if (!nodes.length) {
-		throw new Error('DOM Exception 8');
-	} else if (nodes.length === 1) {
-		return typeof nodes[0] === 'string' ? document.createTextNode(nodes[0]) : nodes[0];
-	} else {
-		var
-		fragment = document.createDocumentFragment(),
-		length = nodes.length,
-		index = -1,
-		node;
+var _mutation = (function () { // eslint-disable-line no-unused-vars
 
-		while (++index < length) {
-			node = nodes[index];
+	function isNode(object) {
+		// DOM, Level2
+		if (typeof Node === 'function') {
+			return object instanceof Node;
+		}
+		// Older browsers, check if it looks like a Node instance)
+		return object &&
+			typeof object === "object" && 
+			object.nodeName && 
+			object.nodeType >= 1 &&
+			object.nodeType <= 12;
+	}
 
-			fragment.appendChild(typeof node === 'string' ? document.createTextNode(node) : node);
+	// http://dom.spec.whatwg.org/#mutation-method-macro
+	return function mutation(nodes) {
+		if (nodes.length === 1) {
+			return isNode(nodes[0]) ? nodes[0] : document.createTextNode(nodes[0] + '');
 		}
 
+		var fragment = document.createDocumentFragment();
+		for (var i = 0; i < nodes.length; i++) {
+			fragment.appendChild(isNode(nodes[i]) ? nodes[i] : document.createTextNode(nodes[i] + ''));
+
+		}
 		return fragment;
-	}
-}
+	};
+}());

@@ -64,8 +64,7 @@ describe("polyfillio", () => {
 					uaString: 'chrome/30'
 				}).then(result => assert.deepEqual(setsToArrays(result), {
 					fetch: { flags: [] },
-					Promise: { flags: [], aliasOf: [ 'fetch' ] },
-					setImmediate: { flags: [], aliasOf: [ 'Promise', 'fetch' ] }
+					Promise: { flags: [], aliasOf: [ 'fetch' ] }
 				})),
 				polyfillio.getPolyfills({
 					features: {
