@@ -53,9 +53,9 @@ it('supports multiple sources, overriding previous copies of the same property',
 });
 
 it('does not iterate prototype properties', function() {
-	const Bar = function () {};
+	var Bar = function () {};
 	Bar.prototype.foo = 2;
-	const bar = new Bar();
+	var bar = new Bar();
 	bar.baz = 1;
 
 	proclaim.deepEqual(Object.assign({foo: 1}, bar), {
@@ -65,20 +65,14 @@ it('does not iterate prototype properties', function() {
 });
 
 it('returns the target object', function() {
-	const target = {};
-	const returned = Object.assign(target, {foo: 1});
+	var target = {};
+	var returned = Object.assign(target, {foo: 1});
 	proclaim.deepEqual(returned, target);
 });
 
-it('support `Object.create(null)` objects', function() {
-	const obj = Object.create(null);
-	obj.foo = true;
-	proclaim.deepEqual(Object.assign({}, obj), {foo: true});
-});
-
 it('converts primitives as the target into Objects', function() {
-	const target = Object.assign(true, {foo: 'bar'});
-	const booleanObject = Object(true);
+	var target = Object.assign(true, {foo: 'bar'});
+	var booleanObject = Object(true);
 	booleanObject.foo = 'bar';
 	proclaim.deepEqual(target, booleanObject);
 });
