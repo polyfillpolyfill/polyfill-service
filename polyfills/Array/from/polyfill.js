@@ -1,7 +1,11 @@
 // Wrapped in IIFE to prevent leaking to global scope.
 (function () {
+	//same as instanceOf, but works through iframes
+	function appWideInstanceOf(obj, typeName){
+		return Object.prototype.toString.call(obj) === '[object ' + typeName + ']'
+	}
 	function parseIterable (arraylike) {
-		if (Object.prototype.toString.call(arraylike) === '[object Array]'){
+		if (appWideInstanceOf(arraylike,'Array')){
 			return arraylike.slice();
 		}
 		var done = false;
@@ -77,9 +81,9 @@
 
 			//if it is a Map or a Set then handle them appropriately
 			if (!arrayFromIterable) {
-				if (typeof Map === 'function' && arraylike instanceof Map) {
+				if (appWideInstanceOf(arraylike,'Map')) {
 					arrayFromIterable = iterateForEach(arraylike, true);
-				} else if (typeof Set === 'function' && arraylike instanceof Set) {
+				} else if (appWideInstanceOf(arraylike,'Set')) {
 					arrayFromIterable = iterateForEach(arraylike);
 				}
 			}
