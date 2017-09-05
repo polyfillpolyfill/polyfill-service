@@ -78,9 +78,9 @@
 
 			//if it is a Map or a Set then handle them appropriately
 			if (!arrayFromIterable) {
-				if (arraylike instanceof Map) {
+				if (typeof Map === 'function' && arraylike instanceof Map) {
 					arrayFromIterable = iterateForEach(arraylike, true);
-				} else if (arraylike instanceof Set) {
+				} else if (typeof Set === 'function' && arraylike instanceof Set) {
 					arrayFromIterable = iterateForEach(arraylike);
 				}
 			}
