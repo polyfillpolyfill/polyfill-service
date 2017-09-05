@@ -1,6 +1,9 @@
 // Wrapped in IIFE to prevent leaking to global scope.
 (function () {
 	function parseIterable (arraylike) {
+		if (Object.prototype.toString.call(arraylike) === '[object Array]'){
+			return arraylike.slice();
+		}
 		var done = false;
 		var iterableResponse;
 		var tempArray = [];
@@ -61,7 +64,7 @@
 			if (1 in arguments && typeof arguments[1] !== 'function') {
 				throw new TypeError(arguments[1] + ' is not a function');
 			}
-
+			
 			var arraylike = typeof source === 'string' ? source.split('') : Object(source);
 			var map = arguments[1];
 			var scope = arguments[2];
@@ -69,12 +72,8 @@
 			var index = -1;
 			var length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991);
 			var value;
-
 			// variables for rebuilding array from iterator
-			var arrayFromIterable;
-
-			// if it is an iterable treat like one
-			arrayFromIterable = parseIterable(arraylike);
+			var arrayFromIterable = parseIterable(arraylike);
 
 			//if it is a Map or a Set then handle them appropriately
 			if (!arrayFromIterable) {
@@ -87,7 +86,7 @@
 
 			if (arrayFromIterable) {
 				arraylike = arrayFromIterable;
-				length = arrayFromIterable.length;
+				length = arraylike.length;
 			}
 
 			while (++index < length) {
