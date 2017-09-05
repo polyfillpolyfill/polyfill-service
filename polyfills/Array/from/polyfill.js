@@ -5,9 +5,8 @@
 		return Object.prototype.toString.call(obj) === '[object ' + typeName + ']'
 	}
 	function parseIterable (arraylike) {
-		if (appWideInstanceOf(arraylike,'Array')){
-			return arraylike.slice();
-		}
+		//worth considering the performance bypass in the line below
+		//if (appWideInstanceOf(arraylike,'Array')){ return arraylike.slice(); }
 		var done = false;
 		var iterableResponse;
 		var tempArray = [];
