@@ -235,6 +235,7 @@ class TestJob {
 		return {
 			passed: this.results.passed,
 			failed: this.results.failed,
+			failingTests: this.results.tests,
 			failingSuites: this.results.failingSuites ? Object.keys(this.results.failingSuites) : [],
 			testedSuites: Array.from(this.results.testedSuites)
 		};
@@ -335,12 +336,13 @@ Promise.resolve()
 		if (totalFailureCount) {
 			console.log(cli.bold.white('\nFailures:'));
 			jobs.forEach(job => {
-				if (job.results && job.results.failed) {
-					console.log(' - ' + job.ua + ':');
-					Object.keys(job.results.failingSuites).forEach(feature => {
-						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + feature;
-						console.log('    -> ' + feature);
+				if (job.results && job.results.tests) {
+					job.results.tests.forEach((test) => {
+						console.log(' - ' + job.ua + ':');
+						const url = options.urls[job.mode].replace(/test\/director/, 'test/tests') + '&feature=' + test.failingSuite;
+						console.log('    -> ' + test.name);
 						console.log('       ' + url);
+						console.log('       ' + test.message);
 					});
 				} else if (job.state !== 'complete') {
 					console.log(' • ' + job.ua + ' (' + job.mode + '): ' + cli.red(job.results || 'No results'));
@@ -355,5 +357,5 @@ Promise.resolve()
 
 	.catch(e => {
 		console.log(e.stack || e);
-		process.exit(1);
+		process.exitCode = 1;
 	});
