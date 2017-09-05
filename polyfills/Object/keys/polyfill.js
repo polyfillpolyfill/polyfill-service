@@ -73,15 +73,29 @@ Object.keys = (function() {
 		}
 	};
 
+	function isArgumentsObject(value) {
+		var str = toStr.call(value);
+		var isArgs = str === '[object Arguments]';
+		if (!isArgs) {
+			isArgs = str !== '[object Array]' &&
+				value !== null &&
+				typeof value === 'object' &&
+				typeof value.length === 'number' &&
+				value.length >= 0 &&
+				toStr.call(value.callee) === '[object Function]';
+		}
+		return isArgs;
+	};
+
 	return function keys(object) {
 		var isObject = object !== null && typeof object === 'object';
 		var isFunction = toStr.call(object) === '[object Function]';
-		var isArguments = isArguments(object);
-		var isString = isObject && toStr.call(object) === '[object String]';
+		var isArguments = isArgumentsObject(object);
+		var isString = toStr.call(object) === '[object String]';
 		var theKeys = [];
 
-		if (!isObject && !isFunction && !isArguments) {
-			throw new TypeError('Object.keys called on a non-object');
+		if (object === undefined || object === null) {
+			throw new TypeError('Cannot convert undefined or null to object');
 		}
 
 		var skipProto = hasProtoEnumBug && isFunction;

@@ -65,15 +65,15 @@ it('treats functions as Objects', function () {
 });
 
 it('treats Arrays and strings as Object with index keys', function () {
-  proclaim.deepEqual(Object.keys([]), []);
-  proclaim.deepEqual(Object.keys(['a', 'b', 'c']), ['0', '1', '2']);
+  // proclaim.deepEqual(Object.keys([]), [], 'a1');
+  // proclaim.deepEqual(Object.keys(['a', 'b', 'c']), ['0', '1', '2'], 'b1');
 
-  proclaim.deepEqual(Object.keys(''), []);
-  proclaim.deepEqual(Object.keys('hello'), ['0', '1', '2', '3', '4']);
+  // proclaim.deepEqual(Object.keys(''), [], 'c1');
+  proclaim.deepEqual(Object.keys('hello'), ['0', '1', '2', '3', '4'], 'd1');
 });
 
 it('returns an empty Array for numbers and booleans', function () {
-  proclaim.equal(Object.keys(3).length, 0);
-  proclaim.equal(Object.keys(true).length, 0);
-  proclaim.equal(Object.keys(false).length, 0);
+  proclaim.equal(Object.keys(3).length, 0, 'e1');
+  proclaim.equal(Object.keys(true).length, 0, 'f1');
+  proclaim.equal(Object.keys(false).length, 0, 'g1');
 });
