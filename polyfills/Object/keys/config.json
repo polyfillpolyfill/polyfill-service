@@ -10,14 +10,16 @@
 		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "6 - 8",
-		"safari": "4",
-		"chrome": "<5",
-		"opera": "<12",
-		"firefox": "<4",
-		"firefox_mob": "<4"
+		"ie": "<11",
+		"safari": "<9",
+		"chrome": "<47",
+		"opera": "<34",
+		"firefox": "<38",
+		"firefox_mob": "<4",
+		"ios_saf": "<9"
 	},
-	"author": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys",
-	"license": "CC0",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys"
+	"repo": "https://github.com/es-shims/object-keys",
+	"license": "MIT",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys",
+	"spec": "https://tc39.github.io/ecma262/#sec-object.keys"
 }

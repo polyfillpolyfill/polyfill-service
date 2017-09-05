@@ -1,9 +1,4 @@
-Object.assign = function (target, source) { // eslint-disable-line no-unused-vars
-
-	if (typeof target === 'undefined' || target === null) {
-		throw new TypeError('target must be an object');
-	}
-
+Object.assign = function assign(target, source) { // eslint-disable-line no-unused-vars
 	for (var index = 1, key, src; index < arguments.length; ++index) {
 		src = arguments[index];
 
