@@ -29,7 +29,8 @@
 		};
 	}
 
-	var Set = function(data) {
+	var Set = function() {
+		var data = arguments[0];
 		this._values = [];
 		this.size = this._size = 0;
 
@@ -72,11 +73,11 @@
 		this.size = this._size = 0;
 	};
 	Set.prototype['values'] =
-	Set.prototype['keys'] = function() {
+	Set.prototype['keys'] =
+	Set.prototype[Symbol.iterator] = function() {
 		return makeIterator(this, function(i) { return decodeVal(this._values[i]); });
 	};
-	Set.prototype['entries'] =
-	Set.prototype[Symbol.iterator] = function() {
+	Set.prototype['entries'] = function() {
 		return makeIterator(this, function(i) { return [decodeVal(this._values[i]), decodeVal(this._values[i])]; });
 	};
 	Set.prototype['forEach'] = function(callbackFn, thisArg) {
@@ -90,8 +91,6 @@
 	};
 	Set.prototype['constructor'] =
 	Set.prototype[Symbol.species] = Set;
-
-	Set.length = 0;
 
 	// Export the object
 	global.Set = Set;
