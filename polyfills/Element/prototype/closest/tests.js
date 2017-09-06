@@ -38,19 +38,20 @@ it("should return null if there are no matches", function() {
 	document.body.removeChild(el);
 });
 
-it("should find the ancestor of an SVG element", function() {
-    var el = document.body.appendChild(document.createElement("section"));
-    el.className = 'svg-holder';
+if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect) {
+	it("should find the ancestor of an SVG element", function() {
+		var el = document.body.appendChild(document.createElement("section"));
+		el.className = 'svg-holder';
 
-    var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    el.appendChild(svgElement);
+		var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		el.appendChild(svgElement);
 
-    var closest = svgElement.closest("section.svg-holder");
-    proclaim.equal(closest, el);
+		var closest = svgElement.closest("section.svg-holder");
+		proclaim.equal(closest, el);
 
-    document.body.removeChild(el);
-});
-
+		document.body.removeChild(el);
+	});
+}
 
 /* Skipped: This exception is actually thrown by querySelector, and cannot be thrown by
  * the polyfill, so this test will fail in some UAs. For more info see querySelector polyfill.
