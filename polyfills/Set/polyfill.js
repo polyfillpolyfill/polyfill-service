@@ -29,7 +29,7 @@
 		};
 	}
 
-	var Set = function() {
+	var Set = function Set() {
 		var data = arguments[0];
 		this._values = [];
 		this.size = this._size = 0;

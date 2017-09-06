@@ -34,7 +34,7 @@
 		return typeof instance[method] === 'function';
 	}
 
-	var Map = function() {
+	var Map = function Map() {
 		var data = arguments[0];
 		this._keys = [];
 		this._values = [];
