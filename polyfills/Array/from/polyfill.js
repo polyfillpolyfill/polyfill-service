@@ -1,7 +1,12 @@
-
 // Wrapped in IIFE to prevent leaking to global scope.
 (function () {
+	//same as instanceOf, but works through iframes
+	function appWideInstanceOf(obj, typeName){
+		return Object.prototype.toString.call(obj) === '[object ' + typeName + ']'
+	}
 	function parseIterable (arraylike) {
+		//worth considering the performance bypass in the line below
+		//if (appWideInstanceOf(arraylike,'Array')){ return arraylike.slice(); }
 		var done = false;
 		var iterableResponse;
 		var tempArray = [];
@@ -12,22 +17,18 @@
 		if (typeof arraylike.next === 'function') {
 			while (!done) {
 				iterableResponse = arraylike.next();
-				if (
-					iterableResponse.hasOwnProperty('value') &&
-					iterableResponse.hasOwnProperty('done')
-				) {
+				if (typeof iterableResponse.done === 'boolean') {
 					if (iterableResponse.done === true) {
 						done = true;
 						break;
-
-					// handle the case where the done value is not Boolean
-					} else if (iterableResponse.done !== false) {
+					}
+					//was using hasownProperty but changed as 'value' property might be inherited through prototype chain and could still be a valid iterable response
+					if ('value' in iterableResponse){ 
+						tempArray.push(iterableResponse.value);
+					} else {
 						break;
 					}
-
-					tempArray.push(iterableResponse.value);
 				} else {
-
 					// it does not conform to the iterable pattern
 					break;
 				}
@@ -37,11 +38,21 @@
 		if (done) {
 			return tempArray;
 		} else {
-
 			// something went wrong return false;
 			return false;
 		}
-
+	}
+	
+	function iterateForEach(arraylike, asKeyValArrays) {
+		if (typeof arraylike.forEach !== 'function') {
+			return false;
+		}
+		var tempArray = [];
+		var addEl = asKeyValArrays
+			? function (val, key) { tempArray.push([key, val]); } 
+			: function (val) { tempArray.push(val); };
+		arraylike.forEach(addEl);
+		return tempArray;
 	}
 
 	Object.defineProperty(Array, 'from', {
@@ -56,7 +67,7 @@
 			if (1 in arguments && typeof arguments[1] !== 'function') {
 				throw new TypeError(arguments[1] + ' is not a function');
 			}
-
+			
 			var arraylike = typeof source === 'string' ? source.split('') : Object(source);
 			var map = arguments[1];
 			var scope = arguments[2];
@@ -64,29 +75,21 @@
 			var index = -1;
 			var length = Math.min(Math.max(Number(arraylike.length) || 0, 0), 9007199254740991);
 			var value;
-
 			// variables for rebuilding array from iterator
-			var arrayFromIterable;
-
-			// if it is an iterable treat like one
-			arrayFromIterable = parseIterable(arraylike);
+			var arrayFromIterable = parseIterable(arraylike);
 
 			//if it is a Map or a Set then handle them appropriately
-			if (
-				typeof arraylike.entries === 'function' &&
-				typeof arraylike.values === 'function'
-			) {
-				if (arraylike.constructor.name === 'Set' && 'values' in Set.prototype) {
-					arrayFromIterable = parseIterable(arraylike.values());
-				}
-				if (arraylike.constructor.name === 'Map' && 'entries' in Map.prototype) {
-					arrayFromIterable = parseIterable(arraylike.entries());
+			if (!arrayFromIterable) {
+				if (appWideInstanceOf(arraylike,'Map')) {
+					arrayFromIterable = iterateForEach(arraylike, true);
+				} else if (appWideInstanceOf(arraylike,'Set')) {
+					arrayFromIterable = iterateForEach(arraylike);
 				}
 			}
 
 			if (arrayFromIterable) {
 				arraylike = arrayFromIterable;
-				length = arrayFromIterable.length;
+				length = arraylike.length;
 			}
 
 			while (++index < length) {
