@@ -12,7 +12,7 @@
 		"firefox": "<49",
 		"ios_chr": "*",
 		"ios_saf": "<10",
-		"ie": "6 - *",
+		"ie": "8 - *",
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
@@ -22,10 +22,9 @@
 	},
 	"dependencies": [
 		"Document",
+		"DocumentFragment",
 		"Element",
-		"Array.prototype.indexOf",
 		"_mutation"
 	],
-	"spec": "http://dom.spec.whatwg.org/#dom-childnode-after",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/after"
+	"spec": "http://dom.spec.whatwg.org/#dom-parentnode-append"
 }
