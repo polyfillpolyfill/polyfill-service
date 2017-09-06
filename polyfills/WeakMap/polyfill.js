@@ -52,5 +52,9 @@
 		return entry[0] === key;
 	};
 
+	WeakMap.prototype.constructor = WeakMap;
+	WeakMap.name = "WeakMap";
+
+
 	this.WeakMap = WeakMap;
 }(this));

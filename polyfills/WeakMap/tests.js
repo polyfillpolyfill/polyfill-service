@@ -1,6 +1,17 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
 
+it("has valid constructor", function () {
+	proclaim.isInstanceOf(new WeakMap, WeakMap);
+	proclaim.isInstanceOf(new WeakMap(), WeakMap);
+	proclaim.equal((new WeakMap()).constructor, WeakMap);
+	proclaim.equal((new WeakMap()).constructor.name, "WeakMap");
+	if ("__proto__" in {}) {
+		proclaim.equal((new WeakMap).__proto__.isPrototypeOf(new WeakMap()), true);
+		proclaim.equal((new WeakMap).__proto__ === WeakMap.prototype, true);
+	}
+});
+
 it('has get, set, delete, and has functions', function() {
 	proclaim.notEqual(WeakMap.prototype['get'], undefined);
 	proclaim.notEqual(WeakMap.prototype['set'], undefined);

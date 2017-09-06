@@ -92,6 +92,9 @@
 	Set.prototype['constructor'] =
 	Set.prototype[Symbol.species] = Set;
 
+	Set.prototype.constructor = Set;
+	Set.name = "Set";
+
 	// Export the object
 	global.Set = Set;
 

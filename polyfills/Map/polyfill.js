@@ -131,6 +131,9 @@
 	Map.prototype['constructor'] =
 	Map.prototype[Symbol.species] = Map;
 
+	Map.prototype.constructor = Map;
+	Map.name = "Map";
+
 	// Export the object
 	global.Map = Map;
 
