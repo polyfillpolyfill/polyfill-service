@@ -34,7 +34,7 @@
 		return typeof instance[method] === 'function';
 	}
 
-	var Map = function() {
+	var Map = function Map() {
 		var data = arguments[0];
 		this._keys = [];
 		this._values = [];
@@ -130,6 +130,9 @@
 	};
 	Map.prototype['constructor'] =
 	Map.prototype[Symbol.species] = Map;
+
+	Map.prototype.constructor = Map;
+	Map.name = "Map";
 
 	// Export the object
 	global.Map = Map;
