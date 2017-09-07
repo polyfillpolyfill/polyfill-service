@@ -15,11 +15,11 @@
 
 		<ol>
 			<li>Update the relevant polyfill's <code>config.json</code> file (<a href='https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Intl/config.json'>here's an example</a>) to add, remove or change the value of the browser version constraint</li>
-			<li>Check that your change is in line with the documentation on writing <a href='/v{{apiversion}}/docs/contributing/authoring-polyfills#configuration'>configuration JSON</a></li>
+			<li>Check that your change is in line with the documentation on writing <a href='https://polyfill.io/v{{apiversion}}/docs/contributing/authoring-polyfills#configuration'>configuration JSON</a></li>
 			<li>Open a pull request with the following information</li>
 			<li>Check reliable sources of browser support information, e.g. MDN, caniuse and Kangax.  Tell us what these sources say about the browser/polyfill combo that you want to add or remove, and link to the relevant pages from your PR.</li>
 			<li>Explain how you have tested support (or lack of) in the browser concerned.  Ideally, include a screenshot of the relevant browser running our test suite for that feature.</li>
-			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
+			<li>State your agreement to our <a href='https://polyfill.io/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
 
 
@@ -29,7 +29,7 @@
 
 		<ol>
 			<li><a href='http://www.whatsmyua.com/'>Find out</a> the <code>User-Agent</code> header value sent by the browser</li>
-			<li>Load <code>https://cdn.polyfill.io/v2/polyfill.js?ua={UAHEADER}</code> and take note of the detected, normalised browser name (e.g. 'chrome/40') that is displayed in the comment at the top of the output</li>
+			<li>Load <code>https://polyfill.io/v{{apiversion}}/polyfill.js?ua={UAHEADER}</code> and take note of the detected, normalised browser name (e.g. 'chrome/40') that is displayed in the comment at the top of the output</li>
 			<li>Work out which of our existing families the browser matches, e.g. Firefox for iOS is most usefully seen as an alias of Safari for iOS.</li>
 			<li>Make the apppropriate change:
 			<ul>
@@ -39,7 +39,7 @@
 			</ul>
 			</li>
 			<li>Open a PR with the following info: the raw UA string and as many variations as you've found, the normalised UA name that we currently produce for that raw UA, and a description of your rationale for the change you've made.</li>
-			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
+			<li>State your agreement to our <a href='https://polyfill.io/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
 
 		<h3 id='new-polyfill'>You want to add support for a feature not currently in the service</h3>
@@ -62,7 +62,7 @@
 			<li>Add a feature detect in a <code>detect.js</code> file if it's possible to detect the feature via a JavaScript expression.</li>
 			<li>Run <code>npm run ci</code> to check that library still passes our continuous integration tests. For help connecting to a BrowserStack account, see <a href='/v{{apiversion}}/docs/contributing/testing#running-tests-browserstack'>running tests on BrowserStack Labs</a>.</li>
 			<li>Open a pull request, including links to evidence of browser support from reliable sources, ie <a href='https://developer.mozilla.org/en-US/'>MDN</a>, <a href='http://caniuse.com/'>caniuse</a> and/or <a href='https://kangax.github.io/compat-table/es6/'>Kangax</a>, and a screenshot of the test results in a targeted browser.</li>
-			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
+			<li>State your agreement to our <a href='https://polyfill.io/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
 
 		<h3 id='update-polyfill'>A polyfill needs to be updated from a third party source</h3>
@@ -75,7 +75,7 @@
 			<li>Run <code>npm run build</code> to install the new version of the library</li>
 			<li>Run <code>npm run ci</code> to check that library still passes our continuous integration tests. For help connecting to a BrowserStack account, see <a href='/v{{apiversion}}/docs/contributing/testing#runing-tests-browserstack'>running tests on BrowserStack</a>.</li>
 			<li>Open a pull request, stating the version of the polyfill you are changing, noting any functional changes that the new version brings</li>
-			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
+			<li>State your agreement to our <a href='https://polyfill.io/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
 
 		<h3 id='improve-polyfill'>A polyfill is not correctly/completely emulating the missing feature</h3>
@@ -88,7 +88,7 @@
 			<li>Add tests for your new functionality in tests.js (these should fail without your changes to polyfill.js, and pass afterwards)</li>
 			<li>Run <code>npm run ci</code> to check that library still passes our continuous integration tests. For help connecting to a BrowserStack account, see <a href='/v{{apiversion}}/docs/contributing/testing#runing-tests-browserstack'>running tests on BrowserStack</a>.</li>
 			<li>Open a pull request, with a description of the deficiency of the polyfill and how you've fixed it. Ideally link to spec documentation that specifies the behaviour that you are correcting.  Finally, tell us how this aspect of the feature is treated in native implementations (so, for example if you can correct a polyfill to acheive better conformance to the spec but this then deviates from how all browsers have consistently implemented it natively, we'll probably prefer to respect the implementation rather than the spec)</li>
-			<li>State your agreement to our <a href='https://polyfill.io/v2/docs/contributing#contribution-terms'>contribution terms</a>.</li>
+			<li>State your agreement to our <a href='https://polyfill.io/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
 		
 		<h3 id='bug-polyfill'>The polyfill bundle is causing an error in your app</h3>
