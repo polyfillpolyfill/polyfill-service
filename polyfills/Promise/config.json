@@ -7,7 +7,8 @@
 		"default-3.5",
 		"default-3.6",
 		"default",
-		"es6"
+		"es6",
+		"es2015"
 	],
 	"browsers": {
 		"android": "* - 4.4",
