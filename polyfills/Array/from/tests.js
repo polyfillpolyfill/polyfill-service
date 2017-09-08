@@ -43,7 +43,7 @@ describe('returns an array with', function () {
 		proclaim.deepEqual(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 }), ['a', 'b', 'c']);
 	});
 
-	it('Iterable', function () {
+	describe('Iterable', function () {
 		var set;
 		var setIterator;
 		var map;
@@ -112,6 +112,22 @@ describe('returns an array with', function () {
 			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
 			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
 		});
+
+		if ('Symbol' in window && 'iterator' in Symbol) {
+			it('can understand objects which have a property named Symbol.iterator', function () {
+				var o = {};
+				o[Symbol.iterator] = function () {
+					var i = 0;
+					return ({
+						next: function () {
+							i++;
+							return { done: i > 5, value: i };
+						}
+					});
+				};
+				proclaim.deepEqual(Array.from(o), [1,2,3,4,5]);
+			});
+		}
 
 	});
 
