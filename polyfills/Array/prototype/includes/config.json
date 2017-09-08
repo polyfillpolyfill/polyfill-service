@@ -7,7 +7,7 @@
 		"chrome": "<47",
 		"firefox": "<=42",
 		"ie": "*",
-		"opera": "*",
+		"opera": "<34",
 		"safari": "<9",
 		"ios_saf": "<9",
 		"ios_chr": "*",
