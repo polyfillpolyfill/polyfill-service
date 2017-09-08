@@ -2,12 +2,12 @@
 	"browsers": {
 		"android": "* - 4.4.4",
 		"bb": "10 - *",
+		"chrome": "* - 41",
 		"ie": "< 15",
 		"ie_mob": "*",
 		"firefox": "* - 38",
 		"opera": "* - 28",
 		"safari": "< 10.1",
-		"chrome": "* - 41",
 		"ios_saf": "< 10.3 ",
 		"firefox_mob": "* - 38"
 	},

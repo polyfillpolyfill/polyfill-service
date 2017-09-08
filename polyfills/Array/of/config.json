@@ -13,7 +13,7 @@
 		"firefox": "* - 24",
 		"ie": "<14",
 		"ie_mob": "10 - *",
-		"opera": "<32",
+		"opera": "<=31",
 		"safari": "<9.1",
 		"firefox_mob": "<25",
 		"android": "*",

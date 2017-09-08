@@ -11,7 +11,7 @@
 		"ie_mob": "11 - *",
 		"ios_saf": "7 - *",
 		"op_mini": "17 - *",
-		"opera": "*",
+		"opera": "<38",
 		"safari": "6 - *",
 		"samsung_mob": "*"
 	},

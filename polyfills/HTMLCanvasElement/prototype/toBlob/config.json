@@ -7,7 +7,7 @@
 		"firefox": "<19",
 		"safari": "*",
 		"ie": "10-11",
-		"opera": "*"
+		"opera": "<37"
 	},
 	"dependencies": [
 		"atob",
