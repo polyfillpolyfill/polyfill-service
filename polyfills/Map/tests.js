@@ -211,7 +211,7 @@ it("allows set after clear", function(){
 it("does not call callback if all items are deleted", function () {
 	var x = new Map();
 	x.set(42, 'hi');
-	x.delete(42);
+	x["delete"](42);
 	var executed = false;
 	x.forEach(function () {
 		executed = true;
@@ -225,7 +225,7 @@ it("calls callback correct number of times when items were deleted from map", fu
 	var x = new Map();
 	x.set(42, 'hi');
 	x.set(43, 'bye');
-	x.delete(43);
+	x["delete"](43);
 	var callCount = 0;
 	x.forEach(function () {
 		callCount = callCount + 1;
@@ -240,11 +240,11 @@ it("calls callback correct number of times when items were deleted from map", fu
 	z.set(45, 'bye');
 	z.set(46, 'bye');
 	z.set(47, 'bye');
-	z.delete(43);
-	z.delete(44);
-	z.delete(45);
-	z.delete(46);
-	z.delete(47);
+	z["delete"](43);
+	z["delete"](44);
+	z["delete"](45);
+	z["delete"](46);
+	z["delete"](47);
 	var callCount = 0;
 	z.forEach(function () {
 		callCount = callCount + 1;
