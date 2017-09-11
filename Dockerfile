@@ -10,7 +10,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 ADD package.json package-lock.json /app/
-RUN npm install --silent --production && npm cache clean
+RUN npm install --silent --production && npm cache verify
 
 ADD bin/ /app/bin/
 ADD lib/ /app/lib/
