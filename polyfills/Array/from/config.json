@@ -24,7 +24,12 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ArrayIterator",
+		"Array.isArray",
+		"Number.isFinite",
+		"Number.isNaN",
+		"Object.defineProperty",
+		"Object.getOwnPropertyDescriptor"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.from",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
