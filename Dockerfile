@@ -9,7 +9,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-ADD package.json npm-shrinkwrap.json /app/
+ADD package.json package-lock.json /app/
 RUN npm install --silent --production && npm cache clean
 
 ADD bin/ /app/bin/
