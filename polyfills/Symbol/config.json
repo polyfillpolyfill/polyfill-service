@@ -19,7 +19,6 @@
 		"Array.prototype.forEach",
 		"Array.prototype.filter",
 		"Array.prototype.map",
-		"Math.random",
 		"Object.create",
 		"Object.defineProperty",
 		"Object.getOwnPropertyNames",
