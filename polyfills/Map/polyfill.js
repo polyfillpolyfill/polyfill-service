@@ -19,9 +19,20 @@
 		var done = false;
 		return {
 			next: function() {
-				if (nextIdx === mapInst._keys.length) done = true;
+				if (!mapInst.size || nextIdx === mapInst._keys.length) {
+					done = true;
+				}
 				if (!done) {
-					while (mapInst._keys[nextIdx] === undefMarker) nextIdx++;
+					while (nextIdx <= mapInst._keys.length) {
+						if (mapInst._keys[nextIdx] === undefMarker) {
+							nextIdx++;
+						} else {
+							break;
+						}
+					}
+					if (!mapInst.size || nextIdx === mapInst._keys.length) {
+						return {value: void 0, done:true};
+					}
 					return {value: getter.call(mapInst, nextIdx++), done: false};
 				} else {
 					return {value: void 0, done:true};
