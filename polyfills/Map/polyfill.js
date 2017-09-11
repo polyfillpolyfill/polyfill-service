@@ -19,7 +19,7 @@
 		var done = false;
 		return {
 			next: function() {
-				if (nextIdx === mapInst._keys.length) done = true;
+				if (!mapInst.size || nextIdx === mapInst._keys.length) done = true;
 				if (!done) {
 					while (mapInst._keys[nextIdx] === undefMarker) nextIdx++;
 					return {value: getter.call(mapInst, nextIdx++), done: false};
