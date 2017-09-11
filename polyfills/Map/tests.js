@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Map, Map);
 	proclaim.isInstanceOf(new Map(), Map);
+	proclaim.equal((new Map()).constructor, Map);
+	proclaim.equal((new Map()).constructor.name, "Map");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Map).__proto__.isPrototypeOf(new Map()), true);
 		proclaim.equal((new Map).__proto__ === Map.prototype, true);
@@ -193,4 +195,14 @@ it("implements .clear()", function(){
 	o.set(3, '3');
 	o.clear();
 	proclaim.equal(o.size, 0);
+});
+
+it("allows set after clear", function(){
+	var o = new Map();
+	o.set(1, '1');
+	o.clear();
+	proclaim.equal(o.size, 0);
+	o.set(2, '2');
+	proclaim.equal(o.size, 1);
+	proclaim.equal(o.get(2), '2');
 });

@@ -1,4 +1,4 @@
-FROM node:8.2.1-slim
+FROM node:8.4.0-slim
 
 ENV NODE_ENV=production \
     ENABLE_ACCESS_LOG=true
@@ -9,8 +9,8 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-ADD package.json npm-shrinkwrap.json /app/
-RUN npm install --silent --production && npm cache clean
+ADD package.json package-lock.json /app/
+RUN npm install --silent --production && npm cache verify
 
 ADD bin/ /app/bin/
 ADD lib/ /app/lib/

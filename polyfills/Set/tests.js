@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Set, Set);
 	proclaim.isInstanceOf(new Set(), Set);
+	proclaim.equal((new Set()).constructor, Set);
+	proclaim.equal((new Set()).constructor.name, "Set");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Set).__proto__.isPrototypeOf(new Set()), true);
 		proclaim.equal((new Set).__proto__ === Set.prototype, true);
@@ -102,6 +104,10 @@ it("exhibits correct iterator behaviour", function () {
 	proclaim.equal(lastResult.done, true);
 	proclaim.ok(lastResult.hasOwnProperty('value'));
 	proclaim.equal(lastResult.value, void 0);
+});
+
+it("implements @@iterator() as an alias for .values()", function () {
+	proclaim.equal(o.values, o[Symbol.iterator]);
 });
 
 it("implements .forEach()", function () {

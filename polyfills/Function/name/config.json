@@ -1,10 +1,11 @@
 {
 	"aliases": [
-		"es6"
+		"es6",
+		"es2015"
 	],
 	"browsers": {
 		"ie": "9 - 11",
-		"chrome": "<33"
+		"chrome": "<15"
 	},
 	"dependencies": [
 		"Object.defineProperty"

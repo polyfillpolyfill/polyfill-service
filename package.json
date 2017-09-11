@@ -39,10 +39,9 @@
     "test-coverage": "nyc report --reporter=lcov",
     "test-integration": "mocha test/integration --recursive --timeout 10000 --slow 2000",
     "test": "npm run build && npm run test-node && npm run test-node-unit && npm run test-integration && npm run test-browser-quick",
-    "ci": "npm run lint && npm run build && npm run test-node && npm run test-node-unit && npm run test-integration && npm run test-browser-ci && npm run deploy-vcl -- --dryRun",
     "compatgen": "npm run build && npm run test-node && npm run test-browser-compat && node tasks/node/compattable",
     "prepublish": "npm run build",
-    "deploy": "git push https://git.heroku.com/ft-polyfill-service-qa.git master && git push https://git.heroku.com/ft-polyfill-service-us-qa.git master && npm run deploy-vcl -- --env=qa && NODE_ENV=\"qa\" npm run purge-cdn",
+    "deploy": "git push git@heroku.com:ft-polyfill-service-qa.git master && git push git@heroku.com:ft-polyfill-service-us-qa.git master && npm run deploy-vcl -- --env=qa && NODE_ENV=\"qa\" npm run purge-cdn",
     "deploy-vcl": "node tasks/node/deployvcl",
     "deploy-lambda": "node tasks/node/deploylambda",
     "promote": "heroku pipelines:promote --app ft-polyfill-service-qa && npm run deploy-vcl -- --env=prod && NODE_ENV=\"production\" npm run purge-cdn",
@@ -51,7 +50,7 @@
   },
   "license": "CC0-1.0",
   "engines": {
-    "node": ">6.0.0"
+    "node": "6.11.1 - 8"
   },
   "dependencies": {
     "Base64": "^1.0.0",
@@ -63,6 +62,7 @@
     "cli-color": "^1.1.0",
     "convert-source-map": "^1.3.0",
     "denodeify": "^1.2.1",
+    "diff": "1.4.0",
     "dotenv": "^4.0.0",
     "event-source-polyfill": "^0.0.9",
     "exists-sync": "0.0.4",
@@ -74,7 +74,7 @@
     "graphite": "0.0.7",
     "handlebars": "^4.0.6",
     "html5shiv": "^3.7.3",
-    "intersection-observer": "^0.2.1",
+    "intersection-observer": "^0.4.1",
     "intl": "github:andyearnshaw/Intl.js#b66fbfa5a15bb762844992639b97c1e1ababf410",
     "js-polyfills": "^0.1.33",
     "json3": "^3.3.2",
@@ -101,24 +101,21 @@
     "shrink-ray": "^0.1.3",
     "stream-from-promise": "^1.0.0",
     "stream-to-string": "^1.1.0",
-    "string.fromcodepoint": "^0.2.1",
+    "string.fromcodepoint": "0.2.1",
     "tsort": "0.0.1",
+    "uglify-js": "^2.7.5",
     "useragent": "^2.1.12",
     "usertiming": "^0.1.8",
-    "web-animations-js": "^2.2.2",
+    "web-animations-js": "^2.2.5",
     "whatwg-fetch": "^2.0.3",
     "yaku": "0.17.11"
   },
   "devDependencies": {
     "browserstack-local": "^1.3.0",
-    "diff": "^3.2.0",
     "eslint": "^3.11.1",
     "fastly": "Financial-Times/fastly#v2.5.0",
     "fastly-purge": "^1.0.1",
     "gaze": "^1.1.2",
-    "graceful-fs": "^4.1.11",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
     "mockery": "^1.7.0",
     "node-fetch": "^1.6.0",
     "nyc": "^10.0.0",
@@ -126,8 +123,7 @@
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2",
     "supertest": "^3.0.0",
-    "uglify-js": "^2.7.5",
     "wd": "^0.4.0"
   },
-  "version": "3.18.1"
+  "version": "3.21.0-0"
 }

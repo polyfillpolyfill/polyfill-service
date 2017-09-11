@@ -34,7 +34,8 @@
 		return typeof instance[method] === 'function';
 	}
 
-	var Map = function(data) {
+	var Map = function Map() {
+		var data = arguments[0];
 		this._keys = [];
 		this._values = [];
 		this.size = this._size = 0;
@@ -104,7 +105,8 @@
 		return true;
 	};
 	Map.prototype['clear'] = function() {
-		this._keys = this._values = [];
+		this._keys = [];
+		this._values = [];
 		this.size = this._size = 0;
 	};
 	Map.prototype['values'] = function() {
@@ -129,7 +131,8 @@
 	Map.prototype['constructor'] =
 	Map.prototype[Symbol.species] = Map;
 
-	Map.length = 0;
+	Map.prototype.constructor = Map;
+	Map.name = "Map";
 
 	// Export the object
 	global.Map = Map;

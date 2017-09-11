@@ -1,0 +1,15 @@
+{
+	"aliases": [
+	],
+	"browsers": {
+		"ie": "15"
+	},
+	"dependencies": [
+		"IntersectionObserver",
+		"Object.defineProperty"
+		],
+	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
+	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
+	"notes": [],
+	"repo": "https://github.com/w3c/IntersectionObserver"
+}

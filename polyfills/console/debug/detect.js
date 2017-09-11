@@ -1,1 +1,1 @@
-'debug' in this.console
+'console' in this && 'debug' in this.console

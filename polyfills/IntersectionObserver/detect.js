@@ -1,1 +1,2 @@
-"IntersectionObserver" in this
+'IntersectionObserver' in this &&
+'IntersectionObserverEntry' in this

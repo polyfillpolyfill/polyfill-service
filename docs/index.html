@@ -6,18 +6,18 @@
 
 		<aside class='o--if-no-js'>
 			<h4>Update your browser</h4>
-			<p>Although polyfill.io is designed to help older browsers support modern web standards, we also advocate using a baseline to avoid attempting heroics to get a modern API to work in a too-old browser.  The browser you're using to view this documentation site falls below the baseline we're using (support for <code>MutationObserver</code>) so many features will not be available.  We recommend upgrading to the latest version of your preferred browser.</p>
+			<p>Although {{host}} is designed to help older browsers support modern web standards, we also advocate using a baseline to avoid attempting heroics to get a modern API to work in a too-old browser.  The browser you're using to view this documentation site falls below the baseline we're using (support for <code>MutationObserver</code>) so many features will not be available.  We recommend upgrading to the latest version of your preferred browser.</p>
 		</aside>
 
 		<p class='lead'>Just the polyfills you need for your site, tailored to each browser.  Copy the code to unleash the magic:</p>
 
-		<pre class='bigcode'><code>&lt;script src="https://cdn.polyfill.io/v{{apiversion}}/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
+		<pre class='bigcode'><code>&lt;script src="{{host}}/v{{apiversion}}/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 
 		<p>Polyfill.io reads the <a href='https://en.wikipedia.org/wiki/User_agent'>User-Agent</a> header of each request and returns polyfills that are suitable for the requesting browser.  <a href='/v{{apiversion}}/docs/api'>Tailor the response</a> based on the features you're using in your app, and see our <a href='/v{{apiversion}}/docs/examples'>live examples</a> to get started quickly.</p>
 
 		<div class='showcase showcase--right'>
 			<div class='showcase__desc'>
-				<p>This site runs version <code>{{appversion}}</code> of the service.  To get notified when we release new versions or push release candidates to our <a href='http://qa.polyfill.io'>public QA environment</a>, <a href='https://twitter.com/polyfillio'>follow us on twitter at @polyfillio</a>.</p>
+				<p>This site runs version <code>{{appversion}}</code> of the service.  To get notified when we release new versions or push release candidates to our <a href='https://qa.polyfill.io'>public QA environment</a>, <a href='https://twitter.com/polyfillio'>follow us on twitter at @polyfillio</a>.</p>
 			</div>
 			<div class='showcase__media'>
 				<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/polyfillio" data-widget-id="703041228984578048">Latest news via @polyfillio on Twitter</a>
@@ -30,7 +30,7 @@
 			</div>
 			<div class='showcase__media'>
 				<a href='https://www.ft.com'><img src='https://origami-build.ft.com/files/o-header@2.5.13/img/ft-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='FT logo' title='The polyfill service is hosted and developed by the Financial Times'></a>
-				<a href='https://www.fastly.com'><img src='/v2/assets/images/fastly-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='Fastly logo' title='The polyfill service is supported by Fastly'></a>
+				<a href='https://www.fastly.com'><img src='/v{{apiversion}}/assets/images/fastly-logo.png' class='transparent' style='height:60px; margin-right:10px;vertical-align:middle' alt='Fastly logo' title='The polyfill service is supported by Fastly'></a>
 			</div>
 		</div>
 	</div>
