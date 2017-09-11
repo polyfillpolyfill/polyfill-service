@@ -206,3 +206,16 @@ it("allows set after clear", function(){
 	proclaim.equal(o.size, 1);
 	proclaim.equal(o.get(2), '2');
 });
+
+// https://github.com/Financial-Times/polyfill-service/issues/1299
+it("does not call callback if all items are deleted", function () {
+	var x = new Map();
+	x.set(42, 'hi');
+	x.delete(42);
+	var executed = false;
+	x.forEach(function() {
+		executed = true;
+	});
+
+	proclaim.equal(executed, false);
+})
