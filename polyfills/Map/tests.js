@@ -213,9 +213,23 @@ it("does not call callback if all items are deleted", function () {
 	x.set(42, 'hi');
 	x.delete(42);
 	var executed = false;
-	x.forEach(function() {
+	x.forEach(function () {
 		executed = true;
 	});
 
 	proclaim.equal(executed, false);
-})
+});
+
+// https://github.com/Financial-Times/polyfill-service/issues/1299
+it("calls callback correct number of times when items were deleted from map", function () {
+	var x = new Map();
+	x.set(42, 'hi');
+	x.set(43, 'bye');
+	x.delete(43);
+	var callCount = 0;
+	x.forEach(function () {
+		callCount = callCount + 1;
+	});
+
+	proclaim.equal(callCount, 1);
+});
