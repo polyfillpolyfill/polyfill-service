@@ -39,7 +39,7 @@
 	};
 
 	var promiseFinally = function (onFinally) {
-		// 1.1 Let promise be ths this value.
+		// 1.1 Let promise be the this value.
 		var promise = this;
 
 		if (typeof onFinally === 'function') {
