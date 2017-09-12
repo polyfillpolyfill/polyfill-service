@@ -51,4 +51,4 @@
 	Document.prototype.querySelectorAll = Element.prototype.querySelectorAll = function querySelectorAll(selector) {
 		return getElementsByQuery(this, selector, false);
 	};
-}(this));
+}());
