@@ -51,7 +51,7 @@
 		// 1.2 If IsPromise(promise) is false, throw a TypeError exception.
 		// N.B. IsPromise is called within Promise.prototype.then (25.4.5.3)
 		var newPromise = then(
-			this, // throws if IsPromise(this) is not true
+			promise, // throws if IsPromise(promise) is not true
 			function (x) {
 				return then(getPromise(C, handler), function () {
 					return x;
@@ -65,7 +65,7 @@
 		);
 
 		// 1.3 Let C be ? SpeciesConstructor(promise, %Promise%).
-		var C = speciesConstructor(this, Promise); // throws if SpeciesConstructor throws
+		var C = speciesConstructor(promise, Promise); // throws if SpeciesConstructor throws
 
 		// 1.4 Let resultCapablity be ? NewPromiseCapablity(C).
 		// 1.5 Return PerformPromiseFinally(promise, onFinaaly, resultCapability).
