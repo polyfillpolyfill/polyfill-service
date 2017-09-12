@@ -46,7 +46,8 @@
     "deploy-lambda": "node tasks/node/deploylambda",
     "promote": "heroku pipelines:promote --app ft-polyfill-service-qa && npm run deploy-vcl -- --env=prod && NODE_ENV=\"production\" npm run purge-cdn",
     "purge-cdn": "node tasks/node/purge",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "spec": "speculate --release $BUILD_NUMBER"
   },
   "license": "CC0-1.0",
   "engines": {
@@ -122,8 +123,21 @@
     "sauce-tunnel": "^2.2.3",
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2",
+    "speculate": "^1.7.3",
     "supertest": "^3.0.0",
     "wd": "^0.4.0"
+  },
+  "spec": {
+    "requires": [
+      "ibl-sysadmin",
+      "ibl-collectibl",
+      "iplayer-node-service-config",
+      "tviplayer-app-logger"
+    ],
+    "buildRequires": [
+      "python"
+    ],
+    "nodeVersion": "< 2:7.0.0"
   },
   "version": "3.20.2"
 }

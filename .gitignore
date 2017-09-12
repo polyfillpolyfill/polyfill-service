@@ -29,3 +29,6 @@ npm-debug.log
 /local.log
 /coverage/
 /.nyc_output/
+SPECS
+polyfill-service.service
+SOURCES
