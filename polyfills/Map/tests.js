@@ -245,7 +245,7 @@ it("calls callback correct number of times when items were deleted from map", fu
 	z["delete"](45);
 	z["delete"](46);
 	z["delete"](47);
-	var callCount = 0;
+	callCount = 0;
 	z.forEach(function () {
 		callCount = callCount + 1;
 	});
