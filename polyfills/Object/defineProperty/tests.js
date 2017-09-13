@@ -96,9 +96,17 @@ describe('Error handling', function () {
 			Object.defineProperty(object, property, '');
 		});
 
-		proclaim.throws(function () {
-			Object.defineProperty(object, property);
-		}, /^Property description must be an object/);
+		try {
+			proclaim.throws(function () {
+				Object.defineProperty(object, property);
+			}, /^Property description must be an object/);
+		} catch (err) {
+			// Firefox 53 uses a different error message
+
+			proclaim.throws(function () {
+				Object.defineProperty(object, property);
+			}, 'undefined is not a non-null object');
+		}
 	});
 
 	it('Throws an error when both an accessor and a value are specified', function () {
