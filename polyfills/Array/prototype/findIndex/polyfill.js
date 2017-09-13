@@ -12,7 +12,7 @@ Object.defineProperty(Array.prototype, 'findIndex', {
 		var
 		object = Object(this),
 		scope = arguments[1],
-		arraylike = object,
+		arraylike = object instanceof String ? object.split('') : object,
 		length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 		index = -1;
 

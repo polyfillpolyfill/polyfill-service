@@ -9,7 +9,7 @@ Array.prototype.reduce = function reduce(callback) {
 
 	var
 	object = Object(this),
-	arraylike = object,
+	arraylike = object instanceof String ? object.split('') : object,
 	length = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 	index = -1,
 	previousValue;
