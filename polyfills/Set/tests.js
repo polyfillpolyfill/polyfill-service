@@ -94,7 +94,7 @@ it("exhibits correct iterator behaviour", function () {
 	v = values.next();
 	proclaim.equal(v.done, true);
 	o.add("4");
-	v = values.next();
+	values.next();
 	// new element shows up in iterators that didn't yet finish
 	proclaim.equal(entriesagain.next().value[0], "4");
 	proclaim.equal(entriesagain.next().done, true);
