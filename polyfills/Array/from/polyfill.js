@@ -2,11 +2,6 @@
 (function () {
 	'use strict';
 
-	//same as instanceOf, but works through iframes
-	function appWideInstanceOf(obj, typeName){
-		return Object.prototype.toString.call(obj) === '[object ' + typeName + ']'
-	}
-
 	function ToInteger(value) {
 		var number = Number(value);
 		return sign(number) * Math.floor(Math.abs(Math.min(Math.max(number || 0, 0), 9007199254740991)));
