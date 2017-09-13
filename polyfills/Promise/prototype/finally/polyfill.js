@@ -41,11 +41,12 @@
 	var promiseFinally = function (onFinally) {
 		// 1.1 Let promise be the this value.
 		var promise = this;
+		var handler;
 
 		if (typeof onFinally === 'function') {
-			var handler = onFinally;
+			handler = onFinally;
 		} else {
-			var handler = function () {};
+			handler = function () {};
 		}
 
 		// 1.2 If IsPromise(promise) is false, throw a TypeError exception.
