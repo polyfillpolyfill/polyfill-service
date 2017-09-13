@@ -69,7 +69,6 @@
 			return false;
 		}
 	};
-	var toStr = Object.prototype.toString;
 	var fnClass = '[object Function]';
 	var genClass = '[object GeneratorFunction]';
 
