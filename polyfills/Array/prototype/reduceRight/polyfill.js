@@ -9,7 +9,7 @@ Array.prototype.reduceRight = function reduceRight(callback) {
 
 	var
 	object = Object(this),
-	arraylike = object instanceof String ? object.split('') : object,
+	arraylike = object,
 	length = -1,
 	index = Math.max(Math.min(arraylike.length, 9007199254740991), 0) || 0,
 	previousValue;
