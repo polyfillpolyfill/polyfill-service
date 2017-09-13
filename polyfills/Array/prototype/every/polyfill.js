@@ -10,7 +10,7 @@ Array.prototype.every = function every(callback) {
 	var
 	object = Object(this),
 	scope = arguments[1],
-	arraylike = object instanceof String ? object.split('') : object,
+	arraylike = object,
 	length = Number(arraylike.length) || 0,
 	index = -1;
 
