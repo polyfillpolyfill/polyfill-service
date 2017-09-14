@@ -1,6 +1,17 @@
 import boltsort;
 
+table origin_hosts {
+  "us-prod": "ft-polyfill-service-us.herokuapp.com",
+  "us-qa": "ft-polyfill-service-us-qa.herokuapp.com",
+  "eu-prod": "ft-polyfill-service.herokuapp.com",
+  "eu-qa": "ft-polyfill-service-qa.herokuapp.com"
+}
+
 sub vcl_recv {
+
+	declare local var.env STRING;
+	declare local var.geo STRING;
+
 #FASTLY recv
 
 	# Enable API key authentication for URL purge requests
@@ -37,45 +48,19 @@ sub vcl_recv {
 	if (req.restarts == 0) {
 		set req.http.X-Original-Host = req.http.Host;
 
-		if (req.http.Host == "qa.polyfill.io") {
-			if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
-				set req.backend = origami_polyfill_service_us;
-				set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
-
-				if (!req.backend.healthy) {
-					set req.backend = origami_polyfill_service_eu;
-					set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
-				}
-
-			} else {
-				set req.backend = origami_polyfill_service_eu;
-				set req.http.Host = "ft-polyfill-service-qa.herokuapp.com";
-
-				if (!req.backend.healthy) {
-					set req.backend = origami_polyfill_service_us;
-					set req.http.Host = "ft-polyfill-service-us-qa.herokuapp.com";
-				}
-			}
-		} else {
-			if (req.http.X-Geoip-Continent ~ "(NA|SA|OC|AS)") {
-				set req.backend = origami_polyfill_service_us;
-				set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
-
-				if (!req.backend.healthy) {
-					set req.backend = origami_polyfill_service_eu;
-					set req.http.Host = "ft-polyfill-service.herokuapp.com";
-				}
-
-			} else {
-				set req.backend = origami_polyfill_service_eu;
-				set req.http.Host = "ft-polyfill-service.herokuapp.com";
-
-				if (!req.backend.healthy) {
-					set req.backend = origami_polyfill_service_us;
-					set req.http.Host = "ft-polyfill-service-us.herokuapp.com";
-				}
-			}
+		# Set origin geography - US servers or EU servers
+		set var.geo = (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
+		set req.backend = if (var.geo == "us", origami_polyfill_service_us, origami_polyfill_service_eu);
+		
+		# Swap to the other grography if the primary one is down
+		if (!req.backend.healthy) {
+			set var.geo = if (var.geo == "us", "eu", "us");
+			set req.backend = if (var.geo == "us", origami_polyfill_service_us, origami_polyfill_service_eu);
 		}
+		
+		# Set origin environment - by default match VCL environment, but allow override via header for testing
+		set var.env = if (req.http.X-Origin-Env, req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod");
+		set req.http.Host = table.lookup(origin_hosts, var.geo "-" var.env);
 	}
 
 	# https://community.fastly.com/t/brotli-compression-support/578/6
