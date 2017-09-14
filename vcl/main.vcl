@@ -49,10 +49,10 @@ sub vcl_recv {
 		set req.http.X-Original-Host = req.http.Host;
 
 		# Set origin geography - US servers or EU servers
-		set var.geo = (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
+		set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
 		set req.backend = if (var.geo == "us", origami_polyfill_service_us, origami_polyfill_service_eu);
 		
-		# Swap to the other grography if the primary one is down
+		# Swap to the other geography if the primary one is down
 		if (!req.backend.healthy) {
 			set var.geo = if (var.geo == "us", "eu", "us");
 			set req.backend = if (var.geo == "us", origami_polyfill_service_us, origami_polyfill_service_eu);
@@ -78,6 +78,22 @@ sub vcl_recv {
 	}
 
 	return(lookup);
+}
+
+sub vcl_fetch {
+
+	# Deliver stale if possible when unexpected errors are received from origin
+	# This includes 404s because Heroku will deliver a 404 if you hit the 'no app
+	# found' page.
+	if ((beresp.status >= 500 && beresp.status < 600) ||  beresp.status == 404) {
+		if (stale.exists) {
+			return(deliver_stale);
+		}
+	}
+
+#FASTLY fetch
+
+	return(deliver);
 }
 
 sub vcl_deliver {
