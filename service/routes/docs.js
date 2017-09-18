@@ -277,13 +277,17 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v2/docs/".length) {
-		return res.redirect(`${req.basePath}v2/docs/`);
+	if (req.path !== '/docs/privacy-policy') {
+		if (req.path !== '/docs/terms') {
+			if (!req.path.startsWith("/v2/docs/")) {
+				return res.redirect(`${req.basePath}v2/docs/`);
+			}
+		}
 	}
 	const locals = Object.assign({
-		apiversion: req.params[0],
+		apiversion: Number.isInteger(Number.parseInt(req.params[0], 10)) ? req.params[0] : 2,
 		appversion: appVersion,
-		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+		pageName: ((Number.isInteger(Number.parseInt(req.params[0], 10)) ? req.params[1] : req.params[0]) || 'index').replace(/\/$/, ''),
 		rumEnabled: !!process.env.RUM_MYSQL_DSN,
 		basePath: req.basePath || '/',
 		host: process.env.HOSTNAME || 'https://' + req.get('host') || 'https://polyfill.io',
