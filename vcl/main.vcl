@@ -11,6 +11,7 @@ sub vcl_recv {
 
 	declare local var.env STRING;
 	declare local var.geo STRING;
+	declare local var.server STRING;
 
 #FASTLY recv
 
@@ -69,7 +70,8 @@ sub vcl_recv {
 		
 		# Set origin environment - by default match VCL environment, but allow override via header for testing
 		set var.env = if (req.http.X-Origin-Env, req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
-		set req.http.Host = table.lookup(origin_hosts, var.geo "-" var.env);
+		set var.server = var.geo "-" var.env;
+		set req.http.Host = table.lookup(origin_hosts, var.server);
 	}
 
 	# https://community.fastly.com/t/brotli-compression-support/578/6
