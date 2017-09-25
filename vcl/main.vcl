@@ -50,7 +50,11 @@ sub vcl_recv {
 
 		# Set origin geography - US servers or EU servers
 		set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
-		set req.backend = if (var.geo == "us", origami_polyfill_service_us, origami_polyfill_service_eu);
+		if (var.geo == "us") {
+			set req.backend = origami_polyfill_service_us;
+		} else {
+			set req.backend = origami_polyfill_service_eu;
+		}
 		
 		# Swap to the other geography if the primary one is down
 		if (!req.backend.healthy) {
