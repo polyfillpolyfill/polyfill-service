@@ -68,7 +68,7 @@ sub vcl_recv {
 		}
 		
 		# Set origin environment - by default match VCL environment, but allow override via header for testing
-		set var.env = if (req.http.X-Origin-Env, req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod");
+		set var.env = if (req.http.X-Origin-Env, req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
 		set req.http.Host = table.lookup(origin_hosts, var.geo "-" var.env);
 	}
 
