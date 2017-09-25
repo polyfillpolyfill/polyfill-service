@@ -7,6 +7,7 @@ const babel = require("babel-core");
 const mkdirp = require('mkdirp');
 const tsort = require('tsort');
 const denodeify = require('denodeify');
+const vm = require('vm');
 
 const writeFile = denodeify(fs.writeFile);
 const readFile = denodeify(fs.readFile);
@@ -14,7 +15,7 @@ const makeDirectory = denodeify(mkdirp);
 
 function validateSource(code, label) {
 	try {
-		new Function(code);
+		new vm.Script(code);
 	}
 	catch (error) {
 		throw {

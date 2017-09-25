@@ -15,7 +15,7 @@
 	var defineProperty = Object.defineProperty;
 	var counter = Date.now() % 1e9;
 
-	var WeakMap = function(data) {
+	var WeakMap = function WeakMap (data) {
 		this.name = '__st' + (Math.random() * 1e9 >>> 0) + (counter++ + '__');
 
 		// If data is iterable (indicated by presence of a forEach method), pre-populate the map
@@ -52,5 +52,9 @@
 		return entry[0] === key;
 	};
 
+	WeakMap.prototype.constructor = WeakMap;
+	WeakMap.name = "WeakMap";
+
+
 	this.WeakMap = WeakMap;
-}(this));
+}());

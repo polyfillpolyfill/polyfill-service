@@ -19,9 +19,20 @@
 		var done = false;
 		return {
 			next: function() {
-				if (nextIdx === mapInst._keys.length) done = true;
+				if (!mapInst.size || nextIdx === mapInst._keys.length) {
+					done = true;
+				}
 				if (!done) {
-					while (mapInst._keys[nextIdx] === undefMarker) nextIdx++;
+					while (nextIdx <= mapInst._keys.length) {
+						if (mapInst._keys[nextIdx] === undefMarker) {
+							nextIdx++;
+						} else {
+							break;
+						}
+					}
+					if (!mapInst.size || nextIdx === mapInst._keys.length) {
+						return {value: void 0, done:true};
+					}
 					return {value: getter.call(mapInst, nextIdx++), done: false};
 				} else {
 					return {value: void 0, done:true};
@@ -34,7 +45,8 @@
 		return typeof instance[method] === 'function';
 	}
 
-	var Map = function(data) {
+	var Map = function Map() {
+		var data = arguments[0];
 		this._keys = [];
 		this._values = [];
 		this.size = this._size = 0;
@@ -130,7 +142,8 @@
 	Map.prototype['constructor'] =
 	Map.prototype[Symbol.species] = Map;
 
-	Map.length = 0;
+	Map.prototype.constructor = Map;
+	Map.name = "Map";
 
 	// Export the object
 	global.Map = Map;

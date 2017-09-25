@@ -1,1 +1,1 @@
-'profile' in this.console
+'console' in this && 'profile' in this.console

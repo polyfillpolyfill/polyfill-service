@@ -1,6 +1,18 @@
 Document.prototype.after = Element.prototype.after = function after() {
 	if (this.parentNode) {
-		this.parentNode.insertBefore(_mutation(arguments), this.nextSibling);
+		var args = Array.prototype.slice.call(arguments),
+				viableNextSibling = this.nextSibling,
+				idx = viableNextSibling ? args.indexOf(viableNextSibling) : -1;
+
+		while (idx !== -1) {
+			viableNextSibling = viableNextSibling.nextSibling;
+			if (!viableNextSibling) {
+				break;
+			}
+			idx = args.indexOf(viableNextSibling);
+		}
+		
+		this.parentNode.insertBefore(_mutation(arguments), viableNextSibling);
 	}
 };
 

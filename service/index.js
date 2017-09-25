@@ -60,8 +60,6 @@ app.use((req, res, next) => {
 	return next();
 });
 
-// Middleware to enable polyfill-service to function under a path as well as a domain
-app.use(require('./middleware/getBasePath')());
 
 /* Routes */
 
@@ -73,6 +71,7 @@ if (process.env.RUM_MYSQL_DSN) {
 	app.use(require('./routes/rum.js'));
 }
 
+app.get(/^(?:\/(?:docs\/?(?:(.+)\/?)?)?)?$/, require('./routes/docs'));
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, require('./routes/docs'));
 app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
 

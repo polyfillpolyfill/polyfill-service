@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"es6"
+		"es6",
+		"es2015"
 	],
 	"browsers": {
 		"ie": "< 13",
@@ -8,7 +9,7 @@
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",
-		"ios_saf": "<10",
+		"ios_saf": "<9",
 		"opera": "< 37",
 		"samsung_mob": "<5",
 		"android": "<5.1",
@@ -18,7 +19,6 @@
 		"Array.prototype.forEach",
 		"Array.prototype.filter",
 		"Array.prototype.map",
-		"Math.random",
 		"Object.create",
 		"Object.defineProperty",
 		"Object.getOwnPropertyNames",

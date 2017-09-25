@@ -1,6 +1,17 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
 
+it("has valid constructor", function () {
+	proclaim.isInstanceOf(new WeakSet, WeakSet);
+	proclaim.isInstanceOf(new WeakSet(), WeakSet);
+	proclaim.equal((new WeakSet()).constructor, WeakSet);
+	proclaim.equal((new WeakSet()).constructor.name, "WeakSet");
+	if ("__proto__" in {}) {
+		proclaim.equal((new WeakSet).__proto__.isPrototypeOf(new WeakSet()), true);
+		proclaim.equal((new WeakSet).__proto__ === WeakSet.prototype, true);
+	}
+});
+
 it('should be instantiable', function(){
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];

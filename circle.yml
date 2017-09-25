@@ -1,9 +1,0 @@
-machine:
-  node:
-    version: 8.0.0
-dependencies:
-  override:
-    - npm install
-test:
-  override:
-    - npm run ci
