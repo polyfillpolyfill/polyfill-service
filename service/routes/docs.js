@@ -188,14 +188,18 @@ function refreshData() {
 			}));
 		},
 		rumPerf: () => {
-			return (new RumReport({period:30, minSample:10000, dimensions:['data_center'], stats:['median', '95P', 'count']})).getStats()
-				.then(data => ({
-					rows: data,
-					scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95P+row.perf_connect_95P+row.perf_req_95P+row.perf_resp_95P), 0)+1, // +1 because biggest bar must be <100% width to avoid wrapping
-					period: 30,
-					minSample: 10000
-				}))
-			;
+			if (process.env.RUM_MYSQL_DSN) {
+				return (new RumReport({ period: 30, minSample: 10000, dimensions: ['data_center'], stats: ['median', '95P', 'count'] })).getStats()
+					.then(data => ({
+						rows: data,
+						scaleMax: data.reduce((max, row) => Math.max(max, row.perf_dns_95P + row.perf_connect_95P + row.perf_req_95P + row.perf_resp_95P), 0) + 1, // +1 because biggest bar must be <100% width to avoid wrapping
+						period: 30,
+						minSample: 10000
+					}))
+					;
+			} else {
+				return Promise.resolve(null);
+			}
 		},
 		compat: () => {
 			const browsers = ['ie', 'firefox', 'chrome', 'safari', 'opera', 'ios_saf'];
@@ -277,13 +281,17 @@ function spread(fn) {
 }
 
 function route(req, res, next) {
-	if (req.path.length < "/v2/docs/".length) {
-		return res.redirect('/v2/docs/');
+	if (req.path !== '/docs/privacy-policy') {
+		if (req.path !== '/docs/terms') {
+			if (!req.path.startsWith("/v2/docs/")) {
+				return res.redirect('/v2/docs/');
+			}
+		}
 	}
 	const locals = Object.assign({
-		apiversion: req.params[0],
+		apiversion: Number.isInteger(Number.parseInt(req.params[0], 10)) ? req.params[0] : 2,
 		appversion: appVersion,
-		pageName: (req.params[1] || 'index').replace(/\/$/, ''),
+		pageName: ((Number.isInteger(Number.parseInt(req.params[0], 10)) ? req.params[1] : req.params[0]) || 'index').replace(/\/$/, ''),
 		rumEnabled: !!process.env.RUM_MYSQL_DSN,
 		host: process.env.HOSTNAME || 'https://' + req.get('host') || 'https://polyfill.io'
 	}, docsData);
