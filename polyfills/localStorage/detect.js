@@ -7,4 +7,4 @@
 	} catch (e) {
 		return false;
 	}
-}())
+}()).call(this)
