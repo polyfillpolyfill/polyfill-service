@@ -4,21 +4,21 @@
 // Doesn't throw in IE6, otherwise works fine, so tolerate this
 it.skip("should throw exception for invalid characters in code", function () {
 	proclaim.throws(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3$VyZ");
+		atob("YW55IGNhcm5hbCBwbGVhc3$VyZ");
 	});
 });
 
 // Doesn't throw in IE6, otherwise works fine, so tolerate this
 it.skip("should throw exception for too much padding", function () {
 	proclaim.throws(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3VyZ===");
+		atob("YW55IGNhcm5hbCBwbGVhc3VyZ===");
 	});
 });
 
 // Not supported by the polyfill, probably not a problem
 it.skip("should throw exception for badly formed base64", function () {
 	proclaim.throws(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3VyZ");
+		atob("YW55IGNhcm5hbCBwbGVhc3VyZ");
 	});
 });
 

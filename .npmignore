@@ -1,8 +1,0 @@
-/node_modules
-/npm-debug.log
-/test/results
-/.env.json
-/.haikro-cache
-/node-*
-/service-process.pid
-.DS_Store

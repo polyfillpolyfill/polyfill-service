@@ -6,6 +6,7 @@
 		"default-3.6",
 		"default",
 		"es6",
+		"es2015",
 		"modernizr:es6string"
 	],
 	"browsers": {

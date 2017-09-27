@@ -29,7 +29,7 @@
 		};
 	}
 
-	var Set = function() {
+	var Set = function Set() {
 		var data = arguments[0];
 		this._values = [];
 		this.size = this._size = 0;
@@ -91,6 +91,9 @@
 	};
 	Set.prototype['constructor'] =
 	Set.prototype[Symbol.species] = Set;
+
+	Set.prototype.constructor = Set;
+	Set.name = "Set";
 
 	// Export the object
 	global.Set = Set;

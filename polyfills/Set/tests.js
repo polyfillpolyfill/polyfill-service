@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Set, Set);
 	proclaim.isInstanceOf(new Set(), Set);
+	proclaim.equal((new Set()).constructor, Set);
+	proclaim.equal((new Set()).constructor.name, "Set");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Set).__proto__.isPrototypeOf(new Set()), true);
 		proclaim.equal((new Set).__proto__ === Set.prototype, true);
@@ -92,7 +94,7 @@ it("exhibits correct iterator behaviour", function () {
 	v = values.next();
 	proclaim.equal(v.done, true);
 	o.add("4");
-	v = values.next();
+	values.next();
 	// new element shows up in iterators that didn't yet finish
 	proclaim.equal(entriesagain.next().value[0], "4");
 	proclaim.equal(entriesagain.next().done, true);

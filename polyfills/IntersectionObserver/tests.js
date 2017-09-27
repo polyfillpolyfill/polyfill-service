@@ -2,7 +2,7 @@
 /* global proclaim, it */
 
 before(function(done) {
-	var head = head = document.head || document.getElementsByTagName('head')[0];
+	var head = document.head || document.getElementsByTagName('head')[0];
 	var scriptEl = document.createElement('script');
 	var readywait = null;
 	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
