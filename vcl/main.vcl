@@ -101,14 +101,18 @@ sub set_backend_and_host {
 	if (var.geo == "us") {
 		if (var.env == "prod") {
 			set req.backend = us_prod;
+			set req.http.X-Backend = "us_prod";
 		} else {
 			set req.backend = us_qa;
+			set req.http.X-Backend = "us_qa";
 		}
 	} else {
 		if (var.env == "prod") {
 			set req.backend = eu_prod;
+			set req.http.X-Backend = "eu_prod";
 		} else {
 			set req.backend = eu_qa;
+			set req.http.X-Backend = "eu_qa";
 		}
 	}
 
@@ -232,6 +236,7 @@ sub vcl_deliver {
 	if (req.http.Fastly-Debug) {
 		set resp.http.Debug-Host = req.http.Host;
 		set resp.http.Debug-X-Original-Host = req.http.X-Original-Host;
+		set resp.http.Debug-X-Backend = req.http.X-Backend;
 	}
 
 	set resp.http.Age = "0";
