@@ -90,23 +90,22 @@ sub set_backend_and_host {
 	declare local var.geo STRING;
 	declare local var.server STRING;
 
-	# Set origin geography - US servers or EU servers
-	set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
 
 	# Set origin environment - by default match VCL environment, but allow override via header for testing
 	set var.env = if (req.http.X-Origin-Env == "qa" || req.http.X-Origin-Env == "prod" , req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
 
+	# Set origin geography - US servers or EU servers
+	set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
+	set var.server = var.geo "-" var.env;
+	set req.http.Host = table.lookup(origin_hosts, var.server);
+
 	if (var.geo == "us") {
-		set var.server = var.geo "-" var.env;
-		set req.http.Host = table.lookup(origin_hosts, var.server);
 		if (var.env == "prod") {
 			set req.backend = us_prod;
 		} else {
 			set req.backend = us_qa;
 		}
 	} else {
-		set var.server = var.geo "-" var.env;
-		set req.http.Host = table.lookup(origin_hosts, var.server);
 		if (var.env == "prod") {
 			set req.backend = eu_prod;
 		} else {
@@ -117,18 +116,16 @@ sub set_backend_and_host {
 	# Swap to the other geography if the primary one is down
 	if (!req.backend.healthy) {
 		set var.geo = if (var.geo == "us", "eu", "us");
+		set var.server = var.geo "-" var.env;
+		set req.http.Host = table.lookup(origin_hosts, var.server);
 
 		if (var.geo == "us") {
-			set var.server = var.geo "-" var.env;
-			set req.http.Host = table.lookup(origin_hosts, var.server);
 			if (var.env == "prod") {
 				set req.backend = us_prod;
 			} else {
 				set req.backend = us_qa;
 			}
 		} else {
-			set var.server = var.geo "-" var.env;
-			set req.http.Host = table.lookup(origin_hosts, var.server);
 			if (var.env == "prod") {
 				set req.backend = eu_prod;
 			} else {
