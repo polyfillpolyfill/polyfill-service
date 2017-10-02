@@ -272,3 +272,73 @@ describe('requests with rum query-string set', () => {
 		});
 	});
 });
+
+describe('setting backend to production via override', () => {
+	let requestConfig;
+
+	beforeEach(() => {
+		requestConfig = {
+			url: isProduction ? 'https://polyfill.io/v2/polyfill.js?ua=chrome/60' : 'https://qa.polyfill.io/v2/polyfill.js?ua=chrome/60',
+			resolveWithFullResponse: true,
+			headers: {
+				'X-Origin-Env': 'prod',
+				'Fastly-Debug': 'true'
+			}
+		};
+	});
+
+	it('returns an http status-code of 200', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.statusCode, 200);
+		});
+	});
+
+	it('returns http header debug-x-backend with correct backend', () => {
+		return request(requestConfig).then(response => {
+			const backend = response.headers['debug-x-backend'];
+			proclaim.isTrue(backend === 'eu_prod' || backend === 'us_prod');
+		});
+	});
+
+	it('returns http header debug-host with correct backend', () => {
+		return request(requestConfig).then(response => {
+			const backend = response.headers['debug-host'];
+			proclaim.isTrue(backend === 'ft-polyfill-service.herokuapp.com' || backend === 'ft-polyfill-service-us.herokuapp.com');
+		});
+	});
+});
+
+describe('setting backend to qa via override', () => {
+	let requestConfig;
+
+	beforeEach(() => {
+		requestConfig = {
+			url: isProduction ? 'https://polyfill.io/v2/polyfill.js?ua=chrome/60' : 'https://qa.polyfill.io/v2/polyfill.js?ua=chrome/60',
+			resolveWithFullResponse: true,
+			headers: {
+				'X-Origin-Env': 'qa',
+				'Fastly-Debug': 'true'
+			}
+		};
+	});
+
+	it('returns an http status-code of 200', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.statusCode, 200);
+		});
+	});
+
+	it('returns http header debug-x-backend with correct backend', () => {
+		return request(requestConfig).then(response => {
+			const backend = response.headers['debug-x-backend'];
+			proclaim.isTrue(backend === 'eu_qa' || backend === 'us_qa');
+		});
+	});
+
+	it('returns http header debug-host with correct backend', () => {
+		return request(requestConfig).then(response => {
+			const backend = response.headers['debug-host'];
+			proclaim.isTrue(backend === 'ft-polyfill-service-qa.herokuapp.com' || backend === 'ft-polyfill-service-us-qa.herokuapp.com');
+		});
+	});
+});
