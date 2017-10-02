@@ -168,10 +168,8 @@ sub vcl_recv {
 
 	set req.url = boltsort.sort(req.url);
 
-	if (req.restarts == 0) {
-		set req.http.X-Original-Host = req.http.Host;
-		call set_backend_and_host;
-	}
+	set req.http.X-Original-Host = if(req.http.X-Original-Host, req.http.X-Original-Host, req.http.Host);
+	call set_backend_and_host;
 
 	# https://community.fastly.com/t/brotli-compression-support/578/6
 	if (req.http.Fastly-Orig-Accept-Encoding) {
