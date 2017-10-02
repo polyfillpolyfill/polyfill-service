@@ -90,7 +90,6 @@ sub set_backend_and_host {
 	declare local var.geo STRING;
 	declare local var.server STRING;
 
-
 	# Set origin environment - by default match VCL environment, but allow override via header for testing
 	set var.env = if (req.http.X-Origin-Env == "qa" || req.http.X-Origin-Env == "prod" , req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
 
