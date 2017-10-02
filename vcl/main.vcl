@@ -146,10 +146,6 @@ sub vcl_recv {
 		set req.http.Fastly-Purge-Requires-Auth = "1";
 	}
 
-	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
-		return(pass);
-	}
-
 	if (req.http.Host ~ "polyfills.io") {
 		# Do the canonicalise check before the SSL check to avoid a double redirect
 		error 751 "Canonicalise";
@@ -189,6 +185,10 @@ sub vcl_recv {
 		} else {
 			unset req.http.Accept-Encoding;
 		}
+	}
+
+	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+		return(pass);
 	}
 
 	return(lookup);
