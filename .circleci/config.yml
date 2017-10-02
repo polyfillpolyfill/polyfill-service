@@ -81,7 +81,7 @@ jobs:
           name: Test polyfills
           command: ".circleci/do-exclusively.sh npm run test-browser-ci"
 
-	test_vcl:
+  test_vcl:
     <<: *container_config
     steps:
       - *restore_repo
@@ -111,6 +111,6 @@ workflows:
           requires:
             - build
 
-			- test_vcl:
+      - test_vcl:
           requires:
             - build
