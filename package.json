@@ -38,6 +38,7 @@
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
     "test-coverage": "nyc report --reporter=lcov",
     "test-integration": "mocha test/integration --recursive --timeout 10000 --slow 2000",
+		"test-vcl": "mocha test/vcl --recursive --timeout 10000 --slow 2000",
     "test": "npm run build && npm run test-node && npm run test-node-unit && npm run test-integration && npm run test-browser-quick",
     "compatgen": "npm run build && npm run test-node && npm run test-browser-compat && node tasks/node/compattable",
     "prepublish": "npm run build",

@@ -84,7 +84,6 @@ table origin_hosts {
   "eu-qa": "ft-polyfill-service-qa.herokuapp.com"
 }
 
-
 sub set_backend_and_host {
 	declare local var.env STRING;
 	declare local var.geo STRING;
