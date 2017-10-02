@@ -62,7 +62,7 @@ describe.skip('Canonicalise', function () {
 
 	it('redirects to https://polyfill.io', () => {
 		return req.then(response => {
-			proclaim.isTrue(response.headers['location'].startsWoth('https://polyfill.io'));
+			proclaim.isTrue(response.headers['location'].startsWith('https://polyfill.io'));
 		});
 	});
 });
@@ -74,7 +74,8 @@ describe('Fastly purging', () => {
 		req = request({
 			method: 'PURGE',
 			url: 'https://polyfill.io',
-			resolveWithFullResponse: true
+			resolveWithFullResponse: true,
+			followRedirect: false
 		});
 	});
 
@@ -103,7 +104,171 @@ describe('Force TLS', () => {
 			throw new Error('Expected promise to reject but it resolved.');
 		}, (error) => {
 			proclaim.equal(error.statusCode, 301);
-			proclaim.equal(error.response.headers.location, 'https://polyfill.io/');
+			proclaim.equal(error.response.headers.location, 'https://qa.polyfill.io/');
+		});
+	});
+});
+
+describe('/v2/recordRumData with Normalized-User-Agent set', () => {
+	let req;
+
+	beforeEach(() => {
+		req = request({
+			url: isProduction ? 'https://polyfill.io/v2/recordRumData?ua=chrome/60.0.0' : 'https://qa.polyfill.io/v2/recordRumData?ua=chrome/60.0.0',
+			followRedirect: false,
+			resolveWithFullResponse: true,
+			headers: {
+				'Normalized-User-Agent': 'chrome%2F60.0.0'
+  		}
+		});
+	});
+
+	it('returns an http status-code of 204', () => {
+		return req.then(response => {
+			proclaim.equal(response.statusCode, 204);
+		});
+	});
+});
+
+describe('/v2/polyfill.js with ua query-string set', () => {
+	let requestConfig;
+
+	beforeEach(() => {
+		requestConfig = {
+			url: isProduction ? 'https://polyfill.io/v2/polyfill.js?ua=chrome/60.0.0' : 'https://qa.polyfill.io/v2/polyfill.js?ua=chrome/60.0.0',
+			followRedirect: false,
+			resolveWithFullResponse: true,
+			headers: {}
+		};
+	});
+
+	it('returns an http status-code of 200', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.statusCode, 200);
+		});
+	});
+
+	it('returns an http vary header containg accept-encoding', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['vary'], 'Accept-Encoding');
+		});
+	});
+
+	it('returns gzipped content if user-agent accepts it', () => {
+		requestConfig.headers['Accept-Encoding'] = 'gzip';
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['content-encoding'], 'gzip');
+		});
+	});
+
+	it('returns brotli-fied content if user-agent accepts it', () => {
+		requestConfig.headers['Accept-Encoding'] = 'br';
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['content-encoding'], 'br');
+		});
+	});
+
+	it('returns a response with Age set to 0', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['age'], '0');
+		});
+	});
+
+});
+
+describe('/v2/polyfill.js without ua query-string set', () => {
+	let requestConfig;
+
+	beforeEach(() => {
+		requestConfig = {
+			url: isProduction ? 'https://polyfill.io/v2/polyfill.js' : 'https://qa.polyfill.io/v2/polyfill.js',
+			followRedirect: false,
+			resolveWithFullResponse: true,
+			headers: {
+				'User-Agent': 'chrome/60.0.0'
+			}
+		};
+	});
+
+	it('returns an http status-code of 200', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.statusCode, 200);
+		});
+	});
+
+	it('returns an http vary header containg accept-encoding', () => {
+		return request(requestConfig).then(response => {
+			proclaim.isTrue(response.headers['vary'].includes('Accept-Encoding'));
+		});
+	});
+
+	it('returns an http vary header containg user-agent', () => {
+		return request(requestConfig).then(response => {
+			proclaim.isTrue(response.headers['vary'].includes('User-Agent'));
+		});
+	});
+
+	it('returns gzipped content if user-agent accepts it', () => {
+		requestConfig.headers['Accept-Encoding'] = 'gzip';
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['content-encoding'], 'gzip');
+		});
+	});
+
+	it('returns brotli-fied content if user-agent accepts it', () => {
+		requestConfig.headers['Accept-Encoding'] = 'br';
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['content-encoding'], 'br');
+		});
+	});
+
+	it('returns a response with Age set to 0', () => {
+		return request(requestConfig).then(response => {
+			proclaim.equal(response.headers['age'], '0');
+		});
+	});
+})
+
+describe('requests with rum query-string set', () => {
+	let req;
+
+	beforeEach(() => {
+		req = request({
+			url: isProduction ? 'https://polyfill.io/v2/docs/?rum=1' : 'https://qa.polyfill.io/v2/docs/?rum=1',
+			resolveWithFullResponse: true,
+			headers: {
+				'User-Agent': 'chrome/60.0.0'
+			}
+		});
+	});
+
+	it('returns a cookie specifying the data-center which served the request', () => {
+		return req.then(response => {
+			proclaim.match(String(response.headers['set-cookie']), /FastlyDC=\S+;/);
+		});
+	});
+
+	it('returns a cookie which is http-only', () => {
+		return req.then(response => {
+			proclaim.isTrue(String(response.headers['set-cookie']).split(' ').includes('HttpOnly;'));
+		});
+	});
+
+	it('returns a cookie which is valid for 60 seconds', () => {
+		return req.then(response => {
+			proclaim.isTrue(String(response.headers['set-cookie']).split(' ').includes('max-age=60'));
+		});
+	});
+
+	it('returns a cookie which is on path /', () => {
+		return req.then(response => {
+			proclaim.isTrue(String(response.headers['set-cookie']).split(' ').includes('Path=/;'));
+		});
+	});
+
+	it('returns a response with Age set to 0', () => {
+		return req.then(response => {
+			proclaim.equal(response.headers['age'], '0');
 		});
 	});
 });
