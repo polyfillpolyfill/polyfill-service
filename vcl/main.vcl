@@ -1,5 +1,82 @@
 import boltsort;
 
+backend us_qa {
+	.connect_timeout = 2s;
+	.dynamic = true;
+	.port = "80";
+	.host = "ft-polyfill-service-us-qa.herokuapp.com";
+	.first_byte_timeout = 30s;
+	.max_connections = 200;
+	.between_bytes_timeout = 20s;
+    .probe = {
+        .request = "HEAD /__health HTTP/1.1"  "Host: ft-polyfill-service-us-qa.herokuapp.com" "Connection: close";
+        .window = 2;
+        .threshold = 1;
+        .timeout = 5s;
+        .initial = 1;
+        .expected_response = 200;
+        .interval = 30s;
+    }
+}
+
+backend eu_qa {
+	.connect_timeout = 2s;
+	.dynamic = true;
+	.port = "80";
+	.host = "ft-polyfill-service-qa.herokuapp.com";
+	.first_byte_timeout = 30s;
+	.max_connections = 200;
+	.between_bytes_timeout = 20s;
+    .probe = {
+        .request = "HEAD /__health HTTP/1.1"  "Host: ft-polyfill-service-qa.herokuapp.com" "Connection: close";
+        .window = 2;
+        .threshold = 1;
+        .timeout = 5s;
+        .initial = 1;
+				.expected_response = 200;
+        .interval = 30s;
+    }
+}
+
+backend us_prod {
+	.connect_timeout = 2s;
+	.dynamic = true;
+	.port = "80";
+	.host = "ft-polyfill-service-us.herokuapp.com";
+	.first_byte_timeout = 30s;
+	.max_connections = 200;
+	.between_bytes_timeout = 20s;
+    .probe = {
+        .request = "HEAD /__health HTTP/1.1"  "Host: ft-polyfill-service-us.herokuapp.com" "Connection: close";
+        .window = 2;
+        .threshold = 1;
+        .timeout = 5s;
+        .initial = 1;
+        .expected_response = 200;
+        .interval = 30s;
+    }
+}
+
+backend eu_prod {
+	.connect_timeout = 2s;
+	.dynamic = true;
+	.port = "80";
+	.host = "ft-polyfill-service.herokuapp.com";
+	.first_byte_timeout = 30s;
+	.max_connections = 200;
+	.between_bytes_timeout = 20s;
+    .probe = {
+        .request = "HEAD /__health HTTP/1.1"  "Host: ft-polyfill-service.herokuapp.com" "Connection: close";
+        .window = 2;
+        .threshold = 1;
+        .timeout = 5s;
+        .initial = 1;
+        .expected_response = 200;
+        .interval = 30s;
+    }
+}
+
+
 table origin_hosts {
   "us-prod": "ft-polyfill-service-us.herokuapp.com",
   "us-qa": "ft-polyfill-service-us-qa.herokuapp.com",
@@ -7,12 +84,61 @@ table origin_hosts {
   "eu-qa": "ft-polyfill-service-qa.herokuapp.com"
 }
 
-sub vcl_recv {
 
+sub set_backend_and_host {
 	declare local var.env STRING;
 	declare local var.geo STRING;
 	declare local var.server STRING;
 
+	# Set origin geography - US servers or EU servers
+	set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
+
+	# Set origin environment - by default match VCL environment, but allow override via header for testing
+	set var.env = if (req.http.X-Origin-Env == "qa" || req.http.X-Origin-Env == "prod" , req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
+
+	if (var.geo == "us") {
+		set var.server = var.geo "-" var.env;
+		set req.http.Host = table.lookup(origin_hosts, var.server);
+		if (var.env == "prod") {
+			set req.backend = us_prod;
+		} else {
+			set req.backend = us_qa;
+		}
+	} else {
+		set var.server = var.geo "-" var.env;
+		set req.http.Host = table.lookup(origin_hosts, var.server);
+		if (var.env == "prod") {
+			set req.backend = eu_prod;
+		} else {
+			set req.backend = eu_qa;
+		}
+	}
+
+	# Swap to the other geography if the primary one is down
+	if (!req.backend.healthy) {
+		set var.geo = if (var.geo == "us", "eu", "us");
+
+		if (var.geo == "us") {
+			set var.server = var.geo "-" var.env;
+			set req.http.Host = table.lookup(origin_hosts, var.server);
+			if (var.env == "prod") {
+				set req.backend = us_prod;
+			} else {
+				set req.backend = us_qa;
+			}
+		} else {
+			set var.server = var.geo "-" var.env;
+			set req.http.Host = table.lookup(origin_hosts, var.server);
+			if (var.env == "prod") {
+				set req.backend = eu_prod;
+			} else {
+				set req.backend = eu_qa;
+			}
+		}
+	}
+}
+
+sub vcl_recv {
 #FASTLY recv
 
 	# Enable API key authentication for URL purge requests
@@ -48,30 +174,7 @@ sub vcl_recv {
 
 	if (req.restarts == 0) {
 		set req.http.X-Original-Host = req.http.Host;
-
-		# Set origin geography - US servers or EU servers
-		set var.geo = if (client.geo.continent_code ~ "(NA|SA|OC|AS)", "us", "eu");
-		if (var.geo == "us") {
-			set req.backend = origami_polyfill_service_us;
-		} else {
-			set req.backend = origami_polyfill_service_eu;
-		}
-		
-		# Swap to the other geography if the primary one is down
-		if (!req.backend.healthy) {
-			set var.geo = if (var.geo == "us", "eu", "us");
-
-			if (var.geo == "us") {
-				set req.backend = origami_polyfill_service_us;
-			} else {
-				set req.backend = origami_polyfill_service_eu;
-			}
-		}
-		
-		# Set origin environment - by default match VCL environment, but allow override via header for testing
-		set var.env = if (req.http.X-Origin-Env, req.http.X-Origin-Env, if(req.http.Host == "qa.polyfill.io", "qa", "prod"));
-		set var.server = var.geo "-" var.env;
-		set req.http.Host = table.lookup(origin_hosts, var.server);
+		call set_backend_and_host;
 	}
 
 	# https://community.fastly.com/t/brotli-compression-support/578/6
@@ -134,7 +237,7 @@ sub vcl_deliver {
 		set resp.http.Debug-Host = req.http.Host;
 		set resp.http.Debug-X-Original-Host = req.http.X-Original-Host;
 	}
-	
+
 	set resp.http.Age = "0";
 
 	return(deliver);
