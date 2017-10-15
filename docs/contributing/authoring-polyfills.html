@@ -32,7 +32,7 @@
 		<p>The config.json file may contain any of the following keys:</p>
 
 		<ul>
-			<li><code>browsers</code>: Object, one key per browser family name (see <a href="#browsers">browser support</a>), with the value forming either a range or a list of specific versions separated by double pipes, identifying the versions to which the polyfill <em>should be applied</em>. We support all valid <a href="https://github.com/npm/node-semver#ranges">node-semver ranges</a>, but discourage the use of the `<=` operator as it tends to cause confusion.</li>
+			<li><code>browsers</code>: Object, one key per browser family name (see <a href="#browsers">browser support</a>), with the value forming either a range or a list of specific versions separated by double pipes, identifying the versions to which the polyfill <em>should be applied</em>. We support all valid <a href="https://github.com/npm/node-semver#ranges">node-semver ranges</a>, but discourage the use of the <code>&lt;=</code> operator as it tends to cause confusion.</li>
 			<li><code>aliases</code>: Array, a list of alternate names for referencing the polyfill.  In the example Modernizr names are explicitly namespaced.</li>
 			<li><code>dependencies</code>: Array, a list of canonical polyfill names for polyfills that must be included prior to this one.</li>
 			<li><code>license</code>: String, an <a href="https://spdx.org/licenses/">SPDX</a> identifier for an <a href="https://opensource.org/licenses/alphabetical">OSI Approved</a> license  (Or CC0 which is GPL compatible)</li>
@@ -112,7 +112,7 @@
 	// Polyfills go here
 ).call('object' === typeof window &amp;&amp; window || 'object' === typeof self &amp;&amp; self || 'object' === typeof global &amp;&amp; global || {});</code></pre>
 
-		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to `window` or `self`, which may not always be what you think they are.</p>
+		<p>This provides a safe <code>this</code> variable to which polyfills may attach properties that they want to add to global scope.  Prefer this to attaching to <code>window</code> or <code>self</code>, which may not always be what you think they are.</p>
 
 		<h3 id='detects'>Feature detects</h3>
 
@@ -175,12 +175,12 @@ fs.writeFileSync('./polyfill.js', srccode);
 
 		<p>The polyfill service does not attempt to serve polyfills to very old browsers.  We maintain a movable baseline of browser support, which is shown in the table above and configured in <a href="https://github.com/Financial-Times/polyfill-service/blob/master/lib/UA.js">the UA module</a>.  If a request for a polyfill bundle comes from a UA that is below the baseline or unknown, the response will be something like this:</p>
 
-		<pre><code> * UA detected: ie/5.5.0 (unknown/unsupported; using policy `unknown=ignore`)
+		<pre><code> * UA detected: ie/5.5.0 (unknown/unsupported; using policy <code>unknown=ignore</code>)
  * Features requested: Promise
  *
  * Version range for polyfill support in this family is: >=6</code></pre>
 
-		<p>In practice this means that in some cases, where polyfills have configurations targeting all versions of a browser (e.g. <code>"ie": "*"</code>), the polyfill will actually only be available in versions of that browser above the baseline (unless overridden using the `unknown` query string argument).</p>
+		<p>In practice this means that in some cases, where polyfills have configurations targeting all versions of a browser (e.g. <code>"ie": "*"</code>), the polyfill will actually only be available in versions of that browser above the baseline (unless overridden using the <code>unknown</code> query string argument).</p>
 
 		<p>This feature is intended to allow simpler testing and maintenance of the service, so that the general baseline can be moved forward without having to update every polyfill config individually.</p>
 

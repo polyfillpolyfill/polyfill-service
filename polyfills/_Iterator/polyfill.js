@@ -173,7 +173,7 @@ var Iterator = (function () { // eslint-disable-line no-unused-vars
 		value: 'Iterator',
 		configurable: false,
 		enumerable: false,
-		writable: false
+		writable: true
 	});
 
 	return Iterator;

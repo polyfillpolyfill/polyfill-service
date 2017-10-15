@@ -21,6 +21,7 @@ describe('GET /v2/polyfill.js', function() {
 		return this.request.expect(response => {
 			assert.isString(response.text);
 			assert.doesNotThrow(() => new vm.Script(response.text));
+			assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
 });
@@ -36,6 +37,7 @@ describe('GET /v2/polyfill.js?callback=AAA&callback=BBB', function() {
 		return this.request.expect(response => {
 			assert.isString(response.text);
 			assert.doesNotThrow(() => new vm.Script(response.text));
+			assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
 });
@@ -51,6 +53,7 @@ describe('GET /v2/polyfill.min.js', function() {
 		return this.request.expect(response => {
 			assert.isString(response.text);
 			assert.doesNotThrow(() => new vm.Script(response.text));
+			assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
 });
@@ -69,6 +72,7 @@ describe('GET /v2/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&f
 			assert.isString(response.text);
 			// vm.Script will cause the event loop to become blocked whilst it parses the large response
 			assert.doesNotThrow(() => new vm.Script(response.text));
+			assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
 });
@@ -85,6 +89,7 @@ describe('GET /v2/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 			assert.isString(response.text);
 			// vm.Script will cause the event loop to become blocked whilst it parses the large response
 			assert.doesNotThrow(() => new vm.Script(response.text));
+			assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
 });

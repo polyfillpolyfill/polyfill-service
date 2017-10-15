@@ -7,6 +7,7 @@ const babel = require("babel-core");
 const mkdirp = require('mkdirp');
 const tsort = require('tsort');
 const denodeify = require('denodeify');
+const vm = require('vm');
 
 const writeFile = denodeify(fs.writeFile);
 const readFile = denodeify(fs.readFile);
@@ -14,7 +15,7 @@ const makeDirectory = denodeify(mkdirp);
 
 function validateSource(code, label) {
 	try {
-		new Function(code);
+		new vm.Script(code);
 	}
 	catch (error) {
 		throw {
@@ -159,6 +160,7 @@ class Polyfill {
 					error
 				};
 			})
+			.then(this.removeSourceMaps)
 			.then(sources => {
 				this.sources = sources;
 			});
@@ -212,6 +214,12 @@ class Polyfill {
 
 			return { raw, min: minified.code };
 		}
+	}
+
+	removeSourceMaps(source) {
+		const re = /^\/\/#\ssourceMappingURL(.+)$/gm;
+
+		return { raw: source.raw.replace(re, ''), min: source.min.replace(re, '') };
 	}
 
 	writeOutput(root) {

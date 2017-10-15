@@ -1,11 +1,12 @@
 {
 	"aliases": [
 		"es6",
+		"es2015",
 		"modernizr:es6array"
 	],
 	"browsers": {
 		"bb": "*",
-		"chrome": "<=44",
+		"chrome": "<=45",
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",

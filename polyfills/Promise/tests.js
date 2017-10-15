@@ -166,10 +166,9 @@ describe('2.2.1: Both `onFulfilled` and `onRejected` are optional arguments.', f
 				});
 			}
 
-			var resolve, reject;
+			var reject;
 
 			promise = new Promise(function (oresolve, oreject) {
-				resolve = oresolve;
 				reject = oreject;
 			});
 

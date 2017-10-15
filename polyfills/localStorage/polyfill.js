@@ -19,9 +19,8 @@
 		removeItem: function () {
 			var key = String(arguments[0]);
 
-			for (key in this) {
+			if (this.hasOwnProperty(key)) {
 				delete this[key];
-
 				--this.length;
 			}
 
@@ -30,7 +29,7 @@
 		setItem: function () {
 			var key = String(arguments[0]), value = String(arguments[1]);
 
-			if (!(key in this)) {
+			if (!(this.hasOwnProperty(key))) {
 				++this.length;
 			}
 

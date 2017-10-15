@@ -63,6 +63,8 @@ You can configure the Polyfill service using environment variables. In developme
 * `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
 * `SURROGATE_KEY`: The surrogate key assigned to all responses. Useful for purging cached responses from a CDN. (default `polyfill-service`);
+* `SENTRY_DSN`: The data source name (DSN) to be used for sending error logs to [Sentry](https://sentry.io)
+* `SENTRY_RELEASE`: An identifier for the current release to be sent to [Sentry](https://sentry.io)
 
 
 ## Testing

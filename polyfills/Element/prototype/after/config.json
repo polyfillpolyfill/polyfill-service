@@ -23,6 +23,7 @@
 	"dependencies": [
 		"Document",
 		"Element",
+		"Array.prototype.indexOf",
 		"_mutation"
 	],
 	"spec": "http://dom.spec.whatwg.org/#dom-childnode-after",

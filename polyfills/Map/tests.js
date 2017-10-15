@@ -12,6 +12,8 @@ beforeEach(function() {
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Map, Map);
 	proclaim.isInstanceOf(new Map(), Map);
+	proclaim.equal((new Map()).constructor, Map);
+	proclaim.equal((new Map()).constructor.name, "Map");
 	if ("__proto__" in {}) {
 		proclaim.equal((new Map).__proto__.isPrototypeOf(new Map()), true);
 		proclaim.equal((new Map).__proto__ === Map.prototype, true);
@@ -203,4 +205,50 @@ it("allows set after clear", function(){
 	o.set(2, '2');
 	proclaim.equal(o.size, 1);
 	proclaim.equal(o.get(2), '2');
+});
+
+// https://github.com/Financial-Times/polyfill-service/issues/1299
+it("does not call callback if all items are deleted", function () {
+	var x = new Map();
+	x.set(42, 'hi');
+	x["delete"](42);
+	var executed = false;
+	x.forEach(function () {
+		executed = true;
+	});
+
+	proclaim.equal(executed, false);
+});
+
+// https://github.com/Financial-Times/polyfill-service/issues/1299
+it("calls callback correct number of times when items were deleted from map", function () {
+	var x = new Map();
+	x.set(42, 'hi');
+	x.set(43, 'bye');
+	x["delete"](43);
+	var callCount = 0;
+	x.forEach(function () {
+		callCount = callCount + 1;
+	});
+
+	proclaim.equal(callCount, 1);
+
+	var z = new Map();
+	z.set(42, 'hi');
+	z.set(43, 'bye');
+	z.set(44, 'bye');
+	z.set(45, 'bye');
+	z.set(46, 'bye');
+	z.set(47, 'bye');
+	z["delete"](43);
+	z["delete"](44);
+	z["delete"](45);
+	z["delete"](46);
+	z["delete"](47);
+	callCount = 0;
+	z.forEach(function () {
+		callCount = callCount + 1;
+	});
+
+	proclaim.equal(callCount, 1);
 });

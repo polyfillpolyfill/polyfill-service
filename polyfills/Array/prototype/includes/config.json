@@ -1,6 +1,7 @@
 {
 	"aliases": [
 		"es7",
+		"es2016",
 		"modernizr:es7array"
 	],
 	"browsers": {
@@ -13,6 +14,7 @@
 		"ios_chr": "*",
 		"android": "*",
 		"op_mob": "*",
+		"op_mini": "*",
 		"ie_mob": "*",
 		"firefox_mob": "*",
 		"samsung_mob": "<5",
