@@ -1,36 +1,39 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 // Doesn't throw in IE6, otherwise works fine, so tolerate this
 it.skip("should throw exception for invalid characters in code", function () {
-	expect(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3$VyZ");
-	}).to.throwException();
+	proclaim.throws(function() {
+		atob("YW55IGNhcm5hbCBwbGVhc3$VyZ");
+	});
 });
 
 // Doesn't throw in IE6, otherwise works fine, so tolerate this
 it.skip("should throw exception for too much padding", function () {
-	expect(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3VyZ===");
-	}).to.throwException();
+	proclaim.throws(function() {
+		atob("YW55IGNhcm5hbCBwbGVhc3VyZ===");
+	});
 });
 
 // Not supported by the polyfill, probably not a problem
 it.skip("should throw exception for badly formed base64", function () {
-	expect(function() {
-		var result = atob("YW55IGNhcm5hbCBwbGVhc3VyZ");
-	}).to.throwException();
+	proclaim.throws(function() {
+		atob("YW55IGNhcm5hbCBwbGVhc3VyZ");
+	});
 });
 
 it("should decode valid code succesfully", function () {
-	expect(atob("cGxlYXN1cmUu")).to.eql("pleasure.");
-	expect(atob("bGVhc3VyZS4=")).to.eql("leasure.");
-	expect(atob("ZWFzdXJlLg==")).to.eql("easure.");
-	expect(atob("YXN1cmUu")).to.eql("asure.");
-	expect(atob("c3VyZS4=")).to.eql("sure.");
+	proclaim.equal(atob("cGxlYXN1cmUu"), "pleasure.");
+	proclaim.equal(atob("bGVhc3VyZS4="), "leasure.");
+	proclaim.equal(atob("ZWFzdXJlLg=="), "easure.");
+	proclaim.equal(atob("YXN1cmUu"), "asure.");
+	proclaim.equal(atob("c3VyZS4="), "sure.");
 });
 
 it("should decode valid code without padding succesfully", function () {
-	expect(atob("cGxlYXN1cmUu")).to.eql("pleasure.");
-	expect(atob("bGVhc3VyZS4")).to.eql("leasure.");
-	expect(atob("ZWFzdXJlLg")).to.eql("easure.");
-	expect(atob("YXN1cmUu")).to.eql("asure.");
-	expect(atob("c3VyZS4")).to.eql("sure.");
+	proclaim.equal(atob("cGxlYXN1cmUu"), "pleasure.");
+	proclaim.equal(atob("bGVhc3VyZS4"), "leasure.");
+	proclaim.equal(atob("ZWFzdXJlLg"), "easure.");
+	proclaim.equal(atob("YXN1cmUu"), "asure.");
+	proclaim.equal(atob("c3VyZS4"), "sure.");
 });

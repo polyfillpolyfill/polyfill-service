@@ -1,4 +1,4 @@
-Object.assign = function assign(target, source) {
+Object.assign = function assign(target, source) { // eslint-disable-line no-unused-vars
 	for (var index = 1, key, src; index < arguments.length; ++index) {
 		src = arguments[index];
 

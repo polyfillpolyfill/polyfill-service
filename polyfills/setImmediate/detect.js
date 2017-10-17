@@ -1,1 +1,1 @@
-'setImmediate' in window
+'setImmediate' in this

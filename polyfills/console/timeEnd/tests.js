@@ -1,10 +1,13 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 describe('console', function () {
 
 	it('timeEnd()', function () {
-		expect(function () {
-			console.time('testTimeEnd')
+		proclaim.doesNotThrow(function () {
+			console.time('testTimeEnd');
 			console.timeEnd('testTimeEnd');
-		}).not.to.throwException();
+		});
 	});
 
 });

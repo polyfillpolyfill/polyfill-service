@@ -2,10 +2,10 @@ Object.defineProperty(Array.prototype, 'find', {
 	configurable: true,
 	value: function find(callback) {
 		if (this === undefined || this === null) {
-			throw new TypeError(this + 'is not an object');
+			throw new TypeError(this + ' is not an object');
 		}
 
-		if (!(callback instanceof Function)) {
+		if (typeof callback !== 'function') {
 			throw new TypeError(callback + ' is not a function');
 		}
 

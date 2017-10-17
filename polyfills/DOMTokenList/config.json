@@ -7,7 +7,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - *",
+		"ie": "<14",
 		"safari": "4 - 6.0",
 		"ie_mob": "10 - *"
 	},

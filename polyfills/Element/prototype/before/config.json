@@ -8,22 +8,24 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "*",
-		"firefox": "3.6 - *",
+		"chrome": "<54",
+		"firefox": "<49",
 		"ios_chr": "*",
-		"ios_saf": "*",
+		"ios_saf": "<10",
 		"ie": "6 - *",
 		"ie_mob": "10 - *",
 		"opera": "*",
 		"op_mini": "*",
-		"safari": "4 - *",
-		"firefox_mob": "3.6 - *"
+		"safari": "<10",
+		"firefox_mob": "<49",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"Document",
 		"Element",
-		"Text",
+		"Array.prototype.indexOf",
 		"_mutation"
 	],
-	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before"
+	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before"
 }

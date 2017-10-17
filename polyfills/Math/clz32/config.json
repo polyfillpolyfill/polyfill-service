@@ -1,6 +1,7 @@
 {
 	"aliases": [
-		"es6"
+		"es6",
+		"es2015"
 	],
 	"browsers": {
 		"android": "*",
@@ -18,5 +19,5 @@
 		"firefox_mob": "1 - 24"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/clz32",
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.clz32"
+	"spec": "https://tc39.github.io/ecma262/#sec-math.clz32"
 }

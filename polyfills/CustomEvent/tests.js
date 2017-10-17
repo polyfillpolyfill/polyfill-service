@@ -1,6 +1,9 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 /* Not supported by the polyfill
 it('should have an initCustomEvent function', function() {
-	expect(typeof CustomEvent.prototype.initCustomEvent).to.be('function');
+	proclaim.isInstanceOf(typeof CustomEvent.prototype.initCustomEvent, Function);
 });
 */
 
@@ -8,17 +11,17 @@ it('should have an initCustomEvent function', function() {
 // Safari allows you to instantiate with no parameters, all this means is you create an event that you can never
 // listen for - pointless, but will not break anything...
 it.skip('should throw exception when instantiated with no parameters', function() {
-	expect(function() {
-		new CustomEvent()
-	}).to.throwException();
+	proclaim.throws(function() {
+		new CustomEvent();
+	});
 });
 
 it('should have correct default properties', function() {
 	var testEvent = new CustomEvent('test');
-	expect(testEvent.type).to.be('test');
-	expect(testEvent.bubbles).to.be(false);
-	expect(testEvent.cancelable).to.be(false);
-	expect(testEvent.detail).to.be(null);
+	proclaim.equal(testEvent.type, 'test');
+	proclaim.equal(testEvent.bubbles, false);
+	proclaim.equal(testEvent.cancelable, false);
+	proclaim.equal(testEvent.detail, null);
 });
 
 it('should modify default properties if optional CustomEventInit parameter is passed', function() {
@@ -28,10 +31,10 @@ it('should modify default properties if optional CustomEventInit parameter is pa
 		detail: 'test detail'
 	});
 
-	expect(testEvent.type).to.be('test');
-	expect(testEvent.bubbles).to.be(true);
-	expect(testEvent.cancelable).to.be(true);
-	expect(testEvent.detail).to.be('test detail');
+	proclaim.equal(testEvent.type, 'test');
+	proclaim.equal(testEvent.bubbles, true);
+	proclaim.equal(testEvent.cancelable, true);
+	proclaim.equal(testEvent.detail, 'test detail');
 });
 
 it('should be able to fire an event that can be listened to', function() {
@@ -43,10 +46,10 @@ it('should be able to fire an event that can be listened to', function() {
 
 	var testEl = document.createElement('div');
 	testEl.addEventListener('test', function(ev) {
-		expect(ev.detail).to.be('test detail');
-		expect(ev.type).to.be('test');
-		expect(ev.bubbles).to.be(true);
-		expect(ev.cancelable).to.be(true);
+		proclaim.equal(ev.detail, 'test detail');
+		proclaim.equal(ev.type, 'test');
+		proclaim.equal(ev.bubbles, true);
+		proclaim.equal(ev.cancelable, true);
 	});
 	testEl.dispatchEvent(testEvent);
 });

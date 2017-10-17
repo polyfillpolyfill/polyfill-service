@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
 	try {
@@ -13,11 +16,11 @@ var arePropertyDescriptorsSupported = function () {
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
 it('has the well known symbol isConcatSpreadable as static properties on Symbol', function() {
-	expect(Symbol.isConcatSpreadable).to.not.be.undefined;
+	proclaim.notEqual(Symbol.isConcatSpreadable, undefined);
 
 	if (supportsDescriptors) {
 		var isConcatSpreadable = Symbol.isConcatSpreadable;
 		Symbol.isConcatSpreadable = "nope";
-		expect(Symbol.isConcatSpreadable).to.be(isConcatSpreadable);
+		proclaim.equal(Symbol.isConcatSpreadable, isConcatSpreadable);
 	}
 });

@@ -1,9 +1,12 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 describe('console', function () {
 
 	it('clear()', function () {
-		expect(function () {
+		proclaim.doesNotThrow(function () {
 			console.clear();
-		}).not.to.throwException();
+		});
 	});
 
 });

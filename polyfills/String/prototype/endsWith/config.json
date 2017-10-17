@@ -1,6 +1,7 @@
 {
 	"aliases": [
 		"es6",
+		"es2015",
 		"modernizr:es6string",
 		"blissfuljs",
 		"default-3.4",
@@ -14,10 +15,10 @@
 		"chrome": "<=40",
 		"firefox": "3.6 - 17",
 		"opera": "10 - 18",
-		"safari": "*",
-		"ie": "6 - *",
+		"safari": "<9.1",
+		"ie": "<14",
 		"ie_mob": "10 - *",
-		"ios_saf": "*",
+		"ios_saf": "<9",
 		"firefox_mob": "3.6 - 17"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith"

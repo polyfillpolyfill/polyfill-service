@@ -1,9 +1,12 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it('has correct instance', function () {
-	expect(Promise).to.be.a(Function);
+	proclaim.isInstanceOf(Promise, Function);
 });
 
 it('has correct argument length', function () {
-	expect(Promise.length).to.be(1);
+	proclaim.equal(Promise.length, 1);
 });
 
 describe('Section 2.1.2.1: When fulfilled, a promise: must not transition to any other state.', function () {
@@ -29,7 +32,7 @@ describe('Section 2.1.2.1: When fulfilled, a promise: must not transition to any
 		deferred.reject();
 
 		setTimeout(function () {
-			expect(deferred.value).to.be(true);
+			proclaim.equal(deferred.value, true);
 
 			done();
 		}, 50);
@@ -48,7 +51,7 @@ describe('Section 2.1.2.1: When fulfilled, a promise: must not transition to any
 			deferred.reject();
 
 			setTimeout(function () {
-				expect(deferred.value).to.be(true);
+				proclaim.equal(deferred.value, true);
 
 				done();
 			}, 50);
@@ -69,7 +72,7 @@ describe('Section 2.1.2.1: When fulfilled, a promise: must not transition to any
 				deferred.reject();
 
 				setTimeout(function () {
-					expect(deferred.value).to.be(true);
+					proclaim.equal(deferred.value, true);
 
 					done();
 				}, 50);
@@ -101,7 +104,7 @@ describe('Section 2.1.3.1: When rejected, a promise: must not transition to any 
 		deferred.resolve();
 
 		setTimeout(function () {
-			expect(deferred.value).to.be(false);
+			proclaim.equal(deferred.value, false);
 
 			done();
 		}, 50);
@@ -120,7 +123,7 @@ describe('Section 2.1.3.1: When rejected, a promise: must not transition to any 
 			deferred.resolve();
 
 			setTimeout(function () {
-				expect(deferred.value).to.be(false);
+				proclaim.equal(deferred.value, false);
 
 				done();
 			}, 50);
@@ -141,7 +144,7 @@ describe('Section 2.1.3.1: When rejected, a promise: must not transition to any 
 				deferred.resolve();
 
 				setTimeout(function () {
-					expect(deferred.value).to.be(false);
+					proclaim.equal(deferred.value, false);
 
 					done();
 				}, 50);
@@ -163,10 +166,9 @@ describe('2.2.1: Both `onFulfilled` and `onRejected` are optional arguments.', f
 				});
 			}
 
-			var resolve, reject;
+			var reject;
 
 			promise = new Promise(function (oresolve, oreject) {
-				resolve = oresolve;
 				reject = oreject;
 			});
 
@@ -205,7 +207,7 @@ it('should resolve inside then (test case from @matthew-andrews)', function(done
 	Promise.resolve().then(function() {
 		return Promise.resolve('[true]').then(JSON.parse);
 	}).then(function(a) {
-		expect(a[0]).to.be(true);
+		proclaim.equal(a[0], true);
 		done();
 	});
 })
@@ -215,7 +217,7 @@ it('should resolve Promise.all when all promises resolve', function(done) {
 		Promise.resolve(3),
 		Promise.resolve(5)
 	]).then(function(results) {
-		expect(results).to.eql([3,5]);
+		proclaim.deepEqual(results, [3,5]);
 		done();
 	})['catch'](function(e) {
 		done(e);

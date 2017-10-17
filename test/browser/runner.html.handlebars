@@ -9,14 +9,14 @@
 	<!-- Test and expectation libraries -->
 	<link rel="stylesheet" href="/test/libs/mocha/mocha.css" />
 	<script src="/test/libs/mocha/mocha.js"></script>
-	<script src="/test/libs/expect/index.js"></script>
+	<script src="/test/libs/proclaim/proclaim.js"></script>
 
 	<!-- Initalise Mocha -->
 	<script>mocha.setup('bdd')</script>
 
 	{{#loadPolyfill}}
 		<!-- Code under test -->
-		<script src='/v2/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
+		<script src='/v2/polyfill.js?flags=gated{{#forceAlways}},always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}&amp;rum=1'></script>
 	{{/loadPolyfill}}
 
 	<!-- Tests -->
@@ -24,13 +24,13 @@
 	{{#features}}
 	describe('{{feature}}', function() {
 		it('is running the test framework', function() {
-			expect(true).to.be(true);
+			proclaim.ok(true);
 		});
 		{{#detect}}
 		it('passes a feature detect', function() {
-			expect((function() {
+			proclaim.ok((function() {
 				return ({{{.}}});
-			}).call(window)).to.be.ok();
+			}).call(window));
 		});
 		{{/detect}}
 		{{#tests}}
@@ -62,6 +62,7 @@
 	function run() {
 		var runner = mocha.run();
 		var results = {
+			state: 'complete',
 			passed: 0,
 			failed: 0,
 			total: 0,
@@ -89,7 +90,8 @@
 				name: test.fullTitle(),
 				result: false,
 				message: err.message,
-				stack: err.stack
+				stack: err.stack,
+				failingSuite: getFirstLevelSuite(test)
 			});
 		});
 

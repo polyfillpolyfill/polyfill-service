@@ -31,5 +31,8 @@
 		return !!obj[this.name];
 	};
 
+	WeakSet.prototype.constructor = WeakSet;
+	WeakSet.name = "WeakSet";
+
 	global.WeakSet = WeakSet;
-})(this);
+}(this));

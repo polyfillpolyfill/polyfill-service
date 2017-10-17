@@ -1,6 +1,7 @@
 {
 	"aliases": [
 		"es6",
+		"es2015",
 		"modernizr:es6array",
 		"default-3.4",
 		"default-3.5",
@@ -10,15 +11,24 @@
 	"browsers": {
 		"chrome": "<=44",
 		"firefox": "* - 24",
-		"ie": "*",
+		"ie": "<14",
 		"ie_mob": "10 - *",
-		"opera": "*",
-		"safari": "*",
-		"firefox_mob": "* - 24"
+		"opera": "<32",
+		"safari": "<9.1",
+		"firefox_mob": "<25",
+		"android": "*",
+		"ios_saf": "<9",
+		"samsung_mob": "<5"
 	},
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"spec": "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.of",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
+	"spec": "https://tc39.github.io/ecma262/#sec-array.of",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of",
+	"install": {
+		"module": "array.of",
+		"paths": ["array-of.js"]
+	},
+	"license": "MIT",
+	"repo": "https://github.com/mathiasbynens/Array.of/"
 }

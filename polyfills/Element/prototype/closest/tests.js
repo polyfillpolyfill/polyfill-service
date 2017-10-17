@@ -1,3 +1,6 @@
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
 it("should return the first ancestor that matches selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
 	var firstInnerEl = document.createElement("a");
@@ -6,8 +9,8 @@ it("should return the first ancestor that matches selectors", function() {
 	el.appendChild(firstInnerEl);
 
 	var closest = firstInnerEl.closest("p");
-	expect(closest).to.be(el);
-	expect(closest.className).to.be("baz");
+	proclaim.equal(closest, el);
+	proclaim.equal(closest.className, "baz");
 
 	document.body.removeChild(el);
 });
@@ -21,8 +24,8 @@ it("should return the first inclusive ancestor that matches selectors", function
 	el.appendChild(firstInnerEl);
 
 	var closest = firstInnerEl.closest("a");
-	expect(closest).to.be(firstInnerEl);
-	expect(closest.className).to.be("foo");
+	proclaim.equal(closest, firstInnerEl);
+	proclaim.equal(closest.className, "foo");
 
 	document.body.removeChild(el);
 });
@@ -30,11 +33,25 @@ it("should return the first inclusive ancestor that matches selectors", function
 it("should return null if there are no matches", function() {
 	var el = document.body.appendChild(document.createElement("a"));
 
-	expect(el.closest("p")).to.be(null);
+	proclaim.equal(el.closest("p"), null);
 
 	document.body.removeChild(el);
 });
 
+if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect) {
+	it("should find the ancestor of an SVG element", function() {
+		var el = document.body.appendChild(document.createElement("section"));
+		el.className = 'svg-holder';
+
+		var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		el.appendChild(svgElement);
+
+		var closest = svgElement.closest("section.svg-holder");
+		proclaim.equal(closest, el);
+
+		document.body.removeChild(el);
+	});
+}
 
 /* Skipped: This exception is actually thrown by querySelector, and cannot be thrown by
  * the polyfill, so this test will fail in some UAs. For more info see querySelector polyfill.
@@ -42,9 +59,9 @@ it("should return null if there are no matches", function() {
 it.skip("should throw an error if the selector syntax is incorrect", function() {
 	var el = document.body.appendChild(document.createElement("a"));
 
-	expect(function () {
+	proclaim.throws(function () {
 		el.closest("p<incorrectselector:><");
-	}).to.throwException();
+	});
 
 	document.body.removeChild(el);
 });

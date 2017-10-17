@@ -26,6 +26,12 @@
 		}
 	};
 
+	global.XMLHttpRequest.UNSENT = 0;
+	global.XMLHttpRequest.OPENED = 1;
+	global.XMLHttpRequest.HEADERS_RECEIVED = 2;
+	global.XMLHttpRequest.LOADING = 3;
+	global.XMLHttpRequest.DONE = 4;
+
 	var XMLHttpRequestPrototype = global.XMLHttpRequest.prototype;
 
 	XMLHttpRequestPrototype.addEventListener = global.addEventListener;
@@ -60,4 +66,4 @@
 	XMLHttpRequestPrototype.setRequestHeader = function setRequestHeader(header, value) {
 		this._request.setRequestHeader(header, value);
 	};
-})(this, this.XMLHttpRequest);
+}(this, this.XMLHttpRequest));

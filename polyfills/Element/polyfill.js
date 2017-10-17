@@ -76,7 +76,7 @@
 	}
 
 	// Apply Element prototype to the pre-existing DOM as soon as the body element appears.
-	function bodyCheck(e) {
+	function bodyCheck() {
 		if (!(loopLimit--)) clearTimeout(interval);
 		if (document.body && !document.body.prototype && /(complete|interactive)/.test(document.readyState)) {
 			shiv(document, true);
@@ -85,7 +85,7 @@
 		}
 		return false;
 	}
-	if (!bodyCheck(true)) {
+	if (!bodyCheck()) {
 		document.onreadystatechange = bodyCheck;
 		interval = setInterval(bodyCheck, 25);
 	}
@@ -98,4 +98,4 @@
 
 	// remove sandboxed iframe
 	document.removeChild(vbody);
-})();
+}());

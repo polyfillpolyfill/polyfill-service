@@ -15,6 +15,7 @@
  */
 
 (function(window, document) {
+'use strict';
 
 
 // Exits early if all IntersectionObserver and IntersectionObserverEntry
@@ -27,6 +28,15 @@ if ('IntersectionObserver' in window &&
 
 
 /**
+ * An IntersectionObserver registry. This registry exists to hold a strong
+ * reference to IntersectionObserver instances currently observering a target
+ * element. Without this registry, instances without another reference may be
+ * garbage collected.
+ */
+var registry = [];
+
+
+/**
  * Creates the global IntersectionObserverEntry constructor.
  * https://wicg.github.io/IntersectionObserver/#intersection-observer-entry
  * @param {Object} entry A dictionary of instance properties.
@@ -34,17 +44,29 @@ if ('IntersectionObserver' in window &&
  */
 function IntersectionObserverEntry(entry) {
   this.time = entry.time;
+  this.target = entry.target;
   this.rootBounds = entry.rootBounds;
   this.boundingClientRect = entry.boundingClientRect;
-  this.intersectionRect = entry.intersectionRect;
-  this.target = entry.target;
+  this.intersectionRect = entry.intersectionRect || getEmptyRect();
+  try {
+    this.isIntersecting = !!entry.intersectionRect;
+  } catch (err) {
+    // This means we are using the IntersectionObserverEntry polyfill which has only defined a getter
+  }
 
-  // Calculates the intersection ratio. Sets it to 0 if the target area is 0.
+  // Calculates the intersection ratio.
   var targetRect = this.boundingClientRect;
   var targetArea = targetRect.width * targetRect.height;
   var intersectionRect = this.intersectionRect;
   var intersectionArea = intersectionRect.width * intersectionRect.height;
-  this.intersectionRatio = targetArea ? (intersectionArea / targetArea) : 0;
+
+  // Sets intersection ratio.
+  if (targetArea) {
+    this.intersectionRatio = intersectionArea / targetArea;
+  } else {
+    // If area is zero and is intersecting, sets to 1, otherwise to 0
+    this.intersectionRatio = this.isIntersecting ? 1 : 0;
+  }
 }
 
 
@@ -120,7 +142,8 @@ IntersectionObserver.prototype.observe = function(target) {
     throw new Error('target must be an Element');
   }
 
-  this._observationTargets.push({element: target, entry: {}});
+  this._registerInstance();
+  this._observationTargets.push({element: target, entry: null});
   this._monitorIntersections();
 };
 
@@ -137,6 +160,7 @@ IntersectionObserver.prototype.unobserve = function(target) {
   });
   if (!this._observationTargets.length) {
     this._unmonitorIntersections();
+    this._unregisterInstance();
   }
 };
 
@@ -147,6 +171,7 @@ IntersectionObserver.prototype.unobserve = function(target) {
 IntersectionObserver.prototype.disconnect = function() {
   this._observationTargets = [];
   this._unmonitorIntersections();
+  this._unregisterInstance();
 };
 
 
@@ -174,11 +199,11 @@ IntersectionObserver.prototype.takeRecords = function() {
  */
 IntersectionObserver.prototype._initThresholds = function(opt_threshold) {
   var threshold = opt_threshold || [0];
-  if (!isArray(threshold)) threshold = [threshold];
+  if (!Array.isArray(threshold)) threshold = [threshold];
 
   return threshold.sort().filter(function(t, i, a) {
-    if (t < 0 || t > 1) {
-      throw new Error('threshold must be be between 0 and 1 inclusively');
+    if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
+      throw new Error('threshold must be a number between 0 and 1 inclusively');
     }
     return t !== a[i - 1];
   });
@@ -287,38 +312,36 @@ IntersectionObserver.prototype._checkForIntersections = function() {
     var targetRect = getBoundingClientRect(target);
     var rootContainsTarget = this._rootContainsTarget(target);
     var oldEntry = item.entry;
+    var intersectionRect = rootIsInDom && rootContainsTarget &&
+        this._computeTargetAndRootIntersection(target, rootRect);
+
     var newEntry = item.entry = new IntersectionObserverEntry({
       time: now(),
       target: target,
       boundingClientRect: targetRect,
       rootBounds: rootRect,
-      intersectionRect: (rootIsInDom && rootContainsTarget) ?
-          this._computeTargetAndRootIntersection(target, rootRect) :
-          getEmptyRect()
+      intersectionRect: intersectionRect
     });
 
-    if (rootIsInDom && rootContainsTarget) {
+    if (!oldEntry) {
+      this._queuedEntries.push(newEntry);
+    } else if (rootIsInDom && rootContainsTarget) {
       // If the new entry intersection ratio has crossed any of the
       // thresholds, add a new entry.
-      if (this._hasCrossedThreshold(oldEntry, newEntry))  {
-        // Record that this target is in the DOM, a child or root, and
-        // is intersecting with the root.
-        item.hasIntersection = hasIntersection(newEntry.intersectionRect);
+      if (this._hasCrossedThreshold(oldEntry, newEntry)) {
         this._queuedEntries.push(newEntry);
       }
     } else {
       // If the root is not in the DOM or target is not contained within
       // root but the previous entry for this target had an intersection,
       // add a new record indicating removal.
-      if (item.hasIntersection) {
-        item.hasIntersection = false;
+      if (oldEntry && oldEntry.isIntersecting) {
         this._queuedEntries.push(newEntry);
       }
     }
-  }.bind(this));
+  }, this);
 
   if (this._queuedEntries.length) {
-
     this._callback(this.takeRecords(), this);
   }
 };
@@ -332,41 +355,52 @@ IntersectionObserver.prototype._checkForIntersections = function() {
  * @param {Element} target The target DOM element
  * @param {Object} rootRect The bounding rect of the root after being
  *     expanded by the rootMargin value.
- * @return {Object} The final intersection rect object.
+ * @return {?Object} The final intersection rect object or undefined if no
+ *     intersection is found.
  * @private
  */
 IntersectionObserver.prototype._computeTargetAndRootIntersection =
     function(target, rootRect) {
 
+  // If the element isn't displayed, an intersection can't happen.
+  if (window.getComputedStyle(target).display == 'none') return;
+
   var targetRect = getBoundingClientRect(target);
   var intersectionRect = targetRect;
-  var parent = target.parentNode;
-  var notAtRoot = true;
+  var parent = getParentNode(target);
+  var atRoot = false;
 
-  while (notAtRoot) {
+  while (!atRoot) {
     var parentRect = null;
+    var parentComputedStyle = parent.nodeType == 1 ?
+        window.getComputedStyle(parent) : {};
 
-    // If we're at the root element, set parentRect to the already
-    // calculated rootRect.
-    if (parent == this.root || parent.nodeType != 1) {
-      notAtRoot = false;
+    // If the parent isn't displayed, an intersection can't happen.
+    if (parentComputedStyle.display == 'none') return;
+
+    if (parent == this.root || parent == document) {
+      atRoot = true;
       parentRect = rootRect;
-    }
-    // Otherwise check to see if the parent element hides overflow,
-    // and if so update parentRect.
-    else {
-      var style = window.getComputedStyle(parent);
-      if (style.overflow != 'visible') {
+    } else {
+      // If the element has a non-visible overflow, and it's not the <body>
+      // or <html> element, update the intersection rect.
+      // Note: <body> and <html> cannot be clipped to a rect that's not also
+      // the document rect, so no need to compute a new intersection.
+      if (parent != document.body &&
+          parent != document.documentElement &&
+          parentComputedStyle.overflow != 'visible') {
         parentRect = getBoundingClientRect(parent);
       }
     }
+
     // If either of the above conditionals set a new parentRect,
     // calculate new intersection data.
     if (parentRect) {
-      intersectionRect = computeRectIntersection(
-          parentRect, intersectionRect);
+      intersectionRect = computeRectIntersection(parentRect, intersectionRect);
+
+      if (!intersectionRect) break;
     }
-    parent = parent.parentNode;
+    parent = getParentNode(parent);
   }
   return intersectionRect;
 };
@@ -382,7 +416,7 @@ IntersectionObserver.prototype._getRootRect = function() {
   if (this.root) {
     rootRect = getBoundingClientRect(this.root);
   } else {
-    // Use <html>/<body> intead of window since scroll bars affect size.
+    // Use <html>/<body> instead of window since scroll bars affect size.
     var html = document.documentElement;
     var body = document.body;
     rootRect = {
@@ -425,8 +459,8 @@ IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
 /**
  * Accepts an old and new entry and returns true if at least one of the
  * threshold values has been crossed.
- * @param {IntersectionObserverEntry} oldEntry The previous entry for a
- *    particular target element.
+ * @param {?IntersectionObserverEntry} oldEntry The previous entry for a
+ *    particular target element or null if no previous entry exists.
  * @param {IntersectionObserverEntry} newEntry The current entry for a
  *    particular target element.
  * @return {boolean} Returns true if a any threshold has been crossed.
@@ -435,11 +469,11 @@ IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
 IntersectionObserver.prototype._hasCrossedThreshold =
     function(oldEntry, newEntry) {
 
-  // To make comparing easier, a entry that has a ratio of 0
+  // To make comparing easier, an entry that has a ratio of 0
   // but does not actually intersect is given a value of -1
-  var oldRatio = hasIntersection(oldEntry.intersectionRect) ?
+  var oldRatio = oldEntry && oldEntry.isIntersecting ?
       oldEntry.intersectionRatio || 0 : -1;
-  var newRatio = hasIntersection(newEntry.intersectionRect) ?
+  var newRatio = newEntry.isIntersecting ?
       newEntry.intersectionRatio || 0 : -1;
 
   // Ignore unchanged ratios
@@ -464,7 +498,7 @@ IntersectionObserver.prototype._hasCrossedThreshold =
  * @private
  */
 IntersectionObserver.prototype._rootIsInDom = function() {
-  return !this.root || contains(document, this.root);
+  return !this.root || containsDeep(document, this.root);
 };
 
 
@@ -475,7 +509,29 @@ IntersectionObserver.prototype._rootIsInDom = function() {
  * @private
  */
 IntersectionObserver.prototype._rootContainsTarget = function(target) {
-  return contains(this.root || document, target);
+  return containsDeep(this.root || document, target);
+};
+
+
+/**
+ * Adds the instance to the global IntersectionObserver registry if it isn't
+ * already present.
+ * @private
+ */
+IntersectionObserver.prototype._registerInstance = function() {
+  if (registry.indexOf(this) < 0) {
+    registry.push(this);
+  }
+};
+
+
+/**
+ * Removes the instance from the global IntersectionObserver registry.
+ * @private
+ */
+IntersectionObserver.prototype._unregisterInstance = function() {
+  var index = registry.indexOf(this);
+  if (index != -1) registry.splice(index, 1);
 };
 
 
@@ -523,7 +579,7 @@ function addEvent(node, event, fn, opt_useCapture) {
     node.addEventListener(event, fn, opt_useCapture || false);
   }
   else if (typeof node.attachEvent == 'function') {
-    node.attachEvent(event, fn);
+    node.attachEvent('on' + event, fn);
   }
 }
 
@@ -538,10 +594,10 @@ function addEvent(node, event, fn, opt_useCapture) {
  */
 function removeEvent(node, event, fn, opt_useCapture) {
   if (typeof node.removeEventListener == 'function') {
-    node.addEventListener(event, fn, opt_useCapture || false);
+    node.removeEventListener(event, fn, opt_useCapture || false);
   }
   else if (typeof node.detatchEvent == 'function') {
-    node.detatchEvent(event, fn);
+    node.detatchEvent('on' + event, fn);
   }
 }
 
@@ -550,41 +606,25 @@ function removeEvent(node, event, fn, opt_useCapture) {
  * Returns the intersection between two rect objects.
  * @param {Object} rect1 The first rect.
  * @param {Object} rect2 The second rect.
- * @return {Object} The intersection rect.
+ * @return {?Object} The intersection rect or undefined if no intersection
+ *     is found.
  */
 function computeRectIntersection(rect1, rect2) {
   var top = Math.max(rect1.top, rect2.top);
   var bottom = Math.min(rect1.bottom, rect2.bottom);
   var left = Math.max(rect1.left, rect2.left);
   var right = Math.min(rect1.right, rect2.right);
-  var intersectionRect = {
+  var width = right - left;
+  var height = bottom - top;
+
+  return (width >= 0 && height >= 0) && {
     top: top,
     bottom: bottom,
     left: left,
     right: right,
-    width: left > right ? 0 : right - left,
-    height: top > bottom ? 0 : bottom - top
+    width: width,
+    height: height
   };
-  return intersectionRect;
-}
-
-
-/**
- * Accepts an intersectionRect and returns whether or not it represents
- * an actual intersection. This is needed because intersectionRatio alone
- * doesn't tell the whole story, and there are two cases which it doesn't
- * account for, both of which should be considered "intersections".
- * <ul>
- * <li> A target has an area of zero but is fully in-bounds
- * <li> A target is on the boarder
- * </ul>
- * @param {Object=} opt_rect The intersection rect to check. If no rect is
- *     provided the result is always false.
- * @return {boolean} True if an intersection exists, false otherwise.
- */
-function hasIntersection(opt_rect) {
-  return !!opt_rect &&
-      (opt_rect.left <= opt_rect.right && opt_rect.top <= opt_rect.bottom);
 }
 
 
@@ -594,11 +634,19 @@ function hasIntersection(opt_rect) {
  * @return {Object} The (possibly shimmed) rect of the element.
  */
 function getBoundingClientRect(el) {
-  var rect = el.getBoundingClientRect();
-  if (!rect) return;
+  var rect;
+
+  try {
+    rect = el.getBoundingClientRect();
+  } catch (err) {
+    // Ignore Windows 7 IE11 "Unspecified error"
+    // https://github.com/WICG/IntersectionObserver/pull/205
+  }
+
+  if (!rect) return getEmptyRect();
 
   // Older IE
-  if (!rect.width || !rect.height) {
+  if (!(rect.width && rect.height)) {
     rect = {
       top: rect.top,
       right: rect.right,
@@ -628,29 +676,38 @@ function getEmptyRect() {
   };
 }
 
-
 /**
- * Determines if a root elements contains a target element as a descendant.
- * @param {Element} root The root element.
- * @param {Element} target The target to check.
- * @return {boolean} True if the target is a descendant of root.
+ * Checks to see if a parent element contains a child elemnt (including inside
+ * shadow DOM).
+ * @param {Node} parent The parent element.
+ * @param {Node} child The child element.
+ * @return {boolean} True if the parent node contains the child node.
  */
-function contains(root, target) {
-  var parent = target.parentNode;
-  while (parent) {
-    if (root == parent) return true;
-    parent = parent.parentNode;
+function containsDeep(parent, child) {
+  var node = child;
+  while (node) {
+    if (node == parent) return true;
+
+    node = getParentNode(node);
   }
+  return false;
 }
 
 
 /**
- * Determins if a value is a JavaScript array.
- * @param {*} value Any JavaScript value.
- * @return {boolean} True if the passed value is an array.
+ * Gets the parent node of an element or its host element if the parent node
+ * is a shadow root.
+ * @param {Node} node The node whose parent to get.
+ * @return {Node|null} The parent node or null if no parent exists.
  */
-function isArray(value) {
-  return Object.prototype.toString.call(value) == '[object Array]';
+function getParentNode(node) {
+  var parent = node.parentNode;
+
+  if (parent && parent.nodeType == 11 && parent.host) {
+    // If the parent is a shadow root, return the host element.
+    return parent.host;
+  }
+  return parent;
 }
 
 

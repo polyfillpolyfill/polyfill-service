@@ -1,17 +1,25 @@
 {
+	"aliases": [
+		"es6",
+		"es2015"
+	],
 	"browsers": {
 		"ie": "< 13",
 		"ie_mob": "*",
 		"safari": "<9",
 		"chrome": "< 50",
 		"firefox": "< 40",
-		"ios_saf": "*",
-		"opera": "< 50"
+		"ios_saf": "<9",
+		"opera": "< 37",
+		"op_mini": "*",
+		"samsung_mob": "<5",
+		"android": "<5.1",
+		"bb": "10 - *"
 	},
 	"dependencies": [
 		"Array.prototype.forEach",
 		"Array.prototype.filter",
-		"Math.random",
+		"Array.prototype.map",
 		"Object.create",
 		"Object.defineProperty",
 		"Object.getOwnPropertyNames",

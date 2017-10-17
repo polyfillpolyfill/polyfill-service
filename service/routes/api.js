@@ -6,6 +6,9 @@ const polyfillio = require('../../lib');
 const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
+const pump = require('pump');
+const mergeStream = require('merge2');
+const streamFromString = require('from2-string');
 
 const router = express.Router();  // eslint-disable-line new-cap
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
@@ -37,7 +40,6 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	const fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
 	const uaString = (typeof req.query.ua === 'string' && req.query.ua) || req.header('user-agent');
 	const flags = (typeof req.query.flags === 'string') ? req.query.flags.split(',') : [];
-	const warnings = [];
 
 	// Currently don't support CSS
 	if (fileExtension !== '.js') {
@@ -58,37 +60,41 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		features: polyfills.get(),
 		excludes: (typeof req.query.excludes === 'string' && req.query.excludes.split(',')) || [],
 		minify: minified,
-		rum: req.query.rum,
-		baseurl: '//'+req.get('host')
+		rum: (Number.parseInt(req.query.rum, 10) === 1),
+		stream: true
 	};
 	if (req.query.unknown) {
-		params.unknown = req.query.unknown;
+		params.unknown = (req.query.unknown === 'polyfill') ? 'polyfill' : 'ignore';
 	}
 	if (uaString) {
 		params.uaString = uaString;
 		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
 	}
 
-	polyfillio.getPolyfillString(params).then(op => {
-		if (warnings.length) {
-			op = '/* WARNINGS:\n\n- ' + warnings.join('\n- ') + '\n\n*/\n\n' + op;
+	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
+	res.set('Access-Control-Allow-Origin', '*');
+
+	const outputStream = mergeStream();
+
+	outputStream.add(polyfillio.getPolyfillString(params));
+
+	if (req.query.callback && typeof req.query.callback === 'string' && req.query.callback.match(/^[\w\.]+$/)) {
+		outputStream.add(streamFromString("\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();"));
+	}
+
+	pump(outputStream, res, (err) => {
+		if (err) {
+			console.error(err);
 		}
-		if (req.query.callback && req.query.callback.match(/^[\w\.]+$/)) {
-			op += "\ntypeof "+req.query.callback+"==='function' && "+req.query.callback+"();";
-		}
-		res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
-		res.set('Access-Control-Allow-Origin', '*');
-		res.send(op);
 		respTimeTimer.end();
 	});
-
 });
 
 router.get("/v2/normalizeUa", (req, res) => {
 
 	if (req.query.ua) {
 		res.status(200);
-		res.set('Cache-Control', 'public, max-age='+one_year+', stale-if-error='+(one_year+one_week));
+		res.set('Cache-Control', 'public, max-age=' + one_year + ', stale-if-error=' + (one_year + one_week));
 		res.set('Normalized-User-Agent', encodeURIComponent(polyfillio.normalizeUserAgent(req.query.ua)));
 		res.send();
 	} else {

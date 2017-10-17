@@ -12,5 +12,12 @@
 		"html5shiv"
 	],
 	"license": "MIT",
-	"repo": "https://github.com/aFarkas/html5shiv"
+	"repo": "https://github.com/aFarkas/html5shiv",
+	"install": {
+		"module": "html5shiv",
+		"paths": ["dist/html5shiv.min.js"]
+	},
+	"dependencies": [
+		"Document"
+	]
 }
