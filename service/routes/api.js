@@ -33,8 +33,11 @@ router.get(/^\/v1\/(.*)/, (req, res) => {
 });
 
 router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
-	metrics.counter('hits').inc();
-	const respTimeTimer = metrics.timer('respTime').start();
+	let respTimeTimer;
+	if (metrics) {
+		metrics.counter('hits').inc();
+		respTimeTimer = metrics.timer('respTime').start();
+	}
 	const firstParameter = req.params[0].toLowerCase();
 	const minified = firstParameter === '.min';
 	const fileExtension = req.params[1] ? req.params[1].toLowerCase() : firstParameter;
@@ -68,7 +71,9 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 	}
 	if (uaString) {
 		params.uaString = uaString;
-		metrics.counter('useragentcount.'+polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
+		if (metrics) {
+			metrics.counter('useragentcount.' + polyfillio.normalizeUserAgent(uaString).replace(/^(.*?)\/(\d+)(\..*)?$/, '$1.$2')).inc();
+		}
 	}
 
 	res.set('Content-Type', contentTypes[fileExtension]+';charset=utf-8');
@@ -86,7 +91,9 @@ router.get(/^\/v2\/polyfill(\.\w+)(\.\w+)?/, (req, res) => {
 		if (err) {
 			console.error(err);
 		}
-		respTimeTimer.end();
+		if (respTimeTimer) {
+			respTimeTimer.end();
+		}
 	});
 });
 

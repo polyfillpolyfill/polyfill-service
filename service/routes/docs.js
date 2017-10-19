@@ -319,5 +319,7 @@ function route(req, res, next) {
 
 module.exports = route;
 
-setInterval(refreshData, 300000);
-refreshData();
+if (process.env.NODE_ENV !== 'ci') {
+	setInterval(refreshData, 300000);
+	refreshData();
+}
