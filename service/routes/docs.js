@@ -132,7 +132,7 @@ function refreshData() {
 				"3m": (60*60*24*365) / 4,
 				"12m": (60*60*24*365)
 			};
-			const end = ((new Date()).getTime()/1000) - 3600;  // Ignore the last hour (Pingdom data processing delay)
+			const end = ((new Date()).getTime()/1000) - 3600; // Ignore the last hour (Pingdom data processing delay)
 			return Promise.all(Object.keys(periods).map(period => {
 				const start = end - periods[period];
 				return request({

@@ -5,13 +5,6 @@ const request = require('request-promise');
 const proclaim = require('proclaim');
 const isProduction = process.env.NODE_ENV === 'production';
 
-const backends = {
-	'us-prod': 'ft-polyfill-service-us.herokuapp.com',
-	'us-qa': 'ft-polyfill-service-us-qa.herokuapp.com',
-	'eu-prod': 'ft-polyfill-service.herokuapp.com',
-	'eu-qa': 'ft-polyfill-service-qa.herokuapp.com'
-};
-
 describe('debug headers', function () {
 	let req;
 
@@ -52,7 +45,7 @@ describe.skip('Canonicalise', function () {
 			url: 'https://polyfills.io',
 			resolveWithFullResponse: true
 		});
-	})
+	});
 
 	it('returns a permanent redirect', () => {
 		return req.then(response => {
@@ -227,7 +220,7 @@ describe('/v2/polyfill.js without ua query-string set', () => {
 			proclaim.equal(response.headers['age'], '0');
 		});
 	});
-})
+});
 
 describe('requests with rum query-string set', () => {
 	let req;

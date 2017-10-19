@@ -1,18 +1,18 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 describe('dataset', function () {
 	var element;
 
 	beforeEach(function() {
 		element = document.createElement('div');
-		element.innerHTML = '<h1 id="dataset-tests" data-empty data-id="42" data-name-of-cheese="Red Leicester"></h1>'
+		element.innerHTML = '<h1 id="dataset-tests" data-empty data-id="42" data-name-of-cheese="Red Leicester"></h1>';
 		document.body.appendChild(element);
 	});
 
 	afterEach(function() {
 		document.body.removeChild(element);
-	})
+	});
 
 	it('get', function () {
 

@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('returns properties of a simple object', function () {
 	proclaim.deepEqual(Object.getOwnPropertyNames({foo:42}), ["foo"]);

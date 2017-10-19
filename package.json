@@ -38,7 +38,7 @@
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
     "test-coverage": "nyc report --reporter=lcov",
     "test-integration": "mocha test/integration --recursive --timeout 10000 --slow 2000",
-		"test-vcl": "mocha test/vcl --recursive --timeout 10000 --slow 2000",
+    "test-vcl": "mocha test/vcl --recursive --timeout 10000 --slow 2000",
     "test": "npm run build && npm run test-node && npm run test-node-unit && npm run test-integration && npm run test-browser-quick",
     "compatgen": "npm run build && npm run test-node && npm run test-browser-compat && node tasks/node/compattable",
     "prepublish": "npm run build",
@@ -113,7 +113,7 @@
   },
   "devDependencies": {
     "browserstack-local": "^1.3.0",
-    "eslint": "^3.11.1",
+    "eslint": "^4.9.0",
     "fastly": "Financial-Times/fastly#v2.5.0",
     "fastly-purge": "^1.0.1",
     "gaze": "^1.1.2",

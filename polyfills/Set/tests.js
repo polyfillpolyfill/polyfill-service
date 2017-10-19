@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 var o, generic, callback;
 
@@ -7,7 +7,7 @@ beforeEach(function() {
 	if ('Set' in window) o = new Set();
 	generic = {};
 	callback = function () {};
-})
+});
 
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new Set, Set);

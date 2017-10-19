@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim, sinon */
 
 before(function(done) {
 	var head = document.head || document.getElementsByTagName('head')[0];
@@ -830,7 +830,7 @@ describe('IntersectionObserver', function() {
 						document.documentElement.clientHeight || document.body.clientHeight;
 
 					proclaim.equal(records.length, 1);
-					var rootBounds = records[0].rootBounds
+					var rootBounds = records[0].rootBounds;
 					proclaim.equal(rootBounds.top, 0, 'rootBounds top expected to be ' + 0 + ' but was ' + rootBounds.top);
 					proclaim.equal(rootBounds.left, 0, 'rootBounds top expected to be ' + 0 + ' but was ' + rootBounds.left);
 					proclaim.equal(rootBounds.right, viewportWidth, 'rootBounds top expected to be ' + viewportWidth + ' but was ' + rootBounds.right);

@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('finds an element using a class name', function () {
 	var div = document.body.appendChild(document.createElement('DIV'));

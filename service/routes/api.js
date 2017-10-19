@@ -10,7 +10,7 @@ const pump = require('pump');
 const mergeStream = require('merge2');
 const streamFromString = require('from2-string');
 
-const router = express.Router();  // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 const contentTypes = {".js": 'application/javascript', ".css": 'text/css'};
 const one_day = 60 * 60 * 24;
 const one_week = one_day * 7;

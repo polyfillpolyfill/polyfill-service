@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 var o, generic, callback;
 
@@ -112,7 +112,7 @@ it("exhibits correct iterator behaviour", function () {
 	o = new Map([["1", 1], ["2", 2], ["3", 3]]);
 	var keys = o.keys();
 	var values = o.values();
-	var k = keys.next()
+	var k = keys.next();
 	var v = values.next();
 	proclaim.equal(k.value, "1");
 	proclaim.equal(v.value, 1);
@@ -123,7 +123,7 @@ it("exhibits correct iterator behaviour", function () {
 	proclaim.equal(v.value, 3);
 	// insertion of previously-removed item goes to the end
 	o.set("2", 2);
-	k = keys.next()
+	k = keys.next();
 	v = values.next();
 	proclaim.equal(k.value, "2");
 	proclaim.equal(v.value, 2);
@@ -158,7 +158,7 @@ it("exhibits correct iterator behaviour", function () {
 });
 
 it("implements .forEach()", function () {
-	var o = new Map(), i;
+	var o = new Map();
 	o.set("key 0", 0);
 	o.set("key 1", 1);
 	o.forEach(function (value, key, obj) {
