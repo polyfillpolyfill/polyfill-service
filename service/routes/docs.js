@@ -6,7 +6,7 @@ const request = require('request-promise');
 const Handlebars = require('handlebars');
 const moment = require('moment');
 const sources = require('../../lib/sources');
-const marked = require('marked');
+const marky = require('marky-markdown');
 const zlib = require('zlib');
 const PolyfillSet = require('../PolyfillSet');
 const polyfillservice = require('../../lib');
@@ -222,7 +222,7 @@ function refreshData() {
 						docs: polyfill.docs,
 						baseDir: polyfill.baseDir,
 						spec: polyfill.spec,
-						notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+						notes: polyfill.notes ? polyfill.notes.map(function (n) { return marky(n); }) : [],
 						license: polyfill.license,
 						licenseIsUrl: polyfill.license && polyfill.license.length > 5
 					};
