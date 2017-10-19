@@ -1,7 +1,6 @@
 'use strict';
 
 const sinon = require('sinon');
-require('sinon-as-promised');
 
 const merge2 = module.exports = sinon.stub();
 

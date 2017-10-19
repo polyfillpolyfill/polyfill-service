@@ -121,8 +121,7 @@
     "node-fetch": "^1.6.0",
     "nyc": "^10.0.0",
     "sauce-tunnel": "^2.2.3",
-    "sinon": "^1.17.6",
-    "sinon-as-promised": "^4.0.2",
+    "sinon": "^4.0.1",
     "supertest": "^3.0.0",
     "wd": "^0.4.0"
   },

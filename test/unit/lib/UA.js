@@ -7,8 +7,6 @@ const sinon = require('sinon');
 const semver = require('semver');
 const mockery = require('mockery');
 
-require('sinon-as-promised');
-
 describe("lib/UA", function () {
 	let useragent;
 	let UA;
