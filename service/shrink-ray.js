@@ -17,7 +17,6 @@
 const accepts = require('accepts');
 const bytes = require('bytes');
 const compressible = require('compressible');
-const debug = require('debug')('compression');
 const Duplex = require('stream').Duplex;
 const iltorb = require('iltorb');
 const lruCache = require('lru-cache');
@@ -174,8 +173,7 @@ function compression(options) {
             return this;
         };
 
-        function nocompress(msg) {
-            debug(`no compression [URL] ${req.url} [REASON]: %s`, msg);
+        function nocompress() {
             addListeners(res, _on, listeners);
             listeners = null;
         }
@@ -183,20 +181,20 @@ function compression(options) {
         onHeaders(res, function onResponseHeaders() {
             // determine if request is filtered
             if (!filter(req, res)) {
-                nocompress(`filterd`);
+                nocompress();
                 return;
             }
 
             // determine if the entity should be transformed
             if (!shouldTransform(req, res)) {
-                nocompress('no transform');
+                nocompress();
                 return;
             }
 
             //Compression stack is overloaded. Add marker to request for cache controlling
             if (isOverloaded) {
                 res.setHeader('Cache-Control', `public, max-age=${options.cacheControl || DEFAULT_CACHE}`);
-                nocompress('compression stack is oveloaded');
+                nocompress();
                 return;
             }
 
@@ -205,7 +203,7 @@ function compression(options) {
 
             // content-length below threshold
             if (Number(res.getHeader('Content-Length')) < threshold || length < threshold) {
-                nocompress('size below threshold');
+                nocompress();
                 return;
             }
 
@@ -213,13 +211,13 @@ function compression(options) {
 
             // already encoded
             if (encoding !== 'identity') {
-                nocompress('already encoded');
+                nocompress();
                 return;
             }
 
             // head
             if (req.method === 'HEAD') {
-                nocompress('HEAD request');
+                nocompress();
                 return;
             }
 
@@ -238,7 +236,7 @@ function compression(options) {
 
             // negotiation failed
             if (!method || method === 'identity') {
-                nocompress('not acceptable');
+                nocompress();
                 return;
             }
 
@@ -260,7 +258,6 @@ function compression(options) {
             // the result
             if (!stream) {
                 // compression stream
-                debug('%s compression', method);
                 switch (method) {
                     case 'br':
                         stream = iltorb.compressStream(brotliOpts);
@@ -351,7 +348,6 @@ function shouldCompress(req, res) {
     const type = res.getHeader('Content-Type');
 
     if (type === undefined || !compressible(type)) {
-        debug('%s not compressible', type);
         return false;
     }
 
