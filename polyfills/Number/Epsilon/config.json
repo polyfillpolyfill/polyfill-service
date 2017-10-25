@@ -8,7 +8,7 @@
 		"firefox": "<25",
 		"safari": "<9"
 	},
-	dependencies: [
+	"dependencies": [
 		"Object.defineProperty"
 	],
 	"license": "MIT",
