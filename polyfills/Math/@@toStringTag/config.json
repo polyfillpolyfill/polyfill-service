@@ -1,0 +1,18 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"chrome": "<54",
+		"firefox": "<51",
+		"ie": "<15",
+		"safari": "<10",
+		"opera": "<13"
+	},
+	"dependencies": [
+		"Symbol.toStringTag"
+	],
+	"license": "MIT",
+	"spec": "https://tc39.github.io/ecma262/#sec-math-@@tostringtag"
+}
