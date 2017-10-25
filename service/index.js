@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const Raven = require('raven');
 const morgan = require('morgan');
-const shrinkRay = require('shrink-ray');
+const shrinkRay = require('./shrink-ray');
 
 const app = express().enable("strict routing");
 const one_day = 60 * 60 * 24;
