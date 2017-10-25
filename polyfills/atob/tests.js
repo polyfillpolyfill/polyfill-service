@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // Doesn't throw in IE6, otherwise works fine, so tolerate this
 it.skip("should throw exception for invalid characters in code", function () {

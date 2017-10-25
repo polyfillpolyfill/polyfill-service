@@ -1,5 +1,5 @@
 /* eslint-env mocha, browser */
-/* global proclaim, it */
+/* global proclaim */
 
 it('returns the name "Function" for Function', function () {
 	proclaim.equal(Function.name, 'Function');

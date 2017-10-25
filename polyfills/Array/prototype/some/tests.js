@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // See: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.prototype.some
 
@@ -26,7 +26,7 @@ it("Should accept an optional 'this' argument as its second argument which becom
 	var mockThis = { foo: "bar" };
 	var array = this.array;
 
-	array.some(function(value) {
+	array.some(function() {
 		proclaim.strictEqual(this, mockThis);
 		proclaim.equal(this.foo, mockThis.foo);
 		return false;
@@ -48,7 +48,7 @@ it("Should not iterate over elements appended to the array after the call to som
 	var array = [1, 2, 3, 4, 5, 6];
 	var visited = [];
 
-	array.some(function(value, index, object) {
+	array.some(function(value, index) {
 		array.push(index);
 		visited[index] = value;
 		return false;
@@ -64,7 +64,7 @@ it("Should not iterate over elements appended to the array after the call to som
 
 it("Should return false if the array is empty", function() {
 	var a = [];
-	proclaim.equal(a.some(function(value) { return true; }), false);
+	proclaim.equal(a.some(function() { return true; }), false);
 });
 
 it("Should not visit elements that are deleted after the call to some begins and before being visited", function() {

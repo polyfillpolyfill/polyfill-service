@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 describe('IntersectionObserverEntry', function () {
 	it('has an isIntersecting property', function () {

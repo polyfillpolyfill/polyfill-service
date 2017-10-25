@@ -1,3 +1,4 @@
+polyfills/__dist/**
 # We ignore the polyfill.js files for third-party polyfills
 # because we do not control their implementation.
 

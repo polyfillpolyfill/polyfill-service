@@ -77,7 +77,7 @@ describe('returns an array with', function () {
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			set.add(undefined)
+			set.add(undefined);
 			it('can convert from Set', function () {
 				proclaim.deepEqual(Array.from(set), [1,2,3,4,undefined]);
 				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3],[undefined,4]]);
@@ -190,7 +190,7 @@ describe('returns an array with', function () {
 	it('this as an object', function () {
 		var context = {};
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Object);
 			proclaim.strictEqual(this.valueOf(), context);
 		}, context);
@@ -199,7 +199,7 @@ describe('returns an array with', function () {
 	it('this as 42', function () {
 		var context = 42;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Number);
 			proclaim.strictEqual(this.valueOf(), 42);
 		}, context);
@@ -208,7 +208,7 @@ describe('returns an array with', function () {
 	it('this as false', function () {
 		var context = false;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Boolean);
 			proclaim.strictEqual(this.valueOf(), false);
 		}, context);
