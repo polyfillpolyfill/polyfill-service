@@ -4,8 +4,11 @@
 		"es2015"
 	],
 	"browsers": {
+		"android": "<5",
 		"ie": "<12",
+		"ios_saf": "<10",
 		"firefox": "<32",
+		"firefox_mob": "<32",
 		"safari": "<10"
 	},
 	"dependencies": [
