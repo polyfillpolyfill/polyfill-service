@@ -62,8 +62,11 @@ it('should check inherited properties as well', function () {
 	sparse[2] = 2;
 	sparse.length = 3;
 	var result = Array.prototype.copyWithin.call(sparse, 1, 0);
-	proclaim.ok(result, '0');
-	proclaim.notOk(result, '0');
+	proclaim.ok(result['0']);
+	proclaim.notOk(Object.prototype.hasOwnProperty.call(result, '0'));
 	proclaim.isTrue(Object.prototype.hasOwnProperty.call(result, '1'));
-	proclaim.deepStrictEqual(result, { 0: 'foo', 1: 'foo', 2: 1, length: 3 });
+	proclaim.deepEqual(result[0], 'foo');
+	proclaim.deepEqual(result[1], 'foo');
+	proclaim.deepEqual(result[2], 1);
+	proclaim.deepEqual(result.length, 3 );
 });
