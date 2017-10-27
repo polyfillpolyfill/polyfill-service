@@ -1,7 +1,14 @@
 /* eslint-env mocha, browser*/
 /* global proclaim, it */
+'use strict';
 
 // Tests ported from https://github.com/es-shims/es6-shim/blob/master/test/string.js#L496-L541
+
+var hasStrictMode = (function () {
+	return this === null;
+}).call(null);
+
+var ifHasStrictModeIt = hasStrictMode ? it : it.skip;
 
 describe('#codePointAt()', function () {
 
@@ -18,13 +25,21 @@ describe('#codePointAt()', function () {
 		proclaim.strictEqual(String.prototype.codePointAt.length, 1);
 	});
 
-	it('should throw a TypeError when called on null or undefined', function () {
+	ifHasStrictModeIt('should throw a TypeError when called on null or undefined', function () {
 		proclaim.throws(function () {
-			String.prototype.codePointAt.call();
+			String.prototype.codePointAt.call(undefined);
 		}, TypeError);
 
 		proclaim.throws(function () {
 			String.prototype.codePointAt.call(null);
+		}, TypeError);
+
+		proclaim.throws(function () {
+			String.prototype.codePointAt.apply(undefined);
+		}, TypeError);
+
+		proclaim.throws(function () {
+			String.prototype.codePointAt.apply(null);
 		}, TypeError);
 	});
 
