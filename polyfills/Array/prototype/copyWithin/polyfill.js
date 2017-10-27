@@ -1,4 +1,17 @@
-(function() {
+(function () {
+
+	function hasProperty(o, p) {
+    while (o) {
+			if (Object.prototype.hasOwnProperty.call(o, p)) {
+				return true;
+			}
+			if (typeof o !== 'object') {
+				return false;
+			}
+      o = Object.getPrototypeOf(o);
+    }
+    return false;
+  }
 
 	function toInteger(n) {
 		n = Number(n);
@@ -24,8 +37,7 @@
 			var o = Object(this);
 
 			// 22.1.3.3.2 Let len be ? ToLength(? Get(O, "length")).
-			var lenVal = o.length;
-			var len = toInteger(lenVal);
+			var len = toInteger(o.length);
 			if (len <= 0) {
 				len = 0;
 			}
@@ -101,8 +113,9 @@
 				// 22.1.3.3.12.b Let toKey be ! ToString(to).
 				var toKey = String(to);
 				// 22.1.3.3.12.c Let fromPresent be ? HasProperty(O, fromKey).
+				var fromPresent = hasProperty(o, fromKey);
 				// 22.1.3.3.12.d If fromPresent is true, then
-				if (fromKey in o) {
+				if (fromPresent) {
 					// 22.1.3.3.12.d.i Let fromVal be ? Get(O, fromKey).
 					var fromVal = o[fromKey];
 					// 22.1.3.3.12.d.ii Perform ? Set(O, toKey, fromVal, true).
