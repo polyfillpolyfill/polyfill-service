@@ -5,7 +5,7 @@
 	],
 	"browsers": {
 		"firefox": "<37",
-		"ie": "<12"
+		"ie": "9 - 12"
 	},
 	"dependencies": [
 		"Object.defineProperty"
