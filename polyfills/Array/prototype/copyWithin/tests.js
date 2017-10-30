@@ -10,10 +10,6 @@ it('has correct argument length', function () {
 	proclaim.strictEqual(Array.prototype.copyWithin.length, 2);
 });
 
-it('is not enumerable', function () {
-	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype, 'copyWithin'));
-});
-
 it('modifies the object in-place', function () {
 	var arr = [1, 2, 3, 4, 5];
 	proclaim.deepStrictEqual(arr.copyWithin(0, 3), [4, 5, 3, 4, 5]);
