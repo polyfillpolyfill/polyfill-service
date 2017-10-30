@@ -6,6 +6,7 @@ polyfills/__dist/**
 # because we do control their implementation.
 
 polyfills/_ArrayIterator/polyfill.js
+polyfills/_TypedArray/polyfill.js
 polyfills/Array/of/polyfill.js
 polyfills/Array/prototype/values/polyfill.js
 polyfills/atob/polyfill.js
