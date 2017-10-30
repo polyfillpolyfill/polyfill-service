@@ -26,6 +26,10 @@
 	}
 
 	Object.defineProperty(Array.prototype, 'copyWithin', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		// 22.1.3.3 Array.prototype.copyWithin ( target, start [ , end ] )
 		value: function (target, start/*, end*/) {
 			var end = arguments[2];
 
