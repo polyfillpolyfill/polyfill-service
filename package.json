@@ -81,7 +81,7 @@
     "iltorb": "^2.0.1",
     "intersection-observer": "^0.4.1",
     "intl": "^1.2.5",
-    "js-polyfills": "^0.1.33",
+    "js-polyfills": "^0.1.40",
     "json3": "^3.3.2",
     "lazystream": "^1.0.0",
     "lodash": "^4.17.4",
