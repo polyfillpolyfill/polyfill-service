@@ -13,45 +13,47 @@ const metricsNS = process.env.GRAPHITE_NS || 'origami.polyfill';
 
 let reportTimer = null;
 let graphite = null;
-const data = Measured.createCollection(metricsNS + '.' + envName + '.' + processIdentifier);
-
-const failures = data.counter('graphiteReportingFailures');
+let data = null;
 
 if (process.env.NODE_ENV !== 'ci') {
-	blocked(function(ms) {
+	data = Measured.createCollection(metricsNS + '.' + envName + '.' + processIdentifier);
+	const failures = data.counter('graphiteReportingFailures');
+	blocked(function (ms) {
 		if (ms < 100) return;
-		console.log('Event loop blocked for '+ms+'ms');
+		console.log('Event loop blocked for ' + ms + 'ms');
 		data.counter('eventloop.blocks').inc();
 		data.counter('eventloop.delay').inc(ms);
 	});
-}
 
-if (graphiteHost) {
 
-	data.gauge('memory', () => process.memoryUsage().rss);
+	if (graphiteHost) {
 
-	graphite = Graphite.createClient('plaintext://'+graphiteHost+':'+graphitePort);
-	reportTimer = setInterval(() => {
-		graphite.write(data.toJSON(), function(err) {
-			if (err) {
+		data.gauge('memory', () => process.memoryUsage().rss);
 
-				// Ignore timeouts
-				if (err.code === 'ETIMEDOUT' || err.code === 'EPIPE') {
-					failures.inc();
-					return;
+		graphite = Graphite.createClient('plaintext://' + graphiteHost + ':' + graphitePort);
+		reportTimer = setInterval(() => {
+			graphite.write(data.toJSON(), function (err) {
+				if (err) {
+
+					// Ignore timeouts
+					if (err.code === 'ETIMEDOUT' || err.code === 'EPIPE') {
+						failures.inc();
+						return;
+					}
+
+					console.error(err, err.stack);
+					console.warn('Disabling graphite reporting due to error');
+					clearInterval(reportTimer);
 				}
+			});
+		}, reportInterval);
+		reportTimer.unref();
 
-				console.error(err, err.stack);
-				console.warn('Disabling graphite reporting due to error');
-				clearInterval(reportTimer);
-			}
-		});
-	}, reportInterval);
-	reportTimer.unref();
+		console.log('Initialised graphite metrics reporting to ' + graphiteHost + ', prefixed with ' + metricsNS);
+	} else {
+		console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
 
-	console.log('Initialised graphite metrics reporting to '+graphiteHost+', prefixed with '+metricsNS);
-} else {
-	console.warn('Graphite reporting is disabled.  To enable, set GRAPHITE_HOST');
+	}
 }
 
 

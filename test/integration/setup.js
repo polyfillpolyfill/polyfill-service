@@ -2,6 +2,8 @@
 
 'use strict';
 
+process.env.NODE_ENV = 'ci';
+
 const startService = require('../../service');
 const supertest = require('supertest');
 

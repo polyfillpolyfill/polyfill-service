@@ -5,7 +5,7 @@
 const express = require('express');
 const path = require('path');
 
-const router = express.Router();  // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 
 const serviceInfo = Object.assign({}, require('../../about.json'), {
 	appVersion: require('../../package.json').version,

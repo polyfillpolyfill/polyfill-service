@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // Modified version of the test262 tests located at
 // https://github.com/tc39/test262/tree/master/test/built-ins/Object/entries
