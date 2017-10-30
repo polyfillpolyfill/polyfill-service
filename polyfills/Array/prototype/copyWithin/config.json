@@ -11,7 +11,8 @@
 		"opera": "<32"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Object.defineProperty",
+		"Object.getPrototypeOf"
 	],
 	"license": "MIT",
 	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.copywithin",
