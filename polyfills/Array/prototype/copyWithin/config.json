@@ -10,6 +10,9 @@
 		"safari": "<9",
 		"opera": "<32"
 	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
 	"license": "MIT",
 	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.copywithin",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin"
