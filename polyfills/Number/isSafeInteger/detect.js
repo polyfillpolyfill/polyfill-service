@@ -1,0 +1,1 @@
+'isSafeInteger' in Number

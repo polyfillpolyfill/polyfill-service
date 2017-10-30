@@ -100,7 +100,7 @@
     "node-zopfli": "^2.0.2",
     "on-headers": "^1.0.1",
     "picturefill": "^3.0.1",
-    "proclaim": "^3.4.4",
+    "proclaim": "^3.5.0",
     "pump": "^1.0.2",
     "raven": "^0.12.1",
     "request": "^2.83.0",
