@@ -11,6 +11,7 @@
 		"opera": "<13"
 	},
 	"dependencies": [
+		"Object.defineProperty",
 		"Symbol.toStringTag"
 	],
 	"license": "MIT",
