@@ -1,15 +1,8 @@
 {
 	"browsers": {
-		"android": "*",
-		"chrome": "*",
-		"firefox": "*",
-		"firefox_mob": "*",
-		"ie": "*",
-		"ie_mob": "*",
-		"ios_saf": "*",
-		"opera": "*",
-		"safari": "*",
-		"samsung_mob": "*"
+		"chrome": ">=54",
+		"opera": ">=43",
+		"safari": ">=10.1"
 	},
 	"dependencies": [
 		"Map",
