@@ -6,8 +6,8 @@
 		"firefox_mob": "*",
 		"ie": "*",
 		"ie_mob": "*",
-		"ios_saf": "*",
-		"opera": "<43",
+		"ios_saf": "<10.1",
+		"opera": "<41",
 		"safari": "<10.1",
 		"samsung_mob": "*"
 	},

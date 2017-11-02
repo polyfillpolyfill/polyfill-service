@@ -1,7 +1,8 @@
 {
 	"browsers": {
 		"chrome": ">=54",
-		"opera": ">=43",
+		"opera": ">=41",
+		"ios_saf": ">=10.1",
 		"safari": ">=10.1"
 	},
 	"dependencies": [
