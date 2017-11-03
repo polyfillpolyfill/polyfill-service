@@ -24,6 +24,6 @@
 	"spec": "https://html.spec.whatwg.org/multipage/scripting.html#custom-elements",
 	"notes": [
 		"The [known bugs and limitations](https://github.com/webcomponents/custom-elements#known-bugs-and-limitations) of the polyfill should be reviewed before using it.",
-		"Note that by default, `customElements` requires that elements are defined using native ES6 classes; ES5-style classes, or transpilied classes, will not work. If support for ES5 classes is required, `customElements.~native-shim` should be used instead."
+		"Note that native implementations of `customElements` requires that elements are defined using native ES6 classes; ES5-style classes, or transpilied classes, will not work. If support for ES5 classes is required, request `customElements.~native-shim` feature as well."
 	]
 }
