@@ -23,7 +23,6 @@
     },
     "dependencies": [
         "Element",
-        "Array.from",
         "Array.prototype.map"
     ],
     "spec": "https://dom.spec.whatwg.org/#dom-element-getattributenames",

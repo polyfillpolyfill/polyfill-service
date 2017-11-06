@@ -1,5 +1,5 @@
 Element.prototype.getAttributeNames = function() {
-    return Array.from(this.attributes).map(function(a) {
+    return Array.prototype.map.call(this.attributes, function(a) {
         return a.name;
     });
 };
