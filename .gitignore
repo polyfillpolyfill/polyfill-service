@@ -30,3 +30,5 @@ npm-debug.log
 /local.log
 /coverage/
 /.nyc_output/
+ws-*.json
+ws-log-npm-report

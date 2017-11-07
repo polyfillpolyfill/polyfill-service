@@ -47,7 +47,8 @@
     "deploy-lambda": "node tasks/node/deploylambda",
     "promote": "heroku pipelines:promote --app ft-polyfill-service-qa && npm run deploy-vcl -- --env=prod && NODE_ENV=\"production\" npm run purge-cdn",
     "purge-cdn": "node tasks/node/purge",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "whitesource": "whitesource run"
   },
   "license": "CC0-1.0",
   "engines": {
@@ -132,7 +133,8 @@
     "sauce-tunnel": "^2.2.3",
     "sinon": "^4.0.1",
     "supertest": "^3.0.0",
-    "wd": "^0.4.0"
+    "wd": "^0.4.0",
+    "whitesource": "^1.1.1"
   },
   "version": "3.22.0"
 }
