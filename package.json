@@ -47,8 +47,8 @@
     "deploy-lambda": "node tasks/node/deploylambda",
     "promote": "heroku pipelines:promote --app ft-polyfill-service-qa && npm run deploy-vcl -- --env=prod && NODE_ENV=\"production\" npm run purge-cdn",
     "purge-cdn": "node tasks/node/purge",
-		"heroku-postbuild": "npm run build",
-		"whitesource": "whitesource run"
+    "heroku-postbuild": "npm run build",
+    "whitesource": "whitesource run"
   },
   "license": "CC0-1.0",
   "engines": {
