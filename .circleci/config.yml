@@ -89,7 +89,7 @@ jobs:
           name: Test vcl
           command: "npm run test-vcl"
 
-	check_dependencies:
+  check_dependencies:
     <<: *container_config
     steps:
       - *restore_repo
@@ -123,6 +123,6 @@ workflows:
           requires:
             - build
 
-			- check_dependencies:
-					requires:
-						- build
+      - check_dependencies:
+          requires:
+            - build
