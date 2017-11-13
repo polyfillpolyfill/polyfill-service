@@ -27,6 +27,7 @@
 		"Function.prototype.bind",
 		"perfomance.now"
 		],
+    "license": "W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE",
 	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
 	"notes": [],

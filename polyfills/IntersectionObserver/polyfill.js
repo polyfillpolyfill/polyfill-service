@@ -1,17 +1,10 @@
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the W3C SOFTWARE AND DOCUMENT NOTICE AND LICENSE.
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 (function(window, document) {
@@ -38,7 +31,7 @@ var registry = [];
 
 /**
  * Creates the global IntersectionObserverEntry constructor.
- * https://wicg.github.io/IntersectionObserver/#intersection-observer-entry
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
  * @param {Object} entry A dictionary of instance properties.
  * @constructor
  */
@@ -48,11 +41,7 @@ function IntersectionObserverEntry(entry) {
   this.rootBounds = entry.rootBounds;
   this.boundingClientRect = entry.boundingClientRect;
   this.intersectionRect = entry.intersectionRect || getEmptyRect();
-  try {
-    this.isIntersecting = !!entry.intersectionRect;
-  } catch (err) {
-    // This means we are using the IntersectionObserverEntry polyfill which has only defined a getter
-  }
+  this.isIntersecting = !!entry.intersectionRect;
 
   // Calculates the intersection ratio.
   var targetRect = this.boundingClientRect;
@@ -72,7 +61,7 @@ function IntersectionObserverEntry(entry) {
 
 /**
  * Creates the global IntersectionObserver constructor.
- * https://wicg.github.io/IntersectionObserver/#intersection-observer-interface
+ * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
  * @param {Function} callback The function to be invoked after intersection
  *     changes have queued. The function is not invoked if the queue has
  *     been emptied by calling the `takeRecords` method.
@@ -131,10 +120,11 @@ IntersectionObserver.prototype.POLL_INTERVAL = null;
  * @param {Element} target The DOM element to observe.
  */
 IntersectionObserver.prototype.observe = function(target) {
-  // If the target is already being observed, do nothing.
-  if (this._observationTargets.some(function(item) {
+  var isTargetAlreadyObserved = this._observationTargets.some(function(item) {
     return item.element == target;
-  })) {
+  });
+
+  if (isTargetAlreadyObserved) {
     return;
   }
 
@@ -145,6 +135,7 @@ IntersectionObserver.prototype.observe = function(target) {
   this._registerInstance();
   this._observationTargets.push({element: target, entry: null});
   this._monitorIntersections();
+  this._checkForIntersections();
 };
 
 
@@ -249,8 +240,6 @@ IntersectionObserver.prototype._monitorIntersections = function() {
   if (!this._monitoringIntersections) {
     this._monitoringIntersections = true;
 
-    this._checkForIntersections();
-
     // If a poll interval is set, use polling instead of listening to
     // resize and scroll events or DOM mutations.
     if (this.POLL_INTERVAL) {
@@ -351,7 +340,7 @@ IntersectionObserver.prototype._checkForIntersections = function() {
  * Accepts a target and root rect computes the intersection between then
  * following the algorithm in the spec.
  * TODO(philipwalton): at this time clip-path is not considered.
- * https://wicg.github.io/IntersectionObserver/#calculate-intersection-rect-algo
+ * https://w3c.github.io/IntersectionObserver/#calculate-intersection-rect-algo
  * @param {Element} target The target DOM element
  * @param {Object} rootRect The bounding rect of the root after being
  *     expanded by the rootMargin value.
@@ -640,7 +629,7 @@ function getBoundingClientRect(el) {
     rect = el.getBoundingClientRect();
   } catch (err) {
     // Ignore Windows 7 IE11 "Unspecified error"
-    // https://github.com/WICG/IntersectionObserver/pull/205
+    // https://github.com/w3c/IntersectionObserver/pull/205
   }
 
   if (!rect) return getEmptyRect();
