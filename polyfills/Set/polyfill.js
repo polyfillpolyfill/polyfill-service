@@ -73,12 +73,18 @@
 		this.size = this._size = 0;
 	};
 	Set.prototype['values'] =
-	Set.prototype['keys'] =
+	Set.prototype['keys'] = function() {
+		var iterator = makeIterator(this, function(i) { return decodeVal(this._values[i]); });
+		iterator[Symbol.iterator] = this.keys;
+		return iterator;
+	};
 	Set.prototype[Symbol.iterator] = function() {
 		return makeIterator(this, function(i) { return decodeVal(this._values[i]); });
 	};
 	Set.prototype['entries'] = function() {
-		return makeIterator(this, function(i) { return [decodeVal(this._values[i]), decodeVal(this._values[i])]; });
+		var iterator = makeIterator(this, function(i) { return [decodeVal(this._values[i]), decodeVal(this._values[i])]; });
+		iterator[Symbol.iterator] = this.entries;
+		return iterator;
 	};
 	Set.prototype['forEach'] = function(callbackFn, thisArg) {
 		thisArg = thisArg || global;
