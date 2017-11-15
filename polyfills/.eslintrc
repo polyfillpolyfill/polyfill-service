@@ -1,7 +1,4 @@
 {
-	"ecmaFeatures": {
-		"modules": false
-	},
 	"env": {
 		"es6": true,
 		"browser": true,

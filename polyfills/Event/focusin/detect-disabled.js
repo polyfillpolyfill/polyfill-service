@@ -18,4 +18,4 @@
 	html.removeChild(a);
 
 	return support;
-})(false, document.documentElement, document.createElement('a'))
+}(false, document.documentElement, document.createElement('a')));

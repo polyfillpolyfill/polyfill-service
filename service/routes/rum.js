@@ -5,7 +5,7 @@
 const express = require('express');
 const RumReport = require('../RumReport');
 
-const router = express.Router();  // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 
 router.get('/v2/getRumPerfData', (req, res) => {
 

@@ -6,7 +6,7 @@ const request = require('request-promise');
 const Handlebars = require('handlebars');
 const moment = require('moment');
 const sources = require('../../lib/sources');
-const marked = require('marked');
+const marky = require('marky-markdown');
 const zlib = require('zlib');
 const PolyfillSet = require('../PolyfillSet');
 const polyfillservice = require('../../lib');
@@ -132,7 +132,7 @@ function refreshData() {
 				"3m": (60*60*24*365) / 4,
 				"12m": (60*60*24*365)
 			};
-			const end = ((new Date()).getTime()/1000) - 3600;  // Ignore the last hour (Pingdom data processing delay)
+			const end = ((new Date()).getTime()/1000) - 3600; // Ignore the last hour (Pingdom data processing delay)
 			return Promise.all(Object.keys(periods).map(period => {
 				const start = end - periods[period];
 				return request({
@@ -222,7 +222,7 @@ function refreshData() {
 						docs: polyfill.docs,
 						baseDir: polyfill.baseDir,
 						spec: polyfill.spec,
-						notes: polyfill.notes ? polyfill.notes.map(function (n) { return marked(n); }) : [],
+						notes: polyfill.notes ? polyfill.notes.map(function (n) { return marky(n); }) : [],
 						license: polyfill.license,
 						licenseIsUrl: polyfill.license && polyfill.license.length > 5
 					};
@@ -319,5 +319,7 @@ function route(req, res, next) {
 
 module.exports = route;
 
-setInterval(refreshData, 300000);
-refreshData();
+if (process.env.NODE_ENV !== 'ci') {
+	setInterval(refreshData, 300000);
+	refreshData();
+}

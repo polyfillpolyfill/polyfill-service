@@ -1,8 +1,8 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("should define MediaQueryList in window", function() {
-	proclaim.ok(Object.prototype.hasOwnProperty.call(window, 'MediaQueryList'))
+	proclaim.ok(Object.prototype.hasOwnProperty.call(window, 'MediaQueryList'));
 });
 
 it("should match screen", function() {

@@ -1,0 +1,1 @@
+'codePointAt' in String.prototype
