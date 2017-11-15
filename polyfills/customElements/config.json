@@ -4,11 +4,11 @@
 		"chrome": "<54",
 		"firefox": "*",
 		"firefox_mob": "*",
-		"ie": "*",
+		"ie": ">10",
 		"ie_mob": "*",
-		"ios_saf": "<10.1",
+		"ios_saf": "<10.1 >=9",
 		"opera": "<41",
-		"safari": "<10.1",
+		"safari": "<10.1 >=9",
 		"samsung_mob": "*"
 	},
 	"dependencies": [
