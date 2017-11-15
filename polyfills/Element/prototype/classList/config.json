@@ -9,7 +9,7 @@
 		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "8 - 9",
+		"ie": "8 - 11",
 		"safari": "4 - 4.1"
 	},
 	"dependencies": [
