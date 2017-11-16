@@ -121,12 +121,20 @@
 		this.size = this._size = 0;
 	};
 	Map.prototype['values'] = function() {
-		return makeIterator(this, function(i) { return this._values[i]; });
+		var iterator = makeIterator(this, function(i) { return this._values[i]; });
+		iterator[Symbol.iterator] = this.values;
+		return iterator;
 	};
 	Map.prototype['keys'] = function() {
-		return makeIterator(this, function(i) { return decodeKey(this._keys[i]); });
+		var iterator = makeIterator(this, function(i) { return decodeKey(this._keys[i]); });
+		iterator[Symbol.iterator] = this.keys;
+		return iterator;
 	};
-	Map.prototype['entries'] =
+	Map.prototype['entries'] = function() {
+		var iterator = makeIterator(this, function(i) { return [decodeKey(this._keys[i]), this._values[i]]; });
+		iterator[Symbol.iterator] = this.entries;
+		return iterator;
+	};
 	Map.prototype[Symbol.iterator] = function() {
 		return makeIterator(this, function(i) { return [decodeKey(this._keys[i]), this._values[i]]; });
 	};
