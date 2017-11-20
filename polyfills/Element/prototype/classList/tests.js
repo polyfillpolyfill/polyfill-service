@@ -99,6 +99,18 @@ it("Should remove duplicate instances of class", function() {
 	proclaim.equal(el.className, "");
 });
 
+it("Should work on svg elements", function() {
+	if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg')) {
+		var el = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		var classList = el.classList;
+		el.setAttribute('class', 'a');
+
+		classList.add("b");
+		proclaim.equal(classList.contains("b"), true);
+		proclaim.equal(el.className.baseVal, "a b");
+	}
+});
+
 it("Should be configurable", function() {
 	proclaim.equal(Object.getOwnPropertyDescriptor(Element.prototype, 'classList').configurable, true);
 });
