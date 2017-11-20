@@ -16,6 +16,10 @@ it('has correct argument length', function () {
 	proclaim.equal(Array.prototype.includes.length, 1);
 });
 
+it('is not enumerable', function () {
+	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype, 'includes'));
+});
+
 it('handles arrays', function () {
 	proclaim.equal([10, 11, 12, 13].includes(12), true);
 	proclaim.equal([10, 11, 12, 13].includes(14), false);
