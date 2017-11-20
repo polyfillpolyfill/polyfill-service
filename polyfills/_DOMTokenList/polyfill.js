@@ -66,7 +66,11 @@ var _DOMTokenList = (function() { // eslint-disable-line no-unused-vars
 
 
 			/** Split the new value apart by whitespace*/
-			tokens = ("" + el[prop]).replace(/^\s+|\s+$/g, "").split(rSpace);
+			if (typeof el[prop] === "object") {
+				tokens = ("" + el[prop].baseVal).replace(/^\s+|\s+$/g, "").split(rSpace);
+			} else {
+				tokens = ("" + el[prop]).replace(/^\s+|\s+$/g, "").split(rSpace);
+			}
 
 			/** Avoid treating blank strings as single-item token lists */
 			if ("" === tokens[0]) tokens = [];
@@ -119,7 +123,11 @@ var _DOMTokenList = (function() { // eslint-disable-line no-unused-vars
 			/** Update the targeted attribute of the attached element if the token list's changed. */
 			if (length !== tokens.length) {
 				length = tokens.length >>> 0;
-				el[prop] = tokens.join(" ");
+				if (typeof el[prop] === "object") {
+					el[prop].baseVal = tokens.join(" ");
+				} else {
+					el[prop] = tokens.join(" ");
+				}
 				reindex();
 			}
 		};
@@ -141,7 +149,11 @@ var _DOMTokenList = (function() { // eslint-disable-line no-unused-vars
 			length = t.length >>> 0;
 
 			/** Update the targeted attribute of the attached element. */
-			el[prop] = tokens.join(" ");
+			if (typeof el[prop] === "object") {
+				el[prop].baseVal = tokens.join(" ");
+			} else {
+				el[prop] = tokens.join(" ");
+			}
 			reindex();
 		};
 
