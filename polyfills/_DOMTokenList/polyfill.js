@@ -6,15 +6,7 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 var _DOMTokenList = (function() { // eslint-disable-line no-unused-vars
-	var dpSupport;
-	/** Ensure the browser allows Object.defineProperty to be used on native JavaScript objects. */
-	try {
-		defineGetter({}, "support");
-	}
-	catch (e) {
-		dpSupport = false;
-	}
-
+	var dpSupport = true;
 	var defineGetter = function (object, name, fn, configurable) {
 		if (Object.defineProperty)
 			Object.defineProperty(object, name, {
@@ -24,6 +16,15 @@ var _DOMTokenList = (function() { // eslint-disable-line no-unused-vars
 
 		else object.__defineGetter__(name, fn);
 	};
+
+	/** Ensure the browser allows Object.defineProperty to be used on native JavaScript objects. */
+	try {
+		defineGetter({}, "support");
+	}
+	catch (e) {
+		dpSupport = false;
+	}
+
 
 	var _DOMTokenList = function (el, prop) {
 		var that = this;

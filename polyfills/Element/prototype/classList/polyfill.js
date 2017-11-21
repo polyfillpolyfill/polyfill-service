@@ -6,14 +6,7 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 (function (global) {
-	var dpSupport;
-	/** Ensure the browser allows Object.defineProperty to be used on native JavaScript objects. */
-	try {
-		defineGetter({}, "support");
-	}
-	catch (e) {
-		dpSupport = false;
-	}
+	var dpSupport = true;
 	var defineGetter = function (object, name, fn, configurable) {
 		if (Object.defineProperty)
 			Object.defineProperty(object, name, {
@@ -23,6 +16,13 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 
 		else object.__defineGetter__(name, fn);
 	};
+	/** Ensure the browser allows Object.defineProperty to be used on native JavaScript objects. */
+	try {
+		defineGetter({}, "support");
+	}
+	catch (e) {
+		dpSupport = false;
+	}
 	/** Polyfills a property with a DOMTokenList */
 	var addProp = function (o, name, attr) {
 
@@ -73,7 +73,61 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 	};
 
 	addProp(global.Element, "classList", "className");
+	addProp(global.HTMLElement, "classList", "className");
 	addProp(global.HTMLLinkElement, "relList", "rel");
 	addProp(global.HTMLAnchorElement, "relList", "rel");
 	addProp(global.HTMLAreaElement, "relList", "rel");
+
+	// Add second argument to native DOMTokenList.toggle() if necessary
+	(function () {
+		var e = document.createElement('span');
+		if (!('classList' in e)) return;
+		e.classList.toggle('x', false);
+		if (!e.classList.contains('x')) return;
+		this.DOMTokenList.prototype.toggle = function toggle(token /*, force*/) {
+			var force = arguments[1];
+			if (force === undefined) {
+				var add = !this.contains(token);
+				this[add ? 'add' : 'remove'](token);
+				return add;
+			}
+			force = !!force;
+			this[force ? 'add' : 'remove'](token);
+			return force;
+		};
+	}());
+
+	// Add multiple arguments to native DOMTokenList.add() if necessary
+	(function () {
+		var e = document.createElement('span');
+		if (!('classList' in e)) return;
+		e.classList.add('a', 'b');
+		if (e.classList.contains('b')) return;
+		var native = this.DOMTokenList.prototype.add;
+		this.DOMTokenList.prototype.add = function () {
+			var args = arguments;
+			var l = arguments.length;
+			for (var i = 0; i < l; i++) {
+				native.call(this, args[i]);
+			}
+		};
+	}());
+
+	// Add multiple arguments to native DOMTokenList.remove() if necessary
+	(function () {
+		var e = document.createElement('span');
+		if (!('classList' in e)) return;
+		e.classList.add('a');
+		e.classList.add('b');
+		e.classList.remove('a', 'b');
+		if (!e.classList.contains('b')) return;
+		var native = this.DOMTokenList.prototype.remove;
+		this.DOMTokenList.prototype.remove = function () {
+			var args = arguments;
+			var l = arguments.length;
+			for (var i = 0; i < l; i++) {
+				native.call(this, args[i]);
+			}
+		};
+	}());
 }(this));
