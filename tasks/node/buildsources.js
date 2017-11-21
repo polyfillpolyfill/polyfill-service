@@ -160,6 +160,7 @@ class Polyfill {
 					error
 				};
 			})
+			.then(this.removeSourceMaps)
 			.then(sources => {
 				this.sources = sources;
 			});
@@ -213,6 +214,12 @@ class Polyfill {
 
 			return { raw, min: minified.code };
 		}
+	}
+
+	removeSourceMaps(source) {
+		const re = /^\/\/#\ssourceMappingURL(.+)$/gm;
+
+		return { raw: source.raw.replace(re, ''), min: source.min.replace(re, '') };
 	}
 
 	writeOutput(root) {

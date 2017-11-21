@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new WeakSet, WeakSet);
@@ -59,7 +59,7 @@ it('should be chainable', function() {
 	var o2 = function(){};
 	ws.add(o1).add(o2);
 	proclaim.equal(ws.has(o2), true);
-})
+});
 
 // IE <= 8 does not allow invocation of delete as a property of an object using dot notation
 it.skip('should allow use of dot notation for delete method', function() {
@@ -68,7 +68,7 @@ it.skip('should allow use of dot notation for delete method', function() {
 	ws.add(o1);
 	//ws.delete(o1);  // Causes an error during parse in IE<=8, which will prevent other tests from running even though this test is marked as skipped!
 	proclaim.equal(ws.has(o1), false);
-})
+});
 
 // Early native implementations do not support this, polyfill does
 it('should be possible to prepopulate the set', function() {

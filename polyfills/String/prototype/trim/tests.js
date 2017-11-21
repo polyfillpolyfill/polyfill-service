@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('Should be able to remove whitespace from the beginning and end of a string', function(){
 	var str = '	   blah    ';

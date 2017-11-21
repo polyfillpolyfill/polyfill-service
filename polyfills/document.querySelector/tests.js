@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('returns the right length', function () {
 	proclaim.equal(document.querySelectorAll('body').length, 1);
