@@ -18,7 +18,7 @@
 		if (!('classList' in e)) return;
 		e.classList.toggle('x', false);
 		if (!e.classList.contains('x')) return;
-		this.DOMTokenList.prototype.toggle = function toggle(token /*, force*/) {
+		e.classList.constructor.prototype.toggle = function toggle(token /*, force*/) {
 			var force = arguments[1];
 			if (force === undefined) {
 				var add = !this.contains(token);
@@ -37,8 +37,8 @@
 		if (!('classList' in e)) return;
 		e.classList.add('a', 'b');
 		if (e.classList.contains('b')) return;
-		var native = this.DOMTokenList.prototype.add;
-		this.DOMTokenList.prototype.add = function () {
+		var native = e.classList.constructor.prototype.add;
+		e.classList.constructor.prototype.add = function () {
 			var args = arguments;
 			var l = arguments.length;
 			for (var i = 0; i < l; i++) {
@@ -55,8 +55,8 @@
 		e.classList.add('b');
 		e.classList.remove('a', 'b');
 		if (!e.classList.contains('b')) return;
-		var native = this.DOMTokenList.prototype.remove;
-		this.DOMTokenList.prototype.remove = function () {
+		var native = e.classList.constructor.prototype.remove;
+		e.classList.constructor.prototype.remove = function () {
 			var args = arguments;
 			var l = arguments.length;
 			for (var i = 0; i < l; i++) {
