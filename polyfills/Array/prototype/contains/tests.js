@@ -8,7 +8,7 @@ it('has correct instance', function () {
 // Skipped because contains is now just an alias to includes
 it.skip('has correct name', function () {
 	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
 	}
 	proclaim.equal(nameOf(Array.prototype.contains), 'contains');
 });

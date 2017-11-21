@@ -7,7 +7,7 @@ it('has correct instance', function () {
 
 it('has correct name', function () {
 	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
 	}
 	proclaim.equal(nameOf(Array.of), 'of');
 });
