@@ -1305,12 +1305,12 @@
       "58": "native"
     },
     "firefox": {
-      "30": "native",
-      "33": "native",
-      "41": "native",
-      "42": "native",
-      "44": "native",
-      "49": "native",
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled",
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "polyfilled",
       "53": "native"
     },
     "ie": {
