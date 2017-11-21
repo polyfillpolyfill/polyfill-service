@@ -157,6 +157,13 @@ it("exhibits correct iterator behaviour", function () {
 	proclaim.equal(lastResult.value, void 0);
 });
 
+it("implements iterable for all iterators", function () {
+	proclaim.isDefined(o.values()[Symbol.iterator]);
+	proclaim.isDefined(o.keys()[Symbol.iterator]);
+	proclaim.isDefined(o[Symbol.iterator]);
+	proclaim.isDefined(o.entries()[Symbol.iterator]);
+});
+
 it("implements .forEach()", function () {
 	var o = new Map();
 	o.set("key 0", 0);

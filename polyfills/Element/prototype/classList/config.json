@@ -9,14 +9,16 @@
 		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "8 - 9",
+		"ie": "8 - 11",
 		"safari": "4 - 4.1"
 	},
 	"dependencies": [
-		"Object.defineProperty",
-		"_DOMTokenList",
-		"Element"
+		"DOMTokenList",
+		"Element",
+		"Object.defineProperty"
 	],
 	"spec": "https://html.spec.whatwg.org/multipage/dom.html#dom-classlist",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList",
+	"license": "ISC",
+	"repo": "https://github.com/Alhadis/DOMTokenList"
 }
