@@ -1,6 +1,19 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
 
+var supportsDescriptors = Object.defineProperty && (function () {
+	try {
+			var obj = {};
+			Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+			for (var _ in obj) { return false; } // jscs:ignore disallowUnusedVariables
+			return obj.x === obj;
+	} catch (e) { /* this is ES3 */
+			return false;
+	}
+}());
+
+var ifSupportsDescriptorsIt = supportsDescriptors ? it : xit;
+
 it('has correct instance', function () {
 	proclaim.isInstanceOf(Array.prototype.includes, Function);
 });
@@ -16,7 +29,7 @@ it('has correct argument length', function () {
 	proclaim.equal(Array.prototype.includes.length, 1);
 });
 
-it('is not enumerable', function () {
+ifSupportsDescriptorsIt('is not enumerable', function () {
 	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype, 'includes'));
 });
 
