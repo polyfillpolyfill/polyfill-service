@@ -16,7 +16,7 @@
 		"ios_chr": "* - 8.0",
 		"android": "*",
 		"firefox_mob": "3.6 - 24",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [
 		"Object.defineProperty"
