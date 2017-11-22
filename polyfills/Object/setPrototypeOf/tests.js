@@ -21,10 +21,19 @@ it('changes prototype to regular simple objects', function() {
 	proclaim.equal(obj.a, 456);
 });
 
-it('changes prototype to regular complex objects', function() {
+it('changes prototype to regular complex objects, with mutation', function() {
 	var Child = function () {};
 	var Parent = {a: 123};
 	var child = new Child();
 	Object.setPrototypeOf(child, Parent);
-	proclaim.equal(obj.a, 123);
+	proclaim.equal(child.a, 123);
+});
+
+
+it('changes prototype to regular complex objects, with return', function() {
+	var Child = function () {};
+	var Parent = {a: 123};
+	var child = new Child();
+	child = Object.setPrototypeOf(child, Parent);
+	proclaim.equal(child.a, 123);
 });
