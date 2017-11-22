@@ -88,47 +88,47 @@ describe('IntersectionObserver', function() {
   describe('constructor', function() {
 
     it('throws when callback is not a function', function() {
-      expect(function() {
-        io = new IntersectionObserver(null);
-      }).to.throwException();
+			proclaim.throws(function () {
+				io = new IntersectionObserver(null);
+			});
     });
 
 
     it('instantiates root correctly', function() {
       io = new IntersectionObserver(noop);
-      expect(io.root).to.be(null);
+			proclaim.isNull(io.root);
 
       io = new IntersectionObserver(noop, {root: rootEl});
-      expect(io.root).to.be(rootEl);
+      proclaim.deepEqual(io.root, rootEl);
     });
 
 
     it('throws when root is not an Element', function() {
-      expect(function() {
-        io = new IntersectionObserver(noop, {root: 'foo'});
-      }).to.throwException();
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop, { root: 'foo' });
+			});
     });
 
 
     it('instantiates rootMargin correctly', function() {
       io = new IntersectionObserver(noop, {rootMargin: '10px'});
-      expect(io.rootMargin).to.be('10px 10px 10px 10px');
+      proclaim.deepEqual(io.rootMargin, '10px 10px 10px 10px');
 
       io = new IntersectionObserver(noop, {rootMargin: '10px -5%'});
-      expect(io.rootMargin).to.be('10px -5% 10px -5%');
+      proclaim.deepEqual(io.rootMargin, '10px -5% 10px -5%');
 
       io = new IntersectionObserver(noop, {rootMargin: '10px 20% 0px'});
-      expect(io.rootMargin).to.be('10px 20% 0px 20%');
+      proclaim.deepEqual(io.rootMargin, '10px 20% 0px 20%');
 
       io = new IntersectionObserver(noop, {rootMargin: '0px 0px -5% 5px'});
-      expect(io.rootMargin).to.be('0px 0px -5% 5px');
+      proclaim.deepEqual(io.rootMargin, '0px 0px -5% 5px');
 
       // TODO(philipwalton): the polyfill supports fractional pixel and
       // percentage values, but the native Chrome implementation does not,
       // at least not in what it reports `rootMargin` to be.
       if (!supportsNativeIntersectionObserver()) {
         io = new IntersectionObserver(noop, {rootMargin: '-2.5% -8.5px'});
-        expect(io.rootMargin).to.be('-2.5% -8.5px -2.5% -8.5px');
+        proclaim.deepEqual(io.rootMargin, '-2.5% -8.5px -2.5% -8.5px');
       }
     });
 
@@ -147,31 +147,31 @@ describe('IntersectionObserver', function() {
     if ('thresholds' in IntersectionObserver.prototype) {
       it('instantiates thresholds correctly', function() {
         io = new IntersectionObserver(noop);
-        expect(io.thresholds).to.eql([0]);
+        proclaim.deepEqual(io.thresholds, [0]);
 
         io = new IntersectionObserver(noop, {threshold: 0.5});
-        expect(io.thresholds).to.eql([0.5]);
+        proclaim.deepEqual(io.thresholds, [0.5]);
 
         io = new IntersectionObserver(noop, {threshold: [0.25, 0.5, 0.75]});
-        expect(io.thresholds).to.eql([0.25, 0.5, 0.75]);
+        proclaim.deepEqual(io.thresholds, [0.25, 0.5, 0.75]);
 
         io = new IntersectionObserver(noop, {threshold: [1, .5, 0]});
-        expect(io.thresholds).to.eql([0, .5, 1]);
+        proclaim.deepEqual(io.thresholds, [0, .5, 1]);
       });
     }
 
 
     it('throws when a threshold is not a number', function() {
-      expect(function() {
-        io = new IntersectionObserver(noop, {threshold: ['foo']});
-      }).to.throwException();
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop, { threshold: ['foo'] });
+			});
     });
 
 
     it('throws when a threshold value is not between 0 and 1', function() {
-      expect(function() {
-        io = new IntersectionObserver(noop, {threshold: [0, -1]});
-      }).to.throwException();
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop, { threshold: [0, -1] });
+			});
     });
 
   });
@@ -180,18 +180,18 @@ describe('IntersectionObserver', function() {
   describe('observe', function() {
 
     it('throws when target is not an Element', function() {
-      expect(function() {
-        io = new IntersectionObserver(noop);
-        io.observe(null);
-      }).to.throwException();
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop);
+				io.observe(null);
+			});
     });
 
 
     it('triggers for all targets when observing begins', function(done) {
       io = new IntersectionObserver(function(records) {
-        expect(records.length).to.be(2);
-        expect(records[0].intersectionRatio).to.be(1);
-        expect(records[1].intersectionRatio).to.be(0);
+        proclaim.deepEqual(records.length, 2);
+        proclaim.deepEqual(records[0].intersectionRatio, 1);
+        proclaim.deepEqual(records[1].intersectionRatio, 0);
         done();
       }, {root: rootEl});
 
@@ -208,7 +208,7 @@ describe('IntersectionObserver', function() {
       setTimeout(function() {
         io.observe(targetEl2);
         setTimeout(function() {
-          expect(spy.callCount).to.be(2);
+          proclaim.deepEqual(spy.callCount, 2);
           done();
         }, ASYNC_TIMEOUT);
       }, ASYNC_TIMEOUT);
@@ -217,11 +217,11 @@ describe('IntersectionObserver', function() {
 
     it('triggers with the correct arguments', function(done) {
       io = new IntersectionObserver(function(records, observer) {
-        expect(records.length).to.be(2);
-        expect(records[0] instanceof IntersectionObserverEntry).to.be.ok();
-        expect(records[1] instanceof IntersectionObserverEntry).to.be.ok();
-        expect(observer).to.be(io);
-        expect(this).to.be(io);
+        proclaim.deepEqual(records.length, 2);
+        proclaim.ok(records[0] instanceof IntersectionObserverEntry);
+        proclaim.ok(records[1] instanceof IntersectionObserverEntry);
+        proclaim.deepEqual(observer, io);
+        proclaim.deepEqual(this, io);
         done();
       }, {root: rootEl});
 
@@ -241,30 +241,30 @@ describe('IntersectionObserver', function() {
         function(done) {
           io.observe(targetEl1);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           targetEl1.style.left = '-40px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           parentEl.style.overflow = 'visible';
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -282,37 +282,37 @@ describe('IntersectionObserver', function() {
           targetEl1.style.left = '-5px';
           io.observe(targetEl1);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be.greaterThan(0.5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.greaterThan(records[0].intersectionRatio, 0.5);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           targetEl1.style.left = '-15px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be.lessThan(0.5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.lessThan(records[0].intersectionRatio, 0.5);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           targetEl1.style.left = '-25px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           targetEl1.style.left = '-10px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(0.5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.5);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -342,15 +342,15 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl2);
           io.observe(targetEl3);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(3);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(0.25);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0.75);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 3);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.25);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0.75);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -362,15 +362,15 @@ describe('IntersectionObserver', function() {
           targetEl3.style.top = '0px';
           targetEl3.style.left = '195px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(3);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(0.75);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0.25);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0.25);
+            proclaim.deepEqual(records.length, 3);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.75);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0.25);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0.25);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -382,15 +382,15 @@ describe('IntersectionObserver', function() {
           targetEl3.style.top = '0px';
           targetEl3.style.left = '185px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(3);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0.75);
+            proclaim.deepEqual(records.length, 3);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0.75);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -402,11 +402,11 @@ describe('IntersectionObserver', function() {
           targetEl3.style.top = '0px';
           targetEl3.style.left = '175px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(4);
+            proclaim.deepEqual(spy.callCount, 4);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].target).to.be(targetEl3);
-            expect(records[0].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].target, targetEl3);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -430,15 +430,15 @@ describe('IntersectionObserver', function() {
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            expect(records.length).to.be(4);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(.5);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(.5);
-            expect(records[3].target).to.be(targetEl4);
-            expect(records[3].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 4);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, .5);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, .5);
+            proclaim.deepEqual(records[3].target, targetEl4);
+            proclaim.deepEqual(records[3].intersectionRatio, 1);
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '10px'});
@@ -451,15 +451,15 @@ describe('IntersectionObserver', function() {
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            expect(records.length).to.be(4);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(0.5);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0.5);
-            expect(records[3].target).to.be(targetEl4);
-            expect(records[3].intersectionRatio).to.be(0.5);
+            proclaim.deepEqual(records.length, 4);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.5);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0.5);
+            proclaim.deepEqual(records[3].target, targetEl4);
+            proclaim.deepEqual(records[3].intersectionRatio, 0.5);
 
             io.disconnect();
             done();
@@ -473,15 +473,15 @@ describe('IntersectionObserver', function() {
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            expect(records.length).to.be(4);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(0.5);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0);
-            expect(records[3].target).to.be(targetEl4);
-            expect(records[3].intersectionRatio).to.be(0.5);
+            proclaim.deepEqual(records.length, 4);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.5);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0);
+            proclaim.deepEqual(records[3].target, targetEl4);
+            proclaim.deepEqual(records[3].intersectionRatio, 0.5);
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '-5% -2.5% 0px'});
@@ -494,15 +494,15 @@ describe('IntersectionObserver', function() {
         function(done) {
           io = new IntersectionObserver(function(records) {
             records = sortRecords(records);
-            expect(records.length).to.be(4);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(0.5);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(0.5);
-            expect(records[2].target).to.be(targetEl3);
-            expect(records[2].intersectionRatio).to.be(0);
-            expect(records[3].target).to.be(targetEl4);
-            expect(records[3].intersectionRatio).to.be(0.25);
+            proclaim.deepEqual(records.length, 4);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0.5);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 0.5);
+            proclaim.deepEqual(records[2].target, targetEl3);
+            proclaim.deepEqual(records[2].intersectionRatio, 0);
+            proclaim.deepEqual(records[3].target, targetEl4);
+            proclaim.deepEqual(records[3].intersectionRatio, 0.25);
             io.disconnect();
             done();
           }, {root: rootEl, rootMargin: '5% -2.5% -10px -190px'});
@@ -530,15 +530,15 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl1);
           io.observe(targetEl2);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(2);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].isIntersecting).to.be(false);
-            expect(records[1].intersectionRatio).to.be(0);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].isIntersecting).to.be(true);
+            proclaim.deepEqual(records.length, 2);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].isIntersecting, false);
+            proclaim.deepEqual(records[1].intersectionRatio, 0);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].isIntersecting, true);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -548,13 +548,13 @@ describe('IntersectionObserver', function() {
           targetEl2.style.top = '-21px';
           targetEl2.style.left = '0px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(2);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[1].intersectionRatio).to.be(0);
-            expect(records[1].target).to.be(targetEl2);
+            proclaim.deepEqual(records.length, 2);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[1].intersectionRatio, 0);
+            proclaim.deepEqual(records[1].target, targetEl2);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -565,11 +565,11 @@ describe('IntersectionObserver', function() {
           targetEl2.style.left = '200px';
 
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl2);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl2);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -582,9 +582,9 @@ describe('IntersectionObserver', function() {
         function(done) {
 
       io = new IntersectionObserver(function(records) {
-        expect(records.length).to.be(1);
-        expect(records[0].isIntersecting).to.be(true);
-        expect(records[0].intersectionRatio).to.be(1);
+        proclaim.deepEqual(records.length, 1);
+        proclaim.deepEqual(records[0].isIntersecting, true);
+        proclaim.deepEqual(records[0].intersectionRatio, 1);
         done();
       }, {root: rootEl});
 
@@ -606,55 +606,55 @@ describe('IntersectionObserver', function() {
           rootEl.style.display = 'none';
           io.observe(targetEl1);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(false);
-            expect(records[0].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, false);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           rootEl.style.display = 'block';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(true);
-            expect(records[0].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, true);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           parentEl.style.display = 'none';
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(false);
-            expect(records[0].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, false);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           parentEl.style.display = 'block';
           setTimeout(function() {
-            expect(spy.callCount).to.be(4);
+            proclaim.deepEqual(spy.callCount, 4);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(true);
-            expect(records[0].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, true);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
         function(done) {
           targetEl1.style.display = 'none';
           setTimeout(function() {
-            expect(spy.callCount).to.be(5);
+            proclaim.deepEqual(spy.callCount, 5);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(false);
-            expect(records[0].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, false);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -678,12 +678,12 @@ describe('IntersectionObserver', function() {
           setTimeout(function() {
             // Initial observe should trigger with no intersections since
             // targetEl5 is not yet in the DOM.
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].isIntersecting).to.be(false);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].isIntersecting, false);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl5);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -691,11 +691,11 @@ describe('IntersectionObserver', function() {
           // Adding targetEl5 inside rootEl should trigger.
           parentEl.insertBefore(targetEl5, targetEl2);
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[0].target).to.be(targetEl5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[0].target, targetEl5);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -703,11 +703,11 @@ describe('IntersectionObserver', function() {
           // Removing an ancestor of targetEl5 should trigger.
           grandParentEl.parentNode.removeChild(grandParentEl);
           setTimeout(function() {
-            expect(spy.callCount).to.be(3);
+            proclaim.deepEqual(spy.callCount, 3);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl5);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -716,11 +716,11 @@ describe('IntersectionObserver', function() {
           // back directly inside rootEl should trigger.
           rootEl.appendChild(targetEl5);
           setTimeout(function() {
-            expect(spy.callCount).to.be(4);
+            proclaim.deepEqual(spy.callCount, 4);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[0].target).to.be(targetEl5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[0].target, targetEl5);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -728,11 +728,11 @@ describe('IntersectionObserver', function() {
           // Removing rootEl should trigger.
           rootEl.parentNode.removeChild(rootEl);
           setTimeout(function() {
-            expect(spy.callCount).to.be(5);
+            proclaim.deepEqual(spy.callCount, 5);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].intersectionRatio).to.be(0);
-            expect(records[0].target).to.be(targetEl5);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
+            proclaim.deepEqual(records[0].target, targetEl5);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -746,8 +746,8 @@ describe('IntersectionObserver', function() {
         grandParentEl.shadowRoot.appendChild(parentEl);
 
         io = new IntersectionObserver(function(records) {
-          expect(records.length).to.be(1);
-          expect(records[0].intersectionRatio).to.be(1);
+          proclaim.deepEqual(records.length, 1);
+          proclaim.deepEqual(records[0].intersectionRatio, 1);
           done();
         }, {root: rootEl});
 
@@ -758,8 +758,8 @@ describe('IntersectionObserver', function() {
 
     it('handles sub-root element scrolling', function(done) {
       io = new IntersectionObserver(function(records) {
-        expect(records.length).to.be(1);
-        expect(records[0].intersectionRatio).to.be(1);
+        proclaim.deepEqual(records.length, 1);
+        proclaim.deepEqual(records[0].intersectionRatio, 1);
         done();
       }, {root: rootEl});
 
@@ -780,10 +780,10 @@ describe('IntersectionObserver', function() {
         targetEl1.style.left = '220px';
 
         io = new IntersectionObserver(function(records) {
-          expect(records.length).to.be(1);
+          proclaim.deepEqual(records.length, 1);
           // Chrome's native implementation sometimes incorrectly reports
           // the intersection ratio as a number > 1.
-          expect(records[0].intersectionRatio >= 1);
+          proclaim.ok(records[0].intersectionRatio >= 1);
           done();
         }, {root: rootEl, threshold: [1]});
 
@@ -808,13 +808,13 @@ describe('IntersectionObserver', function() {
         var viewportHeight =
             document.documentElement.clientHeight || document.body.clientHeight;
 
-        expect(records.length).to.be(1);
-        expect(records[0].rootBounds.top).to.be(0);
-        expect(records[0].rootBounds.left).to.be(0);
-        expect(records[0].rootBounds.right).to.be(viewportWidth);
-        expect(records[0].rootBounds.width).to.be(viewportWidth);
-        expect(records[0].rootBounds.bottom).to.be(viewportHeight);
-        expect(records[0].rootBounds.height).to.be(viewportHeight);
+        proclaim.deepEqual(records.length, 1);
+        proclaim.deepEqual(records[0].rootBounds.top, 0);
+        proclaim.deepEqual(records[0].rootBounds.left, 0);
+        proclaim.deepEqual(records[0].rootBounds.right, viewportWidth);
+        proclaim.deepEqual(records[0].rootBounds.width, viewportWidth);
+        proclaim.deepEqual(records[0].rootBounds.bottom, viewportHeight);
+        proclaim.deepEqual(records[0].rootBounds.height, viewportHeight);
         done();
       });
 
@@ -846,8 +846,8 @@ describe('IntersectionObserver', function() {
       });
 
       setTimeout(function() {
-        expect(lastestRecords.length).to.be(1);
-        expect(lastestRecords[0].intersectionRatio).to.be(1);
+        proclaim.deepEqual(lastestRecords.length, 1);
+        proclaim.deepEqual(lastestRecords[0].intersectionRatio, 1);
         done();
       }, ASYNC_TIMEOUT);
     });
@@ -869,13 +869,13 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl1);
           io.observe(targetEl2);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(2);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 2);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -884,11 +884,11 @@ describe('IntersectionObserver', function() {
           targetEl1.style.top = targetEl2.style.top = '0px';
           targetEl1.style.left = targetEl2.style.left = '-40px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(1);
-            expect(records[0].target).to.be(targetEl2);
-            expect(records[0].intersectionRatio).to.be(0);
+            proclaim.deepEqual(records.length, 1);
+            proclaim.deepEqual(records[0].target, targetEl2);
+            proclaim.deepEqual(records[0].intersectionRatio, 0);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -897,7 +897,7 @@ describe('IntersectionObserver', function() {
           targetEl1.style.top = targetEl2.style.top = '0px';
           targetEl1.style.left = targetEl2.style.left = '0px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(2);
+            proclaim.deepEqual(spy.callCount, 2);
             done();
           }, ASYNC_TIMEOUT);
         }
@@ -921,13 +921,13 @@ describe('IntersectionObserver', function() {
           io.observe(targetEl1);
           io.observe(targetEl2);
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             var records = sortRecords(spy.lastCall.args[0]);
-            expect(records.length).to.be(2);
-            expect(records[0].target).to.be(targetEl1);
-            expect(records[0].intersectionRatio).to.be(1);
-            expect(records[1].target).to.be(targetEl2);
-            expect(records[1].intersectionRatio).to.be(1);
+            proclaim.deepEqual(records.length, 2);
+            proclaim.deepEqual(records[0].target, targetEl1);
+            proclaim.deepEqual(records[0].intersectionRatio, 1);
+            proclaim.deepEqual(records[1].target, targetEl2);
+            proclaim.deepEqual(records[1].intersectionRatio, 1);
             done();
           }, ASYNC_TIMEOUT);
         },
@@ -936,7 +936,7 @@ describe('IntersectionObserver', function() {
           targetEl1.style.top = targetEl2.style.top = '0px';
           targetEl1.style.left = targetEl2.style.left = '-40px';
           setTimeout(function() {
-            expect(spy.callCount).to.be(1);
+            proclaim.deepEqual(spy.callCount, 1);
             done();
           }, ASYNC_TIMEOUT);
         }
