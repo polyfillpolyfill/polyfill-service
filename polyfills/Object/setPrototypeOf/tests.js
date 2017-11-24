@@ -21,7 +21,9 @@ it('changes prototype to regular simple objects', function() {
 	proclaim.equal(obj.a, 456);
 });
 
-it('changes prototype to regular complex objects, with mutation', function() {
+// Our polyfill requires reassignment of the same object, meaning external, non own objects, might not be upgraded if the engine was not compatible.
+// https://github.com/paulmillr/es6-shim/pull/281#issue-39995975
+it.skip('changes prototype to regular complex objects, with mutation', function() {
 	var Child = function () {};
 	var Parent = {a: 123};
 	var child = new Child();
