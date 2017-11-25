@@ -7,7 +7,8 @@
 	Object.defineProperty = function defineProperty(object, property, descriptor) {
 
 		// Where native support exists, assume it
-		if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
+		if (nativeDefineProperty && (object === window || object === document || object === Element.prototype
+				|| object instanceof Element || !object.__defineGetter__ || !object.__defineSetter__)) {
 			return nativeDefineProperty(object, property, descriptor);
 		}
 
