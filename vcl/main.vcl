@@ -183,7 +183,7 @@ sub vcl_recv {
 			{""perf_connect":"} regsub(req.url.qs, "^(.*\&)?connect=(\d+).*?$", "\2") ","
 			{""perf_req":"} regsub(req.url.qs, "^(.*\&)?req=(\d+).*?$", "\2") ","
 			{""perf_resp":"} regsub(req.url.qs, "^(.*\&)?resp=(\d+).*?$", "\2") ","
-			{""elapsed_msec":"} elapsed.msec ","
+			{""elapsed_msec":"} time.elapsed.msec ","
 			{""ua_version":"} regsub(req.http.Normalized-User-Agent, "^\w+\/(\d+)$", "\1") # Final log item has no trailing comma
 		"}";
 
