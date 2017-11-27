@@ -365,3 +365,11 @@ sub vcl_error {
 		return(deliver);
 	}
 }
+
+sub vcl_log {
+
+	# Intentionally not including Fastly's log macro to avoid logging
+	# events based on log schemes declared in the UI.
+
+	log "syslog :: " request.service_id " s3 :: " req.http.host " " server.region " [" strftime({"%Y-%m-%d %H:%M:%S"}, time.start) "." time.start.msec_frac {"] ""} cstr_escape(req.request) " " cstr_escape(req.url) " " cstr_escape(req.proto) {"" "} resp.status " " req.bytes_read " " resp.bytes_written " " time.elapsed.msec " " tls.client.protocol " " fastly_info.state " " cstr_escape(req.http.Referer_domain) " " cstr_escape(req.http.Normalized-User-Agent);
+}
