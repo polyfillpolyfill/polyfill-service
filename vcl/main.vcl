@@ -216,6 +216,48 @@ sub vcl_recv {
 				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
 			"}";
 		}
+		if (req.url.qs ~ "^(.*\&)?detect4=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect5=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect6=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect7=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect8=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect9=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
 
 		# Return an empty response to the client
 		error 204 "No Content";
