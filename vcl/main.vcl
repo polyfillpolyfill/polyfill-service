@@ -162,7 +162,7 @@ sub vcl_recv {
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
 		declare local var.rumRequestID STRING;
-		var.rumRequestID = now.sec "-" req.xid;
+		set var.rumRequestID = now.sec "-" req.xid;
 
 		# Send request summary log event
 		log "syslog " request.service_id " rum_requests :: {"
