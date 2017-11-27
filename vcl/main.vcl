@@ -169,7 +169,7 @@ sub vcl_recv {
 
 			# Strings
 			{""request_id":""} cstr_escape(var.rumRequestID) {"","}
-			{""request_time":""} now {"","}
+			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%S%z"}, time.start) {"","}
 			{""country":""} cstr_escape(geoip.country_code) {"","}
 			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
 			{""refer_domain_hash":""} cstr_escape(digest.hash_sha256("salt" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3"))) {"","}
