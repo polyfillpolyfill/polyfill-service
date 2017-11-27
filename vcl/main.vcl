@@ -260,7 +260,7 @@ sub vcl_recv {
 		}
 
 		# Return an empty response to the client
-		error 204 "No Content";
+		error 904 var.rumRequestID;
 	}
 
 	set req.url = boltsort.sort(req.url);
@@ -349,5 +349,19 @@ sub vcl_error {
 		set obj.http.Location = "https://polyfill.io" req.url;
 		synthetic {""};
 		return (deliver);
+	}
+
+	# RUM response
+	if (obj.status == 904) {
+		set obj.http.RUM-ID = obj.response;
+		set obj.status = 204;
+		set obj.response = "No Content";
+		set obj.http.Content-Type = "text/html";
+		set obj.http.Cache-Control = "no-cache, no-store, max-age=0, must-revalidate";
+		set obj.http.Access-Control-Allow-Origin = req.http.Origin;
+		set obj.http.Access-Control-Allow-Credentials = "true";
+		set obj.http.Access-Control-Allow-Methods = "POST, OPTIONS";
+
+		return(deliver);
 	}
 }
