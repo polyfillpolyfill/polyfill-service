@@ -161,7 +161,63 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
-		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code "&data_center=" if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter);
+		declare local var.rumRequestID STRING;
+		var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+
+		# Send request summary log event
+		log "syslog " request.service_id " rum_requests :: {"
+
+			# Strings
+			{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+			{""request_time":""} now {"","}
+			{""country":""} cstr_escape(geoip.country_code) {"","}
+			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
+			{""refer_domain_hash":""} cstr_escape(digest.hash_sha256("salt" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3"))) {"","}
+			{""client_ip_hash":""} cstr_escape(digest.hash_sha256("salt" client.ip)) {"","}
+			{""ua_family":""} cstr_escape(regsub(req.http.Normalized-User-Agent, "^(\w+)\/.*$", "\1")) {"","}
+
+			# Integers
+			# CAREFUL: These variables are concatenated into a raw JSON string.
+			# Ensure they are valid numbers
+			{""perf_dns":"} regsub(req.url.qs, "^(.*\&)?dns=(\d+).*?$", "\2") ","
+			{""perf_connect":"} regsub(req.url.qs, "^(.*\&)?connect=(\d+).*?$", "\2") ","
+			{""perf_req":"} regsub(req.url.qs, "^(.*\&)?req=(\d+).*?$", "\2") ","
+			{""perf_resp":"} regsub(req.url.qs, "^(.*\&)?resp=(\d+).*?$", "\2") ","
+			{""elapsed_msec":"} elapsed.msec ","
+			{""ua_version":"} regsub(req.http.Normalized-User-Agent, "^\w+\/(\d+)$", "\1") # Final log item has no trailing comma
+		"}";
+
+		# Send log events for each feature detect
+		if (req.url.qs ~ "^(.*\&)?detect0=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect1=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect2=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect3=(\w+)_([10])(\&.*)?$") {
+			log "syslog " request.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+
+		# Return an empty response to the client
 		error 204 "No Content";
 	}
 
