@@ -175,7 +175,7 @@ sub vcl_recv {
 
 			# Strings
 			{""request_id":""} cstr_escape(var.rumRequestID) {"","}
-			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%S%z"}, time.start) {"","}
+			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%SZ"}, time.start) {"","}
 			{""country":""} cstr_escape(geoip.country_code) {"","}
 			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
 			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeRef), "^(.{15}).*?$", "\1")) {"","}
