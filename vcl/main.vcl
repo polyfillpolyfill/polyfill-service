@@ -162,10 +162,10 @@ sub vcl_recv {
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
 		declare local var.rumRequestID STRING;
-		set var.rumRequestID = now.sec "-" req.xid;
+		declare local var.rumLogString STRING;
 
-		# Send request summary log event
-		log "syslog " req.service_id " rum_requests :: {"
+		set var.rumRequestID = now.sec "-" req.xid;
+		set var.rumLogString = "{"
 
 			# Strings
 			{""request_id":""} cstr_escape(var.rumRequestID) {"","}
@@ -186,6 +186,9 @@ sub vcl_recv {
 			{""elapsed_msec":"} time.elapsed.msec ","
 			{""ua_version":"} regsub(req.http.Normalized-User-Agent, "^\w+\/(\d+)$", "\1") # Final log item has no trailing comma
 		"}";
+
+		# Send request summary log event
+		log "syslog " req.service_id " rum_requests :: " var.rumLogString;
 
 		# Send log events for each feature detect
 		if (req.url.qs ~ "^(.*\&)?detect0=(\w+)_([10])(\&.*)?$") {
@@ -260,7 +263,7 @@ sub vcl_recv {
 		}
 
 		# Return an empty response to the client
-		error 904 var.rumRequestID;
+		error 904 var.rumLogString;
 	}
 
 	set req.url = boltsort.sort(req.url);
@@ -353,7 +356,7 @@ sub vcl_error {
 
 	# RUM response
 	if (obj.status == 904) {
-		set obj.http.RUM-ID = obj.response;
+		set obj.http.RUM-Debug = obj.response;
 		set obj.status = 204;
 		set obj.response = "No Content";
 		set obj.http.Cache-Control = "private, no-store";
