@@ -178,8 +178,8 @@ sub vcl_recv {
 			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%S%z"}, time.start) {"","}
 			{""country":""} cstr_escape(geoip.country_code) {"","}
 			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
-			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeRef), "^(.{15}.*?$", "\1")) {"","}
-			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeIP), "^(.{15}.*?$", "\1")) {"","}
+			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeRef), "^(.{15}).*?$", "\1")) {"","}
+			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeIP), "^(.{15}).*?$", "\1")) {"","}
 			{""ua_family":""} cstr_escape(regsub(urldecode(req.http.Normalized-User-Agent), "^(\w+)\/.*$", "\1")) {"","}
 
 			# Integers
