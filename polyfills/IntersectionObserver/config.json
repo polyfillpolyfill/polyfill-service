@@ -13,7 +13,7 @@
 		"op_mini": "17 - *",
 		"opera": "*",
 		"safari": "6 - *",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [
 		"getComputedStyle",

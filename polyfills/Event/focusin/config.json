@@ -7,8 +7,8 @@
 		"default"
 	],
 	"browsers": {
-		"firefox": "6 - *",
-		"firefox_mob": "6 - *"
+		"firefox": "<52",
+		"firefox_mob": "<52"
 	},
 	"dependencies": [
 		"Event"

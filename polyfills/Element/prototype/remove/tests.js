@@ -1,10 +1,10 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 var element, child;
 
 function nameOf(fn) {
-	return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+	return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
 }
 
 beforeEach(function () {

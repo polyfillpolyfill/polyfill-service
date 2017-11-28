@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("Should be able to return a function with 'this' bound to the specified value", function(done){
 	var thisVal = {foo:'bar'};

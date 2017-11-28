@@ -18,7 +18,7 @@
 		"op_mini": "*",
 		"safari": "<10",
 		"firefox_mob": "<49",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [
 		"Document",
