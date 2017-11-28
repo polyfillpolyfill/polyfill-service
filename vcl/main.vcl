@@ -356,12 +356,7 @@ sub vcl_error {
 		set obj.http.RUM-ID = obj.response;
 		set obj.status = 204;
 		set obj.response = "No Content";
-		set obj.http.Content-Type = "text/html";
-		set obj.http.Cache-Control = "no-cache, no-store, max-age=0, must-revalidate";
-		set obj.http.Access-Control-Allow-Origin = req.http.Origin;
-		set obj.http.Access-Control-Allow-Credentials = "true";
-		set obj.http.Access-Control-Allow-Methods = "POST, OPTIONS";
-
+		set obj.http.Cache-Control = "private, no-store";
 		return(deliver);
 	}
 }
