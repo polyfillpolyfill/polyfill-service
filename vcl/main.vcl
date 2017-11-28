@@ -169,7 +169,7 @@ sub vcl_recv {
 
 		set var.hashSalt = "salt";
 		set var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-		set var.safeIP = addr.extract_bits(client.ip, 16, 16);
+		set var.safeIP = addr.extract_bits(client.ip, 16, 32);
 		set var.safeRef = regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
 		set var.rumLogString = "{"
 
