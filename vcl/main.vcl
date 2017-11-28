@@ -163,8 +163,14 @@ sub vcl_recv {
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
 		declare local var.rumRequestID STRING;
 		declare local var.rumLogString STRING;
+		declare local var.hashSalt STRING;
+		declare local var.safeIP INTEGER;
+		declare local var.safeRef STRING;
 
+		set var.hashSalt = "salt";
 		set var.rumRequestID = now.sec "-" req.xid;
+		set var.safeIP = extract_bits(client.ip, 16, 16);
+		set var.safeRef = regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
 		set var.rumLogString = "{"
 
 			# Strings
@@ -172,9 +178,9 @@ sub vcl_recv {
 			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%S%z"}, time.start) {"","}
 			{""country":""} cstr_escape(geoip.country_code) {"","}
 			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
-			{""refer_domain_hash":""} cstr_escape(digest.hash_sha256("salt" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3"))) {"","}
-			{""client_ip_hash":""} cstr_escape(digest.hash_sha256("salt" client.ip)) {"","}
-			{""ua_family":""} cstr_escape(regsub(req.http.Normalized-User-Agent, "^(\w+)\/.*$", "\1")) {"","}
+			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeRef), "^(.{15}.*?$", "\1")) {"","}
+			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeIP), "^(.{15}.*?$", "\1")) {"","}
+			{""ua_family":""} cstr_escape(regsub(urldecode(req.http.Normalized-User-Agent), "^(\w+)\/.*$", "\1")) {"","}
 
 			# Integers
 			# CAREFUL: These variables are concatenated into a raw JSON string.
@@ -184,7 +190,7 @@ sub vcl_recv {
 			{""perf_req":"} regsub(req.url.qs, "^(.*\&)?req=(\d+).*?$", "\2") ","
 			{""perf_resp":"} regsub(req.url.qs, "^(.*\&)?resp=(\d+).*?$", "\2") ","
 			{""elapsed_msec":"} time.elapsed.msec ","
-			{""ua_version":"} regsub(req.http.Normalized-User-Agent, "^\w+\/(\d+)$", "\1") # Final log item has no trailing comma
+			{""ua_version":"} regsub(urldecode(req.http.Normalized-User-Agent), "^\w+\/(\d+(\.\d+)?).*?$", "\1") # Final log item has no trailing comma
 		"}";
 
 		# Send request summary log event
