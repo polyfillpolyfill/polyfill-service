@@ -192,7 +192,7 @@ sub vcl_recv {
 			set var.rumLogString = var.rumLogString {","perf_resp":"} re.group.2;
 		}
 		if (urldecode(req.http.Normalized-User-Agent) ~ "^\w+\/(\d+(\.\d+)?).*?$") {
-			set var.rumLogString = var.rumLogString {","perf_resp":"} re.group.1;
+			set var.rumLogString = var.rumLogString {","ua_version":"} re.group.1;
 		}
 
 		# Send request summary log event
