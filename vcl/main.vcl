@@ -163,7 +163,7 @@ sub vcl_recv {
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
 		declare local var.rumRequestID STRING;
 		declare local var.rumLogString STRING;
-		declare local var.safeIP INTEGER;
+		declare local var.safeIP STRING;
 		declare local var.safeRef STRING;
 
 		set var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
