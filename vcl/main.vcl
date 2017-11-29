@@ -166,7 +166,6 @@ sub vcl_recv {
 		declare local var.safeIP INTEGER;
 		declare local var.safeRef STRING;
 
-		set var.hashSalt = "salt";
 		set var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 		set var.safeIP = table.lookup(config, "salt_ip") addr.extract_bits(client.ip, 16, 32);
 		set var.safeRef = table.lookup(config, "salt_refer_domain") regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
