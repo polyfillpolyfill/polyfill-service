@@ -163,14 +163,13 @@ sub vcl_recv {
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
 		declare local var.rumRequestID STRING;
 		declare local var.rumLogString STRING;
-		declare local var.hashSalt STRING;
 		declare local var.safeIP INTEGER;
 		declare local var.safeRef STRING;
 
 		set var.hashSalt = "salt";
 		set var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-		set var.safeIP = addr.extract_bits(client.ip, 16, 32);
-		set var.safeRef = regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
+		set var.safeIP = table.lookup(config, "salt_ip") addr.extract_bits(client.ip, 16, 32);
+		set var.safeRef = table.lookup(config, "salt_refer_domain") regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
 		set var.rumLogString = "{"
 
 			# Strings
@@ -178,8 +177,8 @@ sub vcl_recv {
 			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%SZ"}, time.start) {"","}
 			{""country":""} cstr_escape(geoip.country_code) {"","}
 			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
-			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeRef), "^(.{15}).*?$", "\1")) {"","}
-			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.hashSalt var.safeIP), "^(.{15}).*?$", "\1")) {"","}
+			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.safeRef), "^(.{15}).*?$", "\1")) {"","}
+			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.safeIP), "^(.{15}).*?$", "\1")) {"","}
 			{""ua_family":""} cstr_escape(regsub(urldecode(req.http.Normalized-User-Agent), "^(\w+)\/.*$", "\1")) {"","}
 
 			# Integers
