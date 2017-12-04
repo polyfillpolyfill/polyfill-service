@@ -1,13 +1,13 @@
 (function() {
 	var beacon = new Image();
-	beacon.src = '//{{{host}}}/v2/recordRumData?X' + 
+	beacon.src = '//{{{host}}}/v2/recordRumData?X' +
 	{{#each features}}
-	"&{{{name}}}=" + (({{{detect}}})?1:0) +{{/each}}
+	"&detect{{@index}}={{{name}}}_" + (({{{detect}}})?1:0) +{{/each}}
 	(('performance' in window && 'getEntriesByType' in window.performance && 'find' in Array.prototype) ? (function() {
 		var rec = window.performance.getEntriesByType("resource").find(function(rec) { return rec.name.indexOf('/v2/polyfill.') !== -1; });
-		return rec ? '&dns='+(rec.domainLookupEnd-rec.domainLookupStart)+
-		'&connect='+(rec.connectEnd-rec.connectStart)+
-		'&req='+(rec.responseStart-rec.requestStart)+
-		'&resp='+(rec.responseEnd-rec.responseStart) : '';
+		return rec ? '&dns='+Math.floor(rec.domainLookupEnd-rec.domainLookupStart)+
+		'&connect='+Math.floor(rec.connectEnd-rec.connectStart)+
+		'&req='+Math.floor(rec.responseStart-rec.requestStart)+
+		'&resp='+Math.floor(rec.responseEnd-rec.responseStart) : '';
 	}()) : '');
 }());

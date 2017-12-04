@@ -161,8 +161,117 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v2/recordRumData" && req.http.Normalized-User-Agent) {
-		set req.http.Log = regsub(req.url, "^.*?\?(.*)$", "\1") "&ip=" client.ip "&refer_domain=" regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3") "&country=" geoip.country_code "&data_center=" if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter);
-		error 204 "No Content";
+		declare local var.rumRequestID STRING;
+		declare local var.rumLogString STRING;
+		declare local var.safeIP STRING;
+		declare local var.safeRef STRING;
+
+		set var.rumRequestID = now.sec "-" randomstr(10, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+		set var.safeIP = table.lookup(config, "salt_ip") addr.extract_bits(client.ip, 16, 32);
+		set var.safeRef = table.lookup(config, "salt_refer_domain") regsub(req.http.Referer, "^(https?\:\/\/)?(www\.)?(.+?)(\:\d+)?([\/\?].*)?$", "\3");
+		set var.rumLogString = ""
+			{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+			{""request_time":""} strftime({"%Y-%m-%dT%H:%M:%SZ"}, time.start) {"","}
+			{""country":""} cstr_escape(geoip.country_code) {"","}
+			{""data_center":""} cstr_escape(if(req.http.Cookie:FastlyDC, req.http.Cookie:FastlyDC, server.datacenter)) {"","}
+			{""refer_domain_hash":""} cstr_escape(regsub(digest.hash_sha256(var.safeRef), "^(.{15}).*?$", "\1")) {"","}
+			{""client_ip_hash":""} cstr_escape(regsub(digest.hash_sha256(var.safeIP), "^(.{15}).*?$", "\1")) {"","}
+			{""ua_family":""} cstr_escape(regsub(urldecode(req.http.Normalized-User-Agent), "^(\w+)\/.*$", "\1")) {"","}
+			{""elapsed_msec":"} time.elapsed.msec # Guaranteed numeric value; last item so no comma
+		;
+		if (req.url.qs ~ "^(.*\&)?dns=(\d+)") {
+			set var.rumLogString = var.rumLogString {","perf_dns":"} re.group.2;
+		}
+		if (req.url.qs ~ "^(.*\&)?connect=(\d+)") {
+			set var.rumLogString = var.rumLogString {","perf_connect":"} re.group.2;
+		}
+		if (req.url.qs ~ "^(.*\&)?req=(\d+)") {
+			set var.rumLogString = var.rumLogString {","perf_req":"} re.group.2;
+		}
+		if (req.url.qs ~ "^(.*\&)?resp=(\d+)") {
+			set var.rumLogString = var.rumLogString {","perf_resp":"} re.group.2;
+		}
+		if (urldecode(req.http.Normalized-User-Agent) ~ "^\w+\/(\d+(\.\d+)?).*?$") {
+			set var.rumLogString = var.rumLogString {","ua_version":"} re.group.1;
+		}
+
+		# Send request summary log event
+		log "syslog " req.service_id " rum_requests :: {" var.rumLogString "}";
+
+		# Send log events for each feature detect
+		if (req.url.qs ~ "^(.*\&)?detect0=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect1=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect2=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect3=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect4=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect5=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect6=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect7=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect8=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+		if (req.url.qs ~ "^(.*\&)?detect9=(\w+)_([10])(\&.*)?$") {
+			log "syslog " req.service_id " rum_detect_results :: {"
+				{""request_id":""} cstr_escape(var.rumRequestID) {"","}
+				{""feature_name":""} cstr_escape(re.group.2) {"","}
+				{""result":"} if(re.group.2 == "1", "true", "false") # Final log item has no trailing comma
+			"}";
+		}
+
+		# Return an empty response to the client
+		error 904 var.rumLogString;
 	}
 
 	set req.url = boltsort.sort(req.url);
@@ -252,4 +361,24 @@ sub vcl_error {
 		synthetic {""};
 		return (deliver);
 	}
+
+	# RUM response
+	if (obj.status == 904) {
+		set obj.http.RUM-Debug = obj.response;
+		set obj.status = 204;
+		set obj.response = "No Content";
+		set obj.http.Cache-Control = "private, no-store";
+		return(deliver);
+	}
+}
+
+sub vcl_log {
+
+	# Intentionally disabling Fastly's log macro to avoid logging
+	# events based on log schemes declared in the UI.
+	if (!req.url) {
+		#FASTLY log
+	}
+
+	log "syslog :: " req.service_id " s3 :: " req.http.host " " server.region " [" strftime({"%Y-%m-%d %H:%M:%S"}, time.start) "." time.start.msec_frac {"] ""} cstr_escape(req.request) " " cstr_escape(req.url) " " cstr_escape(req.proto) {"" "} resp.status " " req.bytes_read " " resp.bytes_written " " time.elapsed.msec " " tls.client.protocol " " fastly_info.state " " cstr_escape(req.http.Referer_domain) " " cstr_escape(req.http.Normalized-User-Agent);
 }
