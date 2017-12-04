@@ -262,7 +262,7 @@ IntersectionObserver.prototype._monitorIntersections = function() {
 
       if (this.USE_MUTATION_OBSERVER && 'MutationObserver' in window) {
         this._domObserver = new MutationObserver(this._checkForIntersections);
-        this._domObserver.observe(this.root || document, {
+        this._domObserver.observe(document, {
           attributes: true,
           childList: true,
           characterData: true,
