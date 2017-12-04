@@ -108,13 +108,23 @@ describe('Set', function() {
 		proclaim.equal(lastResult.value, void 0);
 	});
 
-	it("implements iterable for all iterators", function () {
-		var o = new Set();
-		proclaim.isDefined(o.values()[Symbol.iterator]);
-		proclaim.isDefined(o.keys()[Symbol.iterator]);
-		proclaim.isDefined(o[Symbol.iterator]);
-		proclaim.isDefined(o.entries()[Symbol.iterator]);
+	it('Set.prototype.keys is an alias to Set.prototype.values', function() {
+		proclaim.strictEqual(Set.prototype.keys, Set.prototype.values);
 	});
+
+	if ('Symbol' in window && 'iterator' in Symbol) {
+		it('Set.prototype[Symbol.iterator] is an alias to Set.prototype.values', function () {
+			proclaim.strictEqual(Set.prototype[Symbol.iterator], Set.prototype.values);
+		});
+
+		it("implements iterable for all iterators", function () {
+			var o = new Set();
+			proclaim.isDefined(o.values()[Symbol.iterator]);
+			proclaim.isDefined(o.keys()[Symbol.iterator]);
+			proclaim.isDefined(o[Symbol.iterator]);
+			proclaim.isDefined(o.entries()[Symbol.iterator]);
+		});
+	}
 
 	it("implements .forEach()", function () {
 		var o = new Set(), i = 0;
