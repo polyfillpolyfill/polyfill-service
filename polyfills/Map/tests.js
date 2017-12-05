@@ -2,14 +2,6 @@
 /* global proclaim */
 
 describe('Map', function() {
-	var o, generic, callback;
-
-	beforeEach(function() {
-		if ('Map' in window) o = new Map();
-		generic = {};
-		callback = function () {};
-	});
-
 	it("has valid constructor", function () {
 		proclaim.isInstanceOf(new Map, Map);
 		proclaim.isInstanceOf(new Map(), Map);
@@ -39,6 +31,7 @@ describe('Map', function() {
 	});
 
 	it("implements .size()", function () {
+		var o = new Map();
 		proclaim.equal(o.size, 0);
 		o.set("a", "a");
 		proclaim.equal(o.size, 1);
@@ -47,18 +40,27 @@ describe('Map', function() {
 	});
 
 	it("implements .has()", function () {
+		var o = new Map();
+		var generic = {};
+		var callback = function () {};
 		proclaim.equal(o.has(callback), false);
 		o.set(callback, generic);
 		proclaim.equal(o.has(callback), true);
 	});
 
 	it("implements .get()", function () {
+		var o = new Map();
+		var generic = {};
+		var callback = function () {};
 		o.set(callback, generic);
 		proclaim.equal(o.get(callback, 123), generic);
 		proclaim.equal(o.get(callback), generic);
 	});
 
 	it("implements .set()", function () {
+		var o = new Map();
+		var generic = {};
+		var callback = function () {};
 		o.set(callback, generic);
 		proclaim.equal(o.get(callback), generic);
 		o.set(callback, callback);
@@ -89,6 +91,9 @@ describe('Map', function() {
 	});
 
 	it("implements .delete()", function () {
+		var o = new Map();
+		var generic = {};
+		var callback = function () {};
 		o.set(callback, generic);
 		o.set(generic, callback);
 		o.set(o, callback);
@@ -103,12 +108,14 @@ describe('Map', function() {
 	});
 
 	it("does not throw an error when a non-object key is used", function () {
+		var o = new Map();
 		proclaim.doesNotThrow(function() {
 			o.set("key", o);
 		});
 	});
 
 	it("exhibits correct iterator behaviour", function () {
+		var o = new Map();
 		// test that things get returned in insertion order as per the specs
 		o = new Map([["1", 1], ["2", 2], ["3", 3]]);
 		var keys = o.keys();
@@ -159,6 +166,7 @@ describe('Map', function() {
 	});
 
 	it("implements iterable for all iterators", function () {
+		var o = new Map();
 		proclaim.isDefined(o.values()[Symbol.iterator]);
 		proclaim.isDefined(o.keys()[Symbol.iterator]);
 		proclaim.isDefined(o[Symbol.iterator]);
@@ -166,6 +174,7 @@ describe('Map', function() {
 	});
 
 	it("implements .forEach()", function () {
+		var o = new Map();
 		var o = new Map();
 		o.set("key 0", 0);
 		o.set("key 1", 1);
@@ -179,6 +188,7 @@ describe('Map', function() {
 	});
 
 	it("supports mutations during forEach loops", function () {
+		var o = new Map();
 		var o = new Map([["0", 0], ["1", 1], ["2", 2]]), seen = [];
 		o.forEach(function (value, key, obj) {
 			seen += ','+value;
@@ -198,6 +208,7 @@ describe('Map', function() {
 
 	it("implements .clear()", function(){
 		var o = new Map();
+		var o = new Map();
 		o.set(1, '1');
 		o.set(2, '2');
 		o.set(3, '3');
@@ -206,6 +217,7 @@ describe('Map', function() {
 	});
 
 	it("allows set after clear", function(){
+		var o = new Map();
 		var o = new Map();
 		o.set(1, '1');
 		o.clear();
