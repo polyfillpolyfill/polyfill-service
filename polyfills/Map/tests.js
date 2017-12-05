@@ -165,13 +165,53 @@ describe('Map', function() {
 		proclaim.equal(lastResult.value, void 0);
 	});
 
-	it("implements iterable for all iterators", function () {
-		var o = new Map();
-		proclaim.isDefined(o.values()[Symbol.iterator]);
-		proclaim.isDefined(o.keys()[Symbol.iterator]);
-		proclaim.isDefined(o[Symbol.iterator]);
-		proclaim.isDefined(o.entries()[Symbol.iterator]);
-	});
+	if ('Symbol' in window && 'iterator' in Symbol) {
+		it('Map.prototype[Symbol.iterator] is an alias to Map.prototype.entries', function () {
+			proclaim.strictEqual(Map.prototype[Symbol.iterator], Map.prototype.entries);
+		});
+
+		it("implements iterable for all iterators", function () {
+			var o = new Map([["1", 1], ["2", 2], ["3", 3]]);
+			var valuesIteratorFactory = o.values()[Symbol.iterator];
+			proclaim.isFunction(valuesIteratorFactory);
+			var valuesIterator = valuesIteratorFactory();
+			proclaim.isObject(valuesIterator);
+			var v = valuesIterator.next();
+			proclaim.equal(v.value, 1);
+			v = valuesIterator.next();
+			proclaim.equal(v.value, 2);
+			v = valuesIterator.next();
+			proclaim.equal(v.value, 3);
+			v = valuesIterator.next();
+			proclaim.equal(v.done, true);
+
+			var keysIteratorFactory = o.keys()[Symbol.iterator];
+			proclaim.isFunction(keysIteratorFactory);
+			var keysIterator = keysIteratorFactory();
+			proclaim.isObject(keysIterator);
+			var k = keysIterator.next();
+			proclaim.equal(k.value, "1");
+			k = keysIterator.next();
+			proclaim.equal(k.value, "2");
+			k = keysIterator.next();
+			proclaim.equal(k.value, "3");
+			k = keysIterator.next();
+			proclaim.equal(k.done, true);
+
+			var entriesIteratorFactory = o.entries()[Symbol.iterator];
+			proclaim.isFunction(entriesIteratorFactory);
+			var entriesIterator = entriesIteratorFactory();
+			proclaim.isObject(entriesIterator);
+			var e = entriesIterator.next();
+			proclaim.deepEqual(e.value, [1,"1"]);
+			e = entriesIterator.next();
+			proclaim.deepEqual(e.value, [2,"2"]);
+			e = entriesIterator.next();
+			proclaim.deepEqual(e.value, [3,"3"]);
+			e = entriesIterator.next();
+			proclaim.equal(e.done, true);
+		});
+	}
 
 	it("implements .forEach()", function () {
 		var o = new Map();

@@ -122,21 +122,19 @@
 	};
 	Map.prototype['values'] = function() {
 		var iterator = makeIterator(this, function(i) { return this._values[i]; });
-		iterator[Symbol.iterator] = this.values;
+		iterator[Symbol.iterator] = this.values.bind(this);
 		return iterator;
 	};
 	Map.prototype['keys'] = function() {
 		var iterator = makeIterator(this, function(i) { return decodeKey(this._keys[i]); });
-		iterator[Symbol.iterator] = this.keys;
+		iterator[Symbol.iterator] = this.keys.bind(this);
 		return iterator;
 	};
+	Map.prototype[Symbol.iterator] =
 	Map.prototype['entries'] = function() {
 		var iterator = makeIterator(this, function(i) { return [decodeKey(this._keys[i]), this._values[i]]; });
-		iterator[Symbol.iterator] = this.entries;
+		iterator[Symbol.iterator] = this.entries.bind(this);
 		return iterator;
-	};
-	Map.prototype[Symbol.iterator] = function() {
-		return makeIterator(this, function(i) { return [decodeKey(this._keys[i]), this._values[i]]; });
 	};
 	Map.prototype['forEach'] = function(callbackFn, thisArg) {
 		thisArg = thisArg || global;
