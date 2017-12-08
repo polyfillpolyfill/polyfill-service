@@ -204,6 +204,7 @@ describe('Map', function () {
 	}
 
 	it("has valid constructor", function () {
+		proclaim.equal(Map.length, 0);
 		proclaim.isInstanceOf(new Map, Map);
 		proclaim.isInstanceOf(new Map(), Map);
 		proclaim.equal((new Map()).constructor, Map);
