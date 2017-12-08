@@ -45,11 +45,57 @@
 		return typeof instance[method] === 'function';
 	}
 
+	var supportsGetters;
+
 	var Map = function Map() {
 		var data = arguments[0];
-		this._keys = [];
-		this._values = [];
-		this.size = this._size = 0;
+		Object.defineProperty(this, '_keys', {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: []
+		});
+		Object.defineProperty(this, '_values', {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: []
+		});
+		Object.defineProperty(this, '_size', {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: 0
+		});
+
+		// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically each time the size of the map changes.
+		try {
+			Object.defineProperty(Map.prototype, 'size', {
+				configure: true,
+				enumerable: false,
+				get: function() {
+					return this._size;
+				},
+				set: undefined
+			});
+			Object.defineProperty(this, 'size', {
+				configure: true,
+				enumerable: false,
+				get: function() {
+					return this._size;
+				},
+				set: undefined
+			});
+			supportsGetters = true;
+		} catch (e) {
+			supportsGetters = false;
+			Object.defineProperty(this, 'size', {
+				configurable: true,
+				enumerable: false,
+				writable: true,
+				value: 0
+			});
+		}
 		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
 		if (data && hasProtoMethod(data, 'forEach')){
 			// Fastpath: If `data` is a Map, shortcircuit all following the checks
@@ -75,83 +121,165 @@
 			}
 		}
 	};
-	Map.prototype = {};
 
-	// Some old engines do not support ES5 getters/setters.  Since Map only requires these for the size property, we can fall back to setting the size property statically each time the size of the map changes.
-	try {
-		Object.defineProperty(Map.prototype, 'size', {
-			get: function() {
-				return this._size;
-			}
-		});
-	} catch(e) {
-	}
+	Object.defineProperty(Map, 'prototype', {
+		configurable: false,
+		enumerable: false,
+		writable: false,
+		value: {}
+	});
 
-	Map.prototype['get'] = function(key) {
-		var idx = this._keys.indexOf(encodeKey(key));
-		return (idx !== -1) ? this._values[idx] : undefined;
-	};
-	Map.prototype['set'] = function(key, value) {
-		var idx = this._keys.indexOf(encodeKey(key));
-		if (idx !== -1) {
-			this._values[idx] = value;
-		} else {
-			this._keys.push(encodeKey(key));
-			this._values.push(value);
-
-			this.size = ++this._size;
+	Object.defineProperty(Map.prototype, 'get', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function get (key) {
+			var idx = this._keys.indexOf(encodeKey(key));
+			return (idx !== -1) ? this._values[idx] : undefined;
 		}
-		return this;
-	};
-	Map.prototype['has'] = function(key) {
-		return (this._keys.indexOf(encodeKey(key)) !== -1);
-	};
-	Map.prototype['delete'] = function(key) {
-		var idx = this._keys.indexOf(encodeKey(key));
-		if (idx === -1) return false;
-		this._keys[idx] = undefMarker;
-		this._values[idx] = undefMarker;
-
-		this.size = --this._size;
-		return true;
-	};
-	Map.prototype['clear'] = function() {
-		this._keys = [];
-		this._values = [];
-		this.size = this._size = 0;
-	};
-	Map.prototype['values'] = function() {
-		var iterator = makeIterator(this, function(i) { return this._values[i]; });
-		iterator[Symbol.iterator] = this.values.bind(this);
-		return iterator;
-	};
-	Map.prototype['keys'] = function() {
-		var iterator = makeIterator(this, function(i) { return decodeKey(this._keys[i]); });
-		iterator[Symbol.iterator] = this.keys.bind(this);
-		return iterator;
-	};
-	Map.prototype[Symbol.iterator] =
-	Map.prototype['entries'] = function() {
+	});
+	Object.defineProperty(Map.prototype, 'set', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function set (key, value) {
+			var idx = this._keys.indexOf(encodeKey(key));
+			if (idx !== -1) {
+				this._values[idx] = value;
+			} else {
+				this._keys.push(encodeKey(key));
+				this._values.push(value);
+				++this._size;
+				if (!supportsGetters) {
+					this.size = this._size;
+				}
+			}
+			return this;
+		}
+	});
+	Object.defineProperty(Map.prototype, 'has', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function has (key) {
+			return (this._keys.indexOf(encodeKey(key)) !== -1);
+		}
+	});
+	Object.defineProperty(Map.prototype, 'delete', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function (key) {
+			var idx = this._keys.indexOf(encodeKey(key));
+			if (idx === -1) return false;
+			this._keys[idx] = undefMarker;
+			this._values[idx] = undefMarker;
+			--this._size;
+			if (!supportsGetters) {
+				this.size = this._size;
+			}
+			return true;
+		}
+	});
+	Object.defineProperty(Map.prototype, 'clear', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function clear () {
+			this._keys = [];
+			this._values = [];
+			this._size = 0;
+			if (!supportsGetters) {
+				this.size = this._size;
+			}
+		}
+	});
+	Object.defineProperty(Map.prototype, 'values', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function values () {
+			var iterator = makeIterator(this, function(i) { return this._values[i]; });
+			iterator[Symbol.iterator] = this.values.bind(this);
+			return iterator;
+		}
+	});
+	Object.defineProperty(Map.prototype, 'keys', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function keys () {
+			var iterator = makeIterator(this, function(i) { return decodeKey(this._keys[i]); });
+			iterator[Symbol.iterator] = this.keys.bind(this);
+			return iterator;
+		}
+	});
+	var entries = function entries () {
 		var iterator = makeIterator(this, function(i) { return [decodeKey(this._keys[i]), this._values[i]]; });
 		iterator[Symbol.iterator] = this.entries.bind(this);
 		return iterator;
 	};
-	Map.prototype['forEach'] = function(callbackFn, thisArg) {
-		thisArg = thisArg || global;
-		var iterator = this.entries();
-		var result = iterator.next();
-		while (result.done === false) {
-			callbackFn.call(thisArg, result.value[1], result.value[0], this);
-			result = iterator.next();
+	Object.defineProperty(Map.prototype, Symbol.iterator, {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: entries
+	});
+	Object.defineProperty(Map.prototype, 'entries', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: entries
+	});
+	Object.defineProperty(Map.prototype, 'forEach', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: function(callbackFn, thisArg) {
+			thisArg = thisArg || global;
+			var iterator = this.entries();
+			var result = iterator.next();
+			while (result.done === false) {
+				callbackFn.call(thisArg, result.value[1], result.value[0], this);
+				result = iterator.next();
+			}
 		}
-	};
-	Map.prototype['constructor'] =
-	Map.prototype[Symbol.species] = Map;
-
-	Map.prototype.constructor = Map;
-	Map.name = "Map";
+	});
+	Object.defineProperty(Map.prototype, 'constructor', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: Map
+	});
+	try {
+		Object.defineProperty(Map, Symbol.species, {
+			configurable: true,
+			enumerable: false,
+			get: function get() {
+				return Map;
+			}
+		});
+	} catch (e) {
+		Object.defineProperty(Map, Symbol.species, {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: Map
+		});
+	}
+	Object.defineProperty(Map, 'name', {
+		configurable: true,
+		enumerable: false,
+		writable: false,
+		value: 'Map'
+	});
 
 	// Export the object
-	global.Map = Map;
+	Object.defineProperty(global, 'Map', {
+		configurable: true,
+		enumerable: false,
+		writable: true,
+		value: Map
+	});
 
 }(this));
