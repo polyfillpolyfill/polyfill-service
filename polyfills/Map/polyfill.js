@@ -48,6 +48,10 @@
 	var supportsGetters;
 
 	var Map = function Map() {
+		if (!(this instanceof Map)) {
+			throw new TypeError('Constructor Map requires "new"');
+		}
+
 		var data = arguments[0];
 		Object.defineProperty(this, '_keys', {
 			configurable: true,
