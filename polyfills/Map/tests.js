@@ -71,7 +71,7 @@ describe('Map', function () {
 			it('has correct descriptors defined for Map.prototype.size', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(Map.prototype, 'size');
 
-				proclaim.isTrue(descriptor.configurable, 'a' + descriptor.configurable);
+				proclaim.isTrue(descriptor.configurable);
 				proclaim.isFalse(descriptor.enumerable);
 				proclaim.doesNotInclude(descriptor.writable);
 				proclaim.ok(descriptor.get);
@@ -203,16 +203,26 @@ describe('Map', function () {
 		}
 	}
 
-	it("has valid constructor", function () {
-		proclaim.equal(Map.length, 0);
-		proclaim.isInstanceOf(new Map, Map);
-		proclaim.isInstanceOf(new Map(), Map);
-		proclaim.equal((new Map()).constructor, Map);
-		proclaim.equal((new Map()).constructor.name, "Map");
-		if ("__proto__" in {}) {
-			proclaim.equal((new Map).__proto__.isPrototypeOf(new Map()), true);
-			proclaim.equal((new Map).__proto__ === Map.prototype, true);
-		}
+	describe('constructor', function () {
+		it('has 0 length', function () {
+			proclaim.equal(Map.length, 0);
+		});
+
+		it('throws error if called without NewTarget set. I.E. Called as a normal function and not a constructor', function () {
+			proclaim.throws(function () {
+				Map();
+			});
+		});
+		it("has valid constructor", function () {
+			proclaim.isInstanceOf(new Map, Map);
+			proclaim.isInstanceOf(new Map(), Map);
+			proclaim.equal((new Map()).constructor, Map);
+			proclaim.equal((new Map()).constructor.name, "Map");
+			if ("__proto__" in {}) {
+				proclaim.equal((new Map).__proto__.isPrototypeOf(new Map()), true);
+				proclaim.equal((new Map).__proto__ === Map.prototype, true);
+			}
+		});
 	});
 
 	it ("can be pre-populated", function() {
