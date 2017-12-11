@@ -264,12 +264,16 @@
 			}
 		});
 	} catch (e) {}
-	Object.defineProperty(Map, 'name', {
-		configurable: true,
-		enumerable: false,
-		writable: false,
-		value: 'Map'
-	});
+
+	// Safari 8 sets the name property with correct value but also to be non-configurable
+	if (!('name' in Map)) {
+		Object.defineProperty(Map, 'name', {
+			configurable: true,
+			enumerable: false,
+			writable: false,
+			value: 'Map'
+		});
+	}
 
 	// Export the object
 	try {
