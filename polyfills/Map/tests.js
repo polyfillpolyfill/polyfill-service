@@ -213,6 +213,7 @@ describe('Map', function () {
 				Map();
 			});
 		});
+
 		it("has valid constructor", function () {
 			proclaim.isInstanceOf(new Map, Map);
 			proclaim.isInstanceOf(new Map(), Map);
@@ -223,23 +224,23 @@ describe('Map', function () {
 				proclaim.equal((new Map).__proto__ === Map.prototype, true);
 			}
 		});
-	});
 
-	it ("can be pre-populated", function() {
-		var a = 1;
-		var b = {};
-		var c = new Map();
-		var m = new Map([[1,1], [b,2], [c, 3]]);
-		proclaim.equal(m.has(a), true);
-		proclaim.equal(m.has(b), true);
-		proclaim.equal(m.has(c), true);
-		proclaim.equal(m.size, 3);
+		it ("can be pre-populated", function() {
+			var a = 1;
+			var b = {};
+			var c = new Map();
+			var m = new Map([[1,1], [b,2], [c, 3]]);
+			proclaim.equal(m.has(a), true);
+			proclaim.equal(m.has(b), true);
+			proclaim.equal(m.has(c), true);
+			proclaim.equal(m.size, 3);
 
-		var d = new Map(m);
-		proclaim.equal(d.has(a), true);
-		proclaim.equal(d.has(b), true);
-		proclaim.equal(d.has(c), true);
-		proclaim.equal(d.size, 3);
+			var d = new Map(m);
+			proclaim.equal(d.has(a), true);
+			proclaim.equal(d.has(b), true);
+			proclaim.equal(d.has(c), true);
+			proclaim.equal(d.size, 3);
+		});
 	});
 
 	it("implements .size()", function () {
