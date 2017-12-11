@@ -46,7 +46,7 @@ describe('Map', function () {
 				proclaim.isTrue(descriptor.writable);
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
-				proclaim.ok(descriptor.value);
+				proclaim.isFunction(descriptor.value);
 			});
 			it('has correct descriptors defined for Map.name', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(Map, 'name');
@@ -60,7 +60,7 @@ describe('Map', function () {
 				proclaim.isFalse(descriptor.writable);
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
-				proclaim.ok(descriptor.value);
+				proclaim.equal(descriptor.value, 'Map');
 			});
 			it('has correct descriptors defined for Map.prototype', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(Map, 'prototype');
