@@ -279,11 +279,22 @@
 	});
 
 	// Export the object
-	Object.defineProperty(global, 'Map', {
-		configurable: true,
-		enumerable: false,
-		writable: true,
-		value: Map
-	});
+	try {
+		Object.defineProperty(global, 'Map', {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: Map
+		});
+	} catch (e) {
+		// IE8 throws an error here if we set enumerable to false.
+		// More info on table 2: https://msdn.microsoft.com/en-us/library/dd229916(v=vs.85).aspx
+		Object.defineProperty(global, 'Map', {
+			configurable: true,
+			enumerable: true,
+			writable: true,
+			value: Map
+		});
+	}
 
 }(this));
