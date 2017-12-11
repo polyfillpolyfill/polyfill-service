@@ -263,14 +263,7 @@
 				return Map;
 			}
 		});
-	} catch (e) {
-		Object.defineProperty(Map, Symbol.species, {
-			configurable: true,
-			enumerable: false,
-			writable: true,
-			value: Map
-		});
-	}
+	} catch (e) {}
 	Object.defineProperty(Map, 'name', {
 		configurable: true,
 		enumerable: false,
