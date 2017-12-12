@@ -9,6 +9,7 @@
 		"firefox_mob": "<14",
 		"ie_mob": "<11",
 		"op_mob": "<15",
+		"op_mini": "*",
 		"ios_saf": "<7"
 	},
 	"repo": "https://github.com/megawac/MutationObserver.js",
