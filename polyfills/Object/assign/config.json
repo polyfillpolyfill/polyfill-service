@@ -25,5 +25,10 @@
 		"firefox_mob": "1 - 33",
 		"samsung_mob": "<5"
 	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Object.getOwnPropertyDescriptor",
+		"Object.keys"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
 }

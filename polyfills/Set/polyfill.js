@@ -72,18 +72,16 @@
 		this._values = [];
 		this.size = this._size = 0;
 	};
+	Set.prototype[Symbol.iterator] =
 	Set.prototype['values'] =
 	Set.prototype['keys'] = function() {
 		var iterator = makeIterator(this, function(i) { return decodeVal(this._values[i]); });
-		iterator[Symbol.iterator] = this.keys;
+		iterator[Symbol.iterator] = this.keys.bind(this);
 		return iterator;
-	};
-	Set.prototype[Symbol.iterator] = function() {
-		return makeIterator(this, function(i) { return decodeVal(this._values[i]); });
 	};
 	Set.prototype['entries'] = function() {
 		var iterator = makeIterator(this, function(i) { return [decodeVal(this._values[i]), decodeVal(this._values[i])]; });
-		iterator[Symbol.iterator] = this.entries;
+		iterator[Symbol.iterator] = this.entries.bind(this);
 		return iterator;
 	};
 	Set.prototype['forEach'] = function(callbackFn, thisArg) {
