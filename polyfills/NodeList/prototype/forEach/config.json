@@ -1,0 +1,19 @@
+{
+	"browsers": {
+		"ie": "*",
+		"ie_mob": "*",
+		"chrome": "<51",
+		"safari": "<10",
+		"ios_saf": "<10",
+		"firefox": "<50",
+		"firefox_mob": "<50",
+		"opera": "<38",
+		"op_mob": "<38"
+	},
+	"dependencies": [
+		"Array.prototype.forEach"
+	],
+	"license": "MIT",
+	"spec": "https://heycam.github.io/webidl/#es-forEach",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach"
+}
