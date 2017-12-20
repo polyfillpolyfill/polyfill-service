@@ -210,7 +210,7 @@ describe('Map', function () {
 
 		it('throws error if called without NewTarget set. I.E. Called as a normal function and not a constructor', function () {
 			proclaim.throws(function () {
-				Map();
+				Map(); // eslint-disable-line new-cap
 			});
 		});
 
@@ -240,6 +240,93 @@ describe('Map', function () {
 			proclaim.equal(d.has(b), true);
 			proclaim.equal(d.has(c), true);
 			proclaim.equal(d.size, 3);
+		});
+	});
+
+	describe('Map.prototype.clear', function () {
+		it('has 0 length', function () {
+			proclaim.equal(Map.prototype.clear.length, 0);
+		});
+
+		it('throws a TypeError if `this` is not an Object', function () {
+			proclaim.throws(function () {
+				Map.prototype.clear.call('');
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(1);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(true);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(/ /);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(null);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(undefined);
+			}, TypeError);
+		});
+
+		it('throws a TypeError if `this` is not an a Map Object', function () {
+			proclaim.throws(function () {
+				Map.prototype.clear.call([]);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call({});
+			}, TypeError);
+		});
+
+		// TODO: Need to test the fact that the existing [[MapData]] List is preserved because
+		// there may be existing Map Iterator objects that are suspended midway through iterating over that List.
+
+	});
+
+	describe('Map.prototype.delete', function () {
+		it('has 1 length', function () {
+			proclaim.equal(Map.prototype['delete'].length, 1);
+		});
+
+		it('throws a TypeError if `this` is not an Object', function () {
+			proclaim.throws(function () {
+				Map.prototype['delete'].call('');
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(1);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(true);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(/ /);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(null);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(undefined);
+			}, TypeError);
+		});
+
+		it('throws a TypeError if `this` is not an a Map Object', function () {
+			proclaim.throws(function () {
+				Map.prototype['delete'].call([]);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call({});
+			}, TypeError);
+		});
+
+		it('returns false if key was not in map', function () {
+			var map = new Map();
+			proclaim.isFalse(map['delete']('k'));
+		});
+
+		it('returns true if key was in map', function () {
+			var map = new Map();
+			map.set('k', 1);
+			proclaim.isTrue(map['delete']('k'));
 		});
 	});
 

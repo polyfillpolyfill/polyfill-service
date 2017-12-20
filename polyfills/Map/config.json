@@ -23,7 +23,9 @@
 		"Symbol",
 		"Symbol.iterator",
 		"Symbol.species",
+		"Object.create",
 		"Object.defineProperty",
+		"Object.getPrototypeOf",
 		"Number.isNaN"
 	],
 	"notes": [
