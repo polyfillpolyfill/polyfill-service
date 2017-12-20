@@ -30,7 +30,7 @@ references:
     restore_cache:
       keys:
         - *npm_library_cache_key
-				- *npm_service_cache_key
+        - *npm_service_cache_key
 
   cache_node_modules: &cache_node_modules
     save_cache:
