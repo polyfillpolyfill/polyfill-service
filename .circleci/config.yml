@@ -37,8 +37,6 @@ references:
       key: *npm_library_cache_key
       paths:
         - ./packages/polyfill-library/node_modules
-
-  cache_node_modules: &cache_node_modules
     save_cache:
       key: *npm_service_cache_key
       paths:
