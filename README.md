@@ -53,7 +53,7 @@ npm run dev
 You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
 
 * `PORT`: The port on which to listen for HTTP requests (default 3000).
-* `NODE_ENV`: Name of environment. `dev`, `prod`, `ci` or `qa`.  Just used for logging.
+* `NODE_ENV`: Name of environment. `dev`, `production`, `ci` or `qa`.  Just used for logging.
 * `FASTLY_SERVICE_ID`, `FASTLY_SERVICE_ID_QA`, `FASTLY_API_KEY`: Used to fetch and render cache hit stats on the [usage] page of the hosted documentation, and to deploy VCL.  If not specified, no stats will be shown and VCL deploy will fail.
 * `PINGDOM_CHECK_ID`, `PINGDOM_API_KEY`, `PINGDOM_ACCOUNT`, `PINGDOM_USERNAME`, `PINGDOM_PASSWORD`: Used to fetch and render uptime and response time stats on the [usage] page of the hosted documentation.  If not specified, no stats will be shown.
 * `GRAPHITE_HOST`: Host to which to send Carbon metrics.  If not set, no metrics will be sent.
@@ -63,6 +63,8 @@ You can configure the Polyfill service using environment variables. In developme
 * `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
 * `SURROGATE_KEY`: The surrogate key assigned to all responses. Useful for purging cached responses from a CDN. (default `polyfill-service`);
+* `SENTRY_DSN`: The data source name (DSN) to be used for sending error logs to [Sentry](https://sentry.io)
+* `SENTRY_RELEASE`: An identifier for the current release to be sent to [Sentry](https://sentry.io)
 
 
 ## Testing

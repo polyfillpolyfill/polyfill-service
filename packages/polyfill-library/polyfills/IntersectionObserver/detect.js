@@ -1,1 +1,0 @@
-"IntersectionObserver" in this

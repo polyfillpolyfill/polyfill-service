@@ -1,11 +1,12 @@
 {
 	"aliases": [
 		"es6",
+		"es2015",
 		"modernizr:es6array"
 	],
 	"browsers": {
 		"bb": "*",
-		"chrome": "<=44",
+		"chrome": "<=45",
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",
@@ -15,7 +16,7 @@
 		"ios_chr": "* - 8.0",
 		"android": "*",
 		"firefox_mob": "3.6 - 24",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [
 		"Object.defineProperty"

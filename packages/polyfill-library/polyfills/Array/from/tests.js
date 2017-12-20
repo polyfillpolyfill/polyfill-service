@@ -7,7 +7,7 @@ it('has correct instance', function () {
 
 it('has correct name', function () {
 	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
 	}
 	proclaim.equal(nameOf(Array.from), 'from');
 });
@@ -43,47 +43,52 @@ describe('returns an array with', function () {
 		proclaim.deepEqual(Array.from({ 0: 'a', 1: 'b', 2: 'c', length: 3 }), ['a', 'b', 'c']);
 	});
 
-	it('Iterable', function () {
+	describe('Iterable', function () {
 		var set;
 		var setIterator;
 		var map;
 		var mapIterator;
 
-		if ('Map' in window && 'entries' in Map.prototype) {
+		function returnArgs(){
+			return Array.prototype.slice.call(arguments);
+		}
 
+		if ('Map' in window) {
 			map = new Map();
 			map.set(1,2);
 			map.set(3,4);
-			mapIterator = map.values();
-
-			if (typeof mapIterator.next === 'function') {
-
-				// Test map iterable
-				proclaim.deepEqual(Array.from(mapIterator), [2,4]);
-
-				it('can convert from Map', function () {
-					proclaim.deepEqual(Array.from(map), [[1,2],[3,4]]);
-				});
+			it('can convert from Map', function () {
+				proclaim.deepEqual(Array.from(map), [[1,2],[3,4]]);
+				proclaim.deepEqual(Array.from(map, returnArgs), [[[1,2],0],[[3,4],1]]);
+			});
+			if (typeof map.values == 'function') {
+				mapIterator = map.values();
+				if (typeof mapIterator.next === 'function') {
+					it('can convert from map iterator', function () {
+						proclaim.deepEqual(Array.from(mapIterator), [2,4]);
+					});
+				}
 			}
 		}
 
-		if ('Set' in window && 'values' in Set.prototype) {
-
+		if ('Set' in window) {
 			set = new Set();
 			set.add(1);
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			setIterator = set.values();
-
-			if (typeof setIterator.next === 'function') {
-
-				// Test set iterable
-				proclaim.deepEqual(Array.from(setIterator), [1,2,3,4]);
-
-				it('can convert from Set', function () {
-					proclaim.deepEqual(Array.from(set), [1,2,3,4]);
-				});
+			set.add(undefined);
+			it('can convert from Set', function () {
+				proclaim.deepEqual(Array.from(set), [1,2,3,4,undefined]);
+				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3],[undefined,4]]);
+			});
+			if (typeof set.values == 'function') {
+				setIterator = set.values();
+				if (typeof setIterator.next === 'function') {
+					it('can convert from set iterator', function () {
+						proclaim.deepEqual(Array.from(setIterator), [1,2,3,4,undefined]);
+					});
+				}
 			}
 		}
 
@@ -108,6 +113,22 @@ describe('returns an array with', function () {
 			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
 		});
 
+		if ('Symbol' in window && 'iterator' in Symbol) {
+			it('can understand objects which have a property named Symbol.iterator', function () {
+				var o = {};
+				o[Symbol.iterator] = function () {
+					var i = 0;
+					return ({
+						next: function () {
+							i++;
+							return { done: i > 5, value: i };
+						}
+					});
+				};
+				proclaim.deepEqual(Array.from(o), [1,2,3,4,5]);
+			});
+		}
+
 	});
 
 	it('strings', function () {
@@ -121,7 +142,7 @@ describe('returns an array with', function () {
 		proclaim.deepEqual(Array.from(-0), []);
 		proclaim.deepEqual(Array.from(0), []);
 		proclaim.deepEqual(Array.from(3), []);
-		// REMOVAL: it may take a rediculous amount of time to calculate this
+		// REMOVAL: it may take a ridiculous amount of time to calculate this
 		// proclaim.deepEqual(Array.from(Infinity), []);
 	});
 
@@ -169,7 +190,7 @@ describe('returns an array with', function () {
 	it('this as an object', function () {
 		var context = {};
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Object);
 			proclaim.strictEqual(this.valueOf(), context);
 		}, context);
@@ -178,7 +199,7 @@ describe('returns an array with', function () {
 	it('this as 42', function () {
 		var context = 42;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Number);
 			proclaim.strictEqual(this.valueOf(), 42);
 		}, context);
@@ -187,7 +208,7 @@ describe('returns an array with', function () {
 	it('this as false', function () {
 		var context = false;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Boolean);
 			proclaim.strictEqual(this.valueOf(), false);
 		}, context);

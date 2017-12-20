@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('is named \'keys\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
@@ -36,7 +36,7 @@ it('property isn\'t enumerable', function () {
 	var array = ['val1', 'val2'];
 	var enumerableLength = 0;
 
-	for (var i in array) {
+	for (var i in array) { // eslint-disable-line no-unused-vars
 		enumerableLength++;
 	}
 

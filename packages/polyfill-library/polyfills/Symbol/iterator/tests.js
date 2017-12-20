@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
@@ -32,7 +32,7 @@ hasNodeListGlobal('can attach to a NodeList correctly', function() {
 	NodeList.prototype[Symbol.iterator] = function() {
 		var called = false;
 		var that = this;
-		var i = 0;
+
 		return {
 			next: function() {
 				if (called) {

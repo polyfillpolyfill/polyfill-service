@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('has correct instance', function () {
 	proclaim.isInstanceOf(Promise, Function);
@@ -166,10 +166,9 @@ describe('2.2.1: Both `onFulfilled` and `onRejected` are optional arguments.', f
 				});
 			}
 
-			var resolve, reject;
+			var reject;
 
 			promise = new Promise(function (oresolve, oreject) {
-				resolve = oresolve;
 				reject = oreject;
 			});
 
@@ -211,7 +210,7 @@ it('should resolve inside then (test case from @matthew-andrews)', function(done
 		proclaim.equal(a[0], true);
 		done();
 	});
-})
+});
 
 it('should resolve Promise.all when all promises resolve', function(done) {
 	Promise.all([

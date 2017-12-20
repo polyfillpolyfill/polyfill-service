@@ -1,6 +1,7 @@
 {
 	"aliases": [
 		"es6",
+		"es2015",
 		"modernizr:es6object",
 		"default-3.3",
 		"default-3.4",
@@ -11,7 +12,7 @@
 	"browsers": {
 		"android": "*",
 		"bb": "*",
-		"chrome": "1 - 44",
+		"chrome": "1 - 45",
 		"firefox": "1 - 33",
 		"ie": "<13",
 		"ie_mob": "*",
@@ -24,5 +25,10 @@
 		"firefox_mob": "1 - 33",
 		"samsung_mob": "<5"
 	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Object.getOwnPropertyDescriptor",
+		"Object.keys"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
 }

@@ -4,7 +4,6 @@
 const assert = require('proclaim');
 const mockery = require('mockery');
 const sinon = require('sinon');
-require('sinon-as-promised');
 
 describe('lib/sources', () => {
 	let aliases;
@@ -228,7 +227,7 @@ describe('lib/sources', () => {
 
 	describe('sources.streamPolyfillSource()', () => {
 		it('returns a read-stream', () => {
-			pathMock.join.reset();
+			pathMock.join.resetHistory();
 			pathMock.join.withArgs('../polyfills/__dist', 'Array.from', 'min.js').returns('../polyfills/__dist/Array.from/min.js');
 			pathMock.join.returnsArg(1);
 

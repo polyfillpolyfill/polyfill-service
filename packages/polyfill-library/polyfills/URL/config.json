@@ -8,13 +8,14 @@
 		"default"
 	],
 	"browsers": {
-		"chrome": "<49",
+		"chrome": "<51",
 		"firefox": "<29",
 		"ie": "9 - *",
 		"ie_mob": "*",
 		"safari": "*",
 		"firefox_mob": "<29",
 		"opera": "<36",
+		"op_mini": "*",
 		"android": "*",
 		"samsung_mob": "<5",
 		"ios_saf": "*"
@@ -24,7 +25,6 @@
 		"Array.prototype.forEach"
 	],
 	"notes": [
-	  "`searchParams` is not iterable and has no `forEach()`, `entries()`, `keys()`, `values()` methods",
 	  "Polyfill requires Object getters so fails in IE < 8"
 	],
 	"license": "CC0",

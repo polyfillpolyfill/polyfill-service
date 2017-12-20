@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // Safari fails this test.  However, no-one would ever do this
 // as it would just create an event that can never be dispatched/listened for
@@ -160,4 +160,4 @@ it('subclasses should be instances of Event if the UA implements DOM3', function
 	});
 	document.body.appendChild(a);
 	a.click();
-})
+});

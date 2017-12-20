@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('should have min safe integer defined', function() {
 	proclaim.isDefined(Number.MIN_SAFE_INTEGER);

@@ -19,9 +19,8 @@
 		removeItem: function () {
 			var key = String(arguments[0]);
 
-			for (key in this) {
+			if (Object.prototype.hasOwnProperty.call(this, key)) {
 				delete this[key];
-
 				--this.length;
 			}
 
@@ -30,7 +29,7 @@
 		setItem: function () {
 			var key = String(arguments[0]), value = String(arguments[1]);
 
-			if (!(key in this)) {
+			if (!(Object.prototype.hasOwnProperty.call(this, key))) {
 				++this.length;
 			}
 
@@ -53,9 +52,9 @@
 	}
 
 	function updateKeys() {
-		var unloadkeys = keys;
+		var unloadkeys = [];
 
-		keys = getKeys(localStorage);
+		var keys = getKeys(localStorage);
 
 		unloadkeys.concat(keys).forEach(function (key) {
 			if (key in localStorage) {

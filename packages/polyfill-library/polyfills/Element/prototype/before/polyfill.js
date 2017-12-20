@@ -1,6 +1,21 @@
 Document.prototype.before = Element.prototype.before = function before() {
 	if (this.parentNode) {
-		this.parentNode.insertBefore(_mutation(arguments), this);
+		var args = Array.prototype.slice.call(arguments),
+			viablePreviousSibling = this.previousSibling,
+			idx = viablePreviousSibling ? args.indexOf(viablePreviousSibling) : -1;
+
+		while (idx !== -1) {
+			viablePreviousSibling = viablePreviousSibling.previousSibling;
+			if (!viablePreviousSibling) {
+				break;
+			}
+			idx = args.indexOf(viablePreviousSibling);
+		}
+
+		this.parentNode.insertBefore(
+			_mutation(arguments),
+			viablePreviousSibling ? viablePreviousSibling.nextSibling : this.parentNode.firstChild
+		);
 	}
 };
 

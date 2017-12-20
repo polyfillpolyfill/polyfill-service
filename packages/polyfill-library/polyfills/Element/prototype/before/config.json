@@ -18,11 +18,12 @@
 		"op_mini": "*",
 		"safari": "<10",
 		"firefox_mob": "<49",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [
 		"Document",
 		"Element",
+		"Array.prototype.indexOf",
 		"_mutation"
 	],
 	"spec": "http://dom.spec.whatwg.org/#dom-childnode-before",

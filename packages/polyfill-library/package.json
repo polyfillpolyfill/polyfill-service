@@ -1,6 +1,6 @@
 {
   "name": "polyfill-library",
-  "version": "3.20.2",
+  "version": "3.24.0",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
   "contributors": [
@@ -24,8 +24,8 @@
   },
   "scripts": {
     "lint": "eslint polyfills/**/polyfill.js lib tasks test",
-    "clean-dist": "rm -rf ./polyfills/__dist",
-    "clean-testdata": "rm -rf ./test/results",
+    "clean-dist": "rimraf -rf ./polyfills/__dist",
+    "clean-testdata": "rimraf -rf ./test/results",
     "clean": "npm run clean-dist && npm run clean-testdata",
     "build": "npm run clean && node tasks/node/updatesources && node tasks/node/buildsources",
     "test-node": "mocha test/node/**/*.js",
@@ -52,12 +52,13 @@
     "lodash": "^4.17.4",
     "lru-cache": "^4.0.2",
     "merge2": "^1.0.3",
+    "shuffle-array": "^1.0.1",
     "semver": "^5.3.0",
     "stream-from-promise": "^1.0.0",
     "stream-to-string": "^1.1.0",
     "tsort": "0.0.1",
     "useragent": "^2.1.12",
-		"usertiming": "^0.1.8"
+    "usertiming": "^0.1.8"
   },
   "devDependencies": {
     "Base64": "^1.0.0",

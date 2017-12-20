@@ -1,12 +1,12 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('has correct instance', function () {
 	proclaim.isInstanceOf(String.prototype.padEnd, Function);
 });
 
 it('has correct argument length', function () {
-	proclaim.equal(String.prototype.padEnd.length, 2);
+	proclaim.equal(String.prototype.padEnd.length, 1);
 });
 
 it('works with strings', function () {

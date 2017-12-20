@@ -7,8 +7,6 @@ const sinon = require('sinon');
 const semver = require('semver');
 const mockery = require('mockery');
 
-require('sinon-as-promised');
-
 describe("lib/UA", function () {
 	let useragent;
 	let UA;
@@ -159,14 +157,14 @@ describe("lib/UA", function () {
 				const android = new UA("Mozilla/5.0 (Linux; U; Android 3.0.1; en-us; GT-P7510 Build/HRI83) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13");
 				assert.equal(android.ua.family, 'android');
 
-				const opera = new UA("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.10 Safari/537.36 OPR/27.0.1689.22 (Edition developer)");
-				assert.equal(opera.ua.family, 'opera');
-
 				const chrome = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
 				assert.equal(chrome.ua.family, 'chrome');
 			});
 
 			it('uses alias for browser family name if alias exists', () => {
+				const opera = new UA("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.10 Safari/537.36 OPR/27.0.1689.22 (Edition developer)");
+				assert.equal(opera.ua.family, 'chrome');
+
 				const blackberryWebKit = new UA("Mozilla/5.0 (BB10; Touch) AppleWebKit/537.3+ (KHTML, like Gecko) Version/10.0.9.388 Mobile Safari/537.3+");
 				assert.equal(blackberryWebKit.ua.family, "bb");
 
