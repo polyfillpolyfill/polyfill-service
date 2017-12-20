@@ -3,8 +3,8 @@
 const MySQL = require('mysql2/promise');
 const Stats = require('fast-stats').Stats;
 
-const UA = require('../lib/UA');
-const polyfillio = require('../lib/index');
+const UA = require('polyfill-library/lib/UA');
+const polyfillio = require('polyfill-library');
 
 function Perf(rawopts) {
 
