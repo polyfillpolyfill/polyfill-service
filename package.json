@@ -5,11 +5,24 @@
   "description": "A polyfill combinator",
   "scripts": {
     "install": "npm run install:library && npm run install:service",
-    "install:library": "cd packages/polyfill-library && npm install && npm link && cd ../..",
-    "install:service": "cd packages/polyfill-service && npm link polyfill-library && npm install && cd ../..",
-    "ci": "npm run ci:library && npm run ci:service",
-    "ci:library": "cd packages/polyfill-library && npm install && npm link && cd ../..",
-    "ci:service": "cd packages/polyfill-service && npm link polyfill-library && npm install && cd ../.."
+    "install:library": "cd packages/polyfill-library && npm install && cd ../..",
+    "install:service": "cd packages/polyfill-service && npm install --save ../polyfill-library && npm install && cd ../..",
+    "lint": "npm run lint:library && npm run lint:service",
+    "lint:library": "cd packages/polyfill-library && npm run lint && cd ../..",
+    "lint:service": "cd packages/polyfill-service && npm run lint && cd ../..",
+    "deploy-vcl": "cd packages/polyfill-service && npm run deploy-vcl && cd ../..",
+    "test-node": "npm run test-node:library && npm run test-node:service",
+    "test-node:library": "cd packages/polyfill-library && npm run test-node && cd ../..",
+    "test-node:service": "cd packages/polyfill-service && npm run test-node && cd ../..",
+    "test-node-unit": "npm run test-node-unit:library && npm run test-node-unit:service",
+    "test-node-unit:library": "cd packages/polyfill-library && npm run test-node-unit && cd ../..",
+    "test-node-unit:service": "cd packages/polyfill-service && npm run test-node-unit && cd ../..",
+    "test-node-integration": "npm run test-node-integration:library && npm run test-node-integration:service",
+    "test-node-integration:library": "cd packages/polyfill-library && npm run test-node-integration && cd ../..",
+    "test-node-integration:service": "cd packages/polyfill-service && npm run test-node-integration && cd ../..",
+    "test-browser-ci": "cd packages/polyfill-service && npm run test-browser-ci && cd ../..",
+    "test-vcl": "cd packages/polyfill-service && npm run test-vcl && cd ../..",
+    "whitesource": "cd packages/polyfill-service && npm run whitesource && cd ../.."
   },
   "contributors": [
     {
