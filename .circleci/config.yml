@@ -20,19 +20,30 @@ references:
       paths:
         - .
 
-  npm_cache_key: &npm_cache_key
-    v1-dependency-npm-{{ checksum "package-lock.json" }}
+  npm_library_cache_key: &npm_library_cache_key
+    v1-dependency-npm-library-{{ checksum "packages/polyfill-library/package-lock.json" }}
+
+  npm_service_cache_key: &npm_service_cache_key
+    v1-dependency-npm-service-{{ checksum "packages/polyfill-service/package-lock.json" }}
 
   restore_node_modules: &restore_node_modules
     restore_cache:
       keys:
-        - *npm_cache_key
+        - *npm_library_cache_key
+				- *npm_service_cache_key
 
   cache_node_modules: &cache_node_modules
     save_cache:
-      key: *npm_cache_key
+      key: *npm_library_cache_key
       paths:
-        - ./node_modules
+        - ./packages/polyfill-library/node_modules
+
+  cache_node_modules: &cache_node_modules
+    save_cache:
+      key: *npm_service_cache_key
+      paths:
+        - ./packages/polyfill-service/node_modules
+
 jobs:
   build:
     <<: *container_config

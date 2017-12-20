@@ -33,7 +33,6 @@
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
     "test-coverage": "nyc report --reporter=lcov",
     "test": "npm run build && npm run test-node && npm run test-node-unit",
-    "ci": "npm run lint && npm run build && npm run test-node && npm run test-node-unit",
     "prepublish": "npm run build"
   },
   "license": "CC0-1.0",
