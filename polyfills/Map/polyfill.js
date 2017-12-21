@@ -664,7 +664,8 @@
 			value: Map
 		});
 	} catch (e) {
-		// IE 8 and lower do not like non-enumerable properties to be set on the global object for some reason.
+		// IE8 throws an error here if we set enumerable to false.
+		// More info on table 2: https://msdn.microsoft.com/en-us/library/dd229916(v=vs.85).aspx
 		global['Map'] = Map;
 	}
 }(this));

@@ -46,7 +46,7 @@ describe('Map', function () {
 				proclaim.isTrue(descriptor.writable);
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
-				proclaim.ok(descriptor.value);
+				proclaim.isFunction(descriptor.value);
 			});
 			it('has correct descriptors defined for Map.name', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(Map, 'name');
@@ -54,14 +54,14 @@ describe('Map', function () {
 				try {
 					proclaim.isTrue(descriptor.configurable);
 				} catch (e) {
-					// Safari 8 implements Map.name as a non-configurable property.
+					// Safari 8 sets the name property with correct value but also to be non-configurable
 					proclaim.isFalse(descriptor.configurable);
 				}
 				proclaim.isFalse(descriptor.enumerable);
 				proclaim.isFalse(descriptor.writable);
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
-				proclaim.ok(descriptor.value);
+				proclaim.equal(descriptor.value, 'Map');
 			});
 			it('has correct descriptors defined for Map.prototype', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(Map, 'prototype');
