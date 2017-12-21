@@ -519,13 +519,16 @@
 	// The initial value of the @@toStringTag property is the String value "Map".
 	// This property has the attributes { [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]: true }.
 
-	// 19.2.4.2 name
-	Object.defineProperty(Map, 'name', {
-		configurable: true,
-		enumerable: false,
-		writable: false,
-		value: 'Map'
-	});
+	// Polyfill.io - Safari 8 implements Map.name but as a non-configurable property, which means it would throw an error if we try and configure it here.
+	if (!('name' in Map)) {
+		// 19.2.4.2 name
+		Object.defineProperty(Map, 'name', {
+			configurable: true,
+			enumerable: false,
+			writable: false,
+			value: 'Map'
+		});
+	}
 
 	// 23.1.5.1. CreateMapIterator ( map, kind )
 	function createMapIterator(map, kind) {
