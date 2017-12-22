@@ -317,7 +317,10 @@
 			}
 		} catch (e) {
 			// Polyfill.io - For user agents which do not have iteration methods on argument objects or arrays, we can special case those.
-			if (Array.isArray(iterable) || Object.prototype.toString.call(iterable) === '[object Arguments]') {
+			if (Array.isArray(iterable) ||
+				Object.prototype.toString.call(iterable) === '[object Arguments]' ||
+				// IE 7 & IE 8 return '[object Object]' for the arguments object, we can detect by checking for the existence of the callee property
+				(!!iterable.callee)) {
 				var index;
 				var length = iterable.length;
 				for (index = 0; index < length; index++) {
