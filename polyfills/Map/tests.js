@@ -230,7 +230,7 @@ describe('Map', function () {
 			}
 		});
 
-		it ("can be pre-populated", function() {
+		it("can be pre-populated with an array", function() {
 			var a = 1;
 			var b = {};
 			var c = new Map();
@@ -246,6 +246,52 @@ describe('Map', function () {
 			proclaim.equal(d.has(c), true);
 			proclaim.equal(d.size, 3);
 		});
+
+		it("can be pre-populated with the arguments object", function() {
+			var a = 1;
+			var b = {};
+			var c = new Map();
+			var m = (function () {
+				return new Map(arguments);
+			}([1, 1], [b, 2], [c, 3]));
+			proclaim.equal(m.has(a), true);
+			proclaim.equal(m.has(b), true);
+			proclaim.equal(m.has(c), true);
+			proclaim.equal(m.size, 3);
+
+			var d = new Map(m);
+			proclaim.equal(d.has(a), true);
+			proclaim.equal(d.has(b), true);
+			proclaim.equal(d.has(c), true);
+			proclaim.equal(d.size, 3);
+		});
+
+		if ('Symbol' in window && 'iterator' in Symbol) {
+			it("can be pre-populated with custom iterable", function () {
+				var count = 0;
+				var a = {};
+				a[Symbol.iterator] = function () {
+					return {
+						next: function () {
+							if (count === 5) {
+								return { done: true };
+							}
+							return {
+								done: false,
+								value: [count, count++]
+							};
+						}
+					};
+				};
+				var m = new Map(a);
+				proclaim.equal(m.has(0), true, 'a');
+				proclaim.equal(m.has(1), true, 'b');
+				proclaim.equal(m.has(2), true, 'c');
+				proclaim.equal(m.has(3), true, 'd');
+				proclaim.equal(m.has(4), true, 'e');
+				proclaim.equal(m.size, 5, 'f');
+			});
+		}
 	});
 
 	describe('Map.prototype.clear', function () {

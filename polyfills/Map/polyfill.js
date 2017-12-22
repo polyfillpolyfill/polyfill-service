@@ -30,6 +30,141 @@
 		return x === y;
 	};
 
+	// 7.3.9. GetMethod ( V, P )
+	function getMethod(V, P) {
+		// 1. Assert: IsPropertyKey(P) is true.
+		// 2. Let func be ? GetV(V, P).
+		var func = V[P];
+		// 3. If func is either undefined or null, return undefined.
+		if (func === null || func === undefined) {
+			return undefined;
+		}
+		// 4. If IsCallable(func) is false, throw a TypeError exception.
+		if (typeof func !== 'function') {
+			throw new TypeError('Method not callable: ' + P);
+		}
+		// 5. Return func.
+		return func;
+	}
+
+	// 7.4.1. GetIterator ( obj [ , method ] )
+	// The abstract operation GetIterator with argument obj and optional argument method performs the following steps:
+	function getIterator(obj /*, method */) {
+		// 1. If method is not present, then
+		if (!(1 in arguments)) {
+			// a. Set method to ? GetMethod(obj, @@iterator).
+			var method = getMethod(obj, Symbol.iterator);
+		}
+		// 2. Let iterator be ? Call(method, obj).
+		var iterator = method.call(obj);
+		// 3. If Type(iterator) is not Object, throw a TypeError exception.
+		if (typeof iterator !== 'object') {
+			throw new TypeError('bad iterator');
+		}
+		// 4. Let nextMethod be ? GetV(iterator, "next").
+		var nextMethod = iterator.next;
+		// 5. Let iteratorRecord be Record {[[Iterator]]: iterator, [[NextMethod]]: nextMethod, [[Done]]: false}.
+		var iteratorRecord = Object.create(null);
+		iteratorRecord['[[Iterator]]'] = iterator;
+		iteratorRecord['[[NextMethod]]'] = nextMethod;
+		iteratorRecord['[[Done]]'] = false;
+		// 6. Return iteratorRecord.
+		return iteratorRecord;
+	}
+
+	// 7.4.2. IteratorNext ( iteratorRecord [ , value ] )
+	function iteratorNext(iteratorRecord /* [, value] */) {
+		// 1. If value is not present, then
+		if (!(1 in arguments)) {
+			// a. Let result be ? Call(iteratorRecord.[[NextMethod]], iteratorRecord.[[Iterator]], « »).
+			var result = iteratorRecord['[[NextMethod]]'].call(iteratorRecord['[[Iterator]]']);
+		// 2. Else,
+		} else {
+			// a. Let result be ? Call(iteratorRecord.[[NextMethod]], iteratorRecord.[[Iterator]], « value »).
+			var result = iteratorRecord['[[NextMethod]]'].call(iteratorRecord['[[Iterator]]'], arguments[1]);
+		}
+		// 3. If Type(result) is not Object, throw a TypeError exception.
+		if (typeof result !== 'object') {
+			throw new TypeError('bad iterator');
+		}
+		// 4. Return result.
+		return result;
+	}
+
+	// 7.4.3 IteratorComplete ( iterResult )
+	function iteratorComplete(iterResult) {
+		// 1. Assert: Type(iterResult) is Object.
+		if (typeof iterResult !== 'object') {
+			throw new Error(Object.prototype.toString.call(iterResult) + 'is not an Object.');
+		}
+		// 2. Return ToBoolean(? Get(iterResult, "done")).
+		return Boolean(iterResult['done']);
+	}
+
+	// 7.4.4 IteratorValue ( iterResult )
+	function iteratorValue(iterResult) {
+		// Assert: Type(iterResult) is Object.
+		if (typeof iterResult !== 'object') {
+			throw new Error(Object.prototype.toString.call(iterResult) + 'is not an Object.');
+		}
+		// Return ? Get(iterResult, "value").
+		return iterResult.value;
+	}
+
+	// 7.4.5. IteratorStep ( iteratorRecord )
+	function iteratorStep(iteratorRecord) {
+		// 1. Let result be ? IteratorNext(iteratorRecord).
+		var result = iteratorNext(iteratorRecord);
+		// 2. Let done be ? IteratorComplete(result).
+		var done = iteratorComplete(result);
+		// 3. If done is true, return false.
+		if (done === true) {
+			return false;
+		}
+		// 4. Return result.
+		return result;
+	}
+
+	// 7.4.6. IteratorClose ( iteratorRecord, completion )
+	function iteratorClose(iteratorRecord, completion) {
+		// 1. Assert: Type(iteratorRecord.[[Iterator]]) is Object.
+		if (typeof iteratorRecord['[[Iterator]]'] !== 'object') {
+			throw new Error(Object.prototype.toString.call(iteratorRecord['[[Iterator]]']) + 'is not an Object.');
+		}
+		// 2. Assert: completion is a Completion Record.
+		// Polyfill.io - Ignoring this step as there is no way to check if something is a Completion Record in userland JavaScript.
+
+		// 3. Let iterator be iteratorRecord.[[Iterator]].
+		var iterator = iteratorRecord['[[Iterator]]'];
+		// 4. Let return be ? GetMethod(iterator, "return").
+		// Polyfill.io - We name it  returnMethod because return is a keyword and can not be used as an identifier (E.G. variable name, function name etc).
+		var returnMethod = getMethod(iterator, "return");
+		// 5. If return is undefined, return Completion(completion).
+		if (returnMethod === undefined) {
+			return completion;
+		}
+		// 6. Let innerResult be Call(return, iterator, « »).
+		try {
+			var innerResult = returnMethod.call(iterator);
+		} catch (error) {
+			var innerException = error;
+		}
+		// 7. If completion.[[Type]] is throw, return Completion(completion).
+		if (completion) {
+			return completion;
+		}
+		// 8. If innerResult.[[Type]] is throw, return Completion(innerResult).
+		if (innerException) {
+			throw innerException;
+		}
+		// 9. If Type(innerResult.[[Value]]) is not Object, throw a TypeError exception.
+		if (!(typeof innerResult !== 'object')) {
+			throw new TypeError("Iterator's return method returned a non-object.");
+		}
+		// 10. Return Completion(completion).
+		return completion;
+	}
+
 	// 7.4.7. CreateIterResultObject ( value, done )
 	function createIterResultObject(value, done) {
 		// 1. Assert: Type(done) is Boolean.
@@ -77,10 +212,6 @@
 	// Deleted map items mess with iterator pointers, so rather than removing them mark them as deleted. Can't use undefined or null since those both valid keys so use a private symbol.
 	var undefMarker = Symbol('undef');
 
-	function hasProtoMethod(instance, method){
-		return typeof instance[method] === 'function';
-	}
-
 	var supportsGetters = (function () {
 		try {
 			var a = {};
@@ -103,7 +234,7 @@
 	};
 
 	// 23.1.1.1 Map ( [ iterable ] )
-	var Map = function Map() {
+	var Map = function Map(/* iterable */) {
 		// 1. If NewTarget is undefined, throw a TypeError exception.
 		if (!(this instanceof Map)) {
 			throw new TypeError('Constructor Map requires "new"');
@@ -130,10 +261,10 @@
 		}
 
 		// 4. If iterable is not present, let iterable be undefined.
-		var data = arguments[0] || undefined;
+		var iterable = arguments[0] || undefined;
 
 		// 5. If iterable is either undefined or null, return map.
-		if (data === null || data === undefined) {
+		if (iterable === null || iterable === undefined) {
 			return map;
 		}
 
@@ -146,30 +277,52 @@
 		}
 
 		// 8. Let iteratorRecord be ? GetIterator(iterable).
-		// Polyfill.io - We currently only support iterable objects that have a forEach method.
+		try {
+			var iteratorRecord = getIterator(iterable);
+			// 9. Repeat,
+			while (true) {
+				// a. Let next be ? IteratorStep(iteratorRecord).
+				var next = iteratorStep(iteratorRecord);
+				// b. If next is false, return map.
+				if (next === false) {
+					return map;
+				}
+				// c. Let nextItem be ? IteratorValue(next).
+				var nextItem = iteratorValue(next);
+				// d. If Type(nextItem) is not Object, then
+				if (typeof nextItem !== 'object') {
+					// i. Let error be Completion{[[Type]]: throw, [[Value]]: a newly created TypeError object, [[Target]]: empty}.
+					try {
+						throw new TypeError('Iterator value ' + nextItem + ' is not an entry object');
+					} catch (error) {
+						// ii. Return ? IteratorClose(iteratorRecord, error).
+						return iteratorClose(iteratorRecord, error);
+					}
+				}
+				try {
+					// Polyfill.io - The try catch accounts for steps: f, h, and j.
 
-		// If `data` is iterable (indicated by presence of a forEach method), pre-populate the map
-		if (data && hasProtoMethod(data, 'forEach')){
-			// Fastpath: If `data` is a Map, shortcircuit all following the checks
-			if (data instanceof Map ||
-				// If `data` is not an instance of Map, it could be because you have a Map from an iframe or a worker or something.
-				// Check if `data` has all the `Map` methods and if so, assume data is another Map
-				hasProtoMethod(data, 'clear') &&
-				hasProtoMethod(data, 'delete') &&
-				hasProtoMethod(data, 'entries') &&
-				hasProtoMethod(data, 'forEach') &&
-				hasProtoMethod(data, 'get') &&
-				hasProtoMethod(data, 'has') &&
-				hasProtoMethod(data, 'keys') &&
-				hasProtoMethod(data, 'set') &&
-				hasProtoMethod(data, 'values')){
-				data.forEach(function (value, key) {
-					map.set.apply(map, [key, value]);
-				}, map);
-			} else {
-				data.forEach(function (item) {
-					map.set.apply(map, item);
-				}, map);
+					// e. Let k be Get(nextItem, "0").
+					var k = nextItem[0];
+					// f. If k is an abrupt completion, return ? IteratorClose(iteratorRecord, k).
+					// g. Let v be Get(nextItem, "1").
+					var v = nextItem[1];
+					// h. If v is an abrupt completion, return ? IteratorClose(iteratorRecord, v).
+					// i. Let status be Call(adder, map, « k.[[Value]], v.[[Value]] »).
+					adder.call(map, k, v);
+				} catch (e) {
+					// j. If status is an abrupt completion, return ? IteratorClose(iteratorRecord, status).
+					return iteratorClose(iteratorRecord, e);
+				}
+			}
+		} catch (e) {
+			// Polyfill.io - For user agents which do not have iteration methods on argument objects or arrays, we can special case those.
+			if (Array.isArray(iterable) || Object.prototype.toString.call(iterable) === '[object Arguments]') {
+				var index;
+				var length = iterable.length;
+				for (index = 0; index < length; index++) {
+					adder.call(map, iterable[index][0], iterable[index][1]);
+				}
 			}
 		}
 		return map;
