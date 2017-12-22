@@ -19,6 +19,7 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
+		"Array.isArray",
 		"Array.prototype.indexOf",
 		"Symbol",
 		"Symbol.iterator",
