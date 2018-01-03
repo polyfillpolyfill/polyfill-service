@@ -21,7 +21,13 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.ToObject",
+		"_ESAbstract.ToLength",
+		"_ESAbstract.Get",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.SameValueZero",
+		"_ESAbstract.ToString"
 	],
 	"license": "CC0",
 	"spec": "https://github.com/tc39/Array.prototype.includes",

@@ -1,18 +1,18 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
-
-var supportsDescriptors = Object.defineProperty && (function () {
+var arePropertyDescriptorsSupported = function () {
+	var obj = {};
 	try {
-		var obj = {};
 		Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-		for (var _ in obj) { return false; } // jscs:ignore disallowUnusedVariables
+        /* eslint-disable no-unused-vars, no-restricted-syntax */
+        for (var _ in obj) { return false; }
+        /* eslint-enable no-unused-vars, no-restricted-syntax */
 		return obj.x === obj;
 	} catch (e) { /* this is ES3 */
 		return false;
 	}
-}());
-
-var ifSupportsDescriptorsIt = supportsDescriptors ? it : xit;
+};
+var ifSupportsDescriptorsIt = Object.defineProperty && arePropertyDescriptorsSupported() ? it : xit;
 
 it('has correct instance', function () {
 	proclaim.isInstanceOf(Array.prototype.includes, Function);
