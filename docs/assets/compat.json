@@ -7073,60 +7073,6 @@
       "9.1": "native"
     }
   },
-  "IntersectionObserverEntry": {
-    "chrome": {
-      "35": "polyfilled",
-      "40": "polyfilled",
-      "42": "polyfilled",
-      "46": "polyfilled",
-      "48": "polyfilled",
-      "58": "native"
-    },
-    "firefox": {
-      "30": "polyfilled",
-      "33": "polyfilled",
-      "41": "polyfilled",
-      "42": "polyfilled",
-      "44": "polyfilled",
-      "49": "polyfilled",
-      "53": "native"
-    },
-    "ie": {
-      "7": "missing",
-      "8": "missing",
-      "9": "polyfilled",
-      "10": "polyfilled",
-      "11": "polyfilled",
-      "13": "polyfilled",
-      "14": "polyfilled",
-      "15": "polyfilled"
-    },
-    "safari": {
-      "6": "polyfilled",
-      "7": "polyfilled",
-      "8": "polyfilled",
-      "9": "polyfilled",
-      "10": "native",
-      "5.1": "polyfilled"
-    },
-    "android": {
-      "5": "polyfilled",
-      "6": "native",
-      "7": "native",
-      "7.1": "polyfilled",
-      "5.1": "native",
-      "4.4": "polyfilled"
-    },
-    "ios_saf": {
-      "4": "native",
-      "5": "native",
-      "6": "native",
-      "7": "native",
-      "8": "native",
-      "10.3": "native",
-      "9.1": "polyfilled"
-    }
-  },
   "Map": {
     "chrome": {
       "35": "polyfilled",
@@ -7233,6 +7179,60 @@
       "8": "native",
       "10.3": "native",
       "9.1": "native"
+    }
+  },
+  "IntersectionObserverEntry": {
+    "chrome": {
+      "35": "polyfilled",
+      "40": "polyfilled",
+      "42": "polyfilled",
+      "46": "polyfilled",
+      "48": "polyfilled",
+      "58": "native"
+    },
+    "firefox": {
+      "30": "polyfilled",
+      "33": "polyfilled",
+      "41": "polyfilled",
+      "42": "polyfilled",
+      "44": "polyfilled",
+      "49": "polyfilled",
+      "53": "native"
+    },
+    "ie": {
+      "7": "missing",
+      "8": "missing",
+      "9": "polyfilled",
+      "10": "polyfilled",
+      "11": "polyfilled",
+      "13": "polyfilled",
+      "14": "polyfilled",
+      "15": "polyfilled"
+    },
+    "safari": {
+      "6": "polyfilled",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "9": "polyfilled",
+      "10": "native",
+      "5.1": "polyfilled"
+    },
+    "android": {
+      "5": "polyfilled",
+      "6": "native",
+      "7": "native",
+      "7.1": "polyfilled",
+      "5.1": "native",
+      "4.4": "polyfilled"
+    },
+    "ios_saf": {
+      "4": "native",
+      "5": "native",
+      "6": "native",
+      "7": "native",
+      "8": "native",
+      "10.3": "native",
+      "9.1": "polyfilled"
     }
   },
   "IntersectionObserver": {
