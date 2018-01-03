@@ -8,7 +8,7 @@
 	"browsers": {
 		"ie": "<12",
 		"safari": "<9",
-		"firefox": "<29",
+		"firefox": "<36",
 		"chrome": "<38",
 		"android": "<5.1",
 		"firefox_mob": "<29",
@@ -19,12 +19,24 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
-		"Array.prototype.indexOf",
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.CreateIterResultObject",
+		"_ESAbstract.GeMethod",
+		"_ESAbstract.GetIterator",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.IteratorClose",
+		"_ESAbstract.IteratorComplete",
+		"_ESAbstract.IteratorNext",
+		"_ESAbstract.IteratorStep",
+		"_ESAbstract.IteratorValue",
+		"_ESAbstract.OrdinaryCreateFromConstructor",
+		"_ESAbstract.SameValueZero",
+		"Array.isArray",
 		"Symbol",
 		"Symbol.iterator",
 		"Symbol.species",
-		"Object.defineProperty",
-		"Number.isNaN"
+		"Object.create",
+		"Object.defineProperty"
 	],
 	"notes": [
 		"For compatibility with very old engines, `Set.prototype.delete` must be accessed using square bracket notation because 'delete' is a reserved word. `mySet.delete()` is an error in IE8. Use `mySet['delete']()` instead.",
