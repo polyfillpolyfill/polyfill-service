@@ -1,1 +1,1 @@
-'matchMedia' in this
+'matchMedia' in this && 'MediaQueryList' in this
