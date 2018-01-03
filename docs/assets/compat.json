@@ -7197,11 +7197,11 @@
       "42": "polyfilled",
       "44": "polyfilled",
       "49": "polyfilled",
-      "53": "native"
+      "53": "polyfilled"
     },
     "ie": {
-      "7": "missing",
-      "8": "missing",
+      "7": "polyfilled",
+      "8": "polyfilled",
       "9": "polyfilled",
       "10": "polyfilled",
       "11": "polyfilled",
@@ -7214,24 +7214,24 @@
       "7": "polyfilled",
       "8": "polyfilled",
       "9": "polyfilled",
-      "10": "native",
-      "5.1": "polyfilled"
+      "10": "polyfilled",
+      "5.1": "missing"
     },
     "android": {
       "5": "polyfilled",
-      "6": "native",
-      "7": "native",
+      "6": "polyfilled",
+      "7": "polyfilled",
       "7.1": "polyfilled",
-      "5.1": "native",
+      "5.1": "polyfilled",
       "4.4": "polyfilled"
     },
     "ios_saf": {
-      "4": "native",
-      "5": "native",
-      "6": "native",
-      "7": "native",
-      "8": "native",
-      "10.3": "native",
+      "4": "missing",
+      "5": "missing",
+      "6": "missing",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "10.3": "polyfilled",
       "9.1": "polyfilled"
     }
   },
@@ -7251,12 +7251,12 @@
       "42": "polyfilled",
       "44": "polyfilled",
       "49": "polyfilled",
-      "53": "native"
+      "53": "polyfilled"
     },
     "ie": {
       "7": "polyfilled",
       "8": "polyfilled",
-      "9": "missing",
+      "9": "polyfilled",
       "10": "polyfilled",
       "11": "polyfilled",
       "13": "polyfilled",
@@ -7268,24 +7268,24 @@
       "7": "polyfilled",
       "8": "polyfilled",
       "9": "polyfilled",
-      "10": "native",
-      "5.1": "polyfilled"
+      "10": "polyfilled",
+      "5.1": "missing"
     },
     "android": {
       "5": "polyfilled",
-      "6": "native",
-      "7": "native",
+      "6": "polyfilled",
+      "7": "polyfilled",
       "7.1": "polyfilled",
-      "5.1": "native",
+      "5.1": "polyfilled",
       "4.4": "polyfilled"
     },
     "ios_saf": {
-      "4": "native",
-      "5": "native",
-      "6": "native",
-      "7": "native",
-      "8": "native",
-      "10.3": "native",
+      "4": "missing",
+      "5": "missing",
+      "6": "missing",
+      "7": "polyfilled",
+      "8": "polyfilled",
+      "10.3": "polyfilled",
       "9.1": "polyfilled"
     }
   },
