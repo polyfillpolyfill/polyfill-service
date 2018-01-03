@@ -16,5 +16,11 @@
 		"ios_saf": "*",
 		"firefox_mob": "3.6 - 23"
 	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.RequireObjectCoercible",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.ToString"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat"
 }

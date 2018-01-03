@@ -58,8 +58,7 @@ it('works with coercible objects', function () {
 	}, [2]), 'abcabc');
 });
 
-var
-supportsStrictModeTests = (function () {
+var supportsStrictModeTests = (function () {
 	'use strict';
 
 	return this === undefined;
