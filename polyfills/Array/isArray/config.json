@@ -16,7 +16,8 @@
 		"firefox_mob": "3.6"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.IsArray"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-isarray",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"
