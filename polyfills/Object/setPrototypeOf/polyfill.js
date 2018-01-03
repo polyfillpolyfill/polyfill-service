@@ -93,5 +93,5 @@
 			}
 		}
 	}
-	Object.setPrototypeOf = setPrototypeOf;
+	CreateMethodProperty(Object, 'setPrototypeOf', setPrototypeOf);
 }());
