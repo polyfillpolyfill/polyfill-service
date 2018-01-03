@@ -21,5 +21,12 @@
 		"ios_saf": "<9",
 		"firefox_mob": "3.6 - 17"
 	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.RequireObjectCoercible",
+		"_ESAbstract.ToString",
+		"_ESAbstract.IsRegExp",
+		"_ESAbstract.ToInteger"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith"
 }
