@@ -16,6 +16,7 @@
 		"android": "<=4.4"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
 		"Function.prototype.bind"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
