@@ -1,5 +1,5 @@
 /* eslint-env mocha, browser */
-/* global proclaim */
+/* global proclaim, Map, Symbol */
 var arePropertyDescriptorsSupported = function() {
 	var obj = {};
 	try {
@@ -42,7 +42,12 @@ describe('Map', function () {
 				var descriptor = Object.getOwnPropertyDescriptor(window, 'Map');
 
 				proclaim.isTrue(descriptor.configurable);
-				proclaim.isFalse(descriptor.enumerable);
+				try {
+					proclaim.isFalse(descriptor.enumerable);
+				} catch (e) {
+					// Safari 5.1 sets the property to true.
+					proclaim.isTrue(descriptor.enumerable);
+				}
 				proclaim.isTrue(descriptor.writable);
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
@@ -68,7 +73,12 @@ describe('Map', function () {
 
 				proclaim.isFalse(descriptor.configurable);
 				proclaim.isFalse(descriptor.enumerable);
-				proclaim.isFalse(descriptor.writable);
+				try {
+					proclaim.isFalse(descriptor.writable);
+				} catch (e) {
+					// Safari 5.1 sets the property to true.
+					proclaim.isTrue(descriptor.writable);
+				}
 				proclaim.doesNotInclude(descriptor, 'get');
 				proclaim.doesNotInclude(descriptor, 'set');
 				proclaim.ok(descriptor.value);
@@ -230,7 +240,7 @@ describe('Map', function () {
 			}
 		});
 
-		it("can be pre-populated with an array", function() {
+		it("can be pre-populated with an array", function () {
 			var a = 1;
 			var b = {};
 			var c = new Map();
@@ -247,7 +257,7 @@ describe('Map', function () {
 			proclaim.equal(d.size, 3);
 		});
 
-		it("can be pre-populated with the arguments object", function() {
+		it("can be pre-populated with the arguments object", function () {
 			var a = 1;
 			var b = {};
 			var c = new Map();
@@ -284,12 +294,12 @@ describe('Map', function () {
 					};
 				};
 				var m = new Map(a);
-				proclaim.equal(m.has(0), true, 'a');
-				proclaim.equal(m.has(1), true, 'b');
-				proclaim.equal(m.has(2), true, 'c');
-				proclaim.equal(m.has(3), true, 'd');
-				proclaim.equal(m.has(4), true, 'e');
-				proclaim.equal(m.size, 5, 'f');
+				proclaim.equal(m.has(0), true);
+				proclaim.equal(m.has(1), true);
+				proclaim.equal(m.has(2), true);
+				proclaim.equal(m.has(3), true);
+				proclaim.equal(m.has(4), true);
+				proclaim.equal(m.size, 5);
 			});
 		}
 	});
