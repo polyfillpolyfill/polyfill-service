@@ -1,5 +1,18 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
+var arePropertyDescriptorsSupported = function () {
+	var obj = {};
+	try {
+		Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+        /* eslint-disable no-unused-vars, no-restricted-syntax */
+        for (var _ in obj) { return false; }
+        /* eslint-enable no-unused-vars, no-restricted-syntax */
+		return obj.x === obj;
+	} catch (e) { /* this is ES3 */
+		return false;
+	}
+};
+var ifSupportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported() ? it : xit;
 
 it('is named \'keys\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill
@@ -32,13 +45,6 @@ it('finally returns a done object', function () {
 	});
 });
 
-it('property isn\'t enumerable', function () {
-	var array = ['val1', 'val2'];
-	var enumerableLength = 0;
-
-	for (var i in array) { // eslint-disable-line no-unused-vars
-		enumerableLength++;
-	}
-
-	proclaim.equal(enumerableLength, array.length);
+ifSupportsDescriptors('property isn\'t enumerable', function () {
+	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype.keys));
 });
