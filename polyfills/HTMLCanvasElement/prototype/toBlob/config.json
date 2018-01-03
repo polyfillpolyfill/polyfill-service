@@ -10,8 +10,10 @@
 		"opera": "*"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"Uint8Array",
 		"atob",
-		"Object.defineProperty"
+		"Blob"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob",
 	"license": "MIT"
