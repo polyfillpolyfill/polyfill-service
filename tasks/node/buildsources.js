@@ -16,8 +16,7 @@ const makeDirectory = denodeify(mkdirp);
 function validateSource(code, label) {
 	try {
 		new vm.Script(code);
-	}
-	catch (error) {
+	} catch (error) {
 		throw {
 			name: "Parse error",
 			message: `Error parsing source code for ${label}`,
@@ -54,10 +53,136 @@ function checkForCircularDependencies(polyfills) {
 		graph.sort();
 
 		return Promise.resolve();
-	}
-	catch (err) {
+	} catch (err) {
 		return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
 	}
+}
+
+function checkForAllES6Features(polyfills) {
+	const es6Features = [
+		'Symbol',
+		'Symbol.for',
+		'Symbol.keyFor',
+		'Object.getOwnPropertySymbols',
+		'Int8Array',
+		'Uint8Array',
+		'Uint8ClampedArray',
+		'Int16Array',
+		'Uint16Array',
+		'Int32Array',
+		'Uint32Array',
+		'Float32Array',
+		'Float64Array',
+		'DataView',
+		'ArrayBuffer',
+		'Map',
+		'Set',
+		'WeakMap',
+		'WeakSet',
+		'Proxy',
+		'Proxy.revocable',
+		'Reflect',
+		'Reflect.get',
+		'Reflect.set',
+		'Reflect.has',
+		'Reflect.deleteProperty',
+		'Reflect.getOwnPropertyDescriptor',
+		'Reflect.defineProperty',
+		'Reflect.getPrototypeOf',
+		'Reflect.setPrototypeOf',
+		'Reflect.isExtensible',
+		'Reflect.preventExtensions',
+		'Reflect.ownKeys',
+		'Reflect.apply',
+		'Reflect.construct',
+		'Promise',
+		'Object.assign',
+		'Object.is',
+		'Object.getOwnPropertySymbols',
+		'Object.setPrototypeOf',
+		'Object.getPrototypeOf',
+		'Object.getOwnPropertyDescriptor',
+		'Object.getOwnPropertyNames',
+		'Object.seal',
+		'Object.freeze',
+		'Object.preventExtensions',
+		'Object.isSealed',
+		'Object.isFrozen',
+		'Object.isExtensible',
+		'Object.keys',
+		'String.raw',
+		'String.fromCodePoint',
+		'String.prototype.codePointAt',
+		'String.prototype.normalize',
+		'String.prototype.repeat',
+		'String.prototype.startsWith',
+		'String.prototype.endsWith',
+		'String.prototype.includes',
+		'Symbol',
+		'Symbol.hasInstance',
+		'Symbol.isConcatSpreadable',
+		'Symbol.iterator',
+		'Symbol.replace',
+		'Symbol.search',
+		'Symbol.split',
+		'Symbol.match',
+		'Symbol.toPrimitive',
+		'Symbol.toStringTag',
+		'Symbol.unscopables',
+		'RegExp.prototype.flags',
+		'RegExp.prototype.compile',
+		'Array.from',
+		'Array.of',
+		'Array.prototype.find',
+		'Array.prototype.findIndex',
+		'Array.prototype.fill',
+		'Array.prototype.keys',
+		'Array.prototype.values',
+		'Array.prototype.entries',
+		'Number.isFinite',
+		'Number.isInteger',
+		'Number.isSafeInteger',
+		'Number.isNaN',
+		'Number.parseFloat',
+		'Number.parseInt',
+		'Number.EPSILON',
+		'Number.MIN_SAFE_INTEGER',
+		'Number.MAX_SAFE_INTEGER',
+		'Math.clz32',
+		'Math.imul',
+		'Math.sign',
+		'Math.log10',
+		'Math.log2',
+		'Math.log1p',
+		'Math.expm1',
+		'Math.cosh',
+		'Math.sinh',
+		'Math.tanh',
+		'Math.acosh',
+		'Math.asinh',
+		'Math.atanh',
+		'Math.trunc',
+		'Math.fround',
+		'Math.cbrt',
+		'Math.hypot'
+	];
+	const names = new Set();
+	for (const polyfill of polyfills) {
+		names.add(polyfill.name);
+		for (const alias of polyfill.aliases) {
+			names.add(alias);
+		}
+	}
+	const missingFeatures = [];
+	for (const feature of es6Features) {
+		if (!names.has(feature)) {
+			missingFeatures.push(feature);
+		}
+	}
+	if (missingFeatures.length) {
+		return Promise.reject(`Missing polyfills for ${missingFeatures.join(',\n ')}`);
+	}
+	return Promise.resolve();
 }
 
 function writeAliasFile(polyfills, dir) {
@@ -225,10 +350,10 @@ class Polyfill {
 	writeOutput(root) {
 		const dest = path.join(root, this.name);
 		const files = [
-				['meta.json', JSON.stringify(this.config)],
-				['raw.js', this.sources.raw],
-				['min.js', this.sources.min]
-			];
+			['meta.json', JSON.stringify(this.config)],
+			['raw.js', this.sources.raw],
+			['min.js', this.sources.min]
+		];
 
 		return makeDirectory(dest)
 			.then(() => Promise.all(files
@@ -253,6 +378,7 @@ Promise.resolve()
 		)
 	))
 	.then(polyfills => checkForCircularDependencies(polyfills)
+		.then(() => checkForAllES6Features(polyfills))
 		.then(() => makeDirectory(dest))
 		.then(() => console.log('Waiting for files to be written to disk...'))
 		.then(() => writeAliasFile(polyfills, dest))
@@ -265,4 +391,4 @@ Promise.resolve()
 		console.log(e);
 		process.exit(1);
 	})
-;
+	;
