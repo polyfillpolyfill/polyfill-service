@@ -1,6 +1,6 @@
 {
 	"env": {
-		"es6": true,
+		"es6": false,
 		"browser": true,
 		"node": false
 	},
@@ -11,7 +11,7 @@
 		"guard-for-in": 0,
 		"no-extend-native": 0,
 		"wrap-iife": 2,
-		"new-cap": 1,
+		"new-cap": 0,
 		"no-caller": 2,
 		"no-multi-str": 0,
 		"dot-notation": 0,

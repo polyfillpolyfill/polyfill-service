@@ -1,0 +1,25 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.Call",
+		"_ESAbstract.GetMethod",
+		"_ESAbstract.GetV",
+		"_ESAbstract.Type",
+		"Object.create"
+	],
+	"spec": "https://tc39.github.io/ecma262/#sec-getiterator"
+}
