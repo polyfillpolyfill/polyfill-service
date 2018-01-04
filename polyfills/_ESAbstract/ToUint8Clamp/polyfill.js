@@ -1,6 +1,5 @@
-/* global _ESAbstract */
 // 7.1.5. ToUInt8 ( argument )
-_ESAbstract.ToUInt8Clamp = function (argument) { // eslint-disable-line no-unused-vars
+function ToUInt8Clamp(argument) { // eslint-disable-line no-unused-vars
 	// 1. Let number be ? ToNumber(argument).
 	var number = Number(argument);
 	// 2. If number is NaN, return +0.
@@ -31,4 +30,4 @@ _ESAbstract.ToUInt8Clamp = function (argument) { // eslint-disable-line no-unuse
 	}
 	// 9. Return f.
 	return f;
-};
+}

@@ -17,8 +17,7 @@
 	"dependencies": [
 		"_ESAbstract.IsConstructor",
 		"_ESAbstract.OrdinaryCreateFromConstructor",
-		"Function.prototype.bind",
-		"_ESAbstract"
+		"Function.prototype.bind"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-construct"
 }

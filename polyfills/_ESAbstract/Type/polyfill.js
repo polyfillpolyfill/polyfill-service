@@ -1,6 +1,5 @@
-/* global _ESAbstract */
 // "Type(x)" is used as shorthand for "the type of x"...
-_ESAbstract.Type = function (x) { // eslint-disable-line no-unused-vars
+function Type(x) { // eslint-disable-line no-unused-vars
 	switch (typeof x) {
 		case 'undefined':
 			return 'undefined';
@@ -19,4 +18,4 @@ _ESAbstract.Type = function (x) { // eslint-disable-line no-unused-vars
 			if ('Symbol' in this && x instanceof this.Symbol) return 'symbol';
 			return 'object';
 	}
-};
+}

@@ -1,4 +1,3 @@
-/* global _ESAbstract */
 // 7.2.1. RequireObjectCoercible ( argument )
 // The abstract operation ToObject converts argument to a value of type Object according to Table 12:
 // Table 12: ToObject Conversions
@@ -15,9 +14,9 @@
 | Object        | Return argument.                                                                                                                   |
 |----------------------------------------------------------------------------------------------------------------------------------------------------|
 */
-_ESAbstract.RequireObjectCoercible = function (argument) { // eslint-disable-line no-unused-vars
+function RequireObjectCoercible(argument) { // eslint-disable-line no-unused-vars
 	if (argument === null || argument === undefined) {
 		throw TypeError();
 	}
-	return argument;
-};
+  return argument;
+}

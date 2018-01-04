@@ -1,15 +1,14 @@
-/* global _ESAbstract */
 // 7.2.8. IsRegExp ( argument )
-_ESAbstract.IsRegExp = function (argument) {
+function IsRegExp(argument) {
 	// 1. If Type(argument) is not Object, return false.
-	if (_ESAbstract.Type(argument) !== 'object') {
+	if (Type(argument) !== 'object') {
 		return false;
 	}
 	// 2. Let matcher be ? Get(argument, @@match).
-	var matcher = 'Symbol' in this && 'match' in this.Symbol ? _ESAbstract.Get(argument, this.Symbol.match) : undefined;
+	var matcher = 'Symbol' in this && 'match' in this.Symbol ? Get(C, this.Symbol.match) : undefined;
 	// 3. If matcher is not undefined, return ToBoolean(matcher).
 	if (matcher !== undefined) {
-		return _ESAbstract.ToBoolean(matcher);
+		return ToBoolean(matcher);
 	}
 	// 4. If argument has a [[RegExpMatcher]] internal slot, return true.
 	try {
@@ -17,9 +16,9 @@ _ESAbstract.IsRegExp = function (argument) {
 		argument.lastIndex = 0;
 		RegExp.prototype.exec.call(argument);
 		return true;
-	} catch (e) { } finally {
+	} catch (e) {} finally {
 		argument.lastIndex = lastIndex;
 	}
 	// 5. Return false.
 	return false;
-};
+}

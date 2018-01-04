@@ -1,10 +1,10 @@
-/* global _ESAbstract */
+/* global Type, GetMethod, Symbol, Call, OrdinaryToPrimitive */
 // 7.1.1. ToPrimitive ( input [ , PreferredType ] )
-_ESAbstract.ToPrimitive = function (input /* [, PreferredType] */) { // eslint-disable-line no-unused-vars
+function ToPrimitive(input /* [, PreferredType] */) { // eslint-disable-line no-unused-vars
 	var PreferredType = arguments.length > 1 ? arguments[1] : undefined;
 	// 1. Assert: input is an ECMAScript language value.
 	// 2. If Type(input) is Object, then
-	if (_ESAbstract.Type(input) === 'object') {
+	if (Type(input) === 'object') {
 		// a. If PreferredType is not present, let hint be "default".
 		if (arguments.length < 2) {
 			var hint = 'default';
@@ -16,13 +16,13 @@ _ESAbstract.ToPrimitive = function (input /* [, PreferredType] */) { // eslint-d
 			hint = 'number';
 		}
 		// d. Let exoticToPrim be ? GetMethod(input, @@toPrimitive).
-		var exoticToPrim = _ESAbstract.GetMethod(input, this.Symbol.toPrimitive);
+		var exoticToPrim = GetMethod(input, Symbol.toPrimitive);
 		// e. If exoticToPrim is not undefined, then
 		if (exoticToPrim !== undefined) {
 			// i. Let result be ? Call(exoticToPrim, input, « hint »).
-			var result = _ESAbstract.Call(exoticToPrim, input, hint);
+			var result = Call(exoticToPrim, input, hint);
 			// ii. If Type(result) is not Object, return result.
-			if (_ESAbstract.Type(result) !== 'object') {
+			if (Type(result) !== 'object') {
 				return result;
 			}
 			// iii. Throw a TypeError exception.
@@ -33,8 +33,8 @@ _ESAbstract.ToPrimitive = function (input /* [, PreferredType] */) { // eslint-d
 			hint = 'number';
 		}
 		// g. Return ? OrdinaryToPrimitive(input, hint).
-		return _ESAbstract.OrdinaryToPrimitive(input, hint);
+		return OrdinaryToPrimitive(input, hint);
 	}
 	// 3. Return input
 	return input;
-};
+}

@@ -1,6 +1,6 @@
-/* global _ESAbstract */
+/* globals Type, Get */
 // 7.3.21. EnumerableOwnProperties ( O, kind )
-_ESAbstract.EnumerableOwnProperties = function (O, kind) { // eslint-disable-line no-unused-vars
+function EnumerableOwnProperties(O, kind) { // eslint-disable-line no-unused-vars
 	// 1. Assert: Type(O) is Object.
 	// 2. Let ownKeys be ? O.[[OwnPropertyKeys]]().
 	var ownKeys = Object.keys(O);
@@ -11,7 +11,7 @@ _ESAbstract.EnumerableOwnProperties = function (O, kind) { // eslint-disable-lin
 	for (var i = 0; i < length; i++) {
 		var key = ownKeys[i];
 		// a. If Type(key) is String, then
-		if (_ESAbstract.Type(key) === 'string') {
+		if (Type(key) === 'string') {
 			// i. Let desc be ? O.[[GetOwnProperty]](key).
 			var desc = Object.getOwnPropertyDescriptor(O, key);
 			// ii. If desc is not undefined and desc.[[Enumerable]] is true, then
@@ -22,7 +22,7 @@ _ESAbstract.EnumerableOwnProperties = function (O, kind) { // eslint-disable-lin
 					// 2. Else,
 				} else {
 					// a. Let value be ? Get(O, key).
-					var value = _ESAbstract.Get(O, key);
+					var value = Get(O, key);
 					// b. If kind is "value", append value to properties.
 					if (kind === 'value') {
 						properties.push(value);
@@ -41,4 +41,4 @@ _ESAbstract.EnumerableOwnProperties = function (O, kind) { // eslint-disable-lin
 	// 5. Order the elements of properties so they are in the same relative order as would be produced by the Iterator that would be returned if the EnumerateObjectProperties internal method were invoked with O.
 	// 6. Return properties.
 	return properties;
-};
+}

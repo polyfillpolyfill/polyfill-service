@@ -15,8 +15,7 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
-		"_ESAbstract.ToInteger",
-		"_ESAbstract"
+		"_ESAbstract.ToInteger"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-tolength"
 }

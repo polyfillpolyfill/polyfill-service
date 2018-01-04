@@ -1,6 +1,6 @@
-/* global _ESAbstract */
+/* global IsArray, ArrayCreate, Get, Type, IsConstructor, Construct */
 // 9.4.2.3. ArraySpeciesCreate ( originalArray, length )
-_ESAbstract.ArraySpeciesCreate = function (originalArray, length) { // eslint-disable-line no-unused-vars
+function ArraySpeciesCreate(originalArray, length) { // eslint-disable-line no-unused-vars
 	// 1. Assert: length is an integer Number ≥ 0.
 	// 2. If length is -0, set length to +0.
 	if (length === -0) {
@@ -8,28 +8,28 @@ _ESAbstract.ArraySpeciesCreate = function (originalArray, length) { // eslint-di
 	}
 
 	// 3. Let isArray be ? IsArray(originalArray).
-	var isArray = _ESAbstract.IsArray(originalArray);
+	var isArray = IsArray(originalArray);
 
 	// 4. If isArray is false, return ? ArrayCreate(length).
 	if (isArray === false) {
-		return _ESAbstract.ArrayCreate(length);
+		return ArrayCreate(length);
 	}
 
 	// 5. Let C be ? Get(originalArray, "constructor").
-	var C = _ESAbstract.Get(originalArray, 'constructor');
+	var C = Get(originalArray, 'constructor');
 
 	// Polyfill.io - We skip this section as not sure how to make a cross-realm normal Array, a same-realm Array.
 	// 6. If IsConstructor(C) is true, then
 	// if (IsConstructor(C)) {
-	// a. Let thisRealm be the current Realm Record.
-	// b. Let realmC be ? GetFunctionRealm(C).
-	// c. If thisRealm and realmC are not the same Realm Record, then
-	// i. If SameValue(C, realmC.[[Intrinsics]].[[%Array%]]) is true, set C to undefined.
+		// a. Let thisRealm be the current Realm Record.
+		// b. Let realmC be ? GetFunctionRealm(C).
+		// c. If thisRealm and realmC are not the same Realm Record, then
+			// i. If SameValue(C, realmC.[[Intrinsics]].[[%Array%]]) is true, set C to undefined.
 	// }
 	// 7. If Type(C) is Object, then
-	if (_ESAbstract.Type(C) === 'object') {
+	if (Type(C) === 'object') {
 		// a. Set C to ? Get(C, @@species).
-		C = 'Symbol' in this && 'species' in this.Symbol ? _ESAbstract.Get(C, this.Symbol.species) : undefined;
+		C = 'Symbol' in this && 'species' in this.Symbol ? Get(C, this.Symbol.species) : undefined;
 		// b. If C is null, set C to undefined.
 		if (C === null) {
 			C = undefined;
@@ -37,12 +37,12 @@ _ESAbstract.ArraySpeciesCreate = function (originalArray, length) { // eslint-di
 	}
 	// 8. If C is undefined, return ? ArrayCreate(length).
 	if (C === undefined) {
-		return _ESAbstract.ArrayCreate(length);
+		return ArrayCreate(length);
 	}
 	// 9. If IsConstructor(C) is false, throw a TypeError exception.
-	if (!_ESAbstract.IsConstructor(C)) {
+	if (!IsConstructor(C)) {
 		throw new TypeError('C must be a constructor');
 	}
 	// 10. Return ? Construct(C, « length »).
-	return _ESAbstract.Construct(C, [length]);
-};
+	return Construct(C, [length]);
+}

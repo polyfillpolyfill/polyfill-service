@@ -16,8 +16,7 @@
 	},
 	"dependencies": [
 		"_ESAbstract.ToInteger",
-		"_ESAbstract.ToLength",
-		"_ESAbstract"
+		"_ESAbstract.ToLength"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-tolength"
 }

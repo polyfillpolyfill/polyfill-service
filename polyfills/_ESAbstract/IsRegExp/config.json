@@ -17,8 +17,7 @@
 	"dependencies": [
 		"_ESAbstract.Type",
 		"_ESAbstract.ToBoolean",
-		"_ESAbstract.Get",
-		"_ESAbstract"
+		"_ESAbstract.Get"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-isregexp"
 }

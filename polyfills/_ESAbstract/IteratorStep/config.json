@@ -16,8 +16,7 @@
 	},
 	"dependencies": [
 		"_ESAbstract.IteratorNext",
-		"_ESAbstract.IteratorComplete",
-		"_ESAbstract"
+		"_ESAbstract.IteratorComplete"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-iteratorstep"
 }

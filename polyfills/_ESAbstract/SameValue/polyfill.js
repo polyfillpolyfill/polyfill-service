@@ -1,12 +1,12 @@
-/* global _ESAbstract */
+/* global Type, SameValueNonNumber */
 // 7.2.10. SameValue ( x, y )
-_ESAbstract.SameValue = function (x, y) { // eslint-disable-line no-unused-vars
+function SameValue(x, y) { // eslint-disable-line no-unused-vars
 	// 1. If Type(x) is different from Type(y), return false.
-	if (_ESAbstract.Type(x) !== _ESAbstract.Type(y)) {
+	if (Type(x) !== Type(y)) {
 		return false;
 	}
 	// 2. If Type(x) is Number, then
-	if (_ESAbstract.Type(x) === 'number') {
+	if (Type(x) === 'number') {
 		// a. If x is NaN and y is NaN, return true.
 		if (isNaN(x) && isNaN(y)) {
 			return true;
@@ -14,7 +14,7 @@ _ESAbstract.SameValue = function (x, y) { // eslint-disable-line no-unused-vars
 		// Polyfill.io - 0 === -0 is true, but they are not the same value.
 		// b. If x is +0 and y is -0, return false.
 		// c. If x is -0 and y is +0, return false.
-		if (x === 0 && y === 0 && 1 / x !== 1 / y) {
+		if (x === 0 && y === 0 && 1/x !== 1/y) {
 			return false;
 		}
 		// d. If x is the same Number value as y, return true.
@@ -25,5 +25,5 @@ _ESAbstract.SameValue = function (x, y) { // eslint-disable-line no-unused-vars
 		return false;
 	}
 	// 3. Return SameValueNonNumber(x, y).
-	return _ESAbstract.SameValueNonNumber(x, y);
-};
+	return SameValueNonNumber(x, y);
+}

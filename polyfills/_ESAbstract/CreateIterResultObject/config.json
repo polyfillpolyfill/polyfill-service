@@ -16,8 +16,7 @@
 	},
 	"dependencies": [
 		"_ESAbstract.Type",
-		"_ESAbstract.CreateDataProperty",
-		"_ESAbstract"
+		"_ESAbstract.CreateDataProperty"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-createiterresultobject"
 }

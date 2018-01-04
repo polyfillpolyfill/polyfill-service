@@ -1,6 +1,5 @@
-/* global _ESAbstract */
 // 9.4.2.2. ArrayCreate ( length [ , proto ] )
-_ESAbstract.ArrayCreate = function (length /* [, proto] */) {
+function ArrayCreate(length /* [, proto] */) {
 	// 1. Assert: length is an integer Number ≥ 0.
 	// 2. If length is -0, set length to +0.
 	if (length === -0) {
@@ -21,4 +20,4 @@ _ESAbstract.ArrayCreate = function (length /* [, proto] */) {
 	A.length = length;
 	// 11. Return A.
 	return A;
-};
+}

@@ -1,6 +1,5 @@
-/* global _ESAbstract */
 // 10.1.1. Static Semantics: UTF16Encoding ( cp )
-_ESAbstract.UTF16Encoding = function (cp) {
+function UTF16Encoding(cp) {
 	// 1. Assert: 0 ≤ cp ≤ 0x10FFFF.
 	// 2. If cp ≤ 0xFFFF, return cp.
 	if (cp <= 0xFFFF) {
@@ -13,4 +12,4 @@ _ESAbstract.UTF16Encoding = function (cp) {
 		// 5. Return the code unit sequence consisting of cu1 followed by cu2.
 		return [cu1, cu2];
 	}
-};
+}

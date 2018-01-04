@@ -15,7 +15,6 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
-		"_ESAbstract",
 		"_ESAbstract.IsArray",
 		"_ESAbstract.ArrayCreate",
 		"_ESAbstract.Get",

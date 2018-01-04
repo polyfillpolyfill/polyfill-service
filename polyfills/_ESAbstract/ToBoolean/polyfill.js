@@ -1,4 +1,3 @@
-/* global _ESAbstract */
 // 7.1.2. ToBoolean ( argument )
 // The abstract operation ToBoolean converts argument to a value of type Boolean according to Table 9:
 /*
@@ -14,6 +13,6 @@
 | Object        | Return true.                                                                               |
 --------------------------------------------------------------------------------------------------------------
 */
-_ESAbstract.ToBoolean = function (argument) { // eslint-disable-line no-unused-vars
+function ToBoolean(argument) { // eslint-disable-line no-unused-vars
 	return Boolean(argument);
-};
+}

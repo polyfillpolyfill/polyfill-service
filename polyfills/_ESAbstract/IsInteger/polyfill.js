@@ -1,12 +1,12 @@
-/* global _ESAbstract */
+/* globals Type */
 // 7.2.6. IsInteger ( argument )
-_ESAbstract.IsInteger = function (argument) { // eslint-disable-line no-unused-vars
+function IsInteger(argument) { // eslint-disable-line no-unused-vars
 	// 1. If Type(argument) is not Number, return false.
-	if (_ESAbstract.Type(argument) !== 'number') {
+	if (Type(argument) !== 'number') {
 		return false;
 	}
 	// 2. If argument is NaN, +∞, or -∞, return false.
-	if (isNaN(argument) || argument === Infinity || argument === -Infinity) {
+	if ( isNaN(argument) || argument === Infinity || argument === -Infinity) {
 		return false;
 	}
 	// 3. If floor(abs(argument)) ≠ abs(argument), return false.
@@ -15,4 +15,4 @@ _ESAbstract.IsInteger = function (argument) { // eslint-disable-line no-unused-v
 	}
 	// 4. Return true.
 	return true;
-};
+}

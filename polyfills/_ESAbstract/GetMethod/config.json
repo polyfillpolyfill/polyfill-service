@@ -16,8 +16,7 @@
 	},
 	"dependencies": [
 		"_ESAbstract.GetV",
-		"_ESAbstract.IsCallable",
-		"_ESAbstract"
+		"_ESAbstract.IsCallable"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-getmethod"
 }

@@ -14,8 +14,5 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract"
-	],
 	"spec": "https://tc39.github.io/ecma262/#sec-ispropertykey"
 }

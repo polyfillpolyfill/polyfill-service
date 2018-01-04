@@ -1,6 +1,5 @@
-/* global _ESAbstract */
 // 7.1.6. ToUint32 ( argument )
-_ESAbstract.ToUint32 = function (argument) {
+function ToUint32(argument) { // eslint-disable-line no-unused-vars
 	// 1. Let number be ? ToNumber(argument).
 	var number = Number(argument);
 	// 2. If number is NaN, +0, -0, +∞, or -∞, return +0.
@@ -13,4 +12,4 @@ _ESAbstract.ToUint32 = function (argument) {
 	var int32bit = int >>> 0;
 	// 5. Return int32bit.
 	return int32bit;
-};
+}
