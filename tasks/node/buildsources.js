@@ -8,6 +8,7 @@ const mkdirp = require('mkdirp');
 const tsort = require('tsort');
 const denodeify = require('denodeify');
 const vm = require('vm');
+const spdxLicenses = require('spdx-licenses');
 
 const writeFile = denodeify(fs.writeFile);
 const readFile = denodeify(fs.readFile);
@@ -123,7 +124,7 @@ class Polyfill {
 				this.config.baseDir = this.path.relative;
 
 				if ('licence' in this.config) {
-					throw `Incorrect spelling of license property in ${this.name}`;
+					throw new Error(`Incorrect spelling of license property in ${this.name}`);
 				}
 
 				this.config.hasTests = fs.existsSync(path.join(this.path.absolute, 'tests.js'));
@@ -135,6 +136,22 @@ class Polyfill {
 					validateSource(`if (${this.config.detectSource}) true;`, `${this.name} feature detect from ${this.detectPath}`);
 				}
 			});
+	}
+
+	checkLicense() {
+		if ('license' in this.config) {
+			const license = spdxLicenses.spdx(this.config.license);
+			if (license) {
+				// We allow CC0-1.0 and WTFPL as they are GPL compatible.
+				// https://www.gnu.org/licenses/license-list.html#WTFPL
+				// https://www.gnu.org/licenses/license-list.en.html#CC0
+				if (this.config.license !== 'CC0-1.0' && this.config.license !== 'WTFPL' && !license.OSIApproved) {
+					throw new Error(`The license ${this.config.license} (${license.name}) is not OSI approved.`);
+				}
+			} else {
+					throw new Error(`The license ${this.config.license} is not on the SPDX list of licenses ( https://spdx.org/licenses/ ).`);
+			}
+		}
 	}
 
 	loadSources() {
@@ -247,6 +264,7 @@ Promise.resolve()
 		.map(absolute => new Polyfill(absolute, path.relative(src, absolute)))
 		.filter(polyfill => polyfill.hasConfigFile)
 		.map(polyfill => polyfill.loadConfig()
+			.then(() => polyfill.checkLicense())
 			.then(() => polyfill.loadSources())
 			.then(() => polyfill.updateConfig())
 			.then(() => polyfill)
