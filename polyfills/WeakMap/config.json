@@ -21,6 +21,6 @@
 		"Array.prototype.forEach",
 		"Date.now"
 	],
-	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
+	"license": "BSD-3-Clause",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap"
 }
