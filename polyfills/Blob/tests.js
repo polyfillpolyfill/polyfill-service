@@ -98,7 +98,7 @@ describe('Blob', function () {
 	});
 
 	it('can construct a Blob when given `undefined`', function () {
-		var blob = new Blob(undefined);
+		var blob = new Blob();
 		proclaim.equal(blob.size, 0);
 		proclaim.equal(blob.type, '');
 	});
