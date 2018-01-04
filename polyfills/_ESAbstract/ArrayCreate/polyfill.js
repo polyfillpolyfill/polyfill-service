@@ -1,5 +1,5 @@
 // 9.4.2.2. ArrayCreate ( length [ , proto ] )
-function ArrayCreate(length /* [, proto] */) {
+function ArrayCreate(length /* [, proto] */) { // eslint-disable-line no-unused-vars
 	// 1. Assert: length is an integer Number ≥ 0.
 	// 2. If length is -0, set length to +0.
 	if (length === -0) {

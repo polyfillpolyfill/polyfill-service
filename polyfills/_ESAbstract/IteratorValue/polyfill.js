@@ -1,3 +1,4 @@
+/* global Type, Get */
 // 7.4.4 IteratorValue ( iterResult )
 function IteratorValue(iterResult) { // eslint-disable-line no-unused-vars
 	// Assert: Type(iterResult) is Object.

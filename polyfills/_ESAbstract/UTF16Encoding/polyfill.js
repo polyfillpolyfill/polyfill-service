@@ -1,5 +1,5 @@
 // 10.1.1. Static Semantics: UTF16Encoding ( cp )
-function UTF16Encoding(cp) {
+function UTF16Encoding(cp) { // eslint-disable-line no-unused-vars
 	// 1. Assert: 0 ≤ cp ≤ 0x10FFFF.
 	// 2. If cp ≤ 0xFFFF, return cp.
 	if (cp <= 0xFFFF) {

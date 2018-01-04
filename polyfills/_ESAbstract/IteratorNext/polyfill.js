@@ -1,3 +1,4 @@
+/* global Call, Type */
 // 7.4.2. IteratorNext ( iteratorRecord [ , value ] )
 function IteratorNext(iteratorRecord /* [, value] */) { // eslint-disable-line no-unused-vars
 	// 1. If value is not present, then

@@ -1,3 +1,4 @@
+/* global GetPrototypeFromConstructor */
 // 9.1.13. OrdinaryCreateFromConstructor ( constructor, intrinsicDefaultProto [ , internalSlotsList ] )
 function OrdinaryCreateFromConstructor(constructor, intrinsicDefaultProto) { // eslint-disable-line no-unused-vars
 	var internalSlotsList = arguments[2] || {};

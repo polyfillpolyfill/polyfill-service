@@ -1,5 +1,6 @@
+/* global Get, Type, IsConstructor */
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
-function SpeciesConstructor (O, defaultConstructor) {
+function SpeciesConstructor (O, defaultConstructor) { // eslint-disable-line no-unused-vars
 	// 7.3.20.1 Assert: Type(O) is Object.
 	// 7.3.20.2 Let C be ? Get(O, "constructor").
 	var C = Get(O, "constructor");

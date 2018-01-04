@@ -1,4 +1,4 @@
-/* global GetMethod, Symbol */
+/* global GetMethod, Symbol, Call, Type, GetV */
 // 7.4.1. GetIterator ( obj [ , method ] )
 // The abstract operation GetIterator with argument obj and optional argument method performs the following steps:
 function GetIterator(obj /*, method */) { // eslint-disable-line no-unused-vars

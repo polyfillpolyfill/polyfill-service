@@ -1,4 +1,4 @@
-/* global GetMethod */
+/* global GetMethod, Type, Call */
 // 7.4.6. IteratorClose ( iteratorRecord, completion )
 function IteratorClose(iteratorRecord, completion) { // eslint-disable-line no-unused-vars
 	// 1. Assert: Type(iteratorRecord.[[Iterator]]) is Object.

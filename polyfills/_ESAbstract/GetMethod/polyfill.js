@@ -1,3 +1,4 @@
+/* global GetV, IsCallable */
 // 7.3.9. GetMethod ( V, P )
 function GetMethod(V, P) { // eslint-disable-line no-unused-vars
 	// 1. Assert: IsPropertyKey(P) is true.
