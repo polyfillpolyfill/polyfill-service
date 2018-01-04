@@ -21,13 +21,6 @@
 
 	view.URL = view.URL || view.webkitURL;
 
-	if (view.Blob && view.URL) {
-		try {
-			new Blob;
-			return;
-		} catch (e) {}
-	}
-
 	// Internally we use a BlobBuilder implementation to base Blob off of
 	// in order to support older browsers that only have BlobBuilder
 	var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function (view) {
