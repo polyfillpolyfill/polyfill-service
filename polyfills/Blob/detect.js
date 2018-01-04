@@ -5,4 +5,11 @@
 	} catch (e) {
 		return false;
 	}
+}()) && (function () {
+	try {
+		Blob();
+		return false;
+	} catch (e) {
+		return true;
+	}
 }())
