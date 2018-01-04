@@ -18,7 +18,8 @@
 		"_ESAbstract.Call",
 		"_ESAbstract.GetMethod",
 		"_ESAbstract.OrdinaryToPrimitive",
-		"_ESAbstract.Type"
+		"_ESAbstract.Type",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-toprimitive"
 }

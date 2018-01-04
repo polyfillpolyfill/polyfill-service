@@ -17,7 +17,8 @@
 	"dependencies": [
 		"_ESAbstract.Type",
 		"_ESAbstract.ToBoolean",
-		"_ESAbstract.Get"
+		"_ESAbstract.Get",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-iteratorcomplete"
 }

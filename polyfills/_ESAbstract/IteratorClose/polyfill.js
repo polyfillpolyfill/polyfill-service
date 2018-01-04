@@ -1,8 +1,8 @@
-/* global GetMethod */
+/* global _ESAbstract */
 // 7.4.6. IteratorClose ( iteratorRecord, completion )
-function IteratorClose(iteratorRecord, completion) { // eslint-disable-line no-unused-vars
+_ESAbstract.IteratorClose = function (iteratorRecord, completion) { // eslint-disable-line no-unused-vars
 	// 1. Assert: Type(iteratorRecord.[[Iterator]]) is Object.
-	if (Type(iteratorRecord['[[Iterator]]']) !== 'object') {
+	if (_ESAbstract.Type(iteratorRecord['[[Iterator]]']) !== 'object') {
 		throw new Error(Object.prototype.toString.call(iteratorRecord['[[Iterator]]']) + 'is not an Object.');
 	}
 	// 2. Assert: completion is a Completion Record.
@@ -12,14 +12,14 @@ function IteratorClose(iteratorRecord, completion) { // eslint-disable-line no-u
 	var iterator = iteratorRecord['[[Iterator]]'];
 	// 4. Let return be ? GetMethod(iterator, "return").
 	// Polyfill.io - We name it  returnMethod because return is a keyword and can not be used as an identifier (E.G. variable name, function name etc).
-	var returnMethod = GetMethod(iterator, "return");
+	var returnMethod = _ESAbstract.GetMethod(iterator, "return");
 	// 5. If return is undefined, return Completion(completion).
 	if (returnMethod === undefined) {
 		return completion;
 	}
 	// 6. Let innerResult be Call(return, iterator, « »).
 	try {
-		var innerResult = Call(returnMethod, iterator);
+		var innerResult = _ESAbstract.Call(returnMethod, iterator);
 	} catch (error) {
 		var innerException = error;
 	}
@@ -32,9 +32,9 @@ function IteratorClose(iteratorRecord, completion) { // eslint-disable-line no-u
 		throw innerException;
 	}
 	// 9. If Type(innerResult.[[Value]]) is not Object, throw a TypeError exception.
-	if (!(Type(innerResult) !== 'object')) {
+	if (!(_ESAbstract.Type(innerResult) !== 'object')) {
 		throw new TypeError("Iterator's return method returned a non-object.");
 	}
 	// 10. Return Completion(completion).
 	return completion;
-}
+};

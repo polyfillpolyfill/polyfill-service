@@ -18,7 +18,8 @@
 		"_ESAbstract.GetPrototypeFromConstructor",
 		"Object.create",
 		"Object.defineProperty",
-		"Object.getPrototypeOf"
+		"Object.getPrototypeOf",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-ordinarycreatefromconstructor"
 }

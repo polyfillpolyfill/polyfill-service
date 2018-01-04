@@ -1,5 +1,6 @@
+/* global _ESAbstract */
 // 7.2.3. IsCallable ( argument )
-function IsCallable(argument) { // eslint-disable-line no-unused-vars
+_ESAbstract.IsCallable = function (argument) { // eslint-disable-line no-unused-vars
 	// 1. If Type(argument) is not Object, return false.
 	// 2. If argument has a [[Call]] internal method, return true.
 	// 3. Return false.

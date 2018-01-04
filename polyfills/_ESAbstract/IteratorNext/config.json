@@ -16,7 +16,8 @@
 	},
 	"dependencies": [
 		"_ESAbstract.Type",
-		"_ESAbstract.Call"
+		"_ESAbstract.Call",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-iteratornext"
 }

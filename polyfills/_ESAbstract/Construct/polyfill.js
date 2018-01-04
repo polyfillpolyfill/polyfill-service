@@ -1,6 +1,6 @@
-/* global IsConstructor, OrdinaryCreateFromConstructor, Call */
+/* global _ESAbstract */
 // 7.3.13. Construct ( F [ , argumentsList [ , newTarget ]] )
-function Construct(F /* [ , argumentsList [ , newTarget ]] */) { // eslint-disable-line no-unused-vars
+_ESAbstract.Construct = function (F /* [ , argumentsList [ , newTarget ]] */) { // eslint-disable-line no-unused-vars
 	// 1. If newTarget is not present, set newTarget to F.
 	var newTarget = arguments.length > 2 ? arguments[2] : F;
 
@@ -8,12 +8,12 @@ function Construct(F /* [ , argumentsList [ , newTarget ]] */) { // eslint-disab
 	var argumentsList = arguments.length > 1 ? arguments[1] : [];
 
 	// 3. Assert: IsConstructor(F) is true.
-	if (!IsConstructor(F)) {
+	if (!_ESAbstract.IsConstructor(F)) {
 		throw new TypeError('F must be a constructor.');
 	}
 
 	// 4. Assert: IsConstructor(newTarget) is true.
-	if (!IsConstructor(newTarget)) {
+	if (!_ESAbstract.IsConstructor(newTarget)) {
 		throw new TypeError('newTarget must be a constructor.');
 	}
 
@@ -23,7 +23,7 @@ function Construct(F /* [ , argumentsList [ , newTarget ]] */) { // eslint-disab
 		return new (Function.prototype.bind.apply(F, [null].concat(argumentsList)))();
 	} else {
 		// Polyfill.io - This is mimicking section 9.2.2 step 5.a.
-		var obj = OrdinaryCreateFromConstructor(newTarget, Object.prototype);
-		return Call(F, obj, argumentsList);
+		var obj = _ESAbstract.OrdinaryCreateFromConstructor(newTarget, Object.prototype);
+		return _ESAbstract.Call(F, obj, argumentsList);
 	}
-}
+};

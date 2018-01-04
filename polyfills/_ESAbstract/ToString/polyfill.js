@@ -1,4 +1,5 @@
+/* global _ESAbstract */
 // 7.1.12. ToString ( argument )
-function ToString(argument) { // eslint-disable-line no-unused-vars
+_ESAbstract.ToString = function (argument) { // eslint-disable-line no-unused-vars
 	return String(argument);
-}
+};

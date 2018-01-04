@@ -15,7 +15,8 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"Object.defineProperty",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-createdataproperty"
 }

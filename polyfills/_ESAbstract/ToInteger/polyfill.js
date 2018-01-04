@@ -1,5 +1,6 @@
+/* global _ESAbstract */
 // 7.1.4. ToInteger ( argument )
-function ToInteger(argument) { // eslint-disable-line no-unused-vars
+_ESAbstract.ToInteger = function (argument) { // eslint-disable-line no-unused-vars
 	// 1. Let number be ? ToNumber(argument).
 	var number = Number(argument);
 	// 2. If number is NaN, return +0.
@@ -12,4 +13,4 @@ function ToInteger(argument) { // eslint-disable-line no-unused-vars
 	}
 	// 4. Return the number value that is the same sign as number and whose magnitude is floor(abs(number)).
 	return ((number < 0) ? -1 : 1) * Math.floor(Math.abs(number));
-}
+};

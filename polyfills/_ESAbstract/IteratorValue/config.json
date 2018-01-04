@@ -16,7 +16,8 @@
 	},
 	"dependencies": [
 		"_ESAbstract.Get",
-		"_ESAbstract.Type"
+		"_ESAbstract.Type",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-iteratorvalue"
 }

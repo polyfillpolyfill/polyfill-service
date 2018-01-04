@@ -16,7 +16,8 @@
 	},
 	"dependencies": [
 		"_ESAbstract.Call",
-		"_ESAbstract.GetV"
+		"_ESAbstract.GetV",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-getv"
 }

@@ -19,7 +19,8 @@
 		"_ESAbstract.GetMethod",
 		"_ESAbstract.GetV",
 		"_ESAbstract.Type",
-		"Object.create"
+		"Object.create",
+		"_ESAbstract"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-getiterator"
 }
