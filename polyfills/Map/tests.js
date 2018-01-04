@@ -55,6 +55,7 @@ describe('Map', function () {
 					proclaim.isTrue(descriptor.configurable);
 				} catch (e) {
 					// Safari 8 sets the name property with correct value but also to be non-configurable
+					proclaim.isFalse(descriptor.configurable);
 				}
 				proclaim.isFalse(descriptor.enumerable);
 				proclaim.isFalse(descriptor.writable);
@@ -214,9 +215,10 @@ describe('Map', function () {
 
 		it('throws error if called without NewTarget set. I.E. Called as a normal function and not a constructor', function () {
 			proclaim.throws(function () {
-				Map();
+				Map(); // eslint-disable-line new-cap
 			});
 		});
+
 		it("has valid constructor", function () {
 			proclaim.isInstanceOf(new Map, Map);
 			proclaim.isInstanceOf(new Map(), Map);
@@ -227,23 +229,156 @@ describe('Map', function () {
 				proclaim.equal((new Map).__proto__ === Map.prototype, true);
 			}
 		});
+
+		it("can be pre-populated with an array", function() {
+			var a = 1;
+			var b = {};
+			var c = new Map();
+			var m = new Map([[1,1], [b,2], [c, 3]]);
+			proclaim.equal(m.has(a), true);
+			proclaim.equal(m.has(b), true);
+			proclaim.equal(m.has(c), true);
+			proclaim.equal(m.size, 3);
+
+			var d = new Map(m);
+			proclaim.equal(d.has(a), true);
+			proclaim.equal(d.has(b), true);
+			proclaim.equal(d.has(c), true);
+			proclaim.equal(d.size, 3);
+		});
+
+		it("can be pre-populated with the arguments object", function() {
+			var a = 1;
+			var b = {};
+			var c = new Map();
+			var m = (function () {
+				return new Map(arguments);
+			}([1, 1], [b, 2], [c, 3]));
+			proclaim.equal(m.has(a), true);
+			proclaim.equal(m.has(b), true);
+			proclaim.equal(m.has(c), true);
+			proclaim.equal(m.size, 3);
+
+			var d = new Map(m);
+			proclaim.equal(d.has(a), true);
+			proclaim.equal(d.has(b), true);
+			proclaim.equal(d.has(c), true);
+			proclaim.equal(d.size, 3);
+		});
+
+		if ('Symbol' in window && 'iterator' in Symbol) {
+			it("can be pre-populated with custom iterable", function () {
+				var count = 0;
+				var a = {};
+				a[Symbol.iterator] = function () {
+					return {
+						next: function () {
+							if (count === 5) {
+								return { done: true };
+							}
+							return {
+								done: false,
+								value: [count, count++]
+							};
+						}
+					};
+				};
+				var m = new Map(a);
+				proclaim.equal(m.has(0), true, 'a');
+				proclaim.equal(m.has(1), true, 'b');
+				proclaim.equal(m.has(2), true, 'c');
+				proclaim.equal(m.has(3), true, 'd');
+				proclaim.equal(m.has(4), true, 'e');
+				proclaim.equal(m.size, 5, 'f');
+			});
+		}
 	});
 
-	it ("can be pre-populated", function() {
-		var a = 1;
-		var b = {};
-		var c = new Map();
-		var m = new Map([[1,1], [b,2], [c, 3]]);
-		proclaim.equal(m.has(a), true);
-		proclaim.equal(m.has(b), true);
-		proclaim.equal(m.has(c), true);
-		proclaim.equal(m.size, 3);
+	describe('Map.prototype.clear', function () {
+		it('has 0 length', function () {
+			proclaim.equal(Map.prototype.clear.length, 0);
+		});
 
-		var d = new Map(m);
-		proclaim.equal(d.has(a), true);
-		proclaim.equal(d.has(b), true);
-		proclaim.equal(d.has(c), true);
-		proclaim.equal(d.size, 3);
+		it('throws a TypeError if `this` is not an Object', function () {
+			proclaim.throws(function () {
+				Map.prototype.clear.call('');
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(1);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(true);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(/ /);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(null);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call(undefined);
+			}, TypeError);
+		});
+
+		it('throws a TypeError if `this` is not an a Map Object', function () {
+			proclaim.throws(function () {
+				Map.prototype.clear.call([]);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype.clear.call({});
+			}, TypeError);
+		});
+
+		// TODO: Need to test the fact that the existing [[MapData]] List is preserved because
+		// there may be existing Map Iterator objects that are suspended midway through iterating over that List.
+
+	});
+
+	describe('Map.prototype.delete', function () {
+		it('has 1 length', function () {
+			proclaim.equal(Map.prototype['delete'].length, 1);
+		});
+
+		it('throws a TypeError if `this` is not an Object', function () {
+			proclaim.throws(function () {
+				Map.prototype['delete'].call('');
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(1);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(true);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(/ /);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(null);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call(undefined);
+			}, TypeError);
+		});
+
+		it('throws a TypeError if `this` is not an a Map Object', function () {
+			proclaim.throws(function () {
+				Map.prototype['delete'].call([]);
+			}, TypeError);
+			proclaim.throws(function () {
+				Map.prototype['delete'].call({});
+			}, TypeError);
+		});
+
+		it('returns false if key was not in map', function () {
+			var map = new Map();
+			proclaim.isFalse(map['delete']('k'));
+		});
+
+		it('returns true if key was in map', function () {
+			var map = new Map();
+			map.set('k', 1);
+			proclaim.isTrue(map['delete']('k'));
+		});
 	});
 
 	it("implements .size()", function () {
