@@ -10,7 +10,7 @@ function ToInt16(argument) { // eslint-disable-line no-unused-vars
 	var int = ((number < 0) ? -1 : 1) * Math.floor(Math.abs(number));
 	// 4. Let int16bit be int modulo 2^16.
 	var int16bit = int % Math.pow(2,16);
-	// 5. If int16bit ≥ 2^31, return int16bit - 2^16; otherwise return int16bit.
+	// 5. If int16bit ≥ 2^15, return int16bit - 2^16; otherwise return int16bit.
 	if (int16bit >= Math.pow(2,15)) {
 		return int16bit - Math.pow(2,16);
 	} else {
