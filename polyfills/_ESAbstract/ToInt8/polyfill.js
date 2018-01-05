@@ -10,7 +10,7 @@ function ToInt8(argument) { // eslint-disable-line no-unused-vars
 	var int = ((number < 0) ? -1 : 1) * Math.floor(Math.abs(number));
 	// 4. Let int8bit be int modulo 2^8.
 	var int8bit = int % Math.pow(2,8);
-	// 5. If int8bit ≥ 2^31, return int8bit - 2^8; otherwise return int8bit.
+	// 5. If int8bit ≥ 2^7, return int8bit - 2^8; otherwise return int8bit.
 	if (int8bit >= Math.pow(2,7)) {
 		return int8bit - Math.pow(2,8);
 	} else {
