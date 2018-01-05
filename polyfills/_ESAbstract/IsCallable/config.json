@@ -14,5 +14,5 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"spec": "https://tc39.github.io/ecma262/#sec-ecmascript-function-objects-call-thisargument-argumentslist"
+	"spec": "https://tc39.github.io/ecma262/#sec-iscallable"
 }
