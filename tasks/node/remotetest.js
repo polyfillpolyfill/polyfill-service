@@ -206,7 +206,7 @@ class TestJob {
 			"tunnelIdentifier": this.sessionName,
 			'browserstack.local': true,
 			'browserstack.debug': true
-		}, testProvider.useragentToBrowserObj[this.ua]);
+		}, testProvider.useragentToBrowserObj(this.ua));
 
 		this.setState('initialising browser');
 		this.startTime = Date.now();
