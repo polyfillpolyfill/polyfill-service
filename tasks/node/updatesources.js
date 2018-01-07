@@ -54,7 +54,13 @@ console.log('Updating third-party polyfills...');
 glob('polyfills/**/config.json', globOptions)
     .then(files => {
         files
-            .map(src => Object.assign({src}, JSON.parse(fs.readFileSync(src))))
+			.map(src => {
+				try {
+					return Object.assign({ src }, JSON.parse(fs.readFileSync(src)));
+				} catch (e) {
+					throw new Error('Failed on ' + src + '. Error: ' + e);
+				}
+			})
             .filter(config => 'install' in config)
             .forEach(installPolyfill);
         ;
