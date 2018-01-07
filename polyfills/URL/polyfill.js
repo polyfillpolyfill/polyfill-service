@@ -243,7 +243,7 @@
       forEach: {
         value: function(callback) {
           var thisArg = (arguments.length > 1) ? arguments[1] : undefined;
-          this._list.forEach(function(pair, index) {
+          this._list.forEach(function(pair) {
             callback.call(thisArg, pair.value, pair.name);
           });
 
@@ -342,7 +342,7 @@
         } catch (_) {
           return false;
         }
-      })();
+      }());
 
       var self = ES5_GET_SET ? this : document.createElement('a');
 
