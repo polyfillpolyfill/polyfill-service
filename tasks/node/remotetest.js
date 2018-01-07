@@ -33,8 +33,9 @@ const browserSets = {
 		'firefox/53',
 		'firefox/49',
 		'firefox/44',
+		'ie/16',
 		'ie/15',
-		'ie/13',
+		'ie/14',
 		'ie/11',
 		'ie/10',
 		'ie/9',
@@ -59,9 +60,9 @@ const browserSets = {
 		'firefox/41',
 		'firefox/33',
 		'firefox/30',
+		'ie/16',
 		'ie/15',
 		'ie/14',
-		'ie/13',
 		'ie/11',
 		'ie/10',
 		'ie/9',
@@ -206,7 +207,7 @@ class TestJob {
 			"tunnelIdentifier": this.sessionName,
 			'browserstack.local': true,
 			'browserstack.debug': true
-		}, testProvider.useragentToBrowserObj[this.ua]);
+		}, testProvider.useragentToBrowserObj(this.ua));
 
 		this.setState('initialising browser');
 		this.startTime = Date.now();
