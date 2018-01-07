@@ -19,11 +19,14 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
+		"Array.isArray",
 		"Array.prototype.indexOf",
 		"Symbol",
 		"Symbol.iterator",
 		"Symbol.species",
+		"Object.create",
 		"Object.defineProperty",
+		"Object.getPrototypeOf",
 		"Number.isNaN"
 	],
 	"notes": [
