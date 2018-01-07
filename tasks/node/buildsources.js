@@ -56,7 +56,7 @@ function checkForCircularDependencies(polyfills) {
 		return Promise.resolve();
 	}
 	catch (err) {
-		return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
+		return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.' + err);
 	}
 }
 
