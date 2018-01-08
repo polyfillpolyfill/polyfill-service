@@ -19,5 +19,5 @@
 		"_ESAbstract.ToNumber",
 		"_ESAbstract.ToString"
 	],
-	"spec": "https://tc39.github.io/ecma262/#sec-getv"
+	"spec": "https://tc39.github.io/ecma262/#sec-canonicalnumericindexstring"
 }
