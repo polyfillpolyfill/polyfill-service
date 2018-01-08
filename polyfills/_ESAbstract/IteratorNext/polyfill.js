@@ -8,7 +8,7 @@ function IteratorNext(iteratorRecord /* [, value] */) { // eslint-disable-line n
 	// 2. Else,
 	} else {
 		// a. Let result be ? Call(iteratorRecord.[[NextMethod]], iteratorRecord.[[Iterator]], « value »).
-		result = Call(iteratorRecord['[[NextMethod]]'], iteratorRecord['[[Iterator]]'], arguments[1]);
+		result = Call(iteratorRecord['[[NextMethod]]'], iteratorRecord['[[Iterator]]'], [arguments[1]]);
 	}
 	// 3. If Type(result) is not Object, throw a TypeError exception.
 	if (Type(result) !== 'object') {
