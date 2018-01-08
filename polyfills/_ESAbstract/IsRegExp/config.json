@@ -1,0 +1,23 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.Type",
+		"_ESAbstract.ToBoolean",
+		"_ESAbstract.Get"
+	],
+	"spec": "https://tc39.github.io/ecma262/#sec-isregexp"
+}
