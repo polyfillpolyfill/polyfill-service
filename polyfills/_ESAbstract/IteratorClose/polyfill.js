@@ -32,7 +32,7 @@ function IteratorClose(iteratorRecord, completion) { // eslint-disable-line no-u
 		throw innerException;
 	}
 	// 9. If Type(innerResult.[[Value]]) is not Object, throw a TypeError exception.
-	if (!(Type(innerResult) !== 'object')) {
+	if (Type(innerResult) !== 'object') {
 		throw new TypeError("Iterator's return method returned a non-object.");
 	}
 	// 10. Return Completion(completion).
