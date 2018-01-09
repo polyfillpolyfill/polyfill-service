@@ -19,5 +19,5 @@
 		"_ESAbstract.ToString",
 		"_ESAbstract.Type"
 	],
-	"spec": "https://tc39.github.io/ecma262/#sec-samevaluezero"
+	"spec": "https://tc39.github.io/ecma262/#sec-topropertykey"
 }
