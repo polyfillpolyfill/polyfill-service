@@ -20,7 +20,7 @@ function ToPrimitive(input /* [, PreferredType] */) { // eslint-disable-line no-
 		// e. If exoticToPrim is not undefined, then
 		if (exoticToPrim !== undefined) {
 			// i. Let result be ? Call(exoticToPrim, input, « hint »).
-			var result = Call(exoticToPrim, input, hint);
+			var result = Call(exoticToPrim, input, [hint]);
 			// ii. If Type(result) is not Object, return result.
 			if (Type(result) !== 'object') {
 				return result;
