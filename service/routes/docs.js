@@ -250,7 +250,6 @@ function refreshData() {
 
 	Object.keys(handlers).forEach(type => {
 		if (!docsData.hasOwnProperty(type) || (docsData[type] !== null && 'expires' in docsData[type] && docsData[type].expires < Date.now())) {
-			console.log('Generating docs data: type='+type);
 			try {
 				handlers[type]()
 					.then(result => {
