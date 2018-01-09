@@ -1,0 +1,16 @@
+{
+	"browsers": {
+		"chrome": "<20",
+		"firefox": "<13",
+		"safari": "<6",
+		"ie": "<12",
+		"opera": "<12"
+	},
+	"dependencies": [
+		"atob",
+		"URL"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob",
+	"license": "MIT",
+	"repo": "https://github.com/eligrey/Blob.js/blob"
+}

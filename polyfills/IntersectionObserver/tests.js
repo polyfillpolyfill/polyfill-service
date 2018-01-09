@@ -1,14 +1,20 @@
 /* eslint-env mocha, browser */
 /* global proclaim, sinon */
 
+this.timeout(30000);
+
 before(function(done) {
 	var head = document.head || document.getElementsByTagName('head')[0];
 	var scriptEl = document.createElement('script');
 	var readywait = null;
-	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.js';
 	scriptEl.onload = function() {
 		clearTimeout(readywait);
 		done();
+	};
+	scriptEl.crossOrigin = 'anonymous';
+	scriptEl.onerror = function () {
+		throw new Error("Error loading " + this.src);
 	};
 	readywait = setInterval(function() {
 		if ('sinon' in window) {
@@ -19,7 +25,6 @@ before(function(done) {
 	head.appendChild(scriptEl);
 });
 
-this.timeout(30000);
 
 /**
  * The following copy-paste from https://github.com/WICG/IntersectionObserver/blob/9e1b3808720f477906257d7428a558155dd393d8/polyfill/intersection-observer-test.js
