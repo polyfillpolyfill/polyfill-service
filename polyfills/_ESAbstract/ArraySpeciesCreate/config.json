@@ -1,0 +1,26 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.IsArray",
+		"_ESAbstract.ArrayCreate",
+		"_ESAbstract.Get",
+		"_ESAbstract.Type",
+		"_ESAbstract.IsConstructor",
+		"_ESAbstract.Construct"
+	],
+	"spec": "https://tc39.github.io/ecma262/#sec-arrayspeciescreate"
+}
