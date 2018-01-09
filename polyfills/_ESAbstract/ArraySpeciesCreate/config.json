@@ -22,5 +22,5 @@
 		"_ESAbstract.IsConstructor",
 		"_ESAbstract.Construct"
 	],
-	"spec": "https://tc39.github.io/ecma262/#sec-call"
+	"spec": "https://tc39.github.io/ecma262/#sec-arrayspeciescreate"
 }
