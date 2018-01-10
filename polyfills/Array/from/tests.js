@@ -92,27 +92,6 @@ describe('returns an array with', function () {
 			}
 		}
 
-		it('can convert from a user-defined iterator', function () {
-			function iterator(cnt) {
-				return {
-					next: function () {
-						return cnt === 0
-							? {
-								done: true
-							}
-							: {
-								value: cnt--,
-								done: false
-							};
-					}
-				};
-			}
-			proclaim.deepEqual(Array.from(iterator(0)), []);
-			proclaim.deepEqual(Array.from(iterator(1)), [1]);
-			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
-			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
-		});
-
 		if ('Symbol' in window && 'iterator' in Symbol) {
 			it('can understand objects which have a property named Symbol.iterator', function () {
 				var o = {};
