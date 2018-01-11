@@ -1,0 +1,7 @@
+{
+	"checkPolicies": true,
+	"projectName": "polyfill-service",
+	"productName": "polyfill-service",
+	"devDep": false,
+	"failOnError": true
+}

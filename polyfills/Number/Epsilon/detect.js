@@ -1,0 +1,1 @@
+'EPSILON' in Number

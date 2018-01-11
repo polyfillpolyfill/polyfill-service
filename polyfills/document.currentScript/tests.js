@@ -1,5 +1,5 @@
 /* eslint-env mocha, browser */
-/* global proclaim, it */
+/* global proclaim */
 
 var currentScriptDuringSynchronousEval = document.currentScript;
 
@@ -8,7 +8,7 @@ it('returns the current script element when invoked during synchronous evaluatio
 
 	proclaim.isNotNull(cs);
 	proclaim.isTypeOf(cs, 'object');
-	proclaim.equal(cs.nodeType, 1);  // Node.ELEMENT_NODE
+	proclaim.equal(cs.nodeType, 1); // Node.ELEMENT_NODE
 	proclaim.equal(cs.nodeName, 'SCRIPT');
 	proclaim.equal(cs.tagName.toUpperCase(), 'SCRIPT');
 	proclaim.equal(cs.ownerDocument, document);

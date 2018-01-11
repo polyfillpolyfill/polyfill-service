@@ -11,6 +11,12 @@
 		"opera": "*",
 		"op_mini": "*",
 		"safari": "*",
-		"firefox_mob": "*"
-	}
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"license" :"ISC",
+	"repo": "https://github.com/Alhadis/DOMTokenList"
 }

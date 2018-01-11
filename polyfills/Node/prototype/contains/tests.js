@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // Note: Function length is incorrectly reported as 0 in MS Edge (IE12), but this is intentionally not tested
 

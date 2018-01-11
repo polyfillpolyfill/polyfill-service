@@ -2,8 +2,6 @@
 
 const sinon = require('sinon');
 
-require('sinon-as-promised');
-
 module.exports = {
 	polyfillExistsSync: sinon.stub(),
 	getPolyfillMetaSync: sinon.stub(),

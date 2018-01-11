@@ -81,6 +81,22 @@ jobs:
           name: Test polyfills
           command: ".circleci/do-exclusively.sh npm run test-browser-ci"
 
+  test_vcl:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Test vcl
+          command: "npm run test-vcl"
+
+  check_dependencies:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Check Dependencies conform with the WhiteSource policy
+          command: "npm run whitesource"
+
 workflows:
   version: 2
   test:
@@ -100,5 +116,13 @@ workflows:
             - build
 
       - test_polyfills:
+          requires:
+            - build
+
+      - test_vcl:
+          requires:
+            - build
+
+      - check_dependencies:
           requires:
             - build

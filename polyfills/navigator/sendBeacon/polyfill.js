@@ -5,7 +5,6 @@ this.navigator.sendBeacon = function sendBeacon(url, data) {
 	xhr.setRequestHeader('Accept', '*/*');
 	if (typeof data === 'string') {
 		xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
-		xhr.responseType = 'text/plain';
 	} else if (Object.prototype.toString.call(data) === '[object Blob]') {
 		if (data.type) {
 			xhr.setRequestHeader('Content-Type', data.type);

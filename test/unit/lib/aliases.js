@@ -3,7 +3,6 @@
 
 const assert = require('proclaim');
 const sinon = require('sinon');
-require('sinon-as-promised');
 const setsToArrays = require('../../utils/sets_to_arrays');
 
 describe('lib/aliases', () => {

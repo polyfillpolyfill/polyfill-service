@@ -7,7 +7,7 @@ it('has correct instance', function () {
 
 it('has correct name', function () {
 	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
 	}
 	proclaim.equal(nameOf(Array.from), 'from');
 });
@@ -77,7 +77,7 @@ describe('returns an array with', function () {
 			set.add(2);
 			set.add(3);
 			set.add(4);
-			set.add(undefined)
+			set.add(undefined);
 			it('can convert from Set', function () {
 				proclaim.deepEqual(Array.from(set), [1,2,3,4,undefined]);
 				proclaim.deepEqual(Array.from(set, returnArgs), [[1,0],[2,1],[3,2],[4,3],[undefined,4]]);
@@ -91,27 +91,6 @@ describe('returns an array with', function () {
 				}
 			}
 		}
-
-		it('can convert from a user-defined iterator', function () {
-			function iterator(cnt) {
-				return {
-					next: function () {
-						return cnt === 0
-							? {
-								done: true
-							}
-							: {
-								value: cnt--,
-								done: false
-							};
-					}
-				};
-			}
-			proclaim.deepEqual(Array.from(iterator(0)), []);
-			proclaim.deepEqual(Array.from(iterator(1)), [1]);
-			proclaim.deepEqual(Array.from(iterator(2)), [2, 1]);
-			proclaim.deepEqual(Array.from(iterator(3)), [3, 2, 1]);
-		});
 
 		if ('Symbol' in window && 'iterator' in Symbol) {
 			it('can understand objects which have a property named Symbol.iterator', function () {
@@ -190,7 +169,7 @@ describe('returns an array with', function () {
 	it('this as an object', function () {
 		var context = {};
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Object);
 			proclaim.strictEqual(this.valueOf(), context);
 		}, context);
@@ -199,7 +178,7 @@ describe('returns an array with', function () {
 	it('this as 42', function () {
 		var context = 42;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Number);
 			proclaim.strictEqual(this.valueOf(), 42);
 		}, context);
@@ -208,7 +187,7 @@ describe('returns an array with', function () {
 	it('this as false', function () {
 		var context = false;
 
-		Array.from(['a', 'b', 'c'], function (value, index) {
+		Array.from(['a', 'b', 'c'], function () {
 			proclaim.isInstanceOf(this, Boolean);
 			proclaim.strictEqual(this.valueOf(), false);
 		}, context);

@@ -42,9 +42,10 @@
 			throw new Error('Not enough arguments');
 		}
 
+		var event;
 		// Shortcut if browser supports createEvent
 		if ('createEvent' in document) {
-			var event = document.createEvent('Event');
+			event = document.createEvent('Event');
 			var bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false;
 			var cancelable = eventInitDict && eventInitDict.cancelable !== undefined ? eventInitDict.cancelable : false;
 
@@ -53,7 +54,7 @@
 			return event;
 		}
 
-		var event = document.createEventObject();
+		event = document.createEventObject();
 
 		event.type = type;
 		event.bubbles = eventInitDict && eventInitDict.bubbles !== undefined ? eventInitDict.bubbles : false;

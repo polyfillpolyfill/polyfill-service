@@ -1,14 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
-
-function toArray(it) {
-	var a = [];
-	for (var cur = it.next(); !cur.done; cur = it.next()) {
-		a.push(cur.value);
-	}
-	return a;
-}
-
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('URL IDL', function () {
 	var url = new URL('http://example.com:8080/foo/bar?a=1&b=2#p1');

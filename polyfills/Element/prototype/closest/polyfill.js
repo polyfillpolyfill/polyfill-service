@@ -3,7 +3,7 @@ Element.prototype.closest = function closest(selector) {
 
 	while (node) {
 		if (node.matches(selector)) return node;
-		else node = node.tagName === 'svg' ? node.parentNode : node.parentElement;
+		else node = 'SVGElement' in window && node instanceof SVGElement ? node.parentNode : node.parentElement;
 	}
 
 	return null;

@@ -7,8 +7,6 @@ const sinon = require('sinon');
 const semver = require('semver');
 const mockery = require('mockery');
 
-require('sinon-as-promised');
-
 describe("lib/UA", function () {
 	let useragent;
 	let UA;
@@ -244,6 +242,9 @@ describe("lib/UA", function () {
 
 				const yandex = new UA("Mozilla/5.0 (Linux; Android 5.0.1; GT-I9505 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 YaBrowser/14.2.1.1239.00 Mobile Safari/537.36");
 				assert.equal(yandex.ua.family, 'chrome');
+
+				const googlebot = new UA("Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+				assert.equal(googlebot.ua.family, 'chrome');
 			});
 		});
 	});
@@ -351,6 +352,21 @@ describe("lib/UA", function () {
 			test = UA.normalize("Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329 [FBAN/FBIOS;FBAV/6.0.2;FBBV/183159;FBDV/iPhone4,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/6.1.3;FBSS/2; FBCR/AT&T;FBID/phone;FBLC/en_US;FBOP/1]");
 			assert.equal(test, "ios_saf/6.1.0");
 		});
+
+		it("should resolve mobile googlebot 2.1 to chrome 41.0.0", function () {
+			const googlebot = UA.normalize("Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+			assert.equal(googlebot, "chrome/41.0.0");
+		});
+
+		it("should resolve desktop googlebot 2.1 to chrome 41.0.0", function () {
+			const googlebot = UA.normalize("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+			assert.equal(googlebot, "chrome/41.0.0");
+		});
+
+		it("should resolve legacy desktop googlebot 2.1 to chrome 41.0.0", function () {
+			const googlebot = UA.normalize("Googlebot/2.1 (+http://www.google.com/bot.html)");
+			assert.equal(googlebot, "chrome/41.0.0");
+		});
 	});
 
 	describe(".isUnknown", function () {
@@ -443,5 +459,4 @@ describe("lib/UA", function () {
 			});
 		});
 	});
-
 });

@@ -1,14 +1,20 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim, sinon */
+
+this.timeout(30000);
 
 before(function(done) {
-	var head = head = document.head || document.getElementsByTagName('head')[0];
+	var head = document.head || document.getElementsByTagName('head')[0];
 	var scriptEl = document.createElement('script');
 	var readywait = null;
-	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js';
+	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.js';
 	scriptEl.onload = function() {
 		clearTimeout(readywait);
 		done();
+	};
+	scriptEl.crossOrigin = 'anonymous';
+	scriptEl.onerror = function () {
+		throw new Error("Error loading " + this.src);
 	};
 	readywait = setInterval(function() {
 		if ('sinon' in window) {
@@ -19,7 +25,6 @@ before(function(done) {
 	head.appendChild(scriptEl);
 });
 
-this.timeout(30000);
 
 /**
  * The following copy-paste from https://github.com/WICG/IntersectionObserver/blob/9e1b3808720f477906257d7428a558155dd393d8/polyfill/intersection-observer-test.js
@@ -830,7 +835,7 @@ describe('IntersectionObserver', function() {
 						document.documentElement.clientHeight || document.body.clientHeight;
 
 					proclaim.equal(records.length, 1);
-					var rootBounds = records[0].rootBounds
+					var rootBounds = records[0].rootBounds;
 					proclaim.equal(rootBounds.top, 0, 'rootBounds top expected to be ' + 0 + ' but was ' + rootBounds.top);
 					proclaim.equal(rootBounds.left, 0, 'rootBounds top expected to be ' + 0 + ' but was ' + rootBounds.left);
 					proclaim.equal(rootBounds.right, viewportWidth, 'rootBounds top expected to be ' + viewportWidth + ' but was ' + rootBounds.right);

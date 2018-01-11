@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('is a function', function() {
 	proclaim.isInstanceOf(Array.prototype.indexOf, Function);

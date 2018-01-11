@@ -1,7 +1,10 @@
 {
 	"aliases": [
 		"es6",
-		"es2015"
+		"es2015",
+		"Object.getOwnPropertySymbols",
+		"Symbol.for",
+		"Symbol.keyFor"
 	],
 	"browsers": {
 		"ie": "< 13",
@@ -11,6 +14,7 @@
 		"firefox": "< 40",
 		"ios_saf": "<9",
 		"opera": "< 37",
+		"op_mini": "*",
 		"samsung_mob": "<5",
 		"android": "<5.1",
 		"bb": "10 - *"

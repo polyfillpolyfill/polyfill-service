@@ -1,0 +1,18 @@
+{
+	"aliases": [
+		"es6",
+		"es2015",
+		"Number.EPSILON"
+	],
+	"browsers": {
+		"ie": "<12",
+		"firefox": "<25",
+		"safari": "<9"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"license": "MIT",
+	"spec": "https://tc39.github.io/ecma262/#sec-number.epsilon",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON"
+}

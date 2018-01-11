@@ -35,7 +35,7 @@
 			if (hasValueOrWritable) {
 				throw new TypeError(ERR_VALUE_ACCESSORS);
 			}
-			object.__defineGetter__(propertyString, descriptor.get);
+			Object.__defineGetter__.call(object, propertyString, descriptor.get);
 		} else {
 			object[propertyString] = descriptor.value;
 		}
@@ -51,7 +51,7 @@
 			if (hasValueOrWritable) {
 				throw new TypeError(ERR_VALUE_ACCESSORS);
 			}
-			object.__defineSetter__(propertyString, descriptor.set);
+			Object.__defineSetter__.call(object, propertyString, descriptor.set);
 		}
 
 		// OK to define value unconditionally - if a getter has been specified as well, an error would be thrown above

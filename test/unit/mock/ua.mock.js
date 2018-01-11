@@ -2,8 +2,6 @@
 
 const sinon = require('sinon');
 
-require('sinon-as-promised');
-
 const UA = module.exports = sinon.stub();
 
 const mockUAInstance = module.exports.mockUAInstance = {

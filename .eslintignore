@@ -1,3 +1,4 @@
+polyfills/__dist/**
 # We ignore the polyfill.js files for third-party polyfills
 # because we do not control their implementation.
 
@@ -5,6 +6,7 @@
 # because we do control their implementation.
 
 polyfills/_ArrayIterator/polyfill.js
+polyfills/_TypedArray/polyfill.js
 polyfills/Array/of/polyfill.js
 polyfills/Array/prototype/values/polyfill.js
 polyfills/atob/polyfill.js
@@ -23,7 +25,6 @@ polyfills/MutationObserver/polyfill.js
 polyfills/Promise/polyfill.js
 polyfills/setImmediate/polyfill.js
 polyfills/String/fromCodePoint/polyfill.js
-polyfills/URL/polyfill.js
 polyfills/UserTiming/polyfill.js
 polyfills/WeakSet/polyfill.js
 polyfills/~html5-elements/polyfill.js

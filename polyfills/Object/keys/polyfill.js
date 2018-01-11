@@ -88,7 +88,6 @@ Object.keys = (function() {
 	};
 
 	return function keys(object) {
-		var isObject = object !== null && typeof object === 'object';
 		var isFunction = toStr.call(object) === '[object Function]';
 		var isArguments = isArgumentsObject(object);
 		var isString = toStr.call(object) === '[object String]';

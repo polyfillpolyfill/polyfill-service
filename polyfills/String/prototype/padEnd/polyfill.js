@@ -13,5 +13,5 @@
 			return String(this) + padString.substr(0, targetLength - this.length);
 		},
 		writable: true
-	})
-}())
+	});
+}());

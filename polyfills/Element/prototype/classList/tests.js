@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("Should be able to add a class using #toggle", function() {
 	var el = document.createElement("p");
@@ -23,6 +23,26 @@ it("Should allow classes to be added using #add", function() {
 
 	classList.add("classA");
 	proclaim.equal(classList.contains("classA"), true);
+});
+
+it("Should allow multiple classes to be added using #add", function() {
+	var el = document.createElement("p");
+	var classList = el.classList;
+
+	classList.add("classA", "classB");
+	proclaim.isTrue(classList.contains("classA"));
+	proclaim.isTrue(classList.contains("classB"));
+});
+
+it("Should allow multiple classes to be removed using #remove", function() {
+	var el = document.createElement("p");
+	var classList = el.classList;
+
+	classList.add("classA");
+	classList.add("classB");
+	classList.remove("classA", "classB");
+	proclaim.isFalse(classList.contains("classA"));
+	proclaim.isFalse(classList.contains("classB"));
 });
 
 it("Should force add a class using toggle if the second argument is true", function() {
@@ -65,6 +85,7 @@ it("Should return the length using the #length method", function() {
 	// for old ie
 	classList.toString();
 
+	proclaim.equal(el.classList.length, 2);
 	proclaim.equal(classList.length, 2);
 });
 

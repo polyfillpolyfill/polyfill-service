@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 // Returns an implementation-dependent approximation to the inverse hyperbolic sine of x.
 // See: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.asinh

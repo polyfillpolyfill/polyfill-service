@@ -9,7 +9,7 @@
 		"safari": "<10",
 		"ios_saf": "<10",
 		"firefox_mob": "*",
-		"samsung_mob": "*"
+		"samsung_mob": "<6"
 	},
 	"dependencies": [],
 	"build": {

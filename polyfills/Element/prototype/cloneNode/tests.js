@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 function create(html) {
 	var div = document.createElement('div');
@@ -18,13 +18,13 @@ it("should clone a node by name", function() {
 
 it('should do deep copy', function() {
 	var clone = create('<p>text <b>content</b></p>').cloneNode(true);
-	proclaim.equal(htmlify(clone), '<p>text <b>content</b></p>')
-})
+	proclaim.equal(htmlify(clone), '<p>text <b>content</b></p>');
+});
 
 it('should do shallow copy', function() {
 	var clone = create('<p>text <b>content</b></p>').cloneNode(false);
-	proclaim.equal(htmlify(clone), '<p></p>')
-})
+	proclaim.equal(htmlify(clone), '<p></p>');
+});
 
 it("should clone attributes in shallow mode", function() {
 	var clone = create('<div class="foo" test="test"></div>').cloneNode(false);

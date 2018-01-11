@@ -15,7 +15,7 @@
 		"opera": "*",
 		"op_mob": "*",
 		"op_mini": "*",
-		"samsung_mob": "*",
+		"samsung_mob": "<6",
 		"bb": "*"
 	},
 	"dependencies": [

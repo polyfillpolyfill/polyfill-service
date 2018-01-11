@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('returns an object', function () {
 	proclaim.isInstanceOf(window.screen.orientation, Object);

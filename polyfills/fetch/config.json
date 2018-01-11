@@ -21,7 +21,7 @@
 	"spec": "https://fetch.spec.whatwg.org/",
 	"repo": "https://github.com/github/fetch",
 	"notes": [
-		"Makes use of FormData, FileReader and Blob if they exist. Readable streams not supported."
+		"Makes use of FormData, FileReader and Blob if they exist. Readable streams not supported. CORS (Cross Origin Resource Sharing) requests do not work in IE 9 or lower."
 	],
 	"install": {
 		"module": "whatwg-fetch",

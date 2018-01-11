@@ -2,12 +2,7 @@
 (function () {
 	'use strict';
 
-	//same as instanceOf, but works through iframes
-	function appWideInstanceOf(obj, typeName){
-		return Object.prototype.toString.call(obj) === '[object ' + typeName + ']'
-	}
-
-	function ToInteger(value) {
+	function toInteger(value) {
 		var number = Number(value);
 		return sign(number) * Math.floor(Math.abs(Math.min(Math.max(number || 0, 0), 9007199254740991)));
 	}
@@ -69,7 +64,6 @@
 			return false;
 		}
 	};
-	var toStr = Object.prototype.toString;
 	var fnClass = '[object Function]';
 	var genClass = '[object GeneratorFunction]';
 
@@ -279,7 +273,7 @@
 			}
 
 			var arrayLike = Object(parseIterableLike(items));
-			var len = ToInteger(arrayLike.length);
+			var len = toInteger(arrayLike.length);
 			var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 			var k = 0;
 			var kValue, mappedValue;

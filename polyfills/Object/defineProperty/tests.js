@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 describe('Basic functionality', function () {
 	var
@@ -52,6 +52,27 @@ describe('Basic functionality', function () {
 
 		proclaim.equal(object[property], value);
 	});
+
+	if ('create' in Object) {
+		it('Works with objects which have no prototype', function () {
+			var object = Object.create(null);
+			try {
+				Object.defineProperty(object, property, {
+					configurable: true,
+					enumerable: true,
+					get: function () {
+						return value;
+					}
+				});
+			} catch (e) {
+				if (e.message !== "Getters & setters cannot be defined on this javascript engine") {
+					throw e;
+				}
+			}
+
+			proclaim.equal(object[property], value);
+		});
+	}
 });
 
 describe('Error handling', function () {

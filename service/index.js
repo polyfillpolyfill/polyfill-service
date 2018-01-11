@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const Raven = require('raven');
 const morgan = require('morgan');
-const shrinkRay = require('shrink-ray');
+const shrinkRay = require('./shrink-ray');
 
 const app = express().enable("strict routing");
 const one_day = 60 * 60 * 24;
@@ -30,7 +30,7 @@ process.on('uncaughtException', (err) => {
 if (process.env.SENTRY_DSN) {
 	const about = require(path.join(__dirname, '../about.json'));
 	ravenClient = new Raven.Client(process.env.SENTRY_DSN, {
-		release: about.appVersion || 'unknown'
+		release: about.appVersion || process.env.SENTRY_RELEASE || 'unknown'
 	});
 	ravenClient.patchGlobal();
 	app.use(Raven.middleware.express.requestHandler(ravenClient));
@@ -71,6 +71,7 @@ if (process.env.RUM_MYSQL_DSN) {
 	app.use(require('./routes/rum.js'));
 }
 
+app.get(/^(?:\/(?:docs\/?(?:(.+)\/?)?)?)?$/, require('./routes/docs'));
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, require('./routes/docs'));
 app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
 

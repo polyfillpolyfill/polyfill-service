@@ -5,8 +5,6 @@
 const assert = require('proclaim');
 const sinon = require('sinon');
 const mockery = require('mockery');
-
-require('sinon-as-promised');
 const setsToArrays = require('../../utils/sets_to_arrays');
 
 describe("polyfillio", () => {

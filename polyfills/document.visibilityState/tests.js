@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it('has a hidden property', function () {
 	proclaim.notEqual(typeof document.hidden, 'undefined');
@@ -15,11 +15,11 @@ it.skip('fires a normalized event name', function (done) {
 	if (!prefix) {
 		return done();
 	}
-	document.addEventListener('visibilitychange', function (ev) {
+	document.addEventListener('visibilitychange', function () {
 		proclaim.equal('normalized event fired', 'normalized event fired');
 		done();
 	});
 
 	document.dispatchEvent(new Event(prefix + 'visibilitychange'));
-	done(new Error('Event not fired'))
+	done(new Error('Event not fired'));
 });

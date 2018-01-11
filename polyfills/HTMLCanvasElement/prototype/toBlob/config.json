@@ -6,12 +6,14 @@
 		"chrome": "<50",
 		"firefox": "<19",
 		"safari": "*",
-		"ie": "10-11",
+		"ie": "10 - 11",
 		"opera": "*"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_TypedArray",
 		"atob",
-		"Object.defineProperty"
+		"Blob"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob",
 	"license": "MIT"

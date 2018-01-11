@@ -11,9 +11,18 @@
 	try {
 		var nativeURL = new global.URL('http://example.com');
 
-		return 'href' in nativeURL && 'searchParams' in nativeURL;
-	}
-	catch (error) {
+		if ('href' in nativeURL && 'searchParams' in nativeURL) {
+			var url = new URL('http://example.com');
+			url.search = 'a=1&b=2';
+			if (url.href === 'http://example.com/?a=1&b=2') {
+				url.search = '';
+				if (url.href === 'http://example.com/') {
+					return true;
+				}
+			}
+		}
+		return false;
+	} catch (error) {
 		return false;
 	}
 }(this))

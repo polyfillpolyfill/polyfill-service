@@ -85,7 +85,7 @@
 		}
 		return false;
 	}
-	if (!bodyCheck(true)) {
+	if (!bodyCheck()) {
 		document.onreadystatechange = bodyCheck;
 		interval = setInterval(bodyCheck, 25);
 	}

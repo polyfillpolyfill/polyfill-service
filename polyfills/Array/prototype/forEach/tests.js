@@ -1,28 +1,17 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
-var createArrayLikeFromArray = function createArrayLikeFromArray(arr) {
-	var o = {};
-	Array.prototype.forEach.call(arr, function (e, i) {
-		o[i] = e;
-	});
-	o.length = arr.length;
-	return o;
-};
-
-var testSubject, expected, actual;
+var testSubject;
 
 beforeEach(function () {
 	testSubject = [2, 3, undefined, true, 'hej', null, false, 0];
 	delete testSubject[1];
-	expected = {0: 2, 2: undefined, 3: true, 4: 'hej', 5: null, 6: false, 7: 0 };
-	actual = {};
 });
 
 
 it('should pass the right parameters', function () {
 	var args = [];
-	var argsspy = function() { args = [].slice.call(arguments); }
+	var argsspy = function() { args = [].slice.call(arguments); };
 	var array = ['1'];
 	array.forEach(argsspy);
 	proclaim.deepEqual(args, ['1', 0, array]);
@@ -86,7 +75,7 @@ describe('strings', function () {
 	var str = 'Hello, World!';
 
 	it('should iterate all in a string', function () {
-		actual = [];
+		var actual = [];
 
 		Array.prototype.forEach.call(str, function (item, index) {
 			actual[index] = item;
@@ -96,7 +85,7 @@ describe('strings', function () {
 	});
 
 	it('should iterate all in a string using a context', function () {
-		actual = [];
+		var actual = [];
 
 		var o = { a: actual };
 

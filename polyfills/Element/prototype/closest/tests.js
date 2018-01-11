@@ -1,5 +1,5 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha, browser */
+/* global proclaim */
 
 it("should return the first ancestor that matches selectors", function() {
 	var el = document.body.appendChild(document.createElement("p"));
@@ -47,6 +47,22 @@ if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/
 		el.appendChild(svgElement);
 
 		var closest = svgElement.closest("section.svg-holder");
+		proclaim.equal(closest, el);
+
+		document.body.removeChild(el);
+	});
+
+	it("should find the ancestor of a <rect> inside an inline SVG element", function() {
+		var el = document.body.appendChild(document.createElement("section"));
+		el.className = 'svg-holder';
+
+		var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		el.appendChild(svgElement);
+
+		var rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+		svgElement.appendChild(rectElement)
+
+		var closest = rectElement.closest("section.svg-holder");
 		proclaim.equal(closest, el);
 
 		document.body.removeChild(el);

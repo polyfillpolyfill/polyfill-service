@@ -56,8 +56,22 @@ function checkForCircularDependencies(polyfills) {
 		return Promise.resolve();
 	}
 	catch (err) {
-		return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.');
+		return Promise.reject('\nThere is a circle in the dependency graph.\nCheck the `dependencies` property of polyfill config files that have recently changed, and ensure that they do not form a circle of references.' + err);
 	}
+}
+
+function checkDependenciesExist(polyfills) {
+
+	for (const polyfill of polyfills) {
+		for (const dependency of polyfill.dependencies) {
+			if (!polyfills.some(function (polyfill) {
+				return dependency === polyfill.name;
+			})) {
+				return Promise.reject(`Polyfill ${polyfill.name} depends on ${dependency}, which does not exist within the polyfill-service. Recommended to either add the missing polyfill or remove the dependency.`);
+			}
+		}
+	}
+	return Promise.resolve();
 }
 
 function writeAliasFile(polyfills, dir) {
@@ -160,6 +174,7 @@ class Polyfill {
 					error
 				};
 			})
+			.then(this.removeSourceMaps)
 			.then(sources => {
 				this.sources = sources;
 			});
@@ -215,6 +230,12 @@ class Polyfill {
 		}
 	}
 
+	removeSourceMaps(source) {
+		const re = /^\/\/#\ssourceMappingURL(.+)$/gm;
+
+		return { raw: source.raw.replace(re, ''), min: source.min.replace(re, '') };
+	}
+
 	writeOutput(root) {
 		const dest = path.join(root, this.name);
 		const files = [
@@ -246,6 +267,7 @@ Promise.resolve()
 		)
 	))
 	.then(polyfills => checkForCircularDependencies(polyfills)
+		.then(() => checkDependenciesExist(polyfills))
 		.then(() => makeDirectory(dest))
 		.then(() => console.log('Waiting for files to be written to disk...'))
 		.then(() => writeAliasFile(polyfills, dest))

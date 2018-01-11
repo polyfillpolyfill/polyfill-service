@@ -9,7 +9,7 @@ const path = require('path');
 const denodeify = require('denodeify');
 const readFile = denodeify(fs.readFile);
 
-const router = express.Router();  // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 
 /**
  * Modes:

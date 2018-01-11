@@ -1,4 +1,7 @@
-describe('finally' , function() {
+/* eslint-env mocha */
+/* globals proclaim */
+
+describe('finally', function () {
 	it("does not take any arguments", function () {
 			return Promise.resolve("ok")['finally'](function (val) {
 				proclaim.equal(val, undefined);
@@ -138,7 +141,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 0.1e3);
 					return new Promise(function() {}); // forever pending
-				}).then(function onFulfilled(x) {
+				}).then(function onFulfilled() {
 					throw new Error('should not be called');
 				}, function onRejected() {
 					throw new Error('should not be called');
@@ -155,7 +158,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 0.1e3);
 					return new Promise(function() {}); // forever pending
-				}).then(function onFulfilled(x) {
+				}).then(function onFulfilled() {
 					throw new Error('should not be called');
 				}, function onRejected() {
 					throw new Error('should not be called');
@@ -207,7 +210,7 @@ describe('onFinally', function() {
 				['finally'](function onFinally() {
 					proclaim.ok(arguments.length === 0);
 					return Promise.reject(4);
-				}).then(function onFulfilled(x) {
+				}).then(function onFulfilled() {
 					throw new Error('should not be called');
 				}, function onRejected(e) {
 					proclaim.strictEqual(e, 4);
@@ -224,7 +227,7 @@ describe('onFinally', function() {
 				['finally'](function onFinally() {
 					proclaim.ok(arguments.length === 0);
 					return Promise.reject(newReason);
-				}).then(function onFulfilled(x) {
+				}).then(function onFulfilled() {
 					throw new Error('should not be called');
 				}, function onRejected(e) {
 					proclaim.strictEqual(e, newReason);
@@ -243,7 +246,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 1.5e3);
 					return new Promise(function(resolve) {
-						setTimeout(function() { return resolve(4)}, 1e3);
+						setTimeout(function() { return resolve(4);}, 1e3);
 					});
 				}).then(function onFulfilled(x) {
 					proclaim.strictEqual(x, 3);
@@ -262,7 +265,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 1.5e3);
 					return new Promise(function(resolve) {
-						setTimeout(function() { return resolve(4)}, 1e3);
+						setTimeout(function() { return resolve(4);}, 1e3);
 					});
 				}).then(function onFulfilled() {
 					throw new Error('should not be called');
@@ -283,7 +286,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 1.5e3);
 					return new Promise(function(resolve, reject) {
-						setTimeout(function() { return reject(4)}, 1e3);
+						setTimeout(function() { return reject(4);}, 1e3);
 					});
 				}).then(function onFulfilled(x) {
 					proclaim.strictEqual(x, 3);
@@ -302,7 +305,7 @@ describe('onFinally', function() {
 					proclaim.ok(arguments.length === 0);
 					setTimeout(done, 1.5e3);
 					return new Promise(function(resolve, reject) {
-						setTimeout(function() { return reject(anotherReason)}, 1e3);
+						setTimeout(function() { return reject(anotherReason);}, 1e3);
 					});
 				}).then(function onFulfilled() {
 					throw new Error('should not be called');

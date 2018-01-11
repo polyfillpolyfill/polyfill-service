@@ -57,4 +57,4 @@
 
 
 	this.WeakMap = WeakMap;
-}(this));
+}());
