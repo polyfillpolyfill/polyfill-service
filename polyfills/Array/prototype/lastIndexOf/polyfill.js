@@ -9,7 +9,7 @@ CreateMethodProperty(Array.prototype, 'lastIndexOf', function lastIndexOf(search
 		return -1;
 	}
 	// 4. If fromIndex is present, let n be ? ToInteger(fromIndex); else let n be len-1.
-	var n = arguments.length > 1 ? arguments[1] : len - 1;
+	var n = arguments.length > 1 ? ToInteger(arguments[1]) : len - 1;
 	// 5. If n ≥ 0, then
 	if (n >= 0) {
 		// a. If n is -0, let k be +0; else let k be min(n, len - 1).
