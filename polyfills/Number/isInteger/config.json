@@ -19,6 +19,11 @@
 		"samsung_mob": "<5",
 		"bb": "*"
 	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.Type"
+	],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-number.isinteger",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger"
