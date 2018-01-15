@@ -18,7 +18,7 @@ CreateMethodProperty(String.prototype, 'padEnd', function padEnd(maxLength /* [ 
 		var filler = ' ';
 		// 7. Else, let filler be ? ToString(fillString).
 	} else {
-		filler = ToString(fillString);
+		var filler = ToString(fillString);
 	}
 	// 8. If filler is the empty String, return S.
 	if (filler === '') {
