@@ -9,6 +9,9 @@
   }
 
 	Object.defineProperty(Object, 'assign', {
+		enumerable: false,
+		configurable: true,
+		writable: true,
 		// 19.1.2.1 Object.assign ( target, ...sources )
 		value: function assign(target, source) { // eslint-disable-line no-unused-vars
 
