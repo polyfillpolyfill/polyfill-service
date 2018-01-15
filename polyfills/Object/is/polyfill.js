@@ -1,3 +1,5 @@
-Object.is = function is(a, b) {
-	return (a === b && (a !== 0 || 1 / a === 1 / b)) || (a !== a && b !== b);
-};
+// 19.1.2.12. Object.is ( value1, value2 )
+CreateMethodProperty(Object, 'is', function is(value1, value2) {
+	// 1. Return SameValue(value1, value2).
+	return SameValue(value1, value2);
+});
