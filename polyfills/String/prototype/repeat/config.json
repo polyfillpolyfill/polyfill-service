@@ -22,5 +22,6 @@
 		"_ESAbstract.ToInteger",
 		"_ESAbstract.ToString"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat",
+	"spec": "https://tc39.github.io/ecma262/#sec-string.prototype.repeat"
 }
