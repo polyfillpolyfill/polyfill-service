@@ -28,5 +28,6 @@
 		"_ESAbstract.IsRegExp",
 		"_ESAbstract.ToInteger"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith",
+	"spec": "https://tc39.github.io/ecma262/#sec-string.prototype.endswith"
 }
