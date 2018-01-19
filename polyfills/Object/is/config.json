@@ -18,5 +18,9 @@
 		"ios_saf": "*",
 		"firefox_mob": "3.6 - 21"
 	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.SameValue"
+	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"
 }
