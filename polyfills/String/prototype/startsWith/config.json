@@ -21,5 +21,13 @@
 		"ios_saf": "<9",
 		"firefox_mob": "3.6 - 17"
 	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.RequireObjectCoercible",
+		"_ESAbstract.ToString",
+		"_ESAbstract.IsRegExp",
+		"_ESAbstract.ToInteger"
+	],
+	"spec": "https://tc39.github.io/ecma262/#sec-string.prototype.startswith",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith"
 }

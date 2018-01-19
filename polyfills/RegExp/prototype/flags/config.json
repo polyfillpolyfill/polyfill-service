@@ -8,6 +8,9 @@
 		"ie": "9 - 12"
 	},
 	"dependencies": [
+		"_ESAbstract.Get",
+		"_ESAbstract.ToBoolean",
+		"_ESAbstract.Type",
 		"Object.defineProperty"
 	],
 	"license": "MIT",
