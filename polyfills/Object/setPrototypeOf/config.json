@@ -18,6 +18,7 @@
 		"firefox_mob": "< 31"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
 		"Array.prototype.forEach",
 		"Object.create",
 		"Object.defineProperty",
