@@ -1,23 +1,18 @@
-(function(){
-	function isPrimitive(o) {
-		return o == null || (typeof o !== 'object' && typeof o !== 'function');
-  };
+CreateMethodProperty(Object, 'create', function create(O, properties) {
+	// 1. If Type(O) is neither Object nor Null, throw a TypeError exception.
+	if (Type(O) !== 'object' && Type(O) !== 'null') {
+		throw new TypeError('Object prototype may only be an Object or null');
+	}
+	// 2. Let obj be ObjectCreate(O).
+	var obj = new Function('e', 'function Object() {}Object.prototype=e;return new Object')(O);
 
-	Object.create = function create(prototype, properties) {
-	/* jshint evil: true */
-    if (prototype !== null && isPrimitive(prototype)) {
-      throw new TypeError('Object prototype may only be an Object or null');
-    }
+	obj.constructor.prototype = O;
 
-	var
-	object = new Function('e', 'function Object() {}Object.prototype=e;return new Object')(prototype);
-
-	object.constructor.prototype = prototype;
-
+	// 3. If Properties is not undefined, then
 	if (1 in arguments) {
-		Object.defineProperties(object, properties);
+		// a. Return ? ObjectDefineProperties(obj, Properties).
+		return Object.defineProperties(obj, properties);
 	}
 
-	return object;
-};
-}());
+	return obj;
+});
