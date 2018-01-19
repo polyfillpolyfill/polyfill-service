@@ -26,7 +26,9 @@
 		"samsung_mob": "<5"
 	},
 	"dependencies": [
-		"Object.defineProperty",
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.Get",
+		"_ESAbstract.ToObject",
 		"Object.getOwnPropertyDescriptor",
 		"Object.keys"
 	],

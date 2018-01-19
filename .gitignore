@@ -8,7 +8,6 @@ node_modules/
 npm-debug.log
 /polyfills/__dist
 /polyfills/aliases.json
-/polyfills/Array/of/polyfill.js
 /polyfills/atob/polyfill.js
 /polyfills/AudioContext/polyfill.js
 /polyfills/EventSource/polyfill.js
@@ -18,7 +17,7 @@ npm-debug.log
 /polyfills/JSON/polyfill.js
 /polyfills/MutationObserver/polyfill.js
 /polyfills/Promise/polyfill.js
-/polyfills/String/fromCodePoint/polyfill.js
+/polyfills/URL/polyfill.js
 /polyfills/UserTiming/polyfill.js
 /polyfills/~html5-elements/polyfill.js
 /polyfills/WebAnimations/polyfill.js
