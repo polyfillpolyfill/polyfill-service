@@ -1,4 +1,4 @@
-Object.getOwnPropertyNames = function getOwnPropertyNames(object) {
+CreateMethodProperty(Object, 'getOwnPropertyNames', function getOwnPropertyNames(object) {
 	var buffer = [];
 	var key;
 
@@ -25,4 +25,4 @@ Object.getOwnPropertyNames = function getOwnPropertyNames(object) {
 	}
 
 	return buffer;
-};
+});
