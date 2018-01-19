@@ -17,6 +17,9 @@
 		"op_mob": "*",
 		"bb": "*"
 	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-number.min_safe_integer",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_SAFE_INTEGER"

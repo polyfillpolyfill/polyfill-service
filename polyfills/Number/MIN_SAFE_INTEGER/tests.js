@@ -10,10 +10,6 @@ it('should be correct value', function() {
 	proclaim.equal(Number.MIN_SAFE_INTEGER, -Math.pow(2, 53) + 1);
 });
 
-xit('should not be enumerable', function() {
-	if (Number.propertyIsEnumerable) {
-		proclaim.equal(Number.propertyIsEnumerable('MIN_SAFE_INTEGER'), false);
-	} else {
-		this.skip();
-	}
+it('should not be enumerable', function() {
+	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Number.MIN_SAFE_INTEGER));
 });
