@@ -21,14 +21,13 @@
 		"samsung_mob": "<5"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.IsConstructor",
+		"_ESAbstract.Construct",
+		"_ESAbstract.ArrayCreate",
+		"_ESAbstract.ToString",
+		"_ESAbstract.CreateDataPropertyOrThrow"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.of",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of",
-	"install": {
-		"module": "array.of",
-		"paths": ["array-of.js"]
-	},
-	"license": "MIT",
-	"repo": "https://github.com/mathiasbynens/Array.of/"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of"
 }
