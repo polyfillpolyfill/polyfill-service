@@ -15,6 +15,9 @@
 		"firefox_mob": ">28"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.SpeciesConstructor",
 		"Promise",
 		"Function.prototype.bind"
 	],
