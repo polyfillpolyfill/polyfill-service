@@ -56,7 +56,7 @@
 			var k = 0;
 			// e. Repeat,
 			while (true) {
-				// i. If k ≥ 25^3-1, then
+				// i. If k ≥ 2^53-1, then
 				if (k >= (Math.pow(2, 53) - 1)) {
 					// 1. Let error be Completion{[[Type]]: throw, [[Value]]: a newly created TypeError object, [[Target]]: empty}.
 					var error = new TypeError('Iteration count can not be greater than or equal 9007199254740991.');
