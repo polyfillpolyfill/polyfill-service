@@ -8,7 +8,7 @@
 	"browsers": {
 		"ie": "<12",
 		"safari": "<9",
-		"firefox": "<29",
+		"firefox": "<36",
 		"chrome": "<38",
 		"android": "<5.1",
 		"firefox_mob": "<29",
@@ -19,15 +19,25 @@
 		"bb": "10 - *"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.CreateIterResultObject",
+		"_ESAbstract.GetMethod",
+		"_ESAbstract.GetIterator",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.IteratorClose",
+		"_ESAbstract.IteratorComplete",
+		"_ESAbstract.IteratorNext",
+		"_ESAbstract.IteratorStep",
+		"_ESAbstract.IteratorValue",
+		"_ESAbstract.OrdinaryCreateFromConstructor",
+		"_ESAbstract.SameValueZero",
+		"_ESAbstract.Type",
 		"Array.isArray",
-		"Array.prototype.indexOf",
 		"Symbol",
 		"Symbol.iterator",
 		"Symbol.species",
 		"Object.create",
-		"Object.defineProperty",
-		"Object.getPrototypeOf",
-		"Number.isNaN"
+		"Object.defineProperty"
 	],
 	"notes": [
 		"For compatibility with very old engines, `Map.prototype.delete` must be accessed using square bracket notation because 'delete' is a reserved word. `myMap.delete()` is an error in IE8. Use `myMap['delete']()` instead.",
