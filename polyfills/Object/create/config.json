@@ -16,6 +16,8 @@
 		"firefox_mob": "<4"
 	},
 	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.Type",
 		"Object.defineProperties"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create"

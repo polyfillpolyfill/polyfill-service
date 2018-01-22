@@ -12,7 +12,9 @@
 		"safari": "<10"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.Type"
 	],
 	"license": "MIT",
 	"spec": "https://tc39.github.io/ecma262/#sec-number.issafeinteger",

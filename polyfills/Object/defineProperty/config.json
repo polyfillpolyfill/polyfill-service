@@ -16,6 +16,7 @@
 		"firefox_mob": "3.6",
 		"ie": "6 - 8"
 	},
+	"dependencies": [],
 	"notes": [
 		"In browsers that have no hooks to define getter functions (notably IE <= 8), attempting to defineProperty with a getter or setter function will fail.  Since failing silently would likely break your application, we throw an exception.  In IE8, this can be hard to diagnose because the console will just say 'Exception thrown and not caught'"
 	],

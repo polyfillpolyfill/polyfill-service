@@ -7,7 +7,7 @@
 // sure, and webreflection says ^_^
 // ... this will nerever possibly return null
 // ... Opera Mini breaks here with infinite loops
-Object.getPrototypeOf = function getPrototypeOf(object) {
+CreateMethodProperty(Object, 'getPrototypeOf', function getPrototypeOf(object) {
 	if (object !== Object(object)) {
 		throw new TypeError('Object.getPrototypeOf called on non-object');
 	}
@@ -25,4 +25,4 @@ Object.getPrototypeOf = function getPrototypeOf(object) {
 		// IE <11), but that's the best we can do.
 		return null;
 	}
-};
+});
