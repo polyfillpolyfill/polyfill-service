@@ -93,7 +93,7 @@
 					mappedValue = nextValue;
 				}
 				try {
-					// Polyfill.io - The try catch accounts for step 2.
+					// Polyfill.io - The try catch accounts for step ix.
 					// viii. Let defineStatus be CreateDataPropertyOrThrow(A, Pk, mappedValue).
 					CreateDataPropertyOrThrow(A, Pk, mappedValue);
 					// ix. If defineStatus is an abrupt completion, return ? IteratorClose(iteratorRecord, defineStatus).
