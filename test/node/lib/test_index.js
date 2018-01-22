@@ -24,25 +24,61 @@ describe("polyfillio", () => {
 
 				// Without `unknown`, no polyfills for unrecognised UA
 				polyfillio.getPolyfills({
-					features: {'Math.sign': {}},
+					features: {
+						'Math.sign': {}
+					},
 					uaString: ''
 				}).then(result => assert.deepEqual(setsToArrays(result), {})),
 
 				// With unknown=polyfill, all requested polyfills are included
 				polyfillio.getPolyfills({
-					features: {'Math.sign': {}},
+					features: {
+						'Math.sign': {}
+					},
 					unknown: 'polyfill',
 					uaString: ''
 				}).then(result => assert.deepEqual(setsToArrays(result), {
-					'Math.sign': { flags:[] }
+					'Math.sign': {
+						flags: []
+					},
+					"Object.defineProperty": {
+						"aliasOf": [
+							"Math.sign",
+							"_ESAbstract.CreateMethodProperty"
+						],
+						"flags": []
+					},
+					"_ESAbstract.CreateMethodProperty": {
+						"aliasOf": [
+							"Math.sign"
+						],
+						"flags": []
+					}
 				})),
 
 				// ... even when `uaString` param is missing entirely
 				polyfillio.getPolyfills({
-					features: {'Math.sign': {}},
+					features: {
+						'Math.sign': {}
+					},
 					unknown: 'polyfill',
 				}).then(result => assert.deepEqual(setsToArrays(result), {
-					'Math.sign': { flags:[] }
+					'Math.sign': {
+						flags: []
+					},
+					"Object.defineProperty": {
+						"aliasOf": [
+							"Math.sign",
+							"_ESAbstract.CreateMethodProperty"
+						],
+						"flags": []
+					},
+					"_ESAbstract.CreateMethodProperty": {
+						"aliasOf": [
+							"Math.sign"
+						],
+						"flags": []
+					}
 				}))
 			]);
 		});
@@ -50,7 +86,9 @@ describe("polyfillio", () => {
 		it("should understand the 'all' alias", () => {
 			return polyfillio.getPolyfills({
 				features: {
-					'all': { flags: [] }
+					'all': {
+						flags: []
+					}
 				},
 				uaString: 'ie/7'
 			}).then(result => assert(Object.keys(result).length > 0));
@@ -64,8 +102,13 @@ describe("polyfillio", () => {
 					},
 					uaString: 'chrome/30'
 				}).then(result => assert.deepEqual(setsToArrays(result), {
-					fetch: { flags: [] },
-					Promise: { flags: [], aliasOf: [ 'fetch' ] }
+					fetch: {
+						flags: []
+					},
+					Promise: {
+						flags: [],
+						aliasOf: ['fetch']
+					}
 				})),
 				polyfillio.getPolyfills({
 					features: {
@@ -74,7 +117,9 @@ describe("polyfillio", () => {
 					excludes: ["Promise", "non-existent-feature"],
 					uaString: 'chrome/30'
 				}).then(result => assert.deepEqual(setsToArrays(result), {
-					fetch: { flags: [] }
+					fetch: {
+						flags: []
+					}
 				}))
 			]);
 		});
@@ -85,11 +130,17 @@ describe("polyfillio", () => {
 		it('should produce different output when gated flag is enabled', () => {
 			return Promise.all([
 				polyfillio.getPolyfillString({
-					features: { default: {} },
+					features: {
+						default: {}
+					},
 					uaString: 'chrome/30'
 				}),
 				polyfillio.getPolyfillString({
-					features: { default: { flags: new Set(['gated']) } },
+					features: {
+						default: {
+							flags: new Set(['gated'])
+						}
+					},
 					uaString: 'chrome/30'
 				})
 			]).then(results => {
@@ -101,7 +152,9 @@ describe("polyfillio", () => {
 			const ReadableStream = require('stream').Readable;
 			const buf = [];
 			const s = polyfillio.getPolyfillString({
-				features: { default: {} },
+				features: {
+					default: {}
+				},
 				uaString: 'chrome/30',
 				stream: true,
 				minify: false
