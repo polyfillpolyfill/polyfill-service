@@ -16,7 +16,8 @@
 		"samsung_mob": "<5"
 	},
 	"dependencies": [
-		"_ArrayIterator",
+		"_ESAbstract.CreateMethodProperty",
+		"Array.prototype.values",
 		"Symbol.iterator"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype-@@iterator",
