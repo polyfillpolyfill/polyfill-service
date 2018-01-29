@@ -17,7 +17,8 @@
 		"firefox_mob": "3.6"
 	},
 	"dependencies": [
-		"Object.defineProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.IsCallable"
 	],
 	"repo": "https://github.com/es-shims/es5-shim",
 	"license": "MIT",
