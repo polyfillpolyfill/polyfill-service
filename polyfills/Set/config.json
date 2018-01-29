@@ -21,7 +21,7 @@
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",
 		"_ESAbstract.CreateIterResultObject",
-		"_ESAbstract.GeMethod",
+		"_ESAbstract.GetMethod",
 		"_ESAbstract.GetIterator",
 		"_ESAbstract.IsCallable",
 		"_ESAbstract.IteratorClose",
