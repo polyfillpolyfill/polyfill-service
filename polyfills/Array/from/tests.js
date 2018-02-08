@@ -1,19 +1,20 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim, Map, Symbol, Set */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Array.from, Function);
+it('is a function', function () {
+	proclaim.isFunction(Array.from);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.from, 1);
 });
 
 it('has correct name', function () {
-	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
-	}
-	proclaim.equal(nameOf(Array.from), 'from');
+	proclaim.hasName(Array.from, 'from');
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Array.from.length, 1);
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array, 'from');
 });
 
 describe('returns an array with', function () {
