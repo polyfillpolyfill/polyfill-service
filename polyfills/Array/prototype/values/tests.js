@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.values);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.values, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.values, 'values');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'values');
+});
 
 it('is named \'values\' or \'ArrayValues\'', function () {
 	// Don't fail tests just because browser doesn't support the Function.name polyfill.
