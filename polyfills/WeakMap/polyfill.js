@@ -2,8 +2,8 @@
 	// 23.3.1.1. WeakMap ( [ iterable ] )
 	var WeakMap = function WeakMap(/* iterable */) {
 		// 1. If NewTarget is undefined, throw a TypeError exception.
-		if (!(this instanceof WeakSet)) {
-			throw new TypeError('Constructor WeakSet requires "new"');
+		if (!(this instanceof WeakMap)) {
+			throw new TypeError('Constructor WeakMap requires "new"');
 		}
 		// 2. Let map be ? OrdinaryCreateFromConstructor(NewTarget, "%WeakMapPrototype%", « [[WeakMapData]] »).
 		var map = OrdinaryCreateFromConstructor(this, WeakMap.prototype, {
