@@ -110,7 +110,8 @@
 			sourceConstructor
 		));
 	};
-	var Symbol = function Symbol(description) {
+	var Symbol = function Symbol() {
+		var description = arguments[0];
 		if (this instanceof Symbol) {
 			throw new TypeError('Symbol is not a constructor');
 		}
