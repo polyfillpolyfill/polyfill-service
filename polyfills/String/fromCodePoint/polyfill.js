@@ -25,7 +25,7 @@ CreateMethodProperty(String, 'fromCodePoint', function fromCodePoint(_) {
 		// e. Append the elements of the UTF16Encoding of nextCP to the end of elements.
 		// Polyfill.io - UTF16Encoding can return a single codepoint or a list of multiple codepoints.
 		var cp = UTF16Encoding(nextCP);
-		if (isArray(cp)) {
+		if (IsArray(cp)) {
 			elements = elements.concat(cp);
 		} else {
 			elements.push(cp);
