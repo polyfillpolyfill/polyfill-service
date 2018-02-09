@@ -1,5 +1,21 @@
 /* eslint-env mocha, browser */
-/* global proclaim */
+/* global proclaim, Set, Symbol */
+
+it('is a function', function () {
+	proclaim.isFunction(Set);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Set, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Set, 'Set');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'Set');
+});
 
 describe('Set', function() {
 
