@@ -1,33 +1,70 @@
 /* eslint-env mocha */
-/* globals proclaim */
+/* globals proclaim, Promise */
+
+it('is a function', function () {
+	proclaim.isFunction(Promise.prototype['finally']);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Promise.prototype['finally'], 1);
+});
+
+it('has correct name', function() {
+	// finally is a reserved word in ES3 environments, we can only test it has the correct name in environments which support the name property natively.
+	if ('name' in Function.prototype) {
+		proclaim.hasName(Promise.prototype['finally'], 'finally');
+	}
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Promise.prototype, 'finally');
+});
 
 describe('finally', function () {
 	it("does not take any arguments", function () {
-			return Promise.resolve("ok")['finally'](function (val) {
-				proclaim.equal(val, undefined);
-			});
+		return Promise.resolve("ok")['finally'](function (val) {
+			proclaim.equal(val, undefined);
+		});
 	});
 
 	it("can throw errors and be caught", function () {
-			return Promise.resolve("ok")['finally'](function () {
-					throw "error";
-			})['catch'](function (e) {
-					proclaim.equal(e, 'error');
-			});
+		return Promise.resolve("ok")['finally'](function () {
+			throw "error";
+		})['catch'](function (e) {
+			proclaim.equal(e, 'error');
+		});
 	});
 
 	it("resolves with resolution value if finally method doesn't throw", function () {
-			return Promise.resolve("ok")['finally'](function () {
-			}).then(function(val) {
-				proclaim.equal(val, 'ok');
-			});
+		return Promise.resolve("ok")['finally'](function () {
+		}).then(function (val) {
+			proclaim.equal(val, 'ok');
+		});
 	});
 
 	it("rejects with rejection value if finally method doesn't throw", function () {
-			return Promise.reject("error")['finally'](function () {
-			})['catch'](function(val) {
-				proclaim.equal(val, 'error');
-			});
+		return Promise.reject("error")['finally'](function () {
+		})['catch'](function (val) {
+			proclaim.equal(val, 'error');
+		});
+	});
+
+	it('when resolved, only calls finally once', function () {
+		var called = 0;
+		return Promise.resolve(42)['finally'](function () {
+			called++;
+		}).then(function () {
+			proclaim.strictEqual(called, 1);
+		});
+	});
+
+	it('when rejected, only calls finally once', function () {
+		var called = 0;
+		return Promise.reject(42)['finally'](function () {
+			called++;
+		})['catch'](function () {
+			proclaim.strictEqual(called, 1);
+		});
 	});
 });
 
