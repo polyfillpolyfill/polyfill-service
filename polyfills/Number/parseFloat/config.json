@@ -18,7 +18,8 @@
 		"bb": "*"
 	},
 	"dependencies": [
-		"_ESAbstract.CreateMethodProperty"
+		"_ESAbstract.CreateMethodProperty",
+		"String.prototype.trim"
 	],
 	"license": "MIT",
 	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-parsefloat-string",
