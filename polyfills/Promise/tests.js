@@ -1,12 +1,20 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim, Promise */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Promise, Function);
+it('is a function', function () {
+	proclaim.isFunction(Promise);
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Promise.length, 1);
+it('has correct arity', function () {
+	proclaim.arity(Promise, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Promise, 'Promise');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'Promise');
 });
 
 describe('Section 2.1.2.1: When fulfilled, a promise: must not transition to any other state.', function () {
