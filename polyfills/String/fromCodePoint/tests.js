@@ -19,76 +19,75 @@ it('is not enumerable', function () {
 
 
 it('works as expected', function () {
-	var fromCodePoint;
-	var tmp;
-	// var counter;
-	// var result;
-	fromCodePoint = String.fromCodePoint;
-	proclaim.strictEqual(fromCodePoint(''), '\0');
-	proclaim.strictEqual(fromCodePoint(), '');
-	proclaim.strictEqual(fromCodePoint(-0), '\0');
-	proclaim.strictEqual(fromCodePoint(0), '\0');
-	proclaim.strictEqual(fromCodePoint(0x1D306), '\uD834\uDF06');
-	proclaim.strictEqual(fromCodePoint(0x1D306, 0x61, 0x1D307), '\uD834\uDF06a\uD834\uDF07');
-	proclaim.strictEqual(fromCodePoint(0x61, 0x62, 0x1D307), 'ab\uD834\uDF07');
-	proclaim.strictEqual(fromCodePoint(false), '\0');
-	proclaim.strictEqual(fromCodePoint(null), '\0');
+	proclaim.strictEqual(String.fromCodePoint(''), '\0');
+	proclaim.strictEqual(String.fromCodePoint(), '');
+	proclaim.strictEqual(String.fromCodePoint(-0), '\0');
+	proclaim.strictEqual(String.fromCodePoint(0), '\0');
+	proclaim.strictEqual(String.fromCodePoint(0x1D306), '\uD834\uDF06');
+	proclaim.strictEqual(String.fromCodePoint(0x1D306, 0x61, 0x1D307), '\uD834\uDF06a\uD834\uDF07');
+	proclaim.strictEqual(String.fromCodePoint(0x61, 0x62, 0x1D307), 'ab\uD834\uDF07');
+	proclaim.strictEqual(String.fromCodePoint(false), '\0');
+	proclaim.strictEqual(String.fromCodePoint(null), '\0');
 	proclaim.throws(function () {
-		fromCodePoint('_');
+		String.fromCodePoint('_');
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint('+Infinity');
+		String.fromCodePoint('+Infinity');
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint('-Infinity');
+		String.fromCodePoint('-Infinity');
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(-1);
+		String.fromCodePoint(-1);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(0x10FFFF + 1);
+		String.fromCodePoint(0x10FFFF + 1);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(3.14);
+		String.fromCodePoint(3.14);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(3e-2);
+		String.fromCodePoint(3e-2);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(-Infinity);
+		String.fromCodePoint(-Infinity);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(Infinity);
+		String.fromCodePoint(Infinity);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(NaN);
+		String.fromCodePoint(NaN);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(undefined);
+		String.fromCodePoint(undefined);
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint({});
+		String.fromCodePoint({});
 	}, RangeError);
 	proclaim.throws(function () {
-		fromCodePoint(/./);
+		String.fromCodePoint(/./);
 	}, RangeError);
-	tmp = 0x60;
-	proclaim.strictEqual(fromCodePoint({
+	var tmp = 0x60;
+	proclaim.strictEqual(String.fromCodePoint({
 		valueOf: function () {
 			return ++tmp;
 		}
 	}), 'a');
 	proclaim.strictEqual(tmp, 0x61);
-	// counter = Math.pow(2, 15) * 3 / 2;
-	// result = [];
-	// while (--counter >= 0) {
-	// 	result.push(0);
-	// }
-	// fromCodePoint.apply(null, result);
-	// counter = Math.pow(2, 15) * 3 / 2;
-	// result = [];
-	// while (--counter >= 0) {
-	// 	result.push(0xFFFF + 1);
-	// }
-	// fromCodePoint.apply(null, result);
+	proclaim.doesNotThrow(function() {
+		var result = [];
+		// one code unit per item in array
+		for (var i =0; i < 49152; i++) {
+			result.push(0);
+		}
+		String.fromCodePoint.apply(null, result);
+	});
+	proclaim.doesNotThrow(function() {
+		var result = [];
+		// two code units per item in array
+		for (var i =0; i < 49152; i++) {
+			result.push(0xFFFF + 1);
+		}
+		String.fromCodePoint.apply(null, result);
+	});
 });
