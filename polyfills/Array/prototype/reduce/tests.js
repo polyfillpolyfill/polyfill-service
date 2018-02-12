@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.reduce);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.reduce, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.reduce, 'reduce');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'reduce');
+});
 
 var spycalls = [];
 
