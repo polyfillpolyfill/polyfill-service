@@ -34,7 +34,7 @@ it('works as expected when called with Infinity', function () {
 });
 
 it('works as expected when called with NaN', function () {
-	proclaim.isTrue(isNaN(Math.log2(NaN)));
+	proclaim.isNaN(Math.log2(NaN));
 });
 
 it('works as expected when called with 0', function () {
@@ -57,9 +57,9 @@ it('works as expected when called with positive real numbers', function () {
 });
 
 it('works as expected when called with negative integers', function () {
-	proclaim.isTrue(isNaN(Math.log2(-1)));
+	proclaim.isNaN(Math.log2(-1));
 });
 
 it('works as expected when called with negative real numbers', function () {
-	proclaim.isTrue(isNaN(Math.log2(-1.5)));
+	proclaim.isNaN(Math.log2(-1.5));
 });
