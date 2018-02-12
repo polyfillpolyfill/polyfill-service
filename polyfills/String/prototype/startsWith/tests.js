@@ -18,18 +18,18 @@ it('is not enumerable', function () {
 });
 
 it('works as expected', function () {
-	proclaim.ok('undefined'.startsWith());
-	proclaim.ok(!'undefined'.startsWith(null));
-	proclaim.ok('abc'.startsWith(''));
-	proclaim.ok('abc'.startsWith('a'));
-	proclaim.ok('abc'.startsWith('ab'));
-	proclaim.ok(!'abc'.startsWith('bc'));
-	proclaim.ok('abc'.startsWith('', NaN));
-	proclaim.ok('abc'.startsWith('a', -1));
-	proclaim.ok(!'abc'.startsWith('a', 1));
-	proclaim.ok(!'abc'.startsWith('a', Infinity));
-	proclaim.ok('abc'.startsWith('b', true));
-	proclaim.ok('abc'.startsWith('a', 'x'));
+	proclaim.isTrue('undefined'.startsWith());
+	proclaim.isFalse('undefined'.startsWith(null));
+	proclaim.isTrue('abc'.startsWith(''));
+	proclaim.isTrue('abc'.startsWith('a'));
+	proclaim.isTrue('abc'.startsWith('ab'));
+	proclaim.isFalse('abc'.startsWith('bc'));
+	proclaim.isTrue('abc'.startsWith('', NaN));
+	proclaim.isTrue('abc'.startsWith('a', -1));
+	proclaim.isFalse('abc'.startsWith('a', 1));
+	proclaim.isFalse('abc'.startsWith('a', Infinity));
+	proclaim.isTrue('abc'.startsWith('b', true));
+	proclaim.isTrue('abc'.startsWith('a', 'x'));
 	var supportsStrictModeTests = (function () {
 		'use strict';
 
