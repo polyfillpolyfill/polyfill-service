@@ -1,19 +1,34 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha */
+/* globals proclaim, Symbol */
 
-// Tests based on https://github.com/es-shims/es6-shim/blob/master/test/array.js#L331-L418
 it('is a function', function () {
 	proclaim.isFunction(Array.prototype.copyWithin);
 });
 
-it('has correct argument length', function () {
-	proclaim.strictEqual(Array.prototype.copyWithin.length, 2);
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.copyWithin, 2);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.copyWithin, 'copyWithin');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'copyWithin');
 });
 
 it('modifies the object in-place', function () {
 	var arr = [1, 2, 3, 4, 5];
 	proclaim.deepStrictEqual(arr.copyWithin(0, 3), [4, 5, 3, 4, 5]);
 	proclaim.deepStrictEqual(arr, [4, 5, 3, 4, 5]);
+});
+
+it('works with no args', function () {
+	proclaim.deepStrictEqual([1].copyWithin(), [1]);
+});
+
+it('works with 1 arg', function () {
+	proclaim.deepStrictEqual([1].copyWithin(0), [1]);
 });
 
 it('works with 2 args', function () {
@@ -65,4 +80,31 @@ it('should check inherited properties as well', function () {
 	proclaim.deepEqual(result[1], 'foo');
 	proclaim.deepEqual(result[2], 1);
 	proclaim.deepEqual(result.length, 3 );
+});
+
+var supportsStrictModeTests = (function () {
+	'use strict';
+
+	return this === undefined;
+}).call(undefined);
+
+if (supportsStrictModeTests) {
+	it('throws if called with null context', function () {
+		proclaim.throws(function () {
+			return Array.prototype.copyWithin.call(null, 0);
+		}, TypeError);
+	});
+
+	it('throws if called with undefined context', function () {
+		proclaim.throws(function () {
+			return Array.prototype.copyWithin.call(undefined, 0);
+		}, TypeError);
+	});
+}
+
+var areSymbolsSupported = 'Symbol' in this && typeof this.Symbol === 'function';
+var ifSupportsUnscopableSymbol = areSymbolsSupported && 'unscopables' in this.Symbol ? it : xit;
+
+ifSupportsUnscopableSymbol('is unscopable', function () {
+	proclaim.ok('copyWithin' in Array.prototype[Symbol.unscopables], 'In Array#@@unscopables');
 });
