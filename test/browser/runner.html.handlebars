@@ -63,6 +63,9 @@
 				proclaim.isFunction(Object.getOwnPropertyDescriptor(obj, prop).get);
 			}
 		};
+		proclaim.isNaN = function (value) {     
+			proclaim.isTrue(value !== value);
+		};
 	</script>
 
 	<!-- Initalise Mocha -->
