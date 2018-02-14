@@ -21,7 +21,6 @@ it('works as expected', function () {
 	proclaim.isNaN(Math.expm1(NaN));
 	proclaim.isNaN(Math.expm1(function() {}));
 	proclaim.isNaN(Math.expm1({}));
-	proclaim.isNaN(Math.expm1([]));
 	proclaim.strictEqual(1/Math.expm1(0), Infinity);
 	proclaim.strictEqual(1/Math.expm1(-0), -Infinity);
 	proclaim.strictEqual(Math.expm1(Infinity), Infinity);
