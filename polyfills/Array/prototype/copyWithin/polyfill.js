@@ -1,5 +1,6 @@
 	// 22.1.3.3 Array.prototype.copyWithin ( target, start [ , end ] )
-CreateMethodProperty(Array.prototype, 'copyWithin', function copyWithin (target, start /* [ , end ] */) {
+CreateMethodProperty(Array.prototype, 'copyWithin', function copyWithin(target, start /* [ , end ] */) {
+	'use strict';
 		var end = arguments[2];
 
 		// 22.1.3.3.1 Let O be ? ToObject(this value).

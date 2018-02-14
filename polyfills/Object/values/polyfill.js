@@ -1,5 +1,5 @@
 // 19.1.2.21. Object.values ( O )
-CreateMethodProperty(Object, 'values', function (O) {
+CreateMethodProperty(Object, 'values', function values(O) {
 	// 1. Let obj be ? ToObject(O).
 	var obj = ToObject(O);
 	// 2. Let nameList be ? EnumerableOwnProperties(obj, "value").
