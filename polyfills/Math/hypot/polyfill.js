@@ -17,12 +17,8 @@ CreateMethodProperty(Math, 'hypot', function hypot(value1, value2) {
 		}
 
 		// If no argument is +∞ or -∞, and any argument is NaN, the result is NaN.
-		if (isNaN(arguments[i])) {
-			return NaN;
-		}
-
 		// If all arguments are either +0 or -0, the result is +0.
-		// Polyfill.io - The above step is handled in the math, 0^2 === 0.
+		// Polyfill.io - The two conditions above are handled in the math.
 		y += Math.pow(arguments[i], 2);
 	}
 
