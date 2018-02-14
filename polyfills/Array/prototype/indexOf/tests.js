@@ -1,12 +1,20 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
 
-it('is a function', function() {
-	proclaim.isInstanceOf(Array.prototype.indexOf, Function);
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.indexOf);
 });
 
-it('takes 1 argument', function() {
-	proclaim.equal(Array.prototype.indexOf.length, 1);
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.indexOf, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.indexOf, 'indexOf');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'indexOf');
 });
 
 it('returns -1 when no match is found', function() {

@@ -37,10 +37,10 @@
 		return target;
 	};
 	// used as fallback when no promotion is possible
-	var createAndCopy = function (origin, proto) {
+	var createAndCopy = function setPrototypeOf(origin, proto) {
 		return copyDescriptors(create(proto), origin);
 	};
-	var set, setPrototypeOf;
+	var set, sPOf;
 	try {
 		// this might fail for various reasons
 		// ignore if Chrome cought it at runtime
@@ -48,7 +48,7 @@
 		set.call({}, null);
 		// setter not poisoned, it can promote
 		// Firefox, Chrome
-		setPrototypeOf = function (origin, proto) {
+		sPOf = function setPrototypeOf(origin, proto) {
 			set.call(origin, proto);
 			return origin;
 		};
@@ -58,7 +58,7 @@
 		// if proto does not work, needs to fallback
 		// some Opera, Rhino, ducktape
 		if (set instanceof Object) {
-			setPrototypeOf = createAndCopy;
+			sPOf = createAndCopy;
 		} else {
 			// verify if null objects are buggy
 			/* eslint-disable no-proto */
@@ -67,7 +67,7 @@
 			// if null objects are buggy
 			// nodejs 0.8 to 0.10
 			if (set instanceof Object) {
-				setPrototypeOf = function (origin, proto) {
+				sPOf = function setPrototypeOf(origin, proto) {
 					// use such bug to promote
 					/* eslint-disable no-proto */
 					origin.__proto__ = proto;
@@ -77,7 +77,7 @@
 			} else {
 				// try to use proto or fallback
 				// Safari, old Firefox, many others
-				setPrototypeOf = function (origin, proto) {
+				sPOf = function setPrototypeOf(origin, proto) {
 					// if proto is not null
 					if (getPrototypeOf(origin)) {
 						// use __proto__ to promote
@@ -93,5 +93,5 @@
 			}
 		}
 	}
-	CreateMethodProperty(Object, 'setPrototypeOf', setPrototypeOf);
+	CreateMethodProperty(Object, 'setPrototypeOf', sPOf);
 }());

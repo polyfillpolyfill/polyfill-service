@@ -1,19 +1,20 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Array.prototype.every, Function);
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.every);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.every, 1);
 });
 
 it('has correct name', function () {
-	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
-	}
-	proclaim.equal(nameOf(Array.prototype.every), 'every');
+	proclaim.hasName(Array.prototype.every, 'every');
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Array.prototype.every.length, 1);
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'every');
 });
 
 describe('callback', function () {
