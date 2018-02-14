@@ -17,4 +17,12 @@ it('is not enumerable', function () {
 	proclaim.nonEnumerable(Math, 'cbrt');
 });
 
-// TODO ADD MORE TESTS
+it('works as expected', function(){
+	proclaim.isNaN(Math.cbrt(NaN));
+	proclaim.strictEqual(1/Math.cbrt(0), Infinity);
+	proclaim.strictEqual(1/Math.cbrt(-0), -Infinity);
+	proclaim.strictEqual(Math.cbrt(Infinity), Infinity);
+	proclaim.strictEqual(Math.cbrt(-Infinity), -Infinity);
+	proclaim.strictEqual(Math.cbrt(-8), -2);
+	proclaim.strictEqual(Math.cbrt(8), 2);
+});
