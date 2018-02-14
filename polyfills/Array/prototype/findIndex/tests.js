@@ -1,19 +1,20 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Array.prototype.findIndex, Function);
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.findIndex);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.findIndex, 1);
 });
 
 it('has correct name', function () {
-	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
-	}
-	proclaim.equal(nameOf(Array.prototype.findIndex), 'findIndex');
+	proclaim.hasName(Array.prototype.findIndex, 'findIndex');
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Array.prototype.findIndex.length, 1);
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'findIndex');
 });
 
 describe('callback', function () {

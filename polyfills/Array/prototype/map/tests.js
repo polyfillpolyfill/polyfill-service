@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.map);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.map, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.map, 'map');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'map');
+});
 
 var callback;
 var testSubject;
