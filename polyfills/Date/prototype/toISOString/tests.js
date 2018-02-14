@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Date.prototype.toISOString);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Date.prototype.toISOString, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Date.prototype.toISOString, 'toISOString');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Date.prototype, 'toISOString');
+});
 
 it("should handle zero values for hours, minutes and seconds", function() {
 

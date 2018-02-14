@@ -1,5 +1,6 @@
 // 22.1.3.11. Array.prototype.includes ( searchElement [ , fromIndex ] )
 CreateMethodProperty(Array.prototype, 'includes', function includes(searchElement /* [ , fromIndex ] */) {
+	'use strict';
 	// 1. Let O be ? ToObject(this value).
 	var O = ToObject(this);
 	// 2. Let len be ? ToLength(? Get(O, "length")).

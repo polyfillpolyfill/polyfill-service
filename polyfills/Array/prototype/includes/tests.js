@@ -1,36 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
-var arePropertyDescriptorsSupported = function () {
-	var obj = {};
-	try {
-		Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-        /* eslint-disable no-unused-vars, no-restricted-syntax */
-        for (var _ in obj) { return false; }
-        /* eslint-enable no-unused-vars, no-restricted-syntax */
-		return obj.x === obj;
-	} catch (e) { /* this is ES3 */
-		return false;
-	}
-};
-var ifSupportsDescriptorsIt = Object.defineProperty && arePropertyDescriptorsSupported() ? it : xit;
+/* eslint-env mocha */
+/* globals proclaim, Symbol */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Array.prototype.includes, Function);
+
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.includes);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.includes, 1);
 });
 
 it('has correct name', function () {
-	function nameOf(fn) {
-		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1];
-	}
-	proclaim.equal(nameOf(Array.prototype.includes), 'includes');
+	proclaim.hasName(Array.prototype.includes, 'includes');
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Array.prototype.includes.length, 1);
-});
-
-ifSupportsDescriptorsIt('is not enumerable', function () {
-	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype, 'includes'));
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'includes');
 });
 
 it('handles arrays', function () {
@@ -72,4 +57,39 @@ it('handles array-like objects with out-of-range lengths', function () {
 
 	proclaim.equal(Array.prototype.includes.call(object, 10), false);
 	proclaim.equal(Array.prototype.includes.call(object, 10), false);
+});
+
+it('works as expected', function () {
+	var arr, o;
+	arr = [1, 2, 3, -0, o = {}];
+	proclaim.ok(arr.includes(1));
+	proclaim.ok(arr.includes(-0));
+	proclaim.ok(arr.includes(0));
+	proclaim.ok(arr.includes(o));
+	proclaim.ok(!arr.includes(4));
+	proclaim.ok(!arr.includes(-0.5));
+	proclaim.ok(!arr.includes({}));
+	proclaim.ok(Array(1).includes(void 8));
+	proclaim.ok([NaN].includes(NaN));
+	var supportsStrictModeTests = (function () {
+		'use strict';
+
+		return this === undefined;
+	}).call(undefined);
+
+	if (supportsStrictModeTests) {
+		proclaim.throws(function () {
+			Array.prototype.includes.call(null, 0);
+		}, TypeError);
+		proclaim.throws(function () {
+			Array.prototype.includes.call(void 8, 0);
+		}, TypeError);
+	}
+});
+
+var areSymbolsSupported = 'Symbol' in this && typeof this.Symbol === 'function';
+var ifSupportsUnscopableSymbol = areSymbolsSupported && 'unscopables' in this.Symbol ? it : xit;
+
+ifSupportsUnscopableSymbol('is unscopable', function () {
+	proclaim.ok('includes' in Array.prototype[Symbol.unscopables], 'In Array#@@unscopables');
 });
