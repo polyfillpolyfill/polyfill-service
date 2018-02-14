@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Object.getOwnPropertyNames);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Object.getOwnPropertyNames, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Object.getOwnPropertyNames, 'getOwnPropertyNames');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Object, 'getOwnPropertyNames');
+});
 
 it('returns properties of a simple object', function () {
 	proclaim.deepEqual(Object.getOwnPropertyNames({foo:42}), ["foo"]);

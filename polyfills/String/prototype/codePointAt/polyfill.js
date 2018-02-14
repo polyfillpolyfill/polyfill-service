@@ -1,5 +1,5 @@
 // 21.1.3.3. String.prototype.codePointAt ( pos )
-CreateMethodProperty(String.prototype, 'codePointAt', function (pos) {
+CreateMethodProperty(String.prototype, 'codePointAt', function codePointAt(pos) {
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);
 	// 2. Let S be ? ToString(O).

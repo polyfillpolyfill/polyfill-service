@@ -1,26 +1,56 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Number.isNaN, Function);
+it('is a function', function () {
+	proclaim.isFunction(Number.isNaN);
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Number.isNaN.length, 1);
+it('has correct arity', function () {
+	proclaim.arity(Number.isNaN, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Number.isNaN, 'isNaN');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Number, 'isNaN');
 });
 
 it('returns true with NaN values', function () {
-	proclaim.equal(Number.isNaN(NaN), true);
-	proclaim.equal(Number.isNaN(Number.NaN), true);
-	proclaim.equal(Number.isNaN(0/0), true);
+	proclaim.isTrue(Number.isNaN(NaN));
+	proclaim.isTrue(Number.isNaN(Number.NaN));
+	proclaim.isTrue(Number.isNaN(0 / 0));
 });
 
 it('retuns false for valid numbers and non-number data types', function () {
-	proclaim.equal(Number.isNaN("NaN"), false);
-	proclaim.equal(Number.isNaN(undefined), false);
-	proclaim.equal(Number.isNaN({}), false);
-	proclaim.equal(Number.isNaN("blabla"), false);
-	proclaim.equal(Number.isNaN(true), false);
-	proclaim.equal(Number.isNaN(37), false);
-	proclaim.equal(Number.isNaN("37"), false);
+	proclaim.isFalse(Number.isNaN("NaN"));
+	proclaim.isFalse(Number.isNaN(undefined));
+	proclaim.isFalse(Number.isNaN({}));
+	proclaim.isFalse(Number.isNaN("blabla"));
+	proclaim.isFalse(Number.isNaN(true));
+	proclaim.isFalse(Number.isNaN(37));
+	proclaim.isFalse(Number.isNaN("37"));
+	proclaim.isFalse(Number.isNaN(1));
+	proclaim.isFalse(Number.isNaN(0.1));
+	proclaim.isFalse(Number.isNaN(-1));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 16)));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 16) - 1));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 31)));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 31) - 1));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 32)));
+	proclaim.isFalse(Number.isNaN(Math.pow(2, 32) - 1));
+	proclaim.isFalse(Number.isNaN(-0));
+	proclaim.isFalse(Number.isNaN(Infinity));
+	proclaim.isFalse(Number.isNaN('5'));
+	proclaim.isFalse(Number.isNaN(false));
+	proclaim.isFalse(Number.isNaN(new Number(NaN)));
+	proclaim.isFalse(Number.isNaN(new Number(Infinity)));
+	proclaim.isFalse(Number.isNaN(new Number(5)));
+	proclaim.isFalse(Number.isNaN(new Number(0.1)));
+	proclaim.isFalse(Number.isNaN(null));
+	proclaim.isFalse(Number.isNaN(function () {}));
+	if ('create' in Object) {
+		proclaim.isFalse(Number.isNaN(Object.create(null)));
+	}
 });

@@ -1,10 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
 
-// Math.acosh(x)
-//
-// Returns an implementation-dependent approximation of the inverse hyperbolic
-// cosine of x  (See: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-math.acosh)
+it('is a function', function () {
+	proclaim.isFunction(Math.acosh);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Math.acosh, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Math.acosh, 'acosh');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Math, 'acosh');
+});
 
 it("Should return NaN when using a number less than one", function() {
 	var x = Math.acosh(-1);
