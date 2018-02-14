@@ -17,7 +17,7 @@ it('is not enumerable', function () {
 	proclaim.nonEnumerable(Math, 'expm1');
 });
 
-it('works as expected, function () {
+it('works as expected', function () {
 	proclaim.isNaN(Math.expm1(NaN));
 	proclaim.isNaN(Math.expm1(function() {}));
 	proclaim.isNaN(Math.expm1({}));
