@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
+
+it('is a function', function () {
+	proclaim.isFunction(Function.prototype.bind);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Function.prototype.bind, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Function.prototype.bind, 'bind');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Function.prototype, 'bind');
+});
 
 it("Should be able to return a function with 'this' bound to the specified value", function(done){
 	var thisVal = {foo:'bar'};

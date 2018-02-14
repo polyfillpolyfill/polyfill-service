@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim, Symbol */
+
+it('is a function', function () {
+	proclaim.isFunction(Object.entries);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Object.entries, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Object.entries, 'entries');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Object, 'entries');
+});
 
 // Modified version of the test262 tests located at
 // https://github.com/tc39/test262/tree/master/test/built-ins/Object/entries
@@ -26,8 +42,6 @@ var arePropertyDescriptorsSupported = function() {
 
 var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
 
-var functionsHaveNames = (function foo() {}).name === 'foo';
-
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
 var objectKeysWorksWithPrimitives = (function() {
@@ -37,18 +51,6 @@ var objectKeysWorksWithPrimitives = (function() {
 		return false;
 	}
 }());
-
-it('should have name `entries`', function() {
-	if (functionsHaveNames) {
-		proclaim.equal(Object.entries.name, 'entries');
-	} else {
-		this.skip();
-	}
-});
-
-it('has length `1`', function() {
-	proclaim.equal(Object.entries.length, 1);
-});
 
 if (supportsDescriptors) {
 	it('should terminate if getting a value throws an exception', function () {

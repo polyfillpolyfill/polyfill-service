@@ -1,24 +1,20 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
-var arePropertyDescriptorsSupported = function () {
-	var obj = {};
-	try {
-		Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-        /* eslint-disable no-unused-vars, no-restricted-syntax */
-        for (var _ in obj) { return false; }
-        /* eslint-enable no-unused-vars, no-restricted-syntax */
-		return obj.x === obj;
-	} catch (e) { // this is IE 8.
-		return false;
-	}
-};
-var ifSupportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported() ? it : xit;
 
-it('is named \'entries\'', function () {
-	// Don't fail tests just because browser doesn't support the Function.name polyfill
-	if ([].entries.name) {
-		proclaim.equal([].entries.name, 'entries');
-	}
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.entries);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.entries, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Array.prototype.entries, 'entries');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'entries');
 });
 
 it('returns a next-able object', function () {
@@ -43,8 +39,4 @@ it('finally returns a done object', function () {
 		value: undefined,
 		done: true
 	});
-});
-
-ifSupportsDescriptors('property isn\'t enumerable', function () {
-	proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(Array.prototype.entries));
 });

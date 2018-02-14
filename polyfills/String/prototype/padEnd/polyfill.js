@@ -1,5 +1,6 @@
 // 21.1.3.13. String.prototype.padEnd( maxLength [ , fillString ] )
 CreateMethodProperty(String.prototype, 'padEnd', function padEnd(maxLength /* [ , fillString ] */) {
+	'use strict';
 	var fillString = arguments.length > 1 ? arguments[1] : undefined;
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);
