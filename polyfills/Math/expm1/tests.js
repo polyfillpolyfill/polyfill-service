@@ -17,4 +17,16 @@ it('is not enumerable', function () {
 	proclaim.nonEnumerable(Math, 'expm1');
 });
 
-//TODO ADD MORE TESTS
+it('works as expected, function () {
+	proclaim.isNaN(Math.expm1(NaN));
+	proclaim.isNaN(Math.expm1(function() {}));
+	proclaim.isNaN(Math.expm1({}));
+	proclaim.isNaN(Math.expm1([]));
+	proclaim.strictEqual(1/Math.expm1(0), Infinity);
+	proclaim.strictEqual(1/Math.expm1(-0), -Infinity);
+	proclaim.strictEqual(Math.expm1(Infinity), Infinity);
+	proclaim.strictEqual(Math.expm1(-Infinity), -1);
+	proclaim.strictEqual(Math.expm1(709.8), Infinity);
+	proclaim.strictEqual(Math.expm1(0), 0);
+	proclaim.strictEqual(Math.expm1(Math.pow(2,-55)), Math.pow(2,-55));
+});
