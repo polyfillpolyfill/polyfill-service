@@ -20,8 +20,9 @@ CreateMethodProperty(Math, 'cosh', function cosh(x) {
 	if (x === -Infinity) {
 		return -Infinity;
 	}
+	x = Math.abs(x)
 	if (x > 709) {
-		var w = Math.exp(0.5 * Math.abs(x));
+		var w = Math.exp(0.5 * x);
 		return w / 2 * w;
 	}
 	var y = Math.exp(x)
