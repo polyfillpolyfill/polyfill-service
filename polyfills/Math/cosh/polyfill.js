@@ -22,8 +22,8 @@ CreateMethodProperty(Math, 'cosh', function cosh(x) {
 	}
 	x = Math.abs(x)
 	if (x > 709) {
-		var w = Math.exp(0.5 * x);
-		return w / 2 * w;
+		var y = Math.exp(0.5 * x);
+		return y / 2 * y;
 	}
 	var y = Math.exp(x)
 	return (y + 1 / y) / 2;
