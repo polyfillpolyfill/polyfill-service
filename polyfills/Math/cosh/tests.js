@@ -18,11 +18,11 @@ it('is not enumerable', function () {
 });
 
 it('works as expected when called with no arguments', function () {
-	proclaim.isNaN(Math.cosh()));
+	proclaim.isNaN(Math.cosh());
 });
 
 it('works as expected when called with undefined', function () {
-	proclaim.isNaN(Math.cosh(undefined)));
+	proclaim.isNaN(Math.cosh(undefined));
 });
 
 it('works as expected when called with Infinity', function () {
@@ -34,7 +34,7 @@ it('works as expected when called with -Infinity', function () {
 });
 
 it('works as expected when called with NaN', function () {
-	proclaim.isNaN(Math.cosh(NaN)));
+	proclaim.isNaN(Math.cosh(NaN));
 });
 
 it('works as expected when called with 0', function () {
@@ -48,7 +48,11 @@ it('works as expected when called with -0', function () {
 it('works as expected when called with positive integers', function () {
 	proclaim.strictEqual(Math.cosh(1), 1.5430806348152437);
 	proclaim.strictEqual(Math.cosh(90), 6.102016471589204e38);
-	proclaim.strictEqual(Math.cosh(710), 1.1169973830808557e308);
+	proclaim.strictEqual(Math.cosh(709), 4.109203730777486e307);
+	proclaim.strictEqual(Math.cosh(710) > 1.1169973830808552e+308);
+	proclaim.notStrictEqual(Math.cosh(710), Infinity);
+	proclaim.notNaN(Math.cosh(710));
+	proclaim.strictEqual(Math.cosh(711), Infinity);
 });
 
 it('works as expected when called with positive real numbers', function () {
