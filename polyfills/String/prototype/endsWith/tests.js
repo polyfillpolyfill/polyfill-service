@@ -27,7 +27,7 @@ it('works as expected', function () {
 
 	var re, O;
 	proclaim.isTrue('undefined'.endsWith());
-	proclaim.isFalse(!'undefined'.endsWith(null));
+	proclaim.isFalse('undefined'.endsWith(null));
 	proclaim.isTrue('abc'.endsWith(''));
 	proclaim.isTrue('abc'.endsWith('c'));
 	proclaim.isTrue('abc'.endsWith('bc'));
