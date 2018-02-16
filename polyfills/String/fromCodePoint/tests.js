@@ -19,6 +19,8 @@ it('is not enumerable', function () {
 
 
 it('works as expected', function () {
+	this.timeout(10000);
+
 	proclaim.strictEqual(String.fromCodePoint(''), '\0');
 	proclaim.strictEqual(String.fromCodePoint(), '');
 	proclaim.strictEqual(String.fromCodePoint(-0), '\0');
