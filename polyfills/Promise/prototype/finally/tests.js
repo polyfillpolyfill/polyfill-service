@@ -9,13 +9,6 @@ it('has correct arity', function () {
 	proclaim.arity(Promise.prototype['finally'], 1);
 });
 
-it('has correct name', function() {
-	// finally is a reserved word in ES3 environments, we can only test it has the correct name in environments which support the name property natively.
-	if ('name' in Function.prototype) {
-		proclaim.hasName(Promise.prototype['finally'], 'finally');
-	}
-});
-
 it('is not enumerable', function () {
 	proclaim.nonEnumerable(Promise.prototype, 'finally');
 });
