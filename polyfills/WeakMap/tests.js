@@ -129,9 +129,7 @@ it('WeakMap.prototype.delete', function () {
 	M['delete'](a);
 	proclaim.isFalse(M.has(a));
 	proclaim.isTrue(M.has(b));
-	proclaim.throws(function () {
-		M['delete'](1);
-	}, TypeError);
+	proclaim.isFalse(M['delete'](1));
 });
 
 it('WeakMap.prototype.get', function () {
