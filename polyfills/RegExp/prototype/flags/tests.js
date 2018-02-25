@@ -1,5 +1,15 @@
-/* eslint-env mocha, browser*/
-/* global proclaim, it */
+/* eslint-env mocha */
+/* globals proclaim */
+
+proclaim.isGetter = function (obj, prop) {
+	if ('getOwnPropertyDescriptor' in Object) {
+		proclaim.isFunction(Object.getOwnPropertyDescriptor(obj, prop).get);
+	}
+};
+
+it('is a getter', function () {
+	proclaim.isGetter(RegExp.prototype, 'flags');
+});
 
 // Tests ported from https://github.com/es-shims/es6-shim/blob/master/test/regexp.js#L197-L270
 

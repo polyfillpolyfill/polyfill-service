@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim, WeakSet */
+
+it('is a function', function () {
+	proclaim.isFunction(WeakSet);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(WeakSet, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(WeakSet, 'WeakSet');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'WeakSet');
+});
 
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new WeakSet, WeakSet);

@@ -1,5 +1,6 @@
 // 21.1.3.6. String.prototype.endsWith ( searchString [ , endPosition ] )
-CreateMethodProperty(String.prototype, 'endsWith', function (searchString /* [ , endPosition ] */) {
+CreateMethodProperty(String.prototype, 'endsWith', function endsWith(searchString /* [ , endPosition ] */) {
+	'use strict';
 	var endPosition = arguments.length > 1 ? arguments[1] : undefined;
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);

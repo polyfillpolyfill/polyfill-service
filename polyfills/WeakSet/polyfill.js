@@ -2,7 +2,7 @@
 	// Deleted set items mess with iterator pointers, so rather than removing them mark them as deleted. Can't use undefined or null since those both valid keys so use a private symbol.
 	var undefMarker = Symbol('undef');
 	// 23.4.1.1. WeakSet ( [ iterable ] )
-	var WeakSet = function WeakSet(iterable) {
+	var WeakSet = function WeakSet() {
 		// 1. If NewTarget is undefined, throw a TypeError exception.
 		if (!(this instanceof WeakSet)) {
 			throw new TypeError('Constructor WeakSet requires "new"');

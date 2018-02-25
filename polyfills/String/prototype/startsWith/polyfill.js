@@ -1,5 +1,6 @@
 // 21.1.3.20. String.prototype.startsWith ( searchString [ , position ] )
 CreateMethodProperty(String.prototype, 'startsWith', function startsWith(searchString /* [ , position ] */) {
+	'use strict';
 	var position = arguments.length > 1 ? arguments[1] : undefined;
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);
@@ -26,7 +27,7 @@ CreateMethodProperty(String.prototype, 'startsWith', function startsWith(searchS
 		return false;
 	}
 	// 11. If the sequence of elements of S starting at start of length searchLength is the same as the full element sequence of searchStr, return true.
-	if (S.substr(position).indexOf(searchString) === 0) {
+	if (S.substr(start).indexOf(searchString) === 0) {
 		return true;
 	}
 	// 12. Otherwise, return false.

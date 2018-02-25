@@ -20,5 +20,10 @@ CreateMethodProperty(Math, 'expm1', function expm1(x) {
 	if (x === -Infinity) {
 		return -1;
 	}
-	return Math.exp(x) - 1;
+
+	if (x > -1e-6 && x < 1e-6) {
+		return x + x * x / 2;
+	} else {
+		return Math.exp(x) - 1;
+	}
 });

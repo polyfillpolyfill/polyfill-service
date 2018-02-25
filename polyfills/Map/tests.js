@@ -1,5 +1,22 @@
-/* eslint-env mocha, browser */
-/* global proclaim, Map, Symbol */
+/* eslint-env mocha */
+/* globals proclaim, Map, Symbol */
+
+it('is a function', function () {
+	proclaim.isFunction(Map);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Map, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Map, 'Map');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'Map');
+});
+
 var arePropertyDescriptorsSupported = function() {
 	var obj = {};
 	try {

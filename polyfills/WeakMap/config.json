@@ -33,6 +33,6 @@
 		"Symbol",
 		"Array.isArray"
 	],
-	"license": "https://github.com/webcomponents/webcomponentsjs/blob/master/LICENSE.md",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+	"spec": "https://tc39.github.io/ecma262/#sec-weakmap-objects"
 }

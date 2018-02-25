@@ -1,5 +1,6 @@
 // 21.1.3.7. String.prototype.includes ( searchString [ , position ] )
-CreateMethodProperty(String.prototype, 'includes', function includes(searchString /* [ , position ] */ ) {
+CreateMethodProperty(String.prototype, 'includes', function includes(searchString /* [ , position ] */) {
+	'use strict';
 	var position = arguments.length > 1 ? arguments[1] : undefined;
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);

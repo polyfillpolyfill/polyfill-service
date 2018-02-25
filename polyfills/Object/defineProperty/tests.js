@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha, browser*/
+/* global proclaim, it */
+
+it('is a function', function () {
+	proclaim.isFunction(Object.defineProperty);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Object.defineProperty, 3);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Object.defineProperty, 'defineProperty');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Object, 'defineProperty');
+});
 
 describe('Basic functionality', function () {
 	var

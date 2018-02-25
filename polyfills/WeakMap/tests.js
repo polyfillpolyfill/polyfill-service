@@ -1,5 +1,21 @@
 /* eslint-env mocha, browser */
-/* global proclaim */
+/* global proclaim, WeakMap, Symbol */
+
+it('is a function', function () {
+	proclaim.isFunction(WeakMap);
+});
+
+it('has correct argument length', function () {
+	proclaim.strictEqual(WeakMap.length, 0);
+});
+
+it('has correct name', function() {
+	proclaim.hasName(WeakMap, 'WeakMap');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'WeakMap');
+});
 
 it("has valid constructor", function () {
 	proclaim.isInstanceOf(new WeakMap, WeakMap);
@@ -10,13 +26,17 @@ it("has valid constructor", function () {
 		proclaim.equal((new WeakMap).__proto__.isPrototypeOf(new WeakMap()), true);
 		proclaim.equal((new WeakMap).__proto__ === WeakMap.prototype, true);
 	}
+
+	proclaim.throws(function () {
+		WeakMap();
+	}, TypeError);
 });
 
 it('has get, set, delete, and has functions', function() {
-	proclaim.notEqual(WeakMap.prototype['get'], undefined);
-	proclaim.notEqual(WeakMap.prototype['set'], undefined);
-	proclaim.notEqual(WeakMap.prototype['delete'], undefined);
-	proclaim.notEqual(WeakMap.prototype['has'], undefined);
+	proclaim.isFunction(WeakMap.prototype['get']);
+	proclaim.isFunction(WeakMap.prototype['set']);
+	proclaim.isFunction(WeakMap.prototype['delete']);
+	proclaim.isFunction(WeakMap.prototype['has']);
 });
 it('should perform as expected', function() {
 	var wm = new WeakMap();
@@ -56,15 +76,6 @@ it('should be chainable', function() {
 	proclaim.equal(wm.get(o2), 'aoeui');
 });
 
-// IE <= 8 does not allow invocation of delete as a property of an object using dot notation
-it.skip('should allow use of dot notation for delete method', function() {
-	var wm = new WeakMap();
-	var o1 = {};
-	wm.set(o1, 37);
-	//wm.delete(o1);  // Causes an error during parse in IE<=8, which will prevent other tests from running even though this test is marked as skipped!
-	proclaim.equal(wm.has(o1), false);
-});
-
 // Ealy native implementations do not support this, polyfill does
 it('should be possible to prepopulate the map', function() {
 	var o1 = {};
@@ -77,3 +88,97 @@ it('should be possible to prepopulate the map', function() {
 	proclaim.equal(wm.get(window), undefined);
 	proclaim.equal(wm.get(o1), 12);
 });
+
+if ('freeze' in Object) {
+	it('supports frozen objects', function () {
+		var f = Object.freeze({});
+		var map = new WeakMap();
+		map.set(f, 42);
+		proclaim.isTrue(map.has(f));
+		proclaim.strictEqual(map.get(f), 42);
+		map['delete'](f);
+    proclaim.isFalse(map.has(f));
+    proclaim.isUndefined(map.get(f));
+	});
+}
+
+if ('Symbol' in window && 'iterator' in Symbol && typeof [][Symbol.iterator] === 'function') {
+	it('supports iterables', function () {
+		var arr = [];
+		var done = false;
+		arr[Symbol.iterator] = function () {
+			done = true;
+			return [][Symbol.iterator].call(this);
+		};
+		new WeakMap(arr);
+		proclaim.isTrue(done);
+	});
+}
+
+it('WeakMap.prototype.delete', function () {
+	proclaim.isFunction(WeakMap.prototype['delete']);
+	proclaim.arity(WeakMap.prototype['delete'], 1);
+	proclaim.nonEnumerable(WeakMap.prototype, 'delete');
+	var a = {};
+	var b = {};
+	var M = new WeakMap();
+	M.set(a, 42);
+	M.set(b, 21);
+	proclaim.isTrue(M.has(a));
+	proclaim.isTrue(M.has(b));
+	M['delete'](a);
+	proclaim.isFalse(M.has(a));
+	proclaim.isTrue(M.has(b));
+	proclaim.isFalse(M['delete'](1));
+});
+
+it('WeakMap.prototype.get', function () {
+	var M = new WeakMap();
+	var a = {};
+	proclaim.isFunction(WeakMap.prototype.get);
+	proclaim.hasName(WeakMap.prototype.get, 'get');
+	proclaim.arity(WeakMap.prototype.get, 1);
+	proclaim.nonEnumerable(WeakMap.prototype, 'get');
+	proclaim.isUndefined(M.get({}));
+	M.set(a, 42);
+	proclaim.strictEqual(M.get(a), 42);
+	M['delete'](a);
+	proclaim.isUndefined(M.get(a));
+	proclaim.isUndefined(M.get(1));
+});
+
+it('WeakMap.prototype.has', function () {
+	var M = new WeakMap();
+	var a = {};
+	proclaim.isFunction(WeakMap.prototype.has);
+	proclaim.hasName(WeakMap.prototype.has, 'has');
+	proclaim.arity(WeakMap.prototype.has, 1);
+	proclaim.nonEnumerable(WeakMap.prototype, 'has');
+	proclaim.isFalse(M.has({}));
+	M.set(a, 42);
+	proclaim.isTrue(M.has(a));
+	M['delete'](a);
+	proclaim.isFalse(M.has(a));
+	proclaim.isFalse(M.has(1));
+});
+
+it('WeakMap.prototype.set', function () {
+	var a = {};
+	var wmap = new WeakMap();
+	proclaim.isFunction(WeakMap.prototype.set);
+	proclaim.hasName(WeakMap.prototype.set, 'set');
+	proclaim.arity(WeakMap.prototype.set, 2);
+	proclaim.nonEnumerable(WeakMap.prototype, 'set');
+	wmap.set(a, 42);
+	proclaim.strictEqual(wmap.get(a), 42);
+	proclaim.throws(function () {
+		new WeakMap().set(42, 42);
+	}, TypeError);
+	proclaim.deepEqual(wmap.set({}, 1), wmap);
+});
+
+if (typeof Symbol != 'undefined' && 'toStringTag' in Symbol) {
+	it('WeakMap.prototype[Symbol.toStringTag]', function () {
+		proclaim.strictEqual(WeakMap.prototype[Symbol.toStringTag], 'WeakMap');
+	});
+}

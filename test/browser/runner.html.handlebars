@@ -63,6 +63,18 @@
 				proclaim.isFunction(Object.getOwnPropertyDescriptor(obj, prop).get);
 			}
 		};
+		proclaim.isNaN = function (value) {
+			proclaim.isTrue(value !== value);
+		};
+		proclaim.notNaN = function (value) {
+			proclaim.isTrue(value === value);
+		};
+		proclaim.almostEqual = function(a, b, precision) {
+			if (precision === null || precision === undefined) {
+				precision = 7;
+			}
+			proclaim.isTrue(Math.abs(a - b) < 0.5 * Math.pow(10, -precision));
+		}
 	</script>
 
 	<!-- Initalise Mocha -->
