@@ -1,21 +1,30 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim */
 
-it('is named \'values\' or \'ArrayValues\'', function () {
-	// Don't fail tests just because browser doesn't support the Function.name polyfill.
-	if ([].values.name) {
+it('is a function', function () {
+	proclaim.isFunction(Array.prototype.values);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Array.prototype.values, 0);
+});
+
+it('has correct name', function () {
+	try {
+		proclaim.hasName(Array.prototype.values, 'values');
+	} catch (e) {
+		// Chrome 40 implements the Symbol.iterator function for Arrays but has it named ArrayValues.
 		try {
-			proclaim.equal([].values.name, 'values');
+			proclaim.equal([].values.name, 'ArrayValues');
 		} catch (e) {
-			// Chrome 40 implements the Symbol.iterator function for Arrays but has it named ArrayValues.
-			try {
-				proclaim.equal([].values.name, 'ArrayValues');
-			} catch (e) {
-				// Firefox 44 has it named [Symbol.iterator].
-				proclaim.equal([].values.name, '[Symbol.iterator]');
-			}
+			// Firefox 44 has it named [Symbol.iterator].
+			proclaim.equal([].values.name, '[Symbol.iterator]');
 		}
 	}
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Array.prototype, 'values');
 });
 
 it('returns a next-able object', function () {

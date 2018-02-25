@@ -3,7 +3,7 @@
 if ('Symbol' in this && 'iterator' in this.Symbol && typeof Array.prototype[Symbol.iterator] === 'function') {
 	CreateMethodProperty(Array.prototype, 'values', Array.prototype[Symbol.iterator]);
 } else {
-	CreateMethodProperty(Array.prototype, 'values', function () {
+	CreateMethodProperty(Array.prototype, 'values', function values () {
 		// 1. Let O be ? ToObject(this value).
 		var O = ToObject(this);
 		// 2. Return CreateArrayIterator(O, "value").
