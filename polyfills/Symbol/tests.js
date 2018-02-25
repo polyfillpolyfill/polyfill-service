@@ -1,5 +1,21 @@
-/* eslint-env mocha, browser */
-/* global proclaim */
+/* eslint-env mocha */
+/* globals proclaim, Symbol */
+
+it('is a function', function () {
+	proclaim.isFunction(Symbol);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Symbol, 0);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Symbol, 'Symbol');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(window, 'Symbol');
+});
 
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};
