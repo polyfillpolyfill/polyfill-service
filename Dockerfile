@@ -1,4 +1,4 @@
-FROM node:8.4.0-slim
+FROM eu.gcr.io/musicglue-polaris/node:v9.5.0-a
 
 ENV NODE_ENV=production \
     ENABLE_ACCESS_LOG=true
