@@ -2,7 +2,7 @@ FROM eu.gcr.io/musicglue-polaris/node:v9.5.0-a
 
 ARG NPM_TOKEN
 ENV NODE_ENV=production \
-    ENABLE_ACCESS_LOG=true
+    ENABLE_ACCESS_LOG=true \
     NPM_TOKEN=${NPM_TOKEN}
 
 RUN apt-get update && \
