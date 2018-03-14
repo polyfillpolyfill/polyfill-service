@@ -1,4 +1,4 @@
-FROM eu.gcr.io/musicglue-polaris/node:v9.5.0-a
+FROM eu.gcr.io/musicglue-polaris/node:v9.8.0-b
 
 ARG NPM_TOKEN
 ENV NODE_ENV=production \
