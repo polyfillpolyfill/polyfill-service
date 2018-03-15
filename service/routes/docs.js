@@ -292,7 +292,7 @@ function route(req, res, next) {
 		appversion: appVersion,
 		pageName: ((Number.isInteger(Number.parseInt(req.params[0], 10)) ? req.params[1] : req.params[0]) || 'index').replace(/\/$/, ''),
 		rumEnabled: !!process.env.RUM_MYSQL_DSN,
-		host: process.env.HOSTNAME || 'https://' + req.get('host') || 'https://polyfill.io'
+		host: process.env.HOSTNAME || req.protocol + '://' + req.get('host') || 'https://polyfill.io'
 	}, docsData);
 
 	if (locals.pageName === 'usage') {
