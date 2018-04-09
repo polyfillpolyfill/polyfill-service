@@ -1,0 +1,3 @@
+# We ignore the node_modules folder of the AWS Lambda function that is used to gather RUM data from Fastly
+
+tasks/**/node_modules

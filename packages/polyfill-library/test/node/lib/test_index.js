@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 'use strict';
-
 const assert = require('proclaim');
 const setsToArrays = require('../../utils/sets_to_arrays');
 

@@ -5,13 +5,13 @@ const path = require('path');
 const request = require('request-promise');
 const Handlebars = require('handlebars');
 const moment = require('moment');
-const sources = require('../../lib/sources');
+const sources = require('polyfill-library/lib/sources');
 const marky = require('marky-markdown');
 const zlib = require('zlib');
 const PolyfillSet = require('../PolyfillSet');
-const polyfillservice = require('../../lib');
+const polyfillservice = require('polyfill-library');
 const compatdata = require('../../docs/assets/compat.json');
-const appVersion = require(path.join(__dirname,'../../package.json')).version;
+const appVersion = require(path.join(__dirname,'../../../../package.json')).version;
 const RumReport = require('../RumReport.js').Perf;
 
 const docsData = {errors:[]};
@@ -22,7 +22,7 @@ const templCache = {};
 function template(name) {
 	if (name in templCache) return templCache[name];
 	return templCache[name] = new Promise((resolve, reject) => {
-		const filepath = path.join(__dirname, '/../../docs/' + name + '.html');
+		const filepath = path.join(__dirname, '../../docs/' + name + '.html');
 		fs.readFile(filepath, 'utf-8', (err, content) => {
 			if (!err) resolve(Handlebars.compile(content));
 			else reject(err);
@@ -31,7 +31,7 @@ function template(name) {
 }
 ['header', 'footer', 'nav'].forEach(partialName => {
 	Handlebars.registerPartial(partialName, Handlebars.compile(
-		fs.readFileSync(path.join(__dirname, '/../../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
+		fs.readFileSync(path.join(__dirname, '../../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
 	));
 });
 
@@ -304,7 +304,7 @@ function route(req, res, next) {
 		const one_week = one_hour * 24 * 7;
 		res.set('Cache-Control', 'public, max-age=' + one_hour + ', stale-while-revalidate=' + one_week + ', stale-if-error=' + one_week);
 	} else if (locals.pageName === 'contributing/authoring-polyfills') {
-		locals.baselines = require('../../lib/UA').getBaselines();
+		locals.baselines = require('polyfill-library/lib/UA').getBaselines();
 	}
 
 	template(locals.pageName)

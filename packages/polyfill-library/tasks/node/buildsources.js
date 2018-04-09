@@ -3,7 +3,7 @@
 const fs = require('graceful-fs');
 const path = require('path');
 const uglify = require('uglify-js');
-const babel = require("babel-core");
+const babel = require('babel-core');
 const mkdirp = require('mkdirp');
 const tsort = require('tsort');
 const denodeify = require('denodeify');
@@ -277,7 +277,7 @@ Promise.resolve()
 	)
 	.then(() => console.log('Sources built successfully'))
 	.catch(e => {
-		console.log(e);
+		console.log(JSON.stringify(e));
 		process.exit(1);
 	})
 ;
