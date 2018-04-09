@@ -20,7 +20,9 @@
   },
   "bugs": {
     "url": "https://github.com/financial-times/polyfill-service/issues"
-  },
+	},
+	"main": "node_modules/polyfill-library/lib/index.js",
+	"bin": "bin/polyfill-service",
   "scripts": {
     "start": "bin/polyfill-service",
     "dev": "node tasks/node/spawn service-with-watch",
