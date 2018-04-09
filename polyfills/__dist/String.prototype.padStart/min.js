@@ -1,1 +1,0 @@
-!function(){Object.defineProperty(String.prototype,"padStart",{configurable:!0,enumerable:!1,value:function(t){if((t|=0)<=this.length)return String(this);for(var e=String(arguments[1]||" "),r=Math.ceil((t-this.length)/e.length);r--;)e+=e;return e.substr(0,t-this.length)+String(this)},writable:!0})}();

@@ -76,7 +76,7 @@ if (process.env.RUM_MYSQL_DSN) {
 
 app.get(/^(?:\/(?:docs\/?(?:(.+)\/?)?)?)?$/, require('./routes/docs'));
 app.get(/^\/(?:v([12])(?:\/(?:docs\/?(?:(.+)\/?)?)?)?)?$/, require('./routes/docs'));
-app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../../../docs/assets'));
+app.use(/^\/v[12]\/assets/, express.static(__dirname + '/../docs/assets'));
 
 
 if (process.env.SENTRY_DSN) {

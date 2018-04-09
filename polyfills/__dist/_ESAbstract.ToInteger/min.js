@@ -1,1 +1,0 @@
-function ToInteger(n){var t=Number(n);return isNaN(t)?0:0===t||-0===t||t===Infinity||t===-Infinity?t:(t<0?-1:1)*Math.floor(Math.abs(t))}

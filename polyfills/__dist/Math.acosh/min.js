@@ -1,1 +1,0 @@
-Math.acosh=function(t){return Math.log(t+Math.sqrt(t*t-1))};

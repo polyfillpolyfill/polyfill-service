@@ -30,15 +30,15 @@ references:
     restore_cache:
       keys:
         - *npm_library_cache_key
-				- *npm_service_cache_key
+        - *npm_service_cache_key
 
-  cache_node_modules: &cache_node_modules
+  cache_library_node_modules: &cache_library_node_modules
     save_cache:
       key: *npm_library_cache_key
       paths:
         - ./packages/polyfill-library/node_modules
 
-  cache_node_modules: &cache_node_modules
+  cache_service_node_modules: &cache_service_node_modules
     save_cache:
       key: *npm_service_cache_key
       paths:
@@ -54,7 +54,8 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      - *cache_node_modules
+      - *cache_service_node_modules
+      - *cache_library_node_modules
       - *cache_repo
 
   validate_js:

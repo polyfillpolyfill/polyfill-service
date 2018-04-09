@@ -10,7 +10,7 @@ const intersection = (a, b) => new Set(Array.from(b).filter(value => a.has(value
 const difference = (a, b) => new Set(Array.from(b).filter(value => !a.has(value)));
 
 const file = path.join(__dirname, '../../test/results/results.json');
-const compatFile = path.join(__dirname, '../../../docs/assets/compat.json');
+const compatFile = path.join(__dirname, '../../docs/assets/compat.json');
 
 console.log('Reading test result data');
 readFile(file)

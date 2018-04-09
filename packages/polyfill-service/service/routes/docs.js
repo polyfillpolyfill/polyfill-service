@@ -10,7 +10,7 @@ const marky = require('marky-markdown');
 const zlib = require('zlib');
 const PolyfillSet = require('../PolyfillSet');
 const polyfillservice = require('polyfill-library');
-const compatdata = require('../../../../docs/assets/compat.json');
+const compatdata = require('../../docs/assets/compat.json');
 const appVersion = require(path.join(__dirname,'../../../../package.json')).version;
 const RumReport = require('../RumReport.js').Perf;
 
@@ -22,7 +22,7 @@ const templCache = {};
 function template(name) {
 	if (name in templCache) return templCache[name];
 	return templCache[name] = new Promise((resolve, reject) => {
-		const filepath = path.join(__dirname, '../../../../docs/' + name + '.html');
+		const filepath = path.join(__dirname, '../../docs/' + name + '.html');
 		fs.readFile(filepath, 'utf-8', (err, content) => {
 			if (!err) resolve(Handlebars.compile(content));
 			else reject(err);
@@ -31,7 +31,7 @@ function template(name) {
 }
 ['header', 'footer', 'nav'].forEach(partialName => {
 	Handlebars.registerPartial(partialName, Handlebars.compile(
-		fs.readFileSync(path.join(__dirname, '../../../../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
+		fs.readFileSync(path.join(__dirname, '../../docs/'+partialName+'.html'), {encoding: 'UTF-8'})
 	));
 });
 

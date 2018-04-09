@@ -1,1 +1,0 @@
-!function(r){Object.defineProperty(Array,"isArray",{configurable:!0,value:function(t){return"[object Array]"===r.call(t)},writable:!0})}(Object.prototype.toString);

@@ -4,6 +4,8 @@
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
+    "build": "cd packages/polyfill-library && npm run build && cd ../..",
+    "postinstall": "npm run build",
     "install": "npm run install:library && npm run install:service",
     "install:library": "cd packages/polyfill-library && npm install && cd ../..",
     "install:service": "cd packages/polyfill-service && npm install --save ../polyfill-library && npm install && cd ../..",
@@ -14,15 +16,13 @@
     "test-node": "npm run test-node:library && npm run test-node:service",
     "test-node:library": "cd packages/polyfill-library && npm run test-node && cd ../..",
     "test-node:service": "cd packages/polyfill-service && npm run test-node && cd ../..",
-    "test-node-unit": "npm run test-node-unit:library && npm run test-node-unit:service",
+    "test-node-unit": "npm run test-node-unit:library",
     "test-node-unit:library": "cd packages/polyfill-library && npm run test-node-unit && cd ../..",
-    "test-node-unit:service": "cd packages/polyfill-service && npm run test-node-unit && cd ../..",
-    "test-node-integration": "npm run test-node-integration:library && npm run test-node-integration:service",
-    "test-node-integration:library": "cd packages/polyfill-library && npm run test-node-integration && cd ../..",
-    "test-node-integration:service": "cd packages/polyfill-service && npm run test-node-integration && cd ../..",
+    "test-integration": "npm run test-integration:service",
+    "test-integration:service": "cd packages/polyfill-service && npm run test-integration && cd ../..",
     "test-browser-ci": "cd packages/polyfill-service && npm run test-browser-ci && cd ../..",
     "test-vcl": "cd packages/polyfill-service && npm run test-vcl && cd ../..",
-    "whitesource": "cd packages/polyfill-service && npm run whitesource && cd ../.."
+    "whitesource": "cd packages/polyfill-service && npm prune --production && cd ../.. && cd packages/polyfill-library && npm prune --production && cd ../.. && whitesource run"
   },
   "contributors": [
     {
@@ -42,5 +42,12 @@
   },
   "bugs": {
     "url": "https://github.com/financial-times/polyfill-service/issues"
+  },
+  "license": "CC0-1.0",
+  "engines": {
+    "node": "6.11.1 - 9"
+  },
+  "devDependencies": {
+    "whitesource": "^18.3.1"
   }
 }

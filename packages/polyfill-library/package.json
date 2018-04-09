@@ -33,9 +33,7 @@
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
     "test-coverage": "nyc report --reporter=lcov",
     "test": "npm run build && npm run test-node && npm run test-node-unit",
-    "ci": "npm run lint && npm run build && npm run test-node && npm run test-node-unit",
-		"prepublish": "npm run build",
-		"whitesource": "whitesource run"
+    "prepublish": "npm run build"
   },
   "license": "CC0-1.0",
   "engines": {
@@ -52,13 +50,12 @@
     "lodash": "^4.17.4",
     "lru-cache": "^4.0.2",
     "merge2": "^1.0.3",
-		"semver": "^5.3.0",
-		"shuffle-array": "^1.0.1",
+    "semver": "^5.3.0",
+    "shuffle-array": "^1.0.1",
     "stream-from-promise": "^1.0.0",
     "stream-to-string": "^1.1.0",
     "tsort": "0.0.1",
-    "useragent": "^2.1.12",
-		"usertiming": "^0.1.8"
+    "useragent": "^2.1.12"
   },
   "devDependencies": {
     "Base64": "^1.0.0",
@@ -80,15 +77,13 @@
     "mutationobserver-shim": "^0.3.2",
     "nyc": "^10.0.0",
     "picturefill": "^3.0.1",
-		"proclaim": "^3.5.0",
-		"rimraf": "^2.6.2",
+    "proclaim": "^3.5.0",
+    "rimraf": "^2.6.2",
     "sinon": "^4.0.1",
-    "sinon-as-promised": "^4.0.2",
-		"uglify-js": "^2.7.5",
-		"usertiming": "^0.1.8",
+    "uglify-js": "^2.7.5",
+    "usertiming": "^0.1.8",
     "web-animations-js": "^2.2.5",
-		"whatwg-fetch": "^2.0.3",
-		"whitesource": "^1.1.1",
+    "whatwg-fetch": "^2.0.3",
     "yaku": "0.17.11"
   }
 }

@@ -1,1 +1,0 @@
-Math.tanh=function(n){var t;return n===Infinity?1:n===-Infinity?-1:((t=Math.exp(2*n))-1)/(t+1)};
