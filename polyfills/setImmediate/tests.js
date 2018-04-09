@@ -13,10 +13,6 @@ describe('setImmediate', function () {
 	it('has correct name', function () {
 		proclaim.hasName(setImmediate, 'setImmediate');
 	});
-
-	it('is enumerable', function () {
-		proclaim.enumerable(window, 'setImmediate');
-	});
 });
 
 describe('clearImmediate', function () {
@@ -30,9 +26,5 @@ describe('clearImmediate', function () {
 
 	it('has correct name', function () {
 		proclaim.hasName(clearImmediate, 'clearImmediate');
-	});
-
-	it('is enumerable', function () {
-		proclaim.enumerable(window, 'clearImmediate');
 	});
 });
