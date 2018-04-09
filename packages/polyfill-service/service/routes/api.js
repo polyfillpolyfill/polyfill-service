@@ -2,7 +2,7 @@
 
 'use strict';
 
-const polyfillio = require('../../lib');
+const polyfillio = require('polyfill-library');
 const PolyfillSet = require('../PolyfillSet');
 const metrics = require('../metrics');
 const express = require('express');
