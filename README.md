@@ -50,7 +50,7 @@ npm run dev
 
 ## Configuration
 
-You can configure the Polyfill service using environment variables. In development, configurations are set in `.env`. In production, these are set through Heroku config.
+You can configure the Polyfill service using environment variables. In development, configurations are set in `packages/polyfill-service/.env`. In production, these are set through Heroku config.
 
 * `PORT`: The port on which to listen for HTTP requests (default 3000).
 * `NODE_ENV`: Name of environment. `dev`, `production`, `ci` or `qa`.  Just used for logging.
@@ -112,7 +112,7 @@ The Financial Times and Fastly host a public version of this service on [polyfil
 
 ### Release process
 
-1. Test the release candidate with the npm run compatgen task to generate an updated compatibility table. - `npm run compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
+1. Test the release candidate with the `npm run compatgen` task to generate an updated compatibility table. - `cd packages/polyfill-service && npm run compatgen && git commit docs/assets/compat.json -m 'update compat.json'`
 1. Tag the commit using npm's version command. - `npm version {premajor | preminor | prepatch}` if creating a new RC, or `npm version prerelease` if you already have an active `premajor`, `preminor` or `prepatch`.
 1. Publish to npm under the `next` dist-tag. - `npm publish --tag next`
 1. Push the commits and tags to the git remote. - `git push origin master --tags`
