@@ -212,9 +212,6 @@ function getPolyfillString(options) {
 		}
 		output.add(streamFromString('/* ' + explainerComment.join('\n * ') + ' */\n\n'));
 
-		// Outer closure hides private features from global scope
-		output.add(streamFromString("(function(undefined) {" + lf));
-
 		if (options.rum && process.env.RUM_BEACON_HOST) {
 			output.add(new lazystream.Readable(() => {
 				const optionsForRUM = cloneDeep(options);
@@ -237,6 +234,8 @@ function getPolyfillString(options) {
 		}
 
 		if (sortedFeatures.length) {
+			// Outer closure hides private features from global scope
+			output.add(streamFromString("(function(undefined) {" + lf));
 
 			// Using the graph, stream all the polyfill sources in dependency order
 			for (const featureName of sortedFeatures) {
@@ -252,15 +251,15 @@ function getPolyfillString(options) {
 					output.add(streamFromString(lf + "}" + lf + lf));
 				}
 			}
+			
+			// Invoke the closure, binding `this` to window (in a browser),
+			// self (in a web worker), or global (in Node/IOjs)
+			output.add(streamFromString("})" + lf + ".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" + lf));
 		} else {
 			if (!options.minify) {
 				output.add(streamFromString('\n/* No polyfills found for current settings */\n\n'));
 			}
 		}
-
-		// Invoke the closure, binding `this` to window (in a browser),
-		// self (in a web worker), or global (in Node/IOjs)
-		output.add(streamFromString("})" + lf + ".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" + lf));
 
 		if ('all' in options.features) {
 			output.add(streamFromString("\nconsole.log('"+allWarnText+"');\n"));
