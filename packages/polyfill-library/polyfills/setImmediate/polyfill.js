@@ -9,7 +9,7 @@
     var tasksByHandle = {};
     var currentlyRunningATask = false;
     var doc = global.document;
-    var setImmediate;
+    var setImmediatePolyfill;
 
     function addFromSetImmediateArguments(args) {
         tasksByHandle[nextHandle] = partiallyApplied.apply(undefined, args);
@@ -55,7 +55,7 @@
     }
 
     function installNextTickImplementation() {
-        setImmediate = function() {
+        setImmediatePolyfill = function setImmediate (handler) {
             var handle = addFromSetImmediateArguments(arguments);
             process.nextTick(partiallyApplied(runIfPresent, handle));
             return handle;
@@ -97,7 +97,7 @@
             global.attachEvent("onmessage", onGlobalMessage);
         }
 
-        setImmediate = function() {
+        setImmediatePolyfill = function setImmediate(handler) {
             var handle = addFromSetImmediateArguments(arguments);
             global.postMessage(messagePrefix + handle, "*");
             return handle;
@@ -111,7 +111,7 @@
             runIfPresent(handle);
         };
 
-        setImmediate = function() {
+        setImmediatePolyfill = function setImmediate(handler) {
             var handle = addFromSetImmediateArguments(arguments);
             channel.port2.postMessage(handle);
             return handle;
@@ -120,7 +120,7 @@
 
     function installReadyStateChangeImplementation() {
         var html = doc.documentElement;
-        setImmediate = function() {
+        setImmediatePolyfill = function setImmediate(handler) {
             var handle = addFromSetImmediateArguments(arguments);
             // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
             // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
@@ -137,7 +137,7 @@
     }
 
     function installSetTimeoutImplementation() {
-        setImmediate = function() {
+        setImmediatePolyfill = function setImmediate(handler) {
             var handle = addFromSetImmediateArguments(arguments);
             setTimeout(partiallyApplied(runIfPresent, handle), 0);
             return handle;
@@ -170,6 +170,6 @@
         installSetTimeoutImplementation();
     }
 
-    attachTo.setImmediate = setImmediate;
+    attachTo.setImmediate = setImmediatePolyfill;
     attachTo.clearImmediate = clearImmediate;
 }(this)); // eslint-disable-line no-undef
