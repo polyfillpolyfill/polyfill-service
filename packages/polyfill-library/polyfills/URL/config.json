@@ -18,6 +18,7 @@
 		"op_mini": "*",
 		"android": "*",
 		"samsung_mob": "<5",
+		"bb": "*",
 		"ios_saf": "*"
 	},
 	"dependencies": [
