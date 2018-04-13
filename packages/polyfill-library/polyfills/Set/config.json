@@ -16,7 +16,8 @@
 		"opera_mob": "*",
 		"op_mini": "*",
 		"ios_saf": "<9",
-		"bb": "10 - *"
+		"bb": "10 - *",
+		"samsung_mob": "<3"
 	},
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",
