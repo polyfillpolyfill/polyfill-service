@@ -1,73 +1,63 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const fs = require('graceful-fs');
-const denodeify = require('denodeify');
+const path = require("path");
+const fs = require("graceful-fs");
+const denodeify = require("denodeify");
 const readFile = denodeify(fs.readFile);
-const process = require('process');
-const console = require('console');
+module.exports = class Sources {
+	constructor(polyfillsPath = path.join(__dirname, "../polyfills/__dist")) {
+		this.polyfillsPath = polyfillsPath;
+		// Discover and index all the available polyfills (synchronously so that the index is available for the first request)
+		try {
+			this.metadata = {};
+			this.configuredAliases = require(path.join(polyfillsPath, "aliases.json"));
+			this.features = fs.readdirSync(polyfillsPath).filter(f => f.indexOf(".json") === -1);
+			this.features.forEach(featureName => {
+				this.metadata[featureName] = JSON.parse(fs.readFileSync(path.join(polyfillsPath, featureName, "meta.json"), "UTF-8"));
+			});
+		} catch (e) {
+			throw new Error(`No polyfill sources found in ${polyfillsPath}.  Run "npm run build" to build them`);
+		}
+	}
 
-const polyfillsPath = path.join(__dirname, '../polyfills/__dist');
+	polyfillExistsSync(featureName) {
+		return this.features.indexOf(featureName) !== -1;
+	}
 
-let features;
-let configuredAliases;
-const metadata = {};
+	getPolyfillMetaSync(featureName) {
+		return this.metadata[featureName];
+	}
 
-// Discover and index all the available polyfills (synchronously so that the index is available for the first request)
-try {
-	configuredAliases = require('../polyfills/__dist/aliases.json');
-	features = fs.readdirSync(polyfillsPath).filter(f => f.indexOf('.json') === -1);
-	features.forEach(featureName => {
-		metadata[featureName] = JSON.parse(fs.readFileSync(path.join(polyfillsPath, featureName, 'meta.json'), 'UTF-8'));
-	});
-} catch(e) {
-	console.log("No polyfill sources found.  Run `npm run build` to build them");
-	process.exit(1);
-}
+	listPolyfillsSync() {
+		return this.features;
+	}
 
-exports.polyfillExistsSync = function(featureName) {
-	return (features.indexOf(featureName) !== -1);
-};
+	listPolyfills() {
+		return Promise.resolve(this.features);
+	}
 
-exports.getPolyfillMetaSync = function(featureName) {
-	return metadata[featureName];
-};
+	getConfigAliasesSync(featureName) {
+		return this.configuredAliases[featureName];
+	}
 
-exports.listPolyfillsSync = function() {
-	return features;
-};
+	streamPolyfillSource(featureName, type) {
+		return fs.createReadStream(path.join(this.polyfillsPath, featureName, type + ".js"), { encoding: "UTF-8" });
+	}
 
-
-exports.listPolyfills = function() {
-	return Promise.resolve(features);
-};
-
-exports.getConfigAliasesSync = function(featureName) {
-	return configuredAliases[featureName];
-};
-
-exports.streamPolyfillSource = function (featureName, type) {
-	return fs.createReadStream(path.join(polyfillsPath, featureName, type + '.js'), { encoding: 'UTF-8' });
-};
-
-// TODO: deprecate this
-exports.getPolyfill = function (featureName) {
-	if (features.indexOf(featureName) !== -1) {
-		const getSources = [
-			readFile(path.join(polyfillsPath, featureName, 'raw.js'), 'utf-8'),
-			readFile(path.join(polyfillsPath, featureName, 'min.js'), 'utf-8')
-		];
-		return Promise.all(getSources)
-			.then(sources => {
-				const op = Object.assign({}, metadata[featureName], {
+	// TODO: deprecate this
+	getPolyfill(featureName) {
+		if (this.features.indexOf(featureName) !== -1) {
+			const getSources = [readFile(path.join(this.polyfillsPath, featureName, "raw.js"), "utf-8"), readFile(path.join(this.polyfillsPath, featureName, "min.js"), "utf-8")];
+			return Promise.all(getSources).then(sources => {
+				const op = Object.assign({}, this.metadata[featureName], {
 					rawSource: sources[0],
 					minSource: sources[1],
 					name: featureName
 				});
 				return op;
-			})
-		;
-	} else {
-		return Promise.resolve(null);
+			});
+		} else {
+			return Promise.resolve(null);
+		}
 	}
 };
