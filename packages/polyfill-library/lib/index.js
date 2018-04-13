@@ -351,6 +351,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 				}
 			});
 
+			if (options.callback && typeof options.callback === 'string' && options.callback.match(/^[\w\.]+$/)) {
+				output.add(streamFromString("\ntypeof "+options.callback+"==='function' && "+options.callback+"();"));
+			}
+
 		return options.stream ? output : Promise.resolve(streamToString(output));
 	}
 };
