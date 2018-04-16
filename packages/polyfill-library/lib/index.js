@@ -25,12 +25,24 @@ const PolyfillLibrary = class PolyfillLibrary {
 		this.sourceslib = new Sources(polyfillsPath);
 	}
 
+	static listAllPolyfills() {
+		return new PolyfillLibrary().listAllPolyfills();
+	}
+
 	listAllPolyfills() {
 		return this.sourceslib.listPolyfills();
 	}
 
+	static describePolyfill(featureName) {
+		return new PolyfillLibrary().describePolyfill(featureName);
+	}
+
 	describePolyfill(featureName) {
 		return Promise.resolve(this.sourceslib.getPolyfillMetaSync(featureName));
+	}
+
+	static getOptions(opts) {
+		return new PolyfillLibrary().getOptions(opts);
 	}
 
 	getOptions(opts) {
@@ -59,6 +71,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 			}
 		});
 		return opts;
+	}
+
+	static getPolyfills(options) {
+		return new PolyfillLibrary().getPolyfills(options);
 	}
 
 	/**
@@ -154,6 +170,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 			.then(filterForUATargeting)
 			.then(filterForExcludes)
 			.then(filterForUnusedAbstractMethods);
+	}
+
+	static getPolyfillString(options) {
+		return new PolyfillLibrary().getPolyfillString(options);
 	}
 
 	getPolyfillString(options) {
@@ -360,5 +380,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 };
 
 PolyfillLibrary.prototype.normalizeUserAgent = UA.normalize;
+PolyfillLibrary.normalizeUserAgent = UA.normalize;
 
 module.exports = PolyfillLibrary;
