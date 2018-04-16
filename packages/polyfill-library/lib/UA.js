@@ -38,7 +38,7 @@ const baseLineVersions = {
 	"op_mob": ">=10",
 	"op_mini": ">=5",
 	"bb": ">=6",
-	"samsung_mob": ">=4"
+	"samsung_mob": ">=2"
 };
 
 /* Aliases may be expressed in three formats:

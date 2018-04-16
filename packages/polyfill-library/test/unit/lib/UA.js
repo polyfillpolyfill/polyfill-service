@@ -439,7 +439,7 @@ describe("lib/UA", function () {
 			assert.equal(new UA("bb/6").isUnknown(), false);
 			assert.equal(new UA("bb/10").isUnknown(), false);
 
-			assert.equal(new UA("samsung_mob/3").isUnknown(), true);
+			assert.equal(new UA("samsung_mob/1").isUnknown(), true);
 			assert.equal(new UA("samsung_mob/4").isUnknown(), false);
 		});
 	});
