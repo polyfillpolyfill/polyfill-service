@@ -281,17 +281,24 @@ const PolyfillLibrary = class PolyfillLibrary {
 						);
 						if (wrapInDetect) {
 							output.add(streamFromPromise(detect));
-						}
-
-						output.add(
-							this.sourceslib.streamPolyfillSource(
-								featureName,
-								options.minify ? "min" : "raw"
-							)
-						);
-
-						if (wrapInDetect) {
-							output.add(streamFromString(lf + "}" + lf + lf));
+							output.add(
+								this.sourceslib.streamPolyfillSource(
+									featureName,
+									options.minify ? "min" : "raw"
+								)
+							);
+							output.add(streamFromPromise(detect.then(wrap => {
+								if (wrap) {
+									return (lf + "}" + lf + lf)
+								}
+							})));
+						} else {
+							output.add(
+								this.sourceslib.streamPolyfillSource(
+									featureName,
+									options.minify ? "min" : "raw"
+								)
+							);
 						}
 					}
 				} else {
