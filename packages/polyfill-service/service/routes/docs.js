@@ -209,10 +209,10 @@ function refreshData() {
 				'missing': 'Not supported'
 			};
 			return Promise.all(Object.keys(compatdata)
-				.filter(feature => sources.polyfillExistsSync(feature) && feature.indexOf('_') !== 0)
+				.filter(feature => sources.polyfillExists(feature) && feature.indexOf('_') !== 0)
 				.sort()
 				.map(feat => {
-					const polyfill = sources.getPolyfillMetaSync(feat);
+					const polyfill = sources.getPolyfillMeta(feat);
 					const fdata = {
 						feature: feat,
 						slug: feat.replace(/[^\w]/g, '_'),

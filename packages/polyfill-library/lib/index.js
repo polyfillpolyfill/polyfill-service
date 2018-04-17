@@ -1,48 +1,26 @@
 "use strict";
 
-const fs = require("graceful-fs");
-const path = require("path");
 const tsort = require("tsort");
 const createAliasResolver = require("./aliases");
 const UA = require("./UA");
 const Sources = require("./sources");
 const appVersion = require("../package.json").version;
-const Handlebars = require("handlebars");
-const cloneDeep = require("lodash").cloneDeep;
 const streamFromPromise = require("stream-from-promise");
-const lazystream = require("lazystream");
 const streamFromString = require("from2-string");
 const mergeStream = require("merge2");
 const streamToString = require("stream-to-string");
-const shuffle = require("shuffle-array");
-
-const rumTemplate = Handlebars.compile(
-	fs.readFileSync(path.join(__dirname, "rumTemplate.js.handlebars"), "utf-8")
-);
 
 const PolyfillLibrary = class PolyfillLibrary {
 	constructor(polyfillsPath) {
 		this.sourceslib = new Sources(polyfillsPath);
 	}
 
-	static listAllPolyfills() {
-		return new PolyfillLibrary().listAllPolyfills();
-	}
-
 	listAllPolyfills() {
 		return this.sourceslib.listPolyfills();
 	}
 
-	static describePolyfill(featureName) {
-		return new PolyfillLibrary().describePolyfill(featureName);
-	}
-
 	describePolyfill(featureName) {
-		return Promise.resolve(this.sourceslib.getPolyfillMetaSync(featureName));
-	}
-
-	static getOptions(opts) {
-		return new PolyfillLibrary().getOptions(opts);
+		return this.sourceslib.getPolyfillMeta(featureName);
 	}
 
 	getOptions(opts) {
@@ -73,10 +51,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 		return opts;
 	}
 
-	static getPolyfills(options) {
-		return new PolyfillLibrary().getPolyfills(options);
-	}
-
 	/**
 	 * Given a set of features that should be polyfilled in 'options.features' (with flags i.e. `{<featurename>: {flags:Set[<flaglist>]}, ...}`), determine which have a configuration valid for the given options.uaString, and return a promise of set of canonical (unaliased) features (with flags) and polyfills.
 	 *
@@ -87,48 +61,53 @@ const PolyfillLibrary = class PolyfillLibrary {
 		options = this.getOptions(options);
 		const ua = new UA(options.uaString);
 		const aliasFromConfig = featureName => {
-			return this.sourceslib.getConfigAliasesSync(featureName);
+			return this.sourceslib.getConfigAliases(featureName);
 		};
 		const aliasAll = featureName => {
 			return featureName === "all"
-				? this.sourceslib.listPolyfillsSync()
+				? this.sourceslib.listPolyfills()
 				: undefined;
 		};
 		const resolveAliases = createAliasResolver(aliasFromConfig, aliasAll);
 		const aliasDependencies = featureName => {
-			const meta = this.sourceslib.getPolyfillMetaSync(featureName);
-			return ((meta && meta.dependencies) || [])
+			return this.sourceslib.getPolyfillMeta(featureName).then(meta => {
+				const result = ((meta && meta.dependencies) || [])
 				.filter(depName => options.excludes.indexOf(depName) === -1)
 				.concat(featureName);
+				return result;
+			});
 		};
 		const resolveDependencies = createAliasResolver(aliasDependencies);
 
 		// Filter the features object to remove features not suitable for the current UA
-		const filterForUATargeting = (features) => {
+		const filterForUATargeting = features => {
 			const featuresList = Object.keys(features);
-			return featuresList
-				.map(featureName => {
-					const meta = this.sourceslib.getPolyfillMetaSync(featureName);
-					if (!meta) return false;
+			return Promise.all(
+				featuresList.map(featureName => {
+					return this.sourceslib.getPolyfillMeta(featureName).then(meta => {
+						if (!meta) return false;
 
-					const isBrowserMatch =
-						meta.browsers &&
-						meta.browsers[ua.getFamily()] &&
-						ua.satisfies(meta.browsers[ua.getFamily()]);
-					const hasAlwaysFlagOverride = features[featureName].flags.has(
-						"always"
-					);
-					const unknownOverride =
-						options.unknown === "polyfill" && ua.isUnknown();
+						const isBrowserMatch =
+							meta.browsers &&
+							meta.browsers[ua.getFamily()] &&
+							ua.satisfies(meta.browsers[ua.getFamily()]);
+						const hasAlwaysFlagOverride = features[featureName].flags.has(
+							"always"
+						);
+						const unknownOverride =
+							options.unknown === "polyfill" && ua.isUnknown();
 
-					return isBrowserMatch || hasAlwaysFlagOverride || unknownOverride
-						? featureName
-						: false;
+						return isBrowserMatch || hasAlwaysFlagOverride || unknownOverride
+							? featureName
+							: false;
+					});
 				})
-				.reduce(function(out, key) {
+			).then(featureNames => {
+				return featureNames.reduce(function(out, key) {
 					if (key) out[key] = features[key];
 					return out;
 				}, {});
+			});
 		};
 
 		const filterForExcludes = function(features) {
@@ -140,27 +119,30 @@ const PolyfillLibrary = class PolyfillLibrary {
 			return features;
 		};
 
-		const filterForUnusedAbstractMethods = (features)=> {
-			const featuresMeta = Object.keys(features).map(featureName =>
-				this.sourceslib.getPolyfillMetaSync(featureName)
-			);
+		const filterForUnusedAbstractMethods = features => {
 			let dependencyWasRemoved = false;
-			Object.keys(features).forEach(featureName => {
-				if (featureName.startsWith("_")) {
-					if (
-						!featuresMeta.some(meta =>
-							(meta.dependencies || []).some(dep => dep === featureName)
-						)
-					) {
-						delete features[featureName];
-						dependencyWasRemoved = true;
+			return Promise.all(
+				Object.keys(features).map(featureName =>
+					this.sourceslib.getPolyfillMeta(featureName)
+				)
+			).then(featuresMeta => {
+				Object.keys(features).forEach(featureName => {
+					if (featureName.startsWith("_")) {
+						if (
+							!featuresMeta.some(meta =>
+								(meta.dependencies || []).some(dep => dep === featureName)
+							)
+						) {
+							delete features[featureName];
+							dependencyWasRemoved = true;
+						}
 					}
+				});
+				if (dependencyWasRemoved) {
+					return filterForUnusedAbstractMethods(features);
 				}
+				return features;
 			});
-			if (dependencyWasRemoved) {
-				return filterForUnusedAbstractMethods(features);
-			}
-			return features;
 		};
 
 		return Promise.resolve(options.features)
@@ -170,10 +152,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 			.then(filterForUATargeting)
 			.then(filterForExcludes)
 			.then(filterForUnusedAbstractMethods);
-	}
-
-	static getPolyfillString(options) {
-		return new PolyfillLibrary().getPolyfillString(options);
 	}
 
 	getPolyfillString(options) {
@@ -201,12 +179,14 @@ const PolyfillLibrary = class PolyfillLibrary {
 
 			// Build a polyfill bundle of polyfill sources sorted in dependency order
 			.then(targetedFeatures => {
-				const warnings = { unknown: [] };
+				const warnings = {
+					unknown: []
+				};
 				const graph = tsort();
 
 				Object.keys(targetedFeatures).forEach(featureName => {
 					const feature = targetedFeatures[featureName];
-					const polyfill = this.sourceslib.getPolyfillMetaSync(featureName);
+					const polyfill = this.sourceslib.getPolyfillMeta(featureName);
 					if (!polyfill) {
 						warnings.unknown.push(featureName);
 					} else {
@@ -286,50 +266,23 @@ const PolyfillLibrary = class PolyfillLibrary {
 				// Outer closure hides private features from global scope
 				output.add(streamFromString("(function(undefined) {" + lf));
 
-				if (options.rum && process.env.RUM_BEACON_HOST) {
-					output.add(
-						new lazystream.Readable(() => {
-							const optionsForRUM = cloneDeep(options);
-							Object.keys(options.features).forEach(f =>
-								optionsForRUM.features[f].flags.add("always")
-							);
-							const MAX_RUM_TESTS = 10;
-							return streamFromPromise(
-								this.getPolyfills(optionsForRUM).then(rumFeatures => {
-									return rumTemplate({
-										host: process.env.RUM_BEACON_HOST,
-										features: shuffle(Object.keys(rumFeatures))
-											.slice(0, MAX_RUM_TESTS)
-											.reduce((op, featureName) => {
-												const polyfill = this.sourceslib.getPolyfillMetaSync(
-													featureName
-												);
-												if (polyfill.detectSource) {
-													op.push({
-														name: featureName,
-														detect: polyfill.detectSource
-													});
-												}
-												return op;
-											}, [])
-									});
-								})
-							);
-						})
-					);
-				}
-
 				if (sortedFeatures.length) {
 					// Using the graph, stream all the polyfill sources in dependency order
 					for (const featureName of sortedFeatures) {
-						const polyfill = this.sourceslib.getPolyfillMetaSync(featureName);
-						const wrapInDetect =
-							targetedFeatures[featureName].flags.has("gated") &&
-							polyfill.detectSource;
+						const detect = this.sourceslib
+							.getPolyfillMeta(featureName)
+							.then(meta => {
+								if (meta.detectSource) {
+									return "if (!(" + meta.detectSource + ")) {" + lf;
+								} else {
+									return "";
+								}
+							});
+						const wrapInDetect = targetedFeatures[featureName].flags.has(
+							"gated"
+						);
 						if (wrapInDetect) {
-							output.add(
-								streamFromString("if (!(" + polyfill.detectSource + ")) {" + lf)
-							);
+							output.add(streamFromPromise(detect));
 						}
 
 						output.add(
@@ -371,9 +324,21 @@ const PolyfillLibrary = class PolyfillLibrary {
 				}
 			});
 
-			if (options.callback && typeof options.callback === 'string' && options.callback.match(/^[\w\.]+$/)) {
-				output.add(streamFromString("\ntypeof "+options.callback+"==='function' && "+options.callback+"();"));
-			}
+		if (
+			options.callback &&
+			typeof options.callback === "string" &&
+			options.callback.match(/^[\w\.]+$/)
+		) {
+			output.add(
+				streamFromString(
+					"\ntypeof " +
+						options.callback +
+						"==='function' && " +
+						options.callback +
+						"();"
+				)
+			);
+		}
 
 		return options.stream ? output : Promise.resolve(streamToString(output));
 	}

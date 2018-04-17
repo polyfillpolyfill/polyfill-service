@@ -2,12 +2,13 @@
 
 const sinon = require('sinon');
 
-module.exports = {
-	polyfillExistsSync: sinon.stub(),
-	getPolyfillMetaSync: sinon.stub(),
-	listPolyfillsSync: sinon.stub(),
-	listPolyfills: sinon.stub(),
-	getConfigAliasesSync: sinon.stub(),
+const instance = {
+	polyfillExists: sinon.stub().resolves(),
+	getPolyfillMeta: sinon.stub().resolves(),
+	listPolyfills: sinon.stub().resolves(),
+	getConfigAliases: sinon.stub().resolves(),
 	streamPolyfillSource: sinon.stub(),
-	getPolyfill: sinon.stub()
 };
+
+module.exports = sinon.stub().returns(instance);
+module.exports.instance = instance;

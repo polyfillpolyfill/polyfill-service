@@ -41,13 +41,13 @@ module.exports = function (...polyfillNameResolverFunctions) {
  *
  * @return {array} An expanded list of polyfill identifiers
  */
-function applyResolverToIdentifiers(featureSet, nameResolverFunction) {
+async function applyResolverToIdentifiers(featureSet, nameResolverFunction) {
 	const processQueue = Object.keys(featureSet);
 
 	while (processQueue.length > 0) {
 		const featureName = processQueue.shift();
 		const feature = featureSet[featureName];
-		const resultItems = nameResolverFunction(featureName);
+		const resultItems = await nameResolverFunction(featureName);
 
 		// No aliases for this feature - do not modify feature set
 		if (!Array.isArray(resultItems)) continue;
