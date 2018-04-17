@@ -179,9 +179,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 
 			// Build a polyfill bundle of polyfill sources sorted in dependency order
 			.then(targetedFeatures => {
-				const warnings = {
-					unknown: []
-				};
+				const warnings = { unknown: [] };
 				const graph = tsort();
 
 				Object.keys(targetedFeatures).forEach(featureName => {
@@ -324,20 +322,8 @@ const PolyfillLibrary = class PolyfillLibrary {
 				}
 			});
 
-		if (
-			options.callback &&
-			typeof options.callback === "string" &&
-			options.callback.match(/^[\w\.]+$/)
-		) {
-			output.add(
-				streamFromString(
-					"\ntypeof " +
-						options.callback +
-						"==='function' && " +
-						options.callback +
-						"();"
-				)
-			);
+		if (options.callback && typeof options.callback === 'string' && options.callback.match(/^[\w\.]+$/)) {
+			output.add(streamFromString("\ntypeof "+options.callback+"==='function' && "+options.callback+"();"));
 		}
 
 		return options.stream ? output : Promise.resolve(streamToString(output));
