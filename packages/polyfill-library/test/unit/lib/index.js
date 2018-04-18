@@ -109,7 +109,7 @@ describe("polyfillio", () => {
 			polyfillio = new Polyfillio;
 			sourceslib.instance.listPolyfills.resolves('return value for sourceslib.instance.listPolyfills');
 			return polyfillio.listAllPolyfills('test').then(result => {
-				assert.equal(result, 'return value for sourceslib.instance.listPolyfills')
+				assert.equal(result, 'return value for sourceslib.instance.listPolyfills');
 				assert.calledOnce(sourceslib.instance.listPolyfills);
 				assert.neverCalledWith(sourceslib.instance.listPolyfills, 'test');
 			});

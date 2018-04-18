@@ -289,7 +289,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 							);
 							output.add(streamFromPromise(detect.then(wrap => {
 								if (wrap) {
-									return (lf + "}" + lf + lf)
+									return (lf + "}" + lf + lf);
 								}
 							})));
 						} else {
