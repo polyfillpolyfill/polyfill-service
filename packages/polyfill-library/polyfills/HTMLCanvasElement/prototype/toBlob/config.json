@@ -6,7 +6,7 @@
 		"chrome": "<50",
 		"firefox": "<19",
 		"safari": "<11",
-		"ie": "*",
+		"ie": ">=10",
 		"opera": "*"
 	},
 	"dependencies": [
