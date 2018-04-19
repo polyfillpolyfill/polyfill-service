@@ -84,6 +84,6 @@
     "usertiming": "^0.1.8",
     "web-animations-js": "^2.2.5",
     "whatwg-fetch": "^2.0.3",
-    "yaku": "0.17.11"
+    "yaku": "0.18.6"
   }
 }
