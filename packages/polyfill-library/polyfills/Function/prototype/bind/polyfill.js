@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, IsCallable */
 // 19.2.3.2. Function.prototype.bind ( thisArg, ...args )
 // https://github.com/es-shims/es5-shim/blob/d6d7ff1b131c7ba14c798cafc598bb6780d37d3b/es5-shim.js#L182
 CreateMethodProperty(Function.prototype, 'bind', function bind(that) { // .length is 1

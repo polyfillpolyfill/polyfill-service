@@ -1,4 +1,4 @@
-/* globals Symbol OrdinaryCreateFromConstructor, IsCallable, GetIterator, IteratorStep, IteratorValue, IteratorClose, SameValueZero, CreateIterResultObject */
+/* global CreateIterResultObject, CreateMethodProperty, GetIterator, IsCallable, IteratorClose, IteratorStep, IteratorValue, OrdinaryCreateFromConstructor, SameValueZero, Symbol */
 (function (global) {
 	var supportsGetters = (function () {
 		try {
@@ -146,7 +146,7 @@
 				}
 			}
 			// 6. If value is -0, let value be +0.
-			if (value === -0) {
+			if (1/value === -Infinity) {
 				value = 0;
 			}
 			// 7. Append value as the last element of entries.

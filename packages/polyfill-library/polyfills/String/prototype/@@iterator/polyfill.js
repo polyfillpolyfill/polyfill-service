@@ -1,4 +1,4 @@
-/* global Symbol, StringIterator */
+/* global CreateMethodProperty, RequireObjectCoercible, ToString, StringIterator, Symbol */
 // 21.1.3.29. String.prototype [ @@iterator ] ( )
 CreateMethodProperty(String.prototype, Symbol.iterator, function () {
 	// 1. Let O be ? RequireObjectCoercible(this value).

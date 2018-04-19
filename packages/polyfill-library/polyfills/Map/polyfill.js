@@ -1,4 +1,4 @@
-/* globals Symbol OrdinaryCreateFromConstructor, IsCallable, GetIterator, IteratorStep, IteratorValue, IteratorClose, SameValueZero, CreateIterResultObject */
+/* global CreateIterResultObject, CreateMethodProperty, GetIterator, IsCallable, IteratorClose, IteratorStep, IteratorValue, OrdinaryCreateFromConstructor, SameValueZero, Type, Symbol */
 (function (global) {
 	var supportsGetters = (function () {
 		try {
@@ -337,7 +337,7 @@
 				}
 			}
 			// 6. If key is -0, let key be +0.
-			if (key === -0) {
+			if (1/key === -Infinity) {
 				key = 0;
 			}
 			// 7. Let p be the Record {[[Key]]: key, [[Value]]: value}.

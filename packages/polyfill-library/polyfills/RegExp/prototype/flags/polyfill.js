@@ -1,3 +1,4 @@
+/* global Get, ToBoolean, Type */
 Object.defineProperty(RegExp.prototype, 'flags', {
 	configurable: true,
 	enumerable: false,

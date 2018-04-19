@@ -28,4 +28,4 @@ function SameValueZero (x, y) { // eslint-disable-line no-unused-vars
 	}
 	// 3. Return SameValueNonNumber(x, y).
 	return SameValueNonNumber(x, y);
-};
+}

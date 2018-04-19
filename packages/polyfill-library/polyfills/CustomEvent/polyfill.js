@@ -1,4 +1,4 @@
-this.CustomEvent = function CustomEvent(type, eventInitDict) {
+function CustomEvent(type, eventInitDict) {
 	if (!type) {
 		throw Error('TypeError: Failed to construct "CustomEvent": An event name must be provided.');
 	}
@@ -23,6 +23,6 @@ this.CustomEvent = function CustomEvent(type, eventInitDict) {
 		event.detail = eventInitDict && eventInitDict.detail || null;
 	}
 	return event;
-};
+}
 
 CustomEvent.prototype = Event.prototype;

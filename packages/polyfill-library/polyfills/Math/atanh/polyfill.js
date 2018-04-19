@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.7. Math.atanh ( x )
 CreateMethodProperty(Math, 'atanh', function atanh(x) {
 	// If x is NaN, the result is NaN.

@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+/* global proclaim, ArrayBuffer, Int32Array, DataView, Int8Array, Uint8Array, Int16Array,Uint16Array, Uint32Array, Float32Array, Float64Array, Uint8ClampedArray */
 // Taken from https://raw.githubusercontent.com/inexorabletash/polyfill/master/tests/typedarray_tests.js
 /*
  Copyright (c) 2010, Linden Research, Inc.

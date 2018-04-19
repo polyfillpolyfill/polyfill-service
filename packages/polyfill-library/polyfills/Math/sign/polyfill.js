@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.29. Math.sign ( x )
 CreateMethodProperty(Math, 'sign', function sign(x) {
 	var x = Number(x);

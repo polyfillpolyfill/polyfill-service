@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, HasProperty, ToInteger, ToLength, ToObject, ToString */
 // 22.1.3.15. Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )
 CreateMethodProperty(Array.prototype, 'lastIndexOf', function lastIndexOf(searchElement /* [ , fromIndex ] */) {
 	// 1. Let O be ? ToObject(this value).

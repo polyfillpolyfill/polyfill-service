@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, RequireObjectCoercible, ToInteger, ToString */
 // 21.1.3.15String.prototype.repeat ( count )
 CreateMethodProperty(String.prototype, 'repeat', function repeat(count) {
 	'use strict';

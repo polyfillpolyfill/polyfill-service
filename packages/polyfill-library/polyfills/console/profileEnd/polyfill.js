@@ -1,1 +1,1 @@
-this.console.profileEnd = function profileEnd() {};
+console.profileEnd = function profileEnd() {};

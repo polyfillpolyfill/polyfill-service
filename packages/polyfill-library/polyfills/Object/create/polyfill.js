@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Type */
 CreateMethodProperty(Object, 'create', function create(O, properties) {
 	// 1. If Type(O) is neither Object nor Null, throw a TypeError exception.
 	if (Type(O) !== 'object' && Type(O) !== 'null') {

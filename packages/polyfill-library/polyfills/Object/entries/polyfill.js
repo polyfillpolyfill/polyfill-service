@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, EnumerableOwnProperties, ToObject */
 // 19.1.2.5. Object.entries ( O )
 CreateMethodProperty(Object, 'entries', function entries(O) {
 	// 1. Let obj be ? ToObject(O).

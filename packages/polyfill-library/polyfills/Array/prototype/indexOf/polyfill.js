@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, HasProperty, ToInteger, ToLength, ToObject, ToString */
 // 22.1.3.12. Array.prototype.indexOf ( searchElement [ , fromIndex ] )
 CreateMethodProperty(Array.prototype, 'indexOf', function indexOf(searchElement /* [ , fromIndex ] */) {
 	// 1. Let O be ? ToObject(this value).

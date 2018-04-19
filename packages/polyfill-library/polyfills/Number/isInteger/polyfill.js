@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, ToInteger, Type */
 // 20.1.2.3. Number.isInteger ( number )
 CreateMethodProperty(Number, 'isInteger', function isInteger(number) {
 	// 1. If Type(number) is not Number, return false.

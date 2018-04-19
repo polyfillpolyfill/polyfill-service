@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, IsCallable, SpeciesConstructor, Type, Promise */
 (function () {
 	// Based on https://github.com/tc39/proposal-promise-finally/blob/master/polyfill.js
 	var then = Function.prototype.bind.call(Function.prototype.call, Promise.prototype.then);
@@ -13,7 +14,7 @@
 		var promise = this;
 		// 2. If Type(promise) is not Object, throw a TypeError exception.
 		if (Type(promise) !== 'object') {
-			throw new TypeError('Method %PromisePrototype%.finally called on incompatible receiver ' + Object.prototype.toString.call(O));
+			throw new TypeError('Method %PromisePrototype%.finally called on incompatible receiver ' + Object.prototype.toString.call(promise));
 		}
 		// 3. Let C be ? SpeciesConstructor(promise, %Promise%).
 		var C = SpeciesConstructor(promise, Promise);

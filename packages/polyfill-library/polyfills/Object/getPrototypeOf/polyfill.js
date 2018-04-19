@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // Based on: https://github.com/es-shims/es5-shim/blob/master/es5-sham.js
 
 // https://github.com/es-shims/es5-shim/issues#issue/2

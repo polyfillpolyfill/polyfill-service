@@ -1,1 +1,1 @@
-this.console.timeEnd = function timeEnd() {};
+console.timeEnd = function timeEnd() {};

@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.15. Math.expm1 ( x )
 CreateMethodProperty(Math, 'expm1', function expm1(x) {
 	// If x is NaN, the result is NaN.

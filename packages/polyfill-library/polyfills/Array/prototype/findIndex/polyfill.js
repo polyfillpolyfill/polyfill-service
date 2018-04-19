@@ -1,5 +1,5 @@
+/* global Call, CreateMethodProperty, Get, IsCallable, ToBoolean, ToLength, ToObject, ToString */
 // 22.1.3.9. Array.prototype.findIndex ( predicate [ , thisArg ] )
-
 CreateMethodProperty(Array.prototype, 'findIndex', function findIndex(predicate /* [ , thisArg ] */) {
 	// 1. Let O be ? ToObject(this value).
 	var O = ToObject(this);

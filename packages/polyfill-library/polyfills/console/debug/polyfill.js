@@ -1,1 +1,1 @@
-this.console.debug = this.console.log;
+console.debug = console.log;

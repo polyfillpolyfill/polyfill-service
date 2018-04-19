@@ -1,4 +1,5 @@
-(function() {
+/* global CreateMethodProperty */
+(function () {
 	var call = Function.prototype.call;
 	var prototypeOfObject = Object.prototype;
 	var owns = call.bind(prototypeOfObject.hasOwnProperty);

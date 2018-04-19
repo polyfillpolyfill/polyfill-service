@@ -1,3 +1,4 @@
+/* global Call, CreateMethodProperty, Get, HasProperty, IsCallable, ToLength, ToObject, ToString */
 // 22.1.3.19. Array.prototype.reduce ( callbackfn [ , initialValue ] )
 CreateMethodProperty(Array.prototype, 'reduce', function reduce(callbackfn /* [ , initialValue ] */) {
 	// 1. Let O be ? ToObject(this value).

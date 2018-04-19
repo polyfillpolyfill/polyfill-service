@@ -1,3 +1,4 @@
+/* global Symbol */
 // URL Polyfill
 // Draft specification: https://url.spec.whatwg.org
 
@@ -444,7 +445,7 @@
       function update_steps() {
         query_object._setList(instance.search ? urlencoded_parse(instance.search.substring(1)) : []);
         query_object._update_steps();
-      };
+      }
 
       return self;
     }

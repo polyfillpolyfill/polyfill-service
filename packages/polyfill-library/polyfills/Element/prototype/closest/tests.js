@@ -60,7 +60,7 @@ if (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/
 		el.appendChild(svgElement);
 
 		var rectElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-		svgElement.appendChild(rectElement)
+		svgElement.appendChild(rectElement);
 
 		var closest = rectElement.closest("section.svg-holder");
 		proclaim.equal(closest, el);

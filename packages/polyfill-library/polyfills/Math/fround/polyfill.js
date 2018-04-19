@@ -1,3 +1,4 @@
+/* global Float32Array */
 Object.defineProperty(Math, 'fround', function (x) {
 	if (isNaN(x)) {
 		return NaN;
