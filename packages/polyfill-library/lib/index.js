@@ -72,8 +72,8 @@ const PolyfillLibrary = class PolyfillLibrary {
 		const aliasDependencies = featureName => {
 			return this.sourceslib.getPolyfillMeta(featureName).then(meta => {
 				const result = ((meta && meta.dependencies) || [])
-				.filter(depName => options.excludes.indexOf(depName) === -1)
-				.concat(featureName);
+					.filter(depName => options.excludes.indexOf(depName) === -1)
+					.concat(featureName);
 				return result;
 			});
 		};
@@ -163,8 +163,8 @@ const PolyfillLibrary = class PolyfillLibrary {
 			ua.getVersion() +
 			(ua.isUnknown() || !ua.meetsBaseline()
 				? " (unknown/unsupported; using policy `unknown=" +
-				  options.unknown +
-				  "`)"
+				options.unknown +
+				"`)"
 				: "");
 		const lf = options.minify ? "" : "\n";
 		const allWarnText =
@@ -182,161 +182,161 @@ const PolyfillLibrary = class PolyfillLibrary {
 				const warnings = { unknown: [] };
 				const graph = tsort();
 
-				Object.keys(targetedFeatures).forEach(featureName => {
+				Promise.all(Object.keys(targetedFeatures).map(featureName => {
 					const feature = targetedFeatures[featureName];
-					const polyfill = this.sourceslib.getPolyfillMeta(featureName);
-					if (!polyfill) {
-						warnings.unknown.push(featureName);
-					} else {
-						graph.add(featureName);
+					return this.sourceslib.getPolyfillMeta(featureName).then(polyfill => {
+						if (!polyfill) {
+							warnings.unknown.push(featureName);
+						} else {
+							graph.add(featureName);
 
-						if (polyfill.dependencies) {
-							polyfill.dependencies.forEach(depName => {
-								if (depName in targetedFeatures) {
-									graph.add(depName, featureName);
-								}
-							});
+							if (polyfill.dependencies) {
+								polyfill.dependencies.forEach(depName => {
+									if (depName in targetedFeatures) {
+										graph.add(depName, featureName);
+									}
+								});
+							}
+
+							feature.comment =
+								featureName +
+								", License: " +
+								(polyfill.license || "CC0") +
+							  (feature.aliasOf && feature.aliasOf.size
+								  ? ' (required by "' +
+									  Array.from(feature.aliasOf).join('", "') +
+								    '")'
+								  : "");
 						}
+					});
+				})).then(() => {
+					const sortedFeatures = graph.sort();
 
-						feature.comment =
-							featureName +
-							", License: " +
-							(polyfill.license || "CC0") +
-							(feature.aliasOf && feature.aliasOf.size
-								? ' (required by "' +
-								  Array.from(feature.aliasOf).join('", "') +
-								  '")'
-								: "");
-					}
-				});
-
-				const sortedFeatures = graph.sort();
-
-				if (!options.minify) {
-					explainerComment.push(
-						"Polyfill service " +
+					if (!options.minify) {
+						explainerComment.push(
+							"Polyfill service " +
 							(process.env.NODE_ENV === "production"
 								? "v" + appVersion
 								: "DEVELOPMENT MODE - for live use set NODE_ENV to 'production'"),
-						"For detailed credits and licence information see https://github.com/financial-times/polyfill-service.",
-						"",
-						"UA detected: " + uaDebugName,
-						"Features requested: " + Object.keys(options.features),
-						""
-					);
-					if (!ua.meetsBaseline() && ua.getBaseline()) {
-						explainerComment.push(
-							"Version range for polyfill support in " +
+							"For detailed credits and licence information see https://github.com/financial-times/polyfill-service.",
+							"",
+							"UA detected: " + uaDebugName,
+							"Features requested: " + Object.keys(options.features),
+							""
+						);
+						if (!ua.meetsBaseline() && ua.getBaseline()) {
+							explainerComment.push(
+								"Version range for polyfill support in " +
 								ua.getFamily() +
 								" is: " +
 								ua.getBaseline(),
-							""
-						);
-					}
-					explainerComment.push(
-						...sortedFeatures
+								""
+							);
+						}
+						explainerComment.push(
+							...sortedFeatures
 							.filter(
 								featureName =>
-									targetedFeatures[featureName] &&
-									targetedFeatures[featureName].comment
+								targetedFeatures[featureName] &&
+								targetedFeatures[featureName].comment
 							)
 							.map(featureName => "- " + targetedFeatures[featureName].comment)
-					);
-					if (warnings.unknown.length) {
-						explainerComment.push(
-							"",
-							"These features were not recognised:",
-							warnings.unknown.map(s => "- " + s)
 						);
-					}
-					if ("all" in options.features) {
-						explainerComment.push("", allWarnText);
-					}
-				} else {
-					explainerComment.push(
-						"Disable minification (remove `.min` from URL path) for more info"
-					);
-				}
-				output.add(
-					streamFromString("/* " + explainerComment.join("\n * ") + " */\n\n")
-				);
-
-				// Outer closure hides private features from global scope
-				output.add(streamFromString("(function(undefined) {" + lf));
-
-				if (sortedFeatures.length) {
-					// Using the graph, stream all the polyfill sources in dependency order
-					for (const featureName of sortedFeatures) {
-						const detect = this.sourceslib
-							.getPolyfillMeta(featureName)
-							.then(meta => {
-								if (meta.detectSource) {
-									return "if (!(" + meta.detectSource + ")) {" + lf;
-								} else {
-									return "";
-								}
-							});
-						const wrapInDetect = targetedFeatures[featureName].flags.has(
-							"gated"
-						);
-						if (wrapInDetect) {
-							output.add(streamFromPromise(detect));
-							output.add(
-								this.sourceslib.streamPolyfillSource(
-									featureName,
-									options.minify ? "min" : "raw"
-								)
+						if (warnings.unknown.length) {
+							explainerComment.push(
+								"",
+								"These features were not recognised:",
+								warnings.unknown.map(s => "- " + s)
 							);
-							output.add(streamFromPromise(detect.then(wrap => {
-								if (wrap) {
-									return (lf + "}" + lf + lf);
-								}
-							})));
-						} else {
+						}
+						if ("all" in options.features) {
+							explainerComment.push("", allWarnText);
+						}
+					} else {
+						explainerComment.push(
+							"Disable minification (remove `.min` from URL path) for more info"
+						);
+					}
+					output.add(
+						streamFromString("/* " + explainerComment.join("\n * ") + " */\n\n")
+					);
+
+					// Outer closure hides private features from global scope
+					output.add(streamFromString("(function(undefined) {" + lf));
+
+					if (sortedFeatures.length) {
+						// Using the graph, stream all the polyfill sources in dependency order
+						for (const featureName of sortedFeatures) {
+							const detect = this.sourceslib
+								.getPolyfillMeta(featureName)
+								.then(meta => {
+									if (meta.detectSource) {
+										return "if (!(" + meta.detectSource + ")) {" + lf;
+									} else {
+										return "";
+									}
+								});
+							const wrapInDetect = targetedFeatures[featureName].flags.has(
+								"gated"
+							);
+							if (wrapInDetect) {
+								output.add(streamFromPromise(detect));
+								output.add(
+									this.sourceslib.streamPolyfillSource(
+										featureName,
+										options.minify ? "min" : "raw"
+									)
+								);
+								output.add(streamFromPromise(detect.then(wrap => {
+									if (wrap) {
+										return (lf + "}" + lf + lf);
+									}
+								})));
+							} else {
+								output.add(
+									this.sourceslib.streamPolyfillSource(
+										featureName,
+										options.minify ? "min" : "raw"
+									)
+								);
+							}
+						}
+					} else {
+						if (!options.minify) {
 							output.add(
-								this.sourceslib.streamPolyfillSource(
-									featureName,
-									options.minify ? "min" : "raw"
+								streamFromString(
+									"\n/* No polyfills found for current settings */\n\n"
 								)
 							);
 						}
 					}
-				} else {
-					if (!options.minify) {
-						output.add(
-							streamFromString(
-								"\n/* No polyfills found for current settings */\n\n"
-							)
-						);
-					}
-				}
 
-				// Invoke the closure, binding `this` to window (in a browser),
-				// self (in a web worker), or global (in Node/IOjs)
-				output.add(
-					streamFromString(
-						"})" +
+					// Invoke the closure, binding `this` to window (in a browser),
+					// self (in a web worker), or global (in Node/IOjs)
+					output.add(
+						streamFromString(
+							"})" +
 							lf +
 							".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
 							lf
-					)
-				);
-
-				if ("all" in options.features) {
-					output.add(
-						streamFromString("\nconsole.log('" + allWarnText + "');\n")
+						)
 					);
-				}
+
+					if ("all" in options.features) {
+						output.add(
+							streamFromString("\nconsole.log('" + allWarnText + "');\n")
+						);
+					}
+
+					if (options.callback && typeof options.callback === 'string' && options.callback.match(/^[\w\.]+$/)) {
+						output.add(streamFromString("\ntypeof " + options.callback + "==='function' && " + options.callback + "();"));
+					}
+				});
 			});
 
-		if (options.callback && typeof options.callback === 'string' && options.callback.match(/^[\w\.]+$/)) {
-			output.add(streamFromString("\ntypeof "+options.callback+"==='function' && "+options.callback+"();"));
-		}
-
 		return options.stream ? output : Promise.resolve(streamToString(output));
-	}
+	};
 };
-
 PolyfillLibrary.prototype.normalizeUserAgent = UA.normalize;
 PolyfillLibrary.normalizeUserAgent = UA.normalize;
 
