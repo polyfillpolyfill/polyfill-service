@@ -10,19 +10,48 @@ const streamFromString = require("from2-string");
 const mergeStream = require("merge2");
 const streamToString = require("stream-to-string");
 
+/**
+ * Class representing a polyfill bundling library.
+ */
 const PolyfillLibrary = class PolyfillLibrary {
+	/**
+	 * Create an PolyfillLibrary instance.
+	 * @param {String} [polyfillsPath] - The folder location on the file system where the polyfill sources exist.
+	 * Defaults to the location of the polyfill sources which come bundled with the polyfill-library module.
+	 * @returns {PolyfillLibrary} A new PolyfillLibrary instance.
+	 */
 	constructor(polyfillsPath) {
 		this.sourceslib = new Sources(polyfillsPath);
 	}
 
+	/**
+	 * Get a list of all the polyfills which exist within the collection of polyfill sources.
+	 * @returns {Promise<Array>} A promise which resolves with an array of all the polyfills within the collection.
+	 */
 	listAllPolyfills() {
 		return this.sourceslib.listPolyfills();
 	}
 
+	/**
+	 * Get the metadata for a specific polyfill within the collection of polyfill sources.
+	 * @param {String} featureName - The name of a polyfill whose metadata should be returned.
+	 * @returns {Promise<Object|undefined>} A promise which resolves with the metadata or with `undefined` if no metadata exists for the polyfill.
+	 */
 	describePolyfill(featureName) {
 		return this.sourceslib.getPolyfillMeta(featureName);
 	}
 
+	/**
+	 * Create an options object for use with `getPolyfills` or `getPolyfillString`.
+	 * @param {object} opts - Valid keys are uaString, minify, unknown, excludes, rum and features.
+	 * @param {Boolean} [opts.minify=true] - Whether to return the minified or raw implementation of the polyfills.
+	 * @param {'ignore'|'polyfill'} [opts.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
+	 * @param {Object} [opts.features={}] - Which features should be returned if the user-agent does not support them natively.
+	 * @param {Array<String>} [opts.excludes=[]] - Which features should be excluded from the returned object.
+	 * @param {String} [opts.uaString=''] - The user-agent string to check each feature against.
+	 * @param {Boolean} [opts.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data
+	 * @return {Object} - opts merged with the defaults opts values.
+	 */
 	getOptions(opts) {
 		opts = Object.assign(
 			{
@@ -52,10 +81,19 @@ const PolyfillLibrary = class PolyfillLibrary {
 	}
 
 	/**
-	 * Given a set of features that should be polyfilled in 'options.features' (with flags i.e. `{<featurename>: {flags:Set[<flaglist>]}, ...}`), determine which have a configuration valid for the given options.uaString, and return a promise of set of canonical (unaliased) features (with flags) and polyfills.
+	 * Given a set of features that should be polyfilled in 'options.features'
+	 * (with flags i.e. `{<featurename>: {flags:Set[<flaglist>]}, ...}`),
+	 * determine which have a configuration valid for the given options.uaString,
+	 * and return a promise of set of canonical (unaliased) features (with flags) and polyfills.
 	 *
-	 * @param {object} options - Valid keys are uaString, minify, unknown, excludes, rum and features
-	 * @return {promise} - Canonicalised feature definitions filtered for UA
+	 * @param {object} options - Valid keys are uaString, minify, unknown, excludes, rum and features.
+	 * @param {Boolean} [options.minify=true] - Whether to return the minified or raw implementation of the polyfills.
+	 * @param {'ignore'|'polyfill'} [options.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
+	 * @param {Object} [options.features={}] - Which features should be returned if the user-agent does not support them natively.
+	 * @param {Array<String>} [options.excludes=[]] - Which features should be excluded from the returned object.
+	 * @param {String} [options.uaString=''] - The user-agent string to check each feature against.
+	 * @param {Boolean} [options.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
+	 * @return {Promise<Object>} - Canonicalised feature definitions filtered for UA
 	 */
 	getPolyfills(options) {
 		options = this.getOptions(options);
@@ -154,6 +192,18 @@ const PolyfillLibrary = class PolyfillLibrary {
 			.then(filterForUnusedAbstractMethods);
 	}
 
+	/**
+	 * Create a polyfill bundle.
+	 * @param {object} options - Valid keys are uaString, minify, unknown, excludes, rum and features.
+	 * @param {Boolean} [options.minify=true] - Whether to return the minified or raw implementation of the polyfills.
+	 * @param {'ignore'|'polyfill'} [options.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
+	 * @param {Object} [options.features={}] - Which features should be returned if the user-agent does not support them natively.
+	 * @param {Array<String>} [options.excludes=[]] - Which features should be excluded from the returned object.
+	 * @param {String} [options.uaString=''] - The user-agent string to check each feature against.
+	 * @param {Boolean} [options.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
+	 * @param {Boolean} [options.stream=false] - Whether to return a stream or a string of the polyfill bundle.
+	 * @return {Promise<String> | ReadStream} - Polyfill bundle as either a utf-8 stream or a promise of a utf-8 string.
+	 */
 	getPolyfillString(options) {
 		options = this.getOptions(options);
 		const ua = new UA(options.uaString);
@@ -337,7 +387,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 		return options.stream ? output : Promise.resolve(streamToString(output));
 	};
 };
+
 PolyfillLibrary.prototype.normalizeUserAgent = UA.normalize;
-PolyfillLibrary.normalizeUserAgent = UA.normalize;
 
 module.exports = PolyfillLibrary;
