@@ -14,7 +14,7 @@
 		<p>Commonly, people want to take a polyfill we already have and get us to serve it to a browser that we currently don't target with that polyfill. Often this is because it's a less common browser and we just haven't tested the polyfill in that browser, so adding the extra browser as a target does make sense.</p>
 
 		<ol>
-			<li>Update the relevant polyfill's <code>config.json</code> file (<a href='https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Intl/config.json'>here's an example</a>) to add, remove or change the value of the browser version constraint</li>
+			<li>Update the relevant polyfill's <code>config.json</code> file (<a href='https://github.com/Financial-Times/polyfill-service/blob/master/packages/polyfill-library/polyfills/Intl/config.json'>here's an example</a>) to add, remove or change the value of the browser version constraint</li>
 			<li>Check that your change is in line with the documentation on writing <a href='{{host}}/v{{apiversion}}/docs/contributing/authoring-polyfills#configuration'>configuration JSON</a></li>
 			<li>Open a pull request with the following information</li>
 			<li>Check reliable sources of browser support information, e.g. MDN, caniuse and Kangax.  Tell us what these sources say about the browser/polyfill combo that you want to add or remove, and link to the relevant pages from your PR.</li>
@@ -34,7 +34,7 @@
 			<li>Make the apppropriate change:
 			<ul>
 				<li>If the browser is misrecognised as another browser that we support (e.g. niche Acme browser is recognised as 'chrome' but it's actually gecko based), the family is right but the version number is wrong, or it's coming up as 'unknown', this is probably a problem with the node useragent module. Check our <code>UA.js</code> module to ensure we don't have any crazy aliasing rules that are misbehaving, then raise your issue in the <a href='https://github.com/ua-parser/uap-core'>ua-parser/uap-core repo</a>, not here (here's <a href='https://github.com/ua-parser/uap-core/pull/155'>an example of a really good PR</a>).</li>
-				<li>If the family is an unsupported browser but a supported one would suffice and the version is correct, make the niche browser an alias for the supported one in the <a href='https://github.com/Financial-Times/polyfill-service/blob/master/lib/UA.js'><code>UA.js</code></a> module.</li>
+				<li>If the family is an unsupported browser but a supported one would suffice and the version is correct, make the niche browser an alias for the supported one in the <a href='https://github.com/Financial-Times/polyfill-service/blob/master/packages/polyfill-library/lib/UA.js'><code>UA.js</code></a> module.</li>
 				<li>If the family is an unsupported browser and we have no existing supported family that would be comparable, consider creating a new supported family, which will require updates to <code>UA.js</code>, all relevant polyfill <code>config.json</code> files, and the documentation in <code>/docs</code>.  This adds a significant maintenance burden, and we will strongly prefer to make an imperfect alias rather than create a new supported family.</li>
 			</ul>
 			</li>
@@ -90,7 +90,7 @@
 			<li>Open a pull request, with a description of the deficiency of the polyfill and how you've fixed it. Ideally link to spec documentation that specifies the behaviour that you are correcting.  Finally, tell us how this aspect of the feature is treated in native implementations (so, for example if you can correct a polyfill to acheive better conformance to the spec but this then deviates from how all browsers have consistently implemented it natively, we'll probably prefer to respect the implementation rather than the spec)</li>
 			<li>State your agreement to our <a href='{{host}}/v{{apiversion}}/docs/contributing#contribution-terms'>contribution terms</a>.</li>
 		</ol>
-		
+
 		<h3 id='bug-polyfill'>The polyfill bundle is causing an error in your app</h3>
 
 		<p>You've got an error in your website that you've tracked down to the code you're loading from the polyfill service.</p>
@@ -105,7 +105,7 @@
 				<li>If relevant, the console output or a screenshot of the problem</li>
 			</ul></li>
 		</ol>
-		
+
 		<p>We ask for a JSBin demo because often these kinds of errors are actually errors in the host website's code, and even if they are a problem in the polyfill, we don't have the resources to debug your application.  Please also make sure you disable any browser plugins when you are testing in JSBin, so you are certain that you are only running the test code.</p>
 	</div>
 
