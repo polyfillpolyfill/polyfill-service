@@ -173,7 +173,7 @@ fs.writeFileSync('./polyfill.js', srccode);
 
 		<h3 id="baseline-support">Browser baselines</h3>
 
-		<p>The polyfill service does not attempt to serve polyfills to very old browsers.  We maintain a movable baseline of browser support, which is shown in the table above and configured in <a href="https://github.com/Financial-Times/polyfill-service/blob/master/lib/UA.js">the UA module</a>.  If a request for a polyfill bundle comes from a UA that is below the baseline or unknown, the response will be something like this:</p>
+		<p>The polyfill service does not attempt to serve polyfills to very old browsers.  We maintain a movable baseline of browser support, which is shown in the table above and configured in <a href="https://github.com/Financial-Times/polyfill-service/blob/master/packages/polyfill-library/lib/UA.js">the UA module</a>.  If a request for a polyfill bundle comes from a UA that is below the baseline or unknown, the response will be something like this:</p>
 
 		<pre><code> * UA detected: ie/5.5.0 (unknown/unsupported; using policy <code>unknown=ignore</code>)
  * Features requested: Promise
