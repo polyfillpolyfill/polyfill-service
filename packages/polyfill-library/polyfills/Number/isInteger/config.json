@@ -6,7 +6,7 @@
 	"browsers": {
 		"ie": "<13",
 		"ie_mob": "*",
-		"chrome": "<19",
+		"chrome": "<34",
 		"ios_chr": "*",
 		"safari": "<9",
 		"ios_saf": "<9",
