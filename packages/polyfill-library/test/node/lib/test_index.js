@@ -3,7 +3,8 @@
 const assert = require('proclaim');
 const setsToArrays = require('../../utils/sets_to_arrays');
 
-const polyfillio = require('../../../lib/index');
+const Polyfillio = require('../../../lib/index');
+const polyfillio = new Polyfillio;
 
 describe("polyfillio", () => {
 	describe(".getPolyfills(features)", () => {
@@ -18,45 +19,47 @@ describe("polyfillio", () => {
 			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), {}));
 		});
 
-		it("should return no polyfills for unknown UA unless unknown is set", () => {
-			return Promise.all([
+		it("should return no polyfills for unknown UA when unknown is not set", () => {
+			// Without `unknown`, no polyfills for unrecognised UA
+			return polyfillio.getPolyfills({
+				features: {
+					'Math.sign': {}
+				},
+				uaString: ''
+			}).then(result => assert.deepEqual(setsToArrays(result), {}));
+		});
 
-				// Without `unknown`, no polyfills for unrecognised UA
-				polyfillio.getPolyfills({
-					features: {
-						'Math.sign': {}
-					},
-					uaString: ''
-				}).then(result => assert.deepEqual(setsToArrays(result), {})),
+		it("should return polyfills for unknown UA when unknown is set to `polyfill`", () => {
+			// With unknown=polyfill, all requested polyfills are included
+			return polyfillio.getPolyfills({
+				features: {
+					'Math.sign': {}
+				},
+				unknown: 'polyfill',
+				uaString: ''
+			}).then(result => assert.deepEqual(setsToArrays(result), {
+				'Math.sign': {
+					flags: []
+				},
+				"Object.defineProperty": {
+					"aliasOf": [
+						"Math.sign",
+						"_ESAbstract.CreateMethodProperty"
+					],
+					"flags": []
+				},
+				"_ESAbstract.CreateMethodProperty": {
+					"aliasOf": [
+						"Math.sign"
+					],
+					"flags": []
+				}
+			}));
+		});
 
-				// With unknown=polyfill, all requested polyfills are included
-				polyfillio.getPolyfills({
-					features: {
-						'Math.sign': {}
-					},
-					unknown: 'polyfill',
-					uaString: ''
-				}).then(result => assert.deepEqual(setsToArrays(result), {
-					'Math.sign': {
-						flags: []
-					},
-					"Object.defineProperty": {
-						"aliasOf": [
-							"Math.sign",
-							"_ESAbstract.CreateMethodProperty"
-						],
-						"flags": []
-					},
-					"_ESAbstract.CreateMethodProperty": {
-						"aliasOf": [
-							"Math.sign"
-						],
-						"flags": []
-					}
-				})),
-
+		it("should return polyfills for unknown UA when unknown is set to `polyfill` and `uaString` param is not set", () => {
 				// ... even when `uaString` param is missing entirely
-				polyfillio.getPolyfills({
+				return polyfillio.getPolyfills({
 					features: {
 						'Math.sign': {}
 					},
@@ -78,8 +81,7 @@ describe("polyfillio", () => {
 						],
 						"flags": []
 					}
-				}))
-			]);
+				}));
 		});
 
 		it("should understand the 'all' alias", () => {

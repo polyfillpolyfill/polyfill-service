@@ -37,11 +37,9 @@
   },
   "license": "CC0-1.0",
   "engines": {
-    "node": "6.11.1 - 9"
+    "node": ">=8"
   },
   "dependencies": {
-    "babel-core": "^6.23.1",
-    "babel-preset-es2015": "^6.1.18",
     "denodeify": "^1.2.1",
     "from2-string": "^1.1.0",
     "graceful-fs": "^4.1.10",
@@ -58,6 +56,8 @@
     "useragent": "^2.1.12"
   },
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-preset-es2015": "^6.1.18",
     "Base64": "^1.0.0",
     "array.of": "^0.1.1",
     "audio-context-polyfill": "^1.0.0",
