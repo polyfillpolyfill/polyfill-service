@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, ToUint32 */
 // 20.2.2.11. Math.clz32 ( x )
 CreateMethodProperty(Math, 'clz32', function clz32(x) {
 	// 1. Let n be ToUint32(x).

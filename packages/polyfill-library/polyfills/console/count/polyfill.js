@@ -1,1 +1,1 @@
-this.console.count = function count() {};
+console.count = function count() {};

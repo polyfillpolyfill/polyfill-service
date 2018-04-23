@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, ToObject */
 // 19.1.2.1 Object.assign ( target, ...sources )
 CreateMethodProperty(Object, 'assign', function assign(target, source) { // eslint-disable-line no-unused-vars
 	// 1. Let to be ? ToObject(target).

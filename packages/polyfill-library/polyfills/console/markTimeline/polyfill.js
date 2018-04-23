@@ -1,1 +1,1 @@
-this.console.markTimeline = function markTimeline() {};
+console.markTimeline = function markTimeline() {};

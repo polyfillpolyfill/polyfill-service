@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, ToUint32 */
 // 20.2.2.19. Math.imul ( x, y )
 CreateMethodProperty(Math, 'imul', function imul(x, y) {
 	// 1. Let a be ToUint32(x).

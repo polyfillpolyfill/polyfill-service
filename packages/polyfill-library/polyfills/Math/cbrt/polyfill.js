@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.9. Math.cbrt ( x )
 CreateMethodProperty(Math, 'cbrt', function cbrt(x) {
 	// If x is NaN, the result is NaN.

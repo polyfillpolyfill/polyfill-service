@@ -1,5 +1,5 @@
+/* global Call, CreateMethodProperty, Get, HasProperty, IsCallable, ToLength, ToObject, ToString */
 // 22.1.3.10. Array.prototype.forEach ( callbackfn [ , thisArg ] )
-
 CreateMethodProperty(Array.prototype, 'forEach', function forEach(callbackfn /* [ , thisArg ] */) {
 	// 1. Let O be ? ToObject(this value).
 	var O = ToObject(this);

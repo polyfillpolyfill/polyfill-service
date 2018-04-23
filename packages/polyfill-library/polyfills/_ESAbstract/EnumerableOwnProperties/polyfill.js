@@ -37,7 +37,7 @@ function EnumerableOwnProperties(O, kind) { // eslint-disable-line no-unused-var
 				}
 			}
 		}
-	};
+	}
 	// 5. Order the elements of properties so they are in the same relative order as would be produced by the Iterator that would be returned if the EnumerateObjectProperties internal method were invoked with O.
 	// 6. Return properties.
 	return properties;

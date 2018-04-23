@@ -1,1 +1,1 @@
-this.console.group = function group() {};
+console.group = function group() {};

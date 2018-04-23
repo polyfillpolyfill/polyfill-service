@@ -1,1 +1,1 @@
-this.console.log = function log() {};
+console.log = function log() {};

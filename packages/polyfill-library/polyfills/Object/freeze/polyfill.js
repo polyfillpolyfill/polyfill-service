@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 19.1.2.6. Object.freeze ( O )
 CreateMethodProperty(Object, 'freeze', function freeze(O) {
 	// This feature cannot be implemented fully as a polyfill.

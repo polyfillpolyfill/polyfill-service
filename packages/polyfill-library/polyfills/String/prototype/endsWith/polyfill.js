@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, IsRegExp, RequireObjectCoercible, ToInteger, ToString */
 // 21.1.3.6. String.prototype.endsWith ( searchString [ , endPosition ] )
 CreateMethodProperty(String.prototype, 'endsWith', function endsWith(searchString /* [ , endPosition ] */) {
 	'use strict';

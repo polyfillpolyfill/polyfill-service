@@ -3,7 +3,7 @@ function ToInt16(argument) { // eslint-disable-line no-unused-vars
 	// 1. Let number be ? ToNumber(argument).
 	var number = Number(argument);
 	// 2. If number is NaN, +0, -0, +∞, or -∞, return +0.
-	if (isNaN(number) || number === 0 || number === -0 || number === Infinity || number === -Infinity) {
+	if (isNaN(number) || 1/number === Infinity || 1/number === -Infinity || number === Infinity || number === -Infinity) {
 		return 0;
 	}
 	// 3. Let int be the mathematical value that is the same sign as number and whose magnitude is floor(abs(number)).

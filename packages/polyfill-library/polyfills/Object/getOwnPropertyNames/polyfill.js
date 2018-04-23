@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 CreateMethodProperty(Object, 'getOwnPropertyNames', function getOwnPropertyNames(object) {
 	var buffer = [];
 	var key;

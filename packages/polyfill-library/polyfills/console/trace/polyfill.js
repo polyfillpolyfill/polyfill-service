@@ -1,1 +1,1 @@
-this.console.trace = function trace() {};
+console.trace = function trace() {};

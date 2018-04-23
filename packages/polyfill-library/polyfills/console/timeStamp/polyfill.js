@@ -1,1 +1,1 @@
-this.console.timeStamp = function cd() {};
+console.timeStamp = function cd() {};

@@ -1,1 +1,1 @@
-this.console.error = this.console.log;
+console.error = console.log;

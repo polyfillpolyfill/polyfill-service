@@ -7,7 +7,7 @@ function ToInteger(argument) { // eslint-disable-line no-unused-vars
 		return 0;
 	}
 	// 3. If number is +0, -0, +∞, or -∞, return number.
-	if (number === 0 || number === -0 || number === Infinity || number === -Infinity) {
+	if (1/number === Infinity || 1/number === -Infinity || number === Infinity || number === -Infinity) {
 		return number;
 	}
 	// 4. Return the number value that is the same sign as number and whose magnitude is floor(abs(number)).

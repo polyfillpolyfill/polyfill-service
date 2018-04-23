@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Type */
 (function () {
 	var that = this;
 	// 20.1.2.4. Number.isNaN ( number )

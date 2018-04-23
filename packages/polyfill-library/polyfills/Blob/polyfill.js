@@ -1,3 +1,4 @@
+/* global Uint8Array */
 // Local modification of https://github.com/eligrey/Blob.js/blob
 
 /* Blob.js
@@ -226,4 +227,4 @@
 		return object.__proto__;
 	};
 	view.Blob.prototype = getPrototypeOf(new view.Blob());
-}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content || this));
+}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this));

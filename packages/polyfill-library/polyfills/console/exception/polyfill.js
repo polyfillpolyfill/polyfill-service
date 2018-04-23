@@ -1,1 +1,1 @@
-this.console.exception = function exception() {};
+console.exception = function exception() {};

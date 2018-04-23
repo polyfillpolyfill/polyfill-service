@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, SameValueZero, ToInteger, ToLength, ToObject, ToString */
 // 22.1.3.11. Array.prototype.includes ( searchElement [ , fromIndex ] )
 CreateMethodProperty(Array.prototype, 'includes', function includes(searchElement /* [ , fromIndex ] */) {
 	'use strict';

@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.3. Math.acosh ( x )
 CreateMethodProperty(Math, 'acosh', function acosh(x) {
 	// If x is NaN, the result is NaN.

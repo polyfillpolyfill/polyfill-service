@@ -6,4 +6,4 @@ function IsCallable(argument) { // eslint-disable-line no-unused-vars
 
 	// Polyfill.io - Only function objects have a [[Call]] internal method. This means we can simplify this function to check that the argument has a type of function.
 	return typeof argument === 'function';
-};
+}

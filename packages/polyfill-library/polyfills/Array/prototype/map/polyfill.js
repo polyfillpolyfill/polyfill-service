@@ -1,3 +1,4 @@
+/* global ArraySpeciesCreate, Call, CreateDataPropertyOrThrow, CreateMethodProperty, Get, HasProperty, IsCallable, ToLength, ToObject, ToString */
 /* global CreateMethodProperty, ToObject, ToLength, Get, ArraySpeciesCreate, ToString, HasProperty, Call, CreateDataPropertyOrThrow */
 // 22.1.3.16. Array.prototype.map ( callbackfn [ , thisArg ] )
 CreateMethodProperty(Array.prototype, 'map', function map(callbackfn /* [ , thisArg ] */) {

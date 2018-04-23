@@ -1,5 +1,5 @@
 /* eslint-env mocha, browser */
-/* global proclaim */
+/* global proclaim, Symbol */
 
 function getNodeList () {
 	var fragment = document.createDocumentFragment();

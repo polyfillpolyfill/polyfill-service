@@ -1,1 +1,1 @@
-this.console.clear = function clear() {};
+console.clear = function clear() {};

@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, RequireObjectCoercible, ToInteger, ToString, UTF16Decode */
 // 21.1.3.3. String.prototype.codePointAt ( pos )
 CreateMethodProperty(String.prototype, 'codePointAt', function codePointAt(pos) {
 	// 1. Let O be ? RequireObjectCoercible(this value).
