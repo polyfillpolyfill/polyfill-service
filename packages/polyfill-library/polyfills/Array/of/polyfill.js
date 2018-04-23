@@ -1,3 +1,4 @@
+/* global ArrayCreate, Construct, CreateDataPropertyOrThrow, CreateMethodProperty, IsConstructor, ToString */
 // 22.1.2.3. Array.of ( ...items )
 CreateMethodProperty(Array, 'of', function of() {
 	// 1. Let len be the actual number of arguments passed to this function.

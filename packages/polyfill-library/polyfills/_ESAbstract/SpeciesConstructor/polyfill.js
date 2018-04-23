@@ -24,4 +24,4 @@ function SpeciesConstructor (O, defaultConstructor) { // eslint-disable-line no-
 	}
 	// 7.3.20.8 Throw a TypeError exception.
 	throw new TypeError('No constructor found');
-};
+}

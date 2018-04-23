@@ -1,3 +1,4 @@
+/* global Float32Array */
 // 20.2.2.17 Math.fround ( x )
 CreateMethodProperty(Math, 'fround', function (x) {
 	// 1. If x is NaN, return NaN.

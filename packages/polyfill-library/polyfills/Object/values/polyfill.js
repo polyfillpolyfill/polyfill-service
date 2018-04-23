@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, ToObject */
 // 19.1.2.21. Object.values ( O )
 CreateMethodProperty(Object, 'values', function values(O) {
 	// 1. Let obj be ? ToObject(O).

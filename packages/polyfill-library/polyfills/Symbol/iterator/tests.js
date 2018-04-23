@@ -1,5 +1,5 @@
 /* eslint-env mocha, browser */
-/* global proclaim */
+/* global proclaim, Symbol */
 
 var arePropertyDescriptorsSupported = function () {
 	var obj = {};

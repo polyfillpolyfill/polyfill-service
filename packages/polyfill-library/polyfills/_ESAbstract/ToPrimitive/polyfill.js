@@ -1,4 +1,4 @@
-/* global Type, GetMethod, Symbol, Call, OrdinaryToPrimitive */
+/* global Type, GetMethod, Call, OrdinaryToPrimitive */
 // 7.1.1. ToPrimitive ( input [ , PreferredType ] )
 function ToPrimitive(input /* [, PreferredType] */) { // eslint-disable-line no-unused-vars
 	var PreferredType = arguments.length > 1 ? arguments[1] : undefined;

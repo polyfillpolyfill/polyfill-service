@@ -1,6 +1,6 @@
-Element.prototype.cloneNode = (function(nativeFunc, undefined) {
+Element.prototype.cloneNode = (function(nativeFunc, undef) {
 	return function(deep) {
-		if (deep === undefined) {
+		if (deep === undef) {
 			deep = false;
 		}
 		var clone = nativeFunc.call(this, deep);

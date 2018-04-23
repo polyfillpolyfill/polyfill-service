@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, ToObject, Type */
 // 19.1.2.3. Object.defineProperties ( O, Properties )
 CreateMethodProperty(Object, 'defineProperties', function defineProperties(O, Properties) {
 	// 1. If Type(O) is not Object, throw a TypeError exception.

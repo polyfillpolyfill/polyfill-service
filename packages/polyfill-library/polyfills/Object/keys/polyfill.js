@@ -85,7 +85,7 @@ Object.keys = (function() {
 				toStr.call(value.callee) === '[object Function]';
 		}
 		return isArgs;
-	};
+	}
 
 	return function keys(object) {
 		var isFunction = toStr.call(object) === '[object Function]';

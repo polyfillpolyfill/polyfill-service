@@ -1,1 +1,1 @@
-this.console.dir = function dir() {};
+console.dir = function dir() {};

@@ -1,7 +1,6 @@
 (function (global) {
 
-var
-startTime = Date.now();
+var startTime = Date.now();
 
 if (!global.performance) {
     global.performance = {};

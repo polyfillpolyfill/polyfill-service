@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, IsRegExp, RequireObjectCoercible, ToInteger, ToString */
 // 21.1.3.7. String.prototype.includes ( searchString [ , position ] )
 CreateMethodProperty(String.prototype, 'includes', function includes(searchString /* [ , position ] */) {
 	'use strict';

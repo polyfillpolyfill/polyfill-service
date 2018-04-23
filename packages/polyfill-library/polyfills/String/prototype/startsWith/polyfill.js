@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, IsRegExp, RequireObjectCoercible, ToInteger, ToString */
 // 21.1.3.20. String.prototype.startsWith ( searchString [ , position ] )
 CreateMethodProperty(String.prototype, 'startsWith', function startsWith(searchString /* [ , position ] */) {
 	'use strict';

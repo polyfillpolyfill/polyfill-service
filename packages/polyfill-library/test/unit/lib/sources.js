@@ -7,7 +7,6 @@ const sinon = require('sinon');
 
 describe('lib/sources', () => {
 	let aliases;
-	let denodeify;
 	let fs;
 	let sources;
 	let process;
@@ -15,12 +14,10 @@ describe('lib/sources', () => {
 	let pathMock;
 
 	beforeEach(() => {
-		denodeify = require('../mock/denodeify.mock');
-		mockery.registerMock('denodeify', denodeify);
 
 		fs = require('../mock/graceful-fs.mock');
 		mockery.registerMock('graceful-fs', fs);
-		fs.readdirSync.returns([]);
+		fs.readdir.yields(undefined, []);
 
 		process = require('../mock/process.mock');
 		mockery.registerMock('process', process);
@@ -35,206 +32,163 @@ describe('lib/sources', () => {
 		mockery.registerMock('../polyfills/__dist/aliases.json', aliases);
 	});
 
-	it('exports an object', () => {
+	it('exports a function', () => {
 		sources = require('../../../lib/sources');
-		assert.isObject(sources);
+		assert.isFunction(sources);
 	});
 
-	it('has a polyfillExistsSync method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.polyfillExistsSync);
-	});
-
-	it('has a getPolyfillMetaSync method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.getPolyfillMetaSync);
-	});
-
-	it('has a listPolyfillsSync method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.listPolyfillsSync);
-	});
-
-	it('has a listPolyfills method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.listPolyfills);
-	});
-
-	it('has a getConfigAliasesSync method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.getConfigAliasesSync);
-	});
-
-	it('has a streamPolyfillSource method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.streamPolyfillSource);
-	});
-
-	it('has a getPolyfill method', () => {
-		sources = require('../../../lib/sources');
-		assert.isFunction(sources.getPolyfill);
-	});
-
-	it('reads the polyfill directory', () => {
-		pathMock.join.returnsArg(1);
-		sources = require('../../../lib/sources');
-		assert.calledWithExactly(fs.readdirSync, '../polyfills/__dist');
-	});
-
-	it('filters out json files from the polyfill directory', () => {
-		const spy = sinon.spy(Array.prototype, 'filter');
-		sources = require('../../../lib/sources');
-		spy.restore();
-		assert.equal(spy.lastCall.args[0]('aliases.json'), false);
-		assert.equal(spy.lastCall.args[0]('example.json'), false);
-	});
-
-	it('catches errors when reading the polyfill directory, logs a friendly error message and exits', () => {
-		const error = new Error;
-		fs.readdirSync.throws(error);
-		assert.doesNotThrow(() => require('../../../lib/sources'));
-		assert.calledOnce(consoleMock.log);
-		assert.calledWithExactly(process.exit, 1);
-	});
-
-	describe('sources.polyfillExistsSync()', () => {
-		it('returns true if polyfill exists', () => {
-			fs.readdirSync.returns(['featureToPolyfill']);
-			sources = require('../../../lib/sources');
-			assert.equal(sources.polyfillExistsSync('featureToPolyfill'), true);
+	describe('instance', () => {
+		it('has a polyfillExists method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.polyfillExists);
 		});
 
-		it('returns false if polyfill exists', () => {
-			fs.readdirSync.returns(['featureToPolyfill']);
-			sources = require('../../../lib/sources');
-			assert.equal(sources.polyfillExistsSync('Array.from'), false);
-		});
-	});
-
-	describe('sources.listPolyfills()', () => {
-		it('returns a promise which resolves with an array containing names for each polyfilled feature', () => {
-			fs.readdirSync.returns(['Array.from', 'Symbol']);
-			sources = require('../../../lib/sources');
-			return sources.listPolyfills().then(polyfills => assert.deepEqual(polyfills, ['Array.from', 'Symbol']));
-		});
-	});
-
-	describe('sources.getConfigAliasesSync()', () => {
-		it('returns an array of polyfills which are under the alias', () => {
-			const polyfills = ["Array.from", "Array.of", "Map", "Object.assign", "Object.is", "Promise", "Set", "Symbol", "WeakMap", "WeakSet"];
-			aliases["es6"] = polyfills;
-			sources = require('../../../lib/sources');
-			assert.deepEqual(sources.getConfigAliasesSync('es6'), polyfills);
+		it('has a getPolyfillMeta method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.getPolyfillMeta);
 		});
 
-		it('returns a promise which resolves to undefined if alias does not exist', () => {
-			const polyfills = ["Array.from", "Array.of", "Map", "Object.assign", "Object.is", "Promise", "Set", "Symbol", "WeakMap", "WeakSet"];
-			aliases["es6"] = polyfills;
-			sources = require('../../../lib/sources');
-			assert.isUndefined(sources.getConfigAliasesSync('es7'));
-		});
-	});
-
-	describe('sources.getPolyfill()', () => {
-		it('returns a promise which resolves to null if the polyfill does not exist', () => {
-			fs.readdirSync.returns(['Array.from']);
-			sources = require('../../../lib/sources');
-			return sources.getPolyfill('Array.of').then(polyfill => assert.equal(polyfill, null));
+		it('has a listPolyfills method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.listPolyfills);
 		});
 
-		it('retrieves polyfill from polyfill folder', () => {
-			const arrayFromPolyfill = {
-				"aliases": ["es6"],
-				"browsers": {
-					"chrome": "<45"
-				},
-				"dependencies": ["Object.defineProperty"]
-			};
-			fs.readFile.resolves(JSON.stringify(arrayFromPolyfill));
-			denodeify.returns(fs.readFile);
-			fs.readdirSync.returns(['Array.from']);
-			pathMock.join.withArgs('../polyfills/__dist', 'Array.from', 'raw.js').returns('../polyfills/__dist/Array.from/raw.js');
-			pathMock.join.withArgs('../polyfills/__dist', 'Array.from', 'min.js').returns('../polyfills/__dist/Array.from/min.js');
-			pathMock.join.returnsArg(1);
+		it('has a listPolyfills method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.listPolyfills);
+		});
 
-			sources = require('../../../lib/sources');
+		it('has a getConfigAliases method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.getConfigAliases);
+		});
 
-			return sources.getPolyfill('Array.from').then(() => {
-				assert.calledWithExactly(fs.readFile, '../polyfills/__dist/Array.from/min.js', 'utf-8');
-				assert.calledWithExactly(fs.readFile, '../polyfills/__dist/Array.from/raw.js', 'utf-8');
+		it('has a streamPolyfillSource method', () => {
+			const Sources = require('../../../lib/sources');
+			const sources = new Sources;
+			assert.isFunction(sources.streamPolyfillSource);
+		});
+
+		describe('sources.polyfillExists()', () => {
+			it('returns a promise which resolves with true if polyfill exists', () => {
+				fs.stat.yields(undefined, {
+					isFile() { return true;}
+				});
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.polyfillExists('featureToPolyfill').then(exists => assert.equal(exists, true));
+			});
+
+			it('returns a promise which resolves with false if polyfill exists', () => {
+				fs.stat.yields(undefined, {
+					isFile() { return false;}
+				});
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.polyfillExists('Array.from').then(exists => assert.equal(exists, false));
 			});
 		});
 
-		it('adds polyfill name to polyfill object', () => {
-			const arrayFromPolyfill = {
+		describe('sources.listPolyfills()', () => {
+			it('filters out json files from the polyfill directory', () => {
+				const spy = sinon.spy(Array.prototype, 'filter');
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+
+				return sources.listPolyfills().then(() => {
+					spy.restore();
+					assert.equal(spy.lastCall.args[0]('aliases.json'), false);
+					assert.equal(spy.lastCall.args[0]('example.json'), false);
+				});
+			});
+
+			it('returns a promise which resolves with an array containing names for each polyfilled feature', () => {
+				fs.readdir.yields(undefined, ['Array.from', 'Symbol']);
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.listPolyfills().then(polyfills => assert.deepEqual(polyfills, ['Array.from', 'Symbol']));
+			});
+		});
+
+		describe('sources.getConfigAliases()', () => {
+			it('returns a promise which resolves with  an array of polyfills which are under the alias', () => {
+				const polyfills = ["Array.from", "Array.of", "Map", "Object.assign", "Object.is", "Promise", "Set", "Symbol", "WeakMap", "WeakSet"];
+				fs.readFile.yields(undefined, JSON.stringify({
+					es6: polyfills
+				}));
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.getConfigAliases('es6').then(config => assert.deepEqual(config, polyfills));
+			});
+
+			it('returns a promise which resolves to undefined if alias does not exist', () => {
+				fs.readFile.yields(undefined, JSON.stringify({
+					es6: ["Array.from", "Array.of", "Map", "Object.assign", "Object.is", "Promise", "Set", "Symbol", "WeakMap", "WeakSet"]
+				}));
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.getConfigAliases('es7').then(config => assert.isUndefined(config));
+			});
+		});
+
+		describe('sources.getPolyfillMeta()', () => {
+			const metadata = {
 				"aliases": ["es6"],
 				"browsers": {
 					"chrome": "<45"
 				},
-				"dependencies": ["Object.defineProperty"]
+				"dependencies": ["Object.defineProperty"],
+				"spec": "https://tc39.github.io/ecma262/#sec-array.from",
+				"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
 			};
-			fs.readFile.resolves(JSON.stringify(arrayFromPolyfill));
-			denodeify.returns(fs.readFile);
-			fs.readdirSync.returns(['Array.from']);
 
-			sources = require('../../../lib/sources');
+			beforeEach(() => {
+				fs.readdir.yields(undefined, ['Array.from']);
+				fs.readFile.yields(undefined, JSON.stringify(metadata));
+			});
 
-			return sources.getPolyfill('Array.from').then(polyfill => {
-				assert.equal(polyfill.name, 'Array.from');
-				delete polyfill.name;
-				assert.deepEqual(polyfill, {
-					minSource: JSON.stringify(arrayFromPolyfill),
-					rawSource: JSON.stringify(arrayFromPolyfill)
+			it('returns a promise which resolves with the metadata for a feature if it exists', () => {
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.getPolyfillMeta('Array.from').then(meta => assert.deepEqual(meta, metadata));
+			});
+
+			it('returns a promise which resolves with undefined for a feature if it does not exist', () => {
+				fs.readFile.yields(new Error);
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.getPolyfillMeta('Array.of').then(meta => {
+					assert.isUndefined(meta);
 				});
 			});
 		});
-	});
 
-	describe('sources.getPolyfillMetaSync()', () => {
-		const metadata = {
-			"aliases": ["es6"],
-			"browsers": {
-				"chrome": "<45"
-			},
-			"dependencies": ["Object.defineProperty"],
-			"spec": "https://tc39.github.io/ecma262/#sec-array.from",
-			"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
-		};
-
-		beforeEach(() => {
-			fs.readdirSync.returns(['Array.from']);
-			fs.readFileSync.returns(JSON.stringify(metadata));
+		describe('sources.listPolyfills()', () => {
+			it('returns a promise which resolves with  an array containing names for each polyfilled feature', () => {
+				fs.readdir.yields(undefined, ['Array.from', 'Symbol']);
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				return sources.listPolyfills().then(polyfills => assert.deepEqual(polyfills, ['Array.from', 'Symbol']));
+			});
 		});
 
-		it('returns the metadata for a feature if it exists', () => {
-			sources = require('../../../lib/sources');
-			assert.deepEqual(sources.getPolyfillMetaSync('Array.from'), metadata);
-		});
+		describe('sources.streamPolyfillSource()', () => {
+			it('returns a read-stream', () => {
+				pathMock.join.resetHistory();
+				pathMock.join.withArgs('../polyfills/__dist', 'Array.from', 'min.js').returns('../polyfills/__dist/Array.from/min.js');
+				pathMock.join.returnsArg(1);
 
-		it('returns undefined for a feature if it does not exist', () => {
-			sources = require('../../../lib/sources');
-			assert.isUndefined(sources.getPolyfillMetaSync('Array.of'));
-		});
-	});
-
-	describe('sources.listPolyfillsSync()', () => {
-		it('returns an array containing names for each polyfilled feature', () => {
-			fs.readdirSync.returns(['Array.from', 'Symbol']);
-			sources = require('../../../lib/sources');
-			assert.deepEqual(sources.listPolyfillsSync(), ['Array.from', 'Symbol']);
-		});
-	});
-
-	describe('sources.streamPolyfillSource()', () => {
-		it('returns a read-stream', () => {
-			pathMock.join.resetHistory();
-			pathMock.join.withArgs('../polyfills/__dist', 'Array.from', 'min.js').returns('../polyfills/__dist/Array.from/min.js');
-			pathMock.join.returnsArg(1);
-
-			sources = require('../../../lib/sources');
-			sources.streamPolyfillSource('Array.from', 'min');
-			assert.calledWithExactly(fs.createReadStream, '../polyfills/__dist/Array.from/min.js',
+				const Sources = require('../../../lib/sources');
+				const sources = new Sources;
+				sources.streamPolyfillSource('Array.from', 'min');
+				assert.calledWithExactly(fs.createReadStream, '../polyfills/__dist/Array.from/min.js',
 				{ encoding: 'UTF-8' });
+			});
 		});
 	});
 });

@@ -22,4 +22,4 @@ function OrdinaryCreateFromConstructor(constructor, intrinsicDefaultProto) { // 
 		}
 	}
 	return obj;
-};
+}

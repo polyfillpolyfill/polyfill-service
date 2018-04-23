@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.34. Math.tanh ( x )
 CreateMethodProperty(Math, 'tanh', function tanh(x) {
 	var y;

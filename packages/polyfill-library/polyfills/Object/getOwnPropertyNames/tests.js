@@ -50,6 +50,7 @@ it.skip('returns an empty array for booleans and numbers', function() {
 });
 
 // This is the polyfill behaviour but the native impl in IE 9+ throws instead
+// TODO: We should be polyfilling for IE 9+ then?
 it.skip('splits a string into an array', function() {
 
 	// In Chrome the length property is returned at the end, in FF at the beginning.  Our polyfill adds it to the end

@@ -1,1 +1,1 @@
-this.console.timeline = function timeline() {};
+console.timeline = function timeline() {};

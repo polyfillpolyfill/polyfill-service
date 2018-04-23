@@ -1,3 +1,4 @@
+/* global Call, CreateMethodProperty, Get, HasProperty, IsCallable, ToBoolean, ToLength, ToObject, ToString */
 // 22.1.3.5. Array.prototype.every ( callbackfn [ , thisArg ] )
 CreateMethodProperty(Array.prototype, 'every', function every(callbackfn /* [ , thisArg ] */) {
 	// 1. Let O be ? ToObject(this value).

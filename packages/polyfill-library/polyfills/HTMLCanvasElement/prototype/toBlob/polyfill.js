@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Uint8Array */
 CreateMethodProperty(HTMLCanvasElement.prototype, 'toBlob', function (callback, type, quality) {
 	var binStr = atob(this.toDataURL(type, quality).split(',')[1]);
 	var len = binStr.length;

@@ -1,3 +1,4 @@
+/* global Call, CreateMethodProperty, Get, IsCallable, ToBoolean, ToLength, ToObject, ToString */
 // 22.1.3.8 Array.prototype.find ( predicate [ , thisArg ] )
 CreateMethodProperty(Array.prototype, 'find', function find( predicate /* [ , thisArg ] */) {
 	// 1. Let O be ? ToObject(this value).

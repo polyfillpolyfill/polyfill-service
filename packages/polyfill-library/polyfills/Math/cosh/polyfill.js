@@ -1,3 +1,4 @@
+/* global CreateMethodProperty */
 // 20.2.2.1. 3Math.cosh ( x )
 CreateMethodProperty(Math, 'cosh', function cosh(x) {
 	// If x is NaN, the result is NaN.

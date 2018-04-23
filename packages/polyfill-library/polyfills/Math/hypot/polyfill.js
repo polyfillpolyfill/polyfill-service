@@ -1,5 +1,6 @@
+/* global CreateMethodProperty */
 // 20.2.2.18. Math.hypot ( value1, value2, ...values )
-CreateMethodProperty(Math, 'hypot', function hypot(value1, value2) {
+CreateMethodProperty(Math, 'hypot', function hypot(value1, value2) { // eslint-disable-line no-unused-vars
 	// If no arguments are passed, the result is +0.
 	if (arguments.length === 0) {
 		return 0;

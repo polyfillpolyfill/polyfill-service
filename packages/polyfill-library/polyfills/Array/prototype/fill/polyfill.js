@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, Get, ToInteger, ToLength, ToObject, ToString */
 // 22.1.3.6. Array.prototype.fill ( value [ , start [ , end ] ] )
 CreateMethodProperty(Array.prototype, 'fill', function fill(value /* [ , start [ , end ] ] */) {
 	var start = arguments[1];

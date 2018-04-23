@@ -1,3 +1,4 @@
+/* global CreateMethodProperty, RequireObjectCoercible, ToLength, ToString */
 // 21.1.3.14. String.prototype.padStart( maxLength [ , fillString ] )
 CreateMethodProperty(String.prototype, 'padStart', function padStart(maxLength /* [ , fillString ] */) {
 	'use strict';

@@ -1,15 +1,15 @@
 /* eslint-env node */
 'use strict';
 
-const fs = require('fs');
-const diff = require('diff');
-const process = require('process');
-const path = require('path');
+var fs = require('fs');
+var diff = require('diff');
+var process = require('process');
+var path = require('path');
 
-const polyfill = fs.readFileSync(path.join(__dirname, './polyfill.js'), 'utf8');
-const patch = fs.readFileSync(path.join(__dirname, './patch.jsdiff'), 'utf8');
+var polyfill = fs.readFileSync(path.join(__dirname, './polyfill.js'), 'utf8');
+var patch = fs.readFileSync(path.join(__dirname, './patch.jsdiff'), 'utf8');
 
-const patched = diff.applyPatch(polyfill, patch);
+var patched = diff.applyPatch(polyfill, patch);
 
-if (patched === false) process.exit(1);
+if (patched === false) {process.exit(1);}
 fs.writeFileSync(path.join(__dirname, './polyfill.js'), patched);
