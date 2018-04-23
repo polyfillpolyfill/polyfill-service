@@ -1,0 +1,21 @@
+{
+	"aliases": [
+		"es5",
+		"modernizr:es5object",
+		"default-3.3",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
+		"default"
+	],
+	"browsers": {
+		"firefox": "3.6",
+		"safari": "4",
+		"ie": "6 - 8",
+		"firefox_mob": "3.6"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames"
+}

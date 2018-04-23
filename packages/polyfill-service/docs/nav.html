@@ -1,0 +1,41 @@
+	<div class="o-techdocs-sidebar">
+		<ul class="o-techdocs-nav">
+			<li{{sectionHighlight pageName "index"}}>
+				<a href="/v{{apiversion}}/docs/">About</a>
+			</li>
+			<li{{sectionHighlight pageName "features"}}>
+				<a href="/v{{apiversion}}/docs/features/">Browsers and features</a>
+			</li>
+			<li{{sectionHighlight pageName "api"}}>
+				<a href="/v{{apiversion}}/docs/api">API reference</a>
+			</li>
+			<li{{sectionHighlight pageName "examples"}}>
+				<a href="/v{{apiversion}}/docs/examples">Live examples</a>
+			</li>
+			<li{{sectionHighlight pageName "usage"}}>
+				<a href="/v{{apiversion}}/docs/usage">Usage stats</a>
+			</li>
+			<li{{sectionHighlight pageName "contributing"}}>
+				<a href="/v{{apiversion}}/docs/contributing">Contributing</a>
+				{{#ifPrefix pageName "contributing"}}
+				<ul class="o-techdocs-nav o-techdocs-nav--sub">
+					<li{{sectionHighlight ../pageName "contributing/authoring-polyfills"}}>
+						<a href="/v{{../apiversion}}/docs/contributing/authoring-polyfills">Authoring polyfills</a>
+					</li>
+					<li{{sectionHighlight ../pageName "contributing/testing"}}>
+						<a href="/v{{../apiversion}}/docs/contributing/testing">Testing</a>
+					</li>
+					<li{{sectionHighlight ../pageName "contributing/common-scenarios"}}>
+						<a href="/v{{../apiversion}}/docs/contributing/common-scenarios">Common scenarios</a>
+					</li>
+				</ul>
+				{{/ifPrefix}}
+			</li>
+			<li{{sectionHighlight pageName "privacy-policy"}}>
+				<a href="/docs/privacy-policy">Privacy Policy</a>
+			</li>
+			<li{{sectionHighlight pageName "terms"}}>
+				<a href="/docs/terms">Terms and Conditions</a>
+			</li>
+		</ul>
+	</div>

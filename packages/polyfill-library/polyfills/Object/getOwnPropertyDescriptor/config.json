@@ -1,0 +1,23 @@
+{
+	"aliases": [
+		"es5",
+		"modernizr:es5object",
+		"default-3.5",
+		"default-3.6",
+		"default",
+		"blissfuljs"
+	],
+	"browsers": {
+		"firefox": "3.6",
+		"safari": "4 - 4.1",
+		"ios_saf": "4.3",
+		"firefox_mob": "3.6",
+		"ie": "6 - 8",
+		"android": "<=4.4"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"Function.prototype.bind"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
+}

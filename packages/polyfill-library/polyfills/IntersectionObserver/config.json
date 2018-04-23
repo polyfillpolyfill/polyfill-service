@@ -1,0 +1,34 @@
+{
+	"aliases": [
+	],
+	"browsers": {
+		"android": "4.4 - *",
+		"bb": "7 - 10",
+		"chrome": "<51",
+		"firefox": "<55",
+		"firefox_mob": "47 - 55",
+		"ie": "7 - 14",
+		"ie_mob": "11 - *",
+		"ios_saf": "7 - *",
+		"op_mini": "17 - *",
+		"opera": "*",
+		"safari": "6 - *",
+		"samsung_mob": "<6"
+	},
+	"dependencies": [
+		"getComputedStyle",
+		"Array.isArray",
+		"Array.prototype.filter",
+		"Array.prototype.forEach",
+		"Array.prototype.indexOf",
+		"Array.prototype.map",
+		"Array.prototype.some",
+		"Event",
+		"Function.prototype.bind",
+		"performance.now"
+		],
+	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
+	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
+	"notes": [],
+	"repo": "https://github.com/w3c/IntersectionObserver"
+}

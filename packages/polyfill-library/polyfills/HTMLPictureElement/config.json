@@ -1,0 +1,23 @@
+{
+	"browsers": {
+		"ie": "7 - 12",
+		"ie_mob": "10 - *",
+		"firefox": "4 - 37",
+		"opera": "11.6 - 29",
+		"safari": "6 - 9",
+		"chrome": "* - 38",
+		"ios_saf": "* - 9.2",
+		"firefox_mob": "4 - 37",
+		"bb": "7 - 10",
+		"android": "<52"
+	},
+	"dependencies": ["~html5-elements"],
+	"license": "MIT",
+	"spec": "https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content",
+	"repo": "https://github.com/scottjehl/picturefill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture",
+	"install": {
+		"module": "picturefill",
+		"paths": ["dist/picturefill.min.js", "dist/plugins/mutation/pf.mutation.min.js"]
+	}
+}

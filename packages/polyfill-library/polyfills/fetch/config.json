@@ -1,0 +1,31 @@
+{
+	"browsers": {
+		"android": "* - 4.4.4",
+		"bb": "10 - *",
+		"ie": "< 15",
+		"ie_mob": "*",
+		"firefox": "* - 38",
+		"opera": "* - 28",
+		"safari": "< 10.1",
+		"chrome": "* - 41",
+		"ios_saf": "< 10.3 ",
+		"firefox_mob": "* - 38"
+	},
+	"dependencies": [
+		"Array.prototype.forEach",
+		"Object.getOwnPropertyNames",
+		"Promise",
+		"XMLHttpRequest"
+	],
+	"license": "MIT",
+	"spec": "https://fetch.spec.whatwg.org/",
+	"repo": "https://github.com/github/fetch",
+	"notes": [
+		"Makes use of FormData, FileReader and Blob if they exist. Readable streams not supported. CORS (Cross Origin Resource Sharing) requests do not work in IE 9 or lower."
+	],
+	"install": {
+		"module": "whatwg-fetch",
+		"postinstall": "update.task.js"
+	},
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch"
+}

@@ -1,0 +1,27 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"ie": "9 - 12",
+		"ie_mob": "9 - 12",
+		"firefox": "<38",
+		"firefox_mob": "<38",
+		"chrome": "<49",
+		"safari": "<9",
+		"android": "<5.1",
+		"ios_saf": "<9",
+		"opera": "<36",
+		"samsung_mob": "<5"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.RequireObjectCoercible",
+		"_ESAbstract.ToString",
+		"_StringIterator",
+		"Symbol.iterator"
+	],
+	"spec": "https://tc39.github.io/ecma262/#sec-string.prototype-@@iterator",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator"
+}

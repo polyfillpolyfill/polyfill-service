@@ -1,0 +1,22 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"android": "<5",
+		"ie": "<12",
+		"ios_saf": "<10",
+		"firefox": "<32",
+		"firefox_mob": "<32",
+		"safari": "<10"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.Type"
+	],
+	"license": "MIT",
+	"spec": "https://tc39.github.io/ecma262/#sec-number.issafeinteger",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger"
+}

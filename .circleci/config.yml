@@ -1,0 +1,140 @@
+version: 2
+
+references:
+
+  container_config: &container_config
+    docker:
+      - image: circleci/node:8
+
+  repo_cache_key: &repo_cache_key
+    v1-repo-{{ .Branch }}-{{ .Revision }}
+
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - *repo_cache_key
+
+  cache_repo: &cache_repo
+    save_cache:
+      key: v1-repo-{{ .Branch }}-{{ .Revision }}
+      paths:
+        - .
+
+  npm_library_cache_key: &npm_library_cache_key
+    v1-dependency-npm-library-{{ checksum "packages/polyfill-library/package-lock.json" }}
+
+  npm_service_cache_key: &npm_service_cache_key
+    v1-dependency-npm-service-{{ checksum "packages/polyfill-service/package-lock.json" }}
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      keys:
+        - *npm_library_cache_key
+        - *npm_service_cache_key
+
+  cache_library_node_modules: &cache_library_node_modules
+    save_cache:
+      key: *npm_library_cache_key
+      paths:
+        - ./packages/polyfill-library/node_modules
+
+  cache_service_node_modules: &cache_service_node_modules
+    save_cache:
+      key: *npm_service_cache_key
+      paths:
+        - ./packages/polyfill-service/node_modules
+
+jobs:
+  build:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - checkout
+      - *restore_node_modules
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - *cache_service_node_modules
+      - *cache_library_node_modules
+      - *cache_repo
+
+  validate_js:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Validate JS formatting
+          command: "npm run lint"
+
+  validate_vcl:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Validate VCL
+          command: "npm run deploy-vcl -- --dryRun"
+
+  test_node:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Test server JS
+          command: "npm run test-node && npm run test-node-unit && npm run test-integration"
+
+  test_polyfills:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Install Alpine dependencies
+          command: sudo curl -L -o /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32
+      - run:
+          name: Test polyfills
+          command: ".circleci/do-exclusively.sh npm run test-browser-ci"
+
+  test_vcl:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Test vcl
+          command: "npm run test-vcl"
+
+  check_dependencies:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - run:
+          name: Check Dependencies conform with the WhiteSource policy
+          command: "npm run whitesource"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - build
+
+      - validate_js:
+          requires:
+            - build
+
+      - validate_vcl:
+          requires:
+            - build
+
+      - test_node:
+          requires:
+            - build
+
+      - test_polyfills:
+          requires:
+            - build
+
+      - test_vcl:
+          requires:
+            - build
+
+      - check_dependencies:
+          requires:
+            - build

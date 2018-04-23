@@ -1,0 +1,45 @@
+{
+	"aliases": [
+		"es6",
+		"es2015",
+		"default-3.6",
+		"default"
+	],
+	"browsers": {
+		"ie": "<12",
+		"safari": "<9",
+		"firefox": "<36",
+		"chrome": "<38",
+		"android": "<5.1",
+		"firefox_mob": "<29",
+		"ie_mob": "*",
+		"opera_mob": "*",
+		"op_mini": "*",
+		"ios_saf": "<9",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.CreateIterResultObject",
+		"_ESAbstract.GetMethod",
+		"_ESAbstract.GetIterator",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.IteratorClose",
+		"_ESAbstract.IteratorComplete",
+		"_ESAbstract.IteratorNext",
+		"_ESAbstract.IteratorStep",
+		"_ESAbstract.IteratorValue",
+		"_ESAbstract.OrdinaryCreateFromConstructor",
+		"_ESAbstract.SameValueZero",
+		"Array.isArray",
+		"Symbol",
+		"Symbol.iterator",
+		"Symbol.species",
+		"Object.create",
+		"Object.defineProperty"
+	],
+	"notes": [
+		"For compatibility with very old engines, `Set.prototype.delete` must be accessed using square bracket notation because 'delete' is a reserved word. `mySet.delete()` is an error in IE8. Use `mySet['delete']()` instead.",
+		"The test suite for this polyfill is derived from work of Andrea Giammarchi which is [published under an MIT licence](https://github.com/WebReflection/es6-collections)"
+	]
+}

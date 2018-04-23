@@ -1,0 +1,36 @@
+{
+	"aliases": [
+		"modernizr:promises",
+		"caniuse:promises",
+		"blissfuljs",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
+		"default",
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"android": "* - 4.4",
+		"bb": "* - 10",
+		"chrome": "* - 31",
+		"firefox": "6 - 28",
+		"ie": "8 - 12",
+		"ie_mob": "*",
+		"ios_saf": "* - 7.1",
+		"op_mini": "*",
+		"opera": "* - 19",
+		"safari": "* - 7",
+		"firefox_mob": "6 - 28"
+	},
+	"notes": [
+		"In IE8, the `catch` & `finally` method cannot be invoked directly since they are reserved words.  Instead, use `[\"catch\"]` and `[\"finally\"]` if intend to run your code in IE8"
+	],
+	"license": "MIT",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+	"repo": "https://github.com/ysmood/yaku",
+	"install": {
+		"module": "yaku",
+		"paths": ["dist/yaku.browser.global.min.js"]
+	}
+}

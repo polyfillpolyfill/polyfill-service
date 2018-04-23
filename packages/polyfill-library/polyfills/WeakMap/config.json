@@ -1,0 +1,38 @@
+{
+	"aliases": [
+		"es6",
+		"es2015",
+		"blissfuljs"
+	],
+	"browsers": {
+		"ie": "7 - 11",
+		"ie_mob": "10 - 11",
+		"safari": "<9",
+		"chrome": "<38",
+		"firefox": "<36",
+		"android": "*",
+		"ios_saf": "<9",
+		"opera": "<25",
+		"firefox_mob": "<36",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.OrdinaryCreateFromConstructor",
+		"_ESAbstract.Get",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.GetIterator",
+		"_ESAbstract.IteratorStep",
+		"_ESAbstract.IteratorValue",
+		"_ESAbstract.Call",
+		"_ESAbstract.IteratorClose",
+		"_ESAbstract.IsArray",
+		"Object.defineProperty",
+		"_ESAbstract.Type",
+		"_ESAbstract.SameValue",
+		"Symbol",
+		"Array.isArray"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+	"spec": "https://tc39.github.io/ecma262/#sec-weakmap-objects"
+}

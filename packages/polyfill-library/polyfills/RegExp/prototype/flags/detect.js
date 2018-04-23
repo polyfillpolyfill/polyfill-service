@@ -1,0 +1,1 @@
+'flags' in RegExp.prototype

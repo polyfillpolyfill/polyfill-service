@@ -1,0 +1,26 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"ie": "<12",
+		"ie_mob" : "*",
+		"firefox": "<25",
+		"firefox_mob":"<25",
+		"chrome":"<34",
+		"android": "<51",
+		"safari": "<9",
+		"ios_saf": "<9",
+		"opera": "<21",
+		"op_mini": "*",
+		"op_mob": "<21",
+		"bb": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty"
+	],
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-parseint-string-radix",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/parseInt"
+}

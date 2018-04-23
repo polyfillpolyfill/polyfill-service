@@ -1,11 +1,11 @@
 {
-	"ecmaFeatures": {
-		"modules": false
-	},
 	"env": {
 		"es6": true,
 		"browser": false,
 		"node": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2017
 	},
 	"rules": {
 		"no-unused-vars": 2,

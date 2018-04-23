@@ -1,0 +1,33 @@
+{
+	"aliases": [
+	  	"modernizr:urlparser",
+		"blissfuljs",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
+		"default"
+	],
+	"browsers": {
+		"chrome": "<51",
+		"firefox": "<29",
+		"ie": "9 - *",
+		"ie_mob": "*",
+		"safari": "*",
+		"firefox_mob": "<29",
+		"opera": "<36",
+		"op_mini": "*",
+		"android": "*",
+		"samsung_mob": "<5",
+		"ios_saf": "*"
+	},
+	"dependencies": [
+		"Object.defineProperties",
+		"Array.prototype.forEach"
+	],
+	"notes": [
+	  "Polyfill requires Object getters so fails in IE < 8"
+	],
+	"license": "CC0",
+	"repo": "https://github.com/inexorabletash/polyfill",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL"
+}

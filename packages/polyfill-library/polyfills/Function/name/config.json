@@ -1,0 +1,23 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"ie": "9 - 11",
+		"chrome": "<15"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"repo": "https://github.com/JamesMGreene/Function.name",
+	"license": "MIT",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/#sec-setfunctionname",
+	"notes": [
+		"A polyfill for the basic functionality of the `Function.name` accessor property in its pre-ES6 form.",
+		"This polyfilled `Function.name` accessor property can provide you with the name of a named function definition (either a named function declaration or a named function expression).",
+		"Unlike other browsers with a similar support level for the pre-ES6 form, this polyfilled `name` accessor property is also intentionally marked as **configurable**.",
+		"When polyfilling for Chrome `<5`, the accessor property will be both **configurable** (expected) _AND_ **enumerable** (unexpected) due to having to implement it using [`Object.prototype.__defineGetter__`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineGetter__) instead of [`Object.defineProperty`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)."
+	]
+}

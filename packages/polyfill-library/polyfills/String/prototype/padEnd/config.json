@@ -1,0 +1,26 @@
+{
+	"aliases": [
+		"es7",
+		"es2016"
+	],
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "<57",
+		"firefox": "<48",
+		"opera": "<44",
+		"safari": "<10",
+		"ie": "<15",
+		"ie_mob": "*",
+		"ios_saf": "<10",
+		"firefox_mob": "<48",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.RequireObjectCoercible",
+		"_ESAbstract.ToString",
+		"_ESAbstract.ToLength"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padEnd"
+}

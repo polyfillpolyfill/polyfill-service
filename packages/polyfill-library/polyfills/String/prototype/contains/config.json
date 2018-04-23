@@ -1,0 +1,23 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "3.6 - 17",
+		"opera": "10 - 18",
+		"safari": "*",
+		"ie": "6 - *",
+		"ie_mob": "10 - *",
+		"ios_saf": "*",
+		"firefox_mob": "3.6 - 17",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"String.prototype.includes"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#String.prototype.contains",
+	"notes": [
+		"This feature was deprecated since it was found to [break older versions of Mootools](https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible).  Use `String.prototype.includes` instead."
+	]
+}

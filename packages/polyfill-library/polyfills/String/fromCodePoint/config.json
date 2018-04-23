@@ -1,0 +1,25 @@
+{
+	"browsers": {
+		"ie": "<12",
+		"ie_mob": "<12",
+		"firefox": "<38",
+		"opera": "<34",
+		"safari": "<9",
+		"chrome": "<47",
+		"ios_saf": "<9",
+		"firefox_mob": "<38"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.ToNumber",
+		"_ESAbstract.SameValue",
+		"_ESAbstract.ToInteger",
+		"_ESAbstract.IsArray",
+		"_ESAbstract.UTF16Encoding"
+	],
+	"license": "MIT",
+	"spec": "https://tc39.github.io/ecma262/#sec-string.fromcodepoint",
+	"repo": "https://github.com/mathiasbynens/String.fromCodePoint",
+	"notes": [],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint"
+}

@@ -1,0 +1,30 @@
+{
+	"browsers": {
+		"android": "<=4.3",
+		"ie": "9 - 10",
+		"ie_mob": "10",
+		"firefox": "<29",
+		"opera": "<15",
+		"chrome": "<=34",
+		"safari": "<10",
+		"ios_saf": "<10",
+		"firefox_mob": "*",
+		"samsung_mob": "<6"
+	},
+	"dependencies": [],
+	"build": {
+		"minify": false
+	},
+	"license": "MIT",
+	"spec": "https://tc39.github.io/ecma402/2016/",
+	"repo": "https://github.com/andyearnshaw/Intl.js",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl",
+	"notes": [
+		"Locales must be specified separately by prefixing the locale name with `Intl.~locale`, eg `Intl.~locale.en-GB`."
+	],
+	"install": {
+		"module": "intl",
+		"paths": ["dist/Intl.min.js"],
+		"postinstall": "update.task.js"
+	}
+}

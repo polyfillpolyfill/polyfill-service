@@ -1,0 +1,12 @@
+{
+  "description": "Polyfill Service",
+  "origamiType": "service",
+  "origamiVersion": 1,
+  "support": "https://github.com/Financial-Times/polyfill-service/issues",
+  "supportContact": {
+    "email": "origami.support@ft.com",
+    "slack": "financialtimes/ft-origami"
+  },
+  "supportStatus": "active",
+  "serviceUrl": "https://polyfill.io"
+}

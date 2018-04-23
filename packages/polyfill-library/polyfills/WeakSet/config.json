@@ -1,0 +1,35 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"ie": "7 - 11",
+		"ie_mob": "10 - 11",
+		"safari": "<9",
+		"chrome": "<38",
+		"firefox": "<34",
+		"android": "*",
+		"ios_saf": "<9",
+		"opera": "<25",
+		"firefox_mob": "<34",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.OrdinaryCreateFromConstructor",
+		"_ESAbstract.Get",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.GetIterator",
+		"_ESAbstract.IteratorStep",
+		"_ESAbstract.IteratorValue",
+		"_ESAbstract.Call",
+		"_ESAbstract.IteratorClose",
+		"_ESAbstract.IsArray",
+		"Object.defineProperty",
+		"_ESAbstract.Type",
+		"_ESAbstract.SameValueZero",
+		"Symbol"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet"
+}

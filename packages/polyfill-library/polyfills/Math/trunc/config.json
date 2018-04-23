@@ -1,0 +1,26 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "1 - 37",
+		"firefox": "1 - 24",
+		"ie": "*",
+		"ie_mob": "10 - *",
+		"ios_chr": "*",
+		"ios_saf": "4 - 8",
+		"opera": "10 - 20",
+		"op_mob": "*",
+		"op_mini": "*",
+		"safari": "4 - 6.1",
+		"firefox_mob": "1 - 24"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc",
+	"spec": "https://tc39.github.io/ecma262/#sec-math.trunc"
+}

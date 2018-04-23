@@ -1,0 +1,25 @@
+{
+	"aliases": [
+		"es6",
+		"es2015"
+	],
+	"browsers": {
+		"ie": "< 13",
+		"ie_mob": "*",
+		"safari": "<9",
+		"chrome": "< 50",
+		"firefox": "< 40",
+		"ios_saf": "< 9",
+		"opera": "< 37",
+		"samsung_mob": "<5",
+		"android": "*",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"Object.defineProperty",
+		"Symbol"
+	],
+	"license": "MIT",
+	"spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol.unscopables",
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol"
+}

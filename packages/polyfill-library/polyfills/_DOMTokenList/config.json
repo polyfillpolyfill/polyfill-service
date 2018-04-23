@@ -1,0 +1,22 @@
+{
+	"browsers": {
+		"android": "*",
+		"bb": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"opera": "*",
+		"op_mini": "*",
+		"safari": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "*"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"license" :"ISC",
+	"repo": "https://github.com/Alhadis/DOMTokenList"
+}

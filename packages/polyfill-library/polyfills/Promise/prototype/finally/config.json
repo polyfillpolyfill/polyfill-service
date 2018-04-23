@@ -1,0 +1,29 @@
+{
+	"aliases": [
+	],
+	"browsers": {
+		"android": ">4.4",
+		"bb": ">10",
+		"chrome": ">31 <63",
+		"firefox": ">28",
+		"ios_saf": ">7.1",
+		"ie": ">12",
+		"ie_mob": "*",
+		"opera": ">19",
+		"op_mini": "*",
+		"safari": ">7",
+		"firefox_mob": ">28"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty",
+		"_ESAbstract.IsCallable",
+		"_ESAbstract.SpeciesConstructor",
+		"Promise",
+		"Function.prototype.bind"
+	],
+	"notes": [
+		"The Promise polyfill includes `Promise.prototype.finally`, to avoid needlessly serving this polyfill to those browsers, we have configured the browser targets for this polyfill to not include those configured in the Promise polyfill."
+	],
+	"license": "MIT",
+	"docs": "https://tc39.github.io/proposal-promise-finally/"
+}
