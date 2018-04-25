@@ -13,8 +13,8 @@
     "lint": "npm run lint:library && npm run lint:service",
     "lint:library": "cd packages/polyfill-library && npm run lint && cd ../..",
     "lint:service": "cd packages/polyfill-service && npm run lint && cd ../..",
-		"deploy-vcl": "cd packages/polyfill-service && npm run deploy-vcl && cd ../..",
-		"start": "cd packages/polyfill-service && npm start && cd ../..",
+    "deploy-vcl": "cd packages/polyfill-service && npm run deploy-vcl && cd ../..",
+    "start": "cd packages/polyfill-service && npm start && cd ../..",
     "test-node": "npm run test-node:library && npm run test-node:service",
     "test-node:library": "cd packages/polyfill-library && npm run test-node && cd ../..",
     "test-node:service": "cd packages/polyfill-service && npm run test-node && cd ../..",
@@ -24,7 +24,7 @@
     "test-integration:service": "cd packages/polyfill-service && npm run test-integration && cd ../..",
     "test-browser-ci": "cd packages/polyfill-service && npm run test-browser-ci && cd ../..",
     "test-vcl": "cd packages/polyfill-service && npm run test-vcl && cd ../..",
-		"whitesource": "cd packages/polyfill-service && npm prune --production && cd ../.. && cd packages/polyfill-library && npm prune --production && cd ../.. && whitesource run"
+    "whitesource": "cd packages/polyfill-service && npm prune --production && cd ../.. && cd packages/polyfill-library && npm prune --production && cd ../.. && whitesource run"
   },
   "contributors": [
     {

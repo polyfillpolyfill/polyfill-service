@@ -1,0 +1,8 @@
+{
+    "dependencies": [ "Array.prototype.forEach" ],
+    "spec": "https://heycam.github.io/webidl/#es-forEach",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach",
+    "browsers": {
+        "ie": "<=15"
+    }
+}
