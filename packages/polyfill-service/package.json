@@ -25,6 +25,7 @@
   "bin": "bin/polyfill-service",
   "scripts": {
     "start": "bin/polyfill-service",
+	"build": "cd ../polyfill-library && npm run build && cd ../polyfill-service",
     "dev": "node tasks/node/spawn service-with-watch",
     "lint": "eslint bin service tasks",
     "test-browser-quick": "node tasks/node/spawn service remote-test:quick",
@@ -73,7 +74,7 @@
     "mysql2": "^1.2.0",
     "node-zopfli": "^2.0.2",
     "on-headers": "^1.0.1",
-    "polyfill-library": "file:../polyfill-library",
+    "polyfill-library": "file:///Users/arichter/repositories/3rd/polyfill-service/packages/polyfill-library",
     "proclaim": "^3.5.0",
     "pump": "^1.0.2",
     "raven": "^0.12.1",

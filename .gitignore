@@ -29,3 +29,5 @@ npm-debug.log
 .nyc_output/
 ws-*.json
 ws-log-npm-report
+/**/yarn*
+.idea
