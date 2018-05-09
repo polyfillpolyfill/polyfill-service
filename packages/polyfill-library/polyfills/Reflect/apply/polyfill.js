@@ -1,5 +1,5 @@
 Object.defineProperty(Reflect, 'apply', {
-	value: function (target, thisArg, argList) {
+	value: function apply(target, thisArg, argList) {
 		if (argList === null || typeof argList !== 'object') {
 			throw new TypeError('Argument list is not array-like.');
 		}

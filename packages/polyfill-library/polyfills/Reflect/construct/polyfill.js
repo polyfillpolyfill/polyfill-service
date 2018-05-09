@@ -15,7 +15,7 @@
 	}
 
 	Object.defineProperty(Reflect, 'construct', {
-		value: function (Target, args) {
+		value: function construct(Target, args) {
 			aFunction(Target);
 
 			if (!isObject(args)) {

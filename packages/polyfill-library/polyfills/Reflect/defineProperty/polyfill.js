@@ -1,5 +1,5 @@
 Object.defineProperty(Reflect, 'defineProperty', {
-	value: function (target, propertyKey, attributes) {
+	value: function defineProperty(target, propertyKey, attributes) {
 		try {
 			Object.defineProperty(target, propertyKey, attributes);
 

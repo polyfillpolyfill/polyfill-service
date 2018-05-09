@@ -1,5 +1,5 @@
 Object.defineProperty(Reflect, 'deleteProperty', {
-	value: function (target, propertyKey) {
+	value: function deleteProperty(target, propertyKey) {
 		return delete target[propertyKey];
 	},
 	configurable: true,
