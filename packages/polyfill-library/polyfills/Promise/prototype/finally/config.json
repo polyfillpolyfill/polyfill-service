@@ -2,17 +2,17 @@
 	"aliases": [
 	],
 	"browsers": {
-		"android": ">4.4",
+		"android": ">4.4 <63",
 		"bb": ">10",
 		"chrome": ">31 <63",
-		"firefox": ">28",
-		"ios_saf": ">7.1",
+		"firefox": ">28 <58",
+		"ios_saf": ">7.1 <11.3",
 		"ie": ">12",
 		"ie_mob": "*",
-		"opera": ">19",
+		"opera": ">19 <50",
 		"op_mini": "*",
-		"safari": ">7",
-		"firefox_mob": ">28"
+		"safari": ">7 <11.1",
+		"firefox_mob": ">28 <58"
 	},
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",
