@@ -1,1 +1,1 @@
-typeof Reflect === 'object' && typeof Reflect.deleteproperty === 'function'
+typeof Reflect === 'object' && typeof Reflect.deleteProperty === 'function'
