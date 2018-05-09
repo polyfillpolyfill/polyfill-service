@@ -18,9 +18,10 @@
 		"bb": "*"
 	},
 	"dependencies": [
+		"Reflect",
 		"Object.defineProperty"
 	],
 	"license": "MIT",
-	"spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-reflect-object",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect"
+	"spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-reflect.apply",
+	"docs": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Reflect/apply"
 }
