@@ -1,0 +1,21 @@
+{
+	"browsers": {
+		"ie": "<12",
+		"ie_mob": "*",
+		"safari": "<10",
+		"chrome": "<49",
+		"firefox": "<42",
+		"ios_saf": "<10",
+		"opera": "<36",
+		"op_mini": "*",
+		"samsung_mob": "<5",
+		"android": "<49",
+		"bb": "*"
+	},
+	"dependencies": [
+		"Object.defineProperty"
+	],
+	"license": "MIT",
+	"spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-reflect-object",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect"
+}
