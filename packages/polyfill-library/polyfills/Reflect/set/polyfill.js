@@ -5,7 +5,7 @@
 
 	function anObject(it) {
 		if (!isObject(it)) {
-			throw TypeError(it + ' is not an object!');
+			throw new TypeError(it + ' is not an object!');
 		}
 		return it;
 	}
