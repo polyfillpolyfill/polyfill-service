@@ -1,4 +1,4 @@
-FROM quay.io/musicglue/node:v10.1.0
+FROM quay.io/musicglue/node:v9.11.1
 
 ARG NPM_TOKEN
 ENV NODE_ENV=production \
