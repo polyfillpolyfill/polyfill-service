@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "engines": {
     "node": ">=8"
   },
