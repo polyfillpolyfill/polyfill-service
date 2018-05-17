@@ -1,4 +1,4 @@
-FROM quay.io/musicglue/node:v9.11.1-b
+FROM quay.io/musicglue/node:v9.11.1-c
 
 
 ARG NPM_TOKEN
