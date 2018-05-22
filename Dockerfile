@@ -1,4 +1,4 @@
-FROM quay.io/musicglue/node:v9.11.1-d
+FROM quay.io/musicglue/node:v9.11.1-e
 
 
 ARG NPM_TOKEN
@@ -29,4 +29,3 @@ RUN npm run build
 
 ENTRYPOINT ["npm"]
 CMD ["start"]
-
