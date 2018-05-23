@@ -5,7 +5,7 @@
   "description": "A polyfill combinator",
   "scripts": {
     "build": "cd packages/polyfill-library && npm run build && cd ../..",
-    "dev": "cd packages/polyfill-library && npm run dev && cd ../..",
+    "dev": "cd packages/polyfill-service && npm run dev && cd ../..",
     "postinstall": "npm run build",
     "install": "npm run install:library && npm run install:service",
     "install:library": "cd packages/polyfill-library && npm install && cd ../..",
