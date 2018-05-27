@@ -45,7 +45,7 @@
     "purge-cdn": "node tasks/node/purge",
     "update-browserstack-list": "node tasks/node/updatebrowserstacklist"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "engines": {
     "node": ">=8"
   },

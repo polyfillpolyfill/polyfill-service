@@ -35,7 +35,7 @@
     "test": "npm run build && npm run test-node && npm run test-node-unit",
     "prepublish": "npm run build"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "engines": {
     "node": ">=8"
   },
