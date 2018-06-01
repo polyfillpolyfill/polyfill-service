@@ -72,9 +72,8 @@ You can configure the Polyfill service using environment variables. In developme
 The tests are split into tests for the service and tests for the polyfills. The polyfill tests require `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` to be configured, view the [configuration](#configuration) section for more information.
 
 ```sh
-npm run test           # run service tests and polyfill tests on a small set of browsers
-npm run test-node    # run the service tests
-npm run ci             # run the service tests and polyfills tests on a large set of browsers
+npm run test-node # run the service tests
+npm run ci        # run the service tests and polyfills tests on a large set of browsers
 ```
 
 We run the tests [on CircleCI][ci].  `npm run ci` must pass before we merge a pull request.
