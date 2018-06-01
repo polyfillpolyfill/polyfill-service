@@ -245,6 +245,9 @@ describe("lib/UA", function () {
 
 				const googlebot = new UA("Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
 				assert.equal(googlebot.ua.family, 'chrome');
+
+				const headlesschrome = new UA("Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/66.0.3347.0 Safari/537.36");
+				assert.equal(headlesschrome.ua.family, 'chrome');
 			});
 		});
 	});
