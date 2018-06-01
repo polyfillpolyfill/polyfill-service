@@ -75,6 +75,7 @@ const aliases = {
 	"chrome mobile": "chrome",
 	"chrome frame": "chrome",
 	"chromium": "chrome",
+	"headlesschrome": "chrome",
 
 	"ie mobile": "ie_mob",
 
