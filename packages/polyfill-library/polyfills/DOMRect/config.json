@@ -1,0 +1,18 @@
+{
+	"aliases": [],
+	"browsers": {
+		"ie": "*",
+		"ie_mob": "*",
+		"chrome": "<60",
+		"ios_chr": "<10.1",
+		"safari": "<10.1",
+		"ios_saf": "<10.1",
+		"firefox": "<=30",
+		"android": "<6"
+	},
+	"dependencies": [
+		"Object.defineProperties"
+	],
+	"spec": "https://www.w3.org/TR/geometry-1/#DOMRect",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/DOMRect"
+}
