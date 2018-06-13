@@ -6,7 +6,8 @@ require('dotenv').config();
 const packageJSON = require('../package.json');
 const startService = require('../service');
 
-const port = Number(process.env.PORT) || 3000;
+const portString = process.env.PORT || "3000";
+const port = portString.startsWith("/") ? portString : Number(portString);
 
 process.on('uncaughtException', (err) => {
   console.log('uncaught exception', err.stack || err);
