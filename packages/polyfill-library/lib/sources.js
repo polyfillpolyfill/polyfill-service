@@ -2,9 +2,8 @@
 
 const path = require("path");
 const fs = require("graceful-fs");
-const denodeify = require("denodeify");
-const readFile = denodeify(fs.readFile);
-const readdir = denodeify(fs.readdir);
+const readFile = require('./reader').readFile;
+const readdir = require('./reader').readdir;
 
 /**
  * Class representing a collection of polyfill sources.
