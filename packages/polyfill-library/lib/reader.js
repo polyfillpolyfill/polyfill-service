@@ -1,5 +1,6 @@
+'use strict';
 const fs = require("graceful-fs");
-const denodeify = require('denodeify');
+const denodeify = require("denodeify");
 const readFile = denodeify(fs.readFile);
 const readdir = denodeify(fs.readdir);
 
@@ -18,7 +19,6 @@ function check(key) {
 	}
 	return null;
 }
-
 
 // reader instance
 function cachedReader(...args) {
