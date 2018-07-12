@@ -223,7 +223,7 @@
 		var protoDescriptor = gOPD(ObjectProto, key);
 		delete ObjectProto[key];
 		defineProperty(o, key, descriptor);
-		if (o !== ObjectProto) {
+		if (o !== ObjectProto && protoDescriptor) {
 			defineProperty(ObjectProto, key, protoDescriptor);
 		}
 	};
