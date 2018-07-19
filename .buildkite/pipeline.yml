@@ -1,0 +1,12 @@
+---
+steps:
+- label: ":k8s: deploy polyfill"
+  trigger: deployment
+  branches: "master production"
+  async: false
+  build:
+    meta_data:
+      app_migrate: "true"
+      app_name: polyfill
+      app_branch: "$BUILDKITE_BRANCH"
+      deploy_sha: "$BUILDKITE_COMMIT"
