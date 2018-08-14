@@ -2,7 +2,7 @@
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
 
-For usage information see the [hosted service](https://polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
+For usage information see the [hosted service](https://polyfill.io), which formats and displays the service API documentation located in the [docs](packages/polyfill-service/docs/) folder.
 
 [![Build
 Status](https://circleci.com/gh/Financial-Times/polyfill-service.svg?&style=shield&circle-token=357956eb8e6bea4ae9cca8f07918b7d0851a62d1)][ci]
@@ -60,7 +60,7 @@ You can configure the Polyfill service using environment variables. In developme
 * `GRAPHITE_PORT`: Port on the `GRAPHITE_HOST` to which to send Carbon metrics (default 2002).
 * `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`: [BrowserStack][browserstack] credentials for test tasks (not used by the service itself)
 * `ENABLE_ACCESS_LOG`: Any truthy value will enable writing an HTTP access log to STDOUT from Node. Useful if you are not running node behind a routing layer like nginx or heroku.
-* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
+* `RUM_MYSQL_DSN`: DSN URL for a MySQL database with the schema documented in [db-schema.sql](packages/polyfill-service/docs/assets/db-schema.sql). If present, RUM reporting routes will be exposed.  See [Real User Monitoring](#real-user-monitoring)
 * `RUM_BEACON_HOST`: Hostname of the server to which RUM beacon requests should be sent.  See [Real User Monitoring](#real-user-monitoring)
 * `SURROGATE_KEY`: The surrogate key assigned to all responses. Useful for purging cached responses from a CDN. (default `polyfill-service`);
 * `SENTRY_DSN`: The data source name (DSN) to be used for sending error logs to [Sentry](https://sentry.io)
@@ -83,10 +83,10 @@ We run the tests [on CircleCI][ci].  `npm run ci` must pass before we merge a pu
 
 We have shipped experimental support for using RUM to monitor feature support and performance in browsers.  This involves a number of parts, all activated by the presence `RUM_MYSQL_DSN` and `RUM_BEACON_HOST` env vars:
 
-* **RUM client code**: a [small snippet](lib/rumTemplate.js.handlebars) of legacy-compatible code that will evaluate feature detects on the client, sample resource timing data, and beacon the results back to the service. This is shipped as part of the Node app.
-* **Beacon endpoint**: an [endpoint to collect RUM data](fastly-config.vcl), terminated at the CDN, logging query data out to Amazon S3 to avoid overloading the backend.  To clarify, the backend node server does not provide a route handler for the RUM data collection URL, so this is shipped when we deploy VCL to Fastly.  It also requires log streaming to be configured in the Fastly UI.
-* **Lambda processing function**: an [AWS Lambda function](tasks/lambda/functions/rum-process/index.js) is used to move the data from the raw log files on S3 into the MySQL backend.  This is shipped using a dedicated process with [Apex](http://apex.run), see below.
-* **Reporting endpoints**: [API routes that deliver useful analysis of the RUM data](service/routes/rum.js) are provided in the node server.  These return CSV data intended to populate a spreadsheet.  This is shipped as part of the Node app.
+* **RUM client code**: a [small snippet](packages/polyfill-library/lib/rumTemplate.js.handlebars) of legacy-compatible code that will evaluate feature detects on the client, sample resource timing data, and beacon the results back to the service. This is shipped as part of the Node app. 
+* **Beacon endpoint**: an [endpoint to collect RUM data](packages/polyfill-service/vcl/main.vcl), terminated at the CDN, logging query data out to Amazon S3 to avoid overloading the backend.  To clarify, the backend node server does not provide a route handler for the RUM data collection URL, so this is shipped when we deploy VCL to Fastly.  It also requires log streaming to be configured in the Fastly UI.
+* **Lambda processing function**: an [AWS Lambda function](packages/polyfill-service/tasks/lambda/functions/rum-process/index.js) is used to move the data from the raw log files on S3 into the MySQL backend.  This is shipped using a dedicated process with [Apex](http://apex.run), see below.
+* **Reporting endpoints**: [API routes that deliver useful analysis of the RUM data](packages/polyfill-service/service/routes/rum.js) are provided in the node server.  These return CSV data intended to populate a spreadsheet.  This is shipped as part of the Node app.
 
 Because this requires a fair amount of orchestration, we recommend only enabling it for the FT hosted version.  If you want to run the service yourself, you can opt out of this RUM feature by not setting a `RUM_MYSQL_DSN` or `RUM_BEACON_HOST`.
 
