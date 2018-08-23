@@ -69,7 +69,11 @@ async function applyResolverToIdentifiers(featureSet, nameResolverFunction) {
 					// Merge properties of source into properties of target
 					// Eg. 'es6|always' becomes 'Set|always', 'Map|always' etc.
 					// Note: optimisation here is important, a previous slower merge technique used to block the event loop for long periods
-					['flags', 'aliasOf'].forEach(prop => {
+					// Note: do not overwrite flags of feature
+					if (!featureSet[newName].flags || !featureSet[newName].flags.size) {
+						featureSet[newName].flags = props.flags;
+					}
+					['aliasOf'].forEach(prop => {
 						for (const v of props[prop]) {
 							if (!(prop in featureSet[newName])) {
 								featureSet[newName][prop] = new Set();
