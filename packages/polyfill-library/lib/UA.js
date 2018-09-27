@@ -84,6 +84,7 @@ const aliases = {
 	"edge": "ie",
 	"edge mobile": "ie",
 	"uc browser": {
+		"10": ["uc browser", 0],
 		"9.9.*": ["ie", 10]
 	},
 
@@ -100,15 +101,57 @@ const aliases = {
 	"phantomjs": ["safari", 5],
 
 	"yandex browser": {
+		"18.6": ["chrome", 66],
+		"18.5": ["chrome", 65],
+		"18.4": ["chrome", 65],
+		"18.3": ["chrome", 64],
+		"18.2": ["chrome", 63],
+		"18.1": ["chrome", 63],
+		"17.11": ["chrome", 62],
+		"17.10": ["chrome", 61],
+		"17.9": ["chrome", 60],
+		"17.8": ["chrome", 59],
+		"17.7": ["chrome", 59],
+		"17.6": ["chrome", 58],
+		"17.5": ["chrome", 57],
+		"17.4": ["chrome", 57],
+		"17.3": ["chrome", 56],
+		"17.2": ["chrome", 55],
+		"17.1": ["chrome", 55],
+		"16.11": ["chrome", 54],
+		"16.10": ["chrome", 51],
+		"16.9": ["chrome", 51],
+		"16.8": ["chrome", 51],
+		"16.7": ["chrome", 51],
+		"16.6": ["chrome", 50],
+		"16.5": ["chrome", 49],
+		"16.4": ["chrome", 49],
+		"16.3": ["chrome", 47],
+		"16.2": ["chrome", 47],
+		"16.1": ["chrome", 47],
+		"15.12": ["chrome", 46],
+		"15.11": ["chrome", 45],
+		"15.10": ["chrome", 45],
+		"15.9": ["chrome", 44],
+		"15.8": ["chrome", 43],
+		"15.7": ["chrome", 43],
+		"15.6": ["chrome", 42],
+		"15.5": ["chrome", 41],
+		"15.4": ["chrome", 41],
+		"15.3": ["chrome", 40],
+		"15.2": ["chrome", 40],
+		"15.1": ["chrome", 40],
 		"14.10": ["chrome", 37],
+		"14.9": ["chrome", 36],
 		"14.8": ["chrome", 36],
 		"14.7": ["chrome", 35],
+		"14.6": ["chrome", 34],
 		"14.5": ["chrome", 34],
 		"14.4": ["chrome", 33],
+		"14.3": ["chrome", 32],
 		"14.2": ["chrome", 32],
 		"13.12": ["chrome", 30],
-		"13.10": ["chrome", 28],
-		"17.9": ["chrome", 60]
+		"13.10": ["chrome", 28]
 	},
 
 	"opera": {
@@ -204,13 +247,46 @@ function UA(uaString) {
 
 			// Map to different family with per-version mapping
 			} else if (typeof aliases[this.ua.family] === 'object') {
-				for (let semverExpr in aliases[this.ua.family]) { // eslint-disable-line prefer-const
-					if (this.ua.satisfies(semverExpr) && Array.isArray(aliases[this.ua.family][semverExpr])) {
+				const minDiff = {
+					major: Number.MAX_SAFE_INTEGER,
+					minor: Number.MAX_SAFE_INTEGER,
+					lastUa: this.ua
+				};
+
+				let currDiff = minDiff;
+
+				for (let semverExpr in aliases[this.ua.family]) {
+					if (Array.isArray(aliases[this.ua.family][semverExpr])) {
 						const a = aliases[this.ua.family][semverExpr];
-						this.ua = new useragent.Agent(a[0], a[1], (a[2] || 0), (a[3] || 0));
-						break;
+						let ua = new useragent.Agent(a[0], a[1], (a[2] || 0), (a[3] || 0));
+
+						// Check exact semver
+						if (this.ua.satisfies(semverExpr)) {
+							minDiff.lastUa = ua;
+							break;
+						}
+
+						// Fallback to nearest match
+
+						let [semverMajor, semverMinor] = semverExpr.split('.').slice(0,2);
+
+						currDiff = {
+							major: Math.abs(this.ua.major - Number(semverMajor || 0)),
+							minor: Math.abs(this.ua.minor - Number(semverMinor || 0)),
+							lastUa: ua
+						};
+
+						if (currDiff.major <= minDiff.major) {
+							minDiff.major = currDiff.major;
+							if (currDiff.minor <= minDiff.minor) {
+								minDiff.minor = currDiff.minor;
+								minDiff.lastUa = currDiff.lastUa;
+							}
+						}
 					}
 				}
+
+				this.ua = minDiff.lastUa;
 			}
 		}
 		cache.set(uaString, ["", this.ua.family, this.ua.major, this.ua.minor, this.ua.patch]);
