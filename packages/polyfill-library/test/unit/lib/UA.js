@@ -263,6 +263,12 @@ describe("lib/UA", function () {
 			const yandex = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/14.10.2062.12057 Safari/537.36");
 			assert.equal(yandex.getFamily(), "chrome");
 
+			const yandex10 = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/10.10.2062.12057 Safari/537.36");
+			assert.equal(yandex10.getFamily(), "chrome");
+
+			const yandex19 = new UA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 YaBrowser/19.10.2062.12057 Safari/537.36");
+			assert.equal(yandex19.getFamily(), "chrome");
+
 			const ie = new UA("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
 			assert.equal(ie.getFamily(), "ie");
 
