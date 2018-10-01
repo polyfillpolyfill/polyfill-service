@@ -100,6 +100,14 @@ const aliases = {
 	"phantomjs": ["safari", 5],
 
 	"yandex browser": {
+		"18.9": ["chrome", 68],
+		"18.7": ["chrome", 67],
+		"18.6": ["chrome", 66],
+		"18.4": ["chrome", 65],
+		"18.3": ["chrome", 64],
+		"18.2": ["chrome", 63],		
+		"18.1": ["chrome", 63],
+		"17.9": ["chrome", 60],
 		"14.10": ["chrome", 37],
 		"14.8": ["chrome", 36],
 		"14.7": ["chrome", 35],
@@ -107,8 +115,7 @@ const aliases = {
 		"14.4": ["chrome", 33],
 		"14.2": ["chrome", 32],
 		"13.12": ["chrome", 30],
-		"13.10": ["chrome", 28],
-		"17.9": ["chrome", 60]
+		"13.10": ["chrome", 28]
 	},
 
 	"opera": {
