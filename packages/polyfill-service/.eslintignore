@@ -1,3 +1,17 @@
-# We ignore the node_modules folder of the AWS Lambda function that is used to gather RUM data from Fastly
+node_modules/
+coverage/
+.nyc_output/
+.vscode/
+.terraform/
+.serverless/
+.sonarlint/
 
-tasks/**/node_modules
+.DS_Store
+.env
+local.log
+npm-debug.log
+terraform.tfstate
+terraform.tfstate.backup
+ws-*.json
+ws-log-npm-report
+website/

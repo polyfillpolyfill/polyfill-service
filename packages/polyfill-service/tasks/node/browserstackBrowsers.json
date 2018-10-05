@@ -1090,6 +1090,62 @@
     {
         "os": "Windows",
         "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
         "browser": "ie",
         "device": null,
         "browser_version": "8.0",
@@ -1564,7 +1620,47 @@
         "os_version": "7",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "7",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -1917,6 +2013,62 @@
         "browser": "chrome",
         "device": null,
         "browser_version": "63.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
         "real_mobile": null
     },
     {
@@ -2268,7 +2420,47 @@
         "os_version": "8",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -2626,6 +2818,62 @@
     {
         "os": "Windows",
         "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
         "browser": "ie",
         "device": null,
         "browser_version": "11.0",
@@ -2972,7 +3220,47 @@
         "os_version": "8.1",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -3194,17 +3482,65 @@
     {
         "os": "Windows",
         "os_version": "10",
-        "browser": "ie",
+        "browser": "chrome",
         "device": null,
-        "browser_version": "11.0",
+        "browser_version": "64.0",
         "real_mobile": null
     },
     {
         "os": "Windows",
         "os_version": "10",
-        "browser": "edge",
+        "browser": "chrome",
         "device": null,
-        "browser_version": "14.0",
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "ie",
+        "device": null,
+        "browser_version": "11.0",
         "real_mobile": null
     },
     {
@@ -3221,6 +3557,22 @@
         "browser": "edge",
         "device": null,
         "browser_version": "16.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "edge",
+        "device": null,
+        "browser_version": "17.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "edge",
+        "device": null,
+        "browser_version": "insider preview",
         "real_mobile": null
     },
     {
@@ -3429,6 +3781,54 @@
         "browser": "firefox",
         "device": null,
         "browser_version": "57.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -5706,6 +6106,38 @@
     {
         "os": "OS X",
         "os_version": "Mavericks",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
         "browser": "safari",
         "device": null,
         "browser_version": "7.1",
@@ -6156,7 +6588,47 @@
         "os_version": "Mavericks",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Mavericks",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -6557,6 +7029,62 @@
         "browser": "chrome",
         "device": null,
         "browser_version": "63.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
         "real_mobile": null
     },
     {
@@ -7012,7 +7540,47 @@
         "os_version": "Yosemite",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Yosemite",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -7413,6 +7981,62 @@
         "browser": "chrome",
         "device": null,
         "browser_version": "63.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
         "real_mobile": null
     },
     {
@@ -7860,7 +8484,47 @@
         "os_version": "El Capitan",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -8165,6 +8829,62 @@
         "browser": "chrome",
         "device": null,
         "browser_version": "63.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
         "real_mobile": null
     },
     {
@@ -8556,7 +9276,47 @@
         "os_version": "Sierra",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
         "real_mobile": null
     },
     {
@@ -8866,9 +9626,65 @@
     {
         "os": "OS X",
         "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "64.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "65.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "66.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "67.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "68.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "69.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "chrome",
+        "device": null,
+        "browser_version": "70.0 beta",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
         "browser": "safari",
         "device": null,
-        "browser_version": "11.0",
+        "browser_version": "11.1",
         "real_mobile": null
     },
     {
@@ -9252,8 +10068,56 @@
         "os_version": "High Sierra",
         "browser": "firefox",
         "device": null,
-        "browser_version": "58.0 beta",
+        "browser_version": "58.0",
         "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "59.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "60.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "61.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "62.0",
+        "real_mobile": null
+    },
+    {
+        "os": "OS X",
+        "os_version": "High Sierra",
+        "browser": "firefox",
+        "device": null,
+        "browser_version": "63.0 beta",
+        "real_mobile": null
+    },
+    {
+        "os": "ios",
+        "os_version": "11.3",
+        "browser": "ipad",
+        "device": "iPad 6th",
+        "browser_version": null,
+        "real_mobile": true
     },
     {
         "os": "ios",
@@ -9289,6 +10153,54 @@
     },
     {
         "os": "ios",
+        "os_version": "11.4",
+        "browser": "ipad",
+        "device": "iPad Mini 4",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
+        "os_version": "11.4",
+        "browser": "iphone",
+        "device": "iPhone 6S",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
+        "os_version": "11.4",
+        "browser": "iphone",
+        "device": "iPhone 6S Plus",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
+        "os_version": "11.2",
+        "browser": "ipad",
+        "device": "iPad Pro",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
+        "os_version": "11.2",
+        "browser": "iphone",
+        "device": "iPhone 6",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
+        "os_version": "11.2",
+        "browser": "iphone",
+        "device": "iPhone SE",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "ios",
         "os_version": "10.3",
         "browser": "iphone",
         "device": "iPhone 7",
@@ -9315,6 +10227,14 @@
         "os": "android",
         "os_version": "6.0",
         "browser": "android",
+        "device": "Google Nexus 6",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "6.0",
+        "browser": "android",
         "device": "Samsung Galaxy S7",
         "browser_version": null,
         "real_mobile": true
@@ -9324,14 +10244,6 @@
         "os_version": "6.0",
         "browser": "android",
         "device": "Motorola Moto X 2nd Gen",
-        "browser_version": null,
-        "real_mobile": true
-    },
-    {
-        "os": "android",
-        "os_version": "6.0",
-        "browser": "android",
-        "device": "Google Nexus 6",
         "browser_version": null,
         "real_mobile": true
     },
@@ -9353,25 +10265,9 @@
     },
     {
         "os": "android",
-        "os_version": "5.1",
+        "os_version": "7.0",
         "browser": "android",
-        "device": "Google Nexus 9",
-        "browser_version": null,
-        "real_mobile": true
-    },
-    {
-        "os": "android",
-        "os_version": "7.1",
-        "browser": "android",
-        "device": "Samsung Galaxy Note 8",
-        "browser_version": null,
-        "real_mobile": true
-    },
-    {
-        "os": "android",
-        "os_version": "7.1",
-        "browser": "android",
-        "device": "Google Pixel",
+        "device": "Samsung Galaxy Tab S3",
         "browser_version": null,
         "real_mobile": true
     },
@@ -9393,6 +10289,70 @@
     },
     {
         "os": "android",
+        "os_version": "5.1",
+        "browser": "android",
+        "device": "Google Nexus 9",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "8.0",
+        "browser": "android",
+        "device": "Google Pixel 2",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "8.0",
+        "browser": "android",
+        "device": "Google Pixel",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "8.0",
+        "browser": "android",
+        "device": "Samsung Galaxy S9",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "8.0",
+        "browser": "android",
+        "device": "Samsung Galaxy S9 Plus",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "9.0",
+        "browser": "android",
+        "device": "Google Pixel 2",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "7.1",
+        "browser": "android",
+        "device": "Google Pixel",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
+        "os_version": "7.1",
+        "browser": "android",
+        "device": "Samsung Galaxy Note 8",
+        "browser_version": null,
+        "real_mobile": true
+    },
+    {
+        "os": "android",
         "os_version": "5.0",
         "browser": "android",
         "device": "Samsung Galaxy S6",
@@ -9404,14 +10364,6 @@
         "os_version": "5.0",
         "browser": "android",
         "device": "Motorola Moto X 2nd Gen",
-        "browser_version": null,
-        "real_mobile": true
-    },
-    {
-        "os": "android",
-        "os_version": "8.0",
-        "browser": "android",
-        "device": "Google Pixel",
         "browser_version": null,
         "real_mobile": true
     }
