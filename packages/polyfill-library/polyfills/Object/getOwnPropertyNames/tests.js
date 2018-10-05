@@ -43,16 +43,11 @@ it('throws an error when the arg is undefined or null', function() {
 	});
 });
 
-// This is the polyfill behaviour but the native impl in IE 9+ throws instead
-it.skip('returns an empty array for booleans and numbers', function() {
+it('returns an empty array for booleans and numbers', function() {
 	proclaim.deepEqual(Object.getOwnPropertyNames(true), []);
 	proclaim.deepEqual(Object.getOwnPropertyNames(42), []);
 });
 
-// This is the polyfill behaviour but the native impl in IE 9+ throws instead
-// TODO: We should be polyfilling for IE 9+ then?
-it.skip('splits a string into an array', function() {
-
-	// In Chrome the length property is returned at the end, in FF at the beginning.  Our polyfill adds it to the end
+it('splits a string into an array', function() {
 	proclaim.deepEqual(Object.getOwnPropertyNames('foo'), ['0', '1', '2', 'length']);
 });
