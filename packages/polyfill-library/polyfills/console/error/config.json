@@ -3,7 +3,7 @@
 		"caniuse:console-basic"
 	],
 	"browsers": {
-		"ie": "6 - 11",
+		"ie": "*",
 		"ie_mob": "<10",
 		"firefox": "1 - 4"
 	},

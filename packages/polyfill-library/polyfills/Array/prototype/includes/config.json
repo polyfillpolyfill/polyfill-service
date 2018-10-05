@@ -6,6 +6,8 @@
 	],
 	"browsers": {
 		"chrome": "<47",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "<=42",
 		"ie": "*",
 		"opera": "*",

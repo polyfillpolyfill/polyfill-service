@@ -10,7 +10,7 @@
 		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "6 - 8"
+		"ie": "<9"
 	},
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",

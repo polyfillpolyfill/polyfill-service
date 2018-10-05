@@ -5,10 +5,10 @@
 		"blissfuljs"
 	],
 	"browsers": {
-		"ie": "7 - 11",
+		"ie": "*",
 		"ie_mob": "10 - 11",
 		"safari": "<9",
-		"chrome": "<38",
+		"chrome": "<43",
 		"firefox": "<36",
 		"android": "*",
 		"ios_saf": "<9",

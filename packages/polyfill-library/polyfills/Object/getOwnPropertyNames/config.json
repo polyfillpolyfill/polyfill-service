@@ -11,7 +11,7 @@
 	"browsers": {
 		"firefox": "3.6",
 		"safari": "4",
-		"ie": "6 - 8",
+		"ie": "*",
 		"firefox_mob": "3.6"
 	},
 	"dependencies": [

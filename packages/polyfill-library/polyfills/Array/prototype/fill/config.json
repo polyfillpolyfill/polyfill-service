@@ -9,7 +9,7 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "6 - 11",
+		"ie": "*",
 		"safari": "<= 7",
 		"firefox": "< 31",
 		"chrome": "< 45",

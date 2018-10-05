@@ -5,8 +5,10 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"ie": "9 - 12",
-		"ie_mob": "9 - 12",
+		"edge": "<13",
+		"edge_mob": "<13",
+		"ie": "*",
+		"ie_mob": "*",
 		"firefox": "<38",
 		"chrome": "<38",
 		"safari": "<7.1",
