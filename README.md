@@ -16,10 +16,6 @@ Development of Polyfill.io happens on GitHub. Read below to learn how you can ta
 
 Read our [contributing guide][contributing-guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
 
-### Good First Issues
-
-To help you get familiar with our contribution process, we have a list of [good first issues](https://github.com/facebook/react/labels/good%20first%20issue). This is a great place to get started.
-
 ### License
 
 Polyfill.io is [MIT licensed][license].
