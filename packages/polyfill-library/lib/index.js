@@ -211,15 +211,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 	getPolyfillString(options) {
 		options = this.getOptions(options);
 		const ua = new UA(options.uaString);
-		const uaDebugName =
-			ua.getFamily() +
-			"/" +
-			ua.getVersion() +
-			(ua.isUnknown() || !ua.meetsBaseline()
-				? " (unknown/unsupported; using policy `unknown=" +
-				options.unknown +
-				"`)"
-				: "");
 		const lf = options.minify ? "" : "\n";
 		const allWarnText =
 			"Using the `all` alias with polyfill.io is a very bad idea. In a future version of the service, `all` will deliver the same behaviour as `default`, so we recommend using `default` instead.";
@@ -305,10 +296,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 						streamFromString("/* " + explainerComment.join("\n * ") + " */\n\n")
 					);
 
+					if (sortedFeatures.length) {
 					// Outer closure hides private features from global scope
 					output.add(streamFromString("(function(undefined) {" + lf));
 
-					if (sortedFeatures.length) {
 						// Using the graph, stream all the polyfill sources in dependency order
 						for (const featureName of sortedFeatures) {
 							const detect = this.sourceslib
@@ -345,16 +336,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 								);
 							}
 						}
-					} else {
-						if (!options.minify) {
-							output.add(
-								streamFromString(
-									"\n/* No polyfills found for current settings */\n\n"
-								)
-							);
-						}
-					}
-
 					// Invoke the closure, binding `this` to window (in a browser),
 					// self (in a web worker), or global (in Node/IOjs)
 					output.add(
@@ -365,6 +346,15 @@ const PolyfillLibrary = class PolyfillLibrary {
 							lf
 						)
 					);
+					} else {
+						if (!options.minify) {
+							output.add(
+								streamFromString(
+									"\n/* No polyfills found for current settings */\n\n"
+								)
+							);
+						}
+					}
 
 					if ("all" in options.features) {
 						output.add(
