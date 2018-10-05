@@ -135,6 +135,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 						const unknownOverride =
 							options.unknown === "polyfill" && ua.isUnknown();
 
+						if (unknownOverride) {
+							features[featureName].flags.add('gated');
+						}
+
 						return isBrowserMatch || hasAlwaysFlagOverride || unknownOverride
 							? featureName
 							: false;
