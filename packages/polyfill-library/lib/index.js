@@ -129,7 +129,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 						);
 						const unknownOverride =
 							options.unknown === "polyfill" && ua.isUnknown();
-
+						
 						if (unknownOverride) {
 							features[featureName].flags.add('gated');
 						}
@@ -292,8 +292,8 @@ const PolyfillLibrary = class PolyfillLibrary {
 					);
 
 					if (sortedFeatures.length) {
-					// Outer closure hides private features from global scope
-					output.add(streamFromString("(function(undefined) {" + lf));
+						// Outer closure hides private features from global scope
+						output.add(streamFromString("(function(undefined) {" + lf));
 
 						// Using the graph, stream all the polyfill sources in dependency order
 						for (const featureName of sortedFeatures) {
@@ -331,16 +331,16 @@ const PolyfillLibrary = class PolyfillLibrary {
 								);
 							}
 						}
-					// Invoke the closure, binding `this` to window (in a browser),
-					// self (in a web worker), or global (in Node/IOjs)
-					output.add(
-						streamFromString(
-							"})" +
-							lf +
-							".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
-							lf
-						)
-					);
+						// Invoke the closure, binding `this` to window (in a browser),
+						// self (in a web worker), or global (in Node/IOjs)
+						output.add(
+							streamFromString(
+								"})" +
+								lf +
+								".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
+								lf
+							)
+						);
 					} else {
 						if (!options.minify) {
 							output.add(
