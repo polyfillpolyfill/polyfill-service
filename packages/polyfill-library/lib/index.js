@@ -270,19 +270,9 @@ const PolyfillLibrary = class PolyfillLibrary {
 								: "DEVELOPMENT MODE - for live use set NODE_ENV to 'production'"),
 							"For detailed credits and licence information see https://github.com/financial-times/polyfill-service.",
 							"",
-							"UA detected: " + uaDebugName,
 							"Features requested: " + Object.keys(options.features),
 							""
 						);
-						if (!ua.meetsBaseline() && ua.getBaseline()) {
-							explainerComment.push(
-								"Version range for polyfill support in " +
-								ua.getFamily() +
-								" is: " +
-								ua.getBaseline(),
-								""
-							);
-						}
 						explainerComment.push(
 							...sortedFeatures
 							.filter(
