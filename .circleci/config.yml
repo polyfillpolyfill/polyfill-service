@@ -106,6 +106,9 @@ commands:
   deploy_to_fastly:
     description: "Deploy to Fastly"
     parameters:
+      production:
+        type: boolean
+        default: false
       fastly_id:
         type: string
       existing_service:
@@ -122,6 +125,7 @@ commands:
               rm -f terraform.tfstate
               terraform init fastly/terraform/
               <<# parameters.existing_service >> terraform import -config="fastly/terraform" fastly_service_v1.app << parameters.fastly_id >> <</ parameters.existing_service >>
+              <<# parameters.production >> mv fastly/terraform/prod_domains.tf fastly/terraform/domains_override.tf <</ parameters.production >>
               terraform apply --auto-approve -var name=<< parameters.fastly_name >> -var domain=<< parameters.fastly_domain >> fastly/terraform/
               sleep 60
   deploy_to_aws:
@@ -226,6 +230,9 @@ commands:
       package_us:
         type: string
         default: "serverless-artifacts-us-west-1"
+      production:
+        type: boolean
+        default: false
     steps:
       - install_dependencies_circle
       - run: sudo ~/project/.circleci/install_terraform.sh
@@ -259,6 +266,7 @@ commands:
           command: "cd ~/project/packages/polyfill-service && $(npm bin)/mustache -p fastly/vcl/backend.mustache fastly/terraform/variables.json fastly/vcl/main.vcl.mustache > fastly/vcl/main.vcl"
           name: "Generate Fastly main.vcl file"
       - deploy_to_fastly:
+          production: << parameters.production >>
           fastly_id: << parameters.fastly_id >>
           existing_service: << parameters.existing_service >>
           fastly_name: << parameters.fastly_name >>
@@ -517,6 +525,7 @@ jobs:
     <<: *circle_node_base
     steps:
       - deploy_service:
+          production: true
           package_eu: serverless-artifacts-eu-west-1-prod
           package_us: serverless-artifacts-us-west-1-prod
           domain: "cdn"

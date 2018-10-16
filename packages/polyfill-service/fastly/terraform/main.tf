@@ -4,7 +4,7 @@ provider "fastly" {
 
 variable "domain" {
   type    = "string"
-  default = "origami-polyfill-service.ft.com"
+  default = "polyfill.io"
 }
 
 variable "name" {
