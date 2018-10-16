@@ -488,7 +488,7 @@ jobs:
           package_eu: serverless-artifacts-eu-west-1-staging
           package_us: serverless-artifacts-us-west-1-staging
           domain: "qa"
-          domain: "polyfill.io"
+          zone: "polyfill.io"
           stage: "staging"
           bundle_bucket: "origami-polyfill-service-staging-bundles"
           website_bucket: "origami-polyfill-service-staging-website"
