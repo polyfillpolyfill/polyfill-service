@@ -157,8 +157,11 @@ commands:
     parameters:
       domain:
         type: string
+      zone:
+        type: string
+        default: "ft.com"
     steps:
-      - run: SUBDOMAIN=<< parameters.domain >> bash ~/project/.circleci/create_service_domain_post.sh || SUBDOMAIN=<< parameters.domain >> bash ~/project/.circleci/create_service_domain_put.sh
+      - run: SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_post.sh || SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_put.sh
   package_service:
     description: "Package application"
     parameters:
@@ -194,6 +197,9 @@ commands:
   deploy_service:
     description: "Deploy to the whole stack"
     parameters:
+      zone:
+        type: string
+        default: "ft.com"
       domain:
         type: string
       stage:
@@ -224,6 +230,7 @@ commands:
       - install_dependencies_circle
       - run: sudo ~/project/.circleci/install_terraform.sh
       - create_domain:
+          zone: << parameters.zone >>
           domain: << parameters.domain >>
       - run: cd ~/project/packages/polyfill-service && NODE_ENV=production npm run build
       - attach_workspace:
@@ -456,7 +463,8 @@ jobs:
       - deploy_service:
           package_eu: serverless-artifacts-eu-west-1-staging
           package_us: serverless-artifacts-us-west-1-staging
-          domain: "origami-polyfill-staging.in"
+          domain: "qa"
+          domain: "polyfill.io"
           stage: "staging"
           bundle_bucket: "origami-polyfill-service-staging-bundles"
           website_bucket: "origami-polyfill-service-staging-website"
@@ -464,20 +472,20 @@ jobs:
           api_name: "origami-polyfill-service-staging"
           fastly_id: $FASTLY_SERVICE_ID_TEST
           existing_service: true
-          fastly_name: "origami-polyfill-staging.in.ft.com"
-          fastly_domain: "origami-polyfill-staging.in.ft.com"
+          fastly_name: "qa.polyfill.io"
+          fastly_domain: "qa.polyfill.io"
   integration_tests_service_staging:
     <<: *circle_node_base
     steps:
       - install_dependencies_circle
       - integration_tests_service:
-          host: "https://origami-polyfill-staging.in.ft.com"
+          host: "https://qa.polyfill.io"
   polyfill_tests_staging:
     <<: *circle_node_base
     steps:
       - install_dependencies_circle
       - polyfill_tests:
-          host: "https://origami-polyfill-staging.in.ft.com"
+          host: "https://qa.polyfill.io"
   publish_library_to_npm:
     <<: *circle_node_base
     steps:
@@ -511,7 +519,8 @@ jobs:
       - deploy_service:
           package_eu: serverless-artifacts-eu-west-1-prod
           package_us: serverless-artifacts-us-west-1-prod
-          domain: "origami-polyfill.in"
+          domain: "cdn"
+          zone: "polyfill.io"
           stage: "production"
           bundle_bucket: "origami-polyfill-service-production-bundles"
           website_bucket: "origami-polyfill-service-production-website"
@@ -519,8 +528,8 @@ jobs:
           api_name: "origami-polyfill-service-production"
           fastly_id: $FASTLY_SERVICE_ID_PROD
           existing_service: true
-          fastly_name: "origami-polyfill.in.ft.com"
-          fastly_domain: "origami-polyfill.in.ft.com"
+          fastly_name: "cdn.polyfill.io"
+          fastly_domain: "cdn.polyfill.io"
 
 workflows:
   test:

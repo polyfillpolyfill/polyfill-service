@@ -1,9 +1,8 @@
 #!/bin/bash
 
-CIRCLE_BRANCH=$CIRCLE_BRANCH
 cat << EOF > dns-post.json
 {
-	"zone": "ft.com",
+	"zone": "$ZONE",
 	"name": "$SUBDOMAIN",
 	"rdata": "o2.shared.global.fastly.net",
 	"ttl": "21600",

@@ -1,9 +1,8 @@
 #!/bin/bash
 
-CIRCLE_BRANCH=$CIRCLE_BRANCH
 cat << EOF > dns.json
 {
-  "zone": "ft.com",
+  "zone": "$ZONE",
 	"name": "$SUBDOMAIN",
   "rdata": "o2.shared.global.fastly.net",
   "emailAddress": "origami.support@ft.com"
