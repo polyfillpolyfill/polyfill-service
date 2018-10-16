@@ -1,5 +1,6 @@
 {
 	"aliases": [
+		"es2018"
 	],
 	"browsers": {
 		"android": ">4.4",
