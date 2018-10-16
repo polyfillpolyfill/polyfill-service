@@ -33,6 +33,11 @@ commands:
   teardown_service:
     description: "Remove whole stack if CI failed"
     parameters:
+      zone:
+        type: string
+        default: "ft.com"
+      record:
+        type: string
       when:
         type: enum
         enum: ["on_success", "on_fail", "always"]
@@ -62,7 +67,7 @@ commands:
           name: "Teardown AWS environment"
           when: << parameters.when >>
       - run:
-          command: SUBDOMAIN=<< parameters.domain >> bash ~/project/.circleci/delete_service_domain.sh
+          command: RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/delete_service_domain.sh
           when: << parameters.when >>
   install_dependencies_circle:
     description: "Install dependencies for circleci/node image"
@@ -159,13 +164,15 @@ commands:
   create_domain:
     description: "Create domain"
     parameters:
+      record:
+        type: string
       domain:
         type: string
       zone:
         type: string
         default: "ft.com"
     steps:
-      - run: SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_post.sh || SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_put.sh
+      - run: RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_post.sh || RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_put.sh
   package_service:
     description: "Package application"
     parameters:
@@ -204,6 +211,8 @@ commands:
       zone:
         type: string
         default: "ft.com"
+      record:
+        type: string
       domain:
         type: string
       stage:
@@ -239,6 +248,7 @@ commands:
       - create_domain:
           zone: << parameters.zone >>
           domain: << parameters.domain >>
+          record: << parameters.record >>
       - run: cd ~/project/packages/polyfill-service && NODE_ENV=production npm run build
       - attach_workspace:
           at: ./packages/polyfill-service/
@@ -385,6 +395,7 @@ jobs:
     <<: *circle_node_base
     steps:
       - deploy_service:
+          record: "o2.shared.global.fastly.net"
           domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
           stage: "dev-${CIRCLE_SHA1:0:22}"
           bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
@@ -403,6 +414,7 @@ jobs:
           stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
+          record: "o2.shared.global.fastly.net"
   integration_tests_service_temporary:
     <<: *circle_node_base
     steps:
@@ -417,6 +429,7 @@ jobs:
           stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
+          record: "o2.shared.global.fastly.net"
   polyfill_tests_temporary:
     <<: *circle_node_base
     steps:
@@ -431,6 +444,7 @@ jobs:
           stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
+          record: "o2.shared.global.fastly.net"
   remove_service_temporary:
     <<: *circle_node_base
     steps:
@@ -443,6 +457,7 @@ jobs:
           stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
           domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
+          record: "o2.shared.global.fastly.net"
   package_service_eu_west_1_staging:
     <<: *lambda_node_base
     steps:
@@ -469,6 +484,7 @@ jobs:
     <<: *circle_node_base
     steps:
       - deploy_service:
+          record: "dualstack.f3.shared.global.fastly.net"
           package_eu: serverless-artifacts-eu-west-1-staging
           package_us: serverless-artifacts-us-west-1-staging
           domain: "qa"
@@ -525,6 +541,7 @@ jobs:
     <<: *circle_node_base
     steps:
       - deploy_service:
+          record: "dualstack.f3.shared.global.fastly.net"
           production: true
           package_eu: serverless-artifacts-eu-west-1-prod
           package_us: serverless-artifacts-us-west-1-prod

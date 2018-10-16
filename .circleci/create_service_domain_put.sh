@@ -4,8 +4,8 @@ cat << EOF > dns-put.json
 {
 	"zone": "$ZONE",
 	"name": "$SUBDOMAIN",
-	"oldRdata": "o2.shared.global.fastly.net",
-	"newRdata": "o2.shared.global.fastly.net",
+	"oldRdata": "$RECORD",
+	"newRdata": "$RECORD",
 	"ttl": "21600",
 	"emailAddress": "origami.support@ft.com"
 }

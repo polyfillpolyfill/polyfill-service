@@ -4,7 +4,7 @@ cat << EOF > dns-post.json
 {
 	"zone": "$ZONE",
 	"name": "$SUBDOMAIN",
-	"rdata": "o2.shared.global.fastly.net",
+	"rdata": "$RECORD",
 	"ttl": "21600",
 	"emailAddress": "origami.support@ft.com"
 }
