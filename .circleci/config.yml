@@ -494,7 +494,7 @@ jobs:
           website_bucket: "origami-polyfill-service-staging-website"
           stack_name: "origami-polyfill-service-staging"
           api_name: "origami-polyfill-service-staging"
-          fastly_id: $FASTLY_SERVICE_ID_TEST
+          fastly_id: $FASTLY_SERVICE_ID_STAGING
           existing_service: true
           fastly_name: "qa.polyfill.io"
           fastly_domain: "qa.polyfill.io"

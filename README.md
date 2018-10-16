@@ -6,7 +6,9 @@ Polyfill.io reads the User-Agent header of each request and returns polyfills th
 
 ## Documentation
 
-You can find the documentation [on the website][production-url].
+Polyfill.io documentation is [on the website][production-url].
+Polyfill-library documentation is [located here][polyfill-library].
+
 
 ## Contributing
 
@@ -27,5 +29,6 @@ Polyfill.io is [MIT licensed][license].
 [coveralls-badge]: https://coveralls.io/repos/github/Financial-Times/polyfill-service-serverless/badge.svg?branch=master&t=j7vzBH
 [license]: ./LICENSE.md
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[polyfill-library]: ./packages/polyfill-library
 [production-url]: https://polyfill.io
 [pull-requests-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
