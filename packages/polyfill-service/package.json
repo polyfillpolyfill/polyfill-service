@@ -33,7 +33,8 @@
     "test-browser-local": "node tasks/node/spawn service remote-test",
     "test-browser-ci": "node tasks/node/spawn remote-test",
     "test-node-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
-    "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail"
+    "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail",
+    "update-browserstack-browsers": "node ./tasks/node/updatebrowserstacklist.js"
   },
   "license": "MIT",
   "engines": {
