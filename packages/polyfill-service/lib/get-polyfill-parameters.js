@@ -15,7 +15,7 @@ function featuresfromQueryParam(features, flags) {
 	}, {});
 }
 
-const latestVersion = require("../../polyfill-library/package.json").version;
+const latestVersion = require("polyfill-library/package.json").version;
 
 module.exports = function getPolyfillParameters(event = {}) {
 	const query = event.queryStringParameters || {};

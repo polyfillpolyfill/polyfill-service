@@ -191,7 +191,7 @@ describe("generative tests", async function() {
 		const minify = [true, false][secureRandom(2)];
 		const rum = [true, false];
 		const unknown = ["polyfill", "ignore"];
-		const version = [require("../../../../polyfill-library/package.json").version];
+		const version = [require("polyfill-library/package.json").version];
 		const callback = [false, "Boolean"];
 		// TODO: Expose this from the polyfill-library package
 		const uaVersion = Array(70).fill();

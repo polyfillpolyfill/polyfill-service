@@ -39,7 +39,7 @@ describe("create-polyfill-library", function() {
 	});
 
 	it("when called with latest version of the library, returns a default PolyfillLibrary instance with no arguments", async () => {
-		const result = await createPolyfillLibrary(require("../../../../polyfill-library/package.json").version);
+		const result = await createPolyfillLibrary(require("polyfill-library/package.json").version);
 		proclaim.calledWithNew(PolyfillLibrary);
 		proclaim.calledOnce(PolyfillLibrary);
 		proclaim.deepStrictEqual(PolyfillLibrary.firstCall.args, []);
