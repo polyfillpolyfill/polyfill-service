@@ -24,7 +24,6 @@
   "scripts": {
     "build": "gulp build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "dev": "(serverless offline start & gulp)",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
     "lint": "eslint .",
     "postinstall": "bower install --allow-root",
