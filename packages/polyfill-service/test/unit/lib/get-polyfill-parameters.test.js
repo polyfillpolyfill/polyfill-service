@@ -59,7 +59,7 @@ describe("get-polyfill-parameters", function() {
 				stream: false,
 				uaString: "",
 				unknown: "polyfill",
-				version: "latest"
+				version: require("../../../../polyfill-library/package.json").version
 			})
 		);
 	});
@@ -135,7 +135,7 @@ describe("get-polyfill-parameters", function() {
 					stream: false,
 					uaString: "",
 					unknown: "ignore",
-					version: "latest"
+					version: require("../../../../polyfill-library/package.json").version
 				})
 			);
 		});

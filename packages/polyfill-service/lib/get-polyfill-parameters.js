@@ -15,11 +15,13 @@ function featuresfromQueryParam(features, flags) {
 	}, {});
 }
 
+const latestVersion = require("../../polyfill-library/package.json").version;
+
 module.exports = function getPolyfillParameters(event = {}) {
 	const query = event.queryStringParameters || {};
 	const headers = event.headers || {};
 	const path = event.path || "";
-	const { excludes = "", features = "default", rum, unknown = "polyfill", version = "latest", callback } = query;
+	const { excludes = "", features = "default", rum, unknown = "polyfill", version = latestVersion, callback } = query;
 	const uaString = query.ua || headers["User-Agent"] || "";
 	const compression = query.compression !== "identity" ? query.compression : undefined;
 

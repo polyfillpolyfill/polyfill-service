@@ -38,15 +38,15 @@ describe("create-polyfill-library", function() {
 		proclaim.isFunction(createPolyfillLibrary);
 	});
 
-	it("when called with `latest`, returns a default PolyfillLibrary instance with no arguments", async () => {
-		const result = await createPolyfillLibrary("latest");
+	it("when called with latest version of the library, returns a default PolyfillLibrary instance with no arguments", async () => {
+		const result = await createPolyfillLibrary(require("../../../../polyfill-library/package.json").version);
 		proclaim.calledWithNew(PolyfillLibrary);
 		proclaim.calledOnce(PolyfillLibrary);
 		proclaim.deepStrictEqual(PolyfillLibrary.firstCall.args, []);
 		proclaim.isInstanceOf(result, PolyfillLibrary);
 	});
 
-	it("when called with with a version other than `latest`, returns a PolyfillLibrary instance which is configured to use that version of polyfills", async () => {
+	it("when called with with a version other than the latest version, returns a PolyfillLibrary instance which is configured to use that version of polyfills", async () => {
 		const result = await createPolyfillLibrary("3.25.1");
 		proclaim.calledWithNew(PolyfillLibrary);
 		proclaim.calledOnce(PolyfillLibrary);

@@ -8,9 +8,10 @@ const denodeify = require("denodeify");
 const readFile = denodeify(fs.readFile);
 const brotliDecompress = denodeify(require("iltorb").decompress);
 const PolyfillLibrary = require("polyfill-library");
+const latestVersion = require("../../polyfill-library/package.json").version;
 
 module.exports = async function createPolyfillLibrary(version) {
-	if (version === "latest") {
+	if (version === latestVersion) {
 		return new PolyfillLibrary();
 	}
 
