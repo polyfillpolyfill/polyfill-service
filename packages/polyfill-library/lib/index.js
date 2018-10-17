@@ -50,7 +50,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 	 * @param {Array<String>} [opts.excludes=[]] - Which features should be excluded from the returned object.
 	 * @param {String} [opts.uaString=''] - The user-agent string to check each feature against.
 	 * @param {Boolean} [opts.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data
-	 * @return {Object} options - opts merged with the defaults opts values.
+	 * @return {Object} options - opts merged with the defaults option values.
 	 */
 	getOptions(opts = {}) {
 		const hasProperty = (prop, obj) => Object.prototype.hasOwnProperty.call(obj, prop);
