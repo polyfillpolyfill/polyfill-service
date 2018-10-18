@@ -303,7 +303,6 @@ references:
       command: |
           cd ~/project/packages/polyfill-library/
           echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/project/.npmrc
-          npm version $CIRCLE_TAG
           npm publish --dry-run
 
 jobs:
