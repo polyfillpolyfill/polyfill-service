@@ -6,10 +6,10 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "<12",
+		"ie": "*",
 		"safari": "<9",
 		"firefox": "<36",
-		"chrome": "<38",
+		"chrome": "<45",
 		"android": "<5.1",
 		"firefox_mob": "<29",
 		"ie_mob": "*",

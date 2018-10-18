@@ -4,7 +4,9 @@
 		"es2015"
 	],
 	"browsers": {
-		"ie": "<13",
+		"edge": "<13",
+		"edge_mob": "<13",
+		"ie": "*",
 		"ie_mob": "*",
 		"chrome": "<34",
 		"ios_chr": "*",

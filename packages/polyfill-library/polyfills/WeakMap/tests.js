@@ -6,7 +6,7 @@ it('is a function', function () {
 });
 
 it('has correct argument length', function () {
-	proclaim.strictEqual(WeakMap.length, 0);
+	proclaim.arity(WeakMap, 0);
 });
 
 it('has correct name', function() {

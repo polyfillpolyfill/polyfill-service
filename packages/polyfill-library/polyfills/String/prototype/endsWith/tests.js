@@ -63,7 +63,7 @@ it('works as expected', function () {
 	}
 	O = {};
 	proclaim.isTrue('[object Object]'.endsWith(O));
-	if ('Symbol' in window && 'iterator' in Symbol) {
+	if ('Symbol' in window && 'match' in Symbol) {
 		O[typeof Symbol != 'undefined' && Symbol !== null ? Symbol.match : undefined] = true;
 		proclaim.throws(function () {
 			'[object Object]'.endsWith(O);

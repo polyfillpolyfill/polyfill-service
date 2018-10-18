@@ -7,6 +7,8 @@
 		"chrome": ">31 <63",
 		"firefox": ">28",
 		"ios_saf": ">7.1",
+		"edge": "*",
+		"edge_mob": "*",
 		"ie": ">12",
 		"ie_mob": "*",
 		"opera": ">19",

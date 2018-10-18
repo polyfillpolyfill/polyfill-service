@@ -1,0 +1,32 @@
+{{#> layouts/base}}
+  {{#*inline "sidebar"}}
+    <ol class="o-layout__navigation" role="navigation">
+      <li>
+        <a href="#supported-browsers">Supported Browsers</a>
+      </li>
+    </ol>
+  {{/inline}}
+  {{#*inline "main"}}
+    <h2 id="supported-browsers">Supported Browsers</h2>
+    <div>
+      <p>We support the following browsers:</p>
+      <table class="o-table o-table o-table--row-stripes" data-o-component="o-table">
+        <thead>
+          <tr>
+            <th>Browser name</th>
+            <th>Minimum supported version</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each supportedBrowsers}}
+          <tr>
+            <td>{{browser}}</td>
+            <td>{{version}}</td>
+          </tr>
+			  {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{/inline}}
+
+{{/layouts/base}}

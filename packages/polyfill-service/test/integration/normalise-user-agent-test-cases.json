@@ -1,0 +1,5069 @@
+[{
+		"input": "Mozilla/5.0 (Windows; U; en-US) AppleWebKit/531.9 (KHTML, like Gecko) AdobeAIR/2.5.1",
+		"output": "AdobeAIR/2.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.1.0-80) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true",
+		"output": "Amazon Silk/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; en-us; KFTT Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Silk/2.0 Safari/535.19 Silk-Accelerated=false",
+		"output": "Amazon Silk/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; en-us; KFOT Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Silk/2.1 Safari/535.19 Silk-Accelerated=true",
+		"output": "Amazon Silk/2.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; en-us; KFTT Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Silk/2.2 Safari/535.19 Silk-Accelerated=true",
+		"output": "Amazon Silk/2.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.0.3; en-gb; KFTT Build/IML74K) AppleWebKit/537.36 (KHTML, like Gecko) Silk/3.25 like Chrome/34.0.1847.137 Mobile Safari/537.36",
+		"output": "Amazon Silk/3.25.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.2.2; en-gb; HTC Desire Build/FRG83G) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+		"output": "Android/2.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.3.3; en-fr; HTC/WildfireS/1.33.163.2 Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+		"output": "Android/2.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; Kindle Fire Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+		"output": "Android/2.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux;U;Android 2.3.5;en-us;TECNO T3 Build/master) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+		"output": "Android/2.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 3.0.1; en-us; GT-P7510 Build/HRI83) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13",
+		"output": "Android/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; KFTT Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30",
+		"output": "Android/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; KFOT Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30",
+		"output": "Android/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; Amaze_4G Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+		"output": "Android/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; PJ83100/2.20.502.7 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.0",
+		"output": "Android/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 6.1; zh_CN) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0 baidubrowser/1.x Safari/534.7",
+		"output": "Baidu Browser/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; baidubrowser 1.x)",
+		"output": "Baidu Browser/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.15 Safari/535.11 QQBrowser/6.13.13719.201",
+		"output": "QQ Browser/6.13.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0; QQBrowser/7.6.21433.400)",
+		"output": "QQ Browser/7.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.1.1; zh-cn; MI 2S Build/JRO03L) AppleWebKit/537.36 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.0 Mobile Safari/537.36",
+		"output": "QQ Browser Mobile/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone 5; CPU iPhone OS 7_0_6 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/6.0 MQQBrowser/5.0.5 Mobile/11B651 Safari/8536.25",
+		"output": "QQ Browser Mobile/5.0.0"
+	},
+	{
+		"input": "MQQBrowser/371 Mozilla/5.0 (iPhone 4S; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 Safari/7534.48.3",
+		"output": "QQ Browser Mobile/371.0.0"
+	},
+	{
+		"input": "MQQBrowser/1.0/Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; NOKIA; RM-910apacprc200)",
+		"output": "QQ Browser Mobile/1.0.0"
+	},
+	{
+		"input": "QQBrowser (Linux; U; zh-cn; HTC Hero Build/FRF91)",
+		"output": "QQ Browser/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (BB10; Touch) AppleWebKit/537.3+ (KHTML, like Gecko) Version/10.0.9.388 Mobile Safari/537.3+",
+		"output": "bb/10.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (PlayBook; U; RIM Tablet OS 1.0.0; en-US) AppleWebKit/534.8+ (KHTML, like Gecko) Version/0.0.1 Safari/534.8+",
+		"output": "bb/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; en-GB) AppleWebKit/534.1+ (KHTML, like Gecko) Version/6.0.0.141 Mobile Safari/534.1+",
+		"output": "bb/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; en-US) AppleWebKit/534.1  (KHTML, like Gecko) Version/6.0.0.91 Mobile Safari/534.1 ",
+		"output": "bb/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; BOLT/2.101) AppleWebKit/530  (KHTML, like Gecko) Version/4.0 Safari/530.17",
+		"output": "BOLT/2.101.0"
+	},
+	{
+		"input": "Bunjalloo/0.7.6(Nintendo DS;U;en)",
+		"output": "Bunjalloo/0.7.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; chromeframe; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729)",
+		"output": "IE/8.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; chromeframe; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; Sleipnir 2.8.5)3.0.30729)",
+		"output": "Sleipnir/2.8.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Windows NT 6.1; Catchpoint) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36",
+		"output": "Chrome/43.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Windows NT 6.1; Catchpoint bot) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36",
+		"output": "Catchpoint bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; chromeframe/11.0.660.0)",
+		"output": "Chrome/11.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.1.2; Nexus 5X Build/N2G47W; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36",
+		"output": "Chrome/58.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.4.4; SHV31 Build/S2280) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36",
+		"output": "Chrome/33.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.2; Galaxy Nexus Build/JOP40C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
+		"output": "Chrome/18.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.1.1; SPH-L710 Build/JRO03L) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
+		"output": "Chrome/18.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.4.2; Nexus 5 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.122 Mobile Safari/537.36",
+		"output": "Chrome/35.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Ubuntu/10.10 Chromium/10.0.648.133 Chrome/10.0.648.133 Safari/534.16",
+		"output": "chrome/10.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Comodo_Dragon/4.1.1.11 Chrome/4.1.249.1042 Safari/532.5",
+		"output": "Comodo Dragon/4.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.16) Gecko/20110302 Conkeror/0.9.2 (Debian-0.9.2+git100804-1)",
+		"output": "Conkeror/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:2.0) Gecko/20110408 conkeror/0.9.3",
+		"output": "Conkeror/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500/S8500XXJEE; U; Bada/1.0; nl-nl) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WVGA SMM-MMS/1.2.0 OPN-B",
+		"output": "Dolfin/2.0.0"
+	},
+	{
+		"input": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+		"output": "FacebookBot/1.1.0"
+	},
+	{
+		"input": "LinkedInBot/1.0 (compatible; Mozilla/5.0; Jakarta Commons-HttpClient/3.1 +http://www.linkedin.com)",
+		"output": "LinkedInBot/1.0.0"
+	},
+	{
+		"input": "Google (+https://developers.google.com/+/web/snippet/)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Firefox/11.0 (via ggpht.com GoogleImageProxy)",
+		"output": "GmailImageProxy/0.0.0"
+	},
+	{
+		"input": "Twitterbot/1.0",
+		"output": "TwitterBot/1.0"
+	},
+	{
+		"input": "WhatsApp/2.17.70 W",
+		"output": "WhatsApp/2.17.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.1pre) Gecko/20090717 Ubuntu/9.04 (jaunty) Shiretoko/3.5.1pre",
+		"output": "Firefox (Shiretoko)/3.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux i686 (x86_64); rv:2.0b4) Gecko/20100818 Firefox/4.0b4",
+		"output": "firefox/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:2.0b8pre) Gecko/20101031 Firefox-4.0/4.0b8pre",
+		"output": "firefox/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; SunOS i86pc; en-US; rv:1.8.0.5) Gecko/20060728 Firefox/1.5.0.5",
+		"output": "Firefox/1.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.12) Gecko/20101027 Ubuntu/10.04 (lucid) Firefox/3.6.12",
+		"output": "Firefox/3.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Mobile; rv:15.0) Gecko/15.0 Firefox/15.0",
+		"output": "firefox_mob/15.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) FireWeb/1.0.0.0",
+		"output": "FireWeb/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+		"output": "Chrome/41.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (DTV) AppleWebKit/531.2+ (KHTML, like Gecko) Espial/6.1.6 AQUOSBrowser/2.0 (US01DTV;V;0001;0001)",
+		"output": "Espial/6.1.0"
+	},
+	{
+		"input": "iBrowser/Mini2.8 (Nokia5130c-2/07.97)",
+		"output": "iBrowser Mini/2.8.0"
+	},
+	{
+		"input": "ICE Browser/5.05 (Java 1.4.0; Windows 2000 5.0 x86)",
+		"output": "ICE Browser/5.05.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:2.0) Gecko/20110417 IceCat/4.0",
+		"output": "IceCat/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; XBLWP7; ZuneWP7)",
+		"output": "ie/9.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; SAMSUNG; SGH-i917)",
+		"output": "ie_mob/7.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; SAMSUNG; SGH-i917)",
+		"output": "ie_mob/9.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 800)",
+		"output": "ie_mob/9.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 920)",
+		"output": "ie_mob/10.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6; .NET CLR 2.0.50727; .NET CLR 1.1.4322)",
+		"output": "IE/8.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 WebTV/2.6 (compatible; MSIE 4.0)",
+		"output": "IE/4.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.17; Mac_PowerPC)",
+		"output": "IE/5.17.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/6.0)",
+		"output": "ie/10.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6; chromeframe; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)",
+		"output": "IE/8.0.0"
+	},
+	{
+		"input": "Java/1.6.0_43",
+		"output": "Java/6.0.0"
+	},
+	{
+		"input": "Java/1.7.0_71",
+		"output": "Java/7.0.0"
+	},
+	{
+		"input": "Java/1.8.0_25",
+		"output": "Java/8.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; en-US) AppleWebKit/528.5+ (KHTML, like Gecko, Safari/528.5+) Version/4.0 Kindle/3.0 (screen 600x800; rotate)",
+		"output": "Kindle/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux; de-DE) AppleWebKit/527  (KHTML, like Gecko, Safari/419.3) konqueror/4.3.1",
+		"output": "Konqueror/4.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.17) Gecko/20110414 Lightning/1.0b3pre Thunderbird/3.1.10",
+		"output": "Lightning/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux x86_64) AppleWebKit/534.26+ WebKitGTK+/1.4.1 luakit/f3a2dbe",
+		"output": "LuaKit/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.47 Safari/535.11 MRCHROME",
+		"output": "Mail.ru Chromium Browser/17.0.0"
+	},
+	{
+		"input": "Midori/0.2 (X11; Linux; U; en-us) WebKit/531.2 ",
+		"output": "Midori/0.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10",
+		"output": "ios_saf/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari/6533.18.5",
+		"output": "ios_saf/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPod touch; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13F69",
+		"output": "ios_saf/9.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D257",
+		"output": "ios_saf/7.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.3a1) Gecko/20100208 MozillaDeveloperPreview/3.7a1 (.NET CLR 3.5.30729)",
+		"output": "Firefox/3.7.0"
+	},
+	{
+		"input": "NCSA_Mosaic/2.0 (Windows 3.1)",
+		"output": "NCSA Mosaic/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (PLAYSTATION 3; 3.55)",
+		"output": "NetFront/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (PLAYSTATION 3 4.31) AppleWebKit/531.22.8 (KHTML, like Gecko)",
+		"output": "NetFront NX/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (PSP (PlayStation Portable); 2.00)",
+		"output": "NetFront/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (PlayStation Vita 1.81) AppleWebKit/531.22.8 (KHTML, like Gecko) Silk/3.2",
+		"output": "NetFront NX/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; Linux 2.6.10) NetFront/3.3 Kindle/1.0 (screen 600x800)",
+		"output": "NetFront/3.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Nintendo 3DS; U; ; en) Version/1.7498.US",
+		"output": "NetFront NX/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Nintendo WiiU) AppleWebKit/534.52 (KHTML, like Gecko) NX/2.1.0.8.21 NintendoBrowser/1.0.0.7494.US",
+		"output": "NetFront NX/2.1.0"
+	},
+	{
+		"input": "HUAWEI-M750/001.00 ACS-NetFront/3.2",
+		"output": "NetFront/3.2.0"
+	},
+	{
+		"input": "Mozilla/4.0 (BREW 3.1.5; U; en-us; Sanyo; NetFront/3.5.1/AMB) Boost SCP3810",
+		"output": "NetFront/3.5.0"
+	},
+	{
+		"input": "NetFront/3.5.1 (BREW 3.1.5; U; en-us; LG; NetFront/3.5.1/WAP) Sprint LN240 MMP/2.0 Profile/MIDP-2.1 Configuration/CLDC-1.1",
+		"output": "NetFront/3.5.0"
+	},
+	{
+		"input": "Mozilla/4.0 (Brew MP 1.0.2; U; en-us; Sanyo; NetFront/3.5.1/AMB) Sprint E4100",
+		"output": "NetFront/3.5.0"
+	},
+	{
+		"input": "PantechP6010/JNUS11072011 BMP/1.0.2 DeviceId/141020 NetFront/4.1 OMC/1.5.3 Profile/MIDP-2.1 Configuration/CLDC-1.1",
+		"output": "NetFront/4.1.0"
+	},
+	{
+		"input": "NetFront/4.2 (BMP 1.0.4; U; en-us; LG; NetFront/4.2/AMB) Boost LG272 MMP/2.0 Profile/MIDP-2.1 Configuration/CLDC-1.1",
+		"output": "NetFront/4.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (SymbianOS/9.4; U; Series60/5.0 Nokia5800d-1/21.0.025; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413",
+		"output": "Nokia Browser/7.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/013.016; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/525 (KHTML, like Gecko) Version/3.0 BrowserNG/7.2.8.10 3gpp-gba",
+		"output": "Nokia Browser/7.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba",
+		"output": "Nokia Browser/7.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Symbian/3; Series60/5.3 Nokia701/111.020.0307; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.4.1.14 Mobile Safari/533.4 3gpp-gba",
+		"output": "Nokia Browser/7.4.0"
+	},
+	{
+		"input": "Mozilla/5.0 (MeeGo; NokiaN9) AppleWebKit/534.13 (KHTML, like Gecko) NokiaBrowser/8.5.0 Mobile Safari/534.13",
+		"output": "Nokia Browser/8.5.0"
+	},
+	{
+		"input": "ALCATEL-OT510A/382 ObigoInternetBrowser/Q05A",
+		"output": "Obigo/0.0.0"
+	},
+	{
+		"input": "Huawei/1.0/0HuaweiG2800/WAP2.0/Obigo-Browser/Q03C MMS/Obigo-MMS/1.2",
+		"output": "Obigo/0.0.0"
+	},
+	{
+		"input": "PantechP7040/JLUS04042011 Browser/Obigo/Q05A OMC/1.5.3 Profile/MIDP-2.1 Configuration/CLDC-1.1",
+		"output": "Obigo/05.0.0"
+	},
+	{
+		"input": "OneBrowser/3.0 (SAMSUNG-GT-S5253/S5253DDKJ2)",
+		"output": "ONE Browser/3.0.0"
+	},
+	{
+		"input": "OneBrowser/3.0 (NokiaC2-00/03.42)",
+		"output": "ONE Browser/3.0.0"
+	},
+	{
+		"input": "SAMSUNG-C3053/1.0 Openwave/6.2.3 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/6.2.3.3.c.1.101 (GUI) MMP/2.0",
+		"output": "Openwave/6.2.0"
+	},
+	{
+		"input": "Opera/9.80 (VRE; Opera Mini/4.2/28.2794; U; en) Presto/2.8.119 Version/11.10",
+		"output": "op_mini/4.2.0"
+	},
+	{
+		"input": "Opera/9.80 (BREW; Opera Mini/5.1.191/27.2202; U; en) Presto/2.8.119 240X400 LG VN271",
+		"output": "op_mini/5.1.0"
+	},
+	{
+		"input": "Opera/9.80 (Series 60; Opera Mini/6.24455/25.677; U; fr) Presto/2.5.25 Version/10.54",
+		"output": "op_mini/6.24455.0"
+	},
+	{
+		"input": "Opera/9.80 (BlackBerry; Opera Mini/7.0.31437/28.3030; U; en) Presto/2.8.119 Version/11.10",
+		"output": "op_mini/7.0.0"
+	},
+	{
+		"input": "Opera/9.80 (J2ME/MIDP; Opera Mini/9.80 (S60; SymbOS; Opera Mobi/23.348; U; en) Presto/2.5.25 Version/10.54",
+		"output": "op_mini/9.80.0"
+	},
+	{
+		"input": "Opera/9.80 (J2ME/MIDP; Opera Mini/9.80 (J2ME/22.478; U; en) Presto/2.5.25 Version/10.54",
+		"output": "op_mini/9.80.0"
+	},
+	{
+		"input": "Opera/9.80 (J2ME/MIDP; Opera Mini/9 (Compatible; MSIE:9.0; iPhone; BlackBerry9700; AppleWebKit/24.746; U; en) Presto/2.5.25 Version/10.54",
+		"output": "op_mini/9.0.0"
+	},
+	{
+		"input": "Opera/9.80 (Android; Opera Mini/7.6.35766/35.5706; U; en) Presto/2.8.119 Version/11.10",
+		"output": "op_mini/7.6.0"
+	},
+	{
+		"input": "Opera/9.80 (S60; SymbOS; Opera Mobi/275; U; es-ES) Presto/2.4.13 Version/10.00",
+		"output": "op_mob/10.00.0"
+	},
+	{
+		"input": "Opera/9.80 (Android 3.2; Linux; Opera Tablet/ADR-1106291546; U; en) Presto/2.8.149 Version/11.10",
+		"output": "opera/11.10.0"
+	},
+	{
+		"input": "Opera/9.30 (Nintendo Wii; U; ; 3642; en)",
+		"output": "Opera/9.30.0"
+	},
+	{
+		"input": "Opera/9.50 (Nintendo DSi; Opera/507; U; en-US)",
+		"output": "Opera/9.50.0"
+	},
+	{
+		"input": "Opera/9.80 (Windows NT 5.1; U; ru) Presto/2.5.24 Version/10.53",
+		"output": "Opera/10.53.0"
+	},
+	{
+		"input": "User agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.20 Safari/537.36 OPR/15.0.1147.18 (Edition Next)",
+		"output": "Opera/15.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android; 4.1.2; GT-I9100 Build/000000) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1234.12 Mobile Safari/537.22 OPR/14.0.123.123",
+		"output": "op_mob/14.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.10 Safari/537.36 OPR/27.0.1689.22 (Edition developer)",
+		"output": "chrome/40.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Coast/3.1.0.79792 Mobile/11B511 Safari/7534.48.3",
+		"output": "Opera Coast/3.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) OPiOS/8.0.1.80062 Mobile/11D201 Safari/9537.53",
+		"output": "ios_saf/7.1.0"
+	},
+	{
+		"input": "SomethingWeNeverKnewExisted",
+		"output": "Other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Series40; NokiaC2-03/07.48; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/2.2.0.0.33",
+		"output": "Ovi Browser/2.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Series40; NokiaX2-05/08.35; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/2.0.2.68.14",
+		"output": "Ovi Browser/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1; rv:2.0) Gecko/20110407 Firefox/4.0.3 PaleMoon/4.0.3",
+		"output": "firefox/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:3.0) Goanna/20170207 PaleMoon/27.1.0",
+		"output": "firefox/27.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:3.0) Gecko/20100101 Goanna/20170207 PaleMoon/27.1.0",
+		"output": "firefox/27.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:45.9) Gecko/20100101 Goanna/3.0 Firefox/45.9 PaleMoon/27.1.0",
+		"output": "firefox/27.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (LG-T500 AppleWebkit/531 Browser/Phantom/V2.0 Widget/LGMW/3.0 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)",
+		"output": "Phantom Browser/2.0.0"
+	},
+	{
+		"input": "Pingdom.com_bot_version_1.4_(http://www.pingdom.com/)",
+		"output": "PingdomBot/1.4.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PingdomTMS/0.8.5 Safari/534.34",
+		"output": "PingdomBot/0.8.0"
+	},
+	{
+		"input": "NewRelicPinger/1.0 (1025794)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)",
+		"output": "safari/0.0.0"
+	},
+	{
+		"input": "Mozilla/3.0 (Planetweb/2.100 JS SSL US; Dreamcast US)",
+		"output": "Planetweb/2.100.0"
+	},
+	{
+		"input": "PyAMF/0.6.1",
+		"output": "pyamf/0.6.1"
+	},
+	{
+		"input": "python-requests/0.14 CPython/2.6 Linux/2.6-43-server",
+		"output": "Python Requests/0.14.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11i; Linux; C) AppleWebKikt/533.3 (KHTML, like Gecko) QtCarBrowser Safari/533.3",
+		"output": "QtCarBrowser/1.0.0"
+	},
+	{
+		"input": "Rackspace Monitoring/1.1 (https://monitoring.api.rackspacecloud.com)",
+		"output": "RackspaceBot/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; BSD Four; en-US) AppleWebKit/533.3 (KHTML, like Gecko) rekonq Safari/533.3",
+		"output": "Rekonq/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.34 (KHTML, like Gecko) rekonq/1.0 Safari/534.34",
+		"output": "Rekonq/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.3 (KHTML, like Gecko) RockMelt/0.8.34.841 Chrome/6.0.472.63 Safari/534.3",
+		"output": "RockMelt/0.8.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/418.8 (KHTML, like Gecko) Safari/419.3",
+		"output": "Safari/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_5; en-us) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0.2 Safari/533.18.5",
+		"output": "Safari/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_7; en-us) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Safari/530.17 Skyfire/2.0",
+		"output": "Skyfire/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.21 (KHTML, like Gecko) Snowshoe/1.0.0 Safari/537.21",
+		"output": "Snowshoe/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10 ThunderBrowse/3.3.5",
+		"output": "ThunderBrowse/3.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0 Lightning/2.6.4",
+		"output": "Thunderbird/24.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0",
+		"output": "Thunderbird/24.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Thunderbird/45.0",
+		"output": "Thunderbird/45.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:7.0.1) Gecko/20151105 Postbox/4.0.8",
+		"output": "Postbox/4.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; Lotus-Notes/6.0; Windows-NT)",
+		"output": "Lotus Notes/6.0.0"
+	},
+	{
+		"input": "YahooMobileMail/1.0 (Android Mail; 1.3.10) (supersonic;HTC;PC36100;2.3.5/GRJ90)",
+		"output": "YahooMobileMail/1.0.0"
+	},
+	{
+		"input": "Barca/2.8.2",
+		"output": "barca/2.8.2"
+	},
+	{
+		"input": "BarcaPro/1.4.12",
+		"output": "barcapro/1.4.12"
+	},
+	{
+		"input": "The Bat! 4.0.0.22",
+		"output": "The Bat!/4.0.0"
+	},
+	{
+		"input": "MailBar/1.3.2 (Mac OS X Version 10.11.1 (Build 15B42))",
+		"output": "MailBar/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) kmail2/4.14.2 Safari/534.34",
+		"output": "kmail2/4.14.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; MSOffice 12)",
+		"output": "Outlook/2007.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/4.0; InfoPath.2; MSOffice 14)",
+		"output": "Outlook/2010.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/6.0; Microsoft Outlook 15.0.4420)",
+		"output": "Outlook/2013.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.14 (KHTML, like Gecko)",
+		"output": "Apple Mail/536.26.0"
+	},
+	{
+		"input": "Airmail 1.0 rv:148 (Macintosh; Mac OS X 10.8.3; en_BE)",
+		"output": "Airmail/1.0.0"
+	},
+	{
+		"input": "Airmail 1.0.6 rv:196 (Macintosh; Mac OS X 10.8.4; en_GB)",
+		"output": "Airmail/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Whale/1.3.45.0 Safari/537.36",
+		"output": "chrome/65.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Whale/1.3.50.3 Safari/537.36",
+		"output": "chrome/65.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Whale/0.9.1.679 Mobile/15D100 Safari/604.5.6",
+		"output": "ios_saf/11.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 6.0.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Whale/0.9.5.0 Mobile Safari/537.36",
+		"output": "chrome/60.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.1.2; Nexus 6P Build/WHALE) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Whale/1.3.50.3 Mobile Safari/537.36 sidebar webpanel",
+		"output": "chrome/65.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.1.2; Nexus 6P Build/WHALE) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Whale/1.3.50.3 Mobile Safari/537.36",
+		"output": "chrome/65.0.0"
+	},
+	{
+		"input": "J2ME/UCWEB7.0.3.45/139/7682",
+		"output": "UC Browser/7.0.0"
+	},
+	{
+		"input": "NOKIA6120c/UC Browser7.4.0.65/28/352",
+		"output": "UC Browser/7.4.0"
+	},
+	{
+		"input": "UCWEB/3.0 (iPhone; CPU OS_6; en-US)AppleWebKit/534.1 U3/3.0.0 Mobile",
+		"output": "UC Browser/3.0.0"
+	},
+	{
+		"input": "UCWEB/2.0 (Linux; U; Opera Mini/7.1.32052/30.2697; en-US; GT-S5302) U2/1.0.0 UCBrowser/9.3.0.440 Mobile",
+		"output": "UC Browser/9.3.0"
+	},
+	{
+		"input": "IUC(U;iOS 5.1.1;Zh-cn;320*480;)/UCWEB7.9.0.94/41/997",
+		"output": "UC Browser/7.9.0"
+	},
+	{
+		"input": "Nokia5320di/UCWEB8.0.3.99/28/999",
+		"output": "UC Browser/8.0.0"
+	},
+	{
+		"input": "Nokia201/2.0 (11.21) Profile/MIDP-2.1 Configuration/CLDC-1.1 Mozilla/5.0 (Java; U; en-us; nokia201) UCBrowser8.3.0.154/70/355/UCWEB Mobile",
+		"output": "UC Browser/8.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (S60V5; U; en-us; NokiaC5-03) AppleWebKit/530.13 (KHTML, like Gecko) UCBrowser/8.7.0.218/50/352/UCWEB Mobile",
+		"output": "UC Browser/8.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 UBrowser/5.7.14488.1025 Safari/537.36",
+		"output": "UC Browser/5.7.0"
+	},
+	{
+		"input": "Alcatel-OH5/1.0 UP.Browser/6.1.0.7.7 (GUI) MMP/1.0",
+		"output": "UP.Browser/6.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534+ (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
+		"output": "safari/5.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1+ (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
+		"output": "safari/5.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/537.8+ (KHTML, like Gecko) Version/6.0 Safari/536.25",
+		"output": "safari/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.0; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) wOSBrowser/233.58 Safari/534.6 TouchPad/1.0",
+		"output": "webOS Browser/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (webOS/1.2; U; en-US) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/1.0 Safari/525.27.1 Desktop/1.0",
+		"output": "webOS Browser/1.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.5; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) wOSBrowser/234.83 Safari/534.6 TouchPad/1.0",
+		"output": "webOS Browser/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686; nl-NL) AppleWebKit/534.3 (KHTML, like Gecko) WeTab-Browser Safari/534.3",
+		"output": "WeTab/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1104.222 YaBrowser/1.5.1104.222 Safari/537.4",
+		"output": "Yandex Browser/1.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 YottaaMonitor;",
+		"output": "YottaaMonitor/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.6.0 Safari/534.34",
+		"output": "safari/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (IE 11.0; Windows NT 6.3; Trident/7.0; .NET4.0E; .NET4.0C; rv:11.0) like Gecko",
+		"output": "ie/11.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 9.0; AOL 9.7; AOLBuild 4343.19; Windows NT 6.1; WOW64; Trident/5.0; FunWebProducts)",
+		"output": "AOL/9.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; rv:11.0) like Gecko",
+		"output": "ie/11.0.0"
+	},
+	{
+		"input": "HbbTV/1.1.1 (;Samsung;SmartTV2013;T-FXPDEUC-1102.2;;) WebKit",
+		"output": "HbbTV/1.1.0"
+	},
+	{
+		"input": "HbbTV/1.2.1 (;Panasonic;VIERA 2013;3.672;4101-0003 0002-0000;)",
+		"output": "HbbTV/1.2.0"
+	},
+	{
+		"input": "HbbTV/1.1.1 (;;;;;) firetv-firefox-plugin 1.1.20",
+		"output": "HbbTV/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko/20100101 Firefox/12.0",
+		"output": "ie/11.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.89 Vivaldi/1.0.83.38 Safari/537.36",
+		"output": "chrome/40.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.9600",
+		"output": "ie/12.9600.0"
+	},
+	{
+		"input": "Mozilla/4.0 (Vodafone/1.0/LG-GU280/v10a Browser/Obigo-Q7.3 MMS/LG-MMS-V1.0/1.2 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)",
+		"output": "Obigo/7.3.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12) Vodafone/1.0/HTC_Elf/1.11.164.2",
+		"output": "ie_mob/6.12.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.0) Vodafone/1.0/HTC_HD2/1.44.162.6 (70494)",
+		"output": "ie_mob/8.12.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 920)",
+		"output": "ie_mob/11.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 Vodafone/1.0/SamsungSGHi560/I560AEHB1 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413",
+		"output": "Nokia OSS Browser/3.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Vodafone/1.0/LG-KC910/V08h Browser/Teleca-Q7.1 MMS/LG-MMS-V1.0/1.2 MediaPlayer/LGPlayer/1.0 Java/ASVM/1.1 Profile/MIDP-2.1 Configuration/CLDC-1.1)",
+		"output": "Teleca Browser/0.0.0"
+	},
+	{
+		"input": "Vodafone/1.0/0Vodafone715/B116 Browser/Obigo-Browser/Q04A MMS/Obigo-MMS/Q04A SyncML/HW-SyncML/1.0 Java/QVM/4.1 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+		"output": "Obigo/0.0.0"
+	},
+	{
+		"input": "Opera/9.80 (Android 1.6; Linux; Opera Mobi/ADR-1107051709; U; en) Presto/2.8.149 Version/11.10",
+		"output": "op_mob/11.10.0"
+	},
+	{
+		"input": "Opera/9.80 (Windows Mobile; WCE; Opera Mobi/WMD-50430; U; en) Presto/2.4.13 Version/10.00",
+		"output": "op_mob/10.00.0"
+	},
+	{
+		"input": "(Opera) Vodafone/1.0/HPiPAQDataMessenger/1.00.00 Browser/Opera/9.5 Profile/MIDP-2.0 Configuration/CLDC-1.1 Opera/9.5 (Microsoft Windows; PPC; Opera Mobi/15142; U; en)",
+		"output": "op_mob/9.5.0"
+	},
+	{
+		"input": "HTC MAX 4G Opera/9.5 (Microsoft Windows; PPC; Opera Mobi/1409; U; ru)",
+		"output": "op_mob/9.5.0"
+	},
+	{
+		"input": "iBrowser/3.0/Mozilla/5.0 (Linux; U; Android 2.3.6; yy-yy; Karbonn A2 Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+		"output": "Android/2.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Series40; NokiaC3-01/05.60; Profile/MIDP-2.1 Configuration/CLDC-1.1) Gecko/20100401 S40OviBrowser/2.2.0.0.31",
+		"output": "Ovi Browser/2.2.0"
+	},
+	{
+		"input": "iRAPP/1.16.0 NokiaN95_8GB/31.0.015; Series60/3.1 Profile/MIDP-2.0 Configuration/CLDC-1.",
+		"output": "iRAPP/1.16.0"
+	},
+	{
+		"input": "iRAPP/1.3.0 Nokia5230/50.0.101 Series60/5.0 Profile/MIDP-2.1 Configuration/CLDC-1.1 3gpp-gba",
+		"output": "iRAPP/1.3.0"
+	},
+	{
+		"input": "iRAPP/3.5.0 NokiaN8-00/111.040.1511 Series60/5.3 Profile/MIDP-2.1 Configuration/CLDC-1.1 3gpp-gba",
+		"output": "iRAPP/3.5.0"
+	},
+	{
+		"input": "LG-GD710/V10f; Mozilla/5.0 (Profile/MIDP-2.0 Configuration/CLDC-1.1; Opera Mini/att/4.2.14812; U; en) Opera 9.50",
+		"output": "op_mini/4.2.0"
+	},
+	{
+		"input": "SAMSUNG-SGH-A897/A897UCJC1; Mozilla/5.0 (Profile/MIDP-2.0 Configuration/CLDC-1.1; Opera Mini/att/4.2.15304; U; fr-US) Opera 9.50",
+		"output": "op_mini/4.2.0"
+	},
+	{
+		"input": "MQQBrowser/39 Mozilla/5.0 (iPhone 4S; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 Safari/7534.48.3",
+		"output": "QQ Browser Mobile/39.0.0"
+	},
+	{
+		"input": "MQQBrowser/391 Mozilla/5.0 (iPhone 4S; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 Safari/7534.48.3",
+		"output": "QQ Browser Mobile/391.0.0"
+	},
+	{
+		"input": "MQQBrowser/20 (Linux; U; 2.3.3; en-us; HTC Desire S Build/GRI40;480*800)",
+		"output": "QQ Browser Mobile/20.0.0"
+	},
+	{
+		"input": "MQQBrowser/Mini2.8 (ZTE-X990/X990_V2_Z12_ESFR_D18F100)",
+		"output": "QQ Browser Mini/2.8.0"
+	},
+	{
+		"input": "MQQBrowser/Mini3.1 (SonyEricssonJ105i/R1HA035)",
+		"output": "QQ Browser Mini/3.1.0"
+	},
+	{
+		"input": "QQBrowser/14 (Linux; U; 2.2.2; en-us; Motorola XT316 BUILD/FRG83G) Mobile/0050",
+		"output": "QQ Browser/14.0.0"
+	},
+	{
+		"input": "Dolphin 6.5.1 (iPad; iPhone OS 6.1.3; de_DE)",
+		"output": "Dolphin/6.5.0"
+	},
+	{
+		"input": "Dolphin 7.4 (iPhone; iPhone OS 7.0.2; de_DE)",
+		"output": "Dolphin/7.4.0"
+	},
+	{
+		"input": "Dolphin 7.5.1 (iPhone; iPhone OS 7.0.3; de_DE)",
+		"output": "Dolphin/7.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.1-update1; zh-cn; XT701 Build/STCU_31.05.4) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17 DolphinHDCN/7.0.1",
+		"output": "Dolphin/7.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 DolphinHDCN/6.3.1",
+		"output": "Dolphin/6.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; Nexus 7 Build/JRO03D) AppleWebKit/534.30 (KHTML, like Gecko) Dolphin/INT-1.0.4 Mobile Safari/534.30",
+		"output": "Dolphin/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 DolphinHDCN/6.1.0",
+		"output": "Dolphin/6.1.0"
+	},
+	{
+		"input": "Mozilla/5.0(miniGUI/3.x; U; Linux i686; en-US) AppleWebKit/534.26 (KHTML, like Gecko) mDolphin/3.0 chrome/10.0 Safria/534.26",
+		"output": "mDolphin/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0(miniGUI/3.x; U; Linux i686; en; ) AppleWebKit/533.9.0 (KHTML, like Gecko) mDolphin/3.0.0 Safria/533.9.0",
+		"output": "mDolphin/3.0.0"
+	},
+	{
+		"input": "CFNetwork, iPhone OS 5.1.1, iPhone4,1",
+		"output": "CFNetwork/0.0.0"
+	},
+	{
+		"input": "CFNetwork, iPhone OS 7.0.4, iPhone5,2",
+		"output": "CFNetwork/0.0.0"
+	},
+	{
+		"input": "CFNetwork, iPhone OS 7.0, iPhone4,1",
+		"output": "CFNetwork/0.0.0"
+	},
+	{
+		"input": "Safari5530.17 CFNetwork/438.12 Darwin/9.7.0 (i386) (Macmini2,1)",
+		"output": "CFNetwork/438.12.0"
+	},
+	{
+		"input": "Safari/6533.18.5 CFNetwork/454.9.8 Darwin/10.4.0 (i386) (MacBookPro7,1)",
+		"output": "cfnetwork/454.9.0"
+	},
+	{
+		"input": "Safari/7536.30.1 CFNetwork/520.5.1 Darwin/11.4.2 (i386) (MacBook3,1)",
+		"output": "cfnetwork/520.5.0"
+	},
+	{
+		"input": "Reader Notifier/5 CFNetwork/596.3.3 Darwin/12.3.0 (x86_64) (MacBookPro7,1)",
+		"output": "cfnetwork/596.3.0"
+	},
+	{
+		"input": "Safari/9537.71 CFNetwork/673.0.2 Darwin/13.0.1 (x86_64) (MacBookPro11,1)",
+		"output": "cfnetwork/673.0.0"
+	},
+	{
+		"input": "DEPoker-iPad/1.0.2 CFNetwork/548.1.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.1.0"
+	},
+	{
+		"input": "JDSports-iPad/1.1 CFNetwork/672.0.8 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "AngryBirdsBlack-iPhone/1.1.0 CFNetwork/548.1.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.1.0"
+	},
+	{
+		"input": "Bing for iPad/1.1.2 CFNetwork/485.13.9 Darwin/11.0.0",
+		"output": "cfnetwork/485.13.0"
+	},
+	{
+		"input": "NightstandPaid-iPad/1.3.1 CFNetwork/548.1.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.1.0"
+	},
+	{
+		"input": "Glo-De-iPad/1.4.7 CFNetwork/672.0.2 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "Island for iPhone/1.95 CFNetwork/672.0.2 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "WormsiPhone-iPad/2.3 CFNetwork/548.1.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.1.0"
+	},
+	{
+		"input": "Rummy LITE iPad/2.3.0 CFNetwork/609.1.4 Darwin/13.0.0",
+		"output": "cfnetwork/609.1.0"
+	},
+	{
+		"input": "MobileRSSFree-iPad/3.1 CFNetwork/467.12 Darwin/10.3.1",
+		"output": "cfnetwork/467.12.0"
+	},
+	{
+		"input": "MobileRSSFree-iPad/3.1.4 CFNetwork/485.13.9 Darwin/11.0.0",
+		"output": "cfnetwork/485.13.0"
+	},
+	{
+		"input": "babbelIndonesian-iPad/4.0.1 CFNetwork/672.0.8 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "WeltMobile-iPad/4.2 CFNetwork/609.1.4 Darwin/13.0.0",
+		"output": "cfnetwork/609.1.0"
+	},
+	{
+		"input": "IMPlusFull-iPad/7.9.1 CFNetwork/548.0.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.0.0"
+	},
+	{
+		"input": "Cooliris/1.3 CFNetwork/342.1 Darwin/9.4.1",
+		"output": "cfnetwork/342.1.0"
+	},
+	{
+		"input": "Poof/1.0 CFNetwork/485.12.7 Darwin/10.4.0",
+		"output": "cfnetwork/485.12.0"
+	},
+	{
+		"input": "Parking Mania Free/1.9.5.0 CFNetwork/548.0.4 Darwin/11.0.0",
+		"output": "cfnetwork/548.0.0"
+	},
+	{
+		"input": "Planet Boing!/1.4.8 CFNetwork/609.1.4 Darwin/13.0.0",
+		"output": "cfnetwork/609.1.0"
+	},
+	{
+		"input": "PlayTube/1.7 CFNetwork/672.0.2 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.2.1; es-us) AppleWebKit/534.12 (KHTML, like Gecko) Puffin/1.3.2913S Mobile Safari/534.12",
+		"output": "Puffin/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 3.2.1; es-es) AppleWebKit/534.35 (KHTML, like Gecko) Chrome/11.0.696.65 Safari/534.35 Puffin/2.0.6440M Mobile",
+		"output": "Puffin/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 3.2; en-gb) AppleWebKit/534.35 (KHTML, like Gecko) Chrome/11.0.696.65 Safari/534.35 Puffin/2.0.5932M Mobile",
+		"output": "Puffin/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/2.9909AT Mobile",
+		"output": "Puffin/2.9909.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.2.2; de-de) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.11558AT Mobile",
+		"output": "Puffin/3.11558.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.2.2; en-us) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.11558AP Mobile",
+		"output": "Puffin/3.11558.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686; th-TH@calendar=gregorian) AppleWebKit/534.12 (KHTML, like Gecko) Puffin/1.3.2665MS Safari/534.12",
+		"output": "Puffin/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; ar-AE) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.10990IT",
+		"output": "Puffin/3.10990.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; ar-SA) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.11546IP",
+		"output": "Puffin/3.11546.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; ar-ae) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/2.10977AP",
+		"output": "Puffin/2.10977.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; de-at) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/2.10977AT",
+		"output": "Puffin/2.10977.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU OS 7_0_6 like Mac OS X; de-DE) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.11558IT Mobile",
+		"output": "Puffin/3.11558.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 7_0_6 like Mac OS X; de-DE) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.11558IP Mobile",
+		"output": "Puffin/3.11558.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_5 like Mac OS X; en-US) AppleWebKit/534.12 (KHTML, like Gecko) Puffin/1.3.3102MS Mobile Safari/534.12",
+		"output": "Puffin/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPod; U; CPU iPhone OS 5_1_1 like Mac OS X; de-DE) AppleWebKit/534.35 (KHTML, like Gecko)  Chrome/11.0.696.65 Safari/534.35 Puffin/3.9174IP Mobile",
+		"output": "Puffin/3.9174.0"
+	},
+	{
+		"input": "MacAppStore/2.0 (Macintosh; OS X 10.10.2; 14C81f) AppleWebKit/0600.3.10.2",
+		"output": "MacAppStore/2.0.0"
+	},
+	{
+		"input": "iTunes/12.0.1 (Macintosh; OS X 10.9.2) AppleWebKit/537.74.9",
+		"output": "iTunes/12.0.0"
+	},
+	{
+		"input": "Ant/Ant-Nutch-1.1 (Ant Nutch Crawler; http://www.ant.com; crawler@ant.com)",
+		"output": "Ant-Nutch/1.1.0"
+	},
+	{
+		"input": "Axtaris Web Crawler/Axtaris-1.0.1 (Hello from Axtaris.org | Web-Crawler; http://axtaris.org; crawler at axtaris dot org)",
+		"output": "Axtaris/1.0.0"
+	},
+	{
+		"input": "CazoodleBot/CazoodleBot-0.1 (CazoodleBot Crawler; http://www.cazoodle.com/cazoodlebot; cazoodlebot@cazoodle.com)",
+		"output": "CazoodleBot/0.1.0"
+	},
+	{
+		"input": "Isara-Search/Isara-1.0 (A non-profit web crawler operated by a charity organization.; www.isara.org; webmaster@isara.org)",
+		"output": "Isara/1.0.0"
+	},
+	{
+		"input": "noobot Spider/Noobot-1.2 (noobot-bot; http://www.noobot.fr)",
+		"output": "Noobot/1.2.0"
+	},
+	{
+		"input": "asked/Nutch-0.8 (web crawler; http://asked.jp; epicurus at gmail dot com)",
+		"output": "Nutch/0.8.0"
+	},
+	{
+		"input": "nutch crawler/Nutch-2.2",
+		"output": "Nutch/2.2.0"
+	},
+	{
+		"input": "Spider/Nutch-2.3-SNAPSHOT (Webcrawler)",
+		"output": "Nutch/2.3.0"
+	},
+	{
+		"input": "SheenBot/SheenBot-1.0.4 (Sheen web crawler)",
+		"output": "SheenBot/1.0.0"
+	},
+	{
+		"input": "SaladSpoon/ShopSalad 1.0 (Search Engine crawler for ShopSalad.com; http://shopsalad.com/en/partners.html; crawler AT shopsalad.com)",
+		"output": "ShopSalad/1.0.0"
+	},
+	{
+		"input": "TailsweepBlogCrawler/Tailsweep-2.9-SNAPSHOT (http://www.tailsweep.com/; bot at [tailsweep] dot com)",
+		"output": "Tailsweep/2.9.0"
+	},
+	{
+		"input": "SAE/fetchurl-22wy0njxnm WordPress/3.2.1; http://1.webfront.sinaapp.com",
+		"output": "fetchurl/22.0.0"
+	},
+	{
+		"input": "RedBot/redbot-1.0 (Rediff.com Crawler; redbot at rediff dot com)",
+		"output": "redbot/1.0.0"
+	},
+	{
+		"input": "IS Alpha/zcspider-0.1",
+		"output": "zcspider/0.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; 008/0.85; http://www.80legs.com/webcrawler.html) Gecko/2008032620",
+		"output": "008/0.85.0"
+	},
+	{
+		"input": "Altresium/4.6 (+http://www.altresium.com/bot.html)",
+		"output": "Altresium/4.6.0"
+	},
+	{
+		"input": "Argus/1.1 (Nutch; http://www.simpy.com/bot.html; feedback at simpy dot com)",
+		"output": "Argus/1.1.0"
+	},
+	{
+		"input": "Argus/2.8.65 CFNetwork/609 Darwin/13.0.0",
+		"output": "cfnetwork/0.0.0"
+	},
+	{
+		"input": "DoCoMo/2.0 P05A(c100;TB;W24H15) (compatible; BaiduMobaider/1.0;  http://www.baidu.jp/spider/)",
+		"output": "BaiduMobaider/1.0.0"
+	},
+	{
+		"input": "BoardReader/1.0 (http://boardreader.com/info/robots.htm)-Machine1",
+		"output": "BoardReader/1.0.0"
+	},
+	{
+		"input": "DNSGroup/0.1 (DNS Group Crawler; http://www.dnsgroup.com/; crawler@dnsgroup.com)",
+		"output": "DNSGroup/0.1.0"
+	},
+	{
+		"input": "DataparkSearch/4.35-02122005 ( http://www.dataparksearch.org/)",
+		"output": "DataparkSearch/4.35.0"
+	},
+	{
+		"input": "EDI/1.6.0 (Edacious & Intelligent Web Crawler)",
+		"output": "EDI/1.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Goodzer/2.0; crawler@goodzer.com)",
+		"output": "Goodzer/2.0.0"
+	},
+	{
+		"input": "Grub/2.0 (Grub.org crawler; http://www.grub.org/; bot@grub.org)",
+		"output": "Grub/2.0.0"
+	},
+	{
+		"input": "INGRID/2.0 (http://spsearch.ilse.nl/; Startpagina dochter links spider)",
+		"output": "INGRID/2.0.0"
+	},
+	{
+		"input": "INGRID/3.0 MT (webcrawler@NOSPAMexperimental.net; http://aanmelden.ilse.nl/?aanmeld_mode=webhints)",
+		"output": "INGRID/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Infohelfer/1.2.0; +http://www.infohelfer.de/crawler.php)",
+		"output": "Infohelfer/1.2.0"
+	},
+	{
+		"input": "LOOQ/0.1 alfa (LOOQ Crawler for european sites; http://looq.eu; root (at) looq dot eu)",
+		"output": "LOOQ/0.1.0"
+	},
+	{
+		"input": "LinkedInBot/1.0 (compatible; Mozilla/5.0; Jakarta Commons-HttpClient/3.1  http://www.linkedin.com)",
+		"output": "LinkedInBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; PathDefender/1.0; +http://www.pathdefender.com/help/crawler)",
+		"output": "PathDefender/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Peew/1.0; http://www.peew.de/crawler/)",
+		"output": "Peew/1.0.0"
+	},
+	{
+		"input": "PostPost/1.0 ( http://postpo.st/crawlers)",
+		"output": "PostPost/1.0.0"
+	},
+	{
+		"input": "Steeler/1.3 (http://www.tkl.iis.u-tokyo.ac.jp/~crawler/)",
+		"output": "Steeler/1.3.0"
+	},
+	{
+		"input": "Steeler/3.3 (http://www.tkl.iis.u-tokyo.ac.jp/~crawler/)",
+		"output": "Steeler/3.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Steeler/3.5; http://www.tkl.iis.u-tokyo.ac.jp/~crawler/)",
+		"output": "Steeler/3.5.0"
+	},
+	{
+		"input": "VSE/1.0 (testcrawler@hotmail.com)",
+		"output": "VSE/1.0.0"
+	},
+	{
+		"input": "VSE/1.0 (vsecrawler@hotmail.com)",
+		"output": "VSE/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; WebCrunch/1.2; +http://webcrunch.net/crawler)",
+		"output": "WebCrunch/1.2.0"
+	},
+	{
+		"input": "WebZIP/7.0 (http://www.spidersoft.com)",
+		"output": "WebZIP/7.0.0"
+	},
+	{
+		"input": "Y!J-BRI/0.0.1 crawler ( http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html )",
+		"output": "Y!J-BRI/0.0.0"
+	},
+	{
+		"input": "Y!J-BRW/1.0 crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)",
+		"output": "Y!J-BRW/1.0.0"
+	},
+	{
+		"input": "YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.com/help/us/shop/merchant/)",
+		"output": "YahooSeeker/1.0.0"
+	},
+	{
+		"input": "envolk/1.7 ( http://www.envolk.com/envolkspider.html)",
+		"output": "envolk/1.7.0"
+	},
+	{
+		"input": "sproose/1.0beta (sproose bot; http://www.sproose.com/bot.html; crawler@sproose.com)",
+		"output": "sproose/1.0.0"
+	},
+	{
+		"input": "wminer/1.2 (North America Web Crawler; http://www.wminer.com/bot; info at wminer dot com)",
+		"output": "wminer/1.2.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 4.0; MSIECrawler; Windows 95)",
+		"output": "MSIECrawler/4.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/4.0; FDM; MSIECrawler; Media Center PC 5.0)",
+		"output": "MSIECrawler/9.0.0"
+	},
+	{
+		"input": "Apache-HttpClient/4.0-beta2 (java 1.5)",
+		"output": "Apache-HttpClient/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.1-update1; de-de; E10i Build/2.1.1.C.0.0) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17 Google-HTTP-Java-Client/1.10.3-beta (gzip)",
+		"output": "Google-HTTP-Java-Client/1.10.0"
+	},
+	{
+		"input": "Google-HTTP-Java-Client/1.13.1-beta (gzip)",
+		"output": "Google-HTTP-Java-Client/1.13.0"
+	},
+	{
+		"input": "Google-YouTubeSample/1.0 Google-HTTP-Java-Client/1.7.0-beta (gzip) Google-HTTP-Java-Client/1.7.0-beta (gzip)",
+		"output": "Google-HTTP-Java-Client/1.7.0"
+	},
+	{
+		"input": "JNLP/1.7.0 javaws/10.17.2.02 (<internal>) Java/1.7.0_17",
+		"output": "JNLP/1.7.0"
+	},
+	{
+		"input": "JNLP/6.0 javaws/1.6.0_14 (b08) Java/1.6.0_14",
+		"output": "JNLP/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Python-urllib2)",
+		"output": "Python-urllib/0.0.0"
+	},
+	{
+		"input": "Python-urllib/1.15",
+		"output": "Python-urllib/1.15.0"
+	},
+	{
+		"input": "IMVU Client/498.0 Python-urllib/2.7",
+		"output": "Python-urllib/2.7.0"
+	},
+	{
+		"input": "Python-urllib/3.4",
+		"output": "Python-urllib/3.4.0"
+	},
+	{
+		"input": "TLSProber/0.8",
+		"output": "tlsprober/0.8"
+	},
+	{
+		"input": "Asynchronous WinHTTP/1.0",
+		"output": "WinHTTP/1.0.0"
+	},
+	{
+		"input": "1470.net crawler",
+		"output": "1470.net crawler/0.0.0"
+	},
+	{
+		"input": "50.nu/0.01 (  http://50.nu/bot.html )",
+		"output": "50.nu/0.01.0"
+	},
+	{
+		"input": "8bo Crawler Bot",
+		"output": "8bo Crawler Bot/0.0.0"
+	},
+	{
+		"input": "Aboundex/0.2 (http://www.aboundex.com/crawler/)",
+		"output": "Aboundex/0.2.0"
+	},
+	{
+		"input": "Accoona-AI-Agent/1.1.1 (crawler at accoona dot com)",
+		"output": "Accoona-AI-Agent/1.1.0"
+	},
+	{
+		"input": "Accoona-Biz-Agent/1.1.1 crawler@accoona.com",
+		"output": "Accoona-Biz-Agent/1.1.0"
+	},
+	{
+		"input": "AdsBot-Google",
+		"output": "AdsBot-Google/0.0.0"
+	},
+	{
+		"input": "AppEngine-Google; ( http://code.google.com/appengine)",
+		"output": "AppEngine-Google/0.0.0"
+	},
+	{
+		"input": "Inne: Mozilla/2.0 (compatible; Ask Jeeves/Teoma;  http://sp.ask.com/docs/about/tech_crawling.html)",
+		"output": "Ask Jeeves/0.0.0"
+	},
+	{
+		"input": "BaiDuSpider",
+		"output": "BaiDuSpider/0.0.0"
+	},
+	{
+		"input": "Baiduspider",
+		"output": "Baiduspider/0.0.0"
+	},
+	{
+		"input": "'Mozilla/5.0 (compatible; Baiduspider/2.0; +ht'",
+		"output": "Baiduspider/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Baiduspider-cpro; +http://www.baidu.com/search/spider.html)",
+		"output": "Baiduspider-cpro/0.0.0"
+	},
+	{
+		"input": "Baiduspider-image ( http://www.baidu.com/search/spider.htm)",
+		"output": "Baiduspider-image/0.0.0"
+	},
+	{
+		"input": "Baiduspider-testbranch",
+		"output": "Baiduspider-testbranch/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534  (KHTML, like Gecko) BingPreview/1.0b",
+		"output": "BingPreview/1.0.0"
+	},
+	{
+		"input": "BlogBridge 6.7 (http://www.blogbridge.com/) 1.6.0_18",
+		"output": "BlogBridge/6.7.0"
+	},
+	{
+		"input": "BoardReader Blog Indexer(http://boardreader.com)",
+		"output": "BoardReader Blog Indexer/0.0.0"
+	},
+	{
+		"input": "BoardReader Favicon Fetcher /1.0 info@boardreader.com",
+		"output": "BoardReader Favicon Fetcher/0.0.0"
+	},
+	{
+		"input": "Mozilla 4.0(compatible; BotSeer/1.0;  http://botseer.ist.psu.edu)",
+		"output": "BotSeer/1.0.0"
+	},
+	{
+		"input": "CRAWL-E/0.6.4",
+		"output": "CRAWL-E/0.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Charlotte/1.0b; charlotte@beta.spider.com)",
+		"output": "Charlotte/1.0.0"
+	},
+	{
+		"input": "Checklinks/1.3 (pywikipedia robot; http://toolserver.org/~dispenser/view/Checklinks)",
+		"output": "Checklinks/1.3.0"
+	},
+	{
+		"input": "Comodo HTTP(S) Crawler - http://www.instantssl.com/crawler",
+		"output": "Comodo HTTP(S) Crawler/0.0.0"
+	},
+	{
+		"input": "Comodo-Webinspector-Crawler 2.1",
+		"output": "Comodo-Webinspector-Crawler/2.1.0"
+	},
+	{
+		"input": "Comodo-Webinspector-Crawler 2.2.2, http://www.comodorobot.com",
+		"output": "Comodo-Webinspector-Crawler/2.2.0"
+	},
+	{
+		"input": "ConveraCrawler/0.9c ( http://www.authoritativeweb.com/crawl)",
+		"output": "ConveraCrawler/0.9.0"
+	},
+	{
+		"input": "CrawlConvera0.1 (CrawlConvera@yahoo.com)",
+		"output": "CrawlConvera/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE or Firefox mutant; not on Windows server; + http://tab.search.daum.net/aboutWebSearch.html) Daumoa/3.0",
+		"output": "Daumoa/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Firefox compatible; MS IE compatible;  http://search.daum.net/) Daumoa-feedfetcher/2.0",
+		"output": "Daumoa-feedfetcher/2.0.0"
+	},
+	{
+		"input": "Feed Seeker Bot (RSS Feed Seeker http://www.MyNewFavoriteThing.com/fsb.php)",
+		"output": "Feed Seeker Bot/0.0.0"
+	},
+	{
+		"input": "Flamingo_SearchEngine (+http://www.flamingosearch.com/bot)",
+		"output": "Flamingo_SearchEngine/0.0.0"
+	},
+	{
+		"input": "FollowSite Bot ( http://www.followsite.com/bot.html )",
+		"output": "FollowSite Bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Genieo/1.0 http://www.genieo.com/webfilter.html",
+		"output": "Genieo/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible;  MSIE 5.01; GomezAgent 2.0; Windows NT)",
+		"output": "GomezAgent/2.0.0"
+	},
+	{
+		"input": "Googlebot v2.1 (+http://www.google.com/bot.html) (http://www.openwebspider.org/)",
+		"output": "chrome/41.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Googlebot/2.1;  http://www.google.com/bot.html)",
+		"output": "chrome/41.0.0"
+	},
+	{
+		"input": "Googlebot/2.2",
+		"output": "googlebot/2.2"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; Mozilla 4.0(compatible; Googlebot/5.0;  http://www.google.com/googlebot); en-US;)",
+		"output": "Googlebot/5.0.0"
+	},
+	{
+		"input": "Googlebot-Image/1.0",
+		"output": "Googlebot-Image/1.0.0"
+	},
+	{
+		"input": "Googlebot-Mobile (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)",
+		"output": "Googlebot-Mobile/0.0.0"
+	},
+	{
+		"input": "DoCoMo//2.0 N905i(c100;TB;W24H16) (compatible; Googlebot-Mobile/2.1; +http://www.google.com/bot.html)",
+		"output": "Googlebot-Mobile/2.1.0"
+	},
+	{
+		"input": "Googlebot-News",
+		"output": "Googlebot-News/0.0.0"
+	},
+	{
+		"input": "Googlebot-Video/1.0",
+		"output": "Googlebot-Video/1.0.0"
+	},
+	{
+		"input": "Googlebot-richsnippets",
+		"output": "Googlebot-richsnippets/0.0.0"
+	},
+	{
+		"input": "Google Web Preview",
+		"output": "Other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
+		"output": "Chrome/60.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112 Safari/537.36",
+		"output": "Chrome/60.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google Web Preview) Chrome/27.0 .1453 Safari/537.36.",
+		"output": "Chrome/27.0.0"
+	},
+	{
+		"input": "HiddenMarket-1.0-beta (www.hiddenmarket.net/crawler.php)",
+		"output": "HiddenMarket/0.0.0"
+	},
+	{
+		"input": "HooWWWer/2.1.0 ( http://cosco.hiit.fi/search/hoowwwer/ | mailto:crawler-info<at>hiit.fi)",
+		"output": "HooWWWer/2.1.0"
+	},
+	{
+		"input": "ICC-Crawler(Mozilla-compatible; http://kc.nict.go.jp/icc/crawl.html; icc-crawl(at)ml(dot)nict(dot)go(dot)jp)",
+		"output": "ICC-Crawler/0.0.0"
+	},
+	{
+		"input": "ICC-Crawler/2.0 (Mozilla-compatible; ; http://kc.nict.go.jp/project1/crawl.html)",
+		"output": "ICC-Crawler/2.0.0"
+	},
+	{
+		"input": "IconSurf/2.0 favicon finder (see http://iconsurf.com/robot.html)",
+		"output": "IconSurf/2.0.0"
+	},
+	{
+		"input": "IlTrovatore/1.2 (IlTrovatore; http://www.iltrovatore.it/bot.html; bot@iltrovatore.it)",
+		"output": "IlTrovatore/1.2.0"
+	},
+	{
+		"input": "IlTrovatore-Setaccio ( http://www.iltrovatore.it)",
+		"output": "IlTrovatore-Setaccio/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; InfuzApp/1.0; +http://www.infuz.com/bot.html)",
+		"output": "InfuzApp/1.0.0"
+	},
+	{
+		"input": "InternetArchive-1.0",
+		"output": "InternetArchive/0.0.0"
+	},
+	{
+		"input": "InternetArchive/0.8-dev (Nutch; http://lucene.apache.org/nutch/bot.html; nutch-agent@lucene.apache.org)",
+		"output": "InternetArchive/0.8.0"
+	},
+	{
+		"input": "KDDI-CA34 UP.Browser/6.2.0.10.2.2(GUI)MMP/2.0 (compatible; KDDI-Googlebot-Mobile/2.1; http://www.google.com/bot.html)",
+		"output": "KDDI-Googlebot-Mobile/2.1.0"
+	},
+	{
+		"input": "kalooga/KaloogaBot (Kalooga; http://www.kalooga.com/info.html?page=crawler)",
+		"output": "KaloogaBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Kraken/0.1; http://linkfluence.net/; bot@linkfluence.net)",
+		"output": "Kraken/0.1.0"
+	},
+	{
+		"input": "Kurzor/1.0 (Kurzor; http://adcenter.hu/docs/en/bot.html; cursor@easymail.hu)",
+		"output": "Kurzor/1.0.0"
+	},
+	{
+		"input": "LEIA/3.01pr (LEIAcrawler; leia@gseek.com; http://www.gseek.com)",
+		"output": "LEIA/3.01.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows compatible LesnikBot)",
+		"output": "LesnikBot/0.0.0"
+	},
+	{
+		"input": "Linguee Bot (bot@linguee.com)",
+		"output": "Linguee Bot/0.0.0"
+	},
+	{
+		"input": "LinkAider (http://linkaider.com/crawler/)",
+		"output": "LinkAider/0.0.0"
+	},
+	{
+		"input": "Lite Bot0316B",
+		"output": "Lite Bot/0.0.0"
+	},
+	{
+		"input": "Llaut/1.0 (http://mnm.uib.es/~gallir/llaut/bot.html)",
+		"output": "Llaut/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/Fast/2.0; +http://go.mail.ru/help/robots)",
+		"output": "Mail.RU_Bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)",
+		"output": "Mail.RU_Bot/2.0.0"
+	},
+	{
+		"input": "Mediapartners-Google",
+		"output": "Mediapartners-Google/0.0.0"
+	},
+	{
+		"input": "DoCoMo/2.0 SH905i(c100;TB;W24H16) (compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html)",
+		"output": "Mediapartners-Google/2.1.0"
+	},
+	{
+		"input": "Microsoft Bing Mobile SocialStreams Bot",
+		"output": "Microsoft Bing Mobile SocialStreams Bot/0.0.0"
+	},
+	{
+		"input": "Microsoft MSN SocialStreams Bot,gzip(gfe),gzip(gfe)",
+		"output": "Microsoft MSN SocialStreams Bot/0.0.0"
+	},
+	{
+		"input": "NING/1.0",
+		"output": "ning/1.0"
+	},
+	{
+		"input": "Netvibes (http://www.netvibes.com)",
+		"output": "Netvibes/0.0.0"
+	},
+	{
+		"input": "NewsGator/2.0 Bot (http://www.newsgator.com)",
+		"output": "NewsGator/2.0.0"
+	},
+	{
+		"input": "NewsGator/3.0,gzip(gfe),gzip(gfe)",
+		"output": "NewsGator/3.0.0"
+	},
+	{
+		"input": "NewsGator FetchLinks extension/0.2.0 (http://graemef.com)",
+		"output": "NewsGator FetchLinks extension/0.2.0"
+	},
+	{
+		"input": "NewsGatorOnline/2.0 (http://www.newsgator.com)",
+		"output": "NewsGatorOnline/2.0.0"
+	},
+	{
+		"input": "SapphireWebCrawler/1.0 (Sapphire Web Crawler using Nutch; http://boston.lti.cs.cmu.edu/crawler/; mhoy@cs.cmu.edu)",
+		"output": "Nutch; http:/0.0.0"
+	},
+	{
+		"input": "NutchCVS/0.06-dev (Nutch running at UW; http://www.nutch.org/docs/en/bot.html; sycrawl@cs.washington.edu)",
+		"output": "NutchCVS/0.06.0"
+	},
+	{
+		"input": "NutchOSUOSL/0.05-dev (Nutch; http://www.nutch.org/docs/en/bot.html; nutch-agent@lists.sourceforge.net)",
+		"output": "NutchOSUOSL/0.05.0"
+	},
+	{
+		"input": "NutchOrg/0.03-dev (Nutch; http://www.nutch.org/docs/bot.html; nutch-agent@lists.sourceforge.net)",
+		"output": "NutchOrg/0.03.0"
+	},
+	{
+		"input": "ObjectsSearch/0.2 (ObjectsSearch; http://www.ObjectsSearch.com/bot.html; support@thesoftwareobjects.com)",
+		"output": "ObjectsSearch/0.2.0"
+	},
+	{
+		"input": "Orbiter ( http://www.dailyorbit.com/bot.htm)",
+		"output": "Orbiter/0.0.0"
+	},
+	{
+		"input": "PagePeeker.com",
+		"output": "PagePeeker/0.0.0"
+	},
+	{
+		"input": "PagesInventory (robot +http://www.pagesinventory.com)",
+		"output": "PagesInventory/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; PaxleFramework/0.1.1;  http://www.paxle.net/en/bot)",
+		"output": "PaxleFramework/0.1.0"
+	},
+	{
+		"input": "Peeplo Screenshot Bot/0.20 ( abuse at peeplo dot_com )",
+		"output": "Peeplo Screenshot Bot/0.20.0"
+	},
+	{
+		"input": "PlantyNet_WebRobot_V1.9 babo@plantynet.com",
+		"output": "PlantyNet_WebRobot/0.0.0"
+	},
+	{
+		"input": "Pompos/1.2 http://pompos.iliad.fr",
+		"output": "Pompos/1.2.0"
+	},
+	{
+		"input": "Reaper/1.3.6 (Linux; U; Android 4.3; de-DE; GT-I9300 Build/JSS15J)",
+		"output": "Reaper/1.3.0"
+	},
+	{
+		"input": "Reaper/2.07 ( http://www.sitesearch.ca/reaper)",
+		"output": "Reaper/2.07.0"
+	},
+	{
+		"input": "RedCarpet/1.0 (http://www.redcarpet-inc.com/robots.html)",
+		"output": "RedCarpet/1.0.0"
+	},
+	{
+		"input": "RedCarpet/2.1 CFNetwork/672.0.2 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "Riddler (http://riddler.io/about.html)",
+		"output": "Riddler/0.0.0"
+	},
+	{
+		"input": "Scrapy/0.16.4 (+http://scrapy.org)",
+		"output": "Scrapy/0.16.0"
+	},
+	{
+		"input": "Scrapy/0.22.2 (+http://scrapy.org)",
+		"output": "Scrapy/0.22.0"
+	},
+	{
+		"input": "Simpy/1.1 (Simpy; http://www.simpy.com/?ref=bot; feedback at simpy dot com)",
+		"output": "Simpy/1.1.0"
+	},
+	{
+		"input": "Mozilla/3.0 (Slurp.so/1.0; slurp@inktomi.com; http://www.inktomi.com/slurp.html)",
+		"output": "Slurp/0.0.0"
+	},
+	{
+		"input": "Slurp/2.0",
+		"output": "slurp/2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Yahoo!; U; Slurp/3.0; http://help.yahoo.com/help/us/ysearch/slurp) Mozilla/5.0 ()",
+		"output": "Slurp/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Speedy Spider; http://www.entireweb.com/about/search_tech/speedy_spider/)",
+		"output": "Speedy Spider/0.0.0"
+	},
+	{
+		"input": "Squrl Java/1.6.0_22",
+		"output": "Squrl Java/1.6.0"
+	},
+	{
+		"input": "TheUsefulbot_2.3.62 (bot@theusefulnet.com)",
+		"output": "TheUsefulbot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; de-DE; rv:1.9.0.19) Gecko/2010091808 ThumbShotsBot (KFSW 3.0.6-3)",
+		"output": "ThumbShotsBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Thumbshots.ru; +http://thumbshots.ru/bot) Firefox/3",
+		"output": "Thumbshots.ru/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Vagabondo/Wapspider; webcrawler at wise-guys dot nl; http://webagent.wise-guys.nl/)",
+		"output": "Vagabondo/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Vagabondo/2.1; webcrawler at wise-guys dot nl; http://webagent.wise-guys.nl/)",
+		"output": "Vagabondo/2.1.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible;  Vagabondo/2.2; webcrawler at wise-guys dot nl; http://webagent.wise-guys.nl/)",
+		"output": "Vagabondo/2.2.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible;  Vagabondo/2.3; webcrawler at wise-guys dot nl; http://webagent.wise-guys.nl/)",
+		"output": "Vagabondo/2.3.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible;  Vagabondo/4.0Beta; webcrawler at wise-guys dot nl; http://webagent.wise-guys.nl/)",
+		"output": "Vagabondo/4.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.0; Windows 95) VoilaBot BETA 1.2 (http://www.voila.com/)",
+		"output": "VoilaBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Votay bot/4.0;  http://www.votay.com/arts/comics/)",
+		"output": "Votay bot/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; WASALive Bot ; http://blog.wasalive.com/wasalive-bots/)",
+		"output": "WASALive Bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU iPhone OS 7_0 like Mac OS X; de-DE) WIRED/3.2.3.11.87970",
+		"output": "WIRE/0.0.0"
+	},
+	{
+		"input": "WIRE/0.11 (Linux; i686; Robot,Spider,Crawler,aromano@cli.di.unipi.it)",
+		"output": "WIRE/0.11.0"
+	},
+	{
+		"input": "WIRE/1.0 (Linux;i686;Bot,Robot,Spider,Crawler)",
+		"output": "WIRE/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; Windows NT 6.1; WOW64; rv:2.0b8pre; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; MS-RTC LM 8; OfficeLiveConnector.1.4; OfficeLivePatch.1.3; SLCC1; SLCC2; Media Center PC 6.0; GTB6.4; InfoPath.2; en-US; FunWebProducts; Zango 10.1.181.0; SV1; PRTG Network Monitor (www.paessler.com)) Gecko/20101114 Firefox/4.0b8pre QuickTime/7.6.2 Songbird/1.1.2 Web-sniffer/1.0.36 lftp/3.7.4 libwww-perl/5.820 GSiteCrawler/v1.12 rev. 260 Snoopy v1.2",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; WebThumbnail/2.2; Website Thumbnail Generator; +http://webthumbnail.org)",
+		"output": "WebThumb/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux i686 (x86_64); en-US; rv:1.9.0.17) Gecko WebThumb/1.0",
+		"output": "WebThumb/1.0.0"
+	},
+	{
+		"input": "WhatWeb/0.4.8",
+		"output": "whatweb/0.4.8"
+	},
+	{
+		"input": "Jetpack by WordPress.com",
+		"output": "WordPress/0.0.0"
+	},
+	{
+		"input": "WordPress/1.2.1 PHP/4.3.9-1",
+		"output": "WordPress/1.2.0"
+	},
+	{
+		"input": "Pachacutec/0.5 (qpImageBuilders.com); WordPress/3.1; http://contacto-latino.com/news",
+		"output": "WordPress/3.1.0"
+	},
+	{
+		"input": "Wotbox/0.7-alpha (bot@wotbox.com; http://www.wotbox.com)",
+		"output": "Wotbox/0.7.0"
+	},
+	{
+		"input": "Wotbox/2.01 ( http://www.wotbox.com/bot/)",
+		"output": "Wotbox/2.01.0"
+	},
+	{
+		"input": "Xenu Link Sleuth 1.1f",
+		"output": "Xenu Link Sleuth/1.1.0"
+	},
+	{
+		"input": "Xenu's Link Sleuth 1.0p",
+		"output": "Xenu's Link Sleuth/1.0.0"
+	},
+	{
+		"input": "Xerka WebBot v1.0.0 [AIDO_CREA_ab]",
+		"output": "Xerka WebBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Yahoo! Slurp China; http://misc.yahoo.com.cn/help.html)",
+		"output": "Yahoo! Slurp/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Yahoo! Slurp/3.0 ; http://help.yahoo.com/help/us/ysearch/slurp)",
+		"output": "Yahoo! Slurp/3.0.0"
+	},
+	{
+		"input": "LG-C1500 UP.Browser/6.2.3 (GUI) MMP/1.0 (compatible;YahooSeeker/M1A1-R2D2; http://help.yahoo.com/help/us/ysearch/crawling/crawling-01.html)",
+		"output": "YahooSeeker/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots),gzip(gfe) AppEngine-Google; (+http://code.google.com/appengine; appid: twitter-mirror),gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "YandexBot/3.0.0"
+	},
+	{
+		"input": "Yeti-FeedItemCrawler/1.0 (NHN Corp.;+http://help.naver.com/robots/)",
+		"output": "Yeti/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; YodaoBot/1.0; http://www.yodao.com/help/webmaster/spider/; )",
+		"output": "YodaoBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible;YodaoBot-Image/1.0;http://www.youdao.com/help/webmaster/spider/;)",
+		"output": "YodaoBot-Image/1.0.0"
+	},
+	{
+		"input": "YowedoBot/Yowedo 1.0 (Search Engine crawler for yowedo.com; http://yowedo.com/en/partners.html; crawler@yowedo.com)",
+		"output": "Yowedo/0.0.0"
+	},
+	{
+		"input": "Zao-Crawler",
+		"output": "Zao/0.0.0"
+	},
+	{
+		"input": "ZeBot_www.ze.bz (ze.bz@hotmail.com)",
+		"output": "ZeBot_www.ze.bz/0.0.0"
+	},
+	{
+		"input": "ZooShot 0.42",
+		"output": "ZooShot/0.42.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE; ZyBorg; Win32)",
+		"output": "ZyBorg/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 compatible ZyBorg/1.0 (ZyBorg@WISEnutbot.com; http://www.WISEnutbot.com)",
+		"output": "ZyBorg/1.0.0"
+	},
+	{
+		"input": "AltaVista Intranet V2.0 Compaq Altavista Eval sveand@altavista.net",
+		"output": "altavista/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; archive.bibalex.org_bot; +http://www.test.com)",
+		"output": "archive.bibalex.org_bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; archive.org_bot/heritrix-1.15.1-x  http://pandora.nla.gov.au/crawl.html)",
+		"output": "archive.org_bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; special_archiver/3.2.0 +http://www.loc.gov/webarchiving/notice_to_webmasters.html)",
+		"output": "archiver/3.2.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50215; baiduspider)",
+		"output": "baiduspider/0.0.0"
+	},
+	{
+		"input": "baiduspider-mobile-gate",
+		"output": "baiduspider-mobile-gate/0.0.0"
+	},
+	{
+		"input": "bingbot",
+		"output": "bingbot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; bingbot/2.0  http://www.bing.com/bingbot.htm)",
+		"output": "bingbot/2.0.0"
+	},
+	{
+		"input": "boitho.com-dc/0.4 ( http://www.boitho.com/dcbot.html )",
+		"output": "boitho.com-dc/0.4.0"
+	},
+	{
+		"input": "boitho.com-dc/0.86 ( http://www.boitho.com/dcbot.html )",
+		"output": "boitho.com-dc/0.86.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; clumboot; +http://localhost/clumpit/bot.php)",
+		"output": "clumboot/0.0.0"
+	},
+	{
+		"input": "findlinks/2.6 ( http://wortschatz.uni-leipzig.de/findlinks/)",
+		"output": "findlinks/2.6.0"
+	},
+	{
+		"input": "Mozilla/4.0 compatible FurlBot/Furl Search 2.0 (FurlBot; http://www.furl.net; wn.furlbot@looksmart.net)",
+		"output": "furlbot/0.0.0"
+	},
+	{
+		"input": "gonzo1[D] mailto:crawleradmin.t-info@telekom.de",
+		"output": "gonzo1/0.0.0"
+	},
+	{
+		"input": "grub-client-1.5.3; (grub-client-1.5.3; Crawl your own stuff with http://grub.org)",
+		"output": "grub-client/0.0.0"
+	},
+	{
+		"input": "gsa-crawler",
+		"output": "gsa-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; cdlwas_bot; heritrix/1.14.1 +http://webarchives.cdlib.org/p/webmasters)",
+		"output": "heritrix/1.14.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; heritrix/3.2.0 +http://suki.ling.helsinki.fi/eng/project.html)",
+		"output": "heritrix/3.2.0"
+	},
+	{
+		"input": "holmes/2.3",
+		"output": "holmes/2.3"
+	},
+	{
+		"input": "holmes/3.12.4 (http://morfeo.centrum.cz/bot)",
+		"output": "holmes/3.12.0"
+	},
+	{
+		"input": "htdig/3.1.6 (romieu@bastide-medical.fr)",
+		"output": "htdig/3.1.0"
+	},
+	{
+		"input": "ia_archiver/8.7 (Windows NT 5.0; )",
+		"output": "ia_archiver/8.7.0"
+	},
+	{
+		"input": "ichiro/1.0 (ichiro@nttr.co.jp)",
+		"output": "ichiro/1.0.0"
+	},
+	{
+		"input": "ichiro/5.0 (http://help.goo.ne.jp/door/crawler.html)",
+		"output": "ichiro/5.0.0"
+	},
+	{
+		"input": "DoCoMo/2.0 P900i(c100;TB;W24H11)(compatible; ichiro/mobile goo;  http://help.goo.ne.jp/door/crawler.html)",
+		"output": "ichiro/mobile/0.0.0"
+	},
+	{
+		"input": "08_800w_web1 (larbin2.6.3@unspecified.mail)",
+		"output": "larbin/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; LYCOSA;+http://lycosa.se)",
+		"output": "lycos/0.0.0"
+	},
+	{
+		"input": "masidani_bot_v0.3 (info@masidani.com)",
+		"output": "masidani_bot/0.0.0"
+	},
+	{
+		"input": "mozDex/0.05-dev (mozDex; http://www.mozdex.com/bot.html; spider@mozdex.com)",
+		"output": "mozDex/0.05.0"
+	},
+	{
+		"input": "msnbot/2.0 (+http://search.msn.com/msnbot.htm)",
+		"output": "msnbot/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; msnbot/2.1) Jakarta Commons-HttpClient/3.0-rc3 PHPCrawl GStreamer souphttpsrc libsoup/2.27.4 PycURL/7.19.0 XML-RPC for PHP 2.2.1 GoogleFriendConnect/1.0 HTMLParser/1.6 gPodder/0.15.2 ( http://gpodder.org/) anw webtool LoadControl/1.3 WinHttp urlgrabber/3.1.0",
+		"output": "msnbot/2.1.0"
+	},
+	{
+		"input": "msnbot-media/1.0 ( http://search.msn.com/msnbot.htm)",
+		"output": "msnbot-media/1.0.0"
+	},
+	{
+		"input": "msnbot-media/2.0b (+http://search.msn.com/msnbot.htm)",
+		"output": "msnbot-media/2.0.0"
+	},
+	{
+		"input": "MSRBOT (http://research.microsoft.com/research/sv/msrbot)",
+		"output": "msrbot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; scooter; .NET CLR 1.0.3705)",
+		"output": "scooter/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; focuseekbot)",
+		"output": "seekbot/0.0.0"
+	},
+	{
+		"input": "semanticdiscovery/0.2(http://www.semanticdiscovery.com/sd/robot.html)",
+		"output": "semanticdiscovery/0.2.0"
+	},
+	{
+		"input": "semanticdiscovery/2.0(http://www.semanticdiscovery.com/robot.html)",
+		"output": "semanticdiscovery/2.0.0"
+	},
+	{
+		"input": "voyager/1.0",
+		"output": "voyager/1.0"
+	},
+	{
+		"input": "voyager/2.0 (http://www.kosmix.com/crawler.html)",
+		"output": "voyager/2.0.0"
+	},
+	{
+		"input": "http://www.almaden.ibm.com/cs/crawler",
+		"output": "www.almaden.ibm.com/0.0.0"
+	},
+	{
+		"input": "449 Overture-WebCrawler/3.8/Fresh (atw-crawler at fast dot no; http://fast.no/support/crawler.asp",
+		"output": "449 Overture-WebCrawler/3.8.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; 80bot/0.71; http://www.80legs.com/spider.html;) Gecko/2008032620",
+		"output": "80bot/0.71.0"
+	},
+	{
+		"input": "A6-Indexer/1.0 (http://www.a6corp.com/a6-web-scraping-policy/)",
+		"output": "A6-Indexer/1.0.0"
+	},
+	{
+		"input": "AcquiloSpider/1.0,gzip(gfe),gzip(gfe)",
+		"output": "AcquiloSpider/1.0.0"
+	},
+	{
+		"input": "Aleksika Spider/1.0 ( http://www.aleksika.com/)",
+		"output": "Aleksika Spider/1.0.0"
+	},
+	{
+		"input": "AmorankSpider/0.1; +http://amorank.com/webcrawler.html",
+		"output": "AmorankSpider/0.1.0"
+	},
+	{
+		"input": "AnomaliesBot/0.06-dev (The Anomalies Network Search Spider; http://www.anomalies.net; info@anomalies.net)",
+		"output": "AnomaliesBot/0.06.0"
+	},
+	{
+		"input": "Automattic Analytics Crawler/0.1; http://wordpress.com/crawler/",
+		"output": "Automattic Analytics Crawler/0.1.0"
+	},
+	{
+		"input": "Automattic Analytics Crawler/0.2;+http://wordpress.com/crawler/",
+		"output": "Automattic Analytics Crawler/0.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; BLEXBot/1.0; +http://webmeup.com/crawler.html)",
+		"output": "BLEXBot/1.0.0"
+	},
+	{
+		"input": "BabalooSpider/1.2 (BabalooSpider; http://www.babaloo.si; spider@babaloo.si)",
+		"output": "BabalooSpider/1.2.0"
+	},
+	{
+		"input": "BabalooSpider/1.3 (BabalooSpider; http://www.babaloo.si; spider@babaloo.si)",
+		"output": "BabalooSpider/1.3.0"
+	},
+	{
+		"input": "BebopBot/2.5.1 (compatible; media crawler V1;  http://www.apassion4jazz.net/bebopbot.html;)",
+		"output": "BebopBot/2.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; BlinkaCrawler/1.0;  http://www.blinka.jp/crawler/)",
+		"output": "BlinkaCrawler/1.0.0"
+	},
+	{
+		"input": "BlogRangerCrawler/1.0",
+		"output": "blograngercrawler/1.0"
+	},
+	{
+		"input": "Brekiri crawler/1.0",
+		"output": "Brekiri crawler/1.0.0"
+	},
+	{
+		"input": "BurstFindCrawler/1.1 (crawler.burstfind.com; http://crawler.burstfind.com; crawler@burstfind.com)",
+		"output": "BurstFindCrawler/1.1.0"
+	},
+	{
+		"input": "CCBot/1.0 ( http://www.commoncrawl.org/bot.html)",
+		"output": "CCBot/1.0.0"
+	},
+	{
+		"input": "CCBot/2.0 (http://commoncrawl.org/faq/)",
+		"output": "CCBot/2.0.0"
+	},
+	{
+		"input": "CamontSpider/1.0  http://epweb2.ph.bham.ac.uk/user/slater/camont/info.html",
+		"output": "CamontSpider/1.0.0"
+	},
+	{
+		"input": "CazoodleBot/0.1 (CazoodleBot Crawler; http://www.cazoodle.com; mqbot@cazoodle.com)",
+		"output": "CazoodleBot/0.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; CloudServerMarketSpider/1.0; +http://www.cloudservermarket.com/spider.html)",
+		"output": "CloudServerMarketSpider/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; CompSpyBot/1.0; +http://www.compspy.com/spider.html)",
+		"output": "CompSpyBot/1.0.0"
+	},
+	{
+		"input": "ConveraMultiMediaCrawler/0.1 ( http://www.authoritativeweb.com/crawl)",
+		"output": "ConveraMultiMediaCrawler/0.1.0"
+	},
+	{
+		"input": "CosmixCrawler/0.1",
+		"output": "cosmixcrawler/0.1"
+	},
+	{
+		"input": "Crawl/0.1 langcrawl/0.1",
+		"output": "Crawl/0.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; CrawlBot/1.0.0)",
+		"output": "CrawlBot/1.0.0"
+	},
+	{
+		"input": "Crawllybot/0.1/0.1 (Crawllybot/0.1; http://www.crawlly.com; crawler@crawlly.com)",
+		"output": "Crawllybot/0.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Crawly/1.9;  http://92.51.162.40/crawler.html)",
+		"output": "Crawly/1.9.0"
+	},
+	{
+		"input": "Crawlzilla/1.0 (Crawlzilla; http://www.crawlzilla.com; crawler@crawlzilla.com)",
+		"output": "Crawlzilla/1.0.0"
+	},
+	{
+		"input": "CydralSpider/3.2 (Cydral Image Search; http://www.cydral.com)",
+		"output": "CydralSpider/3.2.0"
+	},
+	{
+		"input": "DealGates Bot/1.1 by Luc Michalski (http://spider.dealgates.com/bot.html)",
+		"output": "DealGates Bot/1.1.0"
+	},
+	{
+		"input": "Denodo IECrawler/4.5,gzip(gfe),gzip(gfe)",
+		"output": "Denodo IECrawler/4.5.0"
+	},
+	{
+		"input": "Diffbot/0.1",
+		"output": "diffbot/0.1"
+	},
+	{
+		"input": "DomainCrawler/2.0 (info@domaincrawler.com; http://www.domaincrawler.com/bot",
+		"output": "DomainCrawler/2.0.0"
+	},
+	{
+		"input": "DotBot/1.0.1 (http://www.dotnetdotcom.org/, crawler@dotnetdotcom.org)",
+		"output": "DotBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; DotBot/1.1; http://www.dotnetdotcom.org/, crawler@dotnetdotcom.org)",
+		"output": "DotBot/1.1.0"
+	},
+	{
+		"input": "DotSpotsBot/0.2 (crawler; support at dotspots.com)",
+		"output": "DotSpotsBot/0.2.0"
+	},
+	{
+		"input": "ERACrawler/1.0",
+		"output": "eracrawler/1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; EventGuruBot/1.0; +http://www.eventguru.com/spider.html)",
+		"output": "EventGuruBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Ex-Crawler/0.1.5a; powered by ex-crawler; +http://www.ex-crawler.de/) Java/1.6.0_20,gzip(gfe),gzip(gfe)",
+		"output": "Ex-Crawler/0.1.0"
+	},
+	{
+		"input": "ExactSeek Crawler/0.1",
+		"output": "ExactSeek Crawler/0.1.0"
+	},
+	{
+		"input": "ExactSeekCrawler/1.0",
+		"output": "exactseekcrawler/1.0"
+	},
+	{
+		"input": "FANGCrawl/0.01",
+		"output": "fangcrawl/0.01"
+	},
+	{
+		"input": "FAST Enterprise Crawler/6 (www.fastsearch.com)",
+		"output": "FAST Enterprise Crawler/6.0.0"
+	},
+	{
+		"input": "FAST-WebCrawler/2.2.11 (crawler@fast.no; http://www.fast.no/faq/faqfastwebsearch/faqfastwebcrawler.html)",
+		"output": "FAST-WebCrawler/2.2.0"
+	},
+	{
+		"input": "FAST-WebCrawler/3.7 (atw-crawler at fast dot no; http://fast.no/support/crawler.asp)",
+		"output": "FAST-WebCrawler/3.7.0"
+	},
+	{
+		"input": "NokiaN70/. FASTMobileCrawl/6.6 Profile/MIDP-2.0 Configuration/CLDC-1.1",
+		"output": "FASTMobileCrawl/6.6.0"
+	},
+	{
+		"input": "FlaxCrawler/1.0,gzip(gfe),gzip(gfe)",
+		"output": "FlaxCrawler/1.0.0"
+	},
+	{
+		"input": "FyberSpider/1.3 (http://www.fybersearch.com/fyberspider.php)",
+		"output": "FyberSpider/1.3.0"
+	},
+	{
+		"input": "GarlikCrawler/1.2 (http://garlik.com/",
+		"output": "GarlikCrawler/1.2.0"
+	},
+	{
+		"input": "GematchCrawler/2.1 (http://www.gematch.com/crawler.html)",
+		"output": "GematchCrawler/2.1.0"
+	},
+	{
+		"input": "Gigabot/2.0/gigablast.com/spider.html",
+		"output": "Gigabot/2.0.0"
+	},
+	{
+		"input": "Gigabot/3.0 (http://www.gigablast.com/spider.html)",
+		"output": "Gigabot/3.0.0"
+	},
+	{
+		"input": "GingerCrawler/1.0 (Language Assistant for Dyslexics; www.gingersoftware.com/crawler_agent.htm; support at ginger software dot com)",
+		"output": "GingerCrawler/1.0.0"
+	},
+	{
+		"input": "GoGuidesBot/0.0.1 (GoGuides Indexing Spider; http://www.goguides.org/spider.html)",
+		"output": "GoGuidesBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; GrapeshotCrawler/2.0; +http://www.grapeshot.co.uk/crawler.php)",
+		"output": "GrapeshotCrawler/2.0.0"
+	},
+	{
+		"input": "HPI FeedCrawler/0.1 (+http://www.hpi.uni-potsdam.de/meinel/bross/feedcrawler)",
+		"output": "HPI FeedCrawler/0.1.0"
+	},
+	{
+		"input": "HRCrawler/2.0 (XF86; MacOS x86_64) AppleWebKit/537.31 (KHTML, like Gecko)",
+		"output": "HRCrawler/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Hailoobot/1.2;  http://www.hailoo.com/spider.html)",
+		"output": "Hailoobot/1.2.0"
+	},
+	{
+		"input": "Hatena::Crawler/0.01",
+		"output": "Hatena::Crawler/0.01.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; HiveCrawler/1.2 http://www.businessinsider.com)",
+		"output": "HiveCrawler/1.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Host-Spy Crawler/1.2; +http://www.host-spy.com/)",
+		"output": "Host-Spy Crawler/1.2.0"
+	},
+	{
+		"input": "HttpSpider/0.91",
+		"output": "httpspider/0.91"
+	},
+	{
+		"input": "HuaweiSymantecSpider/1.0 DSE-support@huaweisymantec.com (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR ; http://www.huaweisymantec.com/cn/IRL/spider)",
+		"output": "HuaweiSymantecSpider/1.0.0"
+	},
+	{
+		"input": "IRLbot/1.0 ( http://irl.cs.tamu.edu/crawler)",
+		"output": "IRLbot/1.0.0"
+	},
+	{
+		"input": "IRLbot/3.0 (compatible; MSIE 6.0; http://irl.cs.tamu.edu/crawler)",
+		"output": "IRLbot/3.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; Iplexx Spider/1.1)",
+		"output": "Iplexx Spider/1.1.0"
+	},
+	{
+		"input": "Jambot/0.1.1 (Jambot; http://www.jambot.com/blog; crawler@jambot.com)",
+		"output": "Jambot/0.1.0"
+	},
+	{
+		"input": "Jomjaibot/1.0 Crawl (+http://www.jomjaibot.com/)",
+		"output": "Jomjaibot/1.0.0"
+	},
+	{
+		"input": "KIT webcrawler/0.2.4",
+		"output": "KIT webcrawler/0.2.0"
+	},
+	{
+		"input": "Kyoto-Crawler/2.0 (Mozilla-compatible; kyoto-crawler-contact(at)nlp(dot)kuee(dot)kyoto-u(dot)ac(dot)jp; http://nlp.ist.i.kyoto-u.ac.jp/)",
+		"output": "Kyoto-Crawler/2.0.0"
+	},
+	{
+		"input": "LB-Crawler/1.0",
+		"output": "LB-Crawler/1.0.0"
+	},
+	{
+		"input": "LSSRocketCrawler/1.0 LightspeedSystems",
+		"output": "LSSRocketCrawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7) Gecko/20040707 Lightningspider/0.9.2",
+		"output": "Lightningspider/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; LikaholixCrawler/1.0; +http://mylikes.com/about/crawler)",
+		"output": "LikaholixCrawler/1.0.0"
+	},
+	{
+		"input": "Logict IPv6 Crawler/1.0 (http://ipv6search.logict.net),gzip(gfe),gzip(gfe)",
+		"output": "Logict IPv6 Crawler/1.0.0"
+	},
+	{
+		"input": "MPICrawler/0.1 +http://kermit.news.cs.nyu.edu/crawler.html,gzip(gfe),gzip(gfe)",
+		"output": "MPICrawler/0.1.0"
+	},
+	{
+		"input": "Opera/8.01 (J2ME/MIDP; MXit WebBot/1.8.3.119) Opera Mini/3.1",
+		"output": "MXit WebBot/1.8.0"
+	},
+	{
+		"input": "MetaGeneratorCrawler/1.3.8 (www.metagenerator.info)",
+		"output": "MetaGeneratorCrawler/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MetamojiCrawler/1.0; +http://www.metamoji.com/jp/crawler.html",
+		"output": "MetamojiCrawler/1.0.0"
+	},
+	{
+		"input": "MonkeyCrawl/0.05 (MonkeyCrawl; http://www.monkeymethods.org;  )",
+		"output": "MonkeyCrawl/0.05.0"
+	},
+	{
+		"input": "Mozilla crawl/5.0 (compatible; fairshare.cc +http://fairshare.cc)",
+		"output": "Mozilla crawl/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; NLCrawler/2.0.15; Linux 2.6.3-7; i686; en_US)KHTML/3.4.89 (like Gecko)",
+		"output": "NLCrawler/2.0.0"
+	},
+	{
+		"input": "NMG Spider/0.3 (szukanko.com)",
+		"output": "NMG Spider/0.3.0"
+	},
+	{
+		"input": "NalezenCzBot/1.0 (http://www.nalezen.cz/about-crawler)",
+		"output": "NalezenCzBot/1.0.0"
+	},
+	{
+		"input": "NationalDirectory-WebSpider/1.3",
+		"output": "NationalDirectory-WebSpider/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; NetSeer crawler/2.0; +http://www.netseer.com/crawler.html; crawler@netseer.com)",
+		"output": "NetSeer crawler/2.0.0"
+	},
+	{
+		"input": "NetWhatCrawler/0.06-dev (NetWhatCrawler from NetWhat.com; http://www.netwhat.com; support@netwhat.com)",
+		"output": "NetWhatCrawler/0.06.0"
+	},
+	{
+		"input": "compatible; Netseer crawler/2.0; +http://www.netseer.com/crawler.html; crawler@netseer.com",
+		"output": "Netseer crawler/2.0.0"
+	},
+	{
+		"input": "New-Sogou-Spider/1.0 (compatible; MSIE 5.5; Windows 98)",
+		"output": "New-Sogou-Spider/1.0.0"
+	},
+	{
+		"input": "NewzCrawler/1.9 (compatible; MSIE 6.00; Newz Crawler 1.9; http://www.newzcrawler.com/ )",
+		"output": "NewzCrawler/1.9.0"
+	},
+	{
+		"input": "NodejsSpider/1.0",
+		"output": "nodejsspider/1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; .None-Crawler/0.1 +http://domains.ericbinek.None/)",
+		"output": "None-Crawler/0.1.0"
+	},
+	{
+		"input": "OmniExplorer_Bot/6.70 ( http://www.omni-explorer.com) WorldIndexer",
+		"output": "OmniExplorer_Bot/6.70.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; OpenCrawler/0.1.6.6; http://code.google.com/p/opencrawler/),gzip(gfe),gzip(gfe)",
+		"output": "OpenCrawler/0.1.0"
+	},
+	{
+		"input": "OpenWebSpider/0.6 (http://www.openwebspider.org)",
+		"output": "OpenWebSpider/0.6.0"
+	},
+	{
+		"input": "Overture-WebCrawler/3.8/Fresh (atw-crawler at fast dot no; http://fast.no/support/crawler.asp)",
+		"output": "Overture-WebCrawler/3.8.0"
+	},
+	{
+		"input": "PArchiveCrawler/1.0",
+		"output": "parchivecrawler/1.0"
+	},
+	{
+		"input": "PercolateCrawler/4 (ops@percolate.com)",
+		"output": "PercolateCrawler/4.0.0"
+	},
+	{
+		"input": "Pete-Spider/1.1",
+		"output": "Pete-Spider/1.1.0"
+	},
+	{
+		"input": "PicSpider/1.1 (spider@217-20-118-26.internetserviceteam.com; http://www.bildkiste.de)",
+		"output": "PicSpider/1.1.0"
+	},
+	{
+		"input": "PluckItCrawler/1.0 (compatible; Mozilla 4.0; MSIE 5.5; http://www.pluck.com;)",
+		"output": "PluckItCrawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; PornSpider/1.0; +http://www.pornspider.net)",
+		"output": "PornSpider/1.0.0"
+	},
+	{
+		"input": "PortalBSpider/2.0 (spider@portalb.com)",
+		"output": "PortalBSpider/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; ProCogBot/1.0; +http://www.procog.com/spider.html)",
+		"output": "ProCogBot/1.0.0"
+	},
+	{
+		"input": "ProloCrawler/1.0 (http://www.prolo.com)",
+		"output": "ProloCrawler/1.0.0"
+	},
+	{
+		"input": "PsSpider/0.7 (spider@bildkiste.de)",
+		"output": "PsSpider/0.7.0"
+	},
+	{
+		"input": "RSSIncludeBot/1.0 (http://www.rssinclude.com/spider)",
+		"output": "RSSIncludeBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ;  Embedded Web Browser from: http://bsalsa.com/; RSScrawler/4.0 (compatible; MSIE 6.0; Windows NT 5.0); .NET CLR 2.0.50727",
+		"output": "RSScrawler/4.0.0"
+	},
+	{
+		"input": "RSpider/1.0",
+		"output": "rspider/1.0"
+	},
+	{
+		"input": "RyzeCrawler/1.1.0 (+http://www.ryze.nl/crawler/)",
+		"output": "RyzeCrawler/1.1.0"
+	},
+	{
+		"input": "SMXCrawler/1.0 (www.socialmetrix.com)",
+		"output": "SMXCrawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; SRCCN!Spider/1.1; +http://site.srccn.com/spider.html)",
+		"output": "SRCCN!Spider/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; SWEBot/1.0; +http://swebot-crawler.net)",
+		"output": "SWEBot/1.0.0"
+	},
+	{
+		"input": "Sangfor Spider/0.7",
+		"output": "Sangfor Spider/0.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG GT-I9506-ORANGE Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.1 Chrome/34.0.1847.76 Mobile Safari/537.36",
+		"output": "samsung_mob/2.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-T800 Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.0 Chrome/38.0.2125.102 Safari/537.36",
+		"output": "samsung_mob/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.1.1; SAMSUNG SM-G920F Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.2 Chrome/38.0.2125.102 Mobile Safari/537.36",
+		"output": "samsung_mob/3.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-T710 Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.5 Chrome/38.0.2125.102 Safari/537.36",
+		"output": "samsung_mob/3.5.0"
+	},
+	{
+		"input": "ScSpider/0.2",
+		"output": "scspider/0.2"
+	},
+	{
+		"input": "ScollSpider/2.0 ( http://www.webwobot.com/ScollSpider.php)",
+		"output": "ScollSpider/2.0.0"
+	},
+	{
+		"input": "Screaming Frog SEO Spider/1.10",
+		"output": "Screaming Frog SEO Spider/1.10.0"
+	},
+	{
+		"input": "Screaming Frog SEO Spider/2,01",
+		"output": "Screaming Frog SEO Spider/2.0.0"
+	},
+	{
+		"input": "SearchSpider/1.2.10",
+		"output": "searchspider/1.2.10"
+	},
+	{
+		"input": "Searchspider/1.2 (SearchSpider; http://www.searchspider.com; webmaster@searchspider.com)",
+		"output": "searchspider/1.2.0"
+	},
+	{
+		"input": "SimpleCrawler/0.1",
+		"output": "simplecrawler/0.1"
+	},
+	{
+		"input": "SlugBug Spider/0.1 beta (SlugBug.com search engine; http://www.slugbug.com)",
+		"output": "SlugBug Spider/0.1.0"
+	},
+	{
+		"input": "SmartAndSimpleWebCrawler/1.3 (https://crawler.dev.java.net),gzip(gfe),gzip(gfe)",
+		"output": "SmartAndSimpleWebCrawler/1.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Linux; Socialradarbot/2.0; en-US; crawler@infegy.com)",
+		"output": "Socialradarbot/2.0.0"
+	},
+	{
+		"input": "Sogou Orion spider/4.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou Orion spider/4.0.0"
+	},
+	{
+		"input": "Sogou Pic Spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou Pic Spider/3.0.0"
+	},
+	{
+		"input": "Sogou Push Spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou Push Spider/3.0.0"
+	},
+	{
+		"input": "Sogou develop spider/4.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou develop spider/4.0.0"
+	},
+	{
+		"input": "Sogou head spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou head spider/3.0.0"
+	},
+	{
+		"input": "Sogou web spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)",
+		"output": "Sogou web spider/3.0.0"
+	},
+	{
+		"input": "Sogou-Test-Spider/4.0 (compatible; MSIE 5.5; Windows 98)",
+		"output": "Sogou-Test-Spider/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Sosoimagespider/2.0; +http://help.soso.com/soso-image-spider.htm)",
+		"output": "Sosoimagespider/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Sosospider/2.0; +http://help.soso.com/webspider.htm)",
+		"output": "Sosospider/2.0.0"
+	},
+	{
+		"input": "Spider/5.0",
+		"output": "spider/5.0"
+	},
+	{
+		"input": "SpokeSpider/1.0 (http://support.spoke.com/webspider/) Mozilla/5.0 (not really)",
+		"output": "SpokeSpider/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; StoneSunSpider/1.1)",
+		"output": "StoneSunSpider/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; StreamScraper/1.0; +http://code.google.com/p/streamscraper/)",
+		"output": "StreamScraper/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.5; SuperSpider/139; Windows 98; Win 9x 4.90)",
+		"output": "SuperSpider/139.0.0"
+	},
+	{
+		"input": "T3census-Crawler/1.0",
+		"output": "T3census-Crawler/1.0.0"
+	},
+	{
+		"input": "TECOMAC-Crawler/0.3",
+		"output": "TECOMAC-Crawler/0.3.0"
+	},
+	{
+		"input": "Tasapspider/0.9",
+		"output": "tasapspider/0.9"
+	},
+	{
+		"input": "TinEye-bot/0.02 (see http://www.tineye.com/crawler.html)",
+		"output": "TinEye-bot/0.02.0"
+	},
+	{
+		"input": "Top10Ranking Spider/3.1 ( http://www.top10Ranking.nl/, Top10ranking.nl heeft op een aantal woorden uw posities in Google gecheckt)",
+		"output": "Top10Ranking Spider/3.1.0"
+	},
+	{
+		"input": "TouTrix crawler/1.0",
+		"output": "TouTrix crawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; TridentSpider/3.1)",
+		"output": "TridentSpider/3.1.0"
+	},
+	{
+		"input": "TurnitinBot/1.5 (http://www.turnitin.com/robot/crawlerinfo.html)",
+		"output": "TurnitinBot/1.5.0"
+	},
+	{
+		"input": "TurnitinBot/3.0 (http://www.turnitin.com/robot/crawlerinfo.html)",
+		"output": "TurnitinBot/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Linux i686; en-US; URLfilterDB-crawler/1.0) ufdb/1.0",
+		"output": "URLfilterDB-crawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (URLfilterDB-crawler/1.1) ufdb/1.0",
+		"output": "URLfilterDB-crawler/1.1.0"
+	},
+	{
+		"input": "VinjaVideoSpider/1.1",
+		"output": "vinjavideospider/1.1"
+	},
+	{
+		"input": "VisBot/2.0 (Visvo.com Crawler; http://www.visvo.com/bot.html; bot@visvo.com)",
+		"output": "VisBot/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; VodpodCrawler/1.0; +http://vodpod.com/site/help)",
+		"output": "VodpodCrawler/1.0.0"
+	},
+	{
+		"input": "WSDLSpider/1.0 (http://www.wsdlworld.com)",
+		"output": "WSDLSpider/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; WangIDSpider/1.0; +http://www.wangid.com/spider.html)",
+		"output": "WangIDSpider/1.0.0"
+	},
+	{
+		"input": "Web-Robot/5.0 (en-US; web-robot.com/policy.html) Web-Robot Crawler/2.0.3",
+		"output": "Web-Robot/5.0.0"
+	},
+	{
+		"input": "WebAlta Crawler/1.3.18 (http://www.webalta.net/ru/about_webmaster.html) (Windows; U; Windows NT 5.1; ru-RU)",
+		"output": "WebAlta Crawler/1.3.0"
+	},
+	{
+		"input": "WebAlta Crawler/2.0 (http://www.webalta.net/ru/about_webmaster.html) (Windows; U; Windows NT 5.1; ru-RU)",
+		"output": "WebAlta Crawler/2.0.0"
+	},
+	{
+		"input": "WebIndexer/1-dev (Web Indexer; mailto://webindexerv1@yahoo.com; webindexerv1@yahoo.com)",
+		"output": "WebIndexer/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Webbot/0.1; http://www.webbot.ru/bot.html)",
+		"output": "Webbot/0.1.0"
+	},
+	{
+		"input": "Webspider/1.0 (web spider;  )",
+		"output": "Webspider/1.0.0"
+	},
+	{
+		"input": "WinWebBot/1.0; (Balaena Ltd, UK); http://www.balaena.com/winwebbot.html; winwebbot@balaena.com;)",
+		"output": "WinWebBot/1.0.0"
+	},
+	{
+		"input": "WinkBot/0.06 (Wink.com search engine web crawler; http://www.wink.com/Wink:WinkBot; winkbot@wink.com)",
+		"output": "WinkBot/0.06.0"
+	},
+	{
+		"input": "Yahoo-MMCrawler/3.x (mm dash crawler at trd dot overture dot com)",
+		"output": "Yahoo-MMCrawler/3.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Yahoo-MMCrawler/4.0; mailto:vertical-crawl-support@yahoo-inc.com)",
+		"output": "Yahoo-MMCrawler/4.0.0"
+	},
+	{
+		"input": "Yahoo-Newscrawler/3.9 (news-search-crawler at yahoo-inc dot com)",
+		"output": "Yahoo-Newscrawler/3.9.0"
+	},
+	{
+		"input": "Yahoo-VerticalCrawler-FormerWebCrawler/3.9 crawler at trd dot overture dot com; http://www.alltheweb.com/help/webmaster/crawler",
+		"output": "Yahoo-VerticalCrawler-FormerWebCrawler/3.9.0"
+	},
+	{
+		"input": "YoonoCrawler/1.0 (crawler@yoono.com)",
+		"output": "YoonoCrawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; YoudaoBot/1.0; http://www.youdao.com/help/webmaster/spider/; )",
+		"output": "YoudaoBot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; ZemlyaCrawl/1.0; +http://zemlyaozer.com/bot)",
+		"output": "ZemlyaCrawl/1.0.0"
+	},
+	{
+		"input": "Zeusbot/0.8.1 (Ulysseek's web-crawling robot; http://www.zeusbot.com; agent@zeusbot.com)",
+		"output": "Zeusbot/0.8.0"
+	},
+	{
+		"input": "agbot/1.0 (AgHaven.com search engine crawler; http://search.aghaven.com; bot@aghaven.com)",
+		"output": "agbot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; archive_crawler/3.0.0-SNAPSHOT-20091205.013431  http://www.archive.org/details/archive_crawler)",
+		"output": "archive_crawler/3.0.0"
+	},
+	{
+		"input": "audioCrawlerBot/1.0 (http://www.audiocrawler.com/)",
+		"output": "audioCrawlerBot/1.0.0"
+	},
+	{
+		"input": "awesomebar_scraper/1.0",
+		"output": "awesomebar_scraper/1.0"
+	},
+	{
+		"input": "blog_crawler/1.0",
+		"output": "blog_crawler/1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; ca-crawler/1.0)",
+		"output": "ca-crawler/1.0.0"
+	},
+	{
+		"input": "crawl/0.4 langcrawl/0.1",
+		"output": "crawl/0.4.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; crawler/3.0.0 +http://www.notconfigured.com/)",
+		"output": "crawler/3.0.0"
+	},
+	{
+		"input": "dCrawlBot/1.0.1120",
+		"output": "dcrawlbot/1.0.1120"
+	},
+	{
+		"input": "deepcrawler/3.1 (http://www.queusearch.com/whatis_deepcrawler.php),gzip(gfe),gzip(gfe)",
+		"output": "deepcrawler/3.1.0"
+	},
+	{
+		"input": "envolk[ITS]spider/1.6 ( http://www.envolk.com/envolkspider.html)",
+		"output": "envolk[ITS]spider/1.6.0"
+	},
+	{
+		"input": "fastlwspider/1.0",
+		"output": "fastlwspider/1.0"
+	},
+	{
+		"input": "i1searchbot/2.0 (i1search web crawler; http://www.i1search.com; crawler@i1search.com)",
+		"output": "i1searchbot/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; iaskspider/1.0; MSIE 6.0)",
+		"output": "iaskspider/1.0.0"
+	},
+	{
+		"input": "iaskspider/2.0( http://iask.com/help/help_index.html)",
+		"output": "iaskspider/2.0.0"
+	},
+	{
+		"input": "Liquida.it-Crawler/1.0 ( crawler@liquida.it +http://www.liquida.it )",
+		"output": "it-Crawler/1.0.0"
+	},
+	{
+		"input": "it2media-domain-crawler/1.0 on crawler-prod.it2media.de",
+		"output": "it2media-domain-crawler/1.0.0"
+	},
+	{
+		"input": "jrCrawler/1.0b",
+		"output": "jrCrawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; loc-crawl/1.10.1 +http://www.google.com)",
+		"output": "loc-crawl/1.10.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; loc-crawler/0.11.0 +http://loc.gov),gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "loc-crawler/0.11.0"
+	},
+	{
+		"input": "DoCoMo/2.0 P904i( m65bot/0.1; c; http://m65.jp/bot.html )",
+		"output": "m65bot/0.1.0"
+	},
+	{
+		"input": "magpie-crawler/1.1 (U; Linux amd64; en-GB;  http://www.brandwatch.net)",
+		"output": "magpie-crawler/1.1.0"
+	},
+	{
+		"input": "noxtrumbot/1.0 (crawler@noxtrum.com)",
+		"output": "noxtrumbot/1.0.0"
+	},
+	{
+		"input": "nyobot/1.1 (Noyb.com search engine crawler; http://www.noyb.com; bot@noyb.com),gzip(gfe),gzip(gfe)",
+		"output": "nyobot/1.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; oBot/2.3.1; +http://filterdb.iss.net/crawler/)",
+		"output": "oBot/2.3.0"
+	},
+	{
+		"input": "omgilibot/0.3 +http://www.omgili.com/Crawler.html",
+		"output": "omgilibot/0.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; rogerBot/1.0; UrlCrawler; http://www.seomoz.org/dp/rogerbot)",
+		"output": "rogerBot/1.0.0"
+	},
+	{
+		"input": "rogerbot/1.1 (http://moz.com/help/pro/what-is-rogerbot-, rogerbot-crawler+pr1-crawler-14@moz.com)",
+		"output": "rogerbot/1.1.0"
+	},
+	{
+		"input": "semantics webbot/1.0",
+		"output": "semantics webbot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; socialbm_bot/1.0; +http://spider.socialbm.net)",
+		"output": "socialbm_bot/1.0.0"
+	},
+	{
+		"input": "tCrawler/0.1,gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "tCrawler/0.1.0"
+	},
+	{
+		"input": "tivraSpider/1.0 (crawler@tivra.com)",
+		"output": "tivraSpider/1.0.0"
+	},
+	{
+		"input": "webscraper/1.0",
+		"output": "webscraper/1.0"
+	},
+	{
+		"input": "wume_crawler/1.1 (http://wume.cse.lehigh.edu/~xiq204/crawler/)",
+		"output": "wume_crawler/1.1.0"
+	},
+	{
+		"input": "Abrave Spider v5.3 Robot 2 (http://robot.abrave.com)",
+		"output": "3 Robot/2.0.0"
+	},
+	{
+		"input": "Apexoo Spider 1.1",
+		"output": "Apexoo Spider/1.1.0"
+	},
+	{
+		"input": "BT Crawler 1.0,gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "BT Crawler/1.0.0"
+	},
+	{
+		"input": "Bot Blocker Crawler 1.0 (btw, IncrediBILL says \"HI!\")",
+		"output": "Bot Blocker Crawler/1.0.0"
+	},
+	{
+		"input": "BurstFind Crawler 1.1 - www.burstfind.com",
+		"output": "BurstFind Crawler/1.1.0"
+	},
+	{
+		"input": "Comodo Spider 1.1",
+		"output": "Comodo Spider/1.1.0"
+	},
+	{
+		"input": "Comodo Spider 1.2",
+		"output": "Comodo Spider/1.2.0"
+	},
+	{
+		"input": "Crawler 0.1,gzip(gfe),gzip(gfe)",
+		"output": "Crawler/0.1.0"
+	},
+	{
+		"input": "ExB Language Crawler 2.1.5 (+http://www.exb.de/crawler)",
+		"output": "ExB Language Crawler/2.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; FAST Crawler 6.3)",
+		"output": "FAST Crawler/6.3.0"
+	},
+	{
+		"input": "FAST EnterpriseCrawler 6",
+		"output": "FAST EnterpriseCrawler/6.0.0"
+	},
+	{
+		"input": "schibstedsokbot (compatible; Mozilla/5.0; MSIE 5.0; FAST FreshCrawler 6; Contact: webcrawl@schibstedsok.no;)",
+		"output": "FAST FreshCrawler/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; FatBot 2.0; http://www.thefind.com/crawler)",
+		"output": "FatBot/2.0.0"
+	},
+	{
+		"input": "Feedjit Favicon Crawler 1.0",
+		"output": "Feedjit Favicon Crawler/1.0.0"
+	},
+	{
+		"input": "HubSpot Crawler 1.0 http://www.hubspot.com/",
+		"output": "HubSpot Crawler/1.0.0"
+	},
+	{
+		"input": "Jaxified Crawler 1.0a (+http://www.jaxified.com/),gzip(gfe),gzip(gfe)",
+		"output": "Jaxified Crawler/1.0.0"
+	},
+	{
+		"input": "LinksCrawler 0.1beta",
+		"output": "LinksCrawler/0.1.0"
+	},
+	{
+		"input": "Liquida Spider 1.0 +http://liquida.com/",
+		"output": "Liquida Spider/1.0.0"
+	},
+	{
+		"input": "My Spider 1.0,gzip(gfe),gzip(gfe)",
+		"output": "My Spider/1.0.0"
+	},
+	{
+		"input": "NWSpider 0.9",
+		"output": "NWSpider/0.9.0"
+	},
+	{
+		"input": "Netchart Adv Crawler 1.0",
+		"output": "Netchart Adv Crawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (NimbleCrawler 0.1) obeys NimbleCrawler directive contact jpump@looksmart.net",
+		"output": "NimbleCrawler/0.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows;) NimbleCrawler 2.0.1 obeys UserAgent NimbleCrawler For problems contact: crawler@healthline.com",
+		"output": "NimbleCrawler/2.0.0"
+	},
+	{
+		"input": "OMGCrawler 1.0",
+		"output": "OMGCrawler/1.0.0"
+	},
+	{
+		"input": "SeekOn Spider 1.9(+http://www.seekon.com/spider.html)",
+		"output": "SeekOn Spider/1.9.0"
+	},
+	{
+		"input": "Toms Spider 0.3",
+		"output": "Toms Spider/0.3.0"
+	},
+	{
+		"input": "Tutorial Crawler 1.4",
+		"output": "Tutorial Crawler/1.4.0"
+	},
+	{
+		"input": "RB2B-bot v0.1 (Using Fast Enterprise Crawler 6 search@reedbusiness.com)",
+		"output": "Using Fast Enterprise Crawler/6.0.0"
+	},
+	{
+		"input": "WocBot/Mozilla/5.0 (Wocodi Web Crawler 1.0; http://www.wocodi.com/crawler; crawler@wocodi.com)",
+		"output": "Wocodi Web Crawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; WordSurfer Spider 2.2;))",
+		"output": "WordSurfer Spider/2.2.0"
+	},
+	{
+		"input": "XSpider 0.01;http://uncool.oicp.net/spider.html",
+		"output": "XSpider/0.01.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 7.0) XSpider 7",
+		"output": "XSpider/7.0.0"
+	},
+	{
+		"input": "Xaldon WebSpider 2.7.b6",
+		"output": "Xaldon WebSpider/2.7.0"
+	},
+	{
+		"input": "echocrawl 2.0",
+		"output": "echocrawl/2.0.0"
+	},
+	{
+		"input": "enicura crawler 1.0,gzip(gfe),gzip(gfe)",
+		"output": "enicura crawler/1.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; lworld spider 1.0; Windows NT 5.1)",
+		"output": "lworld spider/1.0.0"
+	},
+	{
+		"input": "FAST-mSEARCH Crawler 0.1 (bergum@fast.no)",
+		"output": "mSEARCH Crawler/0.1.0"
+	},
+	{
+		"input": "123metaspider-Bot (Version: 1.04, powered by www.123metaspider.com)",
+		"output": "123metaspider-Bot/0.0.0"
+	},
+	{
+		"input": "360Spider",
+		"output": "360Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.8webcrawler) http://skateboarddirectory.com",
+		"output": "8webcrawler/0.0.0"
+	},
+	{
+		"input": "AESOP_com_SpiderMan",
+		"output": "AESOP_com_SpiderMan/0.0.0"
+	},
+	{
+		"input": "AISearchBot (Email: aisearchbot@gmail.com; If your web site doesn't want to be crawled, please send us a email.)",
+		"output": "AISearchBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; DAWINCI ANTIPLAG SPIDER)",
+		"output": "ANTIPLAG SPIDER/0.0.0"
+	},
+	{
+		"input": "AcquiaCrawler,gzip(gfe),gzip(gfe)",
+		"output": "AcquiaCrawler/0.0.0"
+	},
+	{
+		"input": "Adaxas Spider (http://www.adaxas.net/)",
+		"output": "Adaxas Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0) AddSugarSpiderBot www.idealobserver.com",
+		"output": "AddSugarSpiderBot/0.0.0"
+	},
+	{
+		"input": "AdnormCrawler www.adnorm.com/crawler",
+		"output": "AdnormCrawler/0.0.0"
+	},
+	{
+		"input": "www.website-analyzer.net Website Analyzer Crawler",
+		"output": "Analyzer Crawler/0.0.0"
+	},
+	{
+		"input": "Apexoo Spider (http://www.apexoo.com/spider/)",
+		"output": "Apexoo Spider/0.0.0"
+	},
+	{
+		"input": "AppCodes crawler - looking for iOS app mentions. More info: support@appcodes.com. Robots.txt id: AppCodesCrawler",
+		"output": "AppCodes crawler/0.0.0"
+	},
+	{
+		"input": "ArchitextSpider",
+		"output": "ArchitextSpider/0.0.0"
+	},
+	{
+		"input": "Arikus_Spider",
+		"output": "Arikus_Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0 compatible; Asterias Crawler v4;  http://www.singingfish.com/help/spider.html; webmaster@singingfish.com); SpiderThread  Revision: 3.0",
+		"output": "Asterias Crawler/4.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible: AstraSpider V.2.1 : astrafind.com)",
+		"output": "AstraSpider/0.0.0"
+	},
+	{
+		"input": "Autonomy Spider",
+		"output": "Autonomy Spider/0.0.0"
+	},
+	{
+		"input": "axadine/  (Axadine Crawler; http://www.axada.de/;  )",
+		"output": "Axadine Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; BIXOCRAWLER; +http://wiki.github.com/bixo/bixo/bixocrawler; bixo-dev@yahoogroups.com)",
+		"output": "BIXOCRAWLER/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; BOTW Spider;  http://botw.org)",
+		"output": "BOTW Spider/0.0.0"
+	},
+	{
+		"input": "BacklinkCrawler (http://www.backlinktest.com/crawler.html)",
+		"output": "BacklinkCrawler/0.0.0"
+	},
+	{
+		"input": "BaiduImagespider ( http://help.baidu.jp/system/05.html)",
+		"output": "BaiduImagespider/0.0.0"
+	},
+	{
+		"input": "BarraHomeCrawler (albertof@barrahome.org)",
+		"output": "BarraHomeCrawler/0.0.0"
+	},
+	{
+		"input": "ZoomInfo::Beehive Crawler",
+		"output": "Beehive Crawler/0.0.0"
+	},
+	{
+		"input": "BeijingCrawler",
+		"output": "BeijingCrawler/0.0.0"
+	},
+	{
+		"input": "BejiBot Crawler (BNL Services; http://www.bejjan.net/crawler/)",
+		"output": "BejiBot/0.0.0"
+	},
+	{
+		"input": "BravoBrian SpiderEngine MarcoPolo",
+		"output": "BravoBrian SpiderEngine/0.0.0"
+	},
+	{
+		"input": "BrightCrawler (http://www.brightcloud.com/brightcrawler.asp)",
+		"output": "BrightCrawler/0.0.0"
+	},
+	{
+		"input": "BuildCMS crawler (http://www.buildcms.com/crawler)",
+		"output": "BuildCMS crawler/0.0.0"
+	},
+	{
+		"input": "ByWebSite-Search-Spider,gzip(gfe),gzip(gfe)",
+		"output": "ByWebSite-Search-Spider/0.0.0"
+	},
+	{
+		"input": "CFG_SPIDER_USER_AGENT",
+		"output": "CFG_SPIDER_USER_AGENT/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (CMS Crawler: http://www.cmscrawler.com)",
+		"output": "CMS Crawler/0.0.0"
+	},
+	{
+		"input": "CMS crawler ( http://buytaert.net/crawler/)",
+		"output": "CMS crawler/0.0.0"
+	},
+	{
+		"input": "CRAZYWEBCRAWLER 0.9.0, http://www.crazywebcrawler.com",
+		"output": "CRAZYWEBCRAWLER/0.9.0"
+	},
+	{
+		"input": "CSimpleSpider Robot",
+		"output": "CSimpleSpider/0.0.0"
+	},
+	{
+		"input": "Cityreview Robot (+http://www.cityreview.org/crawler/)",
+		"output": "Cityreview Robot/0.0.0"
+	},
+	{
+		"input": "Exalead Cloudview Crawler,gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "Cloudview Crawler/0.0.0"
+	},
+	{
+		"input": "Comodo-Certificates-Spider",
+		"output": "Comodo-Certificates-Spider/0.0.0"
+	},
+	{
+		"input": "Computer_and_Automation_Research_Institute_Crawler (crawler@info.ilab.sztaki.hu)",
+		"output": "Computer_and_Automation_Research_Institute_Crawler/0.0.0"
+	},
+	{
+		"input": "Http Connector Spider, contact Alcatel-Lucent IDOL Search",
+		"output": "Connector Spider/0.0.0"
+	},
+	{
+		"input": "Content Crawler",
+		"output": "Content Crawler/0.0.0"
+	},
+	{
+		"input": "CowCrawler/CowCrawler-dev (+http://beta.cow.com),gzip(gfe),gzip(gfe)",
+		"output": "CowCrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; CrawlDaddy v0.3.0 abot v1.1.1.0 http://code.google.com/p/abot)",
+		"output": "CrawlDaddy/0.3.0"
+	},
+	{
+		"input": "CrawlFire - you can disable this Robot: http://pastebin.de/25277",
+		"output": "CrawlFire/0.0.0"
+	},
+	{
+		"input": "CrawlWave/1.2 (crawlwave[at]circular.gr http://www.spiderwave.aueb.gr/",
+		"output": "CrawlWave/1.2.0"
+	},
+	{
+		"input": "CrawlerBoy Pinpoint.com",
+		"output": "CrawlerBoy/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.0; Windows 98; DigExt; Crayon Crawler)",
+		"output": "Crayon Crawler/0.0.0"
+	},
+	{
+		"input": "DRKSpider - Website link validator - http://www.drk.com.ar/spider/,gzip(gfe),gzip(gfe),gzip(gfe)",
+		"output": "DRKSpider/0.0.0"
+	},
+	{
+		"input": "DefaultCrawlTest/0.6 (Ram Crawl Test; devarajaswami at yahoo dot com)",
+		"output": "DefaultCrawlTest/0.6.0"
+	},
+	{
+		"input": "FFC Trap Door Spider",
+		"output": "Door Spider/0.0.0"
+	},
+	{
+		"input": "DoubleVerify Crawler",
+		"output": "DoubleVerify Crawler/0.0.0"
+	},
+	{
+		"input": "EasouSpider",
+		"output": "EasouSpider/0.0.0"
+	},
+	{
+		"input": "EcoGrader Crawler: Beta",
+		"output": "EcoGrader Crawler/0.0.0"
+	},
+	{
+		"input": "Adknowledge Engage Crawler",
+		"output": "Engage Crawler/0.0.0"
+	},
+	{
+		"input": "ByWebSite Search Engine Spider",
+		"output": "Engine Spider/0.0.0"
+	},
+	{
+		"input": "EverbeeCrawler",
+		"output": "EverbeeCrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Ex-Crawler/v0.1.5ALPHA SVN rev58; powered by ex-crawler; +http://www.ex-crawler.de/) Java/1.6.0_20,gzip(gfe),gzip(gfe)",
+		"output": "Ex-Crawler/0.0.0"
+	},
+	{
+		"input": "ExactSeek_Spider",
+		"output": "ExactSeek_Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; FastCrawler3, support-fastcrawler3@fast.no)",
+		"output": "FastCrawler3/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Finderbots finder bot; +http://wiki.github.com/bixo/bixo/bixocrawler; bixo-dev@yahoogroups.com)",
+		"output": "Finderbots/0.0.0"
+	},
+	{
+		"input": "Findexa Crawler (http://www.findexa.no/gulesider/article26548.ece)",
+		"output": "Findexa Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/3.0 (compatible; Fluffy the spider; http://www.searchhippo.com/; info@searchhippo.com)",
+		"output": "Fluffy the spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0) (Atsameip FreeCrawl!)",
+		"output": "FreeCrawl/0.0.0"
+	},
+	{
+		"input": "Fujiko Spider (fujiko@inelegant.org)",
+		"output": "Fujiko Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; FunkyCrawler; )",
+		"output": "FunkyCrawler/0.0.0"
+	},
+	{
+		"input": "GSiteCrawler/v1.12 rev. 260 (http://gsitecrawler.com/)",
+		"output": "GSiteCrawler/0.0.0"
+	},
+	{
+		"input": "GeekTools Crawler - http://domains.geek-tools.org",
+		"output": "GeekTools Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla 4.0 - GetMeLinked Spider www.GetMeLinked.com Web Directory",
+		"output": "GetMeLinked Spider/0.0.0"
+	},
+	{
+		"input": "Gnam Gnam Spider",
+		"output": "Gnam Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; GoGuidesBot; http://www.goguides.org/spider.html)",
+		"output": "GoGuidesBot/0.0.0"
+	},
+	{
+		"input": "GoScraper",
+		"output": "GoScraper/0.0.0"
+	},
+	{
+		"input": "GrowerIdeas Crawler/GrowerIdeas-nutch-1.6 (Crawls URLs for indexing content for our new search startup which aims to provide simple and smart search across curated content. For more info please contact helloworld@growerideas.com. If you think",
+		"output": "GrowerIdeas Crawler/0.0.0"
+	},
+	{
+		"input": "Huaweisymantecspider (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727),gzip(gfe)",
+		"output": "Huaweisymantecspider/0.0.0"
+	},
+	{
+		"input": "BlogPulse (ISSpider-3.0)",
+		"output": "ISSpider/0.0.0"
+	},
+	{
+		"input": "IWE Spider v.01 - www.pavka.com.au",
+		"output": "IWE Spider/0.0.0"
+	},
+	{
+		"input": "IXE Crawler",
+		"output": "IXE Crawler/0.0.0"
+	},
+	{
+		"input": "Imperia-LinkSpider,gzip(gfe),gzip(gfe)",
+		"output": "Imperia-LinkSpider/0.0.0"
+	},
+	{
+		"input": "netEstate Impressumscrawler (+http://www.netestate.de/De/Loesungen/Impressumscrawler)",
+		"output": "Impressumscrawler/0.0.0"
+	},
+	{
+		"input": "Inar_spider2 (tspyyp@tom.com)",
+		"output": "Inar_spider2/0.0.0"
+	},
+	{
+		"input": "IOI/2.0 (ISC Open Index crawler; http://index.isc.org/; bot@index.isc.org)",
+		"output": "Index crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.5; Windows 98; Infocrawler; Alexa Toolbar)",
+		"output": "Infocrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; Inspyder-Crawler; http://www.inspyder.com)",
+		"output": "Inspyder-Crawler/0.0.0"
+	},
+	{
+		"input": "Willow Internet Crawler by Twotrees V2.1",
+		"output": "Internet Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (SKIZZLE! Distributed Internet Spider v1.0 - www.SKIZZLE.com)",
+		"output": "Internet Spider/1.0.0"
+	},
+	{
+		"input": "IssueCrawler",
+		"output": "IssueCrawler/0.0.0"
+	},
+	{
+		"input": "JUST-CRAWLER( http://www.justsystems.com/jp/tech/crawler/)",
+		"output": "JUST-CRAWLER/0.0.0"
+	},
+	{
+		"input": "Jayde Crawler. http://www.jayde.com",
+		"output": "Jayde Crawler/0.0.0"
+	},
+	{
+		"input": "JikeSpider; +http://shoulu.jike.com/spider.html",
+		"output": "JikeSpider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible;WI Job Roboter Spider Version 3;+http://www.webintegration.at)",
+		"output": "Job Roboter/0.0.0"
+	},
+	{
+		"input": "JobSpider_BA/1.1",
+		"output": "jobspider_ba/1.1"
+	},
+	{
+		"input": "KiwiStatus (NZS.com)/0.2 (NZS.com KiwiStatus Spider,  Local Search New Zealand; http://www.nzs.com; bot-at-nzs dot com)",
+		"output": "KiwiStatus Spider/0.0.0"
+	},
+	{
+		"input": "Kotoss Crawler http://hitokoto.kotoss.com,gzip(gfe),gzip(gfe)",
+		"output": "Kotoss Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Kyluka crawl; crawl@kyluka.com; http://www.kyluka.com/static/crawl.html)",
+		"output": "Kyluka crawl/0.0.0"
+	},
+	{
+		"input": "LNSpiderguy",
+		"output": "LNSpiderguy/0.0.0"
+	},
+	{
+		"input": "LarbinWebCrawler (internet@bredband.net)",
+		"output": "LarbinWebCrawler/0.0.0"
+	},
+	{
+		"input": "LargeSmall Crawler",
+		"output": "LargeSmall Crawler/0.0.0"
+	},
+	{
+		"input": "Lijit Crawler (+http://www.lijit.com/robot/crawler)",
+		"output": "Lijit Crawler/0.0.0"
+	},
+	{
+		"input": "DocWeb Link Crawler (http://doc.php.net)",
+		"output": "Link Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Lipperhey Spider; http://www.lipperhey.com/)",
+		"output": "Lipperhey Spider/0.0.0"
+	},
+	{
+		"input": "LookUpCrawler - lookupcanada.ca [ZSEBOT]",
+		"output": "LookUpCrawler/0.0.0"
+	},
+	{
+		"input": "Lycos_Spider_(modspider)",
+		"output": "Lycos_Spider_/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0) METASpider",
+		"output": "METASpider/0.0.0"
+	},
+	{
+		"input": "MQbot http://metaquerier.cs.uiuc.edu/crawler",
+		"output": "MQbot/0.0.0"
+	},
+	{
+		"input": "MSIndianWebcrawl",
+		"output": "MSIndianWebcrawl/0.0.0"
+	},
+	{
+		"input": "MSR-ISRCCrawler",
+		"output": "MSR-ISRCCrawler/0.0.0"
+	},
+	{
+		"input": "MedSpider v0.0.1",
+		"output": "MedSpider/0.0.0"
+	},
+	{
+		"input": "Social Media Crawler using your Home URL on Twitter,Facebook,Myspace,Linkedin by ProfileCapture - contact profilecapture@gmail.com to report any problems with my crawling. http://profilecapture.com",
+		"output": "Media Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible); MSIE 5.0; Medialab Spider",
+		"output": "Medialab Spider/0.0.0"
+	},
+	{
+		"input": "DomainsDB.net MetaCrawler v.0.9.7b (http://domainsdb.net/)",
+		"output": "MetaCrawler/0.0.0"
+	},
+	{
+		"input": "FAST MetaWeb Crawler (helpdesk at fastsearch dot com)",
+		"output": "MetaWeb Crawler/0.0.0"
+	},
+	{
+		"input": "CC Metadata Scaper http://wiki.creativecommons.org/Metadata_Scraper",
+		"output": "Metadata_Scraper/0.0.0"
+	},
+	{
+		"input": "MicrosoftPrototypeCrawler (How's my crawling? mailto:newbiecrawler@hotmail.com)",
+		"output": "MicrosoftPrototypeCrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; MixrankBot; crawler@mixrank.com)",
+		"output": "MixrankBot/0.0.0"
+	},
+	{
+		"input": "Sogou Mobile Spider1.0 (http://wap.sogou.com)",
+		"output": "Mobile Spider1/0.0.0"
+	},
+	{
+		"input": "Mozilla-Firefox-Spider(Wenanry)",
+		"output": "Mozilla-Firefox-Spider/0.0.0"
+	},
+	{
+		"input": "MultiCrawler, http://sw.deri.org/2006/04/multicrawler/robots.html",
+		"output": "MultiCrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3; MySpaceScraper) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)",
+		"output": "MySpaceScraper/0.0.0"
+	},
+	{
+		"input": "Norbert the Spider(Burf.com)",
+		"output": "Norbert the Spider/0.0.0"
+	},
+	{
+		"input": "NuSearch Spider www.nusearch.com",
+		"output": "NuSearch Spider/0.0.0"
+	},
+	{
+		"input": "Nusearch Spider (compatible; MSIE 6.0)",
+		"output": "Nusearch Spider/0.0.0"
+	},
+	{
+		"input": "OpenWebSpider (link collector; http://links.port30.se/cia.html) v (http://www.openwebspider.org/)",
+		"output": "OpenWebSpider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; OpenX Spider; http://www.openx.org)",
+		"output": "OpenX Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; OpenindexSpider; +http://www.openindex.io/en/webmasters/spider.html)",
+		"output": "OpenindexSpider/0.0.0"
+	},
+	{
+		"input": "Orgbybot/OrgbyBot v1.2 (Spidering the net for Orgby; http://www.orgby.com/  ; Orgby.com Search Engine)",
+		"output": "Orgbybot/0.0.0"
+	},
+	{
+		"input": "PDFBot (crawler@pdfind.com)",
+		"output": "PDFBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; InfoPath.2; .NET CLR 3.5.21022; .NET CLR 3.5.30729; MS-RTC LM 8; OfficeLiveConnector.1.4; OfficeLivePatch.1.3; .NET CLR 3.0.30729) Jakarta Commons-HttpClient/3.0-rc3 PHPCrawl GStreamer souphttpsrc libsoup/2.27.4 PycURL/7.19.0 XML-RPC for PHP 2.2.1 GoogleFriendConnect/1.0 HTMLParser/1.6 gPodder/0.15.2 ( http://gpodder.org/) anw webtool LoadControl/1.3 WinHttp urlgrabber/3.1.0",
+		"output": "PHPCrawl/0.0.0"
+	},
+	{
+		"input": "Fast PartnerSite Crawler",
+		"output": "PartnerSite Crawler/0.0.0"
+	},
+	{
+		"input": "Patwebbot (http://www.herz-power.de/technik.html)",
+		"output": "Patwebbot/0.0.0"
+	},
+	{
+		"input": "PeerFactor Crawler",
+		"output": "PeerFactor Crawler/0.0.0"
+	},
+	{
+		"input": "PhoenixWebBot Beta",
+		"output": "PhoenixWebBot/0.0.0"
+	},
+	{
+		"input": "pipeLiner/0.10 (PipeLine Spider; http://www.pipeline-search.com/webmaster.html)",
+		"output": "PipeLine Spider/0.0.0"
+	},
+	{
+		"input": "ProjectWF-java-test-crawler",
+		"output": "ProjectWF-java-test-crawler/0.0.0"
+	},
+	{
+		"input": "Punk Spider/PunkSPIDER-v0.1",
+		"output": "Punk Spider/0.0.0"
+	},
+	{
+		"input": "QuerySeekerSpider ( http://queryseeker.com/bot.html )",
+		"output": "QuerySeekerSpider/0.0.0"
+	},
+	{
+		"input": "QuickFinder Crawler",
+		"output": "QuickFinder Crawler/0.0.0"
+	},
+	{
+		"input": "OpenLink Virtuoso RDF crawler",
+		"output": "RDF crawler/0.0.0"
+	},
+	{
+		"input": "Jaxified Public RSS Crawler ( http://www.jaxified.com/)",
+		"output": "RSS Crawler/0.0.0"
+	},
+	{
+		"input": "RSS-SPIDER (RSS Feed Seeker http://www.MyNewFavoriteThing.com/fsb.php)",
+		"output": "RSS-SPIDER/0.0.0"
+	},
+	{
+		"input": "RavenCrawler",
+		"output": "RavenCrawler/0.0.0"
+	},
+	{
+		"input": "ReadPath_Spider",
+		"output": "ReadPath_Spider/0.0.0"
+	},
+	{
+		"input": "LinkStar Research Crawler (http://linkstar.com/),gzip(gfe),gzip(gfe)",
+		"output": "Research Crawler/0.0.0"
+	},
+	{
+		"input": "Research spider - ak1835@albany.edu",
+		"output": "Research spider/0.0.0"
+	},
+	{
+		"input": "RoboCrawl (www.canadiancontent.net)",
+		"output": "RoboCrawl/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.2; WOW64) Runet-Research-Crawler (itrack.ru/research/cmsrate; rating@itrack.ru)",
+		"output": "Runet-Research-Crawler/0.0.0"
+	},
+	{
+		"input": "Teragram/SAS Crawler",
+		"output": "SAS Crawler/0.0.0"
+	},
+	{
+		"input": "SCrawlTest/CR1 (CWD; http://sproose.com; crawl@sproose.com)",
+		"output": "SCrawlTest/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; SISTRIX Crawler; http://crawler.sistrix.net/)",
+		"output": "SISTRIX Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36; SSL-Crawler: http://crawler.dcsec.uni-hannover.de",
+		"output": "SSL-Crawler/0.0.0"
+	},
+	{
+		"input": "SWAT Crawler. AGH University project. In case of problem contact: opal@tempus.metal.agh.edu.pl. Thanks.",
+		"output": "SWAT Crawler/0.0.0"
+	},
+	{
+		"input": "SandCrawler - Compatibility Testing",
+		"output": "SandCrawler/0.0.0"
+	},
+	{
+		"input": "Sangfor Spider",
+		"output": "Sangfor Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/3.0 (compatible; ScollSpider; http://www.webwobot.com)",
+		"output": "ScollSpider/0.0.0"
+	},
+	{
+		"input": "ScreenerBot Crawler Beta 2.0 (+http://www.ScreenerBot.com)",
+		"output": "ScreenerBot/0.0.0"
+	},
+	{
+		"input": "SearchSpider.com/1.1",
+		"output": "SearchSpider/0.0.0"
+	},
+	{
+		"input": "ownCloud Server Crawler",
+		"output": "Server Crawler/0.0.0"
+	},
+	{
+		"input": "Shim-Crawler",
+		"output": "Shim-Crawler/0.0.0"
+	},
+	{
+		"input": "ShowyouBot (http://showyou.com/crawler)",
+		"output": "crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.0) SiteCheck-sitecrawl by Siteimprove.com",
+		"output": "SiteCheck-sitecrawl/0.0.0"
+	},
+	{
+		"input": "SiteCrawler,gzip(gfe),gzip(gfe)",
+		"output": "SiteCrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.5 (compatible; MSIE 5.5; Windows NT 5.1) Sitespider+ b432.1",
+		"output": "Sitespider/0.0.0"
+	},
+	{
+		"input": "SocialSpider-Finder/0.2",
+		"output": "SocialSpider/0.0.0"
+	},
+	{
+		"input": "Sosoblogspider+(+http://help.soso.com/soso-blog-spider.htm)",
+		"output": "Sosoblogspider/0.0.0"
+	},
+	{
+		"input": "Sosoimagespider ( http://help.soso.com/soso-image-spider.htm)",
+		"output": "Sosoimagespider/0.0.0"
+	},
+	{
+		"input": "Sosospider+(+help.soso.com/webspider.htm)",
+		"output": "Sosospider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; SpeedySpider; www.entireweb.com)",
+		"output": "SpeedySpider/0.0.0"
+	},
+	{
+		"input": "SpiderKU/0.9",
+		"output": "spiderku/0.9"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; SpiderLing (a SPIDER for LINGustic research); +http://nlp.fi.muni.cz/projects/biwec/)",
+		"output": "SpiderLing/0.0.0"
+	},
+	{
+		"input": "SpiderMan 3.0.1-2-11-111 (CP/M;8-bit)",
+		"output": "SpiderMan/3.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; SpiderView 1.0;unix)",
+		"output": "SpiderView/1.0.0"
+	},
+	{
+		"input": "Spider_Monkey/7.06 (SpiderMonkey.ca info at http://SpiderMonkey.ca /sm.shtml)",
+		"output": "Spider_Monkey/7.06.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Spiderlytics/1.0; +spider@spiderlytics.com)",
+		"output": "Spiderlytics/1.0.0"
+	},
+	{
+		"input": "PKU Student Spider",
+		"output": "Student Spider/0.0.0"
+	},
+	{
+		"input": "Symfony Spider (http://symfony.com/spider)",
+		"output": "Symfony Spider/0.0.0"
+	},
+	{
+		"input": "Synthesio Crawler release MonaLisa (contact at synthesio dot fr)",
+		"output": "Synthesio Crawler/0.0.0"
+	},
+	{
+		"input": "TAMU_CS_IRL_CRAWLER/1.0",
+		"output": "tamu_cs_irl_crawler/1.0"
+	},
+	{
+		"input": "TTop-Crawler,gzip(gfe),gzip(gfe)",
+		"output": "TTop-Crawler/0.0.0"
+	},
+	{
+		"input": "TayaCrawler (Beta; v0.1; tayadev@nexdegree.com)",
+		"output": "TayaCrawler/0.0.0"
+	},
+	{
+		"input": "TelemetrySpider2/0.1 linux",
+		"output": "TelemetrySpider2/0.1.0"
+	},
+	{
+		"input": "Theme Spider ( http://www.themespider.com/spider.html)",
+		"output": "Theme Spider/0.0.0"
+	},
+	{
+		"input": "Thesis_php_crawler",
+		"output": "Thesis_php_crawler/0.0.0"
+	},
+	{
+		"input": "Trends Crawler, Real time trends bot (info@trendscrawler.com)",
+		"output": "Trends Crawler/0.0.0"
+	},
+	{
+		"input": "TwitSpider",
+		"output": "TwitSpider/0.0.0"
+	},
+	{
+		"input": "Twitmunin Crawler http://www.twitmunin.com",
+		"output": "Twitmunin Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; TwitterCrawler)",
+		"output": "TwitterCrawler/0.0.0"
+	},
+	{
+		"input": "UCMore Crawler App",
+		"output": "UCMore Crawler/0.0.0"
+	},
+	{
+		"input": "UOLCrawler (soscrawler@uol.com.br)",
+		"output": "UOLCrawler/0.0.0"
+	},
+	{
+		"input": "Links4US-Crawler, ( http://links4us.com/)",
+		"output": "US-Crawler/0.0.0"
+	},
+	{
+		"input": "USyd-NLP-Spider (http://www.it.usyd.edu.au/~vinci/bot.html)",
+		"output": "USyd-NLP-Spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; UnisterBot; crawler@unister.de)",
+		"output": "UnisterBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0, VM-Crawler/cs version info  ofni noisrev sc",
+		"output": "VM-Crawler/0.0.0"
+	},
+	{
+		"input": "WEBB Crawler - see: http://badcheese.com/robots.html",
+		"output": "WEBB Crawler/0.0.0"
+	},
+	{
+		"input": "WSDL Crawler",
+		"output": "WSDL Crawler/0.0.0"
+	},
+	{
+		"input": "EmeraldShield.com WebBot",
+		"output": "com WebBot/0.0.0"
+	},
+	{
+		"input": "WebCompanyCrawler",
+		"output": "WebCompanyCrawler/0.0.0"
+	},
+	{
+		"input": "WebCrawler v1.3",
+		"output": "WebCrawler/1.3.0"
+	},
+	{
+		"input": "WebVulnCrawl.blogspot.com/1.0 libwww-perl/5.803",
+		"output": "WebVulnCrawl/0.0.0"
+	},
+	{
+		"input": "CyberPatrol SiteCat Webbot (http://www.cyberpatrol.com/cyberpatrolcrawler.asp)",
+		"output": "SiteCat Webbot/0.0.0"
+	},
+	{
+		"input": "EricssonR320/R1A (Fast Wireless Crawler)",
+		"output": "Wireless Crawler/0.0.0"
+	},
+	{
+		"input": "X-Crawler",
+		"output": "X-Crawler/0.0.0"
+	},
+	{
+		"input": "XYZ Spider",
+		"output": "XYZ Spider/0.0.0"
+	},
+	{
+		"input": "Y!J-BRJ/YATS crawler (http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html)",
+		"output": "YATS crawler/0.0.0"
+	},
+	{
+		"input": "Y!J-BRO/YFSJ crawler (compatible; Mozilla 4.0; MSIE 5.5; http://help.yahoo.co.jp/help/jp/search/indexing/indexing-15.html; YahooFeedSeekerJp/2.0)",
+		"output": "YFSJ crawler/0.0.0"
+	},
+	{
+		"input": "YRL_ODP_CRAWLER",
+		"output": "YRL_ODP_CRAWLER/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Android 3.0; YRSpider; +http://www.yunrang.com/yrspider.html)",
+		"output": "YRSpider/0.0.0"
+	},
+	{
+		"input": "YebolBot (Email: yebolbot@gmail.com; If the web crawling affects your web service, or you don't like to be crawled by us, please email us. We'll stop crawling immediately.)",
+		"output": "YebolBot/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; Yet-Another-Spider; )",
+		"output": "Yet-Another-Spider/0.0.0"
+	},
+	{
+		"input": "YisouSpider",
+		"output": "YisouSpider/0.0.0"
+	},
+	{
+		"input": "NL-Crawler",
+		"output": "NL-Crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; YoudaoBot-rts/1.0; http://www.youdao.com/help/webmaster/spider/; )",
+		"output": "YoudaoBot/0.0.0"
+	},
+	{
+		"input": "ZIBB Crawler (email address / WWW address)",
+		"output": "ZIBB Crawler/0.0.0"
+	},
+	{
+		"input": "ZillaCrawler",
+		"output": "ZillaCrawler/0.0.0"
+	},
+	{
+		"input": "ZoomSpider - wrensoft.com",
+		"output": "ZoomSpider/0.0.0"
+	},
+	{
+		"input": "Zspider (+http://www.zhanzhangsou.com/index.htm)",
+		"output": "Zspider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; acedo crawler extension)",
+		"output": "acedo crawler/0.0.0"
+	},
+	{
+		"input": "acquia-crawler (detected bad behaviour? please tell us at it@acquia.com),gzip(gfe),gzip(gfe)",
+		"output": "acquia-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.21 (KHTML, like Gecko) adspider Safari/537.21",
+		"output": "adspider/0.0.0"
+	},
+	{
+		"input": "amphetameme crawler (crawler@amphetameme.com)",
+		"output": "amphetameme crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; ayna-crawler  http://www.ayna.com)",
+		"output": "ayna-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Bender; http://sites.google.com/site/bendercrawler)",
+		"output": "bendercrawler/0.0.0"
+	},
+	{
+		"input": "snap.com beta crawler v0",
+		"output": "beta crawler/0.0.0"
+	},
+	{
+		"input": "blackspider",
+		"output": "blackspider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; bmdspider; windows 5.1)",
+		"output": "bmdspider/0.0.0"
+	},
+	{
+		"input": "boitho crawler",
+		"output": "boitho crawler/0.0.0"
+	},
+	{
+		"input": "cis455crawler",
+		"output": "cis455crawler/0.0.0"
+	},
+	{
+		"input": "http://www.Syntryx.com/ ANT Chassis 9.27; Mozilla/4.0 compatible crawler",
+		"output": "compatible crawler/0.0.0"
+	},
+	{
+		"input": "crawler4j (http://code.google.com/p/crawler4j/)",
+		"output": "crawler4j/0.0.0"
+	},
+	{
+		"input": "dtSearchSpider",
+		"output": "dtSearchSpider/0.0.0"
+	},
+	{
+		"input": "Enterprise_Search/1.0 110 (http://www.innerprise.net/es-spider.asp)",
+		"output": "es-spider/0.0.0"
+	},
+	{
+		"input": "eseek-crawler.0.5 (crawler@exactseek.com)",
+		"output": "eseek-crawler/0.0.0"
+	},
+	{
+		"input": "exooba/exooba crawler (exooba; exooba)",
+		"output": "exooba crawler/0.0.0"
+	},
+	{
+		"input": "flatlandbot/allspark (Flatland Industries Web Spider; http://www.flatlandindustries.com/flatlandbot; jason@flatlandindustries.com)",
+		"output": "flatlandbot/0.0.0"
+	},
+	{
+		"input": "haupia-crawler",
+		"output": "haupia-crawler/0.0.0"
+	},
+	{
+		"input": "hitcrawler_0.1 (ringken@gmail.com)",
+		"output": "hitcrawler_0/0.0.0"
+	},
+	{
+		"input": "iaskspider2 (iask@staff.sina.com.cn)",
+		"output": "iaskspider2/0.0.0"
+	},
+	{
+		"input": "visaduhoc.info Crawler",
+		"output": "info Crawler/0.0.0"
+	},
+	{
+		"input": "ip-web-crawler.com",
+		"output": "ip-web-crawler/0.0.0"
+	},
+	{
+		"input": "jikespider \"Mozilla/5.0",
+		"output": "jikespider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0) compatible; kototoi-crawl@yl.is.s.u-tokyo.ac.jp",
+		"output": "kototoi-crawl/0.0.0"
+	},
+	{
+		"input": "lb-spider",
+		"output": "lb-spider/0.0.0"
+	},
+	{
+		"input": "ldspider (BTC 2011 crawl, harth@kit.edu, http://code.google.com/p/ldspider/wiki/Robots)",
+		"output": "ldspider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; lemurwebcrawler admin@lemurproject.org; +http://boston.lti.cs.cmu.edu/crawler_12/)",
+		"output": "lemurwebcrawler/0.0.0"
+	},
+	{
+		"input": "lmspider (lmspider@scansoft.com)",
+		"output": "lmspider/0.0.0"
+	},
+	{
+		"input": "lworldspider",
+		"output": "lworldspider/0.0.0"
+	},
+	{
+		"input": "trunk.ly spider contact@trunk.ly",
+		"output": "ly spider/0.0.0"
+	},
+	{
+		"input": "Vodafone mCrawler (bergum@fast.no)",
+		"output": "mCrawler/0.0.0"
+	},
+	{
+		"input": "media-percbotspider <ops@percolate.com>",
+		"output": "media-percbotspider/0.0.0"
+	},
+	{
+		"input": "DoCoMo/2.0 N902iS(c100;TB;W24H12)(compatible; moba-crawler; http://crawler.dena.jp/)",
+		"output": "moba-crawler/0.0.0"
+	},
+	{
+		"input": "Nokia6680/1.0 ((4.04.07) SymbianOS/8.0 Series60/2.6 Profile/MIDP-2.0 Configuration/CLDC-1.1 (for mobile crawler) )",
+		"output": "mobile crawler/0.0.0"
+	},
+	{
+		"input": "n4p_bot (crawler@n4p.com)",
+		"output": "n4p_bot/0.0.0"
+	},
+	{
+		"input": "na-Webcrawler (helpdesk@newsaktuell.de)",
+		"output": "na-Webcrawler/0.0.0"
+	},
+	{
+		"input": "nuSearch Spider <a href='http://www.nusearch.com'>www.nusearch.com</a> (compatible; MSIE 4.01; Windows NT)",
+		"output": "nuSearch Spider/0.0.0"
+	},
+	{
+		"input": "parallelContextFocusCrawler1.1parallelContextFocusCrawler1.1",
+		"output": "parallelContextFocusCrawler1/0.0.0"
+	},
+	{
+		"input": "persomm-spider/v1.0",
+		"output": "persomm-spider/0.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; http://www.pregnancycrawler.com)",
+		"output": "pregnancycrawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; ptd-crawler;  http://bixolabs.com/crawler/ptd/; crawler@bixolabs.com)",
+		"output": "ptd-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; pub-crawler; +http://wiki.github.com/bixo/bixo/bixocrawler; bixo-dev@yahoogroups.com)",
+		"output": "pub-crawler/0.0.0"
+	},
+	{
+		"input": "pythonic-crawler (suzuki@tkl.iis.u-tokyo.ac.jp)",
+		"output": "pythonic-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.2; WOW64) Russian CMS rating crawler (itrack.ru/cmsrate, avlasov@itrack.ru)",
+		"output": "rating crawler/0.0.0"
+	},
+	{
+		"input": "camoca/camoca-n.1.2 (super-agent; search crawler; info at does not exist dot com)",
+		"output": "search crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; sgbot v0.01a, sgcrawlerbot@gmail.com)",
+		"output": "sgbot/0.01.0"
+	},
+	{
+		"input": "spiderpig/0.1,gzip(gfe),gzip(gfe)",
+		"output": "spiderpig/0.1.0"
+	},
+	{
+		"input": "ssearch_bot (sSearch Crawler; http://www.semantissimo.de)",
+		"output": "ssearch_bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; suggybot v0.01a, http://blog.suggy.com/was-ist-suggy/suggy-webcrawler/)",
+		"output": "suggybot/0.01.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; uMBot-FC/1.0; mailto: crawling@ubermetrics-technologies.com)",
+		"output": "uMBot/0.0.0"
+	},
+	{
+		"input": "unchaos_crawler_2.0.2 (search.engine@unchaos.com)",
+		"output": "unchaos_crawler_2/0.0.0"
+	},
+	{
+		"input": "updated/0.1-alpha (updated crawler; http://www.updated.com; crawler@updated.com)",
+		"output": "updated crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Yahoo-Test/4.0 mailto:vertical-crawl-support@yahoo-inc.com)",
+		"output": "vertical-crawl/0.0.0"
+	},
+	{
+		"input": "yp-crawl@attinteractive.com",
+		"output": "yp-crawl/0.0.0"
+	},
+	{
+		"input": "yrspider (Mozilla/5.0 (compatible; YRSpider;  http://www.yunrang.com/yrspider.html))",
+		"output": "yrspider/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Yahoo-Test/4.0 ysm-keystone-crawl-support@yahoo-inc.com)",
+		"output": "ysm-keystone-crawl/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; zyklop; +http://www.seoratio.de/zyklop-crawler/)",
+		"output": "zyklop-crawler/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.2.1; en-gb; CUBOT ONE Build/JOP40D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+		"output": "Android/4.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71 (Rival IQ, rivaliq.com)",
+		"output": "Rival IQ/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; en-gb) AppleWebKit/418.9.1 (KHTML, like Gecko) SiteCon/8.10.9",
+		"output": "SiteCon/8.10.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4",
+		"output": "ios_saf/8.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4",
+		"output": "ios_saf/8.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.9.133 Safari/537.36",
+		"output": "Spotify/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.9.133 Safari/537.36",
+		"output": "Spotify/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.4.90 Safari/537.36",
+		"output": "Spotify/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.3.101 Safari/537.36",
+		"output": "Spotify/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Spotify/1.0.8.59 Safari/537.36",
+		"output": "Spotify/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Android 5.0; Tablet; rv:41.0) Gecko/41.0 Firefox/41.0",
+		"output": "firefox_mob/41.0.0"
+	},
+	{
+		"input": "[FBAN/FB4A;FBAV/3.4;FBBV/258875;FBDM/{density=0.75,width=240,height=320};FBLC/tr_TR;FBCR/o2 - de;FBPN/com.facebook.katana;FBDV/LG-E400;FBSV/2.3.6;]",
+		"output": "Facebook/3.4.0"
+	},
+	{
+		"input": "[FBAN/FB4A;FBAV/2.3;FBBV/149649;FBDM/{density=1.5,width=480,height=800};FBLC/es_ES;FBCR/;FBPN/com.facebook.katana;FBDV/LG-P920;FBSV/2.2.2;]",
+		"output": "Facebook/2.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; SCH-R720 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 [FBAN/FB4A;FBAV/1.8.1;FBPN/com.facebook.katana;FBDV/SCH-R720;FBSV/2.3.4;FBDM/{density=1.0,width=320,height=",
+		"output": "Facebook/1.8.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.2.2; de-de; 706_v92_jbla_fhd Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 [FB_IAB/FB4A;FBAV/24.0.0.30.15;]",
+		"output": "android/4.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329 [FBAN/FBIOS;FBAV/6.5.1;FBBV/377040;FBDV/iPhone4,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/6.1.3;FBSS/2; FBCR/Telekom.de;FBID/phone;FBLC/de_DE;",
+		"output": "facebook/6.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329 [FBAN/FBIOS;FBAV/6.2;FBBV/228172;FBDV/iPhone5,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/6.1.3;FBSS/2; FBCR/o2-de;FBID/phone;FBLC/pt_BR;FBOP/1]",
+		"output": "ios_saf/6.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 [FBAN/FBIOS;FBAV/6.5.1;FBBV/377040;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/5.0;FBSS/1; FBCR/;FBID/tablet;FBLC/de_DE;FBOP/1]",
+		"output": "ios_saf/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU iPhone OS 4_3_2 like Mac OS X; de_DE) AppleWebKit (KHTML, like Gecko) Mobile [FBAN/FBForIPhone;FBAV/4.0.2;FBBV/4020.0;FBDV/iPad1,1;FBMD/iPad;FBSN/iPhone OS;FBSV/4.3.2;FBSS/1; FBCR/;FBID/tablet;FBLC/de_DE;FBSF/1.0]",
+		"output": "ios_saf/4.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU iPhone OS 4_3_5 like Mac OS X; de_DE) AppleWebKit (KHTML, like Gecko) Mobile [FBAN/FBForIPhone;FBAV/4.0.3;FBBV/4030.0;FBDV/iPad2,2;FBMD/iPad;FBSN/iPhone OS;FBSV/4.3.5;FBSS/1; FBCR/Telekom.de;FBID/tablet;FBLC/de_DE;FBS",
+		"output": "facebook/4.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 [FBAN/FBIOS;FBAV/6.1;FBBV/201075;FBDV/iPhone3,1;FBMD/iPhone;FBSN/iPhone OS;FBSV/5.1.1;FBSS/2; FBCR/Vodafone.de;FBID/phone;FBLC/en_US;FBOP/1]",
+		"output": "ios_saf/5.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12D508 [FBAN/GroupsForiOS;FBAV/9.0;FBBV/7752968;FBDV/iPhone7,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/8.2;FBSS/2; FBCR/Telekom.de;FBID/phone;FBLC/de_",
+		"output": "Facebook/9.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_1 like Mac OS X; fr_FR) AppleWebKit (KHTML, like Gecko) Mobile [FBAN/FBForIPhone;FBAV/4.0;FBBV/4000.0;FBDV/iPhone1,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/4.1;FBSS/1; FBCR/Carrier;FBID/phone;FBLC/fr_FR;FBSF/1.",
+		"output": "Facebook/4.0.0"
+	},
+	{
+		"input": "Dalvik/1.2.0 (Linux; U; Android 2.2.2; HTC Desire Build/FRG83G) [FBAN/Orca-Android;FBAV/2.6.1-release;FBLC/de_DE;FBBV/288543;FBCR/o2 - de;FBMF/HTC;FBBD/htc_wwe;FBDV/HTC Desire;FBSV/2.2.2]",
+		"output": "android/2.2.0"
+	},
+	{
+		"input": "[FBAN/FB4A;FBAV/3.6;FBBV/330148;FBDM/{density=0.75,width=240,height=320};FBLC/de_DE;FBCR/o2 - de;FBPN/com.facebook.katana;FBDV/GT-S5570;FBSV/2.2.1;FBCA/armeabi:unknown;]",
+		"output": "Facebook/3.6.0"
+	},
+	{
+		"input": "[FBAN/PAAA;FBAV/1.7;FBDM/{density=2.0,width=720,height=1280};FBLC/es_ES;FB_FW/2;FBSN/Android;FBCR/FONIC;FBDV/GT-I9300;FBSV/4.1.2;]",
+		"output": "Facebook/1.7.0"
+	},
+	{
+		"input": "[FBAN/PAAA;FBAV/1.9;FBDM/{density=2.0,width=720,height=1280};FBLC/de_DE;FB_FW/2;FBSN/Android;FBCR/o2 - de;FBDV/GT-I9300;FBSV/4.3;]",
+		"output": "Facebook/1.9.0"
+	},
+	{
+		"input": "[FBAN/FB4A;FBAV/130.0.321;FBBV/149649;FBDM/{density=1.5,width=480,height=800};FBLC/es_ES;FBCR/;FBPN/com.facebook.katana;FBDV/LG-P920;FBSV/2.2.2;]",
+		"output": "Facebook/130.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B350 [Pinterest/iOS]",
+		"output": "Pinterest/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.4.2; A3-A11 Build/KOT49H) AppleWebKit/537.36 (KHTML like Gecko) Version/4.0 Chrome/30.0.0.0 Safari/537.36 [Pinterest/Android]",
+		"output": "Pinterest/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A525 [Pinterest/iOS]",
+		"output": "Pinterest/0.0.0"
+	},
+	{
+		"input": "Pinterest for Android Tablet/1.8.4 (SGP321; 4.3)",
+		"output": "Pinterest/1.8.0"
+	},
+	{
+		"input": "Pinterest for Android Tablet/4.3.1 (A7600-H; 4.4.2)",
+		"output": "Pinterest/4.3.0"
+	},
+	{
+		"input": "Pinterest for Android/1.1.1 (endeavoru; 4.1.1)",
+		"output": "Pinterest/1.1.0"
+	},
+	{
+		"input": "Pinterest for Android/3.6.2 (klte; 4.4.2)",
+		"output": "Pinterest/3.6.0"
+	},
+	{
+		"input": "Pinterest/0.1",
+		"output": "pinterest/0.1"
+	},
+	{
+		"input": "Pinterest/0.2 (+http://www.pinterest.com/)",
+		"output": "Pinterest/0.2.0"
+	},
+	{
+		"input": "Pinterest for Android/1.1.12 (endeavoru; 4.1.1)",
+		"output": "Pinterest/1.1.0"
+	},
+	{
+		"input": "Pinterest/3.2 CFNetwork/672.0.8 Darwin/14.0.0",
+		"output": "cfnetwork/672.0.0"
+	},
+	{
+		"input": "Pinterest/3.3.3 CFNetwork/609.1.4 Darwin/13.0.0",
+		"output": "cfnetwork/609.1.0"
+	},
+	{
+		"input": "Pinterest/3356 CFNetwork/711.0.6 Darwin/14.0.0",
+		"output": "cfnetwork/711.0.0"
+	},
+	{
+		"input": "Pinterest/4.1.3 CFNetwork/672.1.14 Darwin/14.0.0",
+		"output": "cfnetwork/672.1.0"
+	},
+	{
+		"input": "Pinterest/0.2 (+https://www.pinterest.com/bot.html)",
+		"output": "com/bot/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Pinterestbot/1.0; +https://www.pinterest.com/bot.html)",
+		"output": "Pinterestbot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Pinterestbot/1.0; +https://www.pinterest.com/bot.html)",
+		"output": "Pinterestbot/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) qutebrowser/0.2.1 Safari/538.1",
+		"output": "qutebrowser/0.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) pagedraw/0.1.0 Chrome/49.0.2623.75 Electron/0.37.8 Safari/537.36",
+		"output": "chrome/49.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile",
+		"output": "ios_saf/4.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU OS 4_3_2 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8H7 Safari",
+		"output": "ios_saf/5.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) QupZilla/1.6.3 Safari/538.1",
+		"output": "QupZilla/1.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (OS/2 Warp 4.5) AppleWebKit/537.21 (KHTML, like Gecko) QupZilla/1.6.4 Safari/537.21",
+		"output": "QupZilla/1.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Unknown; UNIX BSD/SYSV system) AppleWebKit/534.34 (KHTML, like Gecko) QupZilla/1.7.0 Safari/534.34",
+		"output": "QupZilla/1.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.21 (KHTML, like Gecko) QupZilla/1.6.1 Safari/537.21",
+		"output": "QupZilla/1.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.03 beta 3 Safari/538.1",
+		"output": "Otter/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.04",
+		"output": "Otter/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.21 (KHTML, like Gecko) Otter/0.9.04-dev",
+		"output": "Otter/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.3.01-dev Safari/538.1",
+		"output": "Otter/0.3.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.03 beta 3 Safari/538.1",
+		"output": "Otter/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Otter/0.9.05",
+		"output": "Otter/0.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 930) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0",
+		"output": "ie/12.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) brave/0.7.11 Chrome/47.0.2526.110 Brave/0.36.5 Safari/537.36",
+		"output": "Brave/0.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) brave/0.7.12 Chrome/47.0.2526.110 Brave/0.36.7 Safari/537.36 ",
+		"output": "Brave/0.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) brave/0.7.10 Chrome/47.0.2526.110 Brave/0.36.5 Safari/537.36",
+		"output": "Brave/0.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome Safari/537.36",
+		"output": "HeadlessChrome/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/62.0.3202.89 Safari/537.36",
+		"output": "headlesschrome/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/59.0.3071.109 HeadlessChrome/59.0.3071.109 Safari/537.36",
+		"output": "headlesschrome/0.0.0"
+	},
+	{
+		"input": "Roku/DVP-6.2 (096.02E06005A)",
+		"output": "Roku/6.2.0"
+	},
+	{
+		"input": "Roku/DVP-5.0 (025.00E08043A)",
+		"output": "Roku/5.0.0"
+	},
+	{
+		"input": "Roku/DVP-5.1 (025.01E01195A)",
+		"output": "Roku/5.1.0"
+	},
+	{
+		"input": "Microsoft Office/12.0 (Windows NT 6.1; Microsoft Office Outlook 12.0.6739; Pro)",
+		"output": "Outlook/2007.0.0"
+	},
+	{
+		"input": "Microsoft Office/14.0 (Windows NT 6.1; Microsoft Outlook 14.0.5128; Pro)",
+		"output": "Outlook/2010.0.0"
+	},
+	{
+		"input": "Microsoft Office/16.0 (Microsoft Outlook Mail 16.0.6525; Pro)",
+		"output": "Outlook/2016.0.0"
+	},
+	{
+		"input": "Microsoft Office/16.0 (Windows NT 10.0; Microsoft Outlook 16.0.6326; Pro)",
+		"output": "Outlook/2016.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/8.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Microsoft Outlook 16.0.6366; ms-office; MSOffice 16)",
+		"output": "Outlook/2016.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 7.0; Windows NT 5.1; Trident/4.0; AskTB5.6; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 7.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; Media Center PC 6.0; OfficeLiveConnector.1.4; OfficeLivePatch.1.3; InfoPath.3; FDM; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 6.0; Windows NT 5.1; SV1; GTB6.3; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; InfoPath.2; .NET CLR 3.0.04506.648; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; OfficeLiveConnector.1.3; OfficeLivePatch.0.0; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 8; Windows NT 5.1; Trident/4.0; GTB7.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; InfoPath.1; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Outlook-Express/7.0 (MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; HPDTDF; .NET4.0C; BRI/2; AskTbLOL/5.12.5.17640; TmstmpExt)",
+		"output": "Windows Live Mail/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.0.1; GT-I9505 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 YaBrowser/16.2.1.1239.00 Mobile Safari/537.36",
+		"output": "Yandex Browser/16.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.4.2; SM-G800F Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.135 MobileIron/1.6.0 Mobile Safari/537.36",
+		"output": "MobileIron/1.6.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.4.4; GT-I9195I Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Crosswalk/14.43.343.17 Mobile Safari/537.36",
+		"output": "Crosswalk/14.43.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 6.0.1; Z831 Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.94 Mobile Crosswalk/11.45.2454.20160425 Mobile Safari/537.36",
+		"output": "chrome/45.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 4.1.2; GT-S7710 Build/JZO54K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile",
+		"output": "chrome/18.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU OS 5_1_1 like Mac OS X; en-us) AppleWebKit/534.46.0 (KHTML, like Gecko) Chrome/19.0.1084.60 Mobile/9B206 Safari/7534.48.3",
+		"output": "chrome/19.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; U; Android 4.4.4; de-de; SM-G850F Build/KTU84P) AppleWebKit/537.16 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.16 Chrome/33.0.0.0",
+		"output": "chrome/33.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.41 (KHTML, like Gecko) Large Screen WebAppManager Safari/537.41",
+		"output": "Safari/0.0.0"
+	},
+	{
+		"input": "MacOutlook/15.27.0.161010 (Intelx64 Mac OS X Version 10.11.6 (Build 15G1108))",
+		"output": "MacOutlook/15.27.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Slack_SSB/2.0.3",
+		"output": "Slack Desktop Client/2.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) AtomShell/2.6.0 Chrome/56.0.2924.87 Electron/1.6.3 Safari/537.36 MacAppStore/16.5.0 Slack_SSB/2.6.0",
+		"output": "macappstore/16.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Slack/2.6.0-beta18998559 Chrome/56.0.2924.87 AtomShell/1.6.3 Safari/537.36 Slack_SSB/2.6.0",
+		"output": "Chrome/56.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/603.1.30 (KHTML, like Gecko) HipChat/732 (modern)",
+		"output": "apple mail/603.1.0"
+	},
+	{
+		"input": "HipChat Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.7.0 Chrome/49.0.2623.111 Safari/537.36",
+		"output": "chrome/49.0.0"
+	},
+	{
+		"input": "Microsoft-CryptoAPI/6.1",
+		"output": "Microsoft-CryptoAPI/6.1.0"
+	},
+	{
+		"input": "Microsoft SkyDriveSync 17.3.6517.0809 ship; Windows NT 6.1 Service Pack 1 (7601)",
+		"output": "Microsoft SkyDriveSync/17.3.0"
+	},
+	{
+		"input": "ExchangeServicesClient/14.02.0051.000",
+		"output": "ExchangeServicesClient/14.02.0"
+	},
+	{
+		"input": "Mac OS X/10.11.6 (15G1004); ExchangeWebServices/6.0 (243); Mail/9.3 (3124)",
+		"output": "ExchangeWebServices/6.0.0"
+	},
+	{
+		"input": "Mozilla/5.0+(iPhone;+CPU+iPhone+OS+9_3_1+like+Mac+OS+X)+AppleWebKit/601.1.46+(KHTML,+like+Gecko)+Version/9.0+Mobile/13E238+Safari/601.1",
+		"output": "ios_saf/9.0.0"
+	},
+	{
+		"input": "Mozilla/5.0+(iPad;+CPU+OS+9_3_1+like+Mac+OS+X)+AppleWebKit/601.1.46+(KHTML,+like+Gecko)+Version/9.0+Mobile/13E238+Safari/601.1",
+		"output": "ios_saf/9.0.0"
+	},
+	{
+		"input": "Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)",
+		"output": "Slackbot-LinkExpanding/1.0.0"
+	},
+	{
+		"input": "Slack-ImgProxy 1.136 (+https://api.slack.com/robots)",
+		"output": "Slack-ImgProxy/1.136.0"
+	},
+	{
+		"input": "okhttp/3.4.2",
+		"output": "okhttp/3.4.2"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1300.0 Iron/23.0.1300.0 Safari/537.11",
+		"output": "Iron/23.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Iron/9.0.600.2 Chrome/9.0.600.2 Safari/534.13",
+		"output": "Iron/9.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2750.0 Iron Safari/537.36",
+		"output": "Iron/52.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Android; U; en-US) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/23.0",
+		"output": "AdobeAIR/23.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/19.0",
+		"output": "AdobeAIR/19.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iOS; U; en-US) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/19.0",
+		"output": "AdobeAIR/19.0.0"
+	},
+	{
+		"input": "Kurio/3.0.8 Build 65303(Android Kitkat 4.4.4; Phone)",
+		"output": "Kurio App/3.0.0"
+	},
+	{
+		"input": "BacaBerita App/5.5.0 (Linux; U; Android 4.4.4; en-us) Mobile Safari",
+		"output": "BacaBerita App/5.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) MxBrowser/4.5.2.2000 Chrome/30.0.1551.0 Safari/537.36",
+		"output": "Maxthon/4.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.5.1000 Chrome/30.0.1599.101 Safari/537.36",
+		"output": "Maxthon/4.4.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.0; SM-G930P Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36 MxBrowser/4.5.10.7000",
+		"output": "chrome/58.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.6 (KHTML, like Gecko) Chrome/18.0.1025.133 Safari/537.6 Midori/0.5",
+		"output": "Midori/0.5.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPad; U; CPU like Mac OS X; FIT_LANG_REPLACE) AppleWebKit/532+ (KHTML, like Gecko) Version/3.0 Mobile/1A538b Safari/419.3 Midori/0.4",
+		"output": "Midori/0.4.0"
+	},
+	{
+		"input": "curl/7.29.0",
+		"output": "curl/7.29.0"
+	},
+	{
+		"input": "Debian APT-HTTP/1.3 (1.0.1ubuntu2)",
+		"output": "Debian APT-HTTP/1.3.0"
+	},
+	{
+		"input": "jupdate",
+		"output": "jupdate/0.0.0"
+	},
+	{
+		"input": "libcurl-agent/1.0",
+		"output": "libcurl-agent/1.0.0"
+	},
+	{
+		"input": "libwww-perl/6.05",
+		"output": "libwww-perl/6.05.0"
+	},
+	{
+		"input": "Microsoft-CryptoAPI/6.3",
+		"output": "Microsoft-CryptoAPI/6.3.0"
+	},
+	{
+		"input": "OpenBSD ftp",
+		"output": "OpenBSD ftp/0.0.0"
+	},
+	{
+		"input": "SophosAgent/1.0 (type= spa )",
+		"output": "SophosAgent/1.0.0"
+	},
+	{
+		"input": "SophosUpdateManager/1.5.7.50 SDDS/2.0 (u= EO2ANA123G c= 6342da15-f351-4ab7-9656-3f5f2d50885d )",
+		"output": "SophosUpdateManager/1.5.0"
+	},
+	{
+		"input": "Ubuntu APT-HTTP/1.3 (0.7.20.2ubuntu6)",
+		"output": "Ubuntu APT-HTTP/1.3.0"
+	},
+	{
+		"input": "urlgrabber/3.10 yum/3.4.3",
+		"output": "urlgrabber/3.10.0"
+	},
+	{
+		"input": "urlgrabber/3.9.1 yum/3.2.29",
+		"output": "urlgrabber/3.9.0"
+	},
+	{
+		"input": "Wget/1.14 (linux-gnu)",
+		"output": "Wget/1.14.0"
+	},
+	{
+		"input": "Windows-Update-Agent/7.9.9600.17729 Client-Protocol/1.21",
+		"output": "Windows-Update-Agent/7.9.0"
+	},
+	{
+		"input": "Windows-Update-Agent/7.9.9600.18094 Client-Protocol/1.21",
+		"output": "Windows-Update-Agent/7.9.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 5.1.1; MI NOTE Pro Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/48.0.2564.116 Mobile Safari/537.36 baidubrowser/7.7.13.0 (Baidu; P1 5.1.1)",
+		"output": "Baidu Browser/7.7.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Dragon/36.1.1.21 Chrome/36.0.1985.97 Safari/537.36",
+		"output": "Dragon/36.1.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1a3) Gecko/20060610 Minimo/0.016",
+		"output": "Minimo/0.016.0"
+	},
+	{
+		"input": "Opera/9.80 (MAUI Runtime; Opera Mini/4.4.39008/37.9178; U; en) Presto/2.12.423 Version/12.16",
+		"output": "op_mini/4.4.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; 008/0.83; http://www.80legs.com/spider.html) Gecko/2008032620",
+		"output": "008/0.83.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_4 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) Outlook-iOS-Android/1.0 Mobile/13G35 Safari/601.1.46\")",
+		"output": "Outlook-iOS-Android/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.21 Safari/537.36 MMS/1.0.2459.0",
+		"output": "Opera Neon/1.0.0"
+	},
+	{
+		"input": "PANTECH-EUROPA-U4000-orange/1.0 Obigo/Q04C MMS/1.2.0 profile/MIDP-2.0 configuration/CLDC-1.1",
+		"output": "Obigo/04.0.0"
+	},
+	{
+		"input": "masscan/1.0 (https://github.com/robertdavidgraham/masscan)",
+		"output": "masscan/1.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 SznProhlizec/4.3.0-251281",
+		"output": "chrome/63.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.1.2; Redmi 4X Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/64.0.3282.137 Mobile Safari/537.36 SznProhlizec/5.2.1a",
+		"output": "chrome/64.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36 SznProhlizec/3.8.4 NWjs/0.19.6",
+		"output": "chrome/55.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Mobile/14D27 SznProhlizec/4.4i",
+		"output": "ios_saf/10.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/42.0 CoRom/36.0.1985.144 Chrome/36.0.1985.144 Safari/537.36",
+		"output": "chrome/36.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/49.0 Chrome/43.0.2357.138 Safari/537.36",
+		"output": "chrome/43.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/50.0.125 Chrome/44.0.2403.125 Safari/537.36",
+		"output": "chrome/44.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; Qwantify/2.4w; +https://www.qwant.com/)/2.4w",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12",
+		"output": "chrome/42.0.0"
+	},
+	{
+		"input": "Bloglovin/1.0 (http://www.bloglovin.com; 1000 subscribers)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Feedbin feed-id:1033517 - 1000 subscribers",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Tiny Tiny RSS/16.3 (http://tt-rss.org/)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mtps Feed Aggregation System",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Stringer",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Box Sync/4.0.7848;Darwin/10.13;i386/64bit",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Box/1.2.93;Darwin/10.13;i386/64bit",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) BoxNotes/1.3.0 Chrome/56.0.2924.87 Electron/1.6.8 Safari/537.36",
+		"output": "chrome/56.0.0"
+	},
+	{
+		"input": "Box Sync/4.0.7848;Windows/8.1;x86 Family 6 Model 158 Stepping 9, GenuineIntel/32bit",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Box Sync/4.0.7848;Windows/10;Intel64 Family 6 Model 158 Stepping 9, GenuineIntel/64bit",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) BoxNotes/1.3.0 Chrome/56.0.2924.87 Electron/1.6.8 Safari/537.36",
+		"output": "chrome/56.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) BoxNotes/1.3.0 Chrome/56.0.2924.87 Electron/1.6.8 Safari/537.36",
+		"output": "chrome/56.0.0"
+	},
+	{
+		"input": "Box/1.2.93;Windows/10;Intel64 Family 6 Model 158 Stepping 9, GenuineIntel/64bit",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Evolution/3.26.2.1",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "RCM CardDAV plugin/2.0.4",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "RCM CardDAV plugin/0.9.2-dev",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "DAVdroid/1.9.2-gplay (2017/11/04; dav4android; okhttp3) Android/7.1.2",
+		"output": "okhttp/0.0.0"
+	},
+	{
+		"input": "DAVdroid/1.9-ose (2017/10/19; dav4android; okhttp3) Android/7.1.2",
+		"output": "okhttp/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Windows) mirall/2.3.2 (build 1) (Nextcloud)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux) mirall/2.3.2 (Nextcloud)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Android) ownCloud-android/2.0.0",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) AppleNews/608.0.1 Version/2.0.1",
+		"output": "ios_saf/2.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3)",
+		"output": "ie/7.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; Trident/6.0; .NET4.0E; .NET4.0C; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)",
+		"output": "ie/7.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2)",
+		"output": "ie/7.0.0"
+	},
+	{
+		"input": "Tableau/1.0 (1025794)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_5 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/11.2.5 Mobile/9B179 Safari/7534.48.3 OktaMobile/5.10.2",
+		"output": "ios_saf/11.2.0"
+	},
+	{
+		"input": "BUbiNG (+http://law.di.unimi.it/BUbiNG.html)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (compatible; SemrushBot/1.2~bl; +http://www.semrush.com/bot.html)",
+		"output": "SemrushBot/1.2.0"
+	},
+	{
+		"input": "Outlook-iOS/665.29827.prod.iphone (2.63.0)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.0; LG-TP260 Build/NRD90U; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/64.0.3282.137 Mobile Safari/537.36 Instagram 33.0.0.11.92 Android (24/7.0; 320dpi; 720x1193; LGE/lge; LG-TP260; lv517; lv517; en_US; 93117667)",
+		"output": "chrome/64.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_5 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D60 Instagram 33.0.0.11.96 (iPhone9,3; iOS 11_2_5; en_AU; en-AU; scale=2.00; gamut=wide; 750x1334)",
+		"output": "ios_saf/11.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_2_6 like Mac OS X) AppleWebKit/604.5.6 (KHTML, like Gecko) Mobile/15D100 Flipboard/4.2.2",
+		"output": "ios_saf/11.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.0; SM-G610F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.111 Mobile Safari/537.36 Flipboard/4.1.9/4323,4.1.9.4323",
+		"output": "chrome/63.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.0; SM-G930F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/64.0.3282.137 Mobile Safari/537.36 Onefootball/Android/9.10.6",
+		"output": "chrome/64.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (Linux; Android 7.0; SM-A520F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36 Flipboard-Briefing/2.7.28",
+		"output": "chrome/58.0.0"
+	},
+	{
+		"input": "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/8.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729)",
+		"output": "ie/7.0.0"
+	},
+	{
+		"input": "ESPN Radio/3.2.113 CFNetwork/485.12.30 Darwin/10.4.0",
+		"output": "cfnetwork/485.12.0"
+	},
+	{
+		"input": "ESPN Radio 4.7.4 rv:1032 (iPhone; iPhone OS 9.2.1; en_US)",
+		"output": "ios_saf/0.0.0"
+	},
+	{
+		"input": "ESPN Radio 4.5.1 (iPhone; iPhone OS 5.1.1; en_US)",
+		"output": "ios_saf/0.0.0"
+	},
+	{
+		"input": "ESPN Radio 4.0 (iPhone; iPhone OS 7.1.2; en_AU)",
+		"output": "ios_saf/0.0.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.2.2 Waterfox/55.2.2",
+		"output": "firefox/55.2.0"
+	},
+	{
+		"input": "Mozilla/5.0 (X11; Linux x86_64; rv:55.0) Gecko/20100101 Goanna/4.0 Firefox/55.0 Basilisk/20171113",
+		"output": "firefox/55.0.0"
+	},
+	{
+		"input": "Go-http-client/1.1",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "scalaj-http/1.0",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "reqwest/0.8.1",
+		"output": "reqwest/0.8.1"
+	},
+	{
+		"input": "Boto/2.48.0 Python/2.7.14 Linux/4.2.0-41-generic",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-cli/1.14.9 Python/2.7.12 Linux/4.9.76-3.78.amzn1.x86_64 botocore/1.8.13",
+		"output": "x86_64 botocore/1.8.0"
+	},
+	{
+		"input": "Boto3/1.6.2 Python/3.4.3 Linux/4.4.35-33.55.amzn1.x86_64 Botocore/1.9.2 Resource",
+		"output": "x86_64 botocore/1.9.0"
+	},
+	{
+		"input": "ElasticMapReduce/1.0.0 emrfs/s3n {}, aws-sdk-java/1.11.129 Linux/4.4.35-33.55.amzn1.x86_64 OpenJDK_64-Bit_Server_VM/25.141-b16/1.8.0_141 scala/2.11.8",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Hadoop 2.6.0-cdh5.14.0, aws-sdk-java/1.11.134 Linux/4.4.0-1052-aws OpenJDK_64-Bit_Server_VM/25.151-b12/1.8.0_151",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Hadoop 2.8.3-amzn-0, aws-sdk-java/1.11.267 Linux/4.9.77-31.58.amzn1.x86_64 OpenJDK_64-Bit_Server_VM/25.161-b14 java/1.8.0_161 scala/2.11.8",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-sdk-java/1.11.226 Mac_OS_X/10.12.6 Java_HotSpot(TM)_64-Bit_Server_VM/25.131-b11 java/1.8.0_131 scala/2.11.11",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-sdk-ruby2/2.2.18 ruby/2.1.5 x86_64-linux",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-sdk-cpp/1.0.64 Linux/4.4.0-66-generic x86_64",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-sdk-go/1.4.12 (go1.6; linux; amd64) S3Manager",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "aws-sdk-nodejs/2.141.0 win32/v8.4.0",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "JetS3t/0.9.0 (Linux/4.4.0-1044-aws; amd64; en; JVM 1.8.0_131)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "s3fs/1.80 (commit hash 6be3236; OpenSSL)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "Cyberduck/6.3.0.27105 (Windows 10/10.0) (x86)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "S3 Browser 7-4-5 https://s3browser.com",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "rclone/v1.34",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "PycURL/7.43.0 libcurl/7.38.0 OpenSSL/1.0.1t zlib/1.2.8 libidn/1.29 libssh2/1.4.3 librtmp/2.3",
+		"output": "curl/7.38.0"
+	},
+	{
+		"input": "Axel 2.4 (Linux)",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "lftp/4.7.7",
+		"output": "lftp/4.7.7"
+	},
+	{
+		"input": "aria2/1.19.0",
+		"output": "aria2/1.19.0"
+	},
+	{
+		"input": "SalesforceMobileSDK/5.3.0 android mobile/7.1.1 (XT1635-02) Salesforce1/15.2 Native uid_bef1747905d064c6 ftr_ Cordova/6.2.3",
+		"output": "other/0.0.0"
+	},
+	{
+		"input": "YahooMailProxy; https://help.yahoo.com/kb/yahoo-mail-proxy-SLN28749.html",
+		"output": "other/0.0.0"
+	}
+]
