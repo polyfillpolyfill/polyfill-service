@@ -21,7 +21,7 @@ describe("Default parameters for requests", function() {
 					ua: "other/0.0.0",
 					callback: "",
 					compression: "",
-					version: "0.0.0" // This is the version stored within the file /packages/polyfill-library/package.json
+					version: require("polyfill-library/package.json").version
 				});
 			});
 	});
@@ -41,7 +41,7 @@ describe("Default parameters for requests", function() {
 					ua: "chrome/66.0.0",
 					callback: "",
 					compression: "",
-					version: "0.0.0" // This is the version stored within the file /packages/polyfill-library/package.json
+					version: require("polyfill-library/package.json").version
 				});
 			});
 	});
