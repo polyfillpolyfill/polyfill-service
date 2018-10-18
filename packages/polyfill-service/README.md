@@ -70,7 +70,11 @@ We run the tests [on CircleCI][ci]. All [CI] checks must pass before we merge a 
 
 Every merge to the master branch will trigger a release to [staging]. When ready to deploy to [production], follow these steps: 
 
-1. Create a new release on GitHub with a semver compatible tag. This triggers [CI] to deploy the service and to publish the package to [npm].
+1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
+1. Create a new branch to make changes into. `git checkout -b [name]`
+1. Update the `package.json` files with the new version to be released, making sure to tell npm to not create a git tag. `npm version [<newversion> | major | minor | patch] --git-tag-version=false`
+1. Push the changes to GitHub and make a Pull-Request. `git push origin [name]`
+1. Merge the Pull-Request and create a new GitHub release with the same version that is in the `package.json` file. This triggers [CI] to deploy the service and to publish the package to [npm].
 1. Announce the release on the @polyfillio Twitter account.
 
 ## License
