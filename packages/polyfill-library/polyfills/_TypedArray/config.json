@@ -14,8 +14,11 @@
 	],
 	"browsers": {
 		"chrome": "<47",
+		"edge": "<14",
+		"edge_mob": "<14",
 		"firefox": "<55",
-		"ie": "<14",
+		"ie": "*",
+		"ie_mob": "*",
 		"safari": "<10",
 		"firefox_mob": "<55",
 		"opera": "<36",

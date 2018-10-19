@@ -9,7 +9,7 @@
 		"modernizr:es5date"
 	],
 	"browsers": {
-		"ie": "6 - 8"
+		"ie": "<9"
 	},
 	"spec": "https://tc39.github.io/ecma262/#sec-date.now",
 	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/now"
