@@ -6,7 +6,7 @@
 	"browsers": {
 		"android": "2.1 - 2.3",
 		"blackberry": "7",
-		"ie": "6 - 9",
+		"ie": "<9",
 		"opera": "11.5 - 12.1",
 		"op_mini": "*",
 		"op_mob": "10 - 12",

@@ -5,14 +5,16 @@
 		"modernizr:es6array"
 	],
 	"browsers": {
-		"ie": "9 - 12",
-		"ie_mob": "9 - 12",
-		"firefox": "*",
-		"chrome": "*",
+		"edge": "<13",
+		"edge_mob": "<13",
+		"ie": "*",
+		"ie_mob": "*",
+		"firefox": "<60",
+		"chrome": "<66",
 		"safari": "<9",
 		"android": "*",
 		"ios_saf": "<9",
-		"opera": "*",
+		"opera": "<53",
 		"samsung_mob": "<5"
 	},
 	"dependencies": [

@@ -17,7 +17,9 @@
 		"opera": "10 - 18",
 		"op_mini": "*",
 		"safari": "<9",
-		"ie": "<14",
+		"edge": "<14",
+		"edge_mob": "<14",
+		"ie": "*",
 		"ie_mob": "10 - *",
 		"ios_saf": "<9",
 		"firefox_mob": "*"

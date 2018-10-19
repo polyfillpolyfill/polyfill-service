@@ -213,12 +213,6 @@ describe("lib/UA", function () {
 				const ie = new UA("Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; chromeframe; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729)");
 				assert.equal(ie.ua.family, "ie");
 
-				const edge = new UA("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.9600");
-				assert.equal(edge.ua.family, "ie");
-
-				const edgeMobile = new UA("Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 930) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0");
-				assert.equal(edgeMobile.ua.family, "ie");
-
 				const ucBrowser = new UA("Mozilla/5.0 (Linux; U; Android 2.2.1; en-US; GT-P1000 Build/FROYO) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/10.0.1.512 U3/0.8.0 Mobile Safari/534.30");
 				assert.equal(ucBrowser.ua.family, "uc browser");
 
@@ -264,7 +258,7 @@ describe("lib/UA", function () {
 			assert.equal(yandex.getFamily(), "chrome");
 
 			const ie = new UA("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
-			assert.equal(ie.getFamily(), "ie");
+			assert.equal(ie.getFamily(), "edge_mob");
 
 			const ios1 = new UA("Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523 [FBAN/FBIOS;FBAV/6.0.1;FBBV/180945;FBDV/iPad2,1;FBMD/iPad;FBSN/iPhone OS;FBSV/6.0.1;FBSS/1; FBCR/;FBID/tablet;FBLC/en_US;FBOP/1]");
 			assert.equal(ios1.getFamily(), "ios_saf");
@@ -340,9 +334,9 @@ describe("lib/UA", function () {
 			assert.equal(yandex, "chrome/37.0.0");
 		});
 
-		it("should resolve edge mobile to the ie family", function () {
+		it("should resolve edge mobile to the edge_mob family", function () {
 			const test = UA.normalize("Mozilla/5.0 (Windows Phone 10.0;  Android 4.2.1; Nokia; Lumia 520) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Mobile Safari/537.36 Edge/12.10130");
-			assert.equal(test, "ie/12.10130.0");
+			assert.equal(test, "edge_mob/12.10130.0");
 		});
 
 		it("should resolve Facebook iOS App to the version of iOS it is running within", function () {
@@ -375,36 +369,36 @@ describe("lib/UA", function () {
 	describe(".isUnknown", function () {
 		it("should resolve false for user agents we have a baseline version for", function () {
 			assert.equal(new UA("ie/6").isUnknown(), true);
-			assert.equal(new UA("ie/7").isUnknown(), false);
+			assert.equal(new UA("ie/7").isUnknown(), true);
 			assert.equal(new UA("ie/14").isUnknown(), false);
 
 
 			assert.equal(new UA("ie_mob/7").isUnknown(), true);
-			assert.equal(new UA("ie_mob/8").isUnknown(), false);
+			assert.equal(new UA("ie_mob/8").isUnknown(), true);
 			assert.equal(new UA("ie_mob/13").isUnknown(), false);
 
-			assert.equal(new UA("chrome/1").isUnknown(), false);
-			assert.equal(new UA("chrome/20").isUnknown(), false);
+			assert.equal(new UA("chrome/1").isUnknown(), true);
+			assert.equal(new UA("chrome/20").isUnknown(), true);
 			assert.equal(new UA("chrome/30").isUnknown(), false);
 			assert.equal(new UA("chrome/35").isUnknown(), false);
 			assert.equal(new UA("chrome/40").isUnknown(), false);
 			assert.equal(new UA("chrome/52").isUnknown(), false);
 
 			assert.equal(new UA("safari/3").isUnknown(), true);
-			assert.equal(new UA("safari/4").isUnknown(), false);
+			assert.equal(new UA("safari/4").isUnknown(), true);
 
 			assert.equal(new UA("safari/9").isUnknown(), false);
 
 			assert.equal(new UA("ios_saf/3").isUnknown(), true);
-			assert.equal(new UA("ios_saf/4").isUnknown(), false);
+			assert.equal(new UA("ios_saf/4").isUnknown(), true);
 			assert.equal(new UA("ios_saf/9").isUnknown(), false);
 
 			assert.equal(new UA("ios_chr/3").isUnknown(), true);
-			assert.equal(new UA("ios_chr/4").isUnknown(), false);
+			assert.equal(new UA("ios_chr/4").isUnknown(), true);
 			assert.equal(new UA("ios_chr/9").isUnknown(), false);
 
 			assert.equal(new UA("firefox/48.0").isUnknown(), false);
-			assert.equal(new UA("firefox/3.6").isUnknown(), false);
+			assert.equal(new UA("firefox/3.6").isUnknown(), true);
 			assert.equal(new UA("firefox/3.5").isUnknown(), true);
 			assert.equal(new UA("firefox/3.0").isUnknown(), true);
 			assert.equal(new UA("firefox/2.0").isUnknown(), true);
@@ -413,7 +407,7 @@ describe("lib/UA", function () {
 			assert.equal(new UA("firefox/0.1").isUnknown(), true);
 
 			assert.equal(new UA("firefox_mob/48.0").isUnknown(), false);
-			assert.equal(new UA("firefox_mob/4.0").isUnknown(), false);
+			assert.equal(new UA("firefox_mob/4.0").isUnknown(), true);
 			assert.equal(new UA("firefox_mob/3.6").isUnknown(), true);
 			assert.equal(new UA("firefox_mob/3.5").isUnknown(), true);
 			assert.equal(new UA("firefox_mob/3.0").isUnknown(), true);
@@ -423,11 +417,11 @@ describe("lib/UA", function () {
 			assert.equal(new UA("firefox_mob/0.1").isUnknown(), true);
 
 			assert.equal(new UA("opera/10").isUnknown(), true);
-			assert.equal(new UA("opera/11").isUnknown(), false);
+			assert.equal(new UA("opera/11").isUnknown(), true);
 			assert.equal(new UA("opera/39").isUnknown(), false);
 
 			assert.equal(new UA("android/2.0").isUnknown(), true);
-			assert.equal(new UA("android/3.0").isUnknown(), false);
+			assert.equal(new UA("android/3.0").isUnknown(), true);
 			assert.equal(new UA("android/5").isUnknown(), false);
 			assert.equal(new UA("android/5.1").isUnknown(), false);
 

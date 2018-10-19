@@ -9,6 +9,8 @@
 		"android": "*",
 		"bb": "*",
 		"chrome": "<54",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "<49",
 		"ios_chr": "*",
 		"ios_saf": "<10",

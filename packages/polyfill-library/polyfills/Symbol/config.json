@@ -7,7 +7,9 @@
 		"Symbol.keyFor"
 	],
 	"browsers": {
-		"ie": "< 13",
+		"edge": "<13",
+		"edge_mob": "<13",
+		"ie": "*",
 		"ie_mob": "*",
 		"safari": "<9",
 		"chrome": "< 50",

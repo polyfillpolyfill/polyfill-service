@@ -9,6 +9,8 @@
 		"blissfuljs"
 	],
 	"browsers": {
+		"edge": "*",
+		"edge_mob": "*",
 		"ie": "6 - *",
 		"ie_mob": "10 - 11",
 		"chrome": "* - 33",

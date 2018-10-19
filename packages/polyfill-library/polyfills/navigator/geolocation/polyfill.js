@@ -1,3 +1,4 @@
+//TODO: REBUILD THIS
 (function (global) {
 	function Geolocation() {
 		this.getCurrentPosition = getCurrentPosition;

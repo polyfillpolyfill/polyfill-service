@@ -3,6 +3,8 @@
 		"es2017"
 	],
 	"browsers": {
+		"edge": "<15",
+		"edge_mob": "<15",
 		"ie": "9 - 14",
 		"ie_mob": "*",
 		"chrome": "< 54",
