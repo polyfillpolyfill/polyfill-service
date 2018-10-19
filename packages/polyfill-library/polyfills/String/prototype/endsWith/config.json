@@ -13,10 +13,12 @@
 		"android": "*",
 		"bb": "*",
 		"chrome": "<=40",
+		"edge": "<14",
+		"edge_mob": "<14",
 		"firefox": "3.6 - 17",
 		"opera": "10 - 18",
 		"safari": "<9.1",
-		"ie": "<14",
+		"ie": "*",
 		"ie_mob": "10 - *",
 		"ios_saf": "<9",
 		"firefox_mob": "3.6 - 17"

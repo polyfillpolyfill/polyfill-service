@@ -7,7 +7,9 @@
 	"browsers": {
 		"bb": "*",
 		"chrome": "<=45",
-		"firefox": "3.6 - 24",
+		"edge": "*",
+		"edge_mob": "*",
+		"firefox": "<24",
 		"ie": "*",
 		"ie_mob": "10 - *",
 		"opera": "<32",
@@ -15,7 +17,7 @@
 		"ios_saf": "* - 8.0",
 		"ios_chr": "* - 8.0",
 		"android": "*",
-		"firefox_mob": "3.6 - 24",
+		"firefox_mob": "<24",
 		"samsung_mob": "<6"
 	},
 	"dependencies": [

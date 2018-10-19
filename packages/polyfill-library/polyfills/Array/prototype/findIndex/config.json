@@ -7,6 +7,8 @@
 	"browsers": {
 		"bb": "6 - 10",
 		"chrome": "<=45",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "3.6 - 24",
 		"ie": "*",
 		"ie_mob": "10 - *",

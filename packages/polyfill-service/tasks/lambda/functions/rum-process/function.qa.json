@@ -1,4 +1,0 @@
-{
-  "description": "Batch process RUM logs into MySQL backend (QA)",
-  "role": "arn:aws:iam::371548805176:role/origami-polyfill_lambda"
-}

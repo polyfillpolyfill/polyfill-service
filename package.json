@@ -1,30 +1,11 @@
 {
-  "name": "polyfill-service",
+  "name": "polyfill-service-and-library",
   "version": "0.0.0",
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
-    "build": "cd packages/polyfill-library && npm run build && cd ../..",
-    "dev": "cd packages/polyfill-service && npm run dev && cd ../..",
-    "postinstall": "npm run build",
-    "install": "npm run install:library && npm run install:service",
-    "install:library": "cd packages/polyfill-library && npm install && cd ../..",
-    "install:service": "cd packages/polyfill-service && npm install --save ../polyfill-library && npm install && cd ../..",
-    "lint": "npm run lint:library && npm run lint:service",
-    "lint:library": "cd packages/polyfill-library && npm run lint && cd ../..",
-    "lint:service": "cd packages/polyfill-service && npm run lint && cd ../..",
-    "deploy-vcl": "cd packages/polyfill-service && npm run deploy-vcl && cd ../..",
-    "start": "cd packages/polyfill-service && npm start && cd ../..",
-    "test-node": "npm run test-node:library && npm run test-node:service",
-    "test-node:library": "cd packages/polyfill-library && npm run test-node && cd ../..",
-    "test-node:service": "cd packages/polyfill-service && npm run test-node && cd ../..",
-    "test-node-unit": "npm run test-node-unit:library",
-    "test-node-unit:library": "cd packages/polyfill-library && npm run test-node-unit && cd ../..",
-    "test-integration": "npm run test-integration:service",
-    "test-integration:service": "cd packages/polyfill-service && npm run test-integration && cd ../..",
-    "test-browser-ci": "cd packages/polyfill-service && npm run test-browser-ci && cd ../..",
-    "test-vcl": "cd packages/polyfill-service && npm run test-vcl && cd ../..",
-    "whitesource": "cd packages/polyfill-service && npm prune --production && cd ../.. && cd packages/polyfill-library && npm prune --production && cd ../.. && whitesource run"
+    "precommit": "secret-squirrel",
+    "version": "cd packages/polyfill-library && npm version $npm_package_version && git add package.json && cd -"
   },
   "contributors": [
     {
@@ -33,9 +14,9 @@
       "url": "http://jonathantneal.com/"
     },
     {
-      "name": "FT Labs",
-      "email": "enquiries@labs.ft.com",
-      "url": "http://labs.ft.com"
+      "name": "FT Origami",
+      "email": "origami.support@ft.com",
+      "url": "https://origami.ft.com"
     }
   ],
   "repository": {
@@ -50,6 +31,7 @@
     "node": ">=8"
   },
   "devDependencies": {
-    "whitesource": "^18.3.1"
+    "@financial-times/secret-squirrel": "^2.10.3",
+    "husky": "^0.14.3"
   }
 }

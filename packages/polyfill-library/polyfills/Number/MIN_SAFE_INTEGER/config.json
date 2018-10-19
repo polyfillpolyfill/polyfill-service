@@ -4,7 +4,7 @@
 		"es2015"
 	],
 	"browsers": {
-		"ie": "<12",
+		"ie": "*",
 		"ie_mob" : "*",
 		"firefox": "<31",
 		"firefox_mob":"<32",

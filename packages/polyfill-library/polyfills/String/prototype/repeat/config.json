@@ -11,7 +11,9 @@
 		"firefox": "3.6 - 23",
 		"opera": "10 - 18",
 		"safari": "*",
-		"ie": "6 - *",
+		"edge": "*",
+		"edge_mob": "*",
+		"ie": "*",
 		"ie_mob": "10 - *",
 		"ios_saf": "*",
 		"firefox_mob": "3.6 - 23"
