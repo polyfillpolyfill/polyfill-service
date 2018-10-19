@@ -1,6 +1,6 @@
 {
   "name": "polyfill-library",
-  "version": "3.25.1",
+  "version": "0.0.0",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
   "contributors": [
@@ -10,9 +10,9 @@
       "url": "http://jonathantneal.com/"
     },
     {
-      "name": "FT Labs",
-      "email": "enquiries@labs.ft.com",
-      "url": "http://labs.ft.com"
+      "name": "FT Origami",
+      "email": "origami.support@ft.com",
+      "url": "https://origami.ft.com"
     }
   ],
   "repository": {
@@ -24,10 +24,9 @@
   },
   "scripts": {
     "lint": "eslint polyfills/**/polyfill.js lib tasks test",
-    "clean-dist": "rimraf ./polyfills/__dist",
-    "clean-testdata": "rimraf ./test/results",
-    "clean": "npm run clean-dist && npm run clean-testdata",
+    "clean": "rimraf ./polyfills/__dist",
     "build": "npm run clean && node tasks/node/updatesources && node tasks/node/buildsources",
+    "fmt": "eslint . --fix",
     "test-node": "mocha test/node/**/*.js",
     "test-node-unit": "nyc mocha test/unit --recursive",
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",

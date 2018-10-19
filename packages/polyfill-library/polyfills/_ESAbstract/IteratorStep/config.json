@@ -3,6 +3,8 @@
 		"android": "*",
 		"bb": "*",
 		"chrome": "*",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "*",
 		"ios_chr": "*",
 		"ios_saf": "*",

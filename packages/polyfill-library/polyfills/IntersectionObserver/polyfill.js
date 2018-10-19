@@ -17,16 +17,6 @@
 (function(window, document) {
 'use strict';
 
-
-// Exits early if all IntersectionObserver and IntersectionObserverEntry
-// features are natively supported.
-if ('IntersectionObserver' in window &&
-    'IntersectionObserverEntry' in window &&
-    'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
-  return;
-}
-
-
 /**
  * An IntersectionObserver registry. This registry exists to hold a strong
  * reference to IntersectionObserver instances currently observering a target

@@ -17,7 +17,11 @@
 			if (url.href === 'http://example.com/?a=1&b=2') {
 				url.search = '';
 				if (url.href === 'http://example.com/') {
-					return true;
+					var sp1 = new global.URLSearchParams('a=1');
+					var sp2 = new global.URLSearchParams(sp1);
+					if (String(sp2) === 'a=1') {
+						return true;
+					}
 				}
 			}
 		}

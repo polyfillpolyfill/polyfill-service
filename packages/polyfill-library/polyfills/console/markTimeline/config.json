@@ -1,6 +1,8 @@
 {
 	"browsers": {
-		"ie": "6 - 11",
+		"edge": "*",
+		"edge_mob": "*",
+		"ie": "*",
 		"firefox": "1 - 4"
 	},
 	"dependencies": [

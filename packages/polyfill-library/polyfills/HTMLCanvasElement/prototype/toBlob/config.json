@@ -4,6 +4,8 @@
 	],
 	"browsers": {
 		"chrome": "<50",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "<19",
 		"safari": "<11",
 		"ie": ">=10",

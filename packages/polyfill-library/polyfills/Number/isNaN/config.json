@@ -8,7 +8,9 @@
 		"default"
 	],
 	"browsers": {
-		"ie": "<14",
+		"edge": "<14",
+		"edge_mob": "<14",
+		"ie": "*",
 		"ie_mob" : "*",
 		"firefox": "<16",
 		"firefox_mob":"<44",

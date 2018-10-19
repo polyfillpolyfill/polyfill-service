@@ -4,9 +4,11 @@
 		"es2015"
 	],
 	"browsers": {
+		"edge": "*",
+		"edge_mob": "*",
 		"chrome": "<45",
 		"firefox": "<32",
-		"ie": "<12",
+		"ie": "*",
 		"safari": "<9",
 		"opera": "<32"
 	},
