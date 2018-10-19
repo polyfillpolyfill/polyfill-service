@@ -19,18 +19,43 @@ describe("polyfillio", () => {
 			return polyfillio.getPolyfills(input).then(result => assert.deepEqual(setsToArrays(result), {}));
 		});
 
-		it("should return no polyfills for unknown UA when unknown is not set", () => {
-			// Without `unknown`, no polyfills for unrecognised UA
+		it("should return polyfills for unknown UA when unknown is not set", () => {
 			return polyfillio.getPolyfills({
 				features: {
 					'Math.sign': {}
 				},
 				uaString: ''
+			}).then(result => assert.deepEqual(setsToArrays(result), {
+				'Math.sign': {
+					"flags": ["gated"]
+				},
+				"Object.defineProperty": {
+					"aliasOf": [
+						"Math.sign",
+						"_ESAbstract.CreateMethodProperty"
+					],
+					"flags": ["gated"]
+				},
+				"_ESAbstract.CreateMethodProperty": {
+					"aliasOf": [
+						"Math.sign"
+					],
+					"flags": ["gated"]
+				}
+			}));
+		});
+
+		it("should return no polyfills for unknown UA when unknown is set to ignore", () => {
+			return polyfillio.getPolyfills({
+				features: {
+					'Math.sign': {}
+				},
+				uaString: '',
+				unknown: 'ignore',
 			}).then(result => assert.deepEqual(setsToArrays(result), {}));
 		});
 
 		it("should return polyfills for unknown UA when unknown is set to `polyfill`", () => {
-			// With unknown=polyfill, all requested polyfills are included
 			return polyfillio.getPolyfills({
 				features: {
 					'Math.sign': {}
@@ -39,20 +64,20 @@ describe("polyfillio", () => {
 				uaString: ''
 			}).then(result => assert.deepEqual(setsToArrays(result), {
 				'Math.sign': {
-					flags: []
+					"flags": ["gated"]
 				},
 				"Object.defineProperty": {
 					"aliasOf": [
 						"Math.sign",
 						"_ESAbstract.CreateMethodProperty"
 					],
-					"flags": []
+					"flags": ["gated"]
 				},
 				"_ESAbstract.CreateMethodProperty": {
 					"aliasOf": [
 						"Math.sign"
 					],
-					"flags": []
+					"flags": ["gated"]
 				}
 			}));
 		});
@@ -66,20 +91,20 @@ describe("polyfillio", () => {
 					unknown: 'polyfill',
 				}).then(result => assert.deepEqual(setsToArrays(result), {
 					'Math.sign': {
-						flags: []
+						"flags": ["gated"]
 					},
 					"Object.defineProperty": {
 						"aliasOf": [
 							"Math.sign",
 							"_ESAbstract.CreateMethodProperty"
 						],
-						"flags": []
+						"flags": ["gated"]
 					},
 					"_ESAbstract.CreateMethodProperty": {
 						"aliasOf": [
 							"Math.sign"
 						],
-						"flags": []
+						"flags": ["gated"]
 					}
 				}));
 		});
@@ -91,7 +116,7 @@ describe("polyfillio", () => {
 						flags: []
 					}
 				},
-				uaString: 'ie/7'
+				uaString: 'ie/8'
 			}).then(result => assert(Object.keys(result).length > 0));
 		});
 

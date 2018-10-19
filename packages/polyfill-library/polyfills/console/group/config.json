@@ -3,13 +3,13 @@
 		"caniuse:console-basic"
 	],
 	"browsers": {
-		"ie": "6 - 11",
+		"ie": "*",
 		"firefox": "1 - 4"
 	},
 	"dependencies": [
 		"Window",
 		"console"
 	],
-	"spec": "https://github.com/DeveloperToolsWG/console-object/blob/master/api.md",
+	"spec": "https://console.spec.whatwg.org",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
 }

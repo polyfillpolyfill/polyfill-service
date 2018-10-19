@@ -3,7 +3,10 @@
     "spec": "https://heycam.github.io/webidl/#es-forEach",
     "docs": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach",
     "browsers": {
-        "ie": "8 - 15",
+        "edge": "<16",
+        "edge_mob": "<16",
+        "ie": "*",
+        "ie_mob": "*",
         "chrome": "<51",
         "firefox": "<50",
         "opera": "<38",

@@ -50,34 +50,29 @@ const PolyfillLibrary = class PolyfillLibrary {
 	 * @param {Array<String>} [opts.excludes=[]] - Which features should be excluded from the returned object.
 	 * @param {String} [opts.uaString=''] - The user-agent string to check each feature against.
 	 * @param {Boolean} [opts.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data
-	 * @return {Object} - opts merged with the defaults opts values.
+	 * @return {Object} options - opts merged with the defaults option values.
 	 */
-	getOptions(opts) {
-		opts = Object.assign(
-			{
-				uaString: "",
-				minify: true,
-				unknown: "ignore",
-				features: {},
-				excludes: [],
-				rum: false
-			},
-			opts
-		);
-
-		if (opts.unknown !== "polyfill") {
-			opts.unknown = "ignore";
-		}
+	getOptions(opts = {}) {
+		const hasProperty = (prop, obj) => Object.prototype.hasOwnProperty.call(obj, prop);
+		const options = {
+			uaString: hasProperty('uaString', opts) ? opts.uaString : "",
+			minify: hasProperty('minify', opts) ? opts.minify : true,
+			unknown: hasProperty('unknown', opts) ? opts.unknown : "polyfill",
+			features: hasProperty('features', opts) ? opts.features : {},
+			excludes: hasProperty('excludes', opts) ? opts.excludes : [],
+			rum: hasProperty('rum', opts) ? opts.rum : false
+		};
 
 		// Normalise flags
-		Object.keys(opts.features).forEach(k => {
-			if (!opts.features[k].flags) {
-				opts.features[k].flags = new Set();
-			} else if (opts.features[k].flags.constructor !== Set) {
-				opts.features[k].flags = new Set(opts.features[k].flags);
+		Object.keys(options.features).forEach(k => {
+			if (!options.features[k].flags) {
+				options.features[k].flags = new Set();
+			} else if (options.features[k].flags.constructor !== Set) {
+				options.features[k].flags = new Set(options.features[k].flags);
 			}
 		});
-		return opts;
+
+		return options;
 	}
 
 	/**
@@ -86,17 +81,17 @@ const PolyfillLibrary = class PolyfillLibrary {
 	 * determine which have a configuration valid for the given options.uaString,
 	 * and return a promise of set of canonical (unaliased) features (with flags) and polyfills.
 	 *
-	 * @param {object} options - Valid keys are uaString, minify, unknown, excludes, rum and features.
-	 * @param {Boolean} [options.minify=true] - Whether to return the minified or raw implementation of the polyfills.
-	 * @param {'ignore'|'polyfill'} [options.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
-	 * @param {Object} [options.features={}] - Which features should be returned if the user-agent does not support them natively.
-	 * @param {Array<String>} [options.excludes=[]] - Which features should be excluded from the returned object.
-	 * @param {String} [options.uaString=''] - The user-agent string to check each feature against.
-	 * @param {Boolean} [options.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
+	 * @param {object} opts - Valid keys are uaString, minify, unknown, excludes, rum and features.
+	 * @param {Boolean} [opts.minify=true] - Whether to return the minified or raw implementation of the polyfills.
+	 * @param {'ignore'|'polyfill'} [opts.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
+	 * @param {Object} [opts.features={}] - Which features should be returned if the user-agent does not support them natively.
+	 * @param {Array<String>} [opts.excludes=[]] - Which features should be excluded from the returned object.
+	 * @param {String} [opts.uaString=''] - The user-agent string to check each feature against.
+	 * @param {Boolean} [opts.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
 	 * @return {Promise<Object>} - Canonicalised feature definitions filtered for UA
 	 */
-	getPolyfills(options) {
-		options = this.getOptions(options);
+	getPolyfills(opts) {
+		const options = this.getOptions(opts);
 		const ua = new UA(options.uaString);
 		const aliasFromConfig = featureName => {
 			return this.sourceslib.getConfigAliases(featureName);
@@ -134,6 +129,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 						);
 						const unknownOverride =
 							options.unknown === "polyfill" && ua.isUnknown();
+						
+						if (unknownOverride) {
+							features[featureName].flags.add('gated');
+						}
 
 						return isBrowserMatch || hasAlwaysFlagOverride || unknownOverride
 							? featureName
@@ -194,28 +193,19 @@ const PolyfillLibrary = class PolyfillLibrary {
 
 	/**
 	 * Create a polyfill bundle.
-	 * @param {object} options - Valid keys are uaString, minify, unknown, excludes, rum and features.
-	 * @param {Boolean} [options.minify=true] - Whether to return the minified or raw implementation of the polyfills.
-	 * @param {'ignore'|'polyfill'} [options.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
-	 * @param {Object} [options.features={}] - Which features should be returned if the user-agent does not support them natively.
-	 * @param {Array<String>} [options.excludes=[]] - Which features should be excluded from the returned object.
-	 * @param {String} [options.uaString=''] - The user-agent string to check each feature against.
-	 * @param {Boolean} [options.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
-	 * @param {Boolean} [options.stream=false] - Whether to return a stream or a string of the polyfill bundle.
+	 * @param {object} opts - Valid keys are uaString, minify, unknown, excludes, rum and features.
+	 * @param {Boolean} [opts.minify=true] - Whether to return the minified or raw implementation of the polyfills.
+	 * @param {'ignore'|'polyfill'} [opts.unknown='ignore'] - Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
+	 * @param {Object} [opts.features={}] - Which features should be returned if the user-agent does not support them natively.
+	 * @param {Array<String>} [opts.excludes=[]] - Which features should be excluded from the returned object.
+	 * @param {String} [opts.uaString=''] - The user-agent string to check each feature against.
+	 * @param {Boolean} [opts.rum=false] - Whether to add a script to the polyfill bundle which reports anonymous usage data.
+	 * @param {Boolean} [opts.stream=false] - Whether to return a stream or a string of the polyfill bundle.
 	 * @return {Promise<String> | ReadStream} - Polyfill bundle as either a utf-8 stream or a promise of a utf-8 string.
 	 */
-	getPolyfillString(options) {
-		options = this.getOptions(options);
+	getPolyfillString(opts) {
+		const options = this.getOptions(opts);
 		const ua = new UA(options.uaString);
-		const uaDebugName =
-			ua.getFamily() +
-			"/" +
-			ua.getVersion() +
-			(ua.isUnknown() || !ua.meetsBaseline()
-				? " (unknown/unsupported; using policy `unknown=" +
-				options.unknown +
-				"`)"
-				: "");
 		const lf = options.minify ? "" : "\n";
 		const allWarnText =
 			"Using the `all` alias with polyfill.io is a very bad idea. In a future version of the service, `all` will deliver the same behaviour as `default`, so we recommend using `default` instead.";
@@ -270,19 +260,9 @@ const PolyfillLibrary = class PolyfillLibrary {
 								: "DEVELOPMENT MODE - for live use set NODE_ENV to 'production'"),
 							"For detailed credits and licence information see https://github.com/financial-times/polyfill-service.",
 							"",
-							"UA detected: " + uaDebugName,
 							"Features requested: " + Object.keys(options.features),
 							""
 						);
-						if (!ua.meetsBaseline() && ua.getBaseline()) {
-							explainerComment.push(
-								"Version range for polyfill support in " +
-								ua.getFamily() +
-								" is: " +
-								ua.getBaseline(),
-								""
-							);
-						}
 						explainerComment.push(
 							...sortedFeatures
 							.filter(
@@ -311,10 +291,10 @@ const PolyfillLibrary = class PolyfillLibrary {
 						streamFromString("/* " + explainerComment.join("\n * ") + " */\n\n")
 					);
 
-					// Outer closure hides private features from global scope
-					output.add(streamFromString("(function(undefined) {" + lf));
-
 					if (sortedFeatures.length) {
+						// Outer closure hides private features from global scope
+						output.add(streamFromString("(function(undefined) {" + lf));
+
 						// Using the graph, stream all the polyfill sources in dependency order
 						for (const featureName of sortedFeatures) {
 							const detect = this.sourceslib
@@ -351,6 +331,16 @@ const PolyfillLibrary = class PolyfillLibrary {
 								);
 							}
 						}
+						// Invoke the closure, binding `this` to window (in a browser),
+						// self (in a web worker), or global (in Node/IOjs)
+						output.add(
+							streamFromString(
+								"})" +
+								lf +
+								".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
+								lf
+							)
+						);
 					} else {
 						if (!options.minify) {
 							output.add(
@@ -360,17 +350,6 @@ const PolyfillLibrary = class PolyfillLibrary {
 							);
 						}
 					}
-
-					// Invoke the closure, binding `this` to window (in a browser),
-					// self (in a web worker), or global (in Node/IOjs)
-					output.add(
-						streamFromString(
-							"})" +
-							lf +
-							".call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
-							lf
-						)
-					);
 
 					if ("all" in options.features) {
 						output.add(
@@ -384,7 +363,7 @@ const PolyfillLibrary = class PolyfillLibrary {
 				});
 			});
 
-		return options.stream ? output : Promise.resolve(streamToString(output));
+		return opts.stream ? output : Promise.resolve(streamToString(output));
 	};
 };
 

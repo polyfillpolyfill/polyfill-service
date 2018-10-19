@@ -1,9 +1,11 @@
 {
 	"browsers": {
 		"chrome": "*",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "*",
 		"ie": "*",
-		"ie_mob": "10 - *",
+		"ie_mob": "*",
 		"opera": "*",
 		"safari": "*",
 		"firefox_mob": "*",

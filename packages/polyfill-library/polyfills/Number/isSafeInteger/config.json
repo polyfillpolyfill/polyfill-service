@@ -5,7 +5,7 @@
 	],
 	"browsers": {
 		"android": "<5",
-		"ie": "<12",
+		"ie": "*",
 		"ios_saf": "<10",
 		"firefox": "<32",
 		"firefox_mob": "<32",

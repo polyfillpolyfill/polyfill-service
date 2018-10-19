@@ -10,19 +10,22 @@
 	"browsers": {
 		"chrome": "<51",
 		"firefox": "<29",
+		"edge": "*",
+		"edge_mob": "*",
 		"ie": "9 - *",
 		"ie_mob": "*",
-		"safari": "*",
+		"safari": "<12",
 		"firefox_mob": "<29",
 		"opera": "<36",
 		"op_mini": "*",
 		"android": "*",
 		"samsung_mob": "<5",
-		"ios_saf": "*"
+		"ios_saf": "<12"
 	},
 	"dependencies": [
 		"Object.defineProperties",
-		"Array.prototype.forEach"
+		"Array.prototype.forEach",
+		"Array.isArray"
 	],
 	"notes": [
 	  "Polyfill requires Object getters so fails in IE < 8"

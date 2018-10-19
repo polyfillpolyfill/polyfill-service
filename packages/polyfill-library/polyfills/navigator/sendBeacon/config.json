@@ -2,6 +2,8 @@
 	"aliases": [],
 	"browsers": {
 		"chrome": "<39",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "<31",
 		"ie": "*",
 		"opera": "<26",

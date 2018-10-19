@@ -65,12 +65,20 @@ const Sources = class Sources {
 	}
 
 	/**
+	 * Get a list of all the polyfill aliases which exist within the collection of polyfill sources.
+	 * @returns {Promise<Array>} A promise which resolves with an array of all the polyfill aliases within the collection.
+	 */
+	listAliases() {
+		return readFile(path.join(this.polyfillsPath, "aliases.json"));
+	}
+
+	/**
 	 * Get the aliases for a specific polyfill.
 	 * @param {String} featureName - The name of a polyfill whose metadata should be returned.
 	 * @returns {Promise<Object|undefined>} A promise which resolves with the metadata or with `undefined` if no metadata exists for the polyfill.
 	 */
 	getConfigAliases(featureName) {
-		return readFile(path.join(this.polyfillsPath, "aliases.json")).then(
+		return this.listAliases().then(
 			aliasesJson => {
 				const aliases = JSON.parse(aliasesJson);
 				return aliases[featureName] ? aliases[featureName] : undefined;

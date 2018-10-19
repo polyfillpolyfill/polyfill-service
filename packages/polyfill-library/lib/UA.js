@@ -24,17 +24,20 @@ const cache = require('lru-cache')({
 	max: 5000
 });
 
+// The lowest version of each browser which has >=0.1% of global usage according to https://caniuse.com/usage-table
 const baseLineVersions = {
-	"ie": ">=7",
-	"ie_mob": ">=8",
-	"chrome": "*",
-	"safari": ">=4",
-	"ios_saf": ">=4",
-	"ios_chr": ">=4",
-	"firefox": ">=3.6",
-	"firefox_mob": ">=4",
-	"android": ">=3",
-	"opera": ">=11",
+	"edge": "*",
+	"edge_mob": "*",
+	"ie": ">=8",
+	"ie_mob": ">=11",
+	"chrome": ">=29",
+	"safari": ">=9",
+	"ios_saf": ">=9",
+	"ios_chr": ">=9",
+	"firefox": ">=38",
+	"firefox_mob": ">=38",
+	"android": ">=4.3",
+	"opera": ">=33",
 	"op_mob": ">=10",
 	"op_mini": ">=5",
 	"bb": ">=6",
@@ -81,8 +84,7 @@ const aliases = {
 
 	"ie large screen": "ie",
 	"internet explorer": "ie",
-	"edge": "ie",
-	"edge mobile": "ie",
+	"edge mobile": "edge_mob",
 	"uc browser": {
 		"9.9.*": ["ie", 10]
 	},
