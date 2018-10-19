@@ -13,6 +13,6 @@
 	"test": {
 		"ci": false
 	},
-	"spec": "https://github.com/DeveloperToolsWG/console-object/blob/master/api.md",
+	"spec": "https://console.spec.whatwg.org",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
 }

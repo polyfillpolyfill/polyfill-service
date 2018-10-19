@@ -9,7 +9,7 @@
 		"Window",
 		"console"
 	],
-	"spec": "https://github.com/DeveloperToolsWG/console-object/blob/master/api.md",
+	"spec": "https://console.spec.whatwg.org",
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/console",
 	"notes": [
 		"Formerly supported by chrome and safari, but [deprecated after discussion with Firebug](https://bugs.webkit.org/show_bug.cgi?id=63317).  Use `timeStamp()` instead."
