@@ -3,7 +3,7 @@
 		"caniuse:console-basic"
 	],
 	"browsers": {
-		"ie": "6 - 11",
+		"ie": "*",
 		"firefox": "1 - 4",
 		"samsung_mob": "*"
 	},

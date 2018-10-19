@@ -1,9 +1,11 @@
 {
 	"browsers": {
 		"chrome": "<20",
+		"edge": "*",
+		"edge_mob": "*",
 		"firefox": "<13",
 		"safari": "<6",
-		"ie": "<12",
+		"ie": "*",
 		"opera": "<12"
 	},
 	"dependencies": [

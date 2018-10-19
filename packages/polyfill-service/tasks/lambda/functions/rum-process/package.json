@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "denodeify": "^1.2.1",
-    "mysql2": "^1.0.0-rc.11",
-    "promise-mysql": "^1.3.2"
-  }
-}

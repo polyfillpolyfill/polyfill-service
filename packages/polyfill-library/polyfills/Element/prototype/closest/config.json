@@ -11,6 +11,8 @@
 		"bb": "*",
 		"android": "<5",
 		"chrome": "* - 41",
+		"edge": "*",
+		"edge_mob": "*",
 		"ie": "*",
 		"ie_mob": "*",
 		"ios_saf": "<9",

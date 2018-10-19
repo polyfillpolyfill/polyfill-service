@@ -1,4 +1,3 @@
-/* global Uint8Array */
 // Local modification of https://github.com/eligrey/Blob.js/blob
 
 /* Blob.js
@@ -21,47 +20,43 @@
 	"use strict";
 
 	view.URL = view.URL || view.webkitURL;
+	var ArrayBuffer = view.ArrayBuffer;
+	var Uint8Array = view.Uint8Array;
+	var get_class = function (object) {
+		return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+	};
+	var FakeBlob;
 
 	// Internally we use a BlobBuilder implementation to base Blob off of
 	// in order to support older browsers that only have BlobBuilder
 	var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function (view) {
-		var
-			get_class = function (object) {
-				return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-			},
-			FakeBlobBuilder = function BlobBuilder() {
+		var FakeBlobBuilder = function BlobBuilder() {
 				this.data = [];
-			},
-			FakeBlob = function Blob(data, type, encoding) {
-				this.data = data;
-				this.size = data.length;
-				this.type = type;
-				this.encoding = encoding;
-			},
-			FBB_proto = FakeBlobBuilder.prototype,
-			FB_proto = FakeBlob.prototype,
-			FileReaderSync = view.FileReaderSync,
-			FileException = function (type) {
-				this.code = this[this.name = type];
-			},
-			file_ex_codes = (
-				"NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR " +
-				"NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
-			).split(" "),
-			file_ex_code = file_ex_codes.length,
-			real_URL = view.URL || view.webkitURL || view,
-			real_create_object_URL = real_URL.createObjectURL,
-			real_revoke_object_URL = real_URL.revokeObjectURL,
-			URL = real_URL,
-			btoa = view.btoa,
-			atob = view.atob
-
-			,
-			ArrayBuffer = view.ArrayBuffer,
-			Uint8Array = view.Uint8Array
-
-			,
-			origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/;
+			};
+		FakeBlob = function Blob(data, type, encoding) {
+			this.data = data;
+			this.size = data.length;
+			this.type = type;
+			this.encoding = encoding;
+		};
+		var FBB_proto = FakeBlobBuilder.prototype;
+		var FB_proto = FakeBlob.prototype;
+		var FileReaderSync = view.FileReaderSync;
+		var FileException = function (type) {
+			this.code = this[this.name = type];
+		};
+		var file_ex_codes = (
+			"NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR " +
+			"NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
+		).split(" ");
+		var file_ex_code = file_ex_codes.length;
+		var real_URL = view.URL || view.webkitURL || view;
+		var real_create_object_URL = real_URL.createObjectURL;
+		var real_revoke_object_URL = real_URL.revokeObjectURL;
+		var URL = real_URL;
+		var btoa = view.btoa;
+		var atob = view.atob;
+		var origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/;
 		FakeBlob.fake = FB_proto.fake = true;
 		while (file_ex_code--) {
 			FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
@@ -180,6 +175,27 @@
 		};
 		return FakeBlobBuilder;
 	}(view));
+
+	(function(){
+		try {
+			var builder = new BlobBuilder();
+			builder.append(1);
+		} catch (err) {
+			var nativeAppend = BlobBuilder.prototype.append;
+			BlobBuilder.prototype.append = function append(data /*, endings*/ ) {
+				if (!(Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) && !(get_class(data) === "Blob" || get_class(data) === "File") && !(FakeBlob && data instanceof FakeBlob)) {
+					if (typeof data !== "string") {
+						data += ""; // convert unsupported types to strings
+					}
+				}
+				if (1 in arguments) {
+					nativeAppend.call(this, data, arguments[1]);
+				} else {
+					nativeAppend.call(this, data);
+				}
+			};
+		}
+	}());
 
 	view.Blob = function () {
 		var blobParts = arguments[0];
