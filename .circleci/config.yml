@@ -19,7 +19,7 @@ commands:
       - run: |
           cd << parameters.location >>
           if [ -d node_modules ]; then
-            npm run build
+            npm run postinstall && npm run prepublish
           else
             npm ci || npm install -g npm && npm ci
           fi
