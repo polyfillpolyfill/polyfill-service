@@ -1,5 +1,6 @@
 {
 	"aliases": [
+		"es2018"
 	],
 	"browsers": {
 		"android": ">4.4",
@@ -14,7 +15,8 @@
 		"opera": ">19",
 		"op_mini": "*",
 		"safari": ">7",
-		"firefox_mob": ">28"
+		"firefox_mob": ">28",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",
