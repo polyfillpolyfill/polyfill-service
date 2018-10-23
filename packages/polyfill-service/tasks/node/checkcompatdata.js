@@ -69,7 +69,7 @@ async function main() {
 				}
 
 				if (support === "missing") {
-					if (!featureMetadata.browsers || [browser] || !semver.satisfies(semver.coerce(version), featureMetadata.browsers[browser])) {
+					if (!featureMetadata.browsers || !featureMetadata.browsers[browser] || !semver.satisfies(semver.coerce(version), featureMetadata.browsers[browser])) {
 						questions.push({
 							type: "input",
 							name: feature + "|" + browser,
