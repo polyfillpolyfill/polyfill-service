@@ -82,6 +82,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "handlebars-helpers": "^0.10.0",
     "hasha": "^3.0.0",
+    "inquirer": "^6.2.0",
     "is-ci": "^1.1.0",
     "loud-rejection": "^1.6.0",
     "make-fetch-happen": "^4.0.1",
