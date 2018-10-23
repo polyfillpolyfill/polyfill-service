@@ -96,11 +96,29 @@ const printProgress = (function() {
 		const testBrowserTimeout = 60000;
 		const serviceHost = process.env.BROWSER_TEST_HOST || "http://localhost:3000";
 		const useLocalTunnel = new URL(serviceHost).hostname === "localhost";
-		const mode = ["all", "targeted", "control"].filter(x => x in argv)[0] || "targeted";
+		const modes = [];
+		if (!argv.all && !argv.control && !argv.targeted) {
+			modes.push("targeted");
+		} else {
+			if (argv["all"]) {
+				modes.push("all");
+			}
+			if (argv["control"]) {
+				modes.push("control");
+			}
+			if (argv["targeted"]) {
+				modes.push("targeted");
+			}
+		}
 		const concurrency = Number.parseInt(process.env.BROWSER_TEST_CONCURRENCY || 5, 10);
-		const url = serviceHost + "/test/director?mode=" + mode;
 		const tunnelId = "build:" + (process.env.CIRCLE_BUILD_NUM || process.env.NODE_ENV || "null") + "_" + new Date().toISOString();
-		const jobs = browsers.map(browser => new TestJob(url, mode, browser, tunnelId, testProvider.creds, testBrowserTimeout, pollTick, testProvider, useLocalTunnel));
+		const jobs = [];
+		for (const mode of modes) {
+			const url = serviceHost + "/test/director?mode=" + mode;
+			for (const browser of browsers) {
+				jobs.push(new TestJob(url, mode, browser, tunnelId, testProvider.creds, testBrowserTimeout, pollTick, testProvider, useLocalTunnel));
+			}
+		}
 		const tunnel = useLocalTunnel ? testProvider.tunnel(useLocalTunnel) : undefined;
 
 		if (useLocalTunnel) {
@@ -112,6 +130,7 @@ const printProgress = (function() {
 		await new Promise((resolve, reject) => {
 			const results = [];
 			let resolvedCount = 0;
+
 			function pushJob() {
 				results.push(
 					jobs[results.length]
@@ -140,7 +159,9 @@ const printProgress = (function() {
 			}
 		});
 
-		await fs.outputJSON(testResultsFile, testResults);
+		await fs.outputJSON(testResultsFile, testResults, {
+			spaces: 4
+		});
 		clearTimeout(cliFeedbackTimer);
 		printProgress(jobs);
 
@@ -156,7 +177,7 @@ const printProgress = (function() {
 					job.results.tests.forEach(test => {
 						console.log(" - " + job.ua + ":");
 						console.log("    -> " + test.name);
-						console.log("       " + url.replace(/test\/director/, "test/tests") + "&feature=" + test.failingSuite);
+						console.log("       " + job.url.replace(/test\/director/, "test/tests") + "&feature=" + test.failingSuite);
 						console.log("       " + test.message);
 					});
 				} else if (job.state !== "complete") {
