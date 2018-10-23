@@ -1,10 +1,10 @@
 {
   "aliases": [],
   "browsers": {
-    "android": "<5.4",
+    "android": "<10",
     "bb": "7 - 10",
     "chrome": "<70",
-    "edge": "<17",
+    "edge": "<18",
     "edge_mob": "*",
     "firefox": "<63",
     "firefox_mob": "47 - 55",

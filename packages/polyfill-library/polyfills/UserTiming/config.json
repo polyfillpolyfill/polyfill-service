@@ -11,7 +11,7 @@
     "op_mob": "*",
     "opera": "<=12",
     "safari": "<11.1",
-    "edge": "<17"
+    "edge": "<18"
   },
   "spec": "http://www.w3.org/TR/user-timing/",
   "license": "MIT",

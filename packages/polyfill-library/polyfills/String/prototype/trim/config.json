@@ -13,9 +13,9 @@
     "ie": "<12",
     "safari": "4",
     "chrome": "<70",
-    "android": "<5.4",
+    "android": "<10",
     "firefox": "<63",
-    "edge": "<17"
+    "edge": "<18"
   },
   "dependencies": [
     "_ESAbstract.CreateMethodProperty",
