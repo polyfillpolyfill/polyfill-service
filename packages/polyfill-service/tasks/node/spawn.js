@@ -9,7 +9,8 @@ const cwd = path.join(__dirname, "../../");
 const spawnOptions = { stdio: "pipe", cwd: cwd };
 const availableTasks = {
 	service: { cmd: "./node_modules/.bin/serverless offline start", waitForToken: "Serverless: Offline listening on http://localhost:3000" },
-	"remote-test": { cmd: "node tasks/node/remotetest", waitForExit: true }
+	"remote-test": { cmd: "node tasks/node/remotetest", waitForExit: true },
+	"remote-test-compat": { cmd: "node tasks/node/remotetest --targeted --control --all", waitForExit: true }
 };
 
 const taskRunners = argv._.map(taskName => {
