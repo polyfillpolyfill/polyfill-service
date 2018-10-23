@@ -15,7 +15,8 @@
 		"opera": ">19",
 		"op_mini": "*",
 		"safari": ">7",
-		"firefox_mob": ">28"
+		"firefox_mob": ">28",
+		"samsung_mob": "*"
 	},
 	"dependencies": [
 		"_ESAbstract.CreateMethodProperty",

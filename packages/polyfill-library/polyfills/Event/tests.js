@@ -164,3 +164,10 @@ it('subclasses should be instances of Event if the UA implements DOM3', function
 		bubbles: true
 	}));
 });
+
+it('should have eventPhase constants', function () {
+	proclaim.equal(Event.NONE, 0);
+	proclaim.equal(Event.CAPTURING_PHASE, 1);
+	proclaim.equal(Event.AT_TARGET, 2);
+	proclaim.equal(Event.BUBBLING_PHASE, 3);
+});
