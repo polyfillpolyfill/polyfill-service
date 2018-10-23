@@ -1,17 +1,17 @@
 {
-	"browsers": {
-		"ie": "6 - 8"
-	},
-	"dependencies": [
-		"Object.defineProperties"
-	],
-	"aliases": [
-		"viewport",
-		"innerHeight",
-		"innerWidth",
-		"pageXOffset",
-		"pageYOffset",
-		"scrollX",
-		"scrollY"
-	]
+  "browsers": {
+    "ie": "<12"
+  },
+  "dependencies": [
+    "Object.defineProperties"
+  ],
+  "aliases": [
+    "viewport",
+    "innerHeight",
+    "innerWidth",
+    "pageXOffset",
+    "pageYOffset",
+    "scrollX",
+    "scrollY"
+  ]
 }

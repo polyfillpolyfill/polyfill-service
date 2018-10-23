@@ -1,20 +1,21 @@
 {
-	"browsers": {
-		"chrome": "*",
-		"firefox": "*",
-		"opera": "*",
-		"safari": "*",
-		"ie": "* - 9",
-		"ios_saf": "*",
-		"ios_chr": "*",
-		"android": "*",
-		"op_mob": "*",
-		"ie_mob": "<10",
-		"firefox_mob": "*",
-		"bb": "*",
-		"op_mini": "*",
-		"samsung_mob": "*"
-	},
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
-	"repo": "https://github.com/YuzuJS/setImmediate"
+  "browsers": {
+    "chrome": "*",
+    "firefox": "*",
+    "opera": "*",
+    "safari": "*",
+    "ie": "<12",
+    "ios_saf": "*",
+    "ios_chr": "*",
+    "android": "*",
+    "op_mob": "*",
+    "ie_mob": "<10",
+    "firefox_mob": "*",
+    "bb": "*",
+    "op_mini": "*",
+    "samsung_mob": "*",
+    "edge": "<16"
+  },
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
+  "repo": "https://github.com/YuzuJS/setImmediate"
 }
