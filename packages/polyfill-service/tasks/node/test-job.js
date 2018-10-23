@@ -21,28 +21,36 @@ module.exports = class TestJob {
 	}
 
 	pollForResults() {
-		return this.browser.safeEval("window.global_test_results || window.global_test_progress").then(browserdata => {
-			if (browserdata && browserdata.state === "complete") {
-				this.browser.quit();
-				this.results = browserdata;
-				this.duration = Math.floor((Date.now() - this.startTime) / 1000);
-				this.setState("complete");
-				return this;
-			} else if (this.lastUpdateTime && this.lastUpdateTime < Date.now() - this.testBrowserTimeout) {
-				throw new Error("Timed out at '" + this.state + "'");
-			} else {
-				if (browserdata && browserdata.state === "running") {
-					if (!this.results || browserdata.runnerCompletedCount > this.results.runnerCompletedCount) {
-						this.results = browserdata;
-						this.lastUpdateTime = Date.now();
+		return this.browser
+			.safeEval("window.global_test_results || window.global_test_progress")
+			.then(browserdata => {
+				if (browserdata && browserdata.state === "complete") {
+					this.browser.quit();
+					this.results = browserdata;
+					this.duration = Math.floor((Date.now() - this.startTime) / 1000);
+					this.setState("complete");
+					return this;
+				} else if (this.lastUpdateTime && this.lastUpdateTime < Date.now() - this.testBrowserTimeout) {
+					throw new Error("Timed out at '" + this.state + "'");
+				} else {
+					if (browserdata && browserdata.state === "running") {
+						if (!this.results || browserdata.runnerCompletedCount > this.results.runnerCompletedCount) {
+							this.results = browserdata;
+							this.lastUpdateTime = Date.now();
+						}
+						this.setState("running");
 					}
-					this.setState("running");
-				}
 
-				// Recurse
-				return wait(this.pollTick).then(() => this.pollForResults());
-			}
-		});
+					// Recurse
+					return wait(this.pollTick).then(() => this.pollForResults());
+				}
+			})
+			.catch(async err => {
+				await this.browser.quit();
+				this.results = err;
+				this.setState("error");
+				return this;
+			});
 	}
 
 	async run() {
