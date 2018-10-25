@@ -1,0 +1,23 @@
+{
+	"browsers": {
+		"chrome": "<47",
+		"firefox": "<55",
+		"opera": "<34",
+		"safari": "*",
+		"ie": "*",
+		"ios_saf": "*",
+		"ios_chr": "*",
+		"android": "<67",
+		"op_mob": "<46",
+		"ie_mob": "*",
+		"firefox_mob": "*",
+		"bb": "*",
+		"op_mini": "*",
+		"samsung_mob": "<5"
+  },
+  "dependencies": [
+		"Date.now"
+	],
+	"docs": "https://developers.google.com/web/updates/2015/08/using-requestidlecallback?hl=en",
+	"repo": "https://github.com/sleagon/polyfill-requestIdleCallback.git"
+}
