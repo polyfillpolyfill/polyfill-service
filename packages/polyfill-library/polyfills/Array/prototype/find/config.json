@@ -16,7 +16,7 @@
     "safari": "* - 7.1",
     "ios_saf": "* - 8.0",
     "ios_chr": "* - 8.0",
-    "android": "<4.4",
+    "android": "<5",
     "firefox_mob": "<24",
     "samsung_mob": "<6"
   },
