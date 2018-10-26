@@ -11,7 +11,7 @@
     "ios_saf": "* - 9.2",
     "firefox_mob": "4 - 37",
     "bb": "7 - 10",
-    "android": "<4.4"
+    "android": "<5"
   },
   "dependencies": [
     "~html5-elements"
