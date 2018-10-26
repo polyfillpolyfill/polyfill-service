@@ -19,7 +19,7 @@
     "opera": "* - 20",
     "op_mini": "*",
     "op_mob": "* - 32",
-    "android": "<4.4",
+    "android": "<5",
     "bb": "*",
     "ios_chr": "*",
     "ios_saf": "* - 7"
