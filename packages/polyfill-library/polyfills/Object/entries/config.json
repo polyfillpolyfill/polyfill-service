@@ -13,7 +13,7 @@
     "ios_saf": "*",
     "firefox": "< 47",
     "firefox_mob": "< 47",
-    "android": "<4.4",
+    "android": "<5",
     "opera": "*",
     "op_mob": "*",
     "op_mini": "*",
