@@ -18,7 +18,7 @@
     "op_mini": "*",
     "safari": "<9",
     "firefox_mob": "<32",
-    "android": "<4.4",
+    "android": "<5",
     "ios_saf": "<9",
     "samsung_mob": "<5",
     "bb": "10 - *"
