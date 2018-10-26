@@ -10,7 +10,7 @@
 		"Float32Array",
 		"Float64Array",
 		"DataView",
- 		"ArrayBuffer"
+		"ArrayBuffer"
 	],
 	"browsers": {
 		"chrome": "<47",

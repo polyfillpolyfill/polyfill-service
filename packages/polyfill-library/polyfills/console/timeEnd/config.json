@@ -1,16 +1,16 @@
 {
-  "aliases": [
-    "caniuse:console-basic"
-  ],
-  "browsers": {
-    "ie": "<11.0",
-    "firefox": "1 - 4"
-  },
-  "dependencies": [
-    "Window",
-    "console",
-    "console.time"
-  ],
-  "spec": "https://console.spec.whatwg.org",
-  "docs": "https://developer.mozilla.org/en/docs/Web/API/console"
+	"aliases": [
+		"caniuse:console-basic"
+	],
+	"browsers": {
+		"ie": "<11.0",
+		"firefox": "1 - 4"
+	},
+	"dependencies": [
+		"Window",
+		"console",
+		"console.time"
+	],
+	"spec": "https://console.spec.whatwg.org",
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
 }

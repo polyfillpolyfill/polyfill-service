@@ -19,6 +19,6 @@
 	"dependencies": [
 		"Object.defineProperty"
 	],
-	"license" :"ISC",
+	"license": "ISC",
 	"repo": "https://github.com/Alhadis/DOMTokenList"
 }

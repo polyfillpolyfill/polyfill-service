@@ -1,19 +1,19 @@
 {
-  "aliases": [
-    "caniuse:console-basic"
-  ],
-  "browsers": {
-    "ie": "*",
-    "firefox": "1 - 4",
-    "samsung_mob": "*",
-    "chrome": "<70",
-    "android": "<10",
-    "safari": "<12.1"
-  },
-  "dependencies": [
-    "Window",
-    "console"
-  ],
-  "spec": "https://console.spec.whatwg.org",
-  "docs": "https://developer.mozilla.org/en/docs/Web/API/console"
+	"aliases": [
+		"caniuse:console-basic"
+	],
+	"browsers": {
+		"ie": "*",
+		"firefox": "1 - 4",
+		"samsung_mob": "*",
+		"chrome": "<70",
+		"android": "<10",
+		"safari": "<12.1"
+	},
+	"dependencies": [
+		"Window",
+		"console"
+	],
+	"spec": "https://console.spec.whatwg.org",
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
 }

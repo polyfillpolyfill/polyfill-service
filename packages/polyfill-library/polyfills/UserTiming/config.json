@@ -1,23 +1,23 @@
 {
-  "browsers": {
-    "android": "<4.4",
-    "chrome": "<=24",
-    "firefox": "<=37",
-    "firefox_mob": "*",
-    "ie": "<12",
-    "ie_mob": "<=9",
-    "ios_chr": "*",
-    "ios_saf": "*",
-    "op_mob": "*",
-    "opera": "<=12",
-    "safari": "<11.1",
-    "edge": "<18"
-  },
-  "spec": "http://www.w3.org/TR/user-timing/",
-  "license": "MIT",
-  "repo": "https://github.com/nicjansma/usertiming.js",
-  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API",
-  "install": {
-    "module": "usertiming"
-  }
+	"browsers": {
+		"android": "<4.4",
+		"chrome": "<=24",
+		"firefox": "<=37",
+		"firefox_mob": "*",
+		"ie": "<12",
+		"ie_mob": "<=9",
+		"ios_chr": "*",
+		"ios_saf": "*",
+		"op_mob": "*",
+		"opera": "<=12",
+		"safari": "<11.1",
+		"edge": "<18"
+	},
+	"spec": "http://www.w3.org/TR/user-timing/",
+	"license": "MIT",
+	"repo": "https://github.com/nicjansma/usertiming.js",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API",
+	"install": {
+		"module": "usertiming"
+	}
 }

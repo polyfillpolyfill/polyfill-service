@@ -1,21 +1,21 @@
 {
-  "browsers": {
-    "edge": "<16.0",
-    "edge_mob": "*",
-    "ie": "9 - *",
-    "ie_mob": "9 - *",
-    "safari": "<10",
-    "chrome": "<50",
-    "firefox": "<40",
-    "ios_saf": "*",
-    "opera": "<50",
-    "samsung_mob": "<5",
-    "bb": "10 - *"
-  },
-  "dependencies": [
-    "_ArrayIterator",
-    "Symbol.iterator"
-  ],
-  "license": "MIT",
-  "spec": "https://dom.spec.whatwg.org/#nodelist"
+	"browsers": {
+		"edge": "<16.0",
+		"edge_mob": "*",
+		"ie": "9 - *",
+		"ie_mob": "9 - *",
+		"safari": "<10",
+		"chrome": "<50",
+		"firefox": "<40",
+		"ios_saf": "*",
+		"opera": "<50",
+		"samsung_mob": "<5",
+		"bb": "10 - *"
+	},
+	"dependencies": [
+		"_ArrayIterator",
+		"Symbol.iterator"
+	],
+	"license": "MIT",
+	"spec": "https://dom.spec.whatwg.org/#nodelist"
 }

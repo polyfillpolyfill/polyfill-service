@@ -6,7 +6,7 @@
 	"browsers": {
 		"ie": "*",
 		"firefox": "<16",
-		"chrome":"<19",
+		"chrome": "<19",
 		"safari": "<9",
 		"opera": "<15"
 	},

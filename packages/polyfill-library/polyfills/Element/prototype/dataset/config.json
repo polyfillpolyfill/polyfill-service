@@ -4,7 +4,7 @@
 		"firefox": "< 6",
 		"ie": "9 - 10",
 		"safari": "< 6",
-		"firefox_mob":  "< 6"
+		"firefox_mob": "< 6"
 	},
 	"dependencies": [
 		"Object.defineProperty",
