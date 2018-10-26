@@ -1,10 +1,8 @@
 {
   "aliases": [],
   "browsers": {
-    "edge": "<16",
-    "edge_mob": "15",
-    "safari": "<12.1",
-    "ie": "<12"
+    "edge": "15",
+    "edge_mob": "15"
   },
   "dependencies": [
     "IntersectionObserver",
