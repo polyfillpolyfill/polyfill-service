@@ -18,11 +18,7 @@ commands:
     steps:
       - run: |
           cd << parameters.location >>
-          if [ -d node_modules ]; then
-            npm run postinstall && npm run prepublish
-          else
-            npm ci || npm install -g npm && npm ci
-          fi
+          npm ci || npm install -g npm && npm ci
   integration_tests_service:
     description: "Intergation tests"
     parameters:
