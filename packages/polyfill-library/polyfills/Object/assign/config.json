@@ -10,7 +10,7 @@
     "default"
   ],
   "browsers": {
-    "android": "<4.4",
+    "android": "<5",
     "bb": "*",
     "chrome": "1 - 45",
     "firefox": "1 - 33",
