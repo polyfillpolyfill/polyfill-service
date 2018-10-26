@@ -9,7 +9,7 @@
   ],
   "browsers": {
     "bb": "*",
-    "android": "<4.4",
+    "android": "<5",
     "chrome": "* - 41",
     "edge": "<15.0",
     "edge_mob": "*",
