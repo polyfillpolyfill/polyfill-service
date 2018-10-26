@@ -1,8 +1,6 @@
 // @import url("https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-header-services%402.2.2%2Co-fonts%40%5E3.0.0%2Co-normalise%40%5E1.0.0%2Co-footer-services%40%5E1.0.2&brand=internal");
 $o-layout-is-silent: false;
 @import 'o-layout/main.scss';
-$o-techdocs-is-silent: false;
-@import 'o-techdocs/main.scss';
 $o-fonts-is-silent: false;
 @import 'o-fonts/main.scss';
 $o-typography-is-silent: false;
@@ -28,6 +26,10 @@ $o-message-is-silent: false;
 
 [aria-hidden=true] {
     display: none;
+}
+
+[data-o-component="o-tooltip"] {
+	display: none;
 }
 
 .bundle-tabs {
@@ -56,6 +58,16 @@ $o-message-is-silent: false;
 }
 
 .extra-info {
+	// start: undo button styles
+	appearance: none;
+	background: none;
+	color: inherit;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	// end: undo button styles
 	text-align: right;
 	display: block;
 	float: right;
@@ -106,6 +118,10 @@ a.anchor {
 
 .o-layout--documentation ul ul {
 	padding: 1em;
+}
+
+.o-layout__sidebar>:first-child {
+	margin-top: 1rem;
 }
 
 .logo {
