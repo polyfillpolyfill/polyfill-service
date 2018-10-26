@@ -6,7 +6,7 @@
     "default"
   ],
   "browsers": {
-    "android": "<4.4",
+    "android": "<5",
     "bb": "*",
     "chrome": "<54",
     "edge": "<17",
