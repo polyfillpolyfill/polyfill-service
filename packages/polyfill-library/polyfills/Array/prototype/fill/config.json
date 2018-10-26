@@ -10,10 +10,10 @@
   ],
   "browsers": {
     "ie": "*",
-    "safari": "<= 7",
-    "firefox": "< 31",
-    "chrome": "< 45",
-    "android": "<4.4",
+    "safari": "<=7",
+    "firefox": "<31",
+    "chrome": "<45",
+    "android": "<5",
     "ios_saf": "<= 7",
     "samsung_mob": "<5"
   },
