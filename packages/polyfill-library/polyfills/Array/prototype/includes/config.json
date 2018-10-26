@@ -14,7 +14,7 @@
     "safari": "<9",
     "ios_saf": "<9",
     "ios_chr": "*",
-    "android": "<4.4",
+    "android": "<5",
     "op_mob": "*",
     "op_mini": "*",
     "ie_mob": "*",
