@@ -10,7 +10,7 @@
     "safari": "*",
     "firefox_mob": "*",
     "samsung_mob": "*",
-    "android": "<10"
+    "android": "*"
   },
   "dependencies": [
     "_ESAbstract.CreateMethodProperty",
