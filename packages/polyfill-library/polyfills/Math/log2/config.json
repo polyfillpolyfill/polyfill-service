@@ -4,7 +4,7 @@
     "es2015"
   ],
   "browsers": {
-    "android": "<4.4",
+    "android": "<5",
     "bb": "*",
     "chrome": "1 - 37",
     "edge": "<15.0",
