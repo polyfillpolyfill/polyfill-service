@@ -14,7 +14,6 @@
   "dependencies": {
     "o-header-services": "^2.2.4",
     "o-footer-services": "^1.0.2",
-    "o-techdocs": "^7.0.8",
     "o-syntax-highlight": "^1.1.1",
     "o-normalise": "^1.6.2",
     "o-fonts": "^3.0.4",
