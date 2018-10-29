@@ -251,7 +251,7 @@ it('accepts Symbol primitives', function() {
 });
 
 it('does not include Symbol keys', function() {
-	if (hasSymbols) {
+	if (hasSymbols && supportsDescriptors) {
 		var value = {};
 		var enumSym = Symbol('enum');
 		var nonEnumSym = Symbol('nonenum');
