@@ -1,6 +1,7 @@
 /* global CreateMethodProperty, RequireObjectCoercible, ToString */
 // 21.1.3.27. String.prototype.trim ( )
 CreateMethodProperty(String.prototype, 'trim', function trim() {
+	"use strict";
 	// 1. Let O be ? RequireObjectCoercible(this value).
 	var O = RequireObjectCoercible(this);
 	// 2. Let S be ? ToString(O).
