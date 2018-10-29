@@ -135,7 +135,7 @@ describe('Error handling', function () {
 
 		proclaim.throws(function () {
 			Object.defineProperty(object, property);
-		}, /^Property description must be an object/);
+		});
 	});
 
 	it('Throws an error when both an accessor and a value are specified', function () {
