@@ -1,0 +1,22 @@
+{
+	"aliases": [
+		"default-3.3",
+		"default-3.4",
+		"default-3.5",
+		"default-3.6",
+		"default",
+		"modernizr:classlist",
+		"blissfuljs"
+	],
+	"browsers": {
+		"ie": "<12",
+		"safari": "4 - 4.1"
+	},
+	"dependencies": [
+		"DOMTokenList",
+		"Object.defineProperty"
+	],
+	"spec": "https://html.spec.whatwg.org/multipage/text-level-semantics.html#dom-a-rellist",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/relList",
+	"license": "MIT"
+}
