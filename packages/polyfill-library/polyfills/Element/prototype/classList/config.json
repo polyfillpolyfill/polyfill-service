@@ -17,8 +17,7 @@
 		"Element",
 		"Object.defineProperty"
 	],
-	"spec": "https://html.spec.whatwg.org/multipage/dom.html#dom-classlist",
+	"spec": "https://dom.spec.whatwg.org/#dom-element-classlist",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList",
-	"license": "ISC",
-	"repo": "https://github.com/Alhadis/DOMTokenList"
+	"license": "MIT"
 }
