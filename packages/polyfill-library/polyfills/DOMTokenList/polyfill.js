@@ -1,68 +1,329 @@
 (function (global) {
-	var nativeImpl = "DOMTokenList" in global && global.DOMTokenList;
-
-	if (
-			!nativeImpl ||
-			(
-				!!document.createElementNS &&
-				!!document.createElementNS('http://www.w3.org/2000/svg', 'svg') &&
-				!(document.createElementNS("http://www.w3.org/2000/svg", "svg").classList instanceof DOMTokenList)
-			)
-		) {
-		global.DOMTokenList = _DOMTokenList;
+	var nativeImpl;
+	if ("DOMTokenList" in global) {
+		if (document.createElementNS) {
+			if (document.createElementNS("http://www.w3.org/2000/svg", "svg").classList instanceof DOMTokenList) {
+				nativeImpl = global.DOMTokenList;
+			}
+		}
 	}
 
-	// Add second argument to native DOMTokenList.toggle() if necessary
-	(function () {
-		var e = document.createElement('span');
-		if (!('classList' in e)) return;
-		e.classList.toggle('x', false);
-		if (!e.classList.contains('x')) return;
-		e.classList.constructor.prototype.toggle = function toggle(token /*, force*/) {
-			var force = arguments[1];
-			if (force === undefined) {
-				var add = !this.contains(token);
-				this[add ? 'add' : 'remove'](token);
-				return add;
+	if (nativeImpl) {
+		// Add second argument to native DOMTokenList.toggle() if necessary
+		(function () {
+			var e = document.createElement('span');
+			if ('classList' in e) {
+				e.classList.toggle('x', false);
+				if (e.classList.contains('x')) {
+					e.classList.constructor.prototype.toggle = function toggle(token /*, force*/ ) {
+						var force = arguments[1];
+						if (this.contains(token)) {
+							if (!force) {
+								// force is not true (either false or omitted)
+								this.remove(token);
+							}
+						} else if (force === undefined || force) {
+							force = true;
+							this.add(token);
+						}
+						return !!force;
+					};
+				}
 			}
-			force = !!force;
-			this[force ? 'add' : 'remove'](token);
-			return force;
-		};
-	}());
+		}());
 
-	// Add multiple arguments to native DOMTokenList.add() if necessary
-	(function () {
-		var e = document.createElement('span');
-		if (!('classList' in e)) return;
-		e.classList.add('a', 'b');
-		if (e.classList.contains('b')) return;
-		var native = e.classList.constructor.prototype.add;
-		e.classList.constructor.prototype.add = function () {
-			var args = arguments;
-			var l = arguments.length;
-			for (var i = 0; i < l; i++) {
-				native.call(this, args[i]);
+		// Add multiple arguments to native DOMTokenList.add() if necessary
+		(function () {
+			var e = document.createElement('span');
+			if ('classList' in e) {
+				e.classList.add('a', 'b');
+				if (!e.classList.contains('b')) {
+					var originalAdd = e.classList.constructor.prototype.add;
+					e.classList.constructor.prototype.add = function add() {
+						var args = arguments;
+						var l = arguments.length;
+						for (var i = 0; i < l; i++) {
+							originalAdd.call(this, args[i]);
+						}
+					};
+				}
 			}
-		};
-	}());
+		}());
 
-	// Add multiple arguments to native DOMTokenList.remove() if necessary
-	(function () {
-		var e = document.createElement('span');
-		if (!('classList' in e)) return;
-		e.classList.add('a');
-		e.classList.add('b');
-		e.classList.remove('a', 'b');
-		if (!e.classList.contains('b')) return;
-		var native = e.classList.constructor.prototype.remove;
-		e.classList.constructor.prototype.remove = function () {
-			var args = arguments;
-			var l = arguments.length;
-			for (var i = 0; i < l; i++) {
-				native.call(this, args[i]);
+		// Add multiple arguments to native DOMTokenList.remove() if necessary
+		(function () {
+			var e = document.createElement('span');
+			if ('classList' in e) {
+				e.classList.add('a');
+				e.classList.add('b');
+				e.classList.remove('a', 'b');
+				if (e.classList.contains('b')) {
+					var originalRemove = e.classList.constructor.prototype.remove;
+					e.classList.constructor.prototype.remove = function () {
+						var args = arguments;
+						var l = arguments.length;
+						for (var i = 0; i < l; i++) {
+							originalRemove.call(this, args[i]);
+						}
+					};
+				}
 			}
-		};
-	}());
-
+		}());
+	} else {
+		global.DOMTokenList = (function () {
+			'use strict';
+		
+			var dpSupport = true;
+			/** Ensure the browser allows Object.defineProperty to be used on native JavaScript objects. */
+			try {
+				Object.defineProperty({}, "support", {
+					configurable: false,
+					get: function () {},
+					set: function () {}
+				});
+			} catch (e) {
+				dpSupport = false;
+			}
+		
+			var spaces = /\s+/;
+		
+			function checkIfEmptyString(operation, token) {
+				if (token === "") {
+					var error = new DOMException("Failed to execute '" + operation + "' on 'DOMTokenList': The token provided must not be empty.");
+					error.code = 12;
+					error.name = "SYNTAX_ERR";
+					throw error;
+				}
+			}
+		
+			function checkIfStringContainsWhitespace(operation, token) {
+				if (spaces.test(token)) {
+					var error = new DOMException("Failed to execute '" + operation + "' on 'DOMTokenList': " + "The token provided ('" + token + "') contains HTML space characters, which are not valid in tokens.");
+					error.code = 5;
+					error.name = "InvalidCharacterError";
+					throw error;
+				}
+			}
+			/*
+			interface DOMTokenList {
+				readonly attribute unsigned long length;
+				getter DOMString? item(unsigned long index);
+				boolean contains(DOMString token);
+				void add(DOMString... tokens);
+				void remove(DOMString... tokens);
+				boolean toggle(DOMString token, optional boolean force);
+				boolean replace(DOMString token, DOMString newToken);
+				boolean supports(DOMString token);
+				stringifier attribute DOMString value;
+				iterable<DOMString>;
+			  };
+			*/
+			function DOMTokenList(node, attr) {
+				var value = node.getAttribute(attr).trim();
+				if (value.length) {
+					Array.prototype.push.apply(this, value.split(spaces));
+				}
+				this._attr = attr;
+				this._node = node;
+				this._maxLength = 0;
+				// The object’s supported property indices are the numbers in the range zero to object’s token set’s size minus one, unless token set is empty, in which case there are no supported property indices.
+				this._reindex = function _reindex() {
+					if (this.length >= this._maxLength) {
+						for (; this._maxLength < this.length; ++this._maxLength) {
+							Object.defineProperty(this, this._maxLength, {
+								get: function () {
+									return this.item(this._maxLength);
+								}
+							});
+						}
+						if (this.length === 0) {
+							for (var i = 0; i <= this._maxLength; i++) {
+								delete this[i];
+							}
+							this._maxLength = 0;
+						}
+					}
+				};
+			};
+		
+			// tokenlist . length
+			// Returns the number of tokens.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-length
+			// The length attribute' getter must return context object’s token set’s size.
+			// Polyfill.io - Because of the array-like nature of DOMTokenList, we use the Array.prototype methods for controlling the state of a DOMTokenList. The Array.prototype methods update the length property automatically.
+			DOMTokenList.prototype.length = 0;
+		
+			// tokenlist . add(tokens…)
+			// Adds all arguments passed, except those already present.
+			// Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+			// Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-add
+			DOMTokenList.prototype.add = function add( /* tokens */ ) {
+				// 1. For each token in tokens:
+				var tokens = arguments;
+				for (var i = 0; i < tokens.length; i++) {
+					var token = tokens[i];
+					// 1.1 If token is the empty string, then throw a "SyntaxError" DOMException.
+					checkIfEmptyString("add", token);
+					// 1.2 If token contains any ASCII whitespace, then throw an "InvalidCharacterError" DOMException.
+					checkIfStringContainsWhitespace("add", token);
+				}
+				// 2. For each token in tokens, append token to context object’s token set.
+				for (var i = 0; i < tokens.length; i++) {
+					var token = tokens[i];
+					if (!this.contains(token)) {
+						Array.prototype.push.call(this, token);
+					}
+				}
+				// 3. Run the update steps.
+				this._node.setAttribute(this._attr, '' + this);
+				this._reindex();
+			};
+		
+			// tokenlist . contains(token)
+			// Returns true if token is present, and false otherwise.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-contains
+			DOMTokenList.prototype.contains = function contains(token) {
+				return -1 < Array.prototype.indexOf.call(this, token);
+			};
+		
+			// tokenlist . item(index)
+			// tokenlist[index]
+			// Returns the token with index index.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-item
+			DOMTokenList.prototype.item = function item(index) {
+				// 1. If index is equal to or greater than context object’s token set’s size, then return null.
+				if (index >= this.length) {
+					return null;
+				}
+				// 2. Return context object’s token set[index].
+				return this[index];
+			};
+		
+			// tokenlist . remove(tokens…)
+			// Removes arguments passed, if they are present.
+			// Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+			// Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-remove
+			DOMTokenList.prototype.remove = function remove( /* tokens */ ) {
+				var tokens = arguments;
+				// 1. For each token in tokens:
+				for (var i = 0; i < tokens.length; i++) {
+					var token = tokens[i];
+					// 1.1. If token is the empty string, then throw a "SyntaxError" DOMException.
+					checkIfEmptyString("remove", token);
+					// 1.2. If token contains any ASCII whitespace, then throw an "InvalidCharacterError" DOMException.
+					checkIfStringContainsWhitespace("remove", token);
+				}
+				// 2. For each token in tokens, remove token from context object’s token set.
+				for (var i = 0; i < tokens.length; i++) {
+					var token = tokens[i];
+					if (this.contains(token)) {
+						var index = Array.prototype.indexOf.call(this, token);
+						Array.prototype.splice.call(this, index, 1);
+					}
+				}
+				// 3. Run the update steps.
+				this._node.setAttribute(this._attr, '' + this);
+				this._reindex();
+			};
+		
+			// tokenlist . replace(token, newToken)
+			// Replaces token with newToken.
+			// Returns true if token was replaced with newToken, and false otherwise.
+			// Throws a "SyntaxError" DOMException if one of the arguments is the empty string.
+			// Throws an "InvalidCharacterError" DOMException if one of the arguments contains any ASCII whitespace.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-replace
+			DOMTokenList.prototype.replace = function replace(token, newToken) {
+				// 1. If either token or newToken is the empty string, then throw a "SyntaxError" DOMException.
+				checkIfEmptyString("replace", token);
+				checkIfEmptyString("replace", newToken);
+				// 2. If either token or newToken contains any ASCII whitespace, then throw an "InvalidCharacterError" DOMException.
+				checkIfStringContainsWhitespace("replace", token);
+				checkIfStringContainsWhitespace("replace", newToken);
+		
+				// 3. If context object’s token set does not contain token, then return false.
+				if (!this.contains(token)) {
+					return false;
+				}
+				// 4. Replace token in context object’s token set with newToken.
+				this.remove(token);
+				this.add(newToken);
+				// 5. Run the update steps.
+				this._reindex();
+				// 6. Return true.
+				return true;
+			};
+		
+			// tokenlist . toggle(token [, force])	
+			// If force is not given, "toggles" token, removing it if it’s present and adding it if it’s not present. If force is true, adds token (same as add()). If force is false, removes token (same as remove()).
+			// Returns true if token is now present, and false otherwise.
+			// Throws a "SyntaxError" DOMException if token is empty.
+			// Throws an "InvalidCharacterError" DOMException if token contains any spaces.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-toggle
+			DOMTokenList.prototype.toggle = function toggle(token /*, force*/ ) {
+				// 1. If token is the empty string, then throw a "SyntaxError" DOMException.
+				checkIfEmptyString("toggle", token);
+				// 2. If token contains any ASCII whitespace, then throw an "InvalidCharacterError" DOMException.
+				checkIfStringContainsWhitespace("toggle", token);
+		
+				var force = arguments[1];
+				// 3. If context object’s token set[token] exists, then:
+				if (this.contains(token)) {
+					// 3.1. If force is either not given or is false, then remove token from context object’s token set, run the update steps and return false.
+					if (!force) {
+						this.remove(token);
+						this._reindex();
+						return false;
+					}
+					// 3.2. Return true.
+					return true;
+				} else {
+					// 4. Otherwise, if force not given or is true, append token to context object’s token set, run the update steps, and return true.
+					if (force === undefined || force) {
+						this.add(token);
+						this._reindex();
+						return true;
+					}
+					// 5. Return false.
+					return false;
+				}
+			};
+			DOMTokenList.prototype.toString = DOMTokenList.prototype.toLocaleString = function toString() {
+				return Array.prototype.join.call(this, ' ');
+			};
+		
+			// tokenlist . supports(token)
+			// Returns true if token is in the associated attribute’s supported tokens. Returns false otherwise.
+			// Throws a TypeError if the associated attribute has no supported tokens defined.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-supports
+			DOMTokenList.prototype.supports = function supports(/* token*/ ) {
+				// 1. Let result be the return value of validation steps called with token.
+				// 2. Return result.
+				return false;
+			};
+		
+			// tokenlist . value
+			// Returns the associated set as string.
+			// Can be set, to change the associated attribute.
+			// https://dom.spec.whatwg.org/#dom-domtokenlist-value
+			if (dpSupport) {
+				Object.defineProperty(DOMTokenList.prototype, "value", {
+					get: function () {
+						return this._node.getAttribute(this._attr);
+					},
+					set: function (value) {
+						Array.prototype.splice.call(this, 0);
+						this._node.setAttribute(this._attr, value);
+						var value = this._node.getAttribute(this._attr).trim();
+						if (value.length) {
+							Array.prototype.push.apply(this, value.split(spaces));
+						}
+						this._reindex();
+					}
+				});
+			}
+			return DOMTokenList;
+		}(window));
+	}
 }(this));
