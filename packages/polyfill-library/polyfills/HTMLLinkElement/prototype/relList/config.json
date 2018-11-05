@@ -1,16 +1,13 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default",
-		"modernizr:classlist",
-		"blissfuljs"
-	],
 	"browsers": {
-		"ie": "<12",
-		"safari": "4 - 4.1"
+		"edge": "*",
+		"edge_mob": "*",
+		"ie": "*",
+		"ie_mob": "*",
+		"safari": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_saf": "*"
 	},
 	"dependencies": [
 		"DOMTokenList",

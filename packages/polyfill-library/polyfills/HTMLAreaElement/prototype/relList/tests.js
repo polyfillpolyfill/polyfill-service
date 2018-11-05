@@ -20,7 +20,7 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			var relList = area.relList;
 			proclaim.isInstanceOf(relList, DOMTokenList);
 			proclaim.equal(relList.constructor, DOMTokenList);
-			proclaim.equal(relList.constructor.name, "DOMTokenList");
+			proclaim.hasName(relList.constructor, "DOMTokenList");
 			if ("__proto__" in {}) {
 				proclaim.equal(relList.__proto__ === DOMTokenList.prototype, true);
 			}
@@ -31,24 +31,17 @@ describe('HTMLAreaElement.prototype.relList', function() {
 				var relList = area.relList;
 				proclaim.equal(relList.length, 0);
 			});
-			it('is 1 if element has 1 classes', function(){
+			it('is 1 if element has 1 class', function(){
 				var area = document.createElement('area');
-				area.rel = 'a';
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
 				proclaim.equal(relList.length, 1);
 			});
 			it('is the amount of unique classes that the element has', function(){
 				var area = document.createElement('area');
-				area.rel = 'a a b';
+				area.setAttribute('rel', 'a a b');
 				var relList = area.relList;
 				proclaim.equal(relList.length, 2);
-			});
-			it('is read-only', function(){
-				var area = document.createElement('area');
-				area.rel = 'a';
-				var relList = area.relList;
-				relList.length = 4;
-				proclaim.equal(relList.length, 1);
 			});
 		});
 		describe('item(index)', function(){
@@ -79,11 +72,11 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('returns the token at the index position', function() {
 				var area = document.createElement('area');
-				area.rel = 'a a b c';
+				area.setAttribute('rel', 'a a b c');
 				var relList = area.relList;
-				proclaim.isNull(relList.item(0), 'a');
-				proclaim.isNull(relList.item(1), 'b');
-				proclaim.isNull(relList.item(2), 'c');
+				proclaim.equal(relList.item(0), 'a');
+				proclaim.equal(relList.item(1), 'b');
+				proclaim.equal(relList.item(2), 'c');
 			});
 		});
 		describe('[index]', function(){
@@ -94,11 +87,11 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('returns the token at the index position', function() {
 				var area = document.createElement('area');
-				area.rel = 'a a b c';
+				area.setAttribute('rel', 'a a b c');
 				var relList = area.relList;
-				proclaim.isNull(relList[0], 'a');
-				proclaim.isNull(relList[1], 'b');
-				proclaim.isNull(relList[2], 'c');
+				proclaim.equal(relList[0], 'a');
+				proclaim.equal(relList[1], 'b');
+				proclaim.equal(relList[2], 'c');
 			});
 		});
 		describe('contains(token)', function(){
@@ -119,13 +112,13 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('returns true if the token is present in the DOMTokenList instance', function() {
 				var area = document.createElement('area');
-				area.rel = 'a';
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
 				proclaim.isTrue(relList.contains('a'));
 			});
 			it('returns false if the token is not present in the DOMTokenList instance', function() {
 				var area = document.createElement('area');
-				area.rel = 'a';
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
 				proclaim.isFalse(relList.contains('b'));
 			});
@@ -228,29 +221,29 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			it('adds the token to the DOMTokenList instance and onto the corresponding attribute', function() {
 				var area = document.createElement('area');
 				var relList = area.relList;
-				area.rel = '';
+				area.setAttribute('rel', '');
 				proclaim.equal(relList.length, 0);
 				relList.add('a');
 				proclaim.equal(relList.length, 1);
-				proclaim.equal(area.rel, 'a');
+				proclaim.equal(area.getAttribute('rel'), 'a');
 			});
 			it('does not add the token if it already exists', function() {
 				var area = document.createElement('area');
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
-				area.rel = 'a';
-				proclaim.equal(relList.length, 0);
+				proclaim.equal(relList.length, 1);
 				relList.add('a');
-				proclaim.equal(relList.length, 0);
-				proclaim.equal(area.rel, 'a');
+				proclaim.equal(relList.length, 1);
+				proclaim.equal(area.getAttribute('rel'), 'a');
 			});
 			it('adds multiple tokens to the DOMTokenList instance and onto the corresponding attribute', function() {
 				var area = document.createElement('area');
 				var relList = area.relList;
-				area.rel = '';
+				area.setAttribute('rel', '');
 				proclaim.equal(relList.length, 0);
 				relList.add('a', 'b', 'c', 'd', 'a');
 				proclaim.equal(relList.length, 4);
-				proclaim.equal(area.rel, 'a b c d');
+				proclaim.equal(area.getAttribute('rel'), 'a b c d');
 			});
 			it('returns undefined', function() {
 				var area = document.createElement('area');
@@ -337,18 +330,18 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('if any of the tokens are an empty string, no tokens are removed from the DOMTokenList instance', function() {
 				var area = document.createElement('area');
-				area.rel = 'a b';
+				area.setAttribute('rel', 'a b');
 				var relList = area.relList;
 				proclaim.equal(relList.length, 2);
 				proclaim.throws(function() {
 					relList.remove('a','b','');
 				});
 				proclaim.equal(relList.length, 2);
-				proclaim.equal(area.rel, 'a b');
+				proclaim.equal(area.getAttribute('rel'), 'a b');
 			});
 			it('if any of the tokens contain ASCII whitespace, no tokens are removed from the DOMTokenList instance', function() {
 				var area = document.createElement('area');
-				area.rel = 'a b';
+				area.setAttribute('rel', 'a b');
 				var relList = area.relList;
 				proclaim.equal(relList.length, 2);
 				proclaim.throws(function() {
@@ -358,21 +351,21 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('removes the token from the DOMTokenList instance and the corresponding attribute', function() {
 				var area = document.createElement('area');
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
-				area.rel = 'a';
 				proclaim.equal(relList.length, 1);
 				relList.remove('a');
 				proclaim.equal(relList.length, 0);
-				proclaim.equal(area.rel, '');
+				proclaim.equal(area.getAttribute('rel'), '');
 			});
 			it('removes multiple tokens from the DOMTokenList instance and the corresponding attribute', function() {
 				var area = document.createElement('area');
-				area.rel = 'a b c d';
+				area.setAttribute('rel', 'a b c d');
 				var relList = area.relList;
 				proclaim.equal(relList.length, 4);
 				relList.remove('a', 'b');
 				proclaim.equal(relList.length, 2);
-				proclaim.equal(area.rel, 'c d');
+				proclaim.equal(area.getAttribute('rel'), 'c d');
 			});
 			it('returns undefined', function() {
 				var area = document.createElement('area');
@@ -442,47 +435,47 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('if token exists, it removes the token from the DOMTokenList instance and corresponding attribute and returns `false`', function(){
 				var area = document.createElement('area');
-				area.rel = 'a b';
+				area.setAttribute('rel', 'a b');
 				var relList = area.relList;
 				proclaim.isFalse(relList.toggle('a'));
-				proclaim.equal(area.rel, 'b');
+				proclaim.equal(area.getAttribute('rel'), 'b');
 				proclaim.equal(relList.length, 1);
 			});
 			it('if token exists and force argument is `false`, it removes the token from the DOMTokenList instance and corresponding attribute and returns `false`', function(){
 				var area = document.createElement('area');
-				area.rel = 'a b';
+				area.setAttribute('rel', 'a b');
 				var relList = area.relList;
 				proclaim.isFalse(relList.toggle('a', false));
-				proclaim.equal(area.rel, 'b');
+				proclaim.equal(area.getAttribute('rel'), 'b');
 				proclaim.equal(relList.length, 1);
 			});
 			it('if token exists and force argument is `true`, it does not remove the token and returns `true`', function(){
 				var area = document.createElement('area');
-				area.rel = 'a b';
+				area.setAttribute('rel', 'a b');
 				var relList = area.relList;
 				proclaim.isTrue(relList.toggle('a', true));
-				proclaim.equal(area.rel, 'a b');
+				proclaim.equal(area.getAttribute('rel'), 'a b');
 				proclaim.equal(relList.length, 2);
 			});
 			it('if token does not exist, it adds the token to the DOMTokenList instance and corresponding attribute and returns `true`', function(){
 				var area = document.createElement('area');
 				var relList = area.relList;
 				proclaim.isTrue(relList.toggle('a'));
-				proclaim.equal(area.rel, 'a');
+				proclaim.equal(area.getAttribute('rel'), 'a');
 				proclaim.equal(relList.length, 1);
 			});
 			it('if token does not exist and force argument is `true`, it adds the token to the DOMTokenList instance and corresponding attribute and returns `true`', function(){
 				var area = document.createElement('area');
 				var relList = area.relList;
 				proclaim.isTrue(relList.toggle('a', true));
-				proclaim.equal(area.rel, 'a');
+				proclaim.equal(area.getAttribute('rel'), 'a');
 				proclaim.equal(relList.length, 1);
 			});
 			it('if token does not exist and force argument is `false`, it does not modify the DOMTokenList instance or the corresponding attribute and returns `false`', function(){
 				var area = document.createElement('area');
 				var relList = area.relList;
-				proclaim.isTrue(relList.toggle('a', false));
-				proclaim.equal(area.rel, '');
+				proclaim.isFalse(relList.toggle('a', false));
+				proclaim.isNull(area.getAttribute('rel'));
 				proclaim.equal(relList.length, 0);
 			});
 		});
@@ -597,10 +590,10 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it('if given token does not in the DOMTokenList instance, replace it with `newToken` and return `true`', function(){
 				var area = document.createElement('area');
-				area.rel = 'a';
+				area.setAttribute('rel', 'a');
 				var relList = area.relList;
 				proclaim.isTrue(relList.replace("a", "b"));
-				proclaim.equal(area.rel, 'b');
+				proclaim.equal(area.getAttribute('rel'), 'b');
 				proclaim.equal(relList.length, 1);
 			});
 		});
@@ -639,9 +632,9 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it ('should return the literal value of the corresponding attribute', function(){
 				var area = document.createElement('area');
-				area.rel = ' a  ';
+				area.setAttribute('rel', ' a  ');
 				var relList = area.relList;
-				proclaim.equal(relList.toString(), area.rel);
+				proclaim.equal(relList.toString(), area.getAttribute('rel'));
 			});
 		});	
 		describe('toLocaleString()', function(){
@@ -653,7 +646,7 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			it('has correct arity', function () {
 				var area = document.createElement('area');
 				var relList = area.relList;
-				proclaim.arity(relList.toLocaleString, 1);
+				proclaim.arity(relList.toLocaleString, 0);
 			});
 			it('has correct name', function () {
 				var area = document.createElement('area');
@@ -662,9 +655,9 @@ describe('HTMLAreaElement.prototype.relList', function() {
 			});
 			it ('should return the literal value of the corresponding attribute', function(){
 				var area = document.createElement('area');
-				area.rel = ' a  ';
+				area.setAttribute('rel', ' a  ');
 				var relList = area.relList;
-				proclaim.equal(relList.toLocaleString(), area.rel);
+				proclaim.equal(relList.toLocaleString(), area.getAttribute('rel'));
 			});
 		});
 		// describe('entries()', function(){
@@ -745,22 +738,22 @@ describe('HTMLAreaElement.prototype.relList', function() {
 				it('has a getter function', function(){
 					var area = document.createElement('area');
 					var relList = area.relList;
-					var descriptor = Object.getOwnPropertyDescriptor(relList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(relList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.get);
 				});
 				it('has a setter function', function(){
 					var area = document.createElement('area');
 					var relList = area.relList;
-					var descriptor = Object.getOwnPropertyDescriptor(relList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(relList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.set);
 				});
 			}
 			describe('(getter)', function() {
 				it ('should return the literal value of the corresponding attribute', function(){
 					var area = document.createElement('area');
-					area.rel = ' a  ';
+					area.setAttribute('rel', ' a  ');
 					var relList = area.relList;
-					proclaim.equal(relList.value, area.rel);
+					proclaim.equal(relList.value, area.getAttribute('rel'));
 				});
 			});
 			describe('(setter)', function() {
@@ -769,7 +762,7 @@ describe('HTMLAreaElement.prototype.relList', function() {
 					var relList = area.relList;
 					relList.value = ' b  ';
 					proclaim.equal(relList.value, ' b  ');
-					proclaim.equal(relList.value, area.rel);
+					proclaim.equal(relList.value, area.getAttribute('rel'));
 				});
 				it('should update the DOMTokenList instance with the new length and tokens', function() {
 					var area = document.createElement('area');
@@ -788,7 +781,7 @@ describe('HTMLAreaElement.prototype.relList', function() {
 				var area = document.createElement('area');
 				area.relList = ' b  ';
 				proclaim.equal(area.relList[0], 'b');
-				proclaim.equal(area.relList.value, area.rel);
+				proclaim.equal(area.relList.value, area.getAttribute('rel'));
 			});
 			it('should update the DOMTokenList instance with the new length and tokens', function() {
 				var area = document.createElement('area');

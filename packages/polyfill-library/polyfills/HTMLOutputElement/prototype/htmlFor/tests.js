@@ -20,7 +20,6 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			var classList = output.classList;
 			proclaim.isInstanceOf(classList, DOMTokenList);
 			proclaim.equal(classList.constructor, DOMTokenList);
-			proclaim.equal(classList.constructor.name, "DOMTokenList");
 			if ("__proto__" in {}) {
 				proclaim.equal(classList.__proto__ === DOMTokenList.prototype, true);
 			}
@@ -33,22 +32,15 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('is 1 if element has 1 classes', function(){
 				var output = document.createElement('output');
-				output.for = 'a';
+				output.htmlFor = 'a';
 				var classList = output.classList;
 				proclaim.equal(classList.length, 1);
 			});
 			it('is the amount of unique classes that the element has', function(){
 				var output = document.createElement('output');
-				output.for = 'a a b';
+				output.htmlFor = 'a a b';
 				var classList = output.classList;
 				proclaim.equal(classList.length, 2);
-			});
-			it('is read-only', function(){
-				var output = document.createElement('output');
-				output.for = 'a';
-				var classList = output.classList;
-				classList.length = 4;
-				proclaim.equal(classList.length, 1);
 			});
 		});
 		describe('item(index)', function(){
@@ -79,11 +71,11 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('returns the token at the index position', function() {
 				var output = document.createElement('output');
-				output.for = 'a a b c';
+				output.htmlFor = 'a a b c';
 				var classList = output.classList;
-				proclaim.isNull(classList.item(0), 'a');
-				proclaim.isNull(classList.item(1), 'b');
-				proclaim.isNull(classList.item(2), 'c');
+				proclaim.equal(classList.item(0), 'a');
+				proclaim.equal(classList.item(1), 'b');
+				proclaim.equal(classList.item(2), 'c');
 			});
 		});
 		describe('[index]', function(){
@@ -94,11 +86,11 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('returns the token at the index position', function() {
 				var output = document.createElement('output');
-				output.for = 'a a b c';
+				output.htmlFor = 'a a b c';
 				var classList = output.classList;
-				proclaim.isNull(classList[0], 'a');
-				proclaim.isNull(classList[1], 'b');
-				proclaim.isNull(classList[2], 'c');
+				proclaim.equal(classList[0], 'a');
+				proclaim.equal(classList[1], 'b');
+				proclaim.equal(classList[2], 'c');
 			});
 		});
 		describe('contains(token)', function(){
@@ -119,13 +111,13 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('returns true if the token is present in the DOMTokenList instance', function() {
 				var output = document.createElement('output');
-				output.for = 'a';
+				output.htmlFor = 'a';
 				var classList = output.classList;
 				proclaim.isTrue(classList.contains('a'));
 			});
 			it('returns false if the token is not present in the DOMTokenList instance', function() {
 				var output = document.createElement('output');
-				output.for = 'a';
+				output.htmlFor = 'a';
 				var classList = output.classList;
 				proclaim.isFalse(classList.contains('b'));
 			});
@@ -228,29 +220,29 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			it('adds the token to the DOMTokenList instance and onto the corresponding attribute', function() {
 				var output = document.createElement('output');
 				var classList = output.classList;
-				output.for = '';
+				output.htmlFor = '';
 				proclaim.equal(classList.length, 0);
 				classList.add('a');
 				proclaim.equal(classList.length, 1);
-				proclaim.equal(output.for, 'a');
+				proclaim.equal(output.htmlFor, 'a');
 			});
 			it('does not add the token if it already exists', function() {
 				var output = document.createElement('output');
+				output.htmlFor = 'a';
 				var classList = output.classList;
-				output.for = 'a';
-				proclaim.equal(classList.length, 0);
+				proclaim.equal(classList.length, 1);
 				classList.add('a');
-				proclaim.equal(classList.length, 0);
-				proclaim.equal(output.for, 'a');
+				proclaim.equal(classList.length, 1);
+				proclaim.equal(output.htmlFor, 'a');
 			});
 			it('adds multiple tokens to the DOMTokenList instance and onto the corresponding attribute', function() {
 				var output = document.createElement('output');
 				var classList = output.classList;
-				output.for = '';
+				output.htmlFor = '';
 				proclaim.equal(classList.length, 0);
 				classList.add('a', 'b', 'c', 'd', 'a');
 				proclaim.equal(classList.length, 4);
-				proclaim.equal(output.for, 'a b c d');
+				proclaim.equal(output.htmlFor, 'a b c d');
 			});
 			it('returns undefined', function() {
 				var output = document.createElement('output');
@@ -337,18 +329,18 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('if any of the tokens are an empty string, no tokens are removed from the DOMTokenList instance', function() {
 				var output = document.createElement('output');
-				output.for = 'a b';
+				output.htmlFor = 'a b';
 				var classList = output.classList;
 				proclaim.equal(classList.length, 2);
 				proclaim.throws(function() {
 					classList.remove('a','b','');
 				});
 				proclaim.equal(classList.length, 2);
-				proclaim.equal(output.for, 'a b');
+				proclaim.equal(output.htmlFor, 'a b');
 			});
 			it('if any of the tokens contain ASCII whitespace, no tokens are removed from the DOMTokenList instance', function() {
 				var output = document.createElement('output');
-				output.for = 'a b';
+				output.htmlFor = 'a b';
 				var classList = output.classList;
 				proclaim.equal(classList.length, 2);
 				proclaim.throws(function() {
@@ -358,21 +350,21 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('removes the token from the DOMTokenList instance and the corresponding attribute', function() {
 				var output = document.createElement('output');
+				output.htmlFor = 'a';
 				var classList = output.classList;
-				output.for = 'a';
 				proclaim.equal(classList.length, 1);
 				classList.remove('a');
 				proclaim.equal(classList.length, 0);
-				proclaim.equal(output.for, '');
+				proclaim.equal(output.htmlFor, '');
 			});
 			it('removes multiple tokens from the DOMTokenList instance and the corresponding attribute', function() {
 				var output = document.createElement('output');
-				output.for = 'a b c d';
+				output.htmlFor = 'a b c d';
 				var classList = output.classList;
 				proclaim.equal(classList.length, 4);
 				classList.remove('a', 'b');
 				proclaim.equal(classList.length, 2);
-				proclaim.equal(output.for, 'c d');
+				proclaim.equal(output.htmlFor, 'c d');
 			});
 			it('returns undefined', function() {
 				var output = document.createElement('output');
@@ -442,47 +434,47 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('if token exists, it removes the token from the DOMTokenList instance and corresponding attribute and returns `false`', function(){
 				var output = document.createElement('output');
-				output.for = 'a b';
+				output.htmlFor = 'a b';
 				var classList = output.classList;
 				proclaim.isFalse(classList.toggle('a'));
-				proclaim.equal(output.for, 'b');
+				proclaim.equal(output.htmlFor, 'b');
 				proclaim.equal(classList.length, 1);
 			});
 			it('if token exists and force argument is `false`, it removes the token from the DOMTokenList instance and corresponding attribute and returns `false`', function(){
 				var output = document.createElement('output');
-				output.for = 'a b';
+				output.htmlFor = 'a b';
 				var classList = output.classList;
 				proclaim.isFalse(classList.toggle('a', false));
-				proclaim.equal(output.for, 'b');
+				proclaim.equal(output.htmlFor, 'b');
 				proclaim.equal(classList.length, 1);
 			});
 			it('if token exists and force argument is `true`, it does not remove the token and returns `true`', function(){
 				var output = document.createElement('output');
-				output.for = 'a b';
+				output.htmlFor = 'a b';
 				var classList = output.classList;
 				proclaim.isTrue(classList.toggle('a', true));
-				proclaim.equal(output.for, 'a b');
+				proclaim.equal(output.htmlFor, 'a b');
 				proclaim.equal(classList.length, 2);
 			});
 			it('if token does not exist, it adds the token to the DOMTokenList instance and corresponding attribute and returns `true`', function(){
 				var output = document.createElement('output');
 				var classList = output.classList;
 				proclaim.isTrue(classList.toggle('a'));
-				proclaim.equal(output.for, 'a');
+				proclaim.equal(output.htmlFor, 'a');
 				proclaim.equal(classList.length, 1);
 			});
 			it('if token does not exist and force argument is `true`, it adds the token to the DOMTokenList instance and corresponding attribute and returns `true`', function(){
 				var output = document.createElement('output');
 				var classList = output.classList;
 				proclaim.isTrue(classList.toggle('a', true));
-				proclaim.equal(output.for, 'a');
+				proclaim.equal(output.htmlFor, 'a');
 				proclaim.equal(classList.length, 1);
 			});
 			it('if token does not exist and force argument is `false`, it does not modify the DOMTokenList instance or the corresponding attribute and returns `false`', function(){
 				var output = document.createElement('output');
 				var classList = output.classList;
-				proclaim.isTrue(classList.toggle('a', false));
-				proclaim.equal(output.for, '');
+				proclaim.isFalse(classList.toggle('a', false));
+				proclaim.equal(output.htmlFor, '');
 				proclaim.equal(classList.length, 0);
 			});
 		});
@@ -597,10 +589,10 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it('if given token does not in the DOMTokenList instance, replace it with `newToken` and return `true`', function(){
 				var output = document.createElement('output');
-				output.for = 'a';
+				output.htmlFor = 'a';
 				var classList = output.classList;
 				proclaim.isTrue(classList.replace("a", "b"));
-				proclaim.equal(output.for, 'b');
+				proclaim.equal(output.htmlFor, 'b');
 				proclaim.equal(classList.length, 1);
 			});
 		});
@@ -639,9 +631,9 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it ('should return the literal value of the corresponding attribute', function(){
 				var output = document.createElement('output');
-				output.for = ' a  ';
+				output.htmlFor = ' a  ';
 				var classList = output.classList;
-				proclaim.equal(classList.toString(), output.for);
+				proclaim.equal(classList.toString(), output.htmlFor);
 			});
 		});	
 		describe('toLocaleString()', function(){
@@ -653,7 +645,7 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			it('has correct arity', function () {
 				var output = document.createElement('output');
 				var classList = output.classList;
-				proclaim.arity(classList.toLocaleString, 1);
+				proclaim.arity(classList.toLocaleString, 0);
 			});
 			it('has correct name', function () {
 				var output = document.createElement('output');
@@ -662,9 +654,9 @@ describe('HTMLOutputElement.prototype.classList', function() {
 			});
 			it ('should return the literal value of the corresponding attribute', function(){
 				var output = document.createElement('output');
-				output.for = ' a  ';
+				output.htmlFor = ' a  ';
 				var classList = output.classList;
-				proclaim.equal(classList.toLocaleString(), output.for);
+				proclaim.equal(classList.toLocaleString(), output.htmlFor);
 			});
 		});
 		// describe('entries()', function(){
@@ -689,18 +681,18 @@ describe('HTMLOutputElement.prototype.classList', function() {
 		// 	it('is a function', function() {
 		// 		var output = document.createElement('output');
 		// 		var classList = output.classList;
-		// 		proclaim.isFunction(classList.forEach);
+		// 		proclaim.isFunction(classList.htmlForEach);
 		// 	});
 		// 	it('has correct arity', function () {
 		// 		var output = document.createElement('output');
 		// 		var classList = output.classList;
-		// 		proclaim.arity(classList.forEach, 1);
+		// 		proclaim.arity(classList.htmlForEach, 1);
 		// 	});
 			
 		// 	it('has correct name', function () {
 		// 		var output = document.createElement('output');
 		// 		var classList = output.classList;
-		// 		proclaim.hasName(classList.forEach, 'forEach');
+		// 		proclaim.hasName(classList.htmlForEach, 'forEach');
 		// 	});
 		// });
 		// describe('keys()', function(){
@@ -745,22 +737,22 @@ describe('HTMLOutputElement.prototype.classList', function() {
 				it('has a getter function', function(){
 					var output = document.createElement('output');
 					var classList = output.classList;
-					var descriptor = Object.getOwnPropertyDescriptor(classList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(classList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.get);
 				});
 				it('has a setter function', function(){
 					var output = document.createElement('output');
 					var classList = output.classList;
-					var descriptor = Object.getOwnPropertyDescriptor(classList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(classList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.set);
 				});
 			}
 			describe('(getter)', function() {
 				it ('should return the literal value of the corresponding attribute', function(){
 					var output = document.createElement('output');
-					output.for = ' a  ';
+					output.htmlFor = ' a  ';
 					var classList = output.classList;
-					proclaim.equal(classList.value, output.for);
+					proclaim.equal(classList.value, output.htmlFor);
 				});
 			});
 			describe('(setter)', function() {
@@ -769,7 +761,7 @@ describe('HTMLOutputElement.prototype.classList', function() {
 					var classList = output.classList;
 					classList.value = ' b  ';
 					proclaim.equal(classList.value, ' b  ');
-					proclaim.equal(classList.value, output.for);
+					proclaim.equal(classList.value, output.htmlFor);
 				});
 				it('should update the DOMTokenList instance with the new length and tokens', function() {
 					var output = document.createElement('output');
@@ -788,7 +780,7 @@ describe('HTMLOutputElement.prototype.classList', function() {
 				var output = document.createElement('output');
 				output.classList = ' b  ';
 				proclaim.equal(output.classList[0], 'b');
-				proclaim.equal(output.classList.value, output.for);
+				proclaim.equal(output.classList.value, output.htmlFor);
 			});
 			it('should update the DOMTokenList instance with the new length and tokens', function() {
 				var output = document.createElement('output');

@@ -1,22 +1,21 @@
 (function (window) {
 	'use strict';
+
 	function addProp(constructor, name, attr) {
 		var spaces = /\s+/;
-		if (constructor && !(name in constructor.prototype)) {
-			Object.defineProperty(constructor.prototype, name, {
-				get: function () {
-					return new DOMTokenList(this, attr);
-				},
-				set:  function (value) {
-					var domList = new DOMTokenList(this, attr);
-					var values = value.split(spaces);
-					for (var i = 0; i < values.length; i++) {
-						domList.add(values[i]);
-					}
-					return domList;
+		Object.defineProperty(constructor.prototype, name, {
+			get: function () {
+				return new DOMTokenList(this, attr);
+			},
+			set: function (value) {
+				var domList = new DOMTokenList(this, attr);
+				var values = value.split(spaces);
+				for (var i = 0; i < values.length; i++) {
+					domList.add(values[i]);
 				}
-			});
-		}
+				return domList;
+			}
+		});
 	}
 
 	/*

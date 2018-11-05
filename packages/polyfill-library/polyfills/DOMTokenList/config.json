@@ -7,11 +7,14 @@
 		"default"
 	],
 	"browsers": {
-		"edge": "<14",
-		"edge_mob": "<14",
+		"edge": "*",
+		"edge_mob": "*",
 		"ie": "*",
-		"safari": "4 - 6.0",
-		"ie_mob": "10 - *"
+		"ie_mob": "*",
+		"safari": "*",
+		"chrome": "*",
+		"firefox": "*",
+		"ios_saf": "*"
 	},
 	"dependencies": [
 		"Object.defineProperty",

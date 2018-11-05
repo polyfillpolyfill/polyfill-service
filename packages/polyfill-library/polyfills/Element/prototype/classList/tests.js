@@ -20,7 +20,6 @@ describe('Element.prototype.classList', function() {
 			var classList = span.classList;
 			proclaim.isInstanceOf(classList, DOMTokenList);
 			proclaim.equal(classList.constructor, DOMTokenList);
-			proclaim.equal(classList.constructor.name, "DOMTokenList");
 			if ("__proto__" in {}) {
 				proclaim.equal(classList.__proto__ === DOMTokenList.prototype, true);
 			}
@@ -42,13 +41,6 @@ describe('Element.prototype.classList', function() {
 				span.className = 'a a b';
 				var classList = span.classList;
 				proclaim.equal(classList.length, 2);
-			});
-			it('is read-only', function(){
-				var span = document.createElement('span');
-				span.className = 'a';
-				var classList = span.classList;
-				classList.length = 4;
-				proclaim.equal(classList.length, 1);
 			});
 		});
 		describe('item(index)', function(){
@@ -81,9 +73,9 @@ describe('Element.prototype.classList', function() {
 				var span = document.createElement('span');
 				span.className = 'a a b c';
 				var classList = span.classList;
-				proclaim.isNull(classList.item(0), 'a');
-				proclaim.isNull(classList.item(1), 'b');
-				proclaim.isNull(classList.item(2), 'c');
+				proclaim.equal(classList.item(0), 'a');
+				proclaim.equal(classList.item(1), 'b');
+				proclaim.equal(classList.item(2), 'c');
 			});
 		});
 		describe('[index]', function(){
@@ -96,9 +88,9 @@ describe('Element.prototype.classList', function() {
 				var span = document.createElement('span');
 				span.className = 'a a b c';
 				var classList = span.classList;
-				proclaim.isNull(classList[0], 'a');
-				proclaim.isNull(classList[1], 'b');
-				proclaim.isNull(classList[2], 'c');
+				proclaim.equal(classList[0], 'a');
+				proclaim.equal(classList[1], 'b');
+				proclaim.equal(classList[2], 'c');
 			});
 		});
 		describe('contains(token)', function(){
@@ -236,11 +228,11 @@ describe('Element.prototype.classList', function() {
 			});
 			it('does not add the token if it already exists', function() {
 				var span = document.createElement('span');
-				var classList = span.classList;
 				span.className = 'a';
-				proclaim.equal(classList.length, 0);
+				var classList = span.classList;
+				proclaim.equal(classList.length, 1);
 				classList.add('a');
-				proclaim.equal(classList.length, 0);
+				proclaim.equal(classList.length, 1);
 				proclaim.equal(span.className, 'a');
 			});
 			it('adds multiple tokens to the DOMTokenList instance and onto the corresponding attribute', function() {
@@ -358,8 +350,8 @@ describe('Element.prototype.classList', function() {
 			});
 			it('removes the token from the DOMTokenList instance and the corresponding attribute', function() {
 				var span = document.createElement('span');
-				var classList = span.classList;
 				span.className = 'a';
+				var classList = span.classList;
 				proclaim.equal(classList.length, 1);
 				classList.remove('a');
 				proclaim.equal(classList.length, 0);
@@ -481,7 +473,7 @@ describe('Element.prototype.classList', function() {
 			it('if token does not exist and force argument is `false`, it does not modify the DOMTokenList instance or the corresponding attribute and returns `false`', function(){
 				var span = document.createElement('span');
 				var classList = span.classList;
-				proclaim.isTrue(classList.toggle('a', false));
+				proclaim.isFalse(classList.toggle('a', false));
 				proclaim.equal(span.className, '');
 				proclaim.equal(classList.length, 0);
 			});
@@ -653,7 +645,7 @@ describe('Element.prototype.classList', function() {
 			it('has correct arity', function () {
 				var span = document.createElement('span');
 				var classList = span.classList;
-				proclaim.arity(classList.toLocaleString, 1);
+				proclaim.arity(classList.toLocaleString, 0);
 			});
 			it('has correct name', function () {
 				var span = document.createElement('span');
@@ -745,13 +737,13 @@ describe('Element.prototype.classList', function() {
 				it('has a getter function', function(){
 					var span = document.createElement('span');
 					var classList = span.classList;
-					var descriptor = Object.getOwnPropertyDescriptor(classList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(classList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.get);
 				});
 				it('has a setter function', function(){
 					var span = document.createElement('span');
 					var classList = span.classList;
-					var descriptor = Object.getOwnPropertyDescriptor(classList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(classList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.set);
 				});
 			}
@@ -774,6 +766,7 @@ describe('Element.prototype.classList', function() {
 				it('should update the DOMTokenList instance with the new length and tokens', function() {
 					var span = document.createElement('span');
 					var classList = span.classList;
+					debugger;
 					classList.value = 'a a b';
 					proclaim.equal(classList.length, 2);
 					proclaim.isTrue(classList.contains('a'));

@@ -20,7 +20,7 @@ describe('HTMLIFrameElement.prototype.sandbox', function() {
 			var sandbox = span.sandbox;
 			proclaim.isInstanceOf(sandbox, DOMTokenList);
 			proclaim.equal(sandbox.constructor, DOMTokenList);
-			proclaim.equal(sandbox.constructor.name, "DOMTokenList");
+			proclaim.hasName(sandbox.constructor, "DOMTokenList");
 			if ("__proto__" in {}) {
 				proclaim.equal(sandbox.__proto__ === DOMTokenList.prototype, true);
 			}
@@ -42,13 +42,6 @@ describe('HTMLIFrameElement.prototype.sandbox', function() {
 				span.sandbox = 'a a b';
 				var sandbox = span.sandbox;
 				proclaim.equal(sandbox.length, 2);
-			});
-			it('is read-only', function(){
-				var span = document.createElement('span');
-				span.sandbox = 'a';
-				var sandbox = span.sandbox;
-				sandbox.length = 4;
-				proclaim.equal(sandbox.length, 1);
 			});
 		});
 		describe('item(index)', function(){
@@ -236,8 +229,8 @@ describe('HTMLIFrameElement.prototype.sandbox', function() {
 			});
 			it('does not add the token if it already exists', function() {
 				var span = document.createElement('span');
-				var sandbox = span.sandbox;
 				span.sandbox = 'a';
+				var sandbox = span.sandbox;
 				proclaim.equal(sandbox.length, 0);
 				sandbox.add('a');
 				proclaim.equal(sandbox.length, 0);
@@ -358,8 +351,8 @@ describe('HTMLIFrameElement.prototype.sandbox', function() {
 			});
 			it('removes the token from the DOMTokenList instance and the corresponding attribute', function() {
 				var span = document.createElement('span');
-				var sandbox = span.sandbox;
 				span.sandbox = 'a';
+				var sandbox = span.sandbox;
 				proclaim.equal(sandbox.length, 1);
 				sandbox.remove('a');
 				proclaim.equal(sandbox.length, 0);

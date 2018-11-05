@@ -20,7 +20,7 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 			var relList = a.relList;
 			proclaim.isInstanceOf(relList, DOMTokenList);
 			proclaim.equal(relList.constructor, DOMTokenList);
-			proclaim.equal(relList.constructor.name, "DOMTokenList");
+			proclaim.hasName(relList.constructor, "DOMTokenList");
 			if ("__proto__" in {}) {
 				proclaim.equal(relList.__proto__ === DOMTokenList.prototype, true);
 			}
@@ -42,13 +42,6 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 				a.rel = 'a a b';
 				var relList = a.relList;
 				proclaim.equal(relList.length, 2);
-			});
-			it('is read-only', function(){
-				var a = document.createElement('a');
-				a.rel = 'a';
-				var relList = a.relList;
-				relList.length = 4;
-				proclaim.equal(relList.length, 1);
 			});
 		});
 		describe('item(index)', function(){
@@ -81,9 +74,9 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 				var a = document.createElement('a');
 				a.rel = 'a a b c';
 				var relList = a.relList;
-				proclaim.isNull(relList.item(0), 'a');
-				proclaim.isNull(relList.item(1), 'b');
-				proclaim.isNull(relList.item(2), 'c');
+				proclaim.equal(relList.item(0), 'a');
+				proclaim.equal(relList.item(1), 'b');
+				proclaim.equal(relList.item(2), 'c');
 			});
 		});
 		describe('[index]', function(){
@@ -96,9 +89,9 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 				var a = document.createElement('a');
 				a.rel = 'a a b c';
 				var relList = a.relList;
-				proclaim.isNull(relList[0], 'a');
-				proclaim.isNull(relList[1], 'b');
-				proclaim.isNull(relList[2], 'c');
+				proclaim.equal(relList[0], 'a');
+				proclaim.equal(relList[1], 'b');
+				proclaim.equal(relList[2], 'c');
 			});
 		});
 		describe('contains(token)', function(){
@@ -236,11 +229,11 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 			});
 			it('does not add the token if it already exists', function() {
 				var a = document.createElement('a');
-				var relList = a.relList;
 				a.rel = 'a';
-				proclaim.equal(relList.length, 0);
+				var relList = a.relList;
+				proclaim.equal(relList.length, 1);
 				relList.add('a');
-				proclaim.equal(relList.length, 0);
+				proclaim.equal(relList.length, 1);
 				proclaim.equal(a.rel, 'a');
 			});
 			it('adds multiple tokens to the DOMTokenList instance and onto the corresponding attribute', function() {
@@ -358,8 +351,8 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 			});
 			it('removes the token from the DOMTokenList instance and the corresponding attribute', function() {
 				var a = document.createElement('a');
-				var relList = a.relList;
 				a.rel = 'a';
+				var relList = a.relList;
 				proclaim.equal(relList.length, 1);
 				relList.remove('a');
 				proclaim.equal(relList.length, 0);
@@ -481,7 +474,7 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 			it('if token does not exist and force argument is `false`, it does not modify the DOMTokenList instance or the corresponding attribute and returns `false`', function(){
 				var a = document.createElement('a');
 				var relList = a.relList;
-				proclaim.isTrue(relList.toggle('a', false));
+				proclaim.isFalse(relList.toggle('a', false));
 				proclaim.equal(a.rel, '');
 				proclaim.equal(relList.length, 0);
 			});
@@ -653,7 +646,7 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 			it('has correct arity', function () {
 				var a = document.createElement('a');
 				var relList = a.relList;
-				proclaim.arity(relList.toLocaleString, 1);
+				proclaim.arity(relList.toLocaleString, 0);
 			});
 			it('has correct name', function () {
 				var a = document.createElement('a');
@@ -745,13 +738,13 @@ describe('HTMLAnchorElement.prototype.relList', function() {
 				it('has a getter function', function(){
 					var a = document.createElement('a');
 					var relList = a.relList;
-					var descriptor = Object.getOwnPropertyDescriptor(relList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(relList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.get);
 				});
 				it('has a setter function', function(){
 					var a = document.createElement('a');
 					var relList = a.relList;
-					var descriptor = Object.getOwnPropertyDescriptor(relList, 'value');
+					var descriptor = Object.getOwnPropertyDescriptor(relList.constructor.prototype, 'value');
 					proclaim.isFunction(descriptor.set);
 				});
 			}

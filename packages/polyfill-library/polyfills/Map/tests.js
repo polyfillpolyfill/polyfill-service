@@ -105,7 +105,7 @@ describe('Map', function () {
 
 				proclaim.isTrue(descriptor.configurable);
 				proclaim.isFalse(descriptor.enumerable);
-				proclaim.doesNotInclude(descriptor.writable);
+				proclaim.doesNotInclude(descriptor, 'writable');
 				proclaim.ok(descriptor.get);
 				proclaim.isUndefined(descriptor.set);
 				proclaim.include(descriptor, 'set');

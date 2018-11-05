@@ -8,8 +8,11 @@
 	Object['defineProperty'] = function defineProperty(object, property, descriptor) {
 
 		// Where native support exists, assume it
-		if (nativeDefineProperty && (object === window || object === document || object === Element.prototype || object instanceof Element)) {
-			return nativeDefineProperty(object, property, descriptor);
+		if (nativeDefineProperty) {
+			try {
+				var result = nativeDefineProperty(object, property, descriptor);
+				return result;
+			} catch (err) {}
 		}
 
 		if (object === null || !(object instanceof Object || typeof object === 'object')) {

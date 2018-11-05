@@ -1,22 +1,21 @@
 (function (window) {
-    'use strict';
+	'use strict';
+
 	function addProp(constructor, name, attr) {
-        var spaces = /\s+/;
-		if (constructor && !(name in constructor.prototype)) {
-			Object.defineProperty(constructor.prototype, name, {
-				get: function () {
-					return new DOMTokenList(this, attr);
-				},
-				set:  function (value) {
-					var domList = new DOMTokenList(this, attr);
-					var values = value.split(spaces);
-					for (var i = 0; i < values.length; i++) {
-						domList.add(values[i]);
-					}
-					return domList;
+		var spaces = /\s+/;
+		Object.defineProperty(constructor.prototype, name, {
+			get: function () {
+				return new DOMTokenList(this, attr);
+			},
+			set: function (value) {
+				var domList = new DOMTokenList(this, attr);
+				var values = value.split(spaces);
+				for (var i = 0; i < values.length; i++) {
+					domList.add(values[i]);
 				}
-			});
-		}
+				return domList;
+			}
+		});
 	}
 
 	/*
@@ -31,5 +30,5 @@
 		It is indexed beginning with 0 as with JavaScript Array objects. DOMTokenList is always case-sensitive.
 	*/
 	// Polyfill.io. Internet Explorer's SVGElement does not properly inherit from Element.
-	addProp(window.SVGElement, "classList", "className.baseVal");
+	addProp(window.SVGElement, "classList", "class");
 }(window));

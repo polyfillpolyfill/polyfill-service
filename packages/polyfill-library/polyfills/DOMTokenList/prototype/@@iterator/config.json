@@ -15,7 +15,8 @@
 	"dependencies": [
 		"_ArrayIterator",
 		"Symbol.iterator",
-		"DOMTokenList"
+		"DOMTokenList",
+		"Element.prototype.classList"
 	],
 	"license": "MIT",
 	"spec": "https://dom.spec.whatwg.org/#domtokenlist"
