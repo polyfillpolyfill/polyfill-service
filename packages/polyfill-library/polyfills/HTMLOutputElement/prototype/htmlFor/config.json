@@ -2,8 +2,6 @@
 	"browsers": {
 		"edge": "*",
 		"edge_mob": "*",
-		"ie": "*",
-		"ie_mob": "*",
 		"safari": "*",
 		"chrome": "*",
 		"firefox": "*",
