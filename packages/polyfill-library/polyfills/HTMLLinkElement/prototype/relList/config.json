@@ -4,10 +4,10 @@
 		"edge_mob": "*",
 		"ie": "*",
 		"ie_mob": "*",
-		"safari": "*",
+		"safari": ">9.1",
 		"chrome": "*",
 		"firefox": "*",
-		"ios_saf": "*"
+		"ios_saf": ">9.1"
 	},
 	"dependencies": [
 		"_addDOMTokenListProperty"

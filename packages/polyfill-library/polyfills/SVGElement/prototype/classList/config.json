@@ -10,7 +10,7 @@
 	],
 	"browsers": {
 		"ie": "<12",
-		"safari": "4 - 4.1"
+		"safari": "4 - 9.1"
 	},
 	"dependencies": [
 		"_addDOMTokenListProperty"
