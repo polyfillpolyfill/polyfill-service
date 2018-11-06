@@ -52,12 +52,6 @@ describe('DOMTokenList', function () {
 			it('has a setter function', function () {
 				proclaim.isFunction(descriptor.set);
 			});
-			it('is configurable', function () {
-				proclaim.isTrue(descriptor.configurable);
-			});
-			it('is enumerable', function () {
-				proclaim.isTrue(descriptor.enumerable);
-			});
 			it('is not writable', function () {
 				proclaim.doesNotInclude(descriptor, 'writable');
 			});
