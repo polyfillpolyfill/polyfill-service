@@ -28,7 +28,9 @@
 				if (span.classList.length === 2) {
 					var DOMTokenListConstructor = span.classList.constructor;
 					if ('length' in DOMTokenListConstructor.prototype) {
-						nativeImpl = DOMTokenListConstructor;
+						if (typeof DOMTokenListConstructor.prototype.replace === 'function') {
+							nativeImpl = DOMTokenListConstructor;
+						}
 					}
 				}
 			}

@@ -1,13 +1,9 @@
 {
 	"browsers": {
-		"edge": "*",
-		"edge_mob": "*",
 		"ie": "*",
 		"ie_mob": "*",
-		"safari": ">9.1",
-		"chrome": "*",
-		"firefox": "*",
-		"ios_saf": ">9.1"
+		"chrome": "<65",
+		"firefox": "<55"
 	},
 	"dependencies": [
 		"_addDOMTokenListProperty"

@@ -10,14 +10,14 @@
 		"HTMLElement.prototype.classList"
 	],
 	"browsers": {
-		"edge": "*",
-		"edge_mob": "*",
+		"edge": "<17",
+		"edge_mob": "<17",
 		"ie": "*",
 		"ie_mob": "*",
-		"safari": "*",
-		"chrome": "*",
-		"firefox": "*",
-		"ios_saf": "*"
+		"safari": "<10",
+		"chrome": "<60",
+		"firefox": "<55",
+		"ios_saf": "<10"
 	},
 	"dependencies": [
 		"_addDOMTokenListProperty",
