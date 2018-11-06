@@ -8,8 +8,7 @@
 		"ios_saf": "*"
 	},
 	"dependencies": [
-		"DOMTokenList",
-		"Object.defineProperty"
+		"_addDOMTokenListProperty"
 	],
 	"spec": "https://html.spec.whatwg.org/multipage/form-elements.html#attr-output-for",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output#attr-for",

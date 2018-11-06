@@ -20,9 +20,8 @@
 		"ios_saf": "*"
 	},
 	"dependencies": [
-		"DOMTokenList",
-		"Element",
-		"Object.defineProperty"
+		"_addDOMTokenListProperty",
+		"Element"
 	],
 	"spec": "https://dom.spec.whatwg.org/#dom-element-classlist",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/classList",

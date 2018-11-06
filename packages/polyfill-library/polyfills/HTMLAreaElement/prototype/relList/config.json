@@ -10,8 +10,7 @@
 		"ios_saf": "*"
 	},
 	"dependencies": [
-		"DOMTokenList",
-		"Object.defineProperty"
+		"_addDOMTokenListProperty"
 	],
 	"spec": "https://html.spec.whatwg.org/multipage/image-maps.html#dom-area-rellist",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLAreaElement/relList",

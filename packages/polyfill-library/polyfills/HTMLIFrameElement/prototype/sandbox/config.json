@@ -10,8 +10,7 @@
 		"ios_saf": "*"
 	},
 	"dependencies": [
-		"DOMTokenList",
-		"Object.defineProperty"
+		"_addDOMTokenListProperty"
 	],
 	"spec": "https://html.spec.whatwg.org/multipage/iframe-embed-object.html#attr-iframe-sandbox",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-sandbox",
