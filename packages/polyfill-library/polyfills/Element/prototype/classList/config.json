@@ -15,7 +15,6 @@
 		"ie": "*",
 		"ie_mob": "*",
 		"safari": "<10",
-		"chrome": "<60",
 		"firefox": "<55",
 		"ios_saf": "<10"
 	},

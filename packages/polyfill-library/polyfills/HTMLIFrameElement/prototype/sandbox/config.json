@@ -1,9 +1,5 @@
 {
 	"browsers": {
-		"ie": "*",
-		"ie_mob": "*",
-		"chrome": "<65",
-		"firefox": "<55"
 	},
 	"dependencies": [
 		"_addDOMTokenListProperty"
