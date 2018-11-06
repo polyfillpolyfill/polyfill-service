@@ -29,5 +29,5 @@
 			or HTMLOutputElement.htmlFor. 
 		It is indexed beginning with 0 as with JavaScript Array objects. DOMTokenList is always case-sensitive.
 	*/
-	addProp(window.HTMLIframeElement, "sandbox", "sandbox");
+	addProp(window.HTMLIFrameElement, "sandbox", "sandbox");
 }(window));
