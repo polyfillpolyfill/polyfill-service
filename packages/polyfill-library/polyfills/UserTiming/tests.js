@@ -297,14 +297,14 @@ describe("measure()", function() {
     it("should throw an exception if the start mark name is not found", function() {
         proclaim.throws(function() {
             perf.measure("foo", "BAD_MARK!");
-        }, Error);
+        });
     });
 
     it("should throw an exception if the end mark name is not found", function() {
         perf.mark("1");
         proclaim.throws(function() {
             perf.measure("foo", "1", "BAD_MARK!");
-        }, Error);
+        });
     });
 });
 
