@@ -17,7 +17,6 @@ var _addDOMTokenListProperty = (function () { // eslint-disable-line no-unused-v
 				}
 			});
 		} catch (err) {
-			debugger;
 			// Polyfill.io - Safari 9 does not allow configuring of the Element.prototype.classList descriptor
 		}
 	};
