@@ -2,7 +2,7 @@
 	"browsers": {
 		"edge": "<13",
 		"edge_mob": "<13",
-		"ie": "9-12",
+		"ie": "9 - 12",
 		"ie_mob": "9 - 12",
 		"safari": "<9",
 		"chrome": "<50",
