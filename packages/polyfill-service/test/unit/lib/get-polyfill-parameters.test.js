@@ -29,7 +29,7 @@ describe("get-polyfill-parameters", function() {
 	let s3;
 
 	beforeEach(() => {
-		getPolyfillParameters = require("../../../lib/get-polyfill-parameters");
+		getPolyfillParameters = require("../../../server/lib/get-polyfill-parameters");
 
 		s3 = {
 			putObject: sinon.stub()
@@ -68,7 +68,7 @@ describe("get-polyfill-parameters", function() {
 		it("overwrites `uaString` with the value from the `ua` query parameter if it exists", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						ua: "custom ua"
 					}
 				}).uaString,
@@ -79,11 +79,11 @@ describe("get-polyfill-parameters", function() {
 		it("overwrites `uaString` with the value from the `User-Agent` header if it the `ua` query parameter does not exist", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						ua: undefined
 					},
 					headers: {
-						"User-Agent": "user-agent name"
+						"user-agent": "user-agent name"
 					}
 				}).uaString,
 				"user-agent name"
@@ -93,7 +93,7 @@ describe("get-polyfill-parameters", function() {
 		it("sets `rum` to `true` if the `rum` query parameter is set to `1`", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						rum: 1
 					}
 				}).rum,
@@ -104,7 +104,7 @@ describe("get-polyfill-parameters", function() {
 		it("sets `unknown` to `ignore` if the `unknown` query parameter is set to `ignore`", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						unknown: "ignore"
 					}
 				}).unknown,
@@ -116,7 +116,7 @@ describe("get-polyfill-parameters", function() {
 			proclaim.deepStrictEqual(
 				setsToArrays(
 					getPolyfillParameters({
-						queryStringParameters: {
+						query: {
 							unknown: "ignore"
 						}
 					})
@@ -143,7 +143,7 @@ describe("get-polyfill-parameters", function() {
 		it("sets `excludes` to an array containing the values in the `excludes` query parameter separated by commas", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						excludes: "es5"
 					}
 				}).excludes,
@@ -152,7 +152,7 @@ describe("get-polyfill-parameters", function() {
 
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						excludes: "es5,es6,es7"
 					}
 				}).excludes,
@@ -181,7 +181,7 @@ describe("get-polyfill-parameters", function() {
 		it("overwrites `version` with the value from the `version` query parameter if it exists", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						version: "custom version"
 					}
 				}).version,
@@ -192,7 +192,7 @@ describe("get-polyfill-parameters", function() {
 		it("sets `callback` to the value from the `callback` query parameter if it is a valid javascript function name", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						callback: "ready"
 					}
 				}).callback,
@@ -201,7 +201,7 @@ describe("get-polyfill-parameters", function() {
 
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						callback: "not a valid function name"
 					}
 				}).callback,
@@ -212,7 +212,7 @@ describe("get-polyfill-parameters", function() {
 		it("overwrites `compression` with the value from the `compression` query parameter if it exists", () => {
 			proclaim.deepStrictEqual(
 				getPolyfillParameters({
-					queryStringParameters: {
+					query: {
 						compression: "custom compression"
 					}
 				}).compression,
@@ -225,7 +225,7 @@ describe("get-polyfill-parameters", function() {
 				proclaim.deepStrictEqual(
 					setsToArrays(
 						getPolyfillParameters({
-							queryStringParameters: {
+							query: {
 								features: "es5,es6|gated,es7|always,es8|gated|always"
 							}
 						}).features
@@ -245,7 +245,7 @@ describe("get-polyfill-parameters", function() {
 				proclaim.deepStrictEqual(
 					setsToArrays(
 						getPolyfillParameters({
-							queryStringParameters: {
+							query: {
 								flags: "gated"
 							}
 						}).features
@@ -256,7 +256,7 @@ describe("get-polyfill-parameters", function() {
 				proclaim.deepStrictEqual(
 					setsToArrays(
 						getPolyfillParameters({
-							queryStringParameters: {
+							query: {
 								flags: "always"
 							}
 						}).features
@@ -267,7 +267,7 @@ describe("get-polyfill-parameters", function() {
 				proclaim.deepStrictEqual(
 					setsToArrays(
 						getPolyfillParameters({
-							queryStringParameters: {
+							query: {
 								flags: "gated,always"
 							}
 						}).features

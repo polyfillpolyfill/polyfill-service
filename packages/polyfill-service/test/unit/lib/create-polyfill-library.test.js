@@ -26,7 +26,7 @@ describe("create-polyfill-library", function() {
 		PolyfillLibrary = require("../mock/PolyfillLibrary.mock");
 		mockery.registerMock("polyfill-library", PolyfillLibrary);
 
-		createPolyfillLibrary = require("../../../lib/create-polyfill-library");
+		createPolyfillLibrary = require("../../../server/lib/create-polyfill-library");
 	});
 
 	afterEach(() => {

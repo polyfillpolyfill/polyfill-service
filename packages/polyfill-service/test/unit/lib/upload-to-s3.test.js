@@ -16,7 +16,7 @@ describe("upload-to-s3", function() {
 	let s3;
 
 	beforeEach(() => {
-		uploadToS3 = require("../../../lib/upload-to-s3");
+		uploadToS3 = require("../../../server/lib/upload-to-s3");
 
 		s3 = {
 			putObject: sinon.stub()

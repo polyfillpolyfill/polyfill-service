@@ -30,7 +30,7 @@ describe("create-s3-instance", function() {
 		brotli = require("../mock/iltorb.mock");
 		mockery.registerMock("iltorb", brotli);
 
-		createS3Instance = require("../../../lib/create-s3-instance");
+		createS3Instance = require("../../../server/lib/create-s3-instance");
 	});
 
 	afterEach(() => {
