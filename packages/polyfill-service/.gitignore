@@ -6,7 +6,8 @@
 bower_components/
 coverage/
 node_modules/
-website/dist/
+packages/polyfill-service/public/static/main.css
+packages/polyfill-service/public/static/main.js
 
 .DS_Store
 .env
