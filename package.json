@@ -6,7 +6,8 @@
   "scripts": {
     "precommit": "secret-squirrel",
     "version": "cd packages/polyfill-library && npm version $npm_package_version && git add package.json && cd -",
-    "install": "npm install --prefix packages/polyfill-service && npm install --prefix packages/polyfill-library"
+    "install": "npm install --prefix packages/polyfill-service && npm install --prefix packages/polyfill-library",
+    "heroku-postbuild": "npm run build --prefix packages/polyfill-service"
   },
   "contributors": [
     {
