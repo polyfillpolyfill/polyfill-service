@@ -17,11 +17,11 @@ function featuresfromQueryParam(features, flags) {
 
 const latestVersion = require("polyfill-library/package.json").version;
 
-module.exports = function getPolyfillParameters(req) {
+module.exports = function getPolyfillParameters(req = {}) {
 	const query = req.query || {};
 	const path = req.path || "";
 	const { excludes = "", features = "default", rum, unknown = "polyfill", version = latestVersion, callback } = query;
-	const uaString = query.ua || req.get("User-Agent") || "";
+	const uaString = query.ua || (req.headers && req.headers["user-agent"]) || (typeof req.get === "function" && req.get("User-Agent")) || "";
 	const compression = query.compression !== "identity" ? query.compression : undefined;
 
 	return {
