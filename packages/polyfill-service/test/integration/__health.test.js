@@ -11,6 +11,6 @@ describe("GET /__health", function() {
 			.get("/__health")
 			.expect(200)
 			.expect("Content-Type", "application/json; charset=utf-8")
-			.expect("cache-control", "no-cache");
+			.expect("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	});
 });
