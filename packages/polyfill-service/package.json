@@ -50,6 +50,7 @@
     "bower": "^1.8.4",
     "decompress": "^4.2.0",
     "denodeify": "^1.2.1",
+    "dotenv": "^6.1.0",
     "graceful-fs": "^4.1.10",
     "handlebars": "^4.0.6",
     "iltorb": "^2.3.2",
