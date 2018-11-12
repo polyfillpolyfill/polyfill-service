@@ -1,613 +1,133 @@
 version: 2.1
 
-commands:
-  polyfill_tests:
-    description: "Run the browser tests for the polyfills"
-    parameters:
-      host:
-        type: string
+jobs:
+  lint_terraform:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: "terraform fmt -check=true ~/project/packages/polyfill-service/fastly/terraform/"
+  lint_js:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "cd ~/project/packages/polyfill-library/ && npm ci && npm run lint"
+      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run lint"
+  unit_tests:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "cd ~/project/packages/polyfill-library/ && npm ci && npm run test"
+      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run test-node-unit"
+  deploy_dev:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: |
+          cd ~/project/packages/polyfill-service
+          rm -f terraform.tfstate
+          terraform init fastly/terraform/
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
+          sleep 60
+  integration_tests_dev:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration"
+  polyfill_tests_dev:
+    docker:
+      - image: "circleci/node:10"
     steps:
       - run: |
           cd ~/project/packages/polyfill-service
-          BROWSER_TEST_HOST=<< parameters.host >> npm run test-browser-ci
-  npm_install:
-    description: "npm install in a directory"
-    parameters:
-      location:
-        type: string
+          npm ci
+          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-browser-ci
+  deploy_staging:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
+      - run: |
+          cd ~/project/packages/polyfill-service
+          rm -f terraform.tfstate
+          terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
+          sleep 60
+  integration_tests_staging:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          HOST=https://qa.polyfill.io npm run test-integration"
+  polyfill_tests_staging:
+    docker:
+      - image: "circleci/node:10"
     steps:
       - run: |
-          cd << parameters.location >>
-          npm ci || npm install -g npm && npm ci
-  integration_tests_service:
-    description: "Intergation tests"
-    parameters:
-      host:
-        type: string
-    steps:
-      - run: cd ~/project/packages/polyfill-service && HOST=<< parameters.host >> npm run test-integration
-  teardown_service:
-    description: "Remove whole stack if CI failed"
-    parameters:
-      zone:
-        type: string
-        default: "ft.com"
-      record:
-        type: string
-      when:
-        type: enum
-        enum: ["on_success", "on_fail", "always"]
-      stage:
-        type: string
-      bundle_bucket:
-        type: string
-      website_bucket:
-        type: string
-      stack_name:
-        type: string
-      api_name:
-        type: string
-      domain:
-        type: string
-    steps:
-      - run:
-          command: "cd ~/project/packages/polyfill-service && terraform init fastly/terraform/ && terraform destroy -auto-approve fastly/terraform/ && sleep 180"
-          name: "Teardown Fastly environment"
-          when: << parameters.when >>
-      - run:
-          command: |
-              cd ~/project/packages/polyfill-service
-              SLS_DEBUG=* NODE_ENV=production node --max-old-space-size=4096 $(npm bin)/serverless remove --region us-west-1 --stage << parameters.stage >> --bundles-bucket << parameters.bundle_bucket >> --website-bucket << parameters.website_bucket >> --stackname << parameters.stack_name >> --apiname << parameters.api_name >> --verbose --skip-additionalstacks
-              SLS_DEBUG=* NODE_ENV=production node --max-old-space-size=4096 $(npm bin)/serverless remove --region eu-west-1 --stage << parameters.stage >> --bundles-bucket << parameters.bundle_bucket >> --website-bucket << parameters.website_bucket >> --stackname << parameters.stack_name >> --apiname << parameters.api_name >> --verbose
-              SLS_DEBUG=* NODE_ENV=production node --max-old-space-size=4096 $(npm bin)/serverless remove additionalstacks --region eu-west-1 --stage << parameters.stage >> --bundles-bucket << parameters.bundle_bucket >> --website-bucket << parameters.website_bucket >> --stackname << parameters.stack_name >> --apiname << parameters.api_name >> --verbose
-          name: "Teardown AWS environment"
-          when: << parameters.when >>
-      - run:
-          command: RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/delete_service_domain.sh
-          when: << parameters.when >>
-  install_dependencies_circle:
-    description: "Install dependencies for circleci/node image"
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - &npm_global_cache_circle_key circle-npm-cache-{{ checksum "packages/polyfill-library/package.json" }}-{{ checksum "packages/polyfill-service/package.json" }}
-      - restore_cache:
-          keys:
-            - &npm_local_cache_circle_key circle-npm-lock-{{ checksum "packages/polyfill-library/package-lock.json" }}-{{ checksum "packages/polyfill-service/package-lock.json" }}
-      - restore_cache:
-          keys:
-            - &bower_cache_circle_key circle-bower-lock-{{ checksum "packages/polyfill-service/bower.json" }}
-      - npm_install:
-          location: ~/project/packages/polyfill-library/
-      - npm_install:
-          location: ~/project/packages/polyfill-service/
-      - run: sudo ~/project/.circleci/install_terraform.sh
-      - attach_workspace:
-          at: &terraform_state_root ./packages/polyfill-service
-      - attach_workspace:
-          at: &fastly_configs_root ./packages/polyfill-service/fastly
-  install_dependencies_lambda:
-    description: "Install dependencies for lambci/lambda:build-nodejs image"
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - &npm_global_cache_lambda lambda-npm-cache-{{ checksum "packages/polyfill-library/package.json" }}-{{ checksum "packages/polyfill-service/package.json" }}
-      - restore_cache:
-          keys:
-            - &npm_local_cache_lambda_key lambda-npm-lock-{{ checksum "packages/polyfill-library/package-lock.json" }}-{{ checksum "packages/polyfill-service/package-lock.json" }}
-      - restore_cache:
-          keys:
-            - &bower_cache_lambda lambda-bower-lock-{{ checksum "packages/polyfill-service/bower.json" }}
-      - npm_install:
-          location: ~/project/packages/polyfill-library/
-      - npm_install:
-          location: ~/project/packages/polyfill-service/
-  deploy_to_fastly:
-    description: "Deploy to Fastly"
-    parameters:
-      non_production:
-        type: boolean
-        default: true
-      fastly_id:
-        type: string
-      existing_service:
-        type: boolean
-        default: false
-      fastly_name:
-        type: string
-      fastly_domain:
-        type: string
-    steps:
-      - run:
-          command: |
-              cd ~/project/packages/polyfill-service
-              rm -f terraform.tfstate
-              terraform init fastly/terraform/
-              <<# parameters.existing_service >> terraform import -config="fastly/terraform" fastly_service_v1.app << parameters.fastly_id >> <</ parameters.existing_service >>
-              <<# parameters.non_production >> rm -f fastly/terraform/domains_override.tf <</ parameters.non_production >>
-              terraform apply --auto-approve -var name=<< parameters.fastly_name >> -var domain=<< parameters.fastly_domain >> fastly/terraform/
-              sleep 60
-  deploy_to_aws:
-    description: "Deploy application to AWS"
-    parameters:
-      package:
-        type: string
-      region:
-        type: string
-      stage:
-        type: string
-      bundle_bucket:
-        type: string
-      website_bucket:
-        type: string
-      stack_name:
-        type: string
-      api_name:
-        type: string
-      skip_additional_stacks:
-        type: boolean
-        default: false
-    steps:
-      - run:
-          command: |
-              cd ~/project/packages/polyfill-service
-              SLS_DEBUG=* NODE_ENV=production node --max-old-space-size=4096 $(npm bin)/serverless deploy --conceal --package << parameters.package >> --region << parameters.region >> --stage << parameters.stage >> --bundles-bucket << parameters.bundle_bucket >> --website-bucket << parameters.website_bucket >> --stackname << parameters.stack_name >> --apiname << parameters.api_name >> --verbose <<# parameters.skip_additional_stacks >> --skip-additionalstacks <</ parameters.skip_additional_stacks >>
-              node ./serverless/output.js
-          name: "Deploy to AWS"
-          no_output_timeout: 20m
-  create_domain:
-    description: "Create domain"
-    parameters:
-      record:
-        type: string
-      domain:
-        type: string
-      zone:
-        type: string
-        default: "ft.com"
-    steps:
-      - run: RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_post.sh || RECORD=<< parameters.record >> SUBDOMAIN=<< parameters.domain >> ZONE=<< parameters.zone >> bash ~/project/.circleci/create_service_domain_put.sh
-  package_service:
-    description: "Package application"
-    parameters:
-      package:
-        type: string
-      region:
-        type: string
-      stage:
-        type: string
-      bundle_bucket:
-        type: string
-      website_bucket:
-        type: string
-      stack_name:
-        type: string
-      api_name:
-        type: string
-    steps:
-      - install_dependencies_lambda
-      - run:
-          command: |
-            cd ~/project/packages/polyfill-library
-            npm prune --production
-            cd ~/project/packages/polyfill-service
-            SLS_DEBUG=* NODE_ENV=production node --max-old-space-size=4096 $(npm bin)/serverless package --package << parameters.package >> --region << parameters.region >> --stage << parameters.stage >> --bundles-bucket << parameters.bundle_bucket >> --website-bucket << parameters.website_bucket >> --stackname << parameters.stack_name >> --apiname << parameters.api_name >> --verbose
-            tar cvzf << parameters.package >>.tar.gz ./<< parameters.package >>
-          name: "Package application"
-          no_output_timeout: 20m
-      - persist_to_workspace:
-          root: ./packages/polyfill-service/
-          paths:
-            - << parameters.package >>.tar.gz
-  deploy_service:
-    description: "Deploy to the whole stack"
-    parameters:
-      zone:
-        type: string
-        default: "ft.com"
-      record:
-        type: string
-      domain:
-        type: string
-      stage:
-        type: string
-      bundle_bucket:
-        type: string
-      website_bucket:
-        type: string
-      stack_name:
-        type: string
-      api_name:
-        type: string
-      fastly_id:
-        type: string
-      existing_service:
-        type: boolean
-      fastly_name:
-        type: string
-      fastly_domain:
-        type: string
-      package_eu:
-        type: string
-        default: "serverless-artifacts-eu-west-1"
-      package_us:
-        type: string
-        default: "serverless-artifacts-us-west-1"
-      non_production:
-        type: boolean
-        default: true
-    steps:
-      - install_dependencies_circle
-      - run: sudo ~/project/.circleci/install_terraform.sh
-      - create_domain:
-          zone: << parameters.zone >>
-          domain: << parameters.domain >>
-          record: << parameters.record >>
-      - run: cd ~/project/packages/polyfill-service && NODE_ENV=production npm run build
-      - attach_workspace:
-          at: ./packages/polyfill-service/
-      - run: cd ~/project/packages/polyfill-service && tar xvzf << parameters.package_eu >>.tar.gz
-      - run: cd ~/project/packages/polyfill-service && tar xvzf << parameters.package_us >>.tar.gz
-      - deploy_to_aws:
-          package: << parameters.package_eu >>
-          region: "eu-west-1"
-          stage: << parameters.stage >>
-          bundle_bucket: << parameters.bundle_bucket >>
-          website_bucket: << parameters.website_bucket >>
-          stack_name: << parameters.stack_name >>
-          api_name: << parameters.api_name >>
-          skip_additional_stacks: false
-      - deploy_to_aws:
-          package: << parameters.package_us >>
-          region: "us-west-1"
-          stage: << parameters.stage >>
-          bundle_bucket: << parameters.bundle_bucket >>
-          website_bucket: << parameters.website_bucket >>
-          stack_name: << parameters.stack_name >>
-          api_name: << parameters.api_name >>
-          skip_additional_stacks: true
-      - run:
-          command: "cd ~/project/packages/polyfill-service && $(npm bin)/mustache -p fastly/vcl/backend.mustache fastly/terraform/variables.json fastly/vcl/main.vcl.mustache > fastly/vcl/main.vcl"
-          name: "Generate Fastly main.vcl file"
-      - deploy_to_fastly:
-          non_production: << parameters.non_production >>
-          fastly_id: << parameters.fastly_id >>
-          existing_service: << parameters.existing_service >>
-          fastly_name: << parameters.fastly_name >>
-          fastly_domain: << parameters.fastly_domain >>
-      - persist_to_workspace:
-          root: *fastly_configs_root
-          paths:
-            - vcl/main.vcl
-      - persist_to_workspace:
-          root: *terraform_state_root
-          paths:
-            - terraform.tfstate
-
-references:
-  circle_node_base: &circle_node_base
+          cd ~/project/packages/polyfill-service
+          npm ci
+          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-browser-ci
+  publish_library_to_npm:
     docker:
-      - image: circleci/node:10
-  lambda_node_base: &lambda_node_base
-    docker:
-      - image: "lambci/lambda:build-nodejs8.10"
-  npm_publish: &npm_publish
-    run:
-      name: Publish to npm
-      command: |
+      - image: "circleci/node:10"
+    steps:
+      - run: |
           cd ~/project/packages/polyfill-library/
+          npm ci
           echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/project/.npmrc
           npm publish --dry-run
-
-jobs:
-  install_dependencies_circle:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - save_cache:
-          key: *npm_global_cache_circle_key
-          paths:
-            - ~/.npm/_cacache
-      - save_cache:
-          key: *npm_local_cache_circle_key
-          paths:
-            - node_modules
-            - packages/polyfill-library/node_modules
-            - packages/polyfill-service/node_modules
-      - save_cache:
-          key: *bower_cache_circle_key
-          paths:
-            - packages/polyfill-service/bower_components
-  install_dependencies_lambda:
-    <<: *lambda_node_base
-    steps:
-      - install_dependencies_lambda
-      - save_cache:
-          key: *npm_local_cache_lambda_key
-          paths:
-            - node_modules
-            - packages/polyfill-library/node_modules
-            - packages/polyfill-service/node_modules
-      - save_cache:
-          key: *npm_global_cache_lambda
-          paths:
-            - ~/.npm/_cacache
-      - save_cache:
-          key: *bower_cache_lambda
-          paths:
-            - packages/polyfill-service/bower_components
-  lint_terraform:
-    docker:
-      - image: hashicorp/terraform
-    steps:
-      - checkout
-      - run: "terraform fmt -check=true ~/project/packages/polyfill-service/fastly/terraform/"
-  lint_library_js:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - run: "cd ~/project/packages/polyfill-library && npm run lint"
-  lint_service_js:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - run: "cd ~/project/packages/polyfill-service && npm run lint"
-  unit_tests_library:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - run: "cd ~/project/packages/polyfill-library && npm run test"
-  unit_tests_service:
-    <<: *lambda_node_base
-    steps:
-      - install_dependencies_lambda
-      - run: "cd ~/project/packages/polyfill-service && npm run test-node-unit"
-  package_service_eu_west_1_temporary:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-eu-west-1
-          region: "eu-west-1"
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-  package_service_us_west_1_temporary:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-us-west-1
-          region: "us-west-1"
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-  deploy_service_temporary:
-    <<: *circle_node_base
-    steps:
-      - deploy_service:
-          record: "o2.shared.global.fastly.net"
-          domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          fastly_id: ""
-          existing_service: false
-          fastly_name: "polyfill-service-${CIRCLE_SHA1:0:22}.in.ft.com"
-          fastly_domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in.ft.com"
-      - teardown_service:
-          when: on_fail
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
-          record: "o2.shared.global.fastly.net"
-  integration_tests_service_temporary:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - integration_tests_service:
-          host: "https://polyfill-service-${CIRCLE_SHA1:0:22}.in.ft.com"
-      - teardown_service:
-          when: on_fail
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
-          record: "o2.shared.global.fastly.net"
-  polyfill_tests_temporary:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - polyfill_tests:
-          host: "https://polyfill-service-${CIRCLE_SHA1:0:22}.in.ft.com"
-      - teardown_service:
-          when: on_fail
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
-          record: "o2.shared.global.fastly.net"
-  remove_service_temporary:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - teardown_service:
-          when: on_success
-          stage: "dev-${CIRCLE_SHA1:0:22}"
-          bundle_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-bundles"
-          website_bucket: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}-website"
-          stack_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          api_name: "origami-polyfill-service-dev-${CIRCLE_SHA1:0:22}"
-          domain: "polyfill-service-${CIRCLE_SHA1:0:22}.in"
-          record: "o2.shared.global.fastly.net"
-  package_service_eu_west_1_staging:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-eu-west-1-staging
-          region: "eu-west-1"
-          stage: "staging"
-          bundle_bucket: "origami-polyfill-service-staging-bundles"
-          website_bucket: "origami-polyfill-service-staging-website"
-          stack_name: "origami-polyfill-service-staging"
-          api_name: "origami-polyfill-service-staging"
-  package_service_us_west_1_staging:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-us-west-1-staging
-          region: "us-west-1"
-          stage: "staging"
-          bundle_bucket: "origami-polyfill-service-staging-bundles"
-          website_bucket: "origami-polyfill-service-staging-website"
-          stack_name: "origami-polyfill-service-staging"
-          api_name: "origami-polyfill-service-staging"
-  deploy_service_staging:
-    <<: *circle_node_base
-    steps:
-      - deploy_service:
-          record: "dualstack.f3.shared.global.fastly.net"
-          package_eu: serverless-artifacts-eu-west-1-staging
-          package_us: serverless-artifacts-us-west-1-staging
-          domain: "qa"
-          zone: "polyfill.io"
-          stage: "staging"
-          bundle_bucket: "origami-polyfill-service-staging-bundles"
-          website_bucket: "origami-polyfill-service-staging-website"
-          stack_name: "origami-polyfill-service-staging"
-          api_name: "origami-polyfill-service-staging"
-          fastly_id: $FASTLY_SERVICE_ID_STAGING
-          existing_service: true
-          fastly_name: "qa.polyfill.io"
-          fastly_domain: "qa.polyfill.io"
-  integration_tests_service_staging:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - integration_tests_service:
-          host: "https://qa.polyfill.io"
-  polyfill_tests_staging:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - polyfill_tests:
-          host: "https://qa.polyfill.io"
-  publish_library_to_npm:
-    <<: *circle_node_base
-    steps:
-      - install_dependencies_circle
-      - *npm_publish
-  package_service_eu_west_1_production:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-eu-west-1-prod
-          region: "eu-west-1"
-          stage: "production"
-          bundle_bucket: "origami-polyfill-service-production-bundles"
-          website_bucket: "origami-polyfill-service-production-website"
-          stack_name: "origami-polyfill-service-production"
-          api_name: "origami-polyfill-service-production"
-  package_service_us_west_1_production:
-    <<: *lambda_node_base
-    steps:
-      - package_service:
-          package: serverless-artifacts-us-west-1-prod
-          region: "us-west-1"
-          stage: "production"
-          bundle_bucket: "origami-polyfill-service-production-bundles"
-          website_bucket: "origami-polyfill-service-production-website"
-          stack_name: "origami-polyfill-service-production"
-          api_name: "origami-polyfill-service-production"
   deploy_service_production:
-    <<: *circle_node_base
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - deploy_service:
-          record: "dualstack.f3.shared.global.fastly.net"
-          non_production: false
-          package_eu: serverless-artifacts-eu-west-1-prod
-          package_us: serverless-artifacts-us-west-1-prod
-          domain: "cdn"
-          zone: "polyfill.io"
-          stage: "production"
-          bundle_bucket: "origami-polyfill-service-production-bundles"
-          website_bucket: "origami-polyfill-service-production-website"
-          stack_name: "origami-polyfill-service-production"
-          api_name: "origami-polyfill-service-production"
-          fastly_id: $FASTLY_SERVICE_ID_PROD
-          existing_service: true
-          fastly_name: "cdn.polyfill.io"
-          fastly_domain: "cdn.polyfill.io"
+      - run: "heroku pipelines:promote --app origami-polyfill-service-eu"
+      - run: |
+          cd ~/project/packages/polyfill-service
+          rm -f terraform.tfstate
+          terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
 
 workflows:
   test:
     jobs:
-      # install
-      - install_dependencies_circle:
-          filters:
-            tags:
-              only: /^v.*/
-      - install_dependencies_lambda:
-          filters:
-            tags:
-              only: /^v.*/
-      # lint
       - lint_terraform:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               ignore: master
-      - lint_library_js:
+      - lint_js:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               ignore: master
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle           
-      - lint_service_js:
+      - unit_tests:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               ignore: master
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle
-      # unit tests
-      - unit_tests_library:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - lint_library_js
-      - unit_tests_service:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - lint_service_js
-      # Deploy to temporary environment
-      - package_service_eu_west_1_temporary:
+      - deploy_dev:
           filters:
             tags:
               ignore: /^v.*/
@@ -615,86 +135,32 @@ workflows:
               ignore: master
           requires:
             - lint_terraform
-            - unit_tests_service
-            - unit_tests_library
-      - package_service_us_west_1_temporary:
+            - lint_js
+            - unit_tests
+      - integration_tests_dev:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               ignore: master
           requires:
-            - lint_terraform
-            - unit_tests_service
-            - unit_tests_library
-      - deploy_service_temporary:
+            - deploy_dev
+      - polyfill_tests_dev:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               ignore: master
           requires:
-            - package_service_us_west_1_temporary
-            - package_service_eu_west_1_temporary
-      # Integration tests on temporary environment
-      - integration_tests_service_temporary:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - deploy_service_temporary
-      - polyfill_tests_temporary:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - integration_tests_service_temporary
-      - remove_service_temporary:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - integration_tests_service_temporary
-            - polyfill_tests_temporary
-      # Deploy to QA environment
-      - package_service_eu_west_1_staging:
+            - integration_tests_dev
+      - deploy_staging:
           filters:
             tags:
               ignore: /^v.*/
             branches:
               only:
                - master
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle
-      - package_service_us_west_1_staging:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              only:
-               - master
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle
-      - deploy_service_staging: # AWS (serverless) qa.polyfill.io
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              only:
-               - master
-          requires:
-            - package_service_us_west_1_staging
-            - package_service_eu_west_1_staging
-      # Integration tests on QA environment
-      - integration_tests_service_staging:
+      - integration_tests_staging:
           filters:
             tags:
               ignore: /^v.*/
@@ -702,7 +168,7 @@ workflows:
               only:
                 - master
           requires:
-            - deploy_service_staging
+            - deploy_staging
       - polyfill_tests_staging:
           filters:
             tags:
@@ -711,41 +177,16 @@ workflows:
               only:
                 - master
           requires:
-            - integration_tests_service_staging
-      # Deploy to prod
-      - package_service_eu_west_1_production:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle
-      - package_service_us_west_1_production:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
-          requires:
-            - install_dependencies_lambda
-            - install_dependencies_circle
+            - integration_tests_staging
       - publish_library_to_npm:
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: /.*/
-          requires:
-            - package_service_eu_west_1_production
-            - package_service_us_west_1_production
       - deploy_service_production:
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: /.*/
-          requires:
-            - package_service_eu_west_1_production
-            - package_service_us_west_1_production
