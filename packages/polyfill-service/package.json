@@ -26,6 +26,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
     "lint": "eslint .",
+    "heroku-postbuild": "npm run build",
     "postinstall": "bower install --allow-root",
     "start": "node server/index.js",
     "test": "npm run test-node-unit",
