@@ -30,7 +30,7 @@ resource "fastly_service_v1" "app" {
     between_bytes_timeout = 120000
     error_threshold       = 0
   }
-  
+
   backend {
     name                  = "v3_us"
     address               = "origami-polyfill-service-us.herokuapp.com"
@@ -65,7 +65,7 @@ resource "fastly_service_v1" "app" {
     source            = "origami-polyfill-service-eu.herokuapp.com"
     request_condition = "is_eu_server"
   }
-  
+
   header {
     name              = "Set US Host"
     action            = "set"
