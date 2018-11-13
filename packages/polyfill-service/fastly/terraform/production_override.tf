@@ -62,7 +62,7 @@ resource "fastly_service_v1" "app" {
     action            = "set"
     type              = "request"
     destination       = "http.Host"
-    source            = "origami-polyfill-service-eu.herokuapp.com"
+    source            = "\"origami-polyfill-service-eu.herokuapp.com\""
     request_condition = "is_eu_server"
   }
 
@@ -71,7 +71,7 @@ resource "fastly_service_v1" "app" {
     action            = "set"
     type              = "request"
     destination       = "http.Host"
-    source            = "origami-polyfill-service-us.herokuapp.com"
+    source            = "\"origami-polyfill-service-us.herokuapp.com\""
     request_condition = "is_us_server"
   }
 }
