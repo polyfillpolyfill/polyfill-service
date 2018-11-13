@@ -12,14 +12,15 @@ function healthChecks(options) {
 			// It will fail on a non-200 response
 			{
 				type: "ping-url",
-				url: "https://TODO/__gtg",
+				// TODO Make this use the domain that the service is deployed to.
+				url: "https://cdn.polyfill.io/__gtg",
 				interval: 60000,
 				id: "repo-data",
 				name: "Information can be retrieved from the Origami Repo Data service",
 				severity: 2,
 				businessImpact: "Users may not be able to view certain registry pages",
 				technicalSummary: "Hits the given url and checks that it responds successfully",
-				panicGuide: "Check https://TODO/__health"
+				panicGuide: "Check https://cdn.polyfill.io/__health"
 			},
 
 			// This check monitors the process memory usage

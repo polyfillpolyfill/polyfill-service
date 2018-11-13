@@ -17,7 +17,7 @@ module.exports = app => {
 		response.set({
 			"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 			"Content-Encoding": params.compression,
-			"Content-Type": "application/javascript; charset=UTF-8",
+			"Content-Type": "application/javascript; charset=utf-8",
 			Etag: etag,
 			"surrogate-key": "polyfill-service"
 		});

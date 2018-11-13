@@ -216,7 +216,7 @@ describe("generative tests", async function() {
 				.then(response => {
 					try {
 						assert.equal(response.statusCode, 200);
-						assert.equal(response.headers["content-type"], "application/javascript; charset=utf-8");
+						assert.equal(response.headers["content-type"], "application/javascript; charset=UTF-8");
 						assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
 						assert.isString(response.text);
 						// vm.Script will cause the event loop to become blocked whilst it parses the large response
