@@ -57,8 +57,9 @@ sub vcl_error {
 		set obj.http.ua = subfield(req.url.qs, "ua", "&");
 		set obj.http.callback = subfield(req.url.qs, "callback", "&");
 		set obj.http.compression = subfield(req.url.qs, "compression", "&");
-		if (subfield(req.url.qs, "version", "&") != "") {
-			set obj.http.version = subfield(req.url.qs, "version", "&");
+		set obj.http.version = subfield(req.url.qs, "version", "&");
+		if (obj.http.version == "(null)") {
+			unset obj.http.version;
 		}
 		synthetic "{" {"""} "features" {"""} ":" {"""} obj.http.features {"""} ","{"""} "excludes" {"""} ":" {"""} obj.http.excludes {"""} ","{"""} "rum" {"""} ":" {"""} obj.http.rum {"""} ","{"""} "unknown" {"""} ":" {"""} obj.http.unknown {"""} ","{"""} "flags" {"""} ":" {"""} obj.http.flags {"""} ","{"""} "ua" {"""} ":" {"""} obj.http.ua {"""} ","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""} ","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""} ","{"""} "version" {"""} ":" {"""} obj.http.version {"""} "}";
 		return (deliver);
