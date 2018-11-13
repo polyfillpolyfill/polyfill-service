@@ -33,7 +33,10 @@ jobs:
       - run: |
           cd ~/project/packages/polyfill-service
           rm -f terraform.tfstate
+          rm fastly/terraform/qa_override.tf
+          rm fastly/terraform/production_override.tf
           terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_DEV
           rm -f fastly/terraform/domains_override.tf
           terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
           sleep 60
@@ -63,6 +66,8 @@ jobs:
       - run: |
           cd ~/project/packages/polyfill-service
           rm -f terraform.tfstate
+          rm fastly/terraform/dev_override.tf
+          rm fastly/terraform/production_override.tf
           terraform init fastly/terraform/
           terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
           rm -f fastly/terraform/domains_override.tf
@@ -102,6 +107,8 @@ jobs:
       - run: |
           cd ~/project/packages/polyfill-service
           rm -f terraform.tfstate
+          rm fastly/terraform/dev_override.tf
+          rm fastly/terraform/qa_override.tf
           terraform init fastly/terraform/
           terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
           rm -f fastly/terraform/domains_override.tf
