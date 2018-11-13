@@ -67,7 +67,7 @@ sub vcl_error {
 			","{"""} "ua" {"""} ":" {"""} obj.http.ua {"""}
 			","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""}
 			","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""}
-			if (obj.http.version != "", ","{"""} "version" {"""} ":" {"""} obj.http.version {"""}, "")
+			if (obj.http.version, ","{"""} "version" {"""} ":" {"""} obj.http.version {"""}, "")
 		"}";
 		return (deliver);
 	}
