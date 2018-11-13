@@ -150,11 +150,6 @@ sub vcl_fetch {
             set beresp.http.Surrogate-Key = if(beresp.http.Surrogate-Key, beresp.http.Surrogate-Key " polyfill-service", "polyfill-service");
         }
 
-		# We can't overwrite the etag header within AWS S3 so we overwrite it here instead.
-		if (beresp.http.x-amz-meta-custom-etag) {
-			set beresp.http.ETag = beresp.http.x-amz-meta-custom-etag;
-		}
-
 		set beresp.http.Timing-Allow-Origin = "*";
 
 		set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
@@ -193,13 +188,6 @@ sub vcl_deliver {
 		} else {
 			unset resp.http.Server;
 			unset resp.http.Via;
-			unset resp.http.x-amz-apigw-id;
-			unset resp.http.X-Amz-Cf-Id;
-			unset resp.http.x-amzn-RequestId;
-			unset resp.http.X-Amzn-Trace-Id;
-			unset resp.http.x-amz-id-2;
-			unset resp.http.x-amz-meta-custom-etag;
-			unset resp.http.x-amz-request-id;
 			unset resp.http.X-Cache;
 			unset resp.http.X-Cache-Hits;
 			unset resp.http.X-Served-By;
