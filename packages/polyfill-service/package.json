@@ -40,10 +40,7 @@
     "node": ">=8.10"
   },
   "dependencies": {
-    "@financial-times/health-check": "^1.4.1",
-    "@financial-times/origami-repo-data-client": "^1.5.0",
     "@financial-times/origami-service": "^4.0.0",
-    "aws-sdk": "^2.223.1",
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "bower": "^1.8.4",
@@ -56,10 +53,7 @@
     "moment": "^2.22.2",
     "origami-build-tools": "^7.7.5",
     "polyfill-library": "file:../polyfill-library",
-    "raven": "^2.4.2",
     "require-all": "^3.0.0",
-    "semvergh": "^1.0.0",
-    "serverless-sentry-lib": "^1.0.0",
     "throng": "^4.0.0",
     "utf8": "^3.0.0"
   },
