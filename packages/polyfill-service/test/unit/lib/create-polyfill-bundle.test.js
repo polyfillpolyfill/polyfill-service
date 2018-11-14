@@ -15,7 +15,7 @@ describe("create-polyfill-bundle", function() {
 	let createPolyfillBundle;
 
 	beforeEach(() => {
-		createPolyfillBundle = require("../../../lib/create-polyfill-bundle");
+		createPolyfillBundle = require("../../../server/lib/create-polyfill-bundle");
 	});
 
 	it("exports a function", () => {

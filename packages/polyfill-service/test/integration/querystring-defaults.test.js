@@ -20,8 +20,7 @@ describe("Default parameters for requests", function() {
 					flags: "",
 					ua: "other/0.0.0",
 					callback: "",
-					compression: "",
-					version: require("polyfill-library/package.json").version
+					compression: ""
 				});
 			});
 	});
@@ -40,8 +39,7 @@ describe("Default parameters for requests", function() {
 					flags: "",
 					ua: "chrome/66.0.0",
 					callback: "",
-					compression: "",
-					version: require("polyfill-library/package.json").version
+					compression: ""
 				});
 			});
 	});

@@ -6,8 +6,6 @@ sub vcl_recv {
 
 	set req.http.Orig-URL = req.url;
 
-#FASTLY recv
-
   # Enable API key authentication for URL purge requests
 	if ( req.request == "FASTLYPURGE" ) {
 		set req.http.Fastly-Purge-Requires-Auth = "1";

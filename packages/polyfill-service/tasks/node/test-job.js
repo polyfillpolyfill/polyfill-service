@@ -71,7 +71,7 @@ module.exports = class TestJob {
 			await this.browser.quit();
 			this.results = e;
 			this.setState("error");
-			return this;
+			throw e;
 		}
 	}
 

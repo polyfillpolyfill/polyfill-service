@@ -13,10 +13,9 @@ const loudRejection = require("loud-rejection");
 loudRejection();
 
 const path = require("path");
-const dotenvSafe = require("dotenv-safe");
-dotenvSafe.config({
-	path: path.join(__dirname, "../../.env"),
-	example: path.join(__dirname, "../../env.example")
+const dotenv = require("dotenv");
+dotenv.config({
+	path: path.join(__dirname, "../../.env")
 });
 const fs = require("fs-extra");
 const argv = require("minimist")(process.argv.slice(2));
@@ -93,7 +92,7 @@ const printProgress = (function() {
 		const testResults = {};
 		const testProvider = require("./browserstack");
 		const pollTick = 100;
-		const testBrowserTimeout = 60000;
+		const testBrowserTimeout = 120000;
 		const serviceHost = process.env.BROWSER_TEST_HOST || "http://localhost:3000";
 		const useLocalTunnel = new URL(serviceHost).hostname === "localhost";
 		const mode = ["all", "targeted", "control"].filter(x => x in argv)[0] || "targeted";

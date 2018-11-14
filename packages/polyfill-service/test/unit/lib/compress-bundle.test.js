@@ -30,7 +30,7 @@ describe("compress-bundle", function() {
 		brotli = require("../mock/iltorb.mock");
 		mockery.registerMock("iltorb", brotli);
 
-		compressBundle = require("../../../lib/compress-bundle");
+		compressBundle = require("../../../server/lib/compress-bundle");
 	});
 
 	afterEach(() => {

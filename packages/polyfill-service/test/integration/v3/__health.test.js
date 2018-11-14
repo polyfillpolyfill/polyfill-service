@@ -11,7 +11,7 @@ describe("GET /v3/__health", function() {
 		return request(host)
 			.get("/v3/__health")
 			.expect(200)
-			.expect("Content-Type", "application/json;charset=UTF-8")
-			.expect("cache-control", "no-store, private");
+			.expect("Content-Type", "application/json; charset=utf-8")
+			.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	});
 });
