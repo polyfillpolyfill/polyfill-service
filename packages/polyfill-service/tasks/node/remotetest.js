@@ -92,7 +92,7 @@ const printProgress = (function() {
 		const testResults = {};
 		const testProvider = require("./browserstack");
 		const pollTick = 100;
-		const testBrowserTimeout = 60000;
+		const testBrowserTimeout = 120000;
 		const serviceHost = process.env.BROWSER_TEST_HOST || "http://localhost:3000";
 		const useLocalTunnel = new URL(serviceHost).hostname === "localhost";
 		const mode = ["all", "targeted", "control"].filter(x => x in argv)[0] || "targeted";
