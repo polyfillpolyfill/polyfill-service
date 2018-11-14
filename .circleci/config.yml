@@ -63,6 +63,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
+      - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
       - run: |
