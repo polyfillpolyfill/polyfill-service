@@ -12,7 +12,7 @@ describe("GET /v3/__gtg", function() {
 			.get("/v3/__gtg")
 			.expect(200)
 			.expect("Content-Type", "text/plain; charset=utf-8")
-			.expect("cache-control", "no-store, private")
+			.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
 			.then(response => {
 				assert.isString(response.text);
 				assert.equal(response.text, "OK");
