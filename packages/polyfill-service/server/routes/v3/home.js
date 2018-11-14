@@ -65,6 +65,9 @@ fastly(process.env.FASTLY_API_KEY, process.env.FASTLY_SERVICE_ID_PROD).then(fast
 });
 module.exports = app => {
 	app.get("/v3", async (request, response) => {
+		response.set({
+			"cache-control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+		});
 		if (fastly) {
 			response.render("index", { fastly: stats });
 		} else {
