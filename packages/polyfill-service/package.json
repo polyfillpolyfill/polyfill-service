@@ -84,8 +84,8 @@
     "ssri": "^6.0.0",
     "supertest": "^3.0.0",
     "tar": "^4.4.4",
-    "uap-core": "github:ua-parser/uap-core",
-    "uap-ref-impl": "github:ua-parser/uap-ref-impl",
+    "uap-core": "github:ua-parser/uap-core#f330b0337297ec979196a762cbb351ee29fce403",
+    "uap-ref-impl": "github:ua-parser/uap-ref-impl#d3a71a0fe706560aeee686e8dd516a574f874575",
     "wd": "^1.10.1",
     "yamlparser": "0.0.2"
   },
