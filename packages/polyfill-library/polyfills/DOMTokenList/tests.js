@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* globals proclaim, DOMTokenList */
 
-describe('DOMTokenList', function () {
+describe.skip('DOMTokenList', function () {
 	describe('constructor', function () {
 		it('is a function', function () {
 			proclaim.isFunction(DOMTokenList);
