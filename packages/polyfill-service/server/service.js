@@ -18,7 +18,6 @@ function service(options) {
 	app.use(origamiService.middleware.notFound());
 	app.use(origamiService.middleware.errorHandler());
 
-
 	return app;
 }
 
