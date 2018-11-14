@@ -13,10 +13,9 @@ const loudRejection = require("loud-rejection");
 loudRejection();
 
 const path = require("path");
-const dotenvSafe = require("dotenv-safe");
-dotenvSafe.config({
-	path: path.join(__dirname, "../../.env"),
-	example: path.join(__dirname, "../../env.example")
+const dotenv = require("dotenv");
+dotenv.config({
+	path: path.join(__dirname, "../../.env")
 });
 const fs = require("fs-extra");
 const argv = require("minimist")(process.argv.slice(2));
