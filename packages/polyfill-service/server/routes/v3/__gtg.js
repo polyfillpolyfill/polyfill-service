@@ -5,7 +5,7 @@ module.exports = app => {
 		response.status(200);
 		response.set({
 			"Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
-			"Content-Type": "text/html; charset=utf-8"
+			"Content-Type": "text/plain; charset=utf-8"
 		});
 		response.send("OK");
 	});
