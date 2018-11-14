@@ -51,7 +51,6 @@
     "from2-string": "^1.1.0",
     "glob": "^7.1.1",
     "graceful-fs": "^4.1.10",
-    "handlebars": "^4.0.6",
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.4.1",
     "intl": "^1.2.5",
