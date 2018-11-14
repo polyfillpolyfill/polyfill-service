@@ -1,16 +1,11 @@
 "use strict";
 
-const healthChecks = require("./health-checks");
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 
 module.exports = service;
 
 function service(options) {
-	const health = healthChecks(options);
-	options.healthCheck = health.checks();
-	options.goodToGoTest = health.gtg();
-	options.about = require("../about.json");
 	options.defaultLayout = "main";
 
 	const app = origamiService(options);
@@ -23,7 +18,6 @@ function service(options) {
 	app.use(origamiService.middleware.notFound());
 	app.use(origamiService.middleware.errorHandler());
 
-	app.health = health;
 
 	return app;
 }
