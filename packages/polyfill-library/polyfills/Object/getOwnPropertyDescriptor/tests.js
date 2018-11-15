@@ -1,6 +1,76 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
 
+it('is a function', function () {
+	proclaim.isFunction(Object.getOwnPropertyDescriptor);
+});
+
+it('has correct arity', function () {
+	proclaim.arity(Object.getOwnPropertyDescriptor, 2);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Object.getOwnPropertyDescriptor, 'getOwnPropertyDescriptor');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Object, 'getOwnPropertyDescriptor');
+});
+
+var propertyDescriptorsSupported = (function () {
+	var obj = {};
+	try {
+		Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+        /* eslint-disable no-unused-vars, no-restricted-syntax */
+        for (var _ in obj) { return false; }
+        /* eslint-enable no-unused-vars, no-restricted-syntax */
+		return obj.x === obj;
+	} catch (e) { // this is IE 8.
+		return false;
+	}
+}());
+
+it('works as expected', function () {
+	var getOwnPropertyDescriptor, O, s, descs;
+	getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	if ('create' in Object && 'Symbol' in this) {
+		O = Object.create({
+			q: 1
+		}, {
+				e: {
+					value: 3
+				}
+			});
+		O.w = 2;
+		s = Symbol('s');
+		O[s] = 4;
+		descs = getOwnPropertyDescriptor(O);
+		proclaim.strictEqual(descs.q, void 8);
+		proclaim.deepEqual(descs.w, {
+			enumerable: true,
+			configurable: true,
+			writable: true,
+			value: 2
+		});
+		if (propertyDescriptorsSupported) {
+			proclaim.deepEqual(descs.e, {
+				enumerable: false,
+				configurable: false,
+				writable: false,
+				value: 3
+			});
+		} else {
+			proclaim.deepEqual(descs.e, {
+				enumerable: true,
+				configurable: true,
+				writable: true,
+				value: 3
+			});
+		}
+		proclaim.strictEqual(descs[s].value, 4);
+	}
+});
+
 // Copied from ES5-Shim
 
 describe('Basic functionality', function () {
