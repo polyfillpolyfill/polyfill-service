@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run version",
+  "src": {
+    "tagName": "v%s",
+    "commit": true,
+    "tag": false,
+    "push": false
+   },
+  "github": {
+    "release": false
+  },
+  "npm": {
+    "publish": false
+  }
+}

@@ -28,10 +28,9 @@
     "lint": "eslint .",
     "postinstall": "bower install --allow-root",
     "start": "node server/index.js",
-    "test": "npm run test-node-unit",
-    "test-browser-local": "node tasks/node/spawn service remote-test",
-    "test-browser-ci": "node tasks/node/spawn remote-test",
-    "test-node-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
+    "test": "npm run test-unit && npm run test-polyfills",
+    "test-polyfills": "node tasks/node/remotetest",
+    "test-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
     "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail",
     "update-browserstack-browsers": "node ./tasks/node/updatebrowserstacklist.js"
   },

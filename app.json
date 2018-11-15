@@ -9,7 +9,7 @@
     "FASTLY_API_KEY": {
       "required": true
     },
-    "FASTLY_SERVICE_ID_PROD": {
+    "FASTLY_SERVICE_ID": {
       "required": true
     },
     "NODE_ENV": "production"

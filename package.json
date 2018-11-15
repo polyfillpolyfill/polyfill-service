@@ -4,10 +4,10 @@
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
-    "precommit": "secret-squirrel",
-    "version": "cd packages/polyfill-library && npm version $npm_package_version && git add package.json && cd -",
+    "version": "npm version $npm_package_version --prefix packages/polyfill-library && npm version $npm_package_version --prefix packages/polyfill-service && git add packages/polyfill-library/package.json packages/polyfill-service/package.json",
     "install": "npm ci --prefix packages/polyfill-library && npm ci --prefix packages/polyfill-service",
-    "heroku-postbuild": "npm run build --prefix packages/polyfill-service"
+    "heroku-postbuild": "npm run build --prefix packages/polyfill-service",
+    "release": "release-it"
   },
   "contributors": [
     {
@@ -33,7 +33,6 @@
     "node": ">=8"
   },
   "devDependencies": {
-    "@financial-times/secret-squirrel": "^2.10.3",
-    "husky": "^0.14.3"
+    "release-it": "^7.6.3"
   }
 }

@@ -2,11 +2,13 @@
 
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
+const path = require("path");
 
 module.exports = service;
 
 function service(options) {
 	options.defaultLayout = "main";
+	options.basePath = path.join(__dirname, "../");
 
 	const app = origamiService(options);
 	app.use(origamiService.middleware.getBasePath());

@@ -6,9 +6,11 @@
 		<li>
 			<a href="#why-do-i-need-it">Why do I need it?</a>
 		</li>
+	{{#if fastly}}
 		<li>
 			<a href="#stats">Stats</a>
 		</li>
+	{{/if}}
 	</ol>
 </div>
 <div class="o-layout__main" data-o-component="o-syntax-highlight">
@@ -27,9 +29,11 @@
 			makes it simpler to support differing browsers by attempting to recreate the missing features with polyfills: You
 			can
 			make use of the latest and greatest features in browsers which support them, and in those that do not.</p>
+	{{#if fastly}}
 		<h2 id="stats">Stats</h2>
 		<p>From {{fastly.sevenDays.rollup.startDate}} to {{fastly.sevenDays.rollup.endDate}}, we have served
 			{{fastly.sevenDays.rollup.requests}} requests. {{fastly.sevenDays.rollup.cache}}% of which were served
 			from Fastly's global CDN cache.</p>
+	{{/if}}
 	</section>
 </div>

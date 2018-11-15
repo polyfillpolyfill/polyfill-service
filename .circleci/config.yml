@@ -21,7 +21,7 @@ jobs:
     steps:
       - "checkout"
       - run: "cd ~/project/packages/polyfill-library/ && npm ci && npm run test"
-      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run test-node-unit"
+      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run test-unit"
   deploy_dev:
     docker:
       - image: "circleci/node:10"
@@ -57,7 +57,7 @@ jobs:
       - run: |
           cd ~/project/packages/polyfill-service/
           npm ci
-          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-browser-ci
+          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-polyfills
   deploy_staging:
     docker:
       - image: "circleci/node:10"
@@ -94,7 +94,7 @@ jobs:
       - run: |
           cd ~/project/packages/polyfill-service/
           npm ci
-          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-browser-ci
+          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-polyfills
   publish_library_to_npm:
     docker:
       - image: "circleci/node:10"

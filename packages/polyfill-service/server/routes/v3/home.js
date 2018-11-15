@@ -6,7 +6,7 @@ const _ = require("lodash");
 
 const fastly = async (apiKey, service) => {
 	if (!service) {
-		throw new Error("No Fastly Service ID has been supplied. This should be set either as an environment variable named FASTLY_SERVICE_ID_PROD or in the file .env at the root of the repository.");
+		throw new Error("No Fastly Service ID has been supplied. This should be set either as an environment variable named FASTLY_SERVICE_ID or in the file .env at the root of the repository.");
 	}
 
 	if (!apiKey) {
@@ -59,10 +59,14 @@ const fastly = async (apiKey, service) => {
 		thirtyDays: await getDailyStatsFor(30)
 	};
 };
+
 let stats;
-fastly(process.env.FASTLY_API_KEY, process.env.FASTLY_SERVICE_ID_PROD).then(fastlyStats => {
-	stats = fastlyStats;
-});
+if (process.env.FASTLY_API_KEY && process.env.FASTLY_SERVICE_ID) {
+	fastly(process.env.FASTLY_API_KEY, process.env.FASTLY_SERVICE_ID).then(fastlyStats => {
+		stats = fastlyStats;
+	});
+}
+
 module.exports = app => {
 	app.get("/v3", async (request, response) => {
 		response.set({
