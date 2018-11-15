@@ -1,12 +1,58 @@
 /* eslint-env mocha, browser */
 /* global proclaim */
 
-it('has correct instance', function () {
-	proclaim.isInstanceOf(Object.keys, Function);
+it('is a function', function () {
+	proclaim.isFunction(Object.keys);
 });
 
-it('has correct argument length', function () {
-	proclaim.equal(Object.keys.length, 1);
+it('has correct arity', function () {
+	proclaim.arity(Object.keys, 1);
+});
+
+it('has correct name', function () {
+	proclaim.hasName(Object.keys, 'keys');
+});
+
+it('is not enumerable', function () {
+	proclaim.nonEnumerable(Object, 'keys');
+});
+
+it('works as expected', function () {
+	var toString$ = {}.toString;
+    var fn1, fn2, i$, ref$, len$, value;
+    fn1 = function(w){
+      this.w = w != null ? w : 2;
+    };
+    fn2 = function(toString){
+      this.toString = toString != null ? toString : 2;
+    };
+    fn1.prototype.q = fn2.prototype.q = 1;
+    proclaim.deepEqual(Object.keys([1, 2, 3]), ['0', '1', '2']);
+    proclaim.deepEqual(Object.keys(new fn1(1)), ['w']);
+    proclaim.deepEqual(Object.keys(new fn2(1)), ['toString']);
+    proclaim.ok(!in$('push', Object.keys(Array.prototype)));
+    for (i$ = 0, len$ = (ref$ = [42, 'foo', false]).length; i$ < len$; ++i$) {
+      value = ref$[i$];
+      proclaim.ok((fn$()), "accept " + toString$.call(value).slice(8, -1));
+    }
+    for (i$ = 0, len$ = (ref$ = [null, void 8]).length; i$ < len$; ++i$) {
+      value = ref$[i$];
+      proclaim.throws(fn1$, TypeError, "throws on " + value);
+    }
+    function fn$(){
+      try {
+        Object.keys(value);
+        return true;
+      } catch (e$) {}
+    }
+    function fn1$(){
+      Object.keys(value);
+    }
+  function in$(x, xs){
+    var i = -1, l = xs.length >>> 0;
+    while (++i < l) if (x === xs[i]) return true;
+    return false;
+  }
 });
 
 it('works with objects', function () {
