@@ -24,8 +24,9 @@ CreateMethodProperty(Object, 'assign', function assign(target, source) { // esli
 			keys = [];
 			// b. Else,
 		} else {
+			// Polyfill.io - In order to get strings in ES3 and old V8 working correctly we need to split them into an array ourselves.
 			// i. Let from be ! ToObject(nextSource).
-			from = ToObject(nextSource);
+			from = Object.prototype.toString.call(nextSource) === '[object String]' ? String(nextSource).split('') : ToObject(nextSource);
 			// ii. Let keys be ? from.[[OwnPropertyKeys]]().
 			/*
 				This step in our polyfill is not complying with the specification.
