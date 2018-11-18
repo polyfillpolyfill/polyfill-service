@@ -101,7 +101,7 @@ const aliases = {
 
 	"phantomjs": ["safari", 5],
 
-	"yandex browser": {
+	"yandex-aliases" : {
 		"14.10": ["chrome", 37],
 		"14.8": ["chrome", 36],
 		"14.7": ["chrome", 35],
@@ -111,6 +111,22 @@ const aliases = {
 		"13.12": ["chrome", 30],
 		"13.10": ["chrome", 28],
 		"17.9": ["chrome", 60]
+	},
+
+	"yandex browser": function(uaObj){
+		if (uaObj.os.family === 'iOS') {
+			const newAgent = useragent.parse(uaObj.source.replace(/YaBrowser\/[\d\.]+\d+/i, ''));
+			newAgent.family = 'ios_saf';
+			return newAgent;
+		}
+		for (let semverExpr in aliases['yandex-aliases']) { // eslint-disable-line prefer-const
+			if (uaObj.satisfies(semverExpr) && Array.isArray(aliases['yandex-aliases'][semverExpr])) {
+				const a = aliases['yandex-aliases'][semverExpr];
+				uaObj = new useragent.Agent(a[0], a[1], (a[2] || 0), (a[3] || 0));
+				break;
+			}
+		}
+		return uaObj;
 	},
 
 	"opera": {

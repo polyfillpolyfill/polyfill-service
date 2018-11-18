@@ -237,6 +237,9 @@ describe("lib/UA", function () {
 				const yandex = new UA("Mozilla/5.0 (Linux; Android 5.0.1; GT-I9505 Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 YaBrowser/14.2.1.1239.00 Mobile Safari/537.36");
 				assert.equal(yandex.ua.family, 'chrome');
 
+				const yandexIos = new UA("Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 YaBrowser/18.10.3.114.10 Mobile/15E148 Safari/605.1");
+				assert.equal(yandexIos.ua.family, 'ios_saf');
+
 				const googlebot = new UA("Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
 				assert.equal(googlebot.ua.family, 'chrome');
 
