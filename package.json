@@ -1,6 +1,6 @@
 {
   "name": "polyfill-service-and-library",
-  "version": "0.0.0",
+  "version": "3.27.0",
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
