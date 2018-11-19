@@ -31,7 +31,8 @@
     "test-node-unit": "nyc mocha test/unit --recursive",
     "test-node-coverage": "nyc check-coverage --lines 90 --branches 90 --functions 90",
     "test-coverage": "nyc report --reporter=lcov",
-    "test": "npm run build && npm run test-node && npm run test-node-unit",
+    "test-polyfill-configs": "mocha test/polyfills/**/*.test.js --recursive",
+    "test": "npm run test-polyfill-configs && npm run build && npm run test-node && npm run test-node-unit",
     "postinstall": "npm run build"
   },
   "license": "MIT",
