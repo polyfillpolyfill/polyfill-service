@@ -3,7 +3,6 @@
 const fs = require('graceful-fs');
 const path = require('path');
 const uglify = require('uglify-js');
-const babel = require('babel-core');
 const mkdirp = require('mkdirp');
 const tsort = require('tsort');
 const denodeify = require('denodeify');
@@ -160,13 +159,6 @@ class Polyfill {
 					error
 				};
 			})
-			.then(raw => this.transpile(raw))
-			.catch(error => {
-				throw {
-					message: `Error transpiling ${this.name}`,
-					error
-				};
-			})
 			.then(transpiled => this.minify(transpiled))
 			.catch(error => {
 				throw {
@@ -178,33 +170,6 @@ class Polyfill {
 			.then(sources => {
 				this.sources = sources;
 			});
-	}
-
-	transpile(source) {
-		// At time of writing no current browsers support the full ES6 language syntax,
-		// so for simplicity, polyfills written in ES6 will be transpiled to ES5 in all
-		// cases (also note that uglify currently cannot minify ES6 syntax).  When browsers
-		// start shipping with complete ES6 support, the ES6 source versions should be served
-		// where appropriate, which will require another set of variations on the source properties
-		// of the polyfill.  At this point it might be better to create a collection of sources with
-		// different properties, eg config.sources = [{code:'...', esVersion:6, minified:true},{...}] etc.
-		if (this.config.esversion && this.config.esversion > 5) {
-			if (this.config.esversion === 6) {
-				const transpiled = babel.transform(source, { presets: ["es2015"] });
-
-				// Don't add a "use strict"
-				// Super annoying to have to drop the preset and list all babel plugins individually, so hack to remove the "use strict" added by Babel (see also http://stackoverflow.com/questions/33821312/how-to-remove-global-use-strict-added-by-babel)
-				return transpiled.code.replace(/^\s*"use strict";\s*/i, '');
-
-			} else {
-				throw {
-					name: "Unsupported ES version",
-					message: `Feature ${this.name} uses ES${this.config.esversion} but no transpiler is available for that version`
-				};
-			}
-		}
-
-		return source;
 	}
 
 	minify(source) {
