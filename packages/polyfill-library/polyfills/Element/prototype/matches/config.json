@@ -1,13 +1,5 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default",
-		"caniuse:matchesselector",
-		"blissfuljs"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default", "caniuse:matchesselector", "blissfuljs"],
 	"browsers": {
 		"edge": "*",
 		"edge_mob": "*",
@@ -24,10 +16,8 @@
 		"ios_chr": "*",
 		"ios_saf": "* - 7"
 	},
-	"dependencies": [
-		"Element",
-		"document.querySelector"
-	],
+	"dependencies": ["Element", "document.querySelector"],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element/matches",
-	"spec": "http://dom.spec.whatwg.org/#dom-element-matches"
+	"spec": "http://dom.spec.whatwg.org/#dom-element-matches",
+	"license": "MIT"
 }

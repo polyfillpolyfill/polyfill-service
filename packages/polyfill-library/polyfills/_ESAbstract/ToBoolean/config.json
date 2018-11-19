@@ -16,5 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"spec": "https://tc39.github.io/ecma262/#sec-toboolean"
+	"spec": "https://tc39.github.io/ecma262/#sec-toboolean",
+	"license": "MIT",
+	"dependencies": []
 }

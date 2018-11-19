@@ -1,11 +1,5 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default"],
 	"browsers": {
 		"firefox": "6 - 10",
 		"ie": "6 - 11",
@@ -14,14 +8,8 @@
 		"safari": "4 - 7",
 		"firefox_mob": "6 - 10"
 	},
-	"dependencies": [
-		"Window",
-		"Document",
-		"Element",
-		"Object.defineProperty"
-	],
+	"dependencies": ["Window", "Document", "Element", "Object.defineProperty"],
 	"docs": "https://developer.mozilla.org/en/docs/Web/API/Event",
-	"notes": [
-		"Where necessary, also adds the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) methods `addEventListener`, `removeEventListener` and `dispatchEvent`."
-	]
+	"notes": ["Where necessary, also adds the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) methods `addEventListener`, `removeEventListener` and `dispatchEvent`."],
+	"license": "MIT"
 }

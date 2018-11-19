@@ -18,5 +18,6 @@
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API",
 	"install": {
 		"module": "usertiming"
-	}
+	},
+	"dependencies": []
 }

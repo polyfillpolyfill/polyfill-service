@@ -1,10 +1,5 @@
 {
-	"aliases": [
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default"
-	],
+	"aliases": ["default-3.4", "default-3.5", "default-3.6", "default"],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -22,10 +17,8 @@
 		"firefox_mob": "<49",
 		"samsung_mob": "<6"
 	},
-	"dependencies": [
-		"Document",
-		"Element",
-		"_mutation"
-	],
-	"spec": "http://dom.spec.whatwg.org/#dom-parentnode-append"
+	"dependencies": ["Document", "Element", "_mutation"],
+	"spec": "http://dom.spec.whatwg.org/#dom-parentnode-append",
+    "license": "MIT",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append"
 }

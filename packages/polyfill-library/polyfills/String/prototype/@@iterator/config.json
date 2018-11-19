@@ -1,8 +1,5 @@
 {
-	"aliases": [
-		"es6",
-		"es2015"
-	],
+	"aliases": ["es6", "es2015"],
 	"browsers": {
 		"edge": "<13",
 		"edge_mob": "<13",
@@ -17,13 +14,8 @@
 		"opera": "<36",
 		"samsung_mob": "<5"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_ESAbstract.RequireObjectCoercible",
-		"_ESAbstract.ToString",
-		"_StringIterator",
-		"Symbol.iterator"
-	],
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_ESAbstract.RequireObjectCoercible", "_ESAbstract.ToString", "_StringIterator", "Symbol.iterator"],
 	"spec": "https://tc39.github.io/ecma262/#sec-string.prototype-@@iterator",
-	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator"
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator",
+	"license": "MIT"
 }

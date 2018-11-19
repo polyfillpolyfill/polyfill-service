@@ -1,17 +1,5 @@
 {
-	"aliases": [
-		"Int8Array",
-		"Uint8Array",
-		"Uint8ClampedArray",
-		"Int16Array",
-		"Uint16Array",
-		"Int32Array",
-		"Uint32Array",
-		"Float32Array",
-		"Float64Array",
-		"DataView",
- 		"ArrayBuffer"
-	],
+	"aliases": ["Int8Array", "Uint8Array", "Uint8ClampedArray", "Int16Array", "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array", "DataView", "ArrayBuffer"],
 	"browsers": {
 		"chrome": "<47",
 		"edge": "<14",
@@ -25,11 +13,12 @@
 		"android": "<47",
 		"ios_saf": "<10"
 	},
-	"license": "Copyright 2010, Linden Research, Inc. Copyright 2014, Joshua Bell.",
+	"license": "MIT",
 	"repo": "https://github.com/inexorabletash/polyfill",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/URL",
 	"install": {
 		"module": "js-polyfills",
 		"paths": ["typedarray.js"]
-	}
+	},
+	"dependencies": []
 }

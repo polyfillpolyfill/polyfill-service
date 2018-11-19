@@ -1,6 +1,5 @@
 {
-	"aliases": [
-	],
+	"aliases": [],
 	"browsers": {
 		"android": "4.4 - *",
 		"bb": "7 - 10",
@@ -17,20 +16,10 @@
 		"safari": "6 - *",
 		"samsung_mob": "<6"
 	},
-	"dependencies": [
-		"getComputedStyle",
-		"Array.isArray",
-		"Array.prototype.filter",
-		"Array.prototype.forEach",
-		"Array.prototype.indexOf",
-		"Array.prototype.map",
-		"Array.prototype.some",
-		"Event",
-		"Function.prototype.bind",
-		"performance.now"
-		],
+	"dependencies": ["getComputedStyle", "Array.isArray", "Array.prototype.filter", "Array.prototype.forEach", "Array.prototype.indexOf", "Array.prototype.map", "Array.prototype.some", "Event", "Function.prototype.bind", "performance.now"],
 	"docs": "https://github.com/w3c/IntersectionObserver/blob/master/explainer.md",
 	"spec": "http://rawgit.com/w3c/IntersectionObserver/master/index.html",
 	"notes": [],
-	"repo": "https://github.com/w3c/IntersectionObserver"
+	"repo": "https://github.com/w3c/IntersectionObserver",
+	"license": "MIT"
 }

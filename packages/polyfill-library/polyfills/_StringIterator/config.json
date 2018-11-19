@@ -23,5 +23,7 @@
 		"Object.setPrototypeOf"
 	],
 	"license": "MIT",
-	"repo": "https://github.com/medikoo/es6-iterator"
+	"repo": "https://github.com/medikoo/es6-iterator",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator",
+	"spec":"https://tc39.github.io/ecma262/#sec-string.prototype-@@iterator"
 }

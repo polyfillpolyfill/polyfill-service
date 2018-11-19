@@ -1,9 +1,5 @@
 {
-	"aliases": [
-		"es6",
-		"es2015",
-		"modernizr:es6array"
-	],
+	"aliases": ["es6", "es2015", "modernizr:es6array"],
 	"browsers": {
 		"bb": "*",
 		"chrome": "<=45",
@@ -20,16 +16,8 @@
 		"firefox_mob": "<24",
 		"samsung_mob": "<6"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_ESAbstract.ToObject",
-		"_ESAbstract.ToLength",
-		"_ESAbstract.Get",
-		"_ESAbstract.IsCallable",
-		"_ESAbstract.ToBoolean",
-		"_ESAbstract.Call",
-		"_ESAbstract.ToString"
-	],
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_ESAbstract.ToObject", "_ESAbstract.ToLength", "_ESAbstract.Get", "_ESAbstract.IsCallable", "_ESAbstract.ToBoolean", "_ESAbstract.Call", "_ESAbstract.ToString"],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype.find",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find",
+	"license": "MIT"
 }

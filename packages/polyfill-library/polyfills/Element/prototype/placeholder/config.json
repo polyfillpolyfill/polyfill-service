@@ -1,14 +1,10 @@
 {
-	"aliases": [
-		"caniuse:input-placeholder",
-		"modernizr:placeholder"
-	],
+	"aliases": ["caniuse:input-placeholder", "modernizr:placeholder"],
 	"browsers": {
 		"ie": "8 - 9"
 	},
-	"dependencies": [
-		"Object.defineProperty",
-		"document.querySelector",
-		"Element"
-	]
+	"dependencies": ["Object.defineProperty", "document.querySelector", "Element"],
+    "license": "MIT",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-placeholder",
+    "spec": "https://html.spec.whatwg.org/multipage/input.html#attr-input-placeholder"
 }

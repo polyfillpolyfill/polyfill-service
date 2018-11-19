@@ -19,5 +19,8 @@
 	},
 	"dependencies": [
 		"Document"
-	]
+	],
+	"notes":[],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section",
+	"spec": "https://html.spec.whatwg.org/multipage/sections.html#the-section-element"
 }

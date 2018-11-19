@@ -15,6 +15,8 @@
 		"firefox_mob": "<=20"
 	},
 	"dependencies": [
-		"Object.defineProperties"
-	]
+		"Object.defineProperty"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/origin",
+	"license":"MIT"
 }

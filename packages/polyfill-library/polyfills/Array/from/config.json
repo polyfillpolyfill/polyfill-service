@@ -45,5 +45,6 @@
 		"Set"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.from",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from",
+	"license": "MIT"
 }

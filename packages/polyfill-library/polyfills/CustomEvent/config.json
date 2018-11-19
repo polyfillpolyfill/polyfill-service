@@ -1,12 +1,5 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default",
-		"modernizr:customevent"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default", "modernizr:customevent"],
 	"browsers": {
 		"edge": "<14",
 		"edge_mob": "<14",
@@ -19,9 +12,8 @@
 		"android": "<=4.3",
 		"firefox_mob": "6 - 10"
 	},
-	"dependencies": [
-		"Event"
-	],
+	"dependencies": ["Event"],
 	"spec": "http://dom.spec.whatwg.org/#interface-customevent",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+	"license": "MIT"
 }

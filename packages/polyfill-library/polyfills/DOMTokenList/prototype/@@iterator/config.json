@@ -18,5 +18,6 @@
 		"DOMTokenList"
 	],
 	"license": "MIT",
-	"spec": "https://dom.spec.whatwg.org/#domtokenlist"
+	"spec": "https://dom.spec.whatwg.org/#domtokenlist",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/entries"
 }

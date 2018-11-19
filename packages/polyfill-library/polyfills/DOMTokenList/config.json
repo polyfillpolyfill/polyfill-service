@@ -1,11 +1,5 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default"],
 	"browsers": {
 		"edge": "<14",
 		"edge_mob": "<14",
@@ -13,9 +7,8 @@
 		"safari": "4 - 6.0",
 		"ie_mob": "10 - *"
 	},
-	"dependencies": [
-		"_DOMTokenList"
-	],
+	"dependencies": ["_DOMTokenList"],
 	"spec": "http://www.whatwg.org/specs/web-apps/current-work/#domtokenlist",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+	"license": "MIT"
 }

@@ -11,11 +11,9 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"Array.prototype.includes"
-	],
-	"notes": [
-		"This feature was deprecated since it was found to [break older versions of Mootools](https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible).  Use `Array.prototype.includes` instead."
-	]
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "Array.prototype.includes"],
+	"notes": ["This feature was deprecated since it was found to [break older versions of Mootools](https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible).  Use `Array.prototype.includes` instead."],
+    "license": "MIT",
+    "spec": "https://tc39.github.io/ecma262/#sec-array.prototype.includes",
+    "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes"
 }

@@ -23,5 +23,6 @@
 		"Symbol.iterator"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-array.prototype-@@iterator",
-	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator"
+	"docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/@@iterator",
+	"license":"MIT"
 }

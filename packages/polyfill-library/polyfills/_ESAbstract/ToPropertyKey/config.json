@@ -16,10 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.ToPrimitive",
-		"_ESAbstract.ToString",
-		"_ESAbstract.Type"
-	],
-	"spec": "https://tc39.github.io/ecma262/#sec-topropertykey"
+	"dependencies": ["_ESAbstract.ToPrimitive", "_ESAbstract.ToString", "_ESAbstract.Type"],
+	"spec": "https://tc39.github.io/ecma262/#sec-topropertykey",
+	"license": "MIT"
 }

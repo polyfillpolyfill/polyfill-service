@@ -16,5 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"spec": "https://tc39.github.io/ecma262/#sec-toint16"
+	"spec": "https://tc39.github.io/ecma262/#sec-toint16",
+	"license": "MIT",
+	"dependencies": []
 }

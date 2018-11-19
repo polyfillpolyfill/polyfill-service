@@ -1,4 +1,5 @@
 {
+	"aliases": [],
 	"browsers": {
 		"chrome": "*",
 		"firefox": "*",
@@ -16,5 +17,10 @@
 		"samsung_mob": "*"
 	},
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate",
-	"repo": "https://github.com/YuzuJS/setImmediate"
+	"repo": "https://github.com/YuzuJS/setImmediate",
+	"dependencies": [],
+	"license": "MIT",
+	"notes": [
+		"This method is not expected to become standard, and is only implemented by recent builds of Internet Explorer and Node.js 0.10+. It meets resistance both from Gecko (Firefox) and Webkit (Google/Apple)."
+	]
 }

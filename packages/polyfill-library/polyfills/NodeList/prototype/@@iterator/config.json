@@ -17,5 +17,6 @@
 		"Symbol.iterator"
 	],
 	"license": "MIT",
-	"spec": "https://dom.spec.whatwg.org/#nodelist"
+	"spec": "https://dom.spec.whatwg.org/#nodelist",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList/values"
 }

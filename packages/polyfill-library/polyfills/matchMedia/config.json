@@ -16,5 +16,6 @@
 		"Event"
 	],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia",
-	"spec": "http://dev.w3.org/csswg/cssom-view/#the-mediaquerylist-interface"
+	"spec": "http://dev.w3.org/csswg/cssom-view/#the-mediaquerylist-interface",
+	"license": "MIT"
 }

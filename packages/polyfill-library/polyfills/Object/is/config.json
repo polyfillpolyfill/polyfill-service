@@ -1,9 +1,5 @@
 {
-	"aliases": [
-		"es6",
-		"es2015",
-		"modernizr:es6object"
-	],
+	"aliases": ["es6", "es2015", "modernizr:es6object"],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -20,9 +16,7 @@
 		"ios_saf": "*",
 		"firefox_mob": "3.6 - 21"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_ESAbstract.SameValue"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is"
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_ESAbstract.SameValue"],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is",
+	"license": "MIT"
 }

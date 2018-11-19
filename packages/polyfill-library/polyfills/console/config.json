@@ -10,5 +10,6 @@
 		"Window"
 	],
 	"spec": "https://console.spec.whatwg.org",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/console",
+	"license": "MIT"
 }

@@ -1,17 +1,10 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default"],
 	"browsers": {
 		"ie": "6 - 8"
 	},
-	"dependencies": [
-		"Document"
-	],
+	"dependencies": ["Document"],
 	"spec": "https://dom.spec.whatwg.org/#interface-element",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+	"license": "MIT"
 }

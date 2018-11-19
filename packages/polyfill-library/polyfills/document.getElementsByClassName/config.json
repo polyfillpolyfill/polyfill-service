@@ -6,5 +6,6 @@
 		"document.querySelector"
 	],
 	"spec": "https://dom.spec.whatwg.org/#dom-document-getelementsbyclassname",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/Document/getElementsByClassName"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/Document/getElementsByClassName",
+	"license":"MIT"
 }

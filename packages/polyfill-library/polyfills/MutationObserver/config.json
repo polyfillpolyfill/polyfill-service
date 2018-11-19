@@ -20,5 +20,6 @@
 	"install": {
 		"module": "mutationobserver-shim",
 		"paths": ["MutationObserver.js"]
-	}
+	},
+	"dependencies": []
 }

@@ -16,8 +16,8 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"Document",
-		"Element"
-	]
+	"dependencies": ["Document", "Element"],
+    "license": "MIT",
+    "docs":"https://dom.spec.whatwg.org/#mutation-algorithms",
+    "spec":"https://dom.spec.whatwg.org/#mutation-algorithms"
 }

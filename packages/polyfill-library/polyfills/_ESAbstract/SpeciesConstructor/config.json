@@ -16,10 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.Get",
-		"_ESAbstract.IsConstructor",
-		"_ESAbstract.Type"
-	],
-	"spec": "https://tc39.github.io/ecma262/#sec-speciesconstructor"
+	"dependencies": ["_ESAbstract.Get", "_ESAbstract.IsConstructor", "_ESAbstract.Type"],
+	"spec": "https://tc39.github.io/ecma262/#sec-speciesconstructor",
+	"license": "MIT"
 }

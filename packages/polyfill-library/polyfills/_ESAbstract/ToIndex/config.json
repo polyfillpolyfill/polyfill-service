@@ -16,9 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.ToInteger",
-		"_ESAbstract.ToLength"
-	],
-	"spec": "https://tc39.github.io/ecma262/#sec-toindex"
+	"dependencies": ["_ESAbstract.ToInteger", "_ESAbstract.ToLength"],
+	"spec": "https://tc39.github.io/ecma262/#sec-toindex",
+	"license": "MIT"
 }

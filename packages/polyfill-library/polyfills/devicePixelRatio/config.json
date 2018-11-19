@@ -10,5 +10,7 @@
 	"notes": [
 		"This polyfill just sets `devicePixelRatio` to 1 without attempting to measure it.",
 		"Older versions of Firefox are known to incorrectly alter the DPR on user zoom, but we don't (currently) correct for this"
-	]
+	],
+	"license":"MIT",
+	"dependencies":[]
 }

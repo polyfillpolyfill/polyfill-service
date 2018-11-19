@@ -16,9 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.Type",
-		"_ESAbstract.Call"
-	],
-	"spec": "https://tc39.github.io/ecma262/#sec-iteratornext"
+	"dependencies": ["_ESAbstract.Type", "_ESAbstract.Call"],
+	"spec": "https://tc39.github.io/ecma262/#sec-iteratornext",
+	"license": "MIT"
 }

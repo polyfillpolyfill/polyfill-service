@@ -1,12 +1,5 @@
 {
-	"aliases": [
-		"default-3.3",
-		"default-3.4",
-		"default-3.5",
-		"default-3.6",
-		"default",
-		"caniuse:datauri"
-	],
+	"aliases": ["default-3.3", "default-3.4", "default-3.5", "default-3.6", "default", "caniuse:datauri"],
 	"browsers": {
 		"ie": "<10"
 	},
@@ -17,5 +10,6 @@
 	"install": {
 		"module": "Base64",
 		"paths": ["base64.js"]
-	}
+	},
+	"dependencies": []
 }

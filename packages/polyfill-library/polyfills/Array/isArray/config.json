@@ -20,5 +20,6 @@
 		"_ESAbstract.IsArray"
 	],
 	"spec": "https://tc39.github.io/ecma262/#sec-isarray",
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray",
+	"license":"MIT"
 }

@@ -1,15 +1,11 @@
 {
-	"aliases": [
-		"caniuse:console-basic"
-	],
+	"aliases": ["caniuse:console-basic"],
 	"browsers": {
 		"ie": "*",
 		"firefox": "1 - 4"
 	},
-	"dependencies": [
-		"Window",
-		"console"
-	],
+	"dependencies": ["Window", "console"],
 	"spec": "https://console.spec.whatwg.org",
-	"docs": "https://developer.mozilla.org/en/docs/Web/API/console"
+	"docs": "https://developer.mozilla.org/en/docs/Web/API/console",
+	"license": "MIT"
 }

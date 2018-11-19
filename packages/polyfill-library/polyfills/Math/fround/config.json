@@ -1,8 +1,5 @@
 {
-	"aliases": [
-		"es6",
-		"es2015"
-	],
+	"aliases": ["es6", "es2015"],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -18,10 +15,8 @@
 		"safari": "<8",
 		"firefox_mob": "<26"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_TypedArray"
-	],
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_TypedArray"],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround",
-	"spec": "https://tc39.github.io/ecma262/#sec-math.fround"
+	"spec": "https://tc39.github.io/ecma262/#sec-math.fround",
+	"license": "MIT"
 }

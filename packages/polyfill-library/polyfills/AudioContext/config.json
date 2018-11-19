@@ -1,12 +1,12 @@
 {
-	"aliases": [
-		"caniuse:audio-api",
-		"modernizr:webaudio"
-	],
+	"aliases": ["caniuse:audio-api", "modernizr:webaudio"],
+	"browsers": {},
+	"dependencies": [],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext",
 	"install": {
 		"module": "audio-context-polyfill",
 		"paths": ["AudioContext.js"]
 	},
+	"license": "MIT",
 	"repo": "https://github.com/JakeChampion/AudioContext"
 }

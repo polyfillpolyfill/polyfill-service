@@ -16,11 +16,7 @@
 		"firefox_mob": "*",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.GetPrototypeFromConstructor",
-		"Object.create",
-		"Object.defineProperty",
-		"Object.getPrototypeOf"
-	],
-	"spec": "https://tc39.github.io/ecma262/#sec-ordinarycreatefromconstructor"
+	"dependencies": ["_ESAbstract.GetPrototypeFromConstructor", "Object.create", "Object.defineProperty", "Object.getPrototypeOf"],
+	"spec": "https://tc39.github.io/ecma262/#sec-ordinarycreatefromconstructor",
+	"license": "MIT"
 }

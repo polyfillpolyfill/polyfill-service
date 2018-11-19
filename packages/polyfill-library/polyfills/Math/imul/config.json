@@ -1,8 +1,5 @@
 {
-	"aliases": [
-		"es6",
-		"es2015"
-	],
+	"aliases": ["es6", "es2015"],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -20,10 +17,8 @@
 		"safari": "4 - 6.1",
 		"firefox_mob": "1 - 19"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_ESAbstract.ToUint32"
-	],
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_ESAbstract.ToUint32"],
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/imul",
-	"spec": "https://tc39.github.io/ecma262/#sec-math.imul"
+	"spec": "https://tc39.github.io/ecma262/#sec-math.imul",
+	"license": "MIT"
 }

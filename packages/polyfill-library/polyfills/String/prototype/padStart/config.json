@@ -1,8 +1,5 @@
 {
-	"aliases": [
-		"es7",
-		"es2016"
-	],
+	"aliases": ["es7", "es2016"],
 	"browsers": {
 		"android": "*",
 		"bb": "*",
@@ -18,11 +15,7 @@
 		"firefox_mob": "<48",
 		"samsung_mob": "*"
 	},
-	"dependencies": [
-		"_ESAbstract.CreateMethodProperty",
-		"_ESAbstract.RequireObjectCoercible",
-		"_ESAbstract.ToString",
-		"_ESAbstract.ToLength"
-	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart"
+	"dependencies": ["_ESAbstract.CreateMethodProperty", "_ESAbstract.RequireObjectCoercible", "_ESAbstract.ToString", "_ESAbstract.ToLength"],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart",
+	"license": "MIT"
 }

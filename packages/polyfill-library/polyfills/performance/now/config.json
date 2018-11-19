@@ -15,5 +15,6 @@
 	"dependencies": [
 		"Date.now"
 	],
-	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Performance/now"
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Performance/now",
+	"license":"MIT"
 }

@@ -13,5 +13,10 @@
 		"pageYOffset",
 		"scrollX",
 		"scrollY"
-	]
+	],
+	"license": "MIT",
+	"notes":[],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollX",
+	"spec": "https://drafts.csswg.org/cssom-view/#dom-window-scrollx",
+	"repo": "https://github.com/Financial-Times/polyfill-service/packages/polyfill-library/polyfills/~viewport/polyfill.js"
 }
