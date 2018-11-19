@@ -82,6 +82,7 @@
     "mockery": "^1.7.0",
     "nyc": "^10.0.0",
     "proclaim": "^3.5.0",
-    "sinon": "^4.0.1"
+    "sinon": "^4.0.1",
+    "spdx-license-list": "^5.0.0"
   }
 }
