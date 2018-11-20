@@ -113,7 +113,7 @@ jobs:
       - run: "sudo ~/project/.circleci/install_heroku.sh"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
-      - run: "heroku pipelines:promote --app origami-polyfill-service-eu"
+      - run: "heroku pipelines:promote --app origami-polyfill-service-qa-eu --to origami-polyfill-service-eu,origami-polyfill-service-us"
       - run: |
           cd ~/project/packages/polyfill-service/
           rm -f terraform.tfstate
