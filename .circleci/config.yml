@@ -110,6 +110,9 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
+      - run: "sudo ~/project/.circleci/install_heroku.sh"
+      - run: "bash ~/project/.circleci/create_netrc_file.sh"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: "heroku pipelines:promote --app origami-polyfill-service-eu"
       - run: |
           cd ~/project/packages/polyfill-service/
