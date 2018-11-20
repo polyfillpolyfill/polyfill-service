@@ -89,18 +89,15 @@ sub vcl_recv {
 }
 
 sub vcl_hash {
-	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
-		if (req.http.Fastly-Debug) {
-			call breadcrumb_hash;
-		}
-
-		# We are not adding req.http.host to the hash because we want https://cdn.polyfill.io and https://polyfill.io to be a single object in the cache.
-		# set req.hash += req.http.host;
-		set req.hash += req.url;
-		# We include return(hash) to stop the function falling through to the default VCL built into varnish, which for vcl_hash will add req.url and req.http.Host to the hash.
-		return(hash);
+	if (req.http.Fastly-Debug) {
+		call breadcrumb_hash;
 	}
+
+	# We are not adding req.http.host to the hash because we want https://cdn.polyfill.io and https://polyfill.io to be a single object in the cache.
+	# set req.hash += req.http.host;
+	set req.hash += req.url;
+	# We include return(hash) to stop the function falling through to the default VCL built into varnish, which for vcl_hash will add req.url and req.http.Host to the hash.
+	return(hash);
 }
 
 sub vcl_miss {
