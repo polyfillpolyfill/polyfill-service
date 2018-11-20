@@ -104,7 +104,7 @@ jobs:
           cd ~/project/packages/polyfill-library/
           npm ci
           echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/project/.npmrc
-          npm publish --dry-run
+          npm publish
   deploy_service_production:
     docker:
       - image: "circleci/node:10"
