@@ -7,7 +7,9 @@ before(function(done) {
 	var head = document.head || document.getElementsByTagName('head')[0];
 	var scriptEl = document.createElement('script');
 	var readywait = null;
-	scriptEl.src = 'https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.js';
+	scriptEl.src = 'https://cdn.jsdelivr.net/npm/sinon@1.15.4/pkg/sinon.js';
+	scriptEl.integrity = 'sha384-LlnC/lp2F2Eof99zkUXeTShqREmtqBk+NThEADCzqlEDjjuhUIS7XXxYd9niLHXh';
+	scriptEl.crossorigin = 'anonymous';
 	scriptEl.onload = function() {
 		clearTimeout(readywait);
 		done();
@@ -174,31 +176,16 @@ describe('IntersectionObserver', function() {
 
 
 		it('throws when a threshold is not a number', function() {
-			try {
-				proclaim.throws(function () {
-					io = new IntersectionObserver(noop, { threshold: ['foo'] });
-				}, /threshold/i);
-			} catch (err) {
-				// Chrome 60's error text does not contain the word `threshold`.
-				try {
-					proclaim.throws(function () {
-						io = new IntersectionObserver(noop, { threshold: ['foo'] });
-					}, "Failed to construct 'IntersectionObserver': The provided double value is non-finite.");
-				} catch (err) {
-					// Firefox 55's error text does not contain the word `threshold`.
-					proclaim.throws(function () {
-						io = new IntersectionObserver(noop, { threshold: ['foo'] });
-					}, "Element of member of DoubleOrDoubleSequence is not a finite floating-point value.");
-				}
-
-			}
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop, { threshold: ['foo'] });
+			});
 		});
 
 
 		it('throws when a threshold value is not between 0 and 1', function() {
 			proclaim.throws(function() {
 				io = new IntersectionObserver(noop, {threshold: [0, -1]});
-			}, /threshold/i);
+			});
 		});
 
 	});
@@ -207,18 +194,10 @@ describe('IntersectionObserver', function() {
 	describe('observe', function() {
 
 		it('throws when target is not an Element', function () {
-			try {
-				proclaim.throws(function () {
-					io = new IntersectionObserver(noop);
-					io.observe(null);
-				}, /element/i);
-			} catch (err) {
-				// Firefox 55's error text does not contain the word `element`.
-				proclaim.throws(function () {
-					io = new IntersectionObserver(noop);
-					io.observe(null);
-				}, 'Argument 1 of IntersectionObserver.observe is not an object.');
-			}
+			proclaim.throws(function () {
+				io = new IntersectionObserver(noop);
+				io.observe(null);
+			});
 		});
 
 
@@ -255,41 +234,41 @@ describe('IntersectionObserver', function() {
 		it('handles container elements with non-visible overflow',
 				function(done) {
 
-			var spy = sinon.spy();
-			io = new IntersectionObserver(spy, {root: rootEl});
-
-			runSequence([
-				function(done) {
-					io.observe(targetEl1);
-					setTimeout(function() {
-						proclaim.equal(spy.callCount, 1);
-						var records = sortRecords(spy.lastCall.args[0]);
-						proclaim.equal(records.length, 1);
-						proclaim.equal(records[0].intersectionRatio, 1);
-						done();
-					}, ASYNC_TIMEOUT);
-				},
-				function(done) {
-					targetEl1.style.left = '-40px';
-					setTimeout(function() {
-						proclaim.equal(spy.callCount, 2);
-						var records = sortRecords(spy.lastCall.args[0]);
-						proclaim.equal(records.length, 1);
-						proclaim.equal(records[0].intersectionRatio, 0);
-						done();
-					}, ASYNC_TIMEOUT);
-				},
-				function(done) {
-					parentEl.style.overflow = 'visible';
-					setTimeout(function() {
-						proclaim.equal(spy.callCount, 3);
-						var records = sortRecords(spy.lastCall.args[0]);
-						proclaim.equal(records.length, 1);
-						proclaim.equal(records[0].intersectionRatio, 1);
-						done();
-					}, ASYNC_TIMEOUT);
-				}
-			], done);
+					var spy = sinon.spy();
+					io = new IntersectionObserver(spy, {root: rootEl});
+			  
+					runSequence([
+					  function(done) {
+						io.observe(targetEl1);
+						setTimeout(function() {
+						  proclaim.equal(spy.callCount, 1);
+						  var records = sortRecords(spy.lastCall.args[0]);
+						  proclaim.equal(records.length, 1);
+						  proclaim.equal(records[0].intersectionRatio, 1);
+						  done();
+						}, ASYNC_TIMEOUT);
+					  },
+					  function(done) {
+						targetEl1.style.left = '-40px';
+						setTimeout(function() {
+						  proclaim.equal(spy.callCount, 2);
+						  var records = sortRecords(spy.lastCall.args[0]);
+						  proclaim.equal(records.length, 1);
+						  proclaim.equal(records[0].intersectionRatio, 0);
+						  done();
+						}, ASYNC_TIMEOUT);
+					  },
+					  function(done) {
+						parentEl.style.overflow = 'visible';
+						setTimeout(function() {
+						  proclaim.equal(spy.callCount, 3);
+						  var records = sortRecords(spy.lastCall.args[0]);
+						  proclaim.equal(records.length, 1);
+						  proclaim.equal(records[0].intersectionRatio, 1);
+						  done();
+						}, ASYNC_TIMEOUT);
+					  }
+					], done);
 		});
 
 
