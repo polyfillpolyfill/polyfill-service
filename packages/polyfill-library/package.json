@@ -1,6 +1,6 @@
 {
   "name": "polyfill-library",
-  "version": "3.27.0",
+  "version": "0.0.0",
   "description": "A polyfill combinator",
   "main": "lib/index.js",
   "contributors": [
