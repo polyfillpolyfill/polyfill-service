@@ -1,0 +1,9 @@
+{
+  "browsers": {
+    "ie": "8"
+  },
+  "license": "ISC",
+  "repo": "https://github.com/Alhadis/Fix-IE/blob/master/src/IE8-child-elements.js",
+  "spec": "http://www.w3.org/TR/ElementTraversal/#attribute-nextElementSibling",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/nextElementSibling"
+}

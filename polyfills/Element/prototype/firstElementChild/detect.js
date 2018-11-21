@@ -1,0 +1,1 @@
+"Element" in this && "firstElementChild" in document.documentElement
