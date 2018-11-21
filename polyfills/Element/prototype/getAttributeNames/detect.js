@@ -1,0 +1,1 @@
+'getAttributeNames' in document.documentElement
