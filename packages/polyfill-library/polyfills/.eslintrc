@@ -1,0 +1,40 @@
+{
+	"env": {
+		"es6": false,
+		"browser": true,
+		"node": false
+	},
+	"rules": {
+		"no-unused-vars": 2,
+		"no-undef": 1,
+		"eqeqeq": 0,
+		"guard-for-in": 0,
+		"no-extend-native": 0,
+		"wrap-iife": 2,
+		"new-cap": 0,
+		"no-caller": 2,
+		"no-multi-str": 0,
+		"dot-notation": 0,
+		"semi": [2, "always"],
+		"strict": [0],
+		"valid-jsdoc": 0,
+		"no-irregular-whitespace": 1,
+		"no-multi-spaces": 2,
+		"one-var": 0,
+		"constructor-super": 2,
+		"no-this-before-super": 2,
+		"no-var": 0,
+		"prefer-const": 0,
+		"no-const-assign": 0
+	},
+	"globals": {
+		"ActiveXObject": true,
+		"ArrayIterator": true,
+		"_DOMTokenList": true,
+		"_mutation": true,
+		"mozRequestAnimationFrame": true,
+		"mozCancelAnimationFrame": true,
+		"webkitRequestAnimationFrame": true,
+		"webkitCancelAnimationFrame": true
+	}
+}

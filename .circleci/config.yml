@@ -1,116 +1,210 @@
-version: 2
+version: 2.1
 
-references:
-
-  container_config: &container_config
-    docker:
-      - image: circleci/node:8
-
-  repo_cache_key: &repo_cache_key
-    v1-repo-{{ .Branch }}-{{ .Revision }}
-
-  restore_repo: &restore_repo
-    restore_cache:
-      keys:
-        - *repo_cache_key
-
-  cache_repo: &cache_repo
-    save_cache:
-      key: v1-repo-{{ .Branch }}-{{ .Revision }}
-      paths:
-        - .
-
-  npm_cache_key: &npm_cache_key
-    v1-dependency-npm-{{ checksum "package-lock.json" }}
-
-  restore_node_modules: &restore_node_modules
-    restore_cache:
-      keys:
-        - *npm_cache_key
-
-  cache_node_modules: &cache_node_modules
-    save_cache:
-      key: *npm_cache_key
-      paths:
-        - ./node_modules
 jobs:
-  build:
-    <<: *container_config
+  lint_terraform:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - checkout
-      - *restore_node_modules
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - *cache_node_modules
-      - *cache_repo
-
-  validate_js:
-    <<: *container_config
+      - "checkout"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: "terraform fmt -check=true ~/project/packages/polyfill-service/fastly/terraform/"
+  lint_js:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - run:
-          name: Validate JS formatting
-          command: "npm run lint"
-
-  validate_vcl:
-    <<: *container_config
+      - "checkout"
+      - run: "cd ~/project/packages/polyfill-library/ && npm ci && npm run lint"
+      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run lint"
+  unit_tests:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - run:
-          name: Validate VCL
-          command: "npm run deploy-vcl -- --dryRun"
-
-  test_node:
-    <<: *container_config
+      - "checkout"
+      - run: "cd ~/project/packages/polyfill-library/ && npm ci && npm run test"
+      - run: "cd ~/project/packages/polyfill-service/ && npm ci && npm run test-unit"
+  deploy_dev:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - run:
-          name: Test server JS
-          command: "npm run test-node && npm run test-node-unit && npm run test-integration"
-
-  test_polyfills:
-    <<: *container_config
+      - "checkout"
+      - run: "bash ~/project/.circleci/create_netrc_file.sh"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          rm -f terraform.tfstate
+          rm fastly/terraform/qa_override.tf
+          rm fastly/terraform/production_override.tf
+          terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_DEV
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
+          sleep 60
+  integration_tests_dev:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - run:
-          name: Install Alpine dependencies
-          command: sudo curl -L -o /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32
-      - run:
-          name: Test polyfills
-          command: ".circleci/do-exclusively.sh npm run test-browser-ci"
-
-  test_vcl:
-    <<: *container_config
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
+  polyfill_tests_dev:
+    docker:
+      - image: "circleci/node:10"
     steps:
-      - *restore_repo
-      - run:
-          name: Test vcl
-          command: "npm run test-vcl"
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-polyfills
+  deploy_staging:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "bash ~/project/.circleci/create_netrc_file.sh"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          rm -f terraform.tfstate
+          rm fastly/terraform/dev_override.tf
+          rm fastly/terraform/production_override.tf
+          terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
+          sleep 60
+  integration_tests_staging:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          HOST=https://qa.polyfill.io npm run test-integration
+  polyfill_tests_staging:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          npm ci
+          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-polyfills
+  publish_library_to_npm:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: |
+          cd ~/project/packages/polyfill-library/
+          npm ci
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+          npm publish
+  deploy_service_production:
+    docker:
+      - image: "circleci/node:10"
+    steps:
+      - "checkout"
+      - run: "sudo ~/project/.circleci/install_heroku.sh"
+      - run: "bash ~/project/.circleci/create_netrc_file.sh"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: "heroku pipelines:promote --app origami-polyfill-service-qa-eu --to origami-polyfill-service-eu,origami-polyfill-service-us"
+      - run: |
+          cd ~/project/packages/polyfill-service/
+          rm -f terraform.tfstate
+          rm fastly/terraform/dev_override.tf
+          rm fastly/terraform/qa_override.tf
+          terraform init fastly/terraform/
+          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
+          rm -f fastly/terraform/domains_override.tf
+          terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
 
 workflows:
-  version: 2
   test:
     jobs:
-      - build
-
-      - validate_js:
+      - lint_terraform:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
+      - lint_js:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
+      - unit_tests:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
+      - deploy_dev:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
           requires:
-            - build
-
-      - validate_vcl:
+            - lint_terraform
+            - lint_js
+            - unit_tests
+      - integration_tests_dev:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
           requires:
-            - build
-
-      - test_node:
+            - deploy_dev
+      - polyfill_tests_dev:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
           requires:
-            - build
-
-      - test_polyfills:
+            - integration_tests_dev
+      - deploy_staging:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              only:
+               - master
+      - integration_tests_staging:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              only:
+                - master
           requires:
-            - build
-
-      - test_vcl:
+            - deploy_staging
+      - polyfill_tests_staging:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              only:
+                - master
           requires:
-            - build
+            - integration_tests_staging
+      - publish_library_to_npm:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deploy_service_production:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

@@ -1,0 +1,24 @@
+{
+	"aliases": [
+		"es5"
+	],
+	"browsers": {
+		"ie": "<9",
+		"ie_mob": "*",
+		"chrome": "<6",
+		"safari": "<5.1",
+		"ios_saf": "*",
+		"firefox": "<4",
+		"firefox_mob": "*",
+		"android": "*",
+		"opera": "<12",
+		"op_mob": "*",
+		"op_mini": "*",
+		"samsung_mob": "<6",
+		"bb": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze"
+}

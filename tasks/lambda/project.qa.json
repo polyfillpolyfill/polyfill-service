@@ -1,7 +1,0 @@
-{
-  "name": "origami-polyfill",
-  "description": "AWS Lambda functions for Polyfill service tasks",
-  "timeout": 5,
-  "memory": 256,
-  "runtime": "nodejs4.3"
-}

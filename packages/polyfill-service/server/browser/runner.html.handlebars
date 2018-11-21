@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{feature}} - Mocha test suite for polyfill-service</title>
+
+
+	<!-- Test and expectation libraries -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mocha@3.5.3/mocha.css" integrity="sha384-peFN/dAgQM15oG9hq7R2XFqygZvlIwfh0N/yonT0AbAH27KR1pnlAhC37gnQS/sU" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/mocha@3.5.3/mocha.js" integrity="sha384-Sq7Up5n+7NK1CBABARX/p2MKhlrEEvcXDh+DklPqgKQbUXHdq/Elui08NSDAK4Zr" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/proclaim@3.5.1/lib/proclaim.js" integrity="sha384-G4M2DbnMXyN0fKkIgv0ptlQ30vmA4UYroxBAX9vnx67ZoEoIfeh96ydJVrpofyv1" crossorigin="anonymous"></script>
+	<script>
+		proclaim.arity = function (fn, expected) {
+			proclaim.isFunction(fn);
+			proclaim.strictEqual(fn.length, expected);
+		};
+		proclaim.hasName = function (fn, expected) {
+			var functionsHaveNames = (function foo() { }).name === 'foo';
+			if (functionsHaveNames) {
+				proclaim.strictEqual(fn.name, expected);
+			} else {
+				proclaim.equal(Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1], expected);
+			}
+		};
+		proclaim.nonEnumerable = function (obj, prop) {
+			var arePropertyDescriptorsSupported = function () {
+				var obj = window;
+				try {
+					Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+					/* eslint-disable no-unused-vars, no-restricted-syntax */
+					for (var _ in obj) { return false; }
+					/* eslint-enable no-unused-vars, no-restricted-syntax */
+					var result = obj.x === obj;
+					delete obj.x;
+					return result;
+				} catch (e) { // this is IE 8.
+					return false;
+				}
+			};
+			if (Object.defineProperty && arePropertyDescriptorsSupported()) {
+				proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(obj, prop));
+			}
+		};
+
+		proclaim.enumerable = function (obj, prop) {
+			var arePropertyDescriptorsSupported = function () {
+				var obj = window;
+				try {
+					Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+					/* eslint-disable no-unused-vars, no-restricted-syntax */
+					for (var _ in obj) { return false; }
+					/* eslint-enable no-unused-vars, no-restricted-syntax */
+					var result = obj.x === obj;
+					delete obj.x;
+					return result;
+				} catch (e) { // this is IE 8.
+					return false;
+				}
+			};
+			if (Object.defineProperty && arePropertyDescriptorsSupported()) {
+				proclaim.isTrue(Object.prototype.propertyIsEnumerable.call(obj, prop));
+			}
+		};
+		proclaim.isGetter = function (obj, prop) {
+			if ('getOwnPropertyDescriptor' in Object) {
+				proclaim.isFunction(Object.getOwnPropertyDescriptor(obj, prop).get);
+			}
+		};
+		proclaim.isNaN = function (value) {
+			proclaim.isTrue(value !== value);
+		};
+		proclaim.notNaN = function (value) {
+			proclaim.isTrue(value === value);
+		};
+		proclaim.almostEqual = function(a, b, precision) {
+			if (precision === null || precision === undefined) {
+				precision = 7;
+			}
+			proclaim.isTrue(Math.abs(a - b) < 0.5 * Math.pow(10, -precision));
+		}
+	</script>
+
+	<!-- Initalise Mocha -->
+	<script>mocha.setup('bdd')</script>
+
+	{{#loadPolyfill}}
+		<!-- Code under test -->
+		<script src='/v3/polyfill.js?flags={{#forceAlways}}always{{/forceAlways}}&amp;features={{#features}}{{feature}},{{/features}}'></script>
+	{{/loadPolyfill}}
+
+	<!-- Tests -->
+	<script>
+	{{#features}}
+	describe('{{feature}}', function() {
+		it('is running the test framework', function() {
+			proclaim.ok(true);
+		});
+		{{#detect}}
+		it('passes a feature detect', function() {
+			proclaim.ok((function() {
+				return ({{{.}}});
+			}).call(window));
+		});
+		{{/detect}}
+		{{#tests}}
+			{{{.}}}
+		{{/tests}}
+	});
+	{{/features}}
+	</script>
+</head>
+<body>
+
+	<div id="mocha"></div>
+
+	<script>
+
+	// Given a test, get the first level suite that it is contained within
+	// Not the top level, the first one down.
+	function getFirstLevelSuite(test) {
+		var parent = test;
+
+		while (parent && parent.parent && parent.parent.parent) {
+			parent = parent.parent;
+		}
+
+		return parent.title;
+	}
+
+	// During the test run, surface the test results in Sauce Labs' preferred format
+	function run() {
+		var runner = mocha.run();
+		var results = {
+			state: 'complete',
+			passed: 0,
+			failed: 0,
+			total: 0,
+			duration: 0,
+			tests: [],
+			failingSuites: {},
+			testedSuites: [],
+			uaString: window.navigator.userAgent || 'unknown'
+		};
+		runner.on('pass', function(test) {
+			results.passed++;
+			results.total++;
+		});
+
+		runner.on('fail', function(test, err) {
+
+			// Get a set of all the suites with failing tests in them.
+			if (test.parent) {
+				results.failingSuites[getFirstLevelSuite(test)] = true;
+			}
+
+			results.failed++;
+			results.total++;
+			results.tests.push({
+				name: test.fullTitle(),
+				result: false,
+				message: err.message,
+				stack: err.stack,
+				failingSuite: getFirstLevelSuite(test)
+			});
+		});
+
+		runner.on('suite', function(suite) {
+			results.testedSuites.push(getFirstLevelSuite(suite));
+		});
+
+		runner.on('end', function() {
+
+			// Discount one for the 'running the test suite' test
+			results.passed--;
+
+			window.global_test_results = results;
+			if (parent && parent.receiveTestResults) {
+				var flist = "{{#features}}{{feature}},{{/features}}".split(",").slice(0, -1);
+				parent.receiveTestResults(flist, results);
+			}
+		});
+	}
+
+	window.onload = run;
+
+	</script>
+</body>
+</html>

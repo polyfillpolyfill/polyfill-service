@@ -1,0 +1,1 @@
+"Element" in this && "textContent" in document.documentElement
