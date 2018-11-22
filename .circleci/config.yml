@@ -13,15 +13,15 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run lint"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run lint"
+      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile --ignore-engines && npm run lint"
+      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile --ignore-engines && npm run lint"
   unit_tests:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run test"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run test-unit"
+      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile --ignore-engines && npm run test"
+      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile --ignore-engines && npm run test-unit"
   deploy_dev:
     docker:
       - image: "circleci/node:10"
@@ -47,7 +47,7 @@ jobs:
       - "checkout"
       - run: |
           cd ~/project/packages/polyfill-service/
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --ignore-engines
           HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
   polyfill_tests_dev:
     docker:
@@ -56,7 +56,7 @@ jobs:
       - "checkout"
       - run: |
           cd ~/project/packages/polyfill-service/
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --ignore-engines
           BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-polyfills
   deploy_staging:
     docker:
@@ -84,7 +84,7 @@ jobs:
       - "checkout"
       - run: |
           cd ~/project/packages/polyfill-service/
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --ignore-engines
           HOST=https://qa.polyfill.io npm run test-integration
   polyfill_tests_staging:
     docker:
@@ -93,7 +93,7 @@ jobs:
       - "checkout"
       - run: |
           cd ~/project/packages/polyfill-service/
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --ignore-engines
           BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-polyfills
   publish_library_to_npm:
     docker:
@@ -102,7 +102,7 @@ jobs:
       - "checkout"
       - run: |
           cd ~/project/packages/polyfill-library/
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --ignore-engines
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
           npm publish
   deploy_service_production:
