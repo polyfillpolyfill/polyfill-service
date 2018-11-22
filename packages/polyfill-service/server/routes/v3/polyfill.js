@@ -2,18 +2,18 @@
 
 const sha256 = require("../../lib/sha-256");
 const compressBundle = require("../../lib/compress-bundle");
-const createPolyfillLibrary = require("../../lib/create-polyfill-library");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
-const createPolyfillBundle = require("../../lib/create-polyfill-bundle");
 const latestVersion = require("polyfill-library/package.json").version;
+const PolyfillLibrary = require("polyfill-library");
 const polyfillio_3_25_2 = require("polyfill-library-3.25.2");
+
 module.exports = app => {
 	app.get(["/v3/polyfill.js", "/v3/polyfill.min.js"], async (request, response) => {
 		const params = getPolyfillParameters(request);
 		switch (params.version) {
 			case latestVersion: {
-				const polyfillio = await createPolyfillLibrary(params.version);
-				const bundle = await createPolyfillBundle(params, polyfillio);
+				const polyfillio = new PolyfillLibrary();
+				const bundle = await polyfillio.getPolyfillString(params);
 				const etag = await sha256(bundle);
 				const file = await compressBundle(params.compression, bundle);
 				response.status(200);
