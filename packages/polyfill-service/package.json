@@ -52,7 +52,7 @@
     "moment": "^2.22.2",
     "origami-build-tools": "^7.7.5",
     "polyfill-library": "file:../polyfill-library",
-    "polyfill-library-3.25.2": "npm:polyfill-service@3.25.2",
+    "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",
     "throng": "^4.0.0",
     "utf8": "^3.0.0"

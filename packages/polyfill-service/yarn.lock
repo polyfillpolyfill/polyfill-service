@@ -8111,10 +8111,10 @@ pluralize@^7.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
   integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
 
-"polyfill-library-3.25.2@npm:polyfill-service@3.25.2":
-  version "3.25.2"
-  resolved "https://registry.yarnpkg.com/polyfill-service/-/polyfill-service-3.25.2.tgz#586508b684a1eca814cf66cca15128eb9b60910e"
-  integrity sha512-wibJWvyysWhwlMq+C4AqDHs8UiClzUm/BXkbtvKfV5QeAbk5R7IRUQzALQrgOupwtxB0RXJuGKFO2ARgidINng==
+"polyfill-library-3.25.3@npm:polyfill-service@3.25.3":
+  version "3.25.3"
+  resolved "https://registry.yarnpkg.com/polyfill-service/-/polyfill-service-3.25.3.tgz#58708f510bf227d59e0bdb306282a88cf62dd069"
+  integrity sha512-gYFh3htyCJJR/hp2GFEZB0gGfmJjtBWHaVK3uOYnp3qdyPVhD0Nbv6CFt+kDJT7Vi4eXvRwoOM/pA04NK90c3g==
   dependencies:
     Base64 "^1.0.0"
     array.of "^0.1.1"

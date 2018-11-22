@@ -4,7 +4,7 @@ const compressBundle = require("../../lib/compress-bundle");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const PolyfillLibrary = require("polyfill-library");
-const polyfillio_3_25_2 = require("polyfill-library-3.25.2");
+const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 
 async function respondWithBundle(response, params, bundle) {
 	const file = await compressBundle(params.compression, bundle);
@@ -29,8 +29,10 @@ module.exports = app => {
 				await respondWithBundle(response, params, bundle);
 				break;
 			}
-			case "3.25.2": {
-				let bundle = await polyfillio_3_25_2.getPolyfillString(params);
+			case "3.25.3":
+			case "3.25.2":
+			case "3.25.1": {
+				let bundle = await polyfillio_3_25_3.getPolyfillString(params);
 
 				if (params.callback) {
 					bundle += "\ntypeof " + params.callback + "==='function' && " + params.callback + "();";
