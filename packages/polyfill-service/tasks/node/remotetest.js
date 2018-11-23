@@ -21,7 +21,7 @@ const fs = require("fs-extra");
 const argv = require("minimist")(process.argv.slice(2));
 const cli = require("cli-color");
 const _ = require("lodash");
-const UA = require("./../../../polyfill-library/lib/UA");
+const UA = require("polyfill-library/lib/UA");
 const TestJob = require("./test-job");
 
 // Grab all the browsers from BrowserStack which are officially supported by the polyfil service.

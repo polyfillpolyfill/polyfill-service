@@ -26,16 +26,9 @@ function setsToArrays(obj) {
 describe("get-polyfill-parameters", function() {
 	this.timeout(30000);
 	let getPolyfillParameters;
-	let s3;
 
 	beforeEach(() => {
 		getPolyfillParameters = require("../../../server/lib/get-polyfill-parameters");
-
-		s3 = {
-			putObject: sinon.stub()
-		};
-		s3.putObject.promise = sinon.stub().resolves();
-		s3.putObject.returns(s3.putObject);
 	});
 
 	it("exports a function", () => {
