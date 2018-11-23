@@ -1,21 +1,7 @@
 "use strict";
 
-function featuresfromQueryParam(features, flags) {
-	features = features.split(",");
-	flags = flags ? flags.split(",") : [];
-
-	features = features.filter(x => x.length).map(x => x.replace(/[\*\/]/g, "")); // Eliminate XSS vuln
-
-	return features.sort().reduce((obj, feature) => {
-		const [name, ...featureSpecificFlags] = feature.split("|");
-		obj[name] = {
-			flags: new Set(featureSpecificFlags.concat(flags))
-		};
-		return obj;
-	}, {});
-}
-
 const latestVersion = require("polyfill-library/package.json").version;
+const featuresfromQueryParam = require("./features-from-query-parameter");
 
 module.exports = function getPolyfillParameters(req = {}) {
 	const query = req.query || {};
