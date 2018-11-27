@@ -1,0 +1,26 @@
+{
+	"aliases": [],
+	"browsers": {
+		"chrome": "<69",
+		"edge": "*",
+		"edge_mob": "*",
+		"firefox": "<62",
+		"ie": "*",
+		"opera": "<56",
+		"safari": "<12",
+		"ios_saf": "<12",
+		"ios_chr": "*",
+		"android": "<69",
+		"op_mob": "*",
+		"op_mini": "*",
+		"ie_mob": "*",
+		"firefox_mob": "*",
+		"samsung_mob": "<5",
+		"bb": "*"
+	},
+	"dependencies": [
+		"_ESAbstract.CreateMethodProperty"
+	],
+	"spec": "https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flat",
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat"
+}
