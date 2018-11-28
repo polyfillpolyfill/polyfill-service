@@ -1703,25 +1703,10 @@ browserslist@^3.2.6:
     caniuse-lite "^1.0.30000844"
     electron-to-chromium "^1.3.47"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 browserstack-local@^1.3.7:
-=======
-browserstack-local@^1.3.3:
->>>>>>> update lock
-=======
-browserstack-local@^1.3.7:
->>>>>>> k
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/browserstack-local/-/browserstack-local-1.3.7.tgz#cac9fc958eaa0a352e8f1ca1dc91bb141ba5da6f"
   integrity sha512-ilZlmiy7XYJxsztYan7XueHVr3Ix9EVh/mCiYN1G53wRPEW/hg1KMsseM6UExzVbexEqFEfwjkBLeFlSqxh+bQ==
-=======
-browserstack-local@^1.3.3:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/browserstack-local/-/browserstack-local-1.3.5.tgz#d95f299a9b312e7d275204eb0f7d2e924e56da7f"
-  integrity sha512-vBOMeiC1fDd0aDSKKx3smDyPOIQWyTy63pNh9i3XEbeAW/GBaQt1bGse9P0tVxuLwTfq8dFJtMqSIAwHO1sdKA==
->>>>>>> k
   dependencies:
     https-proxy-agent "^2.2.1"
     is-running "^2.0.0"
