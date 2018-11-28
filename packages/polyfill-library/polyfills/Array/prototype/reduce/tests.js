@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'reduce');
+	proclaim.isNotEnumerable(Array.prototype, 'reduce');
 });
 
 var spycalls = [];

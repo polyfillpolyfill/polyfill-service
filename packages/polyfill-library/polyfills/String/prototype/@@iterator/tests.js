@@ -15,7 +15,7 @@ it('has correct arity', function () {
 // });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(String.prototype, Symbol.iterator);
+	proclaim.isNotEnumerable(String.prototype, Symbol.iterator);
 });
 
 it('returns a next-able object', function () {

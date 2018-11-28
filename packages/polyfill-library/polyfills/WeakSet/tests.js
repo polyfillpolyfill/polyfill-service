@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(window, 'WeakSet');
+	proclaim.isNotEnumerable(window, 'WeakSet');
 });
 
 it("has valid constructor", function () {

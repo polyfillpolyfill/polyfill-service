@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(window, 'Map');
+	proclaim.isNotEnumerable(window, 'Map');
 });
 
 var arePropertyDescriptorsSupported = function() {

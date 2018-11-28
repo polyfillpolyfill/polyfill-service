@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Math, 'asinh');
+	proclaim.isNotEnumerable(Math, 'asinh');
 });
 
 it("Should return NaN if the parameter is NaN", function() {

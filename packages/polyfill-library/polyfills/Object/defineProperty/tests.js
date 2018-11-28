@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Object, 'defineProperty');
+	proclaim.isNotEnumerable(Object, 'defineProperty');
 });
 
 describe('Basic functionality', function () {
