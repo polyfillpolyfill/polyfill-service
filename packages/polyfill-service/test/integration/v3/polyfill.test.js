@@ -168,7 +168,6 @@ describe("generative tests", async function() {
 	for (let i = 0; i < 10; i++) {
 		let polyfills = originalPolyfills.slice(0);
 		const amountOfFeatures = Array(secureRandom(polyfills.length)).fill();
-		const amountOfExcludes = Array(secureRandom(polyfills.length)).fill();
 
 		const features = amountOfFeatures
 			.map(() => {
