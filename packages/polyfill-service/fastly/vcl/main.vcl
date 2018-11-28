@@ -33,22 +33,22 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	declare local var.features STRING;
 	set var.features = urldecode(subfield(req.url.qs, "features", "&"));
 	set var.features = if(var.features != "", var.features, "default");
-	if (std.strlen(var.features) < 200) {
-		set req.http.Sort-Parameter = var.features;
-		call sort_comma_separated_querystring_parameter;
-		set var.querystring = var.querystring "&features=" req.http.Sorted-Parameter;
-	} else {
+	# if (std.strlen(var.features) < 200) {
+	# 	set req.http.Sort-Parameter = var.features;
+	# 	call sort_comma_separated_querystring_parameter;
+	# 	set var.querystring = var.querystring "&features=" req.http.Sorted-Parameter;
+	# } else {
 		set var.querystring = var.querystring "&features=" var.features;
-	}
+	# }
 	declare local var.excludes STRING;
 	set var.excludes = urldecode(subfield(req.url.qs, "excludes", "&"));
-	if (std.strlen(var.excludes) < 200) {
-		set req.http.Sort-Parameter = var.excludes;
-		call sort_comma_separated_querystring_parameter;
-		set var.querystring = var.querystring "&excludes=" req.http.Sorted-Parameter;
-	} else {
+	# if (std.strlen(var.excludes) < 200) {
+	# 	set req.http.Sort-Parameter = var.excludes;
+	# 	call sort_comma_separated_querystring_parameter;
+	# 	set var.querystring = var.querystring "&excludes=" req.http.Sorted-Parameter;
+	# } else {
 		set var.querystring = var.querystring "&excludes=" var.excludes;
-	}
+	# }
 	declare local var.rum STRING;
 	set var.rum = urlencode(urldecode(subfield(req.url.qs, "rum", "&")));
 	set var.querystring = var.querystring "&rum=" if(var.rum != "", var.rum, "0");
