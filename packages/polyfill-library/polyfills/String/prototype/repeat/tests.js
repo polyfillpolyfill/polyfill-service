@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(String.prototype, 'repeat');
+	proclaim.isNotEnumerable(String.prototype, 'repeat');
 });
 
 // excellent tests provided by https://github.com/mathiasbynens/String.prototype.repeat

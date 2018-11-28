@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Number, 'isSafeInteger');
+	proclaim.isNotEnumerable(Number, 'isSafeInteger');
 });
 
 it('returns false if argument is not a number literal', function () {

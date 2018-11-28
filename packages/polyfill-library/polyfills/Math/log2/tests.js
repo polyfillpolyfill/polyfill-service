@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Math, 'log2');
+	proclaim.isNotEnumerable(Math, 'log2');
 });
 
 it('works as expected when called with no arguments', function () {

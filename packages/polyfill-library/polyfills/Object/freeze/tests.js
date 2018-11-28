@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Object, 'freeze');
+	proclaim.isNotEnumerable(Object, 'freeze');
 });
 
 var hasES6ObjectFreeze = true;

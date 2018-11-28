@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'every');
+	proclaim.isNotEnumerable(Array.prototype, 'every');
 });
 
 describe('callback', function () {

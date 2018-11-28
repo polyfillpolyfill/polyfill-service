@@ -12,7 +12,7 @@ describe.skip('DOMTokenList', function () {
 		});
 
 		it('is not enumerable', function () {
-			proclaim.nonEnumerable(window, 'DOMTokenList');
+			proclaim.isNotEnumerable(window, 'DOMTokenList');
 		});
 
 		it('has correct arity', function () {

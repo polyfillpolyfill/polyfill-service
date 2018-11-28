@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array, 'of');
+	proclaim.isNotEnumerable(Array, 'of');
 });
 
 describe('returns an array with', function () {
