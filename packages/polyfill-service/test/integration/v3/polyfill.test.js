@@ -173,41 +173,29 @@ describe("generative tests", async function() {
 		const features = amountOfFeatures
 			.map(() => {
 				const polyfill = polyfills[secureRandom(polyfills.length)];
-				// Including a feature more than once in either the `features` or `excludes` is the same as including it once, so our tests only include a feature once in either `features` or in `excludes`.
+				// Including a feature more than once in `features` is the same as including it once, so our tests only include a feature once in `features`.
 				polyfills = polyfills.filter(a => a !== polyfill);
 				return polyfill;
 			})
 			.filter(Boolean)
 			.join(",");
-		const excludes = amountOfExcludes
-			.map(() => {
-				const polyfill = polyfills[secureRandom(polyfills.length || 1)];
-				polyfills = polyfills.filter(a => a !== polyfill);
-				return polyfill;
-			})
-			.filter(Boolean)
-			.join(",");
-
 		const minify = [true, false][secureRandom(2)];
 		const rum = [true, false];
 		const unknown = ["polyfill", "ignore"];
 		const version = [require("polyfill-library/package.json").version];
 		const callback = [false, "Boolean"];
 		// TODO: Expose this from the polyfill-library package
-		const uaVersion = Array(70).fill();
+		const uaVersion = Array.from(Array(70).keys());
 		const uaFamily = ["ie", "ie_mob", "chrome", "safari", "ios_saf", "ios_chr", "firefox", "firefox_mob", "android", "opera", "op_mob", "op_mini", "bb", "samsung_mob"];
 		const ua = uaFamily[secureRandom(uaFamily.length)] + "/" + uaVersion[secureRandom(uaVersion.length)];
-
 		const qs = querystring.stringify({
 			rum: rum[secureRandom(rum.length)],
 			unknown: unknown[secureRandom(unknown.length)],
 			version: version[secureRandom(version.length)],
 			callback: callback[secureRandom(callback.length)],
-			ua: ua[secureRandom(ua.length)],
-			features,
-			excludes
+			ua,
+			features
 		});
-
 		const url = `/v3/polyfill${minify ? ".min.js" : ".js"}?${qs}`;
 		it(`GET ${host + url}`, async function() {
 			this.timeout(30000);
