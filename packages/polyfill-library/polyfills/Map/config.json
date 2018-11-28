@@ -13,6 +13,7 @@
 		"android": "<5.1",
 		"firefox_mob": "<29",
 		"ie_mob": "*",
+		"opera": "<25",
 		"opera_mob": "*",
 		"op_mini": "*",
 		"ios_saf": "<9",
