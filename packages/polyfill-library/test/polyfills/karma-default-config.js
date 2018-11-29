@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = function (config) {
+	config.feature = config.feature || 'polyfills/Symbol';
 	async function respondWithPolyfillBundle(request, response) {
 		const PolyfillLibrary = require("../../lib/index.js");
 		const polyfillio = new PolyfillLibrary();
@@ -38,7 +39,7 @@ module.exports = function (config) {
 		// list of files / patterns to load in the browser
 		files: [
 			"polyfill.js",
-			"https://cdn.jsdelivr.net/npm/proclaim@3.5.1/lib/proclaim.js",
+			"https://cdn.jsdelivr.net/npm/proclaim@3.6.0/lib/proclaim.js",
 			"tests.js"
 		],
 
