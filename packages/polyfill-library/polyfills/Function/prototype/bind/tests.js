@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Function.prototype, 'bind');
+	proclaim.isNotEnumerable(Function.prototype, 'bind');
 });
 
 it("Should be able to return a function with 'this' bound to the specified value", function(done){

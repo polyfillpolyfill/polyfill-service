@@ -15,7 +15,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'includes');
+	proclaim.isNotEnumerable(Array.prototype, 'includes');
 });
 
 it('handles arrays', function () {

@@ -9,77 +9,7 @@
 	<!-- Test and expectation libraries -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mocha@3.5.3/mocha.css" integrity="sha384-peFN/dAgQM15oG9hq7R2XFqygZvlIwfh0N/yonT0AbAH27KR1pnlAhC37gnQS/sU" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/mocha@3.5.3/mocha.js" integrity="sha384-Sq7Up5n+7NK1CBABARX/p2MKhlrEEvcXDh+DklPqgKQbUXHdq/Elui08NSDAK4Zr" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/proclaim@3.5.1/lib/proclaim.js" integrity="sha384-G4M2DbnMXyN0fKkIgv0ptlQ30vmA4UYroxBAX9vnx67ZoEoIfeh96ydJVrpofyv1" crossorigin="anonymous"></script>
-	<script>
-		proclaim.arity = function (fn, expected) {
-			proclaim.isFunction(fn);
-			proclaim.strictEqual(fn.length, expected);
-		};
-		proclaim.hasName = function (fn, expected) {
-			var functionsHaveNames = (function foo() { }).name === 'foo';
-			if (functionsHaveNames) {
-				proclaim.strictEqual(fn.name, expected);
-			} else {
-				proclaim.equal(Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\s*\(/)[1], expected);
-			}
-		};
-		proclaim.nonEnumerable = function (obj, prop) {
-			var arePropertyDescriptorsSupported = function () {
-				var obj = window;
-				try {
-					Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-					/* eslint-disable no-unused-vars, no-restricted-syntax */
-					for (var _ in obj) { return false; }
-					/* eslint-enable no-unused-vars, no-restricted-syntax */
-					var result = obj.x === obj;
-					delete obj.x;
-					return result;
-				} catch (e) { // this is IE 8.
-					return false;
-				}
-			};
-			if (Object.defineProperty && arePropertyDescriptorsSupported()) {
-				proclaim.isFalse(Object.prototype.propertyIsEnumerable.call(obj, prop));
-			}
-		};
-
-		proclaim.enumerable = function (obj, prop) {
-			var arePropertyDescriptorsSupported = function () {
-				var obj = window;
-				try {
-					Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
-					/* eslint-disable no-unused-vars, no-restricted-syntax */
-					for (var _ in obj) { return false; }
-					/* eslint-enable no-unused-vars, no-restricted-syntax */
-					var result = obj.x === obj;
-					delete obj.x;
-					return result;
-				} catch (e) { // this is IE 8.
-					return false;
-				}
-			};
-			if (Object.defineProperty && arePropertyDescriptorsSupported()) {
-				proclaim.isTrue(Object.prototype.propertyIsEnumerable.call(obj, prop));
-			}
-		};
-		proclaim.isGetter = function (obj, prop) {
-			if ('getOwnPropertyDescriptor' in Object) {
-				proclaim.isFunction(Object.getOwnPropertyDescriptor(obj, prop).get);
-			}
-		};
-		proclaim.isNaN = function (value) {
-			proclaim.isTrue(value !== value);
-		};
-		proclaim.notNaN = function (value) {
-			proclaim.isTrue(value === value);
-		};
-		proclaim.almostEqual = function(a, b, precision) {
-			if (precision === null || precision === undefined) {
-				precision = 7;
-			}
-			proclaim.isTrue(Math.abs(a - b) < 0.5 * Math.pow(10, -precision));
-		}
-	</script>
+	<script src="https://cdn.jsdelivr.net/npm/proclaim@3.6.0/lib/proclaim.js" integrity="sha256-IgPxuruljdDAptNzZbcTDmN2ZtgCoYhice5EtG0z23s= sha384-dwQ0XLV9y5OFXVpoxckmagxQ00RmNOMWGlsLeXfpKGjHsLD4gnuxy7L98xeRqqNW sha512-kSa++BCvAzCuN2qgR+AUaZVCH8mdgF4uU+hGo5fSjP+8wAkuyYVlfO8G1j+dkuh4sL1hzSi6IcpniFuAzIVgJg==" crossorigin="anonymous"></script>
 
 	<!-- Initalise Mocha -->
 	<script>mocha.setup('bdd')</script>

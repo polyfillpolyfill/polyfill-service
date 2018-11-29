@@ -175,7 +175,6 @@ sub vcl_deliver {
 			set resp.http.Debug-Backend = req.http.Debug-Backend;
 			set resp.http.Debug-Host = req.http.Host;
 			set resp.http.Debug-Fastly-Restarts = req.restarts;
-			set resp.http.Debug-URL = req.url;
 			set resp.http.Debug-Orig-URL = req.http.Orig-URL;
 			set resp.http.Debug-VCL-Route = req.http.X-VCL-Route;
 			set resp.http.useragent_parser_family = req.http.useragent_parser_family;

@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Number, 'isFinite');
+	proclaim.isNotEnumerable(Number, 'isFinite');
 });
 
 it('returns true with finite values', function () {

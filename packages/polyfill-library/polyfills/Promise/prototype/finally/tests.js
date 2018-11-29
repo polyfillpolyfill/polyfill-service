@@ -10,7 +10,7 @@ it('has correct arity', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Promise.prototype, 'finally');
+	proclaim.isNotEnumerable(Promise.prototype, 'finally');
 });
 
 describe('finally', function () {

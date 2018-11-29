@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Date.prototype, 'toISOString');
+	proclaim.isNotEnumerable(Date.prototype, 'toISOString');
 });
 
 it("should handle zero values for hours, minutes and seconds", function() {

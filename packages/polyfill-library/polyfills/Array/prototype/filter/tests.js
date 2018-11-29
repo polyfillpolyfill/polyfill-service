@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'filter');
+	proclaim.isNotEnumerable(Array.prototype, 'filter');
 });
 
 var stringsOnly = function(val) {

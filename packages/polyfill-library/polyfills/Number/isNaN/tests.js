@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Number, 'isNaN');
+	proclaim.isNotEnumerable(Number, 'isNaN');
 });
 
 it('returns true with NaN values', function () {

@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(String.prototype, 'codePointAt');
+	proclaim.isNotEnumerable(String.prototype, 'codePointAt');
 });
 
 var arePropertyDescriptorsSupported = function () {

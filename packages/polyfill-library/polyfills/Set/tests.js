@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(window, 'Set');
+	proclaim.isNotEnumerable(window, 'Set');
 });
 
 describe('Set', function() {
