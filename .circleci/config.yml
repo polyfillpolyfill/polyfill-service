@@ -20,7 +20,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run test"
+      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run build && npm run test-node && npm run test-node-unit"
       - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run test-unit"
   deploy_dev:
     docker:
@@ -55,9 +55,9 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
+          cd ~/project/packages/polyfill-library/
           yarn install --frozen-lockfile
-          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-polyfills
+          npm run test-polyfills
   deploy_staging:
     docker:
       - image: "circleci/node:10"
@@ -92,9 +92,9 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
+          cd ~/project/packages/polyfill-library/
           yarn install --frozen-lockfile
-          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-polyfills
+          npm run test-polyfills
   publish_library_to_npm:
     docker:
       - image: "circleci/node:10"
