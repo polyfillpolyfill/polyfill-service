@@ -27,7 +27,7 @@ const polyfillDirectoriesWhichHaveTests = polyfillDirectories.filter(directory =
 (async function () {
 	try {
 		for (const feature of polyfillDirectoriesWhichHaveTests) {
-			const result = execa('karma', ['start', 'karma-browserstack.conf.js', `--feature=${feature}`]);
+			const result = execa('karma', ['start', path.join(__dirname, 'karma-browserstack.conf.js'), `--feature=${feature}`]);
 			result.stdout.pipe(process.stdout);
 			result.stderr.pipe(process.stderr);
 			await result;
