@@ -56,6 +56,9 @@ module.exports = function (config) {
 	const browsers = getBrowsersFor(config.feature);
 
 	config.set({
+		browserStack: {
+			startTunnel: true
+		},
 		reporters: ['mocha', 'summary-optional-console', 'BrowserStack'],
 		summaryOptionalConsoleReporter: {
 			// 'failed', 'skipped' or 'all'
