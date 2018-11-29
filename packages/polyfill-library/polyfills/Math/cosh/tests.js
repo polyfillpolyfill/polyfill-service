@@ -59,7 +59,7 @@ it('works as expected when called with positive integers', function () {
 	}
 	proclaim.isTrue(Math.cosh(710) >= 1.1169973830808552e+308);
 	proclaim.notStrictEqual(Math.cosh(710), Infinity);
-	proclaim.notNaN(Math.cosh(710));
+	proclaim.isNotNaN(Math.cosh(710));
 	proclaim.strictEqual(Math.cosh(711), Infinity);
 });
 
