@@ -25,15 +25,19 @@ const polyfillDirectories = directoriesWithFiles(polyfillsDirectory);
 const polyfillDirectoriesWhichHaveTests = polyfillDirectories.filter(directory => fs.readdirSync(directory).includes('tests.js'));
 
 (async function () {
+
 	try {
-		for (const feature of polyfillDirectoriesWhichHaveTests) {
+		for (var feature of polyfillDirectoriesWhichHaveTests) {
+			console.log(`Testing ${feature}`);
 			const result = execa('karma', ['start', path.join(__dirname, 'karma-browserstack.conf.js'), `--feature=${feature}`]);
 			result.stdout.pipe(process.stdout);
 			result.stderr.pipe(process.stderr);
 			await result;
 		}
 	} catch (err) {
+		console.log(`Errors found testing ${feature}`);
 		console.error(err.stderr || err.stdout);
+		console.log(`Errors found testing ${feature}`);
 		process.exit(1);
 	}
 }());
