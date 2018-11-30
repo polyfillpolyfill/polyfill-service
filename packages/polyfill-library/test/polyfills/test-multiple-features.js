@@ -25,9 +25,9 @@ const polyfillDirectories = directoriesWithFiles(polyfillsDirectory);
 const polyfillDirectoriesWhichHaveTests = polyfillDirectories.filter(directory => fs.readdirSync(directory).includes('tests.js'));
 
 (async function () {
-
+	let feature;
 	try {
-		for (var feature of polyfillDirectoriesWhichHaveTests) {
+		for (feature of polyfillDirectoriesWhichHaveTests) {
 			console.log(`Testing ${feature}`);
 			const result = execa('karma', ['start', path.join(__dirname, 'karma-browserstack.conf.js'), `--feature=${feature}`]);
 			result.stdout.pipe(process.stdout);
