@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = function (config) {
-	config.feature = config.feature || 'polyfills/Symbol';
 	async function respondWithPolyfillBundle(request, response) {
 		const PolyfillLibrary = require("../../lib/index.js");
 		const polyfillio = new PolyfillLibrary();
