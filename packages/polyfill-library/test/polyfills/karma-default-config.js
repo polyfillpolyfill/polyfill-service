@@ -4,9 +4,10 @@ module.exports = function (config) {
 	async function respondWithPolyfillBundle(request, response) {
 		const PolyfillLibrary = require("../../lib/index.js");
 		const polyfillio = new PolyfillLibrary();
+		const featureName = config.feature.split('polyfills/')[1].replace(/\//g, '.');
 		const params = {
 			features: {
-				[config.feature.split('polyfills/')[1].replace(/\//g, '.')]: {
+				[featureName]: {
 					flags: new Set()
 				}
 			},
