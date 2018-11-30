@@ -12,7 +12,7 @@ npm install polyfill-library --save
 ## Usage
 
 ```javascript
-const PolyfillLibrary = require('polyfill-service');
+const PolyfillLibrary = require('polyfill-library');
 const polyfillLibrary = new PolyfillLibrary;
 
 const polyfillBundle = polyfillLibary.getPolyfillString({
