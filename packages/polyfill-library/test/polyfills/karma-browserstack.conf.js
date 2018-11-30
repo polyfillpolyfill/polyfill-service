@@ -52,7 +52,7 @@ module.exports = function (config) {
 		process.exit(1);
 	}
 	require('./karma-default-config')(config);
-
+	console.log(`Testing ${config.feature}`);
 	const browsers = getBrowsersFor(config.feature);
 
 	config.set({
