@@ -31,6 +31,7 @@ module.exports = function (config) {
 		browserDisconnectTimeout: 60 * 1000, // default 2000
 		browserDisconnectTolerance: 3, // default 0
 		browserNoActivityTimeout: 60 * 1000, // default 10000
+		browserSocketTimeout: 60 * 1000, // default 20000
 
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
