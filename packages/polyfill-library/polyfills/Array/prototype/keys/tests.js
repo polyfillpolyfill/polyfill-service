@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'keys');
+	proclaim.isNotEnumerable(Array.prototype, 'keys');
 });
 
 it('returns a next-able object', function () {

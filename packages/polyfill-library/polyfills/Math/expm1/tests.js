@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Math, 'expm1');
+	proclaim.isNotEnumerable(Math, 'expm1');
 });
 
 it('works as expected', function () {

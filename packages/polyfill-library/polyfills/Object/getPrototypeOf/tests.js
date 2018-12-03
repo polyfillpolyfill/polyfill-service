@@ -14,5 +14,5 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Object, 'getPrototypeOf');
+	proclaim.isNotEnumerable(Object, 'getPrototypeOf');
 });

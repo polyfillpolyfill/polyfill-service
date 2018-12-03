@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Object, 'getOwnPropertyNames');
+	proclaim.isNotEnumerable(Object, 'getOwnPropertyNames');
 });
 
 it('returns properties of a simple object', function () {

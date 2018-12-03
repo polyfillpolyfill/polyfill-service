@@ -14,7 +14,7 @@ it('has correct name', function() {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(window, 'WeakMap');
+	proclaim.isNotEnumerable(window, 'WeakMap');
 });
 
 it("has valid constructor", function () {
@@ -118,7 +118,7 @@ if ('Symbol' in window && 'iterator' in Symbol && typeof [][Symbol.iterator] ===
 it('WeakMap.prototype.delete', function () {
 	proclaim.isFunction(WeakMap.prototype['delete']);
 	proclaim.arity(WeakMap.prototype['delete'], 1);
-	proclaim.nonEnumerable(WeakMap.prototype, 'delete');
+	proclaim.isNotEnumerable(WeakMap.prototype, 'delete');
 	var a = {};
 	var b = {};
 	var M = new WeakMap();
@@ -138,7 +138,7 @@ it('WeakMap.prototype.get', function () {
 	proclaim.isFunction(WeakMap.prototype.get);
 	proclaim.hasName(WeakMap.prototype.get, 'get');
 	proclaim.arity(WeakMap.prototype.get, 1);
-	proclaim.nonEnumerable(WeakMap.prototype, 'get');
+	proclaim.isNotEnumerable(WeakMap.prototype, 'get');
 	proclaim.isUndefined(M.get({}));
 	M.set(a, 42);
 	proclaim.strictEqual(M.get(a), 42);
@@ -153,7 +153,7 @@ it('WeakMap.prototype.has', function () {
 	proclaim.isFunction(WeakMap.prototype.has);
 	proclaim.hasName(WeakMap.prototype.has, 'has');
 	proclaim.arity(WeakMap.prototype.has, 1);
-	proclaim.nonEnumerable(WeakMap.prototype, 'has');
+	proclaim.isNotEnumerable(WeakMap.prototype, 'has');
 	proclaim.isFalse(M.has({}));
 	M.set(a, 42);
 	proclaim.isTrue(M.has(a));
@@ -168,7 +168,7 @@ it('WeakMap.prototype.set', function () {
 	proclaim.isFunction(WeakMap.prototype.set);
 	proclaim.hasName(WeakMap.prototype.set, 'set');
 	proclaim.arity(WeakMap.prototype.set, 2);
-	proclaim.nonEnumerable(WeakMap.prototype, 'set');
+	proclaim.isNotEnumerable(WeakMap.prototype, 'set');
 	wmap.set(a, 42);
 	proclaim.strictEqual(wmap.get(a), 42);
 	proclaim.throws(function () {
