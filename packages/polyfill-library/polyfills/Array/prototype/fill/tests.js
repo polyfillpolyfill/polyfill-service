@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'fill');
+	proclaim.isNotEnumerable(Array.prototype, 'fill');
 });
 
 it('fills whole array when using only one argument', function () {

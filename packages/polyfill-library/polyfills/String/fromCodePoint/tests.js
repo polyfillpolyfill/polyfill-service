@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(String, 'fromCodePoint');
+	proclaim.isNotEnumerable(String, 'fromCodePoint');
 });
 
 

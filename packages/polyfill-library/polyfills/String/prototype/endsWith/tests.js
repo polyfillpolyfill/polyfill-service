@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(String.prototype, 'endsWith');
+	proclaim.isNotEnumerable(String.prototype, 'endsWith');
 });
 
 it('works as expected', function () {

@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'copyWithin');
+	proclaim.isNotEnumerable(Array.prototype, 'copyWithin');
 });
 
 it('modifies the object in-place', function () {

@@ -6,7 +6,7 @@ it('is correct type', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Number, 'EPSILON');
+	proclaim.isNotEnumerable(Number, 'EPSILON');
 });
 
 it('is 2^-52', function () {

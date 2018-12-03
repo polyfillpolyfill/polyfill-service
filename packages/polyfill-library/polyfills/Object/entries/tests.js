@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Object, 'entries');
+	proclaim.isNotEnumerable(Object, 'entries');
 });
 
 // Modified version of the test262 tests located at

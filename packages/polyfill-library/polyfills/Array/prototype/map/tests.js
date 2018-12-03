@@ -14,7 +14,7 @@ it('has correct name', function () {
 });
 
 it('is not enumerable', function () {
-	proclaim.nonEnumerable(Array.prototype, 'map');
+	proclaim.isNotEnumerable(Array.prototype, 'map');
 });
 
 var callback;

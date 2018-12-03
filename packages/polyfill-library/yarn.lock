@@ -2129,10 +2129,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
   integrity sha512-MtEC1TqN0EU5nephaJ4rAtThHtC86dNN9qCuEhtshvpVBkAW5ZO7BASN9REnF9eoXGcRub+pFuKEpOHE+HbEMw==
 
-proclaim@^3.5.0:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/proclaim/-/proclaim-3.5.1.tgz#ae390180373ac97fc26d6197644ae1897bd36f85"
-  integrity sha512-ZTEKBHyg2RU2AE6XZdOtU5y7pjqvQSTj4yAqcyuplSL/+YQXhPIOEcx+OUd4WyxCcVZBVALmsgiLZ/mmSu4I4g==
+proclaim@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/proclaim/-/proclaim-3.6.0.tgz#e795a1bf5161da579b9e2812c293fd9b22faaae7"
+  integrity sha512-M3a0NLCZJCaB/MMalVQK451GjaoG8kIT78t3OsrBlkzZtPyuxrsbt3z0mrYiIZRYXeTp1Iby9+zXw4pfmclibw==
   dependencies:
     util-inspect "^0.1.8"
 
