@@ -1,10 +1,37 @@
-There are many common scenarios for raising issues against the polyfill service.  Is your issue one of these?
+---
+title: Issue: [type] [short description]
+---
+<!-- [type]: What is this issue for? A bug report? A feature request? -->
 
-* Polyfill X is not served in browser Y (and it should be)
-* Polyfill X is served in browser Y (and it shouldn't be)
-* My browser is not recognised correctly
-* Please add polyfill X
-* Please update polyfill X from the upstream repo
-* Polyfill X doesn't work properly
+<!--
+Please make sure you've checked that your issue hasn't already been raised within this repository.
 
-If so please visit https://polyfill.io/v2/docs/contributing/common-scenarios for help putting together all the information you need for your issue.  Running through the appropriate checklist need not take much time and will make it much more likely that we can deal with the issue quickly.
+If you need help with submitting an issue, please get in touch with the Origami Team at origami.support@ft.com or #ft-origami on Slack.
+-->
+## What
+<!-- A clear description of what the problem or feature request is -->
+
+## Details
+<!--
+If it is a bug:
+- describe what the expected behaviour is, and what is actually happening
+- add steps on how to reproduce it
+- describe the environment you are having this problem in
+	- Browser + version (e.g. Chrome 70)
+	- Device (e.g. iPhone X, Desktop)
+	- provide screenshots to illustrate your problem
+
+If it is a feature request:
+	- explain what prompted this request — e.g. is it something that you regularly make a workaround for?
+	- describe what the new feature would do and how it would be used
+	- explain what alternatives you have explored / considered
+	- where possible, attach designs for the style of the new feature
+-->
+
+<!--
+## Additional information
+For either type of issue:
+	- please add any other comments or details you might have
+	- if you've had a conversation about this with someone, please reference that person in this issue
+	- if there is a similar or related issue, please link to it
+-->
