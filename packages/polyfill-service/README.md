@@ -13,8 +13,7 @@ You can configure the Polyfill service using environment variables. Instead of u
 The tests are split into tests for the service and tests for the polyfills.
 
 ```sh
-npm run test-polyfills # Run the tests for polyfills using BrowserStack
-npm run test-unit      # Run the appplication tests
+npm test      # Run the appplication tests
 ```
 ## License
 
