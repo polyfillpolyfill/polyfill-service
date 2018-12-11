@@ -11,7 +11,7 @@ const globby = require('globby');
 		const polyfillsWhichHaveTests = await globby(['polyfills/**/tests.js', '!polyfills/__dist'], { transform: (entry) => entry.replace('polyfills/', '').replace('/tests.js','').replace(/\//g, '.') });
 		for (feature of polyfillsWhichHaveTests) {
 			console.log(`Testing ${feature}`);
-			const result = execa('karma', ['start', path.join(__dirname, 'karma.conf.js'), `--browserstack`, `--features=${feature}`]);
+			const result = execa('karma', ['start', path.join(__dirname, '../../', 'karma.conf.js'), `--browserstack`, `--features=${feature}`]);
 			result.stdout.pipe(process.stdout);
 			result.stderr.pipe(process.stderr);
 			await result;
