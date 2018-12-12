@@ -18,6 +18,6 @@
 		"paths": ["dist/html5shiv.min.js"]
 	},
 	"dependencies": [
-		"Document"
+		"document"
 	]
 }

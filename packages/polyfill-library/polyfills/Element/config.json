@@ -10,7 +10,7 @@
 		"ie": "6 - 8"
 	},
 	"dependencies": [
-		"Document"
+		"document"
 	],
 	"spec": "https://dom.spec.whatwg.org/#interface-element",
 	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element"
