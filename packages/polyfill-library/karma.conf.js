@@ -114,7 +114,14 @@ module.exports = function (config) {
 			'karma-mocha-reporter',
 			karmaPolyfillLibraryPlugin,
 			'karma-summary-optional-console-reporter'
-		]
+		],
+		logLevel: config.LOG_WARN,
+		client: {
+			mocha: {
+			  // change Karma's debug.html to the mocha web reporter
+			  reporter: 'html'
+			}
+		  }
 	});
 
 	if (config.browserstack) {
