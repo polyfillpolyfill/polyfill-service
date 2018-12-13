@@ -27,7 +27,7 @@
     "clean": "rimraf ./polyfills/__dist",
     "build": "npm run clean && node tasks/node/updatesources && node tasks/node/buildsources",
     "fmt": "eslint . --fix",
-    "test-polyfills": "karma start config.js",
+    "test-polyfills": "karma start",
     "test-all-polyfills": "node ./test/polyfills/test-all-features.js",
     "test-node": "mocha test/node/**/*.js",
     "test-node-unit": "nyc mocha test/unit --recursive",
