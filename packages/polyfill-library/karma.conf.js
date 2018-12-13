@@ -118,6 +118,7 @@ module.exports = function (config) {
 		logLevel: config.LOG_WARN,
 		client: {
 			mocha: {
+			  opts: 'mocha.opts',
 			  // change Karma's debug.html to the mocha web reporter so we can see the test results in page instead of in the console
 			  reporter: 'html'
 			}
