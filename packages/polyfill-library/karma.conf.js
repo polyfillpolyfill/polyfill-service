@@ -118,10 +118,12 @@ module.exports = function (config) {
 		logLevel: config.LOG_WARN,
 		client: {
 			mocha: {
-			  // change Karma's debug.html to the mocha web reporter
+			  // change Karma's debug.html to the mocha web reporter so we can see the test results in page instead of in the console
 			  reporter: 'html'
 			}
-		  }
+		},
+		// Run the tests inside a new window instead of in an iFrame
+		useIframe: false
 	});
 
 	if (config.browserstack) {
