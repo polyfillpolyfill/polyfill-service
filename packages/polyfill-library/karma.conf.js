@@ -82,7 +82,7 @@ module.exports = function (config) {
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: true,
 		browserDisconnectTimeout: 60 * 1000, // default 2000
-		browserDisconnectTolerance: 3, // default 0
+		browserDisconnectTolerance: 5, // default 0
 		browserNoActivityTimeout: 60 * 1000, // default 10000
 		browserSocketTimeout: 60 * 1000, // default 20000
 		// enable / disable colors in the output (reporters and logs)
