@@ -28,8 +28,7 @@
     "lint": "eslint .",
     "postinstall": "bower install --allow-root",
     "start": "node server/index.js",
-    "test": "npm run test-unit && npm run test-polyfills",
-    "test-polyfills": "node tasks/node/remotetest",
+    "test": "npm run test-unit",
     "test-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
     "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail",
     "update-browserstack-browsers": "node ./tasks/node/updatebrowserstacklist.js"
@@ -54,23 +53,16 @@
     "polyfill-library": "file:../polyfill-library",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",
-    "throng": "^4.0.0",
-    "utf8": "^3.0.0"
+    "throng": "^4.0.0"
   },
   "devDependencies": {
     "browserstack": "^1.5.1",
     "browserstack-local": "^1.3.7",
-    "cli-color": "^1.2.0",
     "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "execa": "^0.10.0",
     "fs-extra": "^6.0.1",
-    "globby": "^8.0.1",
-    "hasha": "^3.0.0",
-    "loud-rejection": "^1.6.0",
-    "make-fetch-happen": "^4.0.1",
     "mkdirp": "^0.5.1",
     "mocha": "^3.5.3",
     "mockery": "^2.1.0",
@@ -81,12 +73,10 @@
     "rimraf": "^2.6.2",
     "secure-random-uniform": "^3.1.0",
     "sinon": "^4.5.0",
-    "ssri": "^6.0.0",
     "supertest": "^3.0.0",
-    "tar": "^4.4.4",
     "uap-core": "github:ua-parser/uap-core#f330b0337297ec979196a762cbb351ee29fce403",
     "uap-ref-impl": "github:ua-parser/uap-ref-impl#d3a71a0fe706560aeee686e8dd516a574f874575",
-    "wd": "^1.10.1",
+    "utf8": "^3.0.0",
     "yamlparser": "0.0.2"
   },
   "version": "3.27.0"

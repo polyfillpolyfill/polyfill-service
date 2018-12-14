@@ -17,7 +17,7 @@
 		"samsung_mob": "*"
 	},
 	"dependencies": [
-		"Document",
+		"document",
 		"Element"
 	]
 }

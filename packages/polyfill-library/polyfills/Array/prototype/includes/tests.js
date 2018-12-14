@@ -86,10 +86,3 @@ it('works as expected', function () {
 		}, TypeError);
 	}
 });
-
-var areSymbolsSupported = 'Symbol' in this && typeof this.Symbol === 'function';
-var ifSupportsUnscopableSymbol = areSymbolsSupported && 'unscopables' in this.Symbol ? it : xit;
-
-ifSupportsUnscopableSymbol('is unscopable', function () {
-	proclaim.ok('includes' in Array.prototype[Symbol.unscopables], 'In Array#@@unscopables');
-});

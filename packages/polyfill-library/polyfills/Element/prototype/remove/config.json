@@ -22,7 +22,7 @@
 		"firefox_mob": "3.6 - *"
 	},
 	"dependencies": [
-		"Document",
+		"document",
 		"Element",
 		"_mutation"
 	],

@@ -16,7 +16,7 @@
 	},
 	"dependencies": [
 		"Window",
-		"Document",
+		"document",
 		"Element",
 		"Object.defineProperty"
 	],

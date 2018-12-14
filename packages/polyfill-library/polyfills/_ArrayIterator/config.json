@@ -21,7 +21,7 @@
 		"Object.create",
 		"Object.defineProperty",
 		"Object.setPrototypeOf",
-		"String.prototype.contains"
+		"String.prototype.includes"
 	],
 	"license": "MIT",
 	"repo": "https://github.com/medikoo/es6-iterator"

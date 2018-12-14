@@ -20,7 +20,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run test"
+      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run build && npm run test-node && npm run test-node-unit"
       - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run test-unit"
   deploy_dev:
     docker:
@@ -49,15 +49,15 @@ jobs:
           cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
-  polyfill_tests_dev:
+  polyfill_tests:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
+          cd ~/project/packages/polyfill-library/
           yarn install --frozen-lockfile
-          BROWSER_TEST_HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-polyfills
+          npm run test-all-polyfills
   deploy_staging:
     docker:
       - image: "circleci/node:10"
@@ -86,15 +86,6 @@ jobs:
           cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://qa.polyfill.io npm run test-integration
-  polyfill_tests_staging:
-    docker:
-      - image: "circleci/node:10"
-    steps:
-      - "checkout"
-      - run: |
-          cd ~/project/packages/polyfill-service/
-          yarn install --frozen-lockfile
-          BROWSER_TEST_HOST=https://qa.polyfill.io npm run test-polyfills
   publish_library_to_npm:
     docker:
       - image: "circleci/node:10"
@@ -145,6 +136,16 @@ workflows:
               ignore: /^v.*/
             branches:
               ignore: master
+      - polyfill_tests:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
+          requires:
+            - lint_terraform
+            - lint_js
+            - unit_tests
       - deploy_dev:
           filters:
             tags:
@@ -163,14 +164,6 @@ workflows:
               ignore: master
           requires:
             - deploy_dev
-      - polyfill_tests_dev:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - integration_tests_dev
       - deploy_staging:
           filters:
             tags:
@@ -187,15 +180,6 @@ workflows:
                 - master
           requires:
             - deploy_staging
-      - polyfill_tests_staging:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              only:
-                - master
-          requires:
-            - integration_tests_staging
       - publish_library_to_npm:
           filters:
             tags:

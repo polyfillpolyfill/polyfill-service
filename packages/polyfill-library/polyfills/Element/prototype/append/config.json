@@ -23,7 +23,7 @@
 		"samsung_mob": "<6"
 	},
 	"dependencies": [
-		"Document",
+		"document",
 		"Element",
 		"_mutation"
 	],

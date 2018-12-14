@@ -8,12 +8,12 @@ dotenv.config({
 	path: path.join(__dirname, "../../.env")
 });
 const browserStackCredentials = {
-	username: process.env.BROWSERSTACK_USERNAME,
-	password: process.env.BROWSERSTACK_ACCESS_KEY
+	username: process.env.BROWSER_STACK_USERNAME,
+	password: process.env.BROWSER_STACK_ACCESS_KEY
 };
 
-if (!process.env.BROWSERSTACK_USERNAME || !process.env.BROWSERSTACK_ACCESS_KEY) {
-	throw new Error("BROWSERSTACK_USERNAME and BROWSERSTACK_ACCESS_KEY must be set in the environment to run this script.");
+if (!process.env.BROWSER_STACK_USERNAME || !process.env.BROWSER_STACK_ACCESS_KEY) {
+	throw new Error("BROWSER_STACK_USERNAME and BROWSER_STACK_ACCESS_KEY must be set in the environment to run this script.");
 }
 
 const automateClient = BrowserStack.createAutomateClient(browserStackCredentials);

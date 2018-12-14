@@ -101,10 +101,3 @@ if (supportsStrictModeTests) {
 		}, TypeError);
 	});
 }
-
-var areSymbolsSupported = 'Symbol' in this && typeof this.Symbol === 'function';
-var ifSupportsUnscopableSymbol = areSymbolsSupported && 'unscopables' in this.Symbol ? it : xit;
-
-ifSupportsUnscopableSymbol('is unscopable', function () {
-	proclaim.ok('copyWithin' in Array.prototype[Symbol.unscopables], 'In Array#@@unscopables');
-});

@@ -4,7 +4,8 @@
 		"default-3.4",
 		"default-3.5",
 		"default-3.6",
-		"default"
+		"default",
+		"document"
 	],
 	"browsers": {
 		"ie": "6 - 8"

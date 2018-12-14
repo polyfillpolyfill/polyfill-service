@@ -8,8 +8,8 @@ var ArrayIterator = (function() { // eslint-disable-line no-unused-vars
 		if (!(this instanceof ArrayIterator)) return new ArrayIterator(arr, kind);
 		Iterator.call(this, arr);
 		if (!kind) kind = 'value';
-		else if (String.prototype.contains.call(kind, 'key+value')) kind = 'key+value';
-		else if (String.prototype.contains.call(kind, 'key')) kind = 'key';
+		else if (String.prototype.includes.call(kind, 'key+value')) kind = 'key+value';
+		else if (String.prototype.includes.call(kind, 'key')) kind = 'key';
 		else kind = 'value';
 		Object.defineProperty(this, '__kind__', {
 			value: kind,
