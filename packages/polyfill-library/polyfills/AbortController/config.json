@@ -1,0 +1,14 @@
+{
+	"aliases": [
+		"caniuse:abortcontroller"
+	],
+	"docs": "https://developer.mozilla.org/en-US/docs/Web/API/AbortController",
+	"install": {
+		"module": "abortcontroller-polyfill",
+		"paths": [
+			"dist",
+			"umd-polyfill.js"
+		]
+	},
+	"repo": "https://github.com/mo/abortcontroller-polyfill/"
+}
