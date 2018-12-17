@@ -32,7 +32,7 @@ sub vcl_error {
 		set obj.response = "Moved Permanently";
 		# Remove libVersion and gated query parameters if they exist.
 		set req.url = querystring.regfilter(req.url, "^\b(libVersion|gated)\b.*");
-		set obj.http.Location = if(req.url.path == "/v1", "/v2/docs/", regsub(req.url, "^/v1", "/v2"));
+		set obj.http.Location = if(req.url.path == "/v1", "/v3/", regsub(req.url, "^/v1", "/v2"));
 		set obj.http.Deprecation-Notice = "API version 1 has been decommissioned - see the body of this response for more information.";
 		synthetic {"API version 1 has been decommissioned. Your request is being redirected to v2.  The `libVersion` and `gated` query string parameters are no longer supported and if present have been removed from your request.\n\nA deprecation period for v1 existed between August and December 2015, during which time v1 requests were honoured but a deprecation warning was added to output."};
 		return (deliver);

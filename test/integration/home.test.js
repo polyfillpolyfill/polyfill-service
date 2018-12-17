@@ -10,6 +10,6 @@ describe("GET /", function() {
 		return request(host)
 			.get("/")
 			.expect(302)
-			.expect("Location", "/v2/docs/");
+			.expect("Location", "/v3/");
 	});
 });
