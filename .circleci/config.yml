@@ -21,7 +21,7 @@ jobs:
     steps:
       - "checkout"
       - run: "yarn install --frozen-lockfile"
-      - run: npm run test-unit"
+      - run: "npm run test-unit"
   deploy_dev:
     docker:
       - image: "circleci/node:10"
