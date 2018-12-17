@@ -1,1 +1,0 @@
-"Element" in this && "nextElementSibling" in document.documentElement

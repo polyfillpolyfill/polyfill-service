@@ -1,1 +1,0 @@
-"Element" in this && "previousElementSibling" in document.documentElement
