@@ -55,7 +55,7 @@ sub set_backend {
 
 sub vcl_recv {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_recv;
 		}
@@ -70,15 +70,6 @@ sub vcl_recv {
 
 		if (req.http.Orig-URL ~ "^/v3/polyfill(\.min)?\.js") {
 			call normalise_querystring_parameters_for_polyfill_bundle;
-		}
-
-		if (req.http.Orig-URL ~ "^/test/(director|tests?)/?") {
-			declare local var.ua STRING;
-			set var.ua = urlencode(urldecode(subfield(req.url.qs, "ua", "&")));
-			if (var.ua == "") {
-				call normalise_user_agent;
-				set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
-			}
 		}
 
 		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
@@ -102,7 +93,7 @@ sub vcl_hash {
 
 sub vcl_miss {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_miss;
 		}
@@ -111,7 +102,7 @@ sub vcl_miss {
 
 sub vcl_pass {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_pass;
 		}
@@ -120,7 +111,7 @@ sub vcl_pass {
 
 sub vcl_fetch {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_fetch;
 		}
@@ -156,7 +147,7 @@ sub vcl_fetch {
 
 sub vcl_deliver {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/test/libs/proclaim/proclaim.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.js).+" && req.http.Orig-URL ~ "^(?!/test/libs/mocha/mocha.css).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_deliver;
 		}
