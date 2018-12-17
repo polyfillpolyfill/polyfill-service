@@ -9,11 +9,8 @@ sub vcl_recv {
 	if (req.http.Orig-URL ~ "^/v3/normalise_querystring_parameters_for_polyfill_bundle") {
 		error 905 "Normalise querystring parameters for polyfill bundle";
 	}
-	if (req.http.Orig-URL ~ "^/__about") {
-		error 906;
-	}
 	if (req.http.Orig-URL ~ "^/robots.txt") {
-		error 907;
+		error 906;
 	}
 }
 
@@ -72,17 +69,8 @@ sub vcl_error {
 		return (deliver);
 	}
 
-	# /__about endpoint JSON response
-	if (obj.status == 906) {
-		set obj.status = 200;
-		set obj.response = "OK";
-		set obj.http.Content-Type = "application/json; charset=utf-8";
-		synthetic {heredoc"{"schemaVersion":1,"name":"polyfill-service","systemCode":"origami-polyfill-service","purpose":"Stores a library of FT-approved polyfills and serves them to FT websites that need them in older browsers.","audience":"public","primaryUrl":"https://polyfill.io","serviceTier":"silver","apiVersion":2,"apiVersions":[{"path":"/v1","supportStatus":"deprecated","dateTerminated":"2016-01-01T00:00:00Z"},{"path":"/v2","supportStatus":"active"}],"dateCreated":"2014-07-14T10:28:45Z","contacts":[{"name":"Origami team","email":"origami-support@ft.com","rel":"owner","domain":"All support enquiries"}],"links":[{"url":"https://github.com/Financial-Times/polyfill-service/issues","category":"issues"},{"url":"https://github.com/Financial-Times/polyfill-service","category":"repo"},{"url":"https://dashboard.heroku.com/apps/ft-polyfill-service","category":"deployment","description":"Production Heroku app control panel"},{"url":"https://dashboard.heroku.com/apps/ft-polyfill-service-qa","category":"deployment","description":"QA Heroku app control panel"},{"url":"https://grafana.ft.com/dashboard/db/origami-polyfill-service","category":"monitoring","description":"Grafana dashboard"},{"url":"https://app.fastly.com/#stats/service/4E1GeTez3EFH3cnwfyMAog","category":"deployment","description":"Fastly CDN app"},{"url":"https://my.pingdom.com/reports/uptime#check=1338405","category":"monitoring","description":"Pingdom check"},{"url":"https://docs.google.com/drawings/d/1eA_sYaSRkvOqIxdkN6LRpyHeOzv8Mxr51WMfXM1sS3Q/edit","category":"documentation","description":"Architecture diagram"},{"url":"https://github.com/Financial-Times/polyfill-service/blob/master/README.md","category":"documentation","description":"README"},{"url":"https://travis-ci.org/Financial-Times/polyfill-service","category":"testing","description":"Continuous Integration status on Travis"}],"appVersion":"3.25.1","hostname":"39d7ed20-ff80-4a18-acfe-fd421e14fa8a","dateDeployed":"2018-01-15T16:30:58.000Z"}"heredoc};
-		return (deliver);
-	}
-
 	# /robots.txt endpoint 
-	if (obj.status == 907) {
+	if (obj.status == 906) {
 		set obj.status = 200;
 		set obj.response = "OK";
 		set obj.http.Content-Type = "text/plain; charset=utf-8";
