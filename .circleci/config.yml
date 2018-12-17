@@ -7,19 +7,21 @@ jobs:
     steps:
       - "checkout"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
-      - run: "terraform fmt -check=true ~/project/packages/polyfill-service/fastly/terraform/"
+      - run: "terraform fmt -check=true fastly/terraform/"
   lint_js:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run lint"
+      - run: "yarn install --frozen-lockfile"
+      - run: "npm run lint"
   unit_tests:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run test-unit"
+      - run: "yarn install --frozen-lockfile"
+      - run: npm run test-unit"
   deploy_dev:
     docker:
       - image: "circleci/node:10"
@@ -29,7 +31,6 @@ jobs:
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: |
-          cd ~/project/packages/polyfill-service/
           rm -f terraform.tfstate
           rm fastly/terraform/qa_override.tf
           rm fastly/terraform/production_override.tf
@@ -44,7 +45,6 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
   deploy_staging:
@@ -57,7 +57,6 @@ jobs:
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: |
-          cd ~/project/packages/polyfill-service/
           rm -f terraform.tfstate
           rm fastly/terraform/dev_override.tf
           rm fastly/terraform/production_override.tf
@@ -72,7 +71,6 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://qa.polyfill.io npm run test-integration
   deploy_service_production:
@@ -85,7 +83,7 @@ jobs:
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: "heroku pipelines:promote --app origami-polyfill-service-qa-eu --to origami-polyfill-service-eu,origami-polyfill-service-us"
       - run: |
-          cd ~/project/packages/polyfill-service/
+          cd ~/project/
           rm -f terraform.tfstate
           rm fastly/terraform/dev_override.tf
           rm fastly/terraform/qa_override.tf
