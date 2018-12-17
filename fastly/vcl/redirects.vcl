@@ -38,10 +38,10 @@ sub vcl_error {
 		return (deliver);
 	}
 
-	# Redirect to v2
+	# Redirect to v3
 	if (obj.status == 908) {
 		set obj.status = 302;
-		set obj.http.Location = "/v2/docs/";
+		set obj.http.Location = "/v3/";
 		return (deliver);
 	}
 }
