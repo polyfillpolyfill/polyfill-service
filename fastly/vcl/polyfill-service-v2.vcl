@@ -134,7 +134,7 @@ sub set_backend_and_host {
 }
 
 sub vcl_recv {
-    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/test/libs/proclaim/proclaim.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.css" || req.http.Orig-URL ~ "^/__gtg") {
+    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/__gtg") {
         if (req.url ~ "^/v2/(polyfill\.|recordRumData)" && req.url !~ "[\?\&]ua=") {
             set req.http.X-Orig-URL = req.url;
             set req.url = "/v2/normalizeUa?ua=" urlencode(req.http.User-Agent);
@@ -173,7 +173,7 @@ sub vcl_recv {
 }
 
 sub vcl_fetch {
-    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/test/libs/proclaim/proclaim.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.css" || req.http.Orig-URL ~ "^/__gtg") {
+    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/__gtg") {
         # Enable purging of all objects in the Fastly cache by issuing a purge with the key "polyfill-service".
         if (beresp.http.Surrogate-Key !~ "\bpolyfill-service\b") {
             set beresp.http.Surrogate-Key = if(beresp.http.Surrogate-Key, beresp.http.Surrogate-Key " polyfill-service", "polyfill-service");
@@ -193,7 +193,7 @@ sub vcl_fetch {
 }
 
 sub vcl_deliver {
-    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/test/libs/proclaim/proclaim.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.js" || req.http.Orig-URL ~ "^/test/libs/mocha/mocha.css" || req.http.Orig-URL ~ "^/__gtg") {
+    if (req.http.Orig-URL ~ "^/v2" || req.http.Orig-URL ~ "^/__health" || req.http.Orig-URL ~ "^/__gtg") {
         # If the response is to a normalise request and there's a parked "original request", use the normalised UA response to modify the original request and restart it
         if (req.url ~ "^/v\d/normalizeUa" && resp.status == 200 && req.http.X-Orig-URL ~ "^/v2/(polyfill\.|recordRumData)") {
             set req.http.Fastly-force-Shield = "1";
