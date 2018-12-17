@@ -10,20 +10,12 @@ describe("GET /__gtg", function() {
 	it("responds with a 200 status", () => {
 		return request(host)
 			.get("/__gtg")
+			.expect(200)
+			.expect("Content-Type", "text/plain; charset=utf-8")
+			.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
 			.then(response => {
-				try {
-					assert.equal(response.statusCode, 200);
-					assert.equal(response.headers["content-type"], "text/plain; charset=utf-8");
-					assert.equal(response.headers["cache-control"], "no-cache");
-					assert.isString(response.text);
-					assert.equal(response.text, "OK");
-				} catch (err) {
-					console.log({
-						headers: response.headers,
-						statusCode: response.statusCode
-					});
-					throw err;
-				}
+				assert.isString(response.text);
+				assert.equal(response.text, "OK");
 			});
 	});
 });
