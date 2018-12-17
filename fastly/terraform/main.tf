@@ -32,13 +32,8 @@ resource "fastly_service_v1" "app" {
   }
 
   vcl {
-    name    = "polyfill-service-v2.vcl"
-    content = "${file("${path.module}/../vcl/polyfill-service-v2.vcl")}"
-  }
-
-  vcl {
-    name    = "polyfill-service-v3.vcl"
-    content = "${file("${path.module}/../vcl/polyfill-service-v3.vcl")}"
+    name    = "polyfill-service.vcl"
+    content = "${file("${path.module}/../vcl/polyfill-service.vcl")}"
   }
 
   vcl {
