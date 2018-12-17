@@ -1,1 +1,0 @@
-'freeze' in Object

@@ -1,1 +1,1 @@
-web: npm start --prefix packages/polyfill-service
+web: npm start

@@ -1,1 +1,0 @@
-'indexOf' in Array.prototype

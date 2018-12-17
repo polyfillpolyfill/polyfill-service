@@ -1,1 +1,0 @@
-"Element" in this && "childElementCount" in document.documentElement

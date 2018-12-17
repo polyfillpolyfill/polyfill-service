@@ -1,1 +1,0 @@
-'tanh' in Math

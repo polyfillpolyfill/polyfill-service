@@ -1,1 +1,0 @@
-'devicePixelRatio' in this

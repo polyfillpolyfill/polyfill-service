@@ -1,1 +1,0 @@
-'cosh' in Math

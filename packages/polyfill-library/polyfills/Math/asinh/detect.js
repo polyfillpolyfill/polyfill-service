@@ -1,1 +1,0 @@
-'asinh' in Math

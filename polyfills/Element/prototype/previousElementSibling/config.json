@@ -1,7 +1,0 @@
-{
-  "browsers": {
-    "ie": "8"
-  },
-  "spec": "http://www.w3.org/TR/ElementTraversal/#attribute-previousElementSibling",
-  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/previousElementSibling"
-}

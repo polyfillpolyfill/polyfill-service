@@ -1,1 +1,0 @@
-'sinh' in Math

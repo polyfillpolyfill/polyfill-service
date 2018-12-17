@@ -7,21 +7,21 @@ jobs:
     steps:
       - "checkout"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
-      - run: "terraform fmt -check=true ~/project/packages/polyfill-service/fastly/terraform/"
+      - run: "terraform fmt -check=true fastly/terraform/"
   lint_js:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run lint"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run lint"
+      - run: "yarn install --frozen-lockfile"
+      - run: "npm run lint"
   unit_tests:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: "cd ~/project/packages/polyfill-library/ && yarn install --frozen-lockfile && npm run build && npm run test-node && npm run test-node-unit"
-      - run: "cd ~/project/packages/polyfill-service/ && yarn install --frozen-lockfile && npm run test-unit"
+      - run: "yarn install --frozen-lockfile"
+      - run: "npm run test-unit"
   deploy_dev:
     docker:
       - image: "circleci/node:10"
@@ -31,7 +31,6 @@ jobs:
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: |
-          cd ~/project/packages/polyfill-service/
           rm -f terraform.tfstate
           rm fastly/terraform/qa_override.tf
           rm fastly/terraform/production_override.tf
@@ -46,18 +45,8 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
-  polyfill_tests:
-    docker:
-      - image: "circleci/node:10"
-    steps:
-      - "checkout"
-      - run: |
-          cd ~/project/packages/polyfill-library/
-          yarn install --frozen-lockfile
-          npm run test-all-polyfills
   deploy_staging:
     docker:
       - image: "circleci/node:10"
@@ -68,7 +57,6 @@ jobs:
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: |
-          cd ~/project/packages/polyfill-service/
           rm -f terraform.tfstate
           rm fastly/terraform/dev_override.tf
           rm fastly/terraform/production_override.tf
@@ -83,19 +71,8 @@ jobs:
     steps:
       - "checkout"
       - run: |
-          cd ~/project/packages/polyfill-service/
           yarn install --frozen-lockfile
           HOST=https://qa.polyfill.io npm run test-integration
-  publish_library_to_npm:
-    docker:
-      - image: "circleci/node:10"
-    steps:
-      - "checkout"
-      - run: |
-          cd ~/project/packages/polyfill-library/
-          yarn install --frozen-lockfile
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-          npm publish
   deploy_service_production:
     docker:
       - image: "circleci/node:10"
@@ -106,7 +83,7 @@ jobs:
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: "heroku pipelines:promote --app origami-polyfill-service-qa-eu --to origami-polyfill-service-eu,origami-polyfill-service-us"
       - run: |
-          cd ~/project/packages/polyfill-service/
+          cd ~/project/
           rm -f terraform.tfstate
           rm fastly/terraform/dev_override.tf
           rm fastly/terraform/qa_override.tf
@@ -136,16 +113,6 @@ workflows:
               ignore: /^v.*/
             branches:
               ignore: master
-      - polyfill_tests:
-          filters:
-            tags:
-              ignore: /^v.*/
-            branches:
-              ignore: master
-          requires:
-            - lint_terraform
-            - lint_js
-            - unit_tests
       - deploy_dev:
           filters:
             tags:
@@ -180,12 +147,6 @@ workflows:
                 - master
           requires:
             - deploy_staging
-      - publish_library_to_npm:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
       - deploy_service_production:
           filters:
             tags:

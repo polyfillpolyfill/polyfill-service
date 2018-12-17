@@ -1,1 +1,0 @@
-'filter' in Array.prototype
