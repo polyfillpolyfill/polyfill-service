@@ -4,8 +4,8 @@
   "private": true,
   "description": "A polyfill combinator",
   "scripts": {
-    "version": "npm version $npm_package_version --prefix packages/polyfill-library && npm version $npm_package_version --prefix packages/polyfill-service && git add packages/polyfill-library/package.json packages/polyfill-service/package.json",
-    "install": "cd packages/polyfill-library && yarn install --frozen-lockfile && cd - && cd packages/polyfill-service && yarn install --frozen-lockfile && cd -",
+    "version": "npm version $npm_package_version --prefix packages/polyfill-service && git add packages/polyfill-service/package.json",
+    "install": "cd packages/polyfill-service && yarn install --frozen-lockfile && cd -",
     "heroku-postbuild": "npm run build --prefix packages/polyfill-service",
     "release": "release-it"
   },
