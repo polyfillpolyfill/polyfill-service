@@ -1,8 +1,8 @@
 "use strict";
-const aboutInfo = require("../../../about.json");
+const aboutInfo = require("../../about.json");
 
 module.exports = app => {
-	app.get("/v3/__health", (request, response) => {
+	app.get("/__health", (request, response) => {
 		response.status(200);
 		response.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 		response.json({
