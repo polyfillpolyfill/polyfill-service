@@ -1,1 +1,0 @@
-'parseFloat' in Number

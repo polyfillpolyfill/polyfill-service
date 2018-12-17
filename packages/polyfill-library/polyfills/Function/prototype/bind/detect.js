@@ -1,1 +1,0 @@
-'bind' in Function.prototype

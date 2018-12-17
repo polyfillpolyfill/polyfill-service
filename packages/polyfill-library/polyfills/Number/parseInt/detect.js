@@ -1,1 +1,0 @@
-'parseInt' in Number

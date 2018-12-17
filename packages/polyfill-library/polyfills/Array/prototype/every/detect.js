@@ -1,1 +1,0 @@
-'every' in Array.prototype

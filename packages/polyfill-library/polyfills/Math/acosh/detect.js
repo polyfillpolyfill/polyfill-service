@@ -1,1 +1,0 @@
-'acosh' in Math

@@ -1,1 +1,0 @@
-'atanh' in Math

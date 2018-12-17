@@ -1,1 +1,0 @@
-'repeat' in String.prototype

@@ -1,1 +1,0 @@
-'sign' in Math
