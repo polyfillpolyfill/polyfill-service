@@ -55,7 +55,7 @@ sub set_backend {
 
 sub vcl_recv {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if (req.http.Orig-URL ~ "^/v3/") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_recv;
 		}
@@ -93,7 +93,7 @@ sub vcl_hash {
 
 sub vcl_miss {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if (req.http.Orig-URL ~ "^/v3/") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_miss;
 		}
@@ -102,7 +102,7 @@ sub vcl_miss {
 
 sub vcl_pass {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if (req.http.Orig-URL ~ "^/v3/") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_pass;
 		}
@@ -111,7 +111,7 @@ sub vcl_pass {
 
 sub vcl_fetch {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if (req.http.Orig-URL ~ "^/v3/") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_fetch;
 		}
@@ -147,7 +147,7 @@ sub vcl_fetch {
 
 sub vcl_deliver {
 	# Run this VCL only if the path is not to the polyfill-service v2 server
-	if ((req.http.Orig-URL ~ "^/v3/") || req.http.Orig-URL ~ "^(?!/v2).+" && req.http.Orig-URL ~ "^(?!/__health).+" && req.http.Orig-URL ~ "^(?!/__gtg).+") {
+	if (req.http.Orig-URL ~ "^/v3/") {
 		if (req.http.Fastly-Debug) {
 			call breadcrumb_deliver;
 		}
