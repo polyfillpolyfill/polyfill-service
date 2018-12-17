@@ -72,15 +72,6 @@ sub vcl_recv {
 			call normalise_querystring_parameters_for_polyfill_bundle;
 		}
 
-		if (req.http.Orig-URL ~ "^/test/(director|tests?)/?") {
-			declare local var.ua STRING;
-			set var.ua = urlencode(urldecode(subfield(req.url.qs, "ua", "&")));
-			if (var.ua == "") {
-				call normalise_user_agent;
-				set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
-			}
-		}
-
 		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		# If querystring is empty, remove the ? from the url.
 		set req.url = querystring.clean(querystring.sort(req.url));
