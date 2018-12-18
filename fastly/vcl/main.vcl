@@ -146,8 +146,7 @@ include "fastly-boilerplate-begin.vcl";
 include "breadcrumbs.vcl";
 include "redirects.vcl";
 include "synthetic-responses.vcl";
-include "polyfill-service-v2.vcl";
-include "polyfill-service-v3.vcl";
+include "polyfill-service.vcl";
 
 # Finally include the last bit of VCL, this _must_ be last!
 include "fastly-boilerplate-end.vcl";

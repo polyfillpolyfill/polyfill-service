@@ -14,7 +14,7 @@ describe("GET /v2/polyfill.js", function() {
 			.get("/v2/polyfill.js")
 			.set("Fastly-debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript;charset=utf-8")
+			.expect("Content-Type", "application/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -32,7 +32,7 @@ describe("GET /v2/polyfill.js?callback=AAA&callback=BBB", function() {
 			.get("/v2/polyfill.js?callback=AAA&callback=BBB")
 			.set("Fastly-debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript;charset=utf-8")
+			.expect("Content-Type", "application/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -50,7 +50,7 @@ describe("GET /v2/polyfill.min.js", function() {
 			.get("/v2/polyfill.min.js")
 			.set("Fastly-debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript;charset=utf-8")
+			.expect("Content-Type", "application/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -68,7 +68,7 @@ describe("GET /v2/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&f
 			.get("/v2/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1")
 			.set("Fastly-debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript;charset=utf-8")
+			.expect("Content-Type", "application/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -87,7 +87,7 @@ describe("GET /v2/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 			.get("/v2/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1")
 			.set("Fastly-debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript;charset=utf-8")
+			.expect("Content-Type", "application/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
