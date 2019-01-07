@@ -297,7 +297,6 @@ sub normalise_user_agent_latest {
 			}
 		}
 
-		# This needs to be generated based on the data in UA.js within polyfill-library
 		# Supported Browsers and minimum supported versions.
 		if (
 			# "edge": "*",

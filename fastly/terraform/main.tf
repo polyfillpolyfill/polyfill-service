@@ -42,8 +42,8 @@ resource "fastly_service_v1" "app" {
   }
 
   vcl {
-    name    = "normalise-user-agent.vcl"
-    content = "${file("${path.module}/../vcl/normalise-user-agent.vcl")}"
+    name    = "normalise-user-agent-3-25-1.vcl"
+    content = "${file("${path.module}/../vcl/normalise-user-agent-3-25-1.vcl")}"
   }
 
   vcl {

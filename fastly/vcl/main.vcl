@@ -101,7 +101,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
 	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
-			call normalise_user_agent;
+			call normalise_user_agent_3_25_1;
 		} else {
 			call normalise_user_agent_latest;
 		}
@@ -135,7 +135,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 }
 
 include "useragent-parser.vcl";
-include "normalise-user-agent.vcl";
+include "normalise-user-agent-3-25-1.vcl";
 include "normalise-user-agent-latest.vcl";
 
 # The Fastly VCL boilerplate.
