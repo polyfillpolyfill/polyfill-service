@@ -35,10 +35,9 @@ sub sort_comma_separated_value {
 }
 
 sub normalise_querystring_parameters_for_polyfill_bundle {
-	# Store the url without the querystring into a variable for use later.
-	declare local var.url STRING;
-	set var.url = querystring.remove(req.url);
-	
+	# Remove all querystring parameters which are not part of the public API.
+	set req.url = querystring.regfilter_except(req.url, "^(features|excludes|rum|unknown|flags|version|ua|callback|compression)$");
+
 	# (?i) makes the regex case-insensitive
 	# The regex will match only if their are characters after `features=` which are not an ampersand (&).
 	if (req.url.qs ~ "(?i)[^&=]*features=([^&]+)") {
@@ -50,11 +49,11 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Parameter now contains the sorted version of the features parameter.
-			set var.url = querystring.set(var.url, "features", req.http.Sorted-Value);
+			set req.url = querystring.set(req.url, "features", req.http.Sorted-Value);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "features", "default");
+		set req.url = querystring.set(req.url, "features", "default");
 	}
 	
 	# (?i) makes the regex case-insensitive
@@ -68,11 +67,11 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Parameter now contains the sorted version of the excludes parameter.
-			set var.url = querystring.set(var.url, "excludes", req.http.Sorted-Value);
+			set req.url = querystring.set(req.url, "excludes", req.http.Sorted-Value);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "excludes", "");
+		set req.url = querystring.set(req.url, "excludes", "");
 	}
 	
 	# If rum is not set, set to default value "0"
