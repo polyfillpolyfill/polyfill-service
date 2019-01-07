@@ -109,16 +109,16 @@ describe("Querystring normalising", function() {
 
 	it("uses features if set", function() {
 		return request(host)
-			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b,c")
+			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc")
 			.then(res => {
-				assert.deepStrictEqual(res.body.features, "a,b,c");
+				assert.deepStrictEqual(res.body.features, "a%2Cb%2Cc");
 			});
 	});
 	it("uses excludes if set", function() {
 		return request(host)
-			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=a,b,c")
+			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=a%2Cb,c")
 			.then(res => {
-				assert.deepStrictEqual(res.body.excludes, "a,b,c");
+				assert.deepStrictEqual(res.body.excludes, "a%2Cb%2Cc");
 			});
 	});
 	it("uses rum if set", function() {
@@ -175,7 +175,7 @@ describe("Querystring normalising", function() {
 		return request(host)
 			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=fetch,atob%2CIntersectionObserver")
 			.then(res => {
-				assert.deepStrictEqual(res.body.features, "IntersectionObserver,atob,fetch");
+				assert.deepStrictEqual(res.body.features, "IntersectionObserver%2Catob%2Cfetch");
 			});
 	});
 
@@ -183,7 +183,7 @@ describe("Querystring normalising", function() {
 		return request(host)
 			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=Map,Array.from%2CSymbol,atob")
 			.then(res => {
-				assert.deepStrictEqual(res.body.excludes, "Array.from,Map,Symbol,atob");
+				assert.deepStrictEqual(res.body.excludes, "Array.from%2CMap%2CSymbol%2Catob");
 			});
 	});
 });
