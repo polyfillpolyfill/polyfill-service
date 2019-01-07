@@ -175,15 +175,15 @@ describe("Querystring normalising", function() {
 		return request(host)
 			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=fetch,atob%2CIntersectionObserver")
 			.then(res => {
-				assert.deepStrictEqual(res.body.features, "fetch,atob%2CIntersectionObserver");
+				assert.deepStrictEqual(res.body.features, "IntersectionObserver,atob,fetch");
 			});
 	});
 
 	it("should sort excludes parameter", function() {
 		return request(host)
-			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=Map,Array.from,%2CSymbol,atob")
+			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=Map,Array.from%2CSymbol,atob")
 			.then(res => {
-				assert.deepStrictEqual(res.body.excludes, "fetch,atob%2CIntersectionObserver");
+				assert.deepStrictEqual(res.body.excludes, "Array.from,Map,Symbol,atob");
 			});
 	});
 });
