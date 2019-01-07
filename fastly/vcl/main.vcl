@@ -20,11 +20,11 @@ sub sort_comma_separated_value {
 	# Append `1-` infront of all the query values to make them simpler to transform later
 	set var.value = "1-" regsuball(var.value, ",", "&1-");
 	
-	# Create a url-like string in order for querystring.sort to work.
-	set var.value = querystring.sort("https://www.example.com?" var.value);
+	# Create a querystring-like string in order for querystring.sort to work.
+	set var.value = querystring.sort("?" var.value);
 
 	# Grab all the query values from the sorted url
-	set var.value = regsub(var.value, "https://www.example.com\?", "");
+	set var.value = regsub(var.value, "\?", "");
 	
 	# Reverse all the previous transformations to get back the single `features` query value value
 	set var.value = regsuball(var.value, "1-", "");
