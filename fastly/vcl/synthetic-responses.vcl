@@ -47,7 +47,7 @@ sub vcl_error {
 		set obj.response = "OK";
 		set obj.http.Content-Type = "application/json; charset=utf-8";
 		set obj.http.features = subfield(req.url.qs, "features", "&");
-		set obj.http.excludes = urldecode(subfield(req.url.qs, "excludes", "&"));
+		set obj.http.excludes = subfield(req.url.qs, "excludes", "&");
 		set obj.http.rum = subfield(req.url.qs, "rum", "&");
 		set obj.http.unknown = subfield(req.url.qs, "unknown", "&");
 		set obj.http.flags = subfield(req.url.qs, "flags", "&");
