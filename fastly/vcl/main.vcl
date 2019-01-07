@@ -1,27 +1,37 @@
 import querystring;
 
-sub sort_comma_separated_querystring_parameter {
-	#  Store the url without the querystring into a temporary header.
-	declare local var.url STRING;
-	set var.url = querystring.remove("https://www.example.com");
-	declare local var.parameter STRING;
-	set var.parameter = req.http.Sort-Parameter;
-	# If query parameter does not exist or is empty, set it to ""
-	set var.parameter = if(var.parameter != "", var.parameter, "");
-	# Replace all `&` characters with `^`, this is because `&` would break the parameter up into pieces.
-	set var.parameter = regsuball(var.parameter, "&", "^");
-	# Replace all `,` characters with `&` to break them into individual query parameters
-	# Append `1-` infront of all the query parameters to make them simpler to transform later
-	set var.parameter = "1-" regsuball(var.parameter, ",", "&1-");
-	set var.url = var.url "?" var.parameter;
-	set var.url = querystring.sort(var.url);
-	# Grab all the query parameters from the sorted url
-	set var.parameter = regsub(var.url, "(.*)\?(.*)", "\2");
-	# Reverse all the previous transformations to get back the single `features` query parameter value
-	set var.parameter = regsuball(var.parameter, "1-", "");
-	set var.parameter = regsuball(var.parameter, "&", ",");
-	set var.parameter = regsuball(var.parameter, "\^", "&");
-	set req.http.Sorted-Parameter = var.parameter;
+sub sort_comma_separated_value {
+	# This function takes a CSV and tranforms it into a url where each
+	# comma-separated-value is a query-string parameter and then uses 
+	# Fastly's querystring.sort function to sort the values. Once sorted
+	# it then turn the query-parameters back into a CSV.
+	# Set the CSV on the header `Sort-Value`.
+	# Returns the sorted CSV on the header `Sorted-Value`.
+	declare local var.value STRING;
+	set var.value = req.http.Sort-value;
+
+	# If query value does not exist or is empty, set it to ""
+	set var.value = if(var.value != "", var.value, "");
+
+	# Replace all `&` characters with `^`, this is because `&` would break the value up into pieces.
+	set var.value = regsuball(var.value, "&", "^");
+
+	# Replace all `,` characters with `&` to break them into individual query values
+	# Append `1-` infront of all the query values to make them simpler to transform later
+	set var.value = "1-" regsuball(var.value, ",", "&1-");
+	
+	# Create a url-like string in order for querystring.sort to work.
+	set var.value = querystring.sort("https://www.example.com?" var.value);
+
+	# Grab all the query values from the sorted url
+	set var.value = regsub(var.value, "https://www.example.com\?", "");
+	
+	# Reverse all the previous transformations to get back the single `features` query value value
+	set var.value = regsuball(var.value, "1-", "");
+	set var.value = regsuball(var.value, "&", ",");
+	set var.value = regsuball(var.value, "\^", "&");
+
+	set req.http.Sorted-Value = var.value;
 }
 
 sub normalise_querystring_parameters_for_polyfill_bundle {
@@ -36,11 +46,11 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		# re.group.1 is the first regex capture group in the regex above.
 		if (std.strlen(re.group.1) < 200) {
 			# We add the value of the features parameter to this header
-			# This is to be able to have sort_comma_separated_querystring_parameter sort the value
-			set req.http.Sort-Parameter = re.group.1;
-			call sort_comma_separated_querystring_parameter;
+			# This is to be able to have sort_comma_separated_value sort the value
+			set req.http.Sort-Value = urldecode(re.group.1);
+			call sort_comma_separated_value;
 			# The header Sorted-Parameter now contains the sorted version of the features parameter.
-			set var.url = querystring.set(var.url, "features", req.http.Sorted-Parameter);
+			set var.url = querystring.set(var.url, "features", req.http.Sorted-Value);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
@@ -54,113 +64,71 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		# re.group.1 is the first regex capture group in the regex above.
 		if (std.strlen(re.group.1) < 200) {
 			# We add the value of the excludes parameter to this header
-			# This is to be able to have sort_comma_separated_querystring_parameter sort the value
-			set req.http.Sort-Parameter = re.group.1;
-			call sort_comma_separated_querystring_parameter;
+			# This is to be able to have sort_comma_separated_value sort the value
+			set req.http.Sort-Value = urldecode(re.group.1);
+			call sort_comma_separated_value;
 			# The header Sorted-Parameter now contains the sorted version of the excludes parameter.
-			set var.url = querystring.set(var.url, "excludes", req.http.Sorted-Parameter);
+			set var.url = querystring.set(var.url, "excludes", req.http.Sorted-Value);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
 		set var.url = querystring.set(var.url, "excludes", "");
 	}
 	
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `rum=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*rum=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "rum", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "rum", "0");
+	# If rum is not set, set to default value "0"
+	if (req.url.qs !~ "(?i)[^&=]*rum=([^&]+)") {
+		set req.url = querystring.set(req.url, "rum", "0");
 	}
 	
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `unknown=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*unknown=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "unknown", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "unknown", "polyfill");
+	# If unknown is not set, set to default value "polyfill"
+	if (req.url.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
+		set req.url = querystring.set(req.url, "unknown", "polyfill");
 	}
 
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `flags=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*flags=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "flags", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "flags", "");
+	# If flags is not set, set to default value ""
+	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
+		set req.url = querystring.set(req.url, "flags", "");
 	}
 
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `version=` which are not an ampersand (&).
+	# If version is not set, set to default value ""
 	declare local var.version STRING;
-	if (req.url.qs ~ "(?i)[^&=]*version=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "version", re.group.1);
-		set var.version = re.group.1;
-	} else {
-		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "version", "");
+	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
+		set req.url = querystring.set(req.url, "version", "");
 	}
-
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `ua=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*ua=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "ua", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		# The default value is different dependant upon which version of the polyfill-library has been set.
-		if (var.version == "3.25.1") {
+	
+	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
+	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
+		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
 			call normalise_user_agent;
 		} else {
 			call normalise_user_agent_latest;
 		}
-		set var.url = querystring.set(var.url, "ua", req.http.Normalized-User-Agent);
+		set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
 	}
 
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `callback=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*callback=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "callback", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		set var.url = querystring.set(var.url, "callback", "");
+	# If callback is not set, set to default value ""
+	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
+		set req.url = querystring.set(req.url, "callback", "");
 	}
 	
-	# (?i) makes the regex case-insensitive
-	# The regex will match only if their are characters after `compression=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*compression=([^&]+)") {
-		# Parameter has already been set, use the already set value.
-		# re.group.1 is the first regex capture group in the regex above.
-		set var.url = querystring.set(var.url, "compression", re.group.1);
-	} else {
-		# Parameter has not been set, use the default value.
-		# The default value is dependant upon what the user-agent supports.
+	# If compression is not set, use the best compression that the user-agent supports.
+	if (req.url.qs !~ "(?i)[^&=]*compression=([^&]+)") {
+		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with: 
+		# `set req.url = querystring.set(req.url, "compression", req.http.Accept-Encoding || "")`
+
+		# Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
 		if (req.http.Fastly-Orig-Accept-Encoding && req.http.User-Agent !~ "MSIE 6") {
 			if (req.http.Fastly-Orig-Accept-Encoding ~ "br") {
-				set var.url = querystring.set(var.url, "compression", "br");
+				set req.url = querystring.set(req.url, "compression", "br");
 			} elsif (req.http.Fastly-Orig-Accept-Encoding ~ "gzip") {
-				set var.url = querystring.set(var.url, "compression", "gzip");
+				set req.url = querystring.set(req.url, "compression", "gzip");
 			} else {
-				set var.url = querystring.set(var.url, "compression", "gzip");
+				set req.url = querystring.set(req.url, "compression", "");
 			}
 		} else {
-			set var.url = querystring.set(var.url, "compression", "gzip");
+			set req.url = querystring.set(req.url, "compression", "");
 		}
 	}
-	set req.url = var.url;
 }
 
 include "useragent-parser.vcl";
