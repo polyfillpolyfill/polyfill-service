@@ -44,7 +44,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs ~ "(?i)[^&=]*features=([^&]+)") {
 		# Parameter has already been set, use the already set value.
 		# re.group.1 is the first regex capture group in the regex above.
-		if (std.strlen(re.group.1) < 200) {
+		if (std.strlen(re.group.1) < 100) {
 			# We add the value of the features parameter to this header
 			# This is to be able to have sort_comma_separated_value sort the value
 			set req.http.Sort-Value = urldecode(re.group.1);
@@ -62,7 +62,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
 		# Parameter has already been set, use the already set value.
 		# re.group.1 is the first regex capture group in the regex above.
-		if (std.strlen(re.group.1) < 200) {
+		if (std.strlen(re.group.1) < 100) {
 			# We add the value of the excludes parameter to this header
 			# This is to be able to have sort_comma_separated_value sort the value
 			set req.http.Sort-Value = urldecode(re.group.1);
