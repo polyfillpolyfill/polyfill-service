@@ -71,7 +71,8 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		}
 	} else {
 		# If excludes is not set, set to default value ""
-		set req.url = if(req.url ~ "\?", "&excludes=", "?excludes=");
+		set req.url = querystring.filter(req.url, "excludes");
+		set req.url = if(req.url ~ "\?", req.url "&excludes=", req.url "?excludes=");
 	}
 	
 	# If rum is not set, set to default value "0"
@@ -86,28 +87,33 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 	# If flags is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
-		set req.url = if(req.url ~ "\?", "&flags=", "?flags=");
+		set req.url = querystring.filter(req.url, "flags");
+		set req.url = if(req.url ~ "\?", req.url "&flags=", req.url "?flags=");
 	}
 
 	# If version is not set, set to default value ""
 	declare local var.version STRING;
 	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
-		set req.url = if(req.url ~ "\?", "&version=", "?version=");
+		set req.url = querystring.filter(req.url, "version");
+		set req.url = if(req.url ~ "\?", req.url "&version=", req.url "?version=");
 	}
 	
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
 	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
-			call normalise_user_agent;
+			# normalise_user_agent function is too large for Fastly Fiddle.
+			# call normalise_user_agent;
 		} else {
-			call normalise_user_agent_latest;
+			# normalise_user_agent_latest function is too large for Fastly Fiddle.
+			# call normalise_user_agent_latest;
 		}
 		set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
 	}
 
 	# If callback is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
-		set req.url = if(req.url ~ "\?", "&callback=", "?callback=");
+		set req.url = querystring.filter(req.url, "callback");
+		set req.url = if(req.url ~ "\?", req.url "&callback=", req.url "?callback=");
 	}
 	
 	# If compression is not set, use the best compression that the user-agent supports.
