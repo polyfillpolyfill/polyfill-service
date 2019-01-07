@@ -101,11 +101,9 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
 	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
-			# normalise_user_agent function is too large for Fastly Fiddle.
-			# call normalise_user_agent;
+			call normalise_user_agent;
 		} else {
-			# normalise_user_agent_latest function is too large for Fastly Fiddle.
-			# call normalise_user_agent_latest;
+			call normalise_user_agent_latest;
 		}
 		set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
 	}
