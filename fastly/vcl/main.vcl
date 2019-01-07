@@ -70,8 +70,8 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.url = querystring.set(req.url, "excludes", req.http.Sorted-Value);
 		}
 	} else {
-		# Parameter has not been set, use the default value.
-		set req.url = querystring.set(req.url, "excludes", "");
+		# If excludes is not set, set to default value ""
+		set req.url = if(req.url ~ "\?", "&excludes=", "?excludes=");
 	}
 	
 	# If rum is not set, set to default value "0"
@@ -86,13 +86,13 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 	# If flags is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
-		set req.url = querystring.set(req.url, "flags", "");
+		set req.url = if(req.url ~ "\?", "&flags=", "?flags=");
 	}
 
 	# If version is not set, set to default value ""
 	declare local var.version STRING;
 	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
-		set req.url = querystring.set(req.url, "version", "");
+		set req.url = if(req.url ~ "\?", "&version=", "?version=");
 	}
 	
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
@@ -107,7 +107,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 	# If callback is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
-		set req.url = querystring.set(req.url, "callback", "");
+		set req.url = if(req.url ~ "\?", "&callback=", "?callback=");
 	}
 	
 	# If compression is not set, use the best compression that the user-agent supports.
