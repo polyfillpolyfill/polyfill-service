@@ -143,8 +143,10 @@ sub vcl_fetch {
 
 	set beresp.http.Timing-Allow-Origin = "*";
 
-	set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
-	set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
+	if (req.http.Normalized-User-Agent) {
+		set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
+		set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
+	}
 }
 
 sub vcl_deliver {
