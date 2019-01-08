@@ -57,13 +57,13 @@ sub vcl_error {
 		set obj.http.version = subfield(req.url.qs, "version", "&");
 		synthetic "{"
 			{"""} "features" {"""} ":" {"""} obj.http.features {"""}
-			","{"""} "excludes" {"""} ":" {"""} obj.http.excludes {"""}
+			","if (obj.http.excludes, ","{"""} "excludes" {"""} ":" {"""} obj.http.excludes {"""}, "")
 			","{"""} "rum" {"""} ":" {"""} obj.http.rum {"""}
 			","{"""} "unknown" {"""} ":" {"""} obj.http.unknown {"""}
-			","{"""} "flags" {"""} ":" {"""} obj.http.flags {"""}
+			","if (obj.http.flags, ","{"""} "flags" {"""} ":" {"""} obj.http.flags {"""}, "")
 			","{"""} "ua" {"""} ":" {"""} obj.http.ua {"""}
-			","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""}
-			","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""}
+			","if (obj.http.callback, ","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""}, "")
+			","if (obj.http.compression, ","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""}, "")
 			if (obj.http.version, ","{"""} "version" {"""} ":" {"""} obj.http.version {"""}, "")
 		"}";
 		return (deliver);
