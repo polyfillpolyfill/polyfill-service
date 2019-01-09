@@ -65,7 +65,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	
 	# (?i) makes the regex case-insensitive
 	# The regex will match only if their are characters after `excludes=` which are not an ampersand (&).
-	if (var.querystring.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
+	if (req.url.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
 		# Parameter has already been set, use the already set value.
 		# re.group.1 is the first regex capture group in the regex above.
 		if (std.strlen(re.group.1) < 100) {
@@ -82,21 +82,21 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	}
 	
 	# If rum is not set, set to default value "0"
-	if (var.querystring.qs !~ "(?i)[^&=]*rum=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*rum=([^&]+)") {
 		set var.querystring = querystring.set(var.querystring, "rum", "0");
 	} else {
 		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
 	}
 	
 	# If unknown is not set, set to default value "polyfill"
-	if (var.querystring.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
 		set var.querystring = querystring.set(var.querystring, "unknown", "polyfill");
 	} else {
 		set var.querystring = querystring.set(var.querystring, "unknown", re.group.1);
 	}
 
 	# If flags is not set, set to default value ""
-	if (var.querystring.qs !~ "(?i)[^&=]*flags=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
 		set var.querystring = var.querystring "&flags=";
 	} else {
 		set var.querystring = querystring.set(var.querystring, "flags", re.group.1);
@@ -104,15 +104,15 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 	# If version is not set, set to default value ""
 	declare local var.version STRING;
-	if (var.querystring.qs !~ "(?i)[^&=]*version=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
 		set var.querystring = var.querystring "&version=";
 	} else {
 		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
 	}
 	
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
-	if (var.querystring.qs !~ "(?i)[^&=]*ua=([^&]+)") {
-		if (var.querystring.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
+	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
+		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
 			call normalise_user_agent_3_25_1;
 		} else {
 			call normalise_user_agent_latest;
@@ -123,14 +123,14 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	}
 
 	# If callback is not set, set to default value ""
-	if (var.querystring.qs !~ "(?i)[^&=]*callback=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
 		set var.querystring = var.querystring "&callback=";
 	} else {
 		set var.querystring = querystring.set(var.querystring, "callback", re.group.1);
 	}
 	
 	# If compression is not set, use the best compression that the user-agent supports.
-	if (var.querystring.qs !~ "(?i)[^&=]*compression=([^&]+)") {
+	if (req.url.qs !~ "(?i)[^&=]*compression=([^&]+)") {
 		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with: 
 		# `set var.querystring = querystring.set(var.querystring, "compression", req.http.Accept-Encoding || "")`
 
