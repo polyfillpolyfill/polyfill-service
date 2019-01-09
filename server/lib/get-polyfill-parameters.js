@@ -6,7 +6,7 @@ const featuresfromQueryParam = require("./features-from-query-parameter");
 module.exports = function getPolyfillParameters(req = {}) {
 	const query = req.query || {};
 	const path = req.path || "";
-	const { excludes = "", features = "default", rum, unknown = "polyfill", version = latestVersion, callback } = query;
+	const { excludes = "", features = "default", rum, unknown = "polyfill", version, callback } = query;
 	const uaString = query.ua || (req.headers && req.headers["user-agent"]) || (typeof req.get === "function" && req.get("User-Agent")) || "";
 	const compression = query.compression !== "identity" ? query.compression : undefined;
 
@@ -19,7 +19,7 @@ module.exports = function getPolyfillParameters(req = {}) {
 		callback: /^[\w\.]+$/.test(callback || "") ? callback : false,
 		unknown,
 		uaString,
-		version,
+		version: version || latestVersion,
 		compression
 	};
 };
