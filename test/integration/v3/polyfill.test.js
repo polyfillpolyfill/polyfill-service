@@ -101,8 +101,9 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "identity")
+			.expect("Vary", "Accept-Encoding")
 			.then(response => {
-				assert.equal(response.headers["content-encoding"], "");
+				assert.equal(response.headers["content-encoding"], undefined);
 			});
 	});
 
@@ -111,6 +112,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "gzip")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "gzip");
 	});
 
@@ -119,6 +121,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "gzip, deflate")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "gzip");
 	});
 
@@ -127,6 +130,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "br")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "br");
 	});
 
@@ -135,6 +139,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "br, gzip")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "br");
 	});
 });
