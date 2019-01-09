@@ -167,7 +167,7 @@ describe("Querystring normalising", function() {
 		return request(host)
 			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?ua=carrot/1.2.3")
 			.then(res => {
-				assert.deepStrictEqual(res.body.ua, "carrot/1.2.3");
+				assert.deepStrictEqual(res.body.ua, "carrot%2F1.2.3");
 			});
 	});
 
