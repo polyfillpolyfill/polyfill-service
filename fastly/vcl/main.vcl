@@ -107,7 +107,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
 		set var.querystring = var.querystring "&version=";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
+		set var.querystring = querystring.set(var.querystring, "version", re.group.1);
 	}
 	
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
