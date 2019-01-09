@@ -48,7 +48,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			# This is to be able to have sort_comma_separated_value sort the value
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
-			# The header Sorted-Parameter now contains the sorted version of the features parameter.
+			# The header Sorted-Value now contains the sorted version of the features parameter.
 			set req.url = querystring.set(req.url, "features", req.http.Sorted-Value);
 		}
 	} else {
@@ -66,7 +66,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			# This is to be able to have sort_comma_separated_value sort the value
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
-			# The header Sorted-Parameter now contains the sorted version of the excludes parameter.
+			# The header Sorted-Value now contains the sorted version of the excludes parameter.
 			set req.url = querystring.set(req.url, "excludes", req.http.Sorted-Value);
 		}
 	} else {
