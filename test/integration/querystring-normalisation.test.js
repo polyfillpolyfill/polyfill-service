@@ -94,7 +94,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle")
 				.then(res => {
-					assert.deepStrictEqual(res.body.ua, "other/0.0.0");
+					assert.deepStrictEqual(res.body.ua, "other%2F0.0.0");
 				});
 		});
 		it("should set ua to the normalised user-agent", function() {
