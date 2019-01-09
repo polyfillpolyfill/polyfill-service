@@ -8,10 +8,7 @@ module.exports = function getPolyfillParameters(req = {}) {
 	const path = req.path || "";
 	const { excludes = "", features = "default", rum, unknown = "polyfill", version, callback } = query;
 	const uaString = query.ua || (req.headers && req.headers["user-agent"]) || (typeof req.get === "function" && req.get("User-Agent")) || "";
-	let compression = query.compression !== "identity" ? query.compression : undefined;
-	if (!compression) {
-		if (req.headers && req.headers["accept-encoding"]) || (typeof req.get === "function" && req.get("User-Agent"))
-	}
+	const compression = query.compression !== "identity" ? query.compression : undefined;
 
 	return {
 		excludes: excludes ? excludes.split(",") : [],
