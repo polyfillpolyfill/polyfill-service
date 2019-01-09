@@ -35,8 +35,15 @@ sub sort_comma_separated_value {
 }
 
 sub normalise_querystring_parameters_for_polyfill_bundle {
+	# Store the url without the querystring into a temporary header.
+	declare local var.url STRING;
+	set var.url = querystring.remove(req.url);
+
+	declare local var.querystring STRING;
+	set var.querystring = "?";
+
 	# Remove all querystring parameters which are not part of the public API.
-	set req.url = querystring.regfilter_except(req.url, "^(features|excludes|rum|unknown|flags|version|ua|callback|compression)$");
+	# set req.url = querystring.regfilter_except(req.url, "^(features|excludes|rum|unknown|flags|version|ua|callback|compression)$");
 
 	# (?i) makes the regex case-insensitive
 	# The regex will match only if their are characters after `features=` which are not an ampersand (&).
@@ -49,16 +56,16 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the features parameter.
-			set req.url = querystring.set(req.url, "features", req.http.Sorted-Value);
+			set var.querystring = querystring.set(var.querystring, "features", req.http.Sorted-Value);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
-		set req.url = querystring.set(req.url, "features", "default");
+		set var.querystring = querystring.set(var.querystring, "features", "default");
 	}
 	
 	# (?i) makes the regex case-insensitive
 	# The regex will match only if their are characters after `excludes=` which are not an ampersand (&).
-	if (req.url.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
+	if (var.querystring.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
 		# Parameter has already been set, use the already set value.
 		# re.group.1 is the first regex capture group in the regex above.
 		if (std.strlen(re.group.1) < 100) {
@@ -67,71 +74,82 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the excludes parameter.
-			set req.url = querystring.set(req.url, "excludes", req.http.Sorted-Value);
+			set var.querystring = querystring.set(var.querystring, "excludes", req.http.Sorted-Value);
 		}
 	} else {
 		# If excludes is not set, set to default value ""
-		set req.url = querystring.filter(req.url, "excludes");
-		set req.url = if(req.url ~ "\?", req.url "&excludes=", req.url "?excludes=");
+		set var.querystring = var.querystring "&excludes=";
 	}
 	
 	# If rum is not set, set to default value "0"
-	if (req.url.qs !~ "(?i)[^&=]*rum=([^&]+)") {
-		set req.url = querystring.set(req.url, "rum", "0");
+	if (var.querystring.qs !~ "(?i)[^&=]*rum=([^&]+)") {
+		set var.querystring = querystring.set(var.querystring, "rum", "0");
+	} else {
+		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
 	}
 	
 	# If unknown is not set, set to default value "polyfill"
-	if (req.url.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
-		set req.url = querystring.set(req.url, "unknown", "polyfill");
+	if (var.querystring.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
+		set var.querystring = querystring.set(var.querystring, "unknown", "polyfill");
+	} else {
+		set var.querystring = querystring.set(var.querystring, "unknown", re.group.1);
 	}
 
 	# If flags is not set, set to default value ""
-	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
-		set req.url = querystring.filter(req.url, "flags");
-		set req.url = if(req.url ~ "\?", req.url "&flags=", req.url "?flags=");
+	if (var.querystring.qs !~ "(?i)[^&=]*flags=([^&]+)") {
+		set var.querystring = var.querystring "&flags=";
+	} else {
+		set var.querystring = querystring.set(var.querystring, "flags", re.group.1);
 	}
 
 	# If version is not set, set to default value ""
 	declare local var.version STRING;
-	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
-		set req.url = querystring.filter(req.url, "version");
-		set req.url = if(req.url ~ "\?", req.url "&version=", req.url "?version=");
+	if (var.querystring.qs !~ "(?i)[^&=]*version=([^&]+)") {
+		set var.querystring = var.querystring "&version=";
+	} else {
+		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
 	}
 	
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
-	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
-		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
+	if (var.querystring.qs !~ "(?i)[^&=]*ua=([^&]+)") {
+		if (var.querystring.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
 			call normalise_user_agent_3_25_1;
 		} else {
 			call normalise_user_agent_latest;
 		}
-		set req.url = querystring.set(req.url, "ua", req.http.Normalized-User-Agent);
+		set var.querystring = querystring.set(var.querystring, "ua", req.http.Normalized-User-Agent);
+	} else {
+		set var.querystring = querystring.set(var.querystring, "ua", re.group.1);
 	}
 
 	# If callback is not set, set to default value ""
-	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
-		set req.url = querystring.filter(req.url, "callback");
-		set req.url = if(req.url ~ "\?", req.url "&callback=", req.url "?callback=");
+	if (var.querystring.qs !~ "(?i)[^&=]*callback=([^&]+)") {
+		set var.querystring = var.querystring "&callback=";
+	} else {
+		set var.querystring = querystring.set(var.querystring, "callback", re.group.1);
 	}
 	
 	# If compression is not set, use the best compression that the user-agent supports.
-	if (req.url.qs !~ "(?i)[^&=]*compression=([^&]+)") {
+	if (var.querystring.qs !~ "(?i)[^&=]*compression=([^&]+)") {
 		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with: 
-		# `set req.url = querystring.set(req.url, "compression", req.http.Accept-Encoding || "")`
+		# `set var.querystring = querystring.set(var.querystring, "compression", req.http.Accept-Encoding || "")`
 
 		# Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
 		if (req.http.Fastly-Orig-Accept-Encoding && req.http.User-Agent !~ "MSIE 6") {
 			if (req.http.Fastly-Orig-Accept-Encoding ~ "br") {
-				set req.url = querystring.set(req.url, "compression", "br");
+				set var.querystring = querystring.set(var.querystring, "compression", "br");
 			} elsif (req.http.Fastly-Orig-Accept-Encoding ~ "gzip") {
-				set req.url = querystring.set(req.url, "compression", "gzip");
+				set var.querystring = querystring.set(var.querystring, "compression", "gzip");
 			} else {
-				set req.url = querystring.set(req.url, "compression", "");
+				set var.querystring = var.querystring "&compression=";
 			}
 		} else {
-			set req.url = querystring.set(req.url, "compression", "");
+			set var.querystring = var.querystring "&compression=";
 		}
+	} else {
+		set var.querystring = querystring.set(var.querystring, "compression", re.group.1);
 	}
+	set req.url = var.url var.querystring;
 }
 
 include "useragent-parser.vcl";
