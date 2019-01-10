@@ -152,7 +152,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	set req.url = var.url var.querystring;
 }
 
-include "useragent-parser.vcl";
+include "../../node_modules/@financial-times/useragent_parser/lib/ua_parser.vcl";
 include "normalise-user-agent-3-25-1.vcl";
 include "normalise-user-agent-latest.vcl";
 
