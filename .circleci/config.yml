@@ -27,6 +27,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
+      - run: "yarn install --frozen-lockfile"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
@@ -52,6 +53,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
+      - run: "yarn install --frozen-lockfile"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
@@ -78,6 +80,7 @@ jobs:
       - image: "circleci/node:10"
     steps:
       - "checkout"
+      - run: "yarn install --frozen-lockfile"
       - run: "sudo ~/project/.circleci/install_heroku.sh"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
