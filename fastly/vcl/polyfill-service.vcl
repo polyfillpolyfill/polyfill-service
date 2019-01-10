@@ -114,18 +114,23 @@ sub vcl_fetch {
 		call breadcrumb_fetch;
 	}
 
+	# These header are only required for HTML documents.
+	if (beresp.http.Content-Type ~ "text/html") {
+		# Enables the cross-site scripting filter built into most modern web browsers.
+		set beresp.http.X-XSS-Protection = "1; mode=block";
+		
+		# Prevents MIME-sniffing a response away from the declared content type.
+		set beresp.http.X-Content-Type-Options = "nosniff";
+
+		# Allow only content from the site's own origin (this excludes subdomains) and www.ft.com.
+		# Don't allow the website to be used within an iframe
+		if (!beresp.http.Content-Security-Policy) {
+			set beresp.http.Content-Security-Policy = "default-src 'self'; font-src 'self' https://www.ft.com; img-src 'self' https://www.ft.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
+		}
+	}
+
 	# Ensure the site is only served over HTTPS and reduce the chances of someone performing a MITM attack.
 	set beresp.http.Strict-Transport-Security = "max-age=31536000; includeSubdomains; preload";
-	# Enables the cross-site scripting filter built into most modern web browsers.
-	set beresp.http.X-XSS-Protection = "1; mode=block";
-	# Prevents MIME-sniffing a response away from the declared content type.
-	set beresp.http.X-Content-Type-Options = "nosniff";
-
-	# Allow only content from the site's own origin (this excludes subdomains) and www.ft.com.
-	# Don't allow the website to be used within an iframe
-	if (!beresp.http.Content-Security-Policy) {
-		set beresp.http.Content-Security-Policy = "default-src 'self'; font-src 'self' https://www.ft.com; img-src 'self' https://www.ft.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
-	}
 
 	# The Referrer-Policy header governs which referrer information, sent in the Referer header, should be included with requests made.
 	# Send a full URL when performing a same-origin request, but only send the origin of the document for other cases.
@@ -138,8 +143,10 @@ sub vcl_fetch {
 
 	set beresp.http.Timing-Allow-Origin = "*";
 
-	set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
-	set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
+	if (req.http.Normalized-User-Agent) {
+		set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
+		set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
+	}
 }
 
 sub vcl_deliver {

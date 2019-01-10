@@ -52,7 +52,7 @@ describe("HEAD /v3/polyfill.js", function() {
 			.head("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript; charset=utf-8")
+			.expect("Content-Type", "text/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service");
 	});
@@ -65,7 +65,7 @@ describe("GET /v3/polyfill.js", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript; charset=utf-8")
+			.expect("Content-Type", "text/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -83,7 +83,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 			.get("/v3/polyfill.js?callback=AAA&callback=BBB")
 			.set("Fastly-Debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript; charset=utf-8")
+			.expect("Content-Type", "text/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -101,8 +101,9 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "identity")
+			.expect("Vary", "Accept-Encoding")
 			.then(response => {
-				assert.equal(response.headers["content-encoding"], "");
+				assert.equal(response.headers["content-encoding"], undefined);
 			});
 	});
 
@@ -111,6 +112,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "gzip")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "gzip");
 	});
 
@@ -119,6 +121,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "gzip, deflate")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "gzip");
 	});
 
@@ -127,6 +130,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "br")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "br");
 	});
 
@@ -135,6 +139,7 @@ describe("encoding", function() {
 			.get("/v3/polyfill.js")
 			.set("Fastly-Debug", "true")
 			.set("Accept-Encoding", "br, gzip")
+			.expect("Vary", "Accept-Encoding")
 			.expect("Content-Encoding", "br");
 	});
 });
@@ -146,7 +151,7 @@ describe("GET /v3/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&f
 			.get("/v3/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1")
 			.set("Fastly-Debug", "true")
 			.expect(200)
-			.expect("Content-Type", "application/javascript; charset=utf-8")
+			.expect("Content-Type", "text/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("surrogate-key", "polyfill-service")
 			.then(response => {
@@ -203,7 +208,7 @@ describe("generative tests", async function() {
 				.then(response => {
 					try {
 						assert.equal(response.statusCode, 200);
-						assert.equal(response.headers["content-type"], "application/javascript; charset=utf-8");
+						assert.equal(response.headers["content-type"], "text/javascript; charset=utf-8");
 						assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
 						assert.isString(response.text);
 						// vm.Script will cause the event loop to become blocked whilst it parses the large response

@@ -47,7 +47,7 @@ sub vcl_error {
 		set obj.response = "OK";
 		set obj.http.Content-Type = "application/json; charset=utf-8";
 		set obj.http.features = subfield(req.url.qs, "features", "&");
-		set obj.http.excludes = urldecode(subfield(req.url.qs, "excludes", "&"));
+		set obj.http.excludes = subfield(req.url.qs, "excludes", "&");
 		set obj.http.rum = subfield(req.url.qs, "rum", "&");
 		set obj.http.unknown = subfield(req.url.qs, "unknown", "&");
 		set obj.http.flags = subfield(req.url.qs, "flags", "&");
@@ -57,13 +57,13 @@ sub vcl_error {
 		set obj.http.version = subfield(req.url.qs, "version", "&");
 		synthetic "{"
 			{"""} "features" {"""} ":" {"""} obj.http.features {"""}
-			","{"""} "excludes" {"""} ":" {"""} obj.http.excludes {"""}
+			if (obj.http.excludes, ","{"""} "excludes" {"""} ":" {"""} obj.http.excludes {"""}, "")
 			","{"""} "rum" {"""} ":" {"""} obj.http.rum {"""}
 			","{"""} "unknown" {"""} ":" {"""} obj.http.unknown {"""}
-			","{"""} "flags" {"""} ":" {"""} obj.http.flags {"""}
+			if (obj.http.flags, ","{"""} "flags" {"""} ":" {"""} obj.http.flags {"""}, "")
 			","{"""} "ua" {"""} ":" {"""} obj.http.ua {"""}
-			","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""}
-			","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""}
+			if (obj.http.callback, ","{"""} "callback" {"""} ":" {"""} obj.http.callback {"""}, "")
+			if (obj.http.compression, ","{"""} "compression" {"""} ":" {"""} obj.http.compression {"""}, "")
 			if (obj.http.version, ","{"""} "version" {"""} ":" {"""} obj.http.version {"""}, "")
 		"}";
 		return (deliver);

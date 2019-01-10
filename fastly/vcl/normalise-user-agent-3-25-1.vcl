@@ -1,4 +1,4 @@
-sub normalise_user_agent {
+sub normalise_user_agent_3_25_1 {
 	if (req.http.User-Agent) {
 		# Longest genuine UA seen so far: 255 chars (Facebook in-app on iOS):
 		set req.http.User-Agent = if(req.http.User-Agent ~ "(^[\s\S]{0,300})", re.group.1, "other/0.0.0");

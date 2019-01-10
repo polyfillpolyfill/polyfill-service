@@ -1,7 +1,7 @@
 sub normalise_user_agent_latest {
 	if (req.http.User-Agent) {
 		# Longest genuine UA seen so far: 255 chars (Facebook in-app on iOS):
-		set req.http.User-Agent = if(req.http.User-Agent ~ "(^[\s\S]{0,300})", re.group.1, "other/0.0.0");
+		# set req.http.User-Agent = if(req.http.User-Agent ~ "(^[\s\S]{0,300})", re.group.1, "other/0.0.0");
 
 		# Remove UA tokens that unnecessarily complicate UA parsing
 
@@ -297,7 +297,6 @@ sub normalise_user_agent_latest {
 			}
 		}
 
-		# This needs to be generated based on the data in UA.js within polyfill-library
 		# Supported Browsers and minimum supported versions.
 		if (
 			# "edge": "*",

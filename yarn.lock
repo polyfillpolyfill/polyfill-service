@@ -135,6 +135,11 @@
     require-all "^2.2.0"
     varname "^2.0.3"
 
+"@financial-times/useragent_parser@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@financial-times/useragent_parser/-/useragent_parser-1.0.2.tgz#3f26e7cb2e0e4dfc9ac833f8259d7fed9c7fbf9c"
+  integrity sha512-zuJMxn5Qnk7CKl+zrVXDqXs0F+p4tshO6B4s8VenJj34EEVuV4iZIbkGiEFJUbn29z9Mcn6k8yfj9qSCNDcPPQ==
+
 "@sinonjs/formatio@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/formatio/-/formatio-3.0.0.tgz#9d282d81030a03a03fa0c5ce31fd8786a4da311a"
