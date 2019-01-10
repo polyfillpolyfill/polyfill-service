@@ -100,7 +100,7 @@ describe("Querystring normalising", function() {
 		it("should set ua to the normalised user-agent", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle")
-				.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Whale/1.3.45.0 Safari/537.36")
+				.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Safari/537.36")
 				.then(res => {
 					assert.deepStrictEqual(res.body.ua, "chrome%2F65.0.0");
 				});
