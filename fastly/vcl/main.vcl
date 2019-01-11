@@ -77,6 +77,8 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the excludes parameter.
 			set var.querystring = querystring.set(var.querystring, "excludes", req.http.Sorted-Value);
+		} else {
+			set var.querystring = querystring.set(var.querystring, "excludes", re.group.1);
 		}
 	} else {
 		# If excludes is not set, set to default value ""
