@@ -57,6 +57,8 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the features parameter.
 			set var.querystring = querystring.set(var.querystring, "features", req.http.Sorted-Value);
+		} else {
+			set var.querystring = querystring.set(var.querystring, "features", re.group.1);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
