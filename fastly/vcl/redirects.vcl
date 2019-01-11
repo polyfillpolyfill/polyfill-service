@@ -12,7 +12,12 @@ sub vcl_recv {
 		error 902 "Redirect to V2";
 	}
 	
-	if (req.http.Orig-URL ~ "^\/(\?.*)?$") {
+	if (req.url.path != "/v2/polyfill.js" && req.url.path != "/v2/polyfill.min.js") {
+		if (req.url.path ~ "^/v2($|/)") {
+			error 908;
+		}
+	}
+	if (req.url.path == "/") {
 		error 908;
 	}
 }
@@ -40,7 +45,7 @@ sub vcl_error {
 
 	# Redirect to v3
 	if (obj.status == 908) {
-		set obj.status = 302;
+		set obj.status = 301;
 		set obj.http.Location = "/v3/";
 		return (deliver);
 	}
