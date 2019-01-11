@@ -67,7 +67,7 @@ sub vcl_recv {
 	}
 
 	# Override the v3 defaults with the defaults of v2
-	if (req.http.Orig-URL ~ "^/v2/polyfill(\.min)?\.js") {
+	if (req.url ~ "^/v2/polyfill(\.min)?\.js") {
 		set req.url = regsub(req.url, "^/v2", "/v3");
 		set req.url = querystring.set(req.url, "version", "3.25.1");
 		declare local var.unknown STRING;
@@ -75,7 +75,7 @@ sub vcl_recv {
 		set req.url = querystring.set(req.url, "unknown", if(var.unknown != "", var.unknown, "ignore"));
 	}
 
-	if (req.http.Orig-URL ~ "^/v3/polyfill(\.min)?\.js") {
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
 		call normalise_querystring_parameters_for_polyfill_bundle;
 	}
 
