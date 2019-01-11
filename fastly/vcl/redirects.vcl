@@ -45,7 +45,7 @@ sub vcl_error {
 
 	# Redirect to v3
 	if (obj.status == 908) {
-		set obj.status = 302;
+		set obj.status = 301;
 		set obj.http.Location = "/v3/";
 		return (deliver);
 	}
