@@ -74,8 +74,5 @@
     "utf8": "^3.0.0",
     "yamlparser": "0.0.2"
   },
-  "resolutions": {
-    "whatwg-fetch": "2.0.3"
-  },
   "version": "3.27.0"
 }
