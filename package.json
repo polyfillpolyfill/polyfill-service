@@ -50,6 +50,7 @@
     "moment": "^2.22.2",
     "origami-build-tools": "^7.7.5",
     "polyfill-library": "*",
+    "polyfill-library-3.25.1": "github:Financial-Times/polyfill-library#make-3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",
     "throng": "^4.0.0"
@@ -58,6 +59,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
+    "expect": "^23.6.0",
     "fs-extra": "^6.0.1",
     "mocha": "^3.5.3",
     "mockery": "^2.1.0",
