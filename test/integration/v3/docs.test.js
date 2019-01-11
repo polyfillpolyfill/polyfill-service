@@ -23,10 +23,10 @@ describe("GET /v3/api", function() {
 			.expect("Content-Type", "text/html; charset=utf-8");
 	});
 });
-describe("GET /v3/polyfills", function() {
+describe("GET /v3/url-builder", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/polyfills")
+			.get("/v3/url-builder")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=utf-8");

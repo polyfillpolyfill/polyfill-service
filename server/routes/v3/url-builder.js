@@ -8,7 +8,7 @@ const polyfills = [];
 const polyfillAliases = [];
 
 module.exports = app => {
-	app.get("/v3/polyfills", async (request, response) => {
+	app.get("/v3/url-builder", async (request, response) => {
 		if (polyfills.length === 0) {
 			const aliases = await polyfillLibrary.sourceslib.listAliases();
 			for (const alias of Object.keys(aliases).sort()) {
@@ -46,7 +46,7 @@ module.exports = app => {
 		response.set({
 			"cache-control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
 		});
-		response.render("polyfills", {
+		response.render("url-builder", {
 			polyfills,
 			polyfillAliases
 		});
