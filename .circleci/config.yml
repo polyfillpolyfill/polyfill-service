@@ -31,24 +31,19 @@ jobs:
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
-      - run: |
-          rm -f terraform.tfstate
-          rm fastly/terraform/qa_override.tf
-          rm fastly/terraform/production_override.tf
-          terraform init fastly/terraform/
-          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_DEV
-          rm -f fastly/terraform/domains_override.tf
-          terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
-          sleep 60
+      - run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - run: terraform init fastly/terraform/
+      - run: terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_DEV
+      - run: terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
+      - run: sleep 60
       - run: "curl -X POST -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_DEV/purge_all"
   integration_tests_dev:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: |
-          yarn install --frozen-lockfile
-          HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
+      - run: yarn install --frozen-lockfile
+      - run: HOST=https://origami-polyfill-service-dev.in.ft.com npm run test-integration
   deploy_staging:
     docker:
       - image: "circleci/node:10"
@@ -59,23 +54,18 @@ jobs:
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
-      - run: |
-          rm -f terraform.tfstate
-          rm fastly/terraform/dev_override.tf
-          rm fastly/terraform/production_override.tf
-          terraform init fastly/terraform/
-          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
-          rm -f fastly/terraform/domains_override.tf
-          terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
-          sleep 60
+      - run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - run: terraform init fastly/terraform/
+      - run: terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
+      - run: terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
+      - run: sleep 60
   integration_tests_staging:
     docker:
       - image: "circleci/node:10"
     steps:
       - "checkout"
-      - run: |
-          yarn install --frozen-lockfile
-          HOST=https://qa.polyfill.io npm run test-integration
+      - run: yarn install --frozen-lockfile
+      - run: HOST=https://qa.polyfill.io npm run test-integration
   deploy_service_production:
     docker:
       - image: "circleci/node:10"
@@ -86,15 +76,10 @@ jobs:
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: "heroku pipelines:promote --app origami-polyfill-service-qa-eu --to origami-polyfill-service-eu,origami-polyfill-service-us"
-      - run: |
-          cd ~/project/
-          rm -f terraform.tfstate
-          rm fastly/terraform/dev_override.tf
-          rm fastly/terraform/qa_override.tf
-          terraform init fastly/terraform/
-          terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
-          rm -f fastly/terraform/domains_override.tf
-          terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
+      - run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
+      - run: terraform init fastly/terraform/
+      - run: terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
+      - run: terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
 
 workflows:
   test:
