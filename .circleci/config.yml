@@ -40,6 +40,7 @@ jobs:
           rm -f fastly/terraform/domains_override.tf
           terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
           sleep 60
+      - run: "curl -X POST -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_DEV/purge_all"
   integration_tests_dev:
     docker:
       - image: "circleci/node:10"
