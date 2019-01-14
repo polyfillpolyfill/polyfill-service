@@ -162,6 +162,15 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
+		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
+		# "Vary: User-Agent" entering the Varnish cache.
+		# We need "Vary: User-Agent" in the browser cache because a browser
+		# may update itself to a version which needs different polyfills
+		# So we need to have it ignore the browser cached bundle when the user-agent changes.
+		add resp.http.Vary = "User-Agent";
+	}
+
 	add resp.http.Server-Timing = fastly_info.state {", fastly;desc="Edge time";dur="} time.elapsed.msec;
 
 	if (req.http.Fastly-Debug) {
