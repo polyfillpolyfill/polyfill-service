@@ -41,10 +41,10 @@ const fastly = async (apiKey, service) => {
 					requests: data.requests,
 					hits: data.hits,
 					misses: data.miss,
-					cache: _.round(100 - data.misses / data.requests, 2)
+					cache: _.round(100 - data.misses / data.requests, 7)
 				};
 			});
-			rollup.cache = _.round(100 - rollup.misses / rollup.requests, 2);
+			rollup.cache = _.round(100 - rollup.misses / rollup.requests, 7);
 			rollup.startDate = moment(data.data.data[0].start_time, "X").format("MMMM Do");
 			rollup.endDate = moment(data.data.data[data.data.data.length - 1].start_time, "X").format("MMMM Do");
 			return {
