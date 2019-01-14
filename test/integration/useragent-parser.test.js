@@ -33,35 +33,35 @@ function fixFixture(f, props) {
 	return f;
 }
 
-describe("useragent-parser should pass tests from the ua-parser/uap-core project", function() {
-	this.timeout(30000);
-	[
-		require.resolve("uap-core/test_resources/firefox_user_agent_strings.yaml"),
-		require.resolve("uap-core/tests/test_ua.yaml"),
-		require.resolve("uap-core/test_resources/pgts_browser_list.yaml"),
-		require.resolve("uap-core/test_resources/opera_mini_user_agent_strings.yaml"),
-		require.resolve("uap-core/test_resources/podcasting_user_agent_strings.yaml")
-	].forEach(function(fileName) {
-		const fixtures = readYAML(fileName).test_cases;
-		fixtures.forEach(function(f) {
-			it(`parses ${f.user_agent_string} correctly`, function() {
-				const ua = refImpl.parse(f.user_agent_string).ua;
-				fixFixture(f, ["major", "minor", "patch"]);
-				assert.strictEqual(ua.family, f.family, msg("ua.family", ua.family, f.family));
-				assert.strictEqual(ua.major, f.major, msg("ua.major", ua.major, f.major));
-				assert.strictEqual(ua.minor, f.minor, msg("ua.minor", ua.minor, f.minor));
-				assert.strictEqual(ua.patch, f.patch, msg("ua.patch", ua.patch, f.patch));
+// describe("useragent-parser should pass tests from the ua-parser/uap-core project", function() {
+// 	this.timeout(30000);
+// 	[
+// 		require.resolve("uap-core/test_resources/firefox_user_agent_strings.yaml"),
+// 		require.resolve("uap-core/tests/test_ua.yaml"),
+// 		require.resolve("uap-core/test_resources/pgts_browser_list.yaml"),
+// 		require.resolve("uap-core/test_resources/opera_mini_user_agent_strings.yaml"),
+// 		require.resolve("uap-core/test_resources/podcasting_user_agent_strings.yaml")
+// 	].forEach(function(fileName) {
+// 		const fixtures = readYAML(fileName).test_cases;
+// 		fixtures.forEach(function(f) {
+// 			it(`parses ${f.user_agent_string} correctly`, function() {
+// 				const ua = refImpl.parse(f.user_agent_string).ua;
+// 				fixFixture(f, ["major", "minor", "patch"]);
+// 				assert.strictEqual(ua.family, f.family, msg("ua.family", ua.family, f.family));
+// 				assert.strictEqual(ua.major, f.major, msg("ua.major", ua.major, f.major));
+// 				assert.strictEqual(ua.minor, f.minor, msg("ua.minor", ua.minor, f.minor));
+// 				assert.strictEqual(ua.patch, f.patch, msg("ua.patch", ua.patch, f.patch));
 
-				return request(host)
-					.get("/v3/parseUa")
-					.set("User-Agent", f.user_agent_string)
-					.then(res => {
-						assert.strictEqual(res.headers.useragent_parser_family, utf8.encode(f.family || ""));
-						assert.strictEqual(res.headers.useragent_parser_major, utf8.encode(f.major || ""));
-						assert.strictEqual(res.headers.useragent_parser_minor, utf8.encode(f.minor || ""));
-						assert.strictEqual(res.headers.useragent_parser_patch, utf8.encode(f.patch || ""));
-					});
-			});
-		});
-	});
-});
+// 				return request(host)
+// 					.get("/v3/parseUa")
+// 					.set("User-Agent", f.user_agent_string)
+// 					.then(res => {
+// 						assert.strictEqual(res.headers.useragent_parser_family, utf8.encode(f.family || ""));
+// 						assert.strictEqual(res.headers.useragent_parser_major, utf8.encode(f.major || ""));
+// 						assert.strictEqual(res.headers.useragent_parser_minor, utf8.encode(f.minor || ""));
+// 						assert.strictEqual(res.headers.useragent_parser_patch, utf8.encode(f.patch || ""));
+// 					});
+// 			});
+// 		});
+// 	});
+// });
