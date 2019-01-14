@@ -58,7 +58,7 @@ sub vcl_recv {
 		call breadcrumb_recv;
 	}
 
-	if (req.method != "GET" && req.method != "HEAD" && req.method != "OPTIONS") {
+	if (req.method != "GET" && req.method != "HEAD" && req.method != "OPTIONS" && req.method != "FASTLYPURGE" && req.method != "PURGE") {
 		error 911;
 	}
 
