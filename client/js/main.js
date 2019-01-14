@@ -93,7 +93,7 @@ const createPolyfillBundleURL = options => {
 };
 
 const createPolyfillBundleHTML = options => {
-	return `<script crossorigin="anonymous" href="${createPolyfillBundleURL(options)}"></script>`;
+	return `<script crossorigin="anonymous" src="${createPolyfillBundleURL(options)}"></script>`;
 };
 
 const updatePolyfillBundle = options => {
