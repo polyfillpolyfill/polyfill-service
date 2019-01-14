@@ -37,10 +37,10 @@ describe("DELETE /v3/polyfill.min.js", function() {
 
 describe("PURGE /v3/polyfill.min.js", function() {
 	this.timeout(30000);
-	it("responds with a 405 status", () => {
+	it("responds with a 401 status", () => {
 		return request(host)
 			.purge("/v3/polyfill.min.js")
-			.expect(405);
+			.expect(401);
 	});
 });
 
