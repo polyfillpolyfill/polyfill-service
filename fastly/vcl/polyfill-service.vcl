@@ -117,10 +117,7 @@ sub vcl_fetch {
 	# These header are only required for HTML documents.
 	if (beresp.http.Content-Type ~ "text/html") {
 		# Enables the cross-site scripting filter built into most modern web browsers.
-		set beresp.http.X-XSS-Protection = "1; mode=block";
-		
-		# Prevents MIME-sniffing a response away from the declared content type.
-		set beresp.http.X-Content-Type-Options = "nosniff";
+		set beresp.http.X-XSS-Protection = "1; mode=block";	
 
 		# Allow only content from the site's own origin (this excludes subdomains) and www.ft.com.
 		# Don't allow the website to be used within an iframe
@@ -128,6 +125,8 @@ sub vcl_fetch {
 			set beresp.http.Content-Security-Policy = "default-src 'self'; font-src 'self' https://www.ft.com; img-src 'self' https://www.ft.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
 		}
 	}
+	# Prevents MIME-sniffing a response away from the declared content type.
+	set beresp.http.X-Content-Type-Options = "nosniff";
 
 	# Ensure the site is only served over HTTPS and reduce the chances of someone performing a MITM attack.
 	set beresp.http.Strict-Transport-Security = "max-age=31536000; includeSubdomains; preload";
