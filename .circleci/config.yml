@@ -59,6 +59,7 @@ jobs:
       - run: terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_STAGING
       - run: terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
       - run: sleep 60
+      - run: "curl -X POST -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_STAGING/purge_all"
   integration_tests_staging:
     docker:
       - image: "circleci/node:10"
