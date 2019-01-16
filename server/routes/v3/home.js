@@ -47,6 +47,7 @@ const fastly = async (apiKey, service) => {
 			rollup.cache = _.round(100 - rollup.misses / rollup.requests, 7);
 			rollup.startDate = moment(data.data.data[0].start_time, "X").format("MMMM Do");
 			rollup.endDate = moment(data.data.data[data.data.data.length - 1].start_time, "X").format("MMMM Do");
+			rollup.requests = rollup.requests.toLocaleString();
 			return {
 				byday: byday,
 				rollup: rollup
