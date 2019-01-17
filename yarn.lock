@@ -7899,10 +7899,10 @@ pluralize@^7.0.0:
     yaku "0.17.11"
     zlib "^1.0.5"
 
-polyfill-library@*:
-  version "3.27.0"
-  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.27.0.tgz#019b8a1ca868cb265bc667f394b33e8595264b01"
-  integrity sha512-FxQsElA2zavZPl8bp7FafBGNgnaFIPAnXAbl9lSkybROIxoV8rvwD/ekN/Kvvgt1bk3SnlL6FoT9zIoPAh/UkA==
+polyfill-library@^3.27.1:
+  version "3.27.1"
+  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.27.1.tgz#5f23a90f3b5df1608b5c827f07afceecc17dbd08"
+  integrity sha512-96KguiDIBBfxeUC/jAwnwQ97bbIhOm8kWN8bBUI4V9tmbw2FqsqKarTCsdYa3GGT6hBpkxlwR0du8A+BU6hKsQ==
   dependencies:
     Base64 "^1.0.0"
     array.of "^0.1.1"
