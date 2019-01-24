@@ -33,7 +33,7 @@ resource "fastly_service_v1" "app" {
   }
 
   healthcheck {
-    name      = "v3_us_healthcheck"
+    name      = "v3_eu_healthcheck"
     host      = "origami-polyfill-service-eu.herokuapp.com"
     path      = "/__gtg"
     timeout   = 5000
