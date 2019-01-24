@@ -151,7 +151,7 @@
     require-all "^2.2.0"
     varname "^2.0.3"
 
-"@financial-times/useragent_parser@1.0.2":
+"@financial-times/useragent_parser@1.0.2", "@financial-times/useragent_parser@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@financial-times/useragent_parser/-/useragent_parser-1.0.2.tgz#3f26e7cb2e0e4dfc9ac833f8259d7fed9c7fbf9c"
   integrity sha512-zuJMxn5Qnk7CKl+zrVXDqXs0F+p4tshO6B4s8VenJj34EEVuV4iZIbkGiEFJUbn29z9Mcn6k8yfj9qSCNDcPPQ==
@@ -7899,11 +7899,12 @@ pluralize@^7.0.0:
     yaku "0.17.11"
     zlib "^1.0.5"
 
-polyfill-library@^3.27.1:
-  version "3.27.1"
-  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.27.1.tgz#5f23a90f3b5df1608b5c827f07afceecc17dbd08"
-  integrity sha512-96KguiDIBBfxeUC/jAwnwQ97bbIhOm8kWN8bBUI4V9tmbw2FqsqKarTCsdYa3GGT6hBpkxlwR0du8A+BU6hKsQ==
+polyfill-library@^3.27.2:
+  version "3.27.2"
+  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.27.2.tgz#f2b5c10d99eb657fe0d10a6ecf59e14c52643066"
+  integrity sha512-b79IE7PkIhdGkY4TCGY3LEV7hYnr/HTf7ZyXthUbuK5kPAuW8iFSa+0n8v2kPbGT6DCnskihHlr2Ydnspo6sVA==
   dependencies:
+    "@financial-times/useragent_parser" "^1.0.2"
     Base64 "^1.0.0"
     array.of "^0.1.1"
     audio-context-polyfill "^1.0.0"
@@ -7933,9 +7934,8 @@ polyfill-library@^3.27.1:
     shuffle-array "^1.0.1"
     stream-from-promise "^1.0.0"
     stream-to-string "^1.1.0"
-    tsort "0.0.1"
+    toposort "^2.0.2"
     uglify-js "^2.7.5"
-    useragent "^2.1.12"
     usertiming "^0.1.8"
     web-animations-js "^2.2.5"
     whatwg-fetch "^2.0.3"
@@ -10080,6 +10080,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+toposort@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
+  integrity sha1-riF2gXXRVZ1IvvNUILL0li8JwzA=
 
 tough-cookie@>=2.3.3:
   version "3.0.0"

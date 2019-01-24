@@ -49,7 +49,7 @@
     "iltorb": "^2.3.2",
     "moment": "^2.22.2",
     "origami-build-tools": "^7.7.5",
-    "polyfill-library": "^3.27.1",
+    "polyfill-library": "^3.27.2",
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",

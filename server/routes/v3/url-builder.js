@@ -2,8 +2,7 @@
 
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
-const PolyfillLibrary = require("polyfill-library");
-const polyfillLibrary = new PolyfillLibrary();
+const polyfillLibrary = require("polyfill-library");
 const polyfills = [];
 const polyfillAliases = [];
 
