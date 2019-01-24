@@ -162,7 +162,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 include "ua_parser.vcl";
 include "normalise-user-agent-3-25-1.vcl";
-include "normalise-user-agent-latest.vcl";
+include "normalise-user-agent.vcl";
 
 # The Fastly VCL boilerplate.
 include "fastly-boilerplate-begin.vcl";
