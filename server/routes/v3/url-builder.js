@@ -2,15 +2,14 @@
 
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
-const PolyfillLibrary = require("polyfill-library");
-const polyfillLibrary = new PolyfillLibrary();
+const polyfillLibrary = require("polyfill-library");
 const polyfills = [];
 const polyfillAliases = [];
 
 module.exports = app => {
 	app.get("/v3/url-builder", async (request, response) => {
 		if (polyfills.length === 0) {
-			const aliases = await polyfillLibrary.sourceslib.listAliases();
+			const aliases = await polyfillLibrary.listAliases();
 			for (const alias of Object.keys(aliases).sort()) {
 				if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr")) {
 					if (alias === "default") {
