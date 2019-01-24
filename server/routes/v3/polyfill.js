@@ -3,7 +3,7 @@
 const compressBundle = require("../../lib/compress-bundle");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
-const PolyfillLibrary = require("polyfill-library");
+const polyfillio = require("polyfill-library");
 const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
 
@@ -27,7 +27,6 @@ module.exports = app => {
 		const params = getPolyfillParameters(request);
 		switch (params.version) {
 			case latestVersion: {
-				const polyfillio = new PolyfillLibrary();
 				const bundle = await polyfillio.getPolyfillString(params);
 				await respondWithBundle(response, params, bundle);
 				break;
