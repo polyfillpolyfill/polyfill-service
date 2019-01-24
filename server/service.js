@@ -4,6 +4,16 @@ const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 const path = require("path");
 
+const notFoundHandler = (request, response) => {
+	response.status(404);
+	response.set({
+		"Cache-Control": "max-age=30, public, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800",
+		"Content-Type": "text/html; charset=utf-8",
+		"Surrogate-Key": "polyfill-service"
+	});
+	response.send("Not Found");
+};
+
 module.exports = service;
 
 function service(options) {
@@ -17,7 +27,7 @@ function service(options) {
 		next();
 	});
 	mountRoutes(app);
-	app.use(origamiService.middleware.notFound());
+	app.use(notFoundHandler);
 	app.use(origamiService.middleware.errorHandler());
 
 	return app;
