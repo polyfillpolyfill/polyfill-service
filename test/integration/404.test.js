@@ -11,7 +11,6 @@ describe("GET /404", function() {
 			.get("/404")
 			.expect(404)
 			.expect("Cache-Control", "max-age=30, public, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800")
-			.expect("Surrogate-Key", "polyfill-service")
 			.expect("Content-Type", "text/html; charset=utf-8");
 	});
 });
