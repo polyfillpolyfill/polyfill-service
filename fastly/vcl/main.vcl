@@ -123,7 +123,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
 			call normalise_user_agent_3_25_1;
 		} else {
-			call normalise_user_agent_latest;
+			call normalise_user_agent_1_0_6;
 		}
 		set var.querystring = querystring.set(var.querystring, "ua", req.http.Normalized-User-Agent);
 	} else {
@@ -160,9 +160,8 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	set req.url = var.url var.querystring;
 }
 
-include "ua_parser.vcl";
 include "normalise-user-agent-3-25-1.vcl";
-include "normalise-user-agent-latest.vcl";
+include "normalise-user-agent.vcl";
 
 # The Fastly VCL boilerplate.
 include "fastly-boilerplate-begin.vcl";
