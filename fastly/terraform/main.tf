@@ -37,11 +37,6 @@ resource "fastly_service_v1" "app" {
   }
 
   vcl {
-    name    = "ua_parser.vcl"
-    content = "${file("${path.module}/../../node_modules/@financial-times/useragent_parser/lib/ua_parser.vcl")}"
-  }
-
-  vcl {
     name    = "normalise-user-agent-3-25-1.vcl"
     content = "${file("${path.module}/../vcl/normalise-user-agent-3-25-1.vcl")}"
   }
