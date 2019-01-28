@@ -1,12 +1,7 @@
 {
-  "name": "polyfill-service-and-library",
-  "version": "0.0.0",
-  "private": true,
+  "name": "polyfill-service",
   "description": "A polyfill combinator",
-  "scripts": {
-    "precommit": "secret-squirrel",
-    "version": "cd packages/polyfill-library && npm version $npm_package_version && git add package.json && cd -"
-  },
+  "private": true,
   "contributors": [
     {
       "name": "Jonathan Neal",
@@ -26,12 +21,54 @@
   "bugs": {
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
+  "scripts": {
+    "build": "obt build --build-folder='./public/static' --sass='./client/sass/main.scss' --js='./client/js/main.js' --production",
+    "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
+    "lint": "eslint .",
+    "postinstall": "bower install --allow-root",
+    "heroku-postbuild": "npm run build",
+    "start": "node server/index.js",
+    "test": "npm run test-unit",
+    "test-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
+    "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail"
+  },
   "license": "MIT",
   "engines": {
-    "node": ">=8"
+    "node": ">=8.10"
+  },
+  "dependencies": {
+    "@financial-times/origami-service": "^4.0.0",
+    "@financial-times/polyfill-useragent-normaliser": "1.0.6",
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "bower": "^1.8.4",
+    "decompress": "^4.2.0",
+    "denodeify": "^1.2.1",
+    "dotenv": "^6.1.0",
+    "handlebars": "^4.0.6",
+    "iltorb": "^2.3.2",
+    "moment": "^2.22.2",
+    "origami-build-tools": "^7.7.5",
+    "polyfill-library": "^3.27.4",
+    "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
+    "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
+    "require-all": "^3.0.0",
+    "throng": "^4.0.0"
   },
   "devDependencies": {
-    "@financial-times/secret-squirrel": "^2.10.3",
-    "husky": "^0.14.3"
-  }
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "fs-extra": "^6.0.1",
+    "mocha": "^3.5.3",
+    "mockery": "^2.1.0",
+    "nyc": "^12.0.2",
+    "prettier": "^1.13.7",
+    "proclaim": "^3.5.0",
+    "sinon": "^4.5.0",
+    "supertest": "^3.0.0",
+    "utf8": "^3.0.0",
+    "yamlparser": "0.0.2"
+  },
+  "version": "4.0.13"
 }

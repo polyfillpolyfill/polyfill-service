@@ -1,1 +1,0 @@
-'defineProperties' in Object

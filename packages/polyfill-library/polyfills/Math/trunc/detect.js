@@ -1,1 +1,0 @@
-'trunc' in Math

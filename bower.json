@@ -1,0 +1,29 @@
+{
+  "name": "polyfill.io-website",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "o-header-services": "^2.2.4",
+    "o-footer-services": "^1.0.2",
+    "o-syntax-highlight": "^1.1.1",
+    "o-normalise": "^1.6.2",
+    "o-fonts": "^3.0.4",
+    "o-forms": "^5.7.2",
+    "o-buttons": "^5.12.0",
+    "o-tabs": "^4.1.2",
+    "o-table": "^6.7.3",
+    "o-layout": "^1.2.1",
+    "o-tooltip": "^3.1.2",
+    "o-message": "^2.3.2"
+  },
+  "private": true
+}

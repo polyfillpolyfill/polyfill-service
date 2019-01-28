@@ -1,0 +1,88 @@
+{
+	"schemaVersion": 1,
+	"name": "origami-polyfill-service",
+	"systemCode": "origami-polyfill-service",
+	"purpose": "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent",
+	"audience": "external",
+	"primaryUrl": "https://polyfill.io/",
+	"serviceTier": "platinum",
+	"dateCreated": "2018-11-09",
+	"contacts": [
+		{
+			"name": "Origami team",
+			"email": "origami.support@ft.com",
+			"rel": "owner",
+			"domain": "All support enquiries"
+		}
+	],
+	"links": [
+		{
+			"url": "https://github.com/Financial-Times/polyfill-service/issues",
+			"category": "issues"
+		},
+		{
+			"url": "https://github.com/Financial-Times/polyfill-service",
+			"category": "repo"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/origami-polyfill-service-eu",
+			"category": "deployment",
+			"description": "Heroku dashboard (Production EU)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/origami-polyfill-service-us",
+			"category": "deployment",
+			"description": "Heroku dashboard (Production US)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/origami-polyfill-service-qa-eu",
+			"category": "deployment",
+			"description": "Heroku dashboard (QA EU)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/origami-polyfill-service-qa-us",
+			"category": "deployment",
+			"description": "Heroku dashboard (QA US)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/pipelines/10cf6498-6c61-4321-b758-26728d3cffc7",
+			"category": "deployment",
+			"description": "Heroku dashboard (QA > Production pipeline)"
+		},
+		{
+			"url": "http://grafana.ft.com/dashboard/db/origami-polyfill-service",
+			"category": "monitoring",
+			"description": "Grafana dashboard"
+		},
+		{
+			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"category": "monitoring",
+			"description": "Pingdom check (Production EU)"
+		},
+		{
+			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"category": "monitoring",
+			"description": "Pingdom check (Production US)"
+		},
+		{
+			"url": "https://github.com/Financial-Times/polyfill-service#readme",
+			"category": "documentation",
+			"description": "README"
+		},
+		{
+			"url": "https://sentry.io/nextftcom/TODO",
+			"category": "monitoring",
+			"description": "Sentry dashboard (Production)"
+		},
+		{
+			"url": "https://sentry.io/nextftcom/TODO",
+			"category": "monitoring",
+			"description": "Sentry dashboard (QA)"
+		},
+		{
+			"url": "https://financialtimes.splunkcloud.com/en-US/app/search/search?q=app%3Dorigami-polyfill-service-*",
+			"category": "monitoring",
+			"description": "Splunk dashboard (Production)"
+		}
+	]
+}

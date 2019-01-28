@@ -1,1 +1,0 @@
-'forEach' in NodeList.prototype

@@ -1,1 +1,0 @@
-'requestAnimationFrame' in this
