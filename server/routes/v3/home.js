@@ -76,7 +76,7 @@ module.exports = app => {
 		if (fastly) {
 			response.render("index", { fastly: stats, modifier: "o-layout--landing" });
 		} else {
-			response.render("index", { modifie: "o-layout--landing" });
+			response.render("index", { modifier: "o-layout--landing" });
 		}
 	});
 };

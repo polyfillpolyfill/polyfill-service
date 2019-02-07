@@ -1,4 +1,30 @@
-<div class="o-layout__sidebar">
+<div  class="o-layout__heading o-layout-typography" data-o-component="o-syntax-highlight">
+	<h6 class="bundle-heading">Your polyfill bundle:</h6>
+	<div class="bundle-tabs o-layout--unstyled-element">
+		<ul data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs" role="tablist">
+			<li role="tab">
+				<a href="#tabContent0">url</a>
+			</li>
+			<li role="tab">
+				<a href="#tabContent1">html</a>
+			</li>
+		</ul>
+		<div id="tabContent0" class="o-tabs__tabpanel">
+			<div>
+				<button id="copy-url" class="o-buttons o-buttons--mono bundle-copy-button">Copy URL to clipboard</button>
+				<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
+			</div>
+		</div>
+		<div id="tabContent1" class="o-tabs__tabpanel">
+			<div>
+				<button id="copy-html" class="o-buttons o-buttons--mono bundle-copy-button">Copy HTML to clipboard</button>
+				<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" href="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="o-layout__query-sidebar o-layout-typography">
 	<div>
 		<div class="o-forms">
 			<label aria-describedby="filter-info" class="o-forms__label" for="filter">Filter polyfills</label>
@@ -52,56 +78,33 @@
 		</fieldset>
 	</div>
 </div>
-<div class="o-layout__main" data-o-component="o-syntax-highlight">
-    <div>
-		<h6 class="bundle-heading">Your polyfill bundle:</h6>
-		<div class="bundle-tabs">
-			<ul data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs" role="tablist">
-				<li role="tab">
-					<a href="#tabContent0">url</a>
-				</li>
-				<li role="tab">
-					<a href="#tabContent1">html</a>
-				</li>
-				</ul>
-				<div id="tabContent0" class="o-tabs__tabpanel">
-					<div>
-						<button id="copy-url" class="o-buttons o-buttons--mono bundle-copy-button">Copy URL to clipboard</button>
-						<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
-					</div>
-				</div>
-				<div id="tabContent1" class="o-tabs__tabpanel">
-					<div>
-						<button id="copy-html" class="o-buttons o-buttons--mono bundle-copy-button">Copy HTML to clipboard</button>
-						<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" href="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<fieldset class="o-forms o-forms--wide">
-			<legend aria-describedby="avaliable-polyfills-info" class="o-forms__label">Avaliable Polyfills</legend>
-			<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
-			<div class="o-forms__group o-forms__group--inline" id="features-list">
-			{{#each polyfills}}
-				<div data-feature-name="{{name}}">
-					<input id="{{name}}" name="{{name}}" type="checkbox" class="o-forms__checkbox">
-					<label class="o-forms__label" id="{{labelID}}" for="{{name}}">{{name}}</label>
-					<button title="Links" class="extra-info" id="{{name}}-tooltip-target" aria-label="More about {{name}} (opens tooltip).">☰</button>
 
-					<div id="{{name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
-						<div class="o-tooltip-content">
-							<ul>
-								<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{license}}</a></li>
-								{{#if spec}}<li><a href='{{spec}}'>Specification</a></li>{{/if}}
-								{{#if docs}}<li><a href='{{docs}}'>Documentation</a></li>{{/if}}
-								<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{baseDir}}'>Polyfill source</a></li>
-							</ul>
-						</div>
+<div class="o-layout__main o-layout-typography">
+	<fieldset class="o-forms o-forms--wide">
+		<legend aria-describedby="avaliable-polyfills-info" class="o-forms__label">Avaliable Polyfills</legend>
+		<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
+		<div class="o-forms__group o-forms__group--inline" id="features-list">
+		{{#each polyfills}}
+			<div data-feature-name="{{name}}">
+				<input id="{{name}}" name="{{name}}" type="checkbox" class="o-forms__checkbox">
+				<label class="o-forms__label" id="{{labelID}}" for="{{name}}">{{name}}</label>
+				<button title="Links" class="extra-info" id="{{name}}-tooltip-target" aria-label="More about {{name}} (opens tooltip).">☰</button>
+
+				<div id="{{name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
+					<div class="o-tooltip-content">
+						<ul>
+							<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{license}}</a></li>
+							{{#if spec}}<li><a href='{{spec}}'>Specification</a></li>{{/if}}
+							{{#if docs}}<li><a href='{{docs}}'>Documentation</a></li>{{/if}}
+							<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{baseDir}}'>Polyfill source</a></li>
+						</ul>
 					</div>
-					<br>
 				</div>
-			{{/each}}
+				<br>
 			</div>
-		</fieldset>
+		{{/each}}
+		</div>
+	</fieldset>
 	<script defer async src="/static/polyfills.js"></script>
 </div>
+<div class="o-layout__aside-sidebar"></div>

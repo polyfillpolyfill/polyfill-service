@@ -131,7 +131,7 @@ a.anchor {
 @import 'o-layout/main';
 
 @include oLayout($opts: (
-	'layouts': ('landing'),
+	'layouts': ('landing', 'query'),
 	'features': ('typography')
 ));
 // .o-layout--documentation ul ul {
