@@ -12,7 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "o-header-services": "^2.2.4",
+    "o-header-services": "^3.0.0",
     "o-footer-services": "^1.0.2",
     "o-syntax-highlight": "^1.1.1",
     "o-normalise": "^1.6.2",

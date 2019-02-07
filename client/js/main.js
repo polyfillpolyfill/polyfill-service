@@ -4,6 +4,9 @@
 const Layout = require("o-layout");
 Layout.init(document.body, { constructNav: false });
 
+const HeaderServices = require("o-header-services");
+HeaderServices.init();
+
 // const polyfillAliases = require("polyfill-library/polyfills/__dist/aliases.json");
 
 const Tabs = require("o-tabs");
