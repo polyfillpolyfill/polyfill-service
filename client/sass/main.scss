@@ -88,39 +88,39 @@ $o-message-is-silent: false;
 	hyphens: unset;
 	white-space: nowrap;
 }
-.o-tabs__tabpanel {
-	outline: 0px;
-}
-.o-layout--documentation ol li[role=tab]:before, .o-layout--search ol li[role=tab]:before, .o-layout--documentation ul li[role=tab]:before, .o-layout--search ul li[role=tab]:before {
-	content: none;
-}
+// .o-tabs__tabpanel {
+// 	outline: 0px;
+// }
+// .o-layout--documentation ol li[role=tab]:before, .o-layout--search ol li[role=tab]:before, .o-layout--documentation ul li[role=tab]:before, .o-layout--search ul li[role=tab]:before {
+// 	content: none;
+// }
 
 pre {
 	padding: 1rem;
 }
 
-body {
-	margin: 0;
-}
+// body {
+// 	margin: 0;
+// }
 
 .core .o--if-js,
 .enhanced .o--if-no-js {
 	display: none !important;
 }
-
-.o-header-services__ftlogo {
-	background: none;
-}
-
-.site {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-}
-
-.site-content {
-	flex: 1;
-}
+//
+// .o-header-services__ftlogo {
+// 	background: none;
+// }
+//
+// .site {
+// 	display: flex;
+// 	min-height: 100vh;
+// 	flex-direction: column;
+// }
+//
+// .site-content {
+// 	flex: 1;
+// }
 
 a.anchor {
 	color: inherit;
@@ -131,7 +131,7 @@ a.anchor {
 @import 'o-layout/main';
 
 @include oLayout($opts: (
-	'layouts': ('landing', 'query'),
+	'layouts': ('landing', 'query', 'documentation'),
 	'features': ('typography')
 ));
 // .o-layout--documentation ul ul {
