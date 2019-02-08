@@ -32,9 +32,6 @@ $o-table-is-silent: false;
 @import 'o-table/main.scss';
 $o-tooltip-is-silent: false;
 @import 'o-tooltip/main.scss';
-$o-message-is-silent: false;
-@import 'o-message/main.scss';
-
 
 .core .o--if-js,
 .enhanced .o--if-no-js {
