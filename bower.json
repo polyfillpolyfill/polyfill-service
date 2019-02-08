@@ -13,7 +13,7 @@
   ],
   "dependencies": {
     "o-header-services": "^3.0.0",
-    "o-footer-services": "^1.0.2",
+    "o-footer-services": "^2.0.3",
     "o-syntax-highlight": "^1.1.1",
     "o-normalise": "^1.6.2",
     "o-fonts": "^3.0.4",
