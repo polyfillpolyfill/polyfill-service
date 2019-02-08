@@ -1,6 +1,6 @@
 // @import url("https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-header-services%402.2.2%2Co-fonts%40%5E3.0.0%2Co-normalise%40%5E1.0.0%2Co-footer-services%40%5E1.0.2&brand=internal");
 $o-brand: 'internal';
-$polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='logo' viewBox='0 0 326 226'%3E%3Cpath fill='%23ccc' d='M0 0h72.4v226.8H0zm84.6 0H157v226.8H84.7zm84.6 0h72.5v226.8h-72.5zM254 0h72.3v226.8H254z'/%3E%3Cpath fill='%230A95C7' d='M0 0h72.4v139H0zm84.6 0H157v92.6H84.7zm84.6 0h72.5v46.3h-72.5z'/%3E%3C/svg%3E";
+$polyfill-logo: "./public/images/data.svg";
 
 @import 'o-header-services/main';
 @include oHeaderServices($opts:  (
