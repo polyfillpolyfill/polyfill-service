@@ -2,7 +2,7 @@
 "use strict";
 
 const Layout = require("o-layout");
-Layout.init(document.body, { constructNav: false });
+Layout.init(document.body, { navHeadingSelector: ".nav-heading" });
 
 const HeaderServices = require("o-header-services");
 HeaderServices.init();
