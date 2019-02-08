@@ -76,10 +76,10 @@
 		<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
 		<div class="o-forms__group o-forms__group--inline" id="features-list">
 		{{#each polyfills}}
-			<div data-feature-name="{{name}}">
+			<div class="polyfill" data-feature-name="{{name}}">
 				<input id="{{name}}" name="{{name}}" type="checkbox" class="o-forms__checkbox">
 				<label class="o-forms__label" id="{{labelID}}" for="{{name}}">{{name}}</label>
-				<button title="Links" class="extra-info" id="{{name}}-tooltip-target" aria-label="More about {{name}} (opens tooltip).">☰</button>
+				<button title="Links" id="{{name}}-tooltip-target" aria-label="More about {{name}} (opens tooltip)."></button>
 
 				<div id="{{name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">

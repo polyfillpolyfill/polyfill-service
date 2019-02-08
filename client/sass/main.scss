@@ -62,20 +62,29 @@ $o-tooltip-is-silent: false;
 	}
 }
 
-.extra-info {
-	// start: undo button styles
-	appearance: none;
-	background: none;
-	color: inherit;
-	border: 0;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-	// end: undo button styles
-	text-align: right;
-	display: block;
-	float: right;
+.polyfill {
+	position: relative;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	display: flex;
+	padding-left: 8px;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	label {
+		flex-grow: 1;
+	}
+
+	button {
+		@include oButtons($theme: 'mono');
+		@include oButtonsIconButton(
+			$icon-name: 'more',
+			$theme: 'mono',
+			$is-icon-only: true
+		);
+		border: 0;
+	}
 }
 
 .o-tooltip .o-tooltip-content {
