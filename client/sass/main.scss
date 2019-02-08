@@ -80,4 +80,8 @@ $o-tooltip-is-silent: false;
 .o-tooltip-content {
 	hyphens: unset;
 	white-space: nowrap;
+
+	ul {
+		margin-bottom: 8px;
+	}
 }

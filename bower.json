@@ -22,7 +22,7 @@
     "o-tabs": "^4.1.2",
     "o-table": "^6.7.3",
     "o-layout": "3.0.0-beta.4",
-    "o-tooltip": "^3.1.2",
+    "o-tooltip": "^3.1.2"
   },
   "private": true
 }
