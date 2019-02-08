@@ -12,10 +12,11 @@ $polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' cl
 @import 'o-layout/main';
 @include oLayout();
 
-$o-fonts-is-silent: false;
-@import 'o-fonts/main.scss';
-$o-typography-is-silent: false;
-@import 'o-typography/main.scss';
+@import 'o-table/main';
+@include oTable($opts: (
+	'stripes'
+));
+
 $o-normalise-is-silent: false;
 @import 'o-normalise/main.scss';
 $o-footer-services-is-silent: false;
@@ -28,8 +29,6 @@ $o-syntax-highlight-is-silent: false;
 @import 'o-syntax-highlight/main.scss';
 $o-tabs-is-silent: false;
 @import 'o-tabs/main.scss';
-$o-table-is-silent: false;
-@import 'o-table/main.scss';
 $o-tooltip-is-silent: false;
 @import 'o-tooltip/main.scss';
 
