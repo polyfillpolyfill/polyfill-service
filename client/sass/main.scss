@@ -2,6 +2,19 @@
 $o-brand: 'internal';
 $polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='logo' viewBox='0 0 326 226'%3E%3Cpath fill='%23ccc' d='M0 0h72.4v226.8H0zm84.6 0H157v226.8H84.7zm84.6 0h72.5v226.8h-72.5zM254 0h72.3v226.8H254z'/%3E%3Cpath fill='%230A95C7' d='M0 0h72.4v139H0zm84.6 0H157v92.6H84.7zm84.6 0h72.5v46.3h-72.5z'/%3E%3C/svg%3E";
 
+$o-normalise-is-silent: false;
+@import 'o-normalise/main.scss';
+$o-footer-services-is-silent: false;
+@import 'o-footer-services/main.scss';
+$o-forms-is-silent: false;
+@import 'o-forms/main.scss';
+$o-syntax-highlight-is-silent: false;
+@import 'o-syntax-highlight/main.scss';
+$o-tabs-is-silent: false;
+@import 'o-tabs/main.scss';
+$o-tooltip-is-silent: false;
+@import 'o-tooltip/main.scss';
+
 @import 'o-header-services/main';
 @include oHeaderServices($opts:  (
 	'types': ('primary-nav'),
@@ -13,25 +26,13 @@ $polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' cl
 @include oLayout();
 
 @import 'o-table/main';
-@include oTable($opts: (
-	'stripes'
-));
+@include oTable($opts: 'stripes');
 
-$o-normalise-is-silent: false;
-@import 'o-normalise/main.scss';
-$o-footer-services-is-silent: false;
-@import 'o-footer-services/main.scss';
-$o-forms-is-silent: false;
-@import 'o-forms/main.scss';
-$o-buttons-is-silent: false;
-@import 'o-buttons/main.scss';
-$o-syntax-highlight-is-silent: false;
-@import 'o-syntax-highlight/main.scss';
-$o-tabs-is-silent: false;
-@import 'o-tabs/main.scss';
-$o-tooltip-is-silent: false;
-@import 'o-tooltip/main.scss';
+@import 'o-buttons/main';
 
+.bundle-copy-button {
+	@include oButtons($theme: 'mono');
+}
 .core .o--if-js,
 .enhanced .o--if-no-js {
 	display: none !important;
