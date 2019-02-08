@@ -1,6 +1,5 @@
 // @import url("https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-header-services%402.2.2%2Co-fonts%40%5E3.0.0%2Co-normalise%40%5E1.0.0%2Co-footer-services%40%5E1.0.2&brand=internal");
 $o-brand: 'internal';
-
 $polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='logo' viewBox='0 0 326 226'%3E%3Cpath fill='%23ccc' d='M0 0h72.4v226.8H0zm84.6 0H157v226.8H84.7zm84.6 0h72.5v226.8h-72.5zM254 0h72.3v226.8H254z'/%3E%3Cpath fill='%230A95C7' d='M0 0h72.4v139H0zm84.6 0H157v92.6H84.7zm84.6 0h72.5v46.3h-72.5z'/%3E%3C/svg%3E";
 
 @import 'o-header-services/main';
@@ -9,6 +8,13 @@ $polyfill-logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' cl
 	'types': ('primary-nav'),
 	'features': ('drop-down'),
 	'logo': $polyfill-logo
+));
+
+@import 'o-layout/main';
+
+@include oLayout($opts: (
+	'layouts': ('landing', 'query', 'documentation'),
+	'features': ('typography', 'linked-headings')
 ));
 
 $o-fonts-is-silent: false;
@@ -88,87 +94,8 @@ $o-message-is-silent: false;
 	hyphens: unset;
 	white-space: nowrap;
 }
-// .o-tabs__tabpanel {
-// 	outline: 0px;
-// }
-// .o-layout--documentation ol li[role=tab]:before, .o-layout--search ol li[role=tab]:before, .o-layout--documentation ul li[role=tab]:before, .o-layout--search ul li[role=tab]:before {
-// 	content: none;
-// }
-
-pre {
-	padding: 1rem;
-}
-
-// body {
-// 	margin: 0;
-// }
 
 .core .o--if-js,
 .enhanced .o--if-no-js {
 	display: none !important;
 }
-//
-// .o-header-services__ftlogo {
-// 	background: none;
-// }
-//
-// .site {
-// 	display: flex;
-// 	min-height: 100vh;
-// 	flex-direction: column;
-// }
-//
-// .site-content {
-// 	flex: 1;
-// }
-
-a.anchor {
-	color: inherit;
-	fill: #663399;
-}
-
-// $o-layout-is-silent: false;
-@import 'o-layout/main';
-
-@include oLayout($opts: (
-	'layouts': ('landing', 'query', 'documentation'),
-	'features': ('typography', 'linked-headings')
-));
-// .o-layout--documentation ul ul {
-// 	padding: 1em;
-// }
-//
-// .o-layout__sidebar>:first-child {
-// 	margin-top: 1rem;
-// }
-//
-// .logo {
-// 	background: none !important;
-// }
-//
-// .o-layout__area--sidebar {
-// 	grid-area: unset;
-// 	grid-column: 1;
-// 	.o-forms__additional-info {
-// 		display: none;
-// 	}
-// 	@include oLayoutBreakPoint($from: XXL) {
-// 		grid-column-end: span 2;
-// 		.o-forms__additional-info {
-// 			display: block;
-// 		}
-// 	}
-// }
-//
-// @include oLayoutBreakPoint($from: XL) {
-// 	.o-layout__area--sidebar {
-// 		display: flex;
-// 		align-content: flex-start;
-// 		flex-wrap: wrap;
-// 		justify-content: center;
-// 		.o-forms__group {
-// 			flex-basis: 45%;
-// 			margin: 14px 5px 0px 5px;
-// 		}
-// 	}
-// }
