@@ -77,11 +77,11 @@ $o-tooltip-is-silent: false;
 	float: right;
 }
 
-.o-tooltip-content {
+.o-tooltip .o-tooltip-content {
 	hyphens: unset;
 	white-space: nowrap;
 
-	ul {
+	> :last-child {
 		margin-bottom: 8px;
 	}
 }
