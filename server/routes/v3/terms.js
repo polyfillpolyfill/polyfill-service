@@ -6,7 +6,8 @@ module.exports = app => {
 			"cache-control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
 		});
 		response.render("terms", {
-			title: "Terms"
+			title: "Terms",
+			modifier: "o-layout--docs"
 		});
 	});
 };
