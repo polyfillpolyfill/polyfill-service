@@ -30,9 +30,10 @@ $o-tooltip-is-silent: false;
 
 @import 'o-buttons/main';
 
-.bundle-copy-button {
+.copy-button {
 	@include oButtons($theme: 'mono');
 }
+
 .core .o--if-js,
 .enhanced .o--if-no-js {
 	display: none !important;
