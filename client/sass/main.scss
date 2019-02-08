@@ -132,7 +132,7 @@ a.anchor {
 
 @include oLayout($opts: (
 	'layouts': ('landing', 'query', 'documentation'),
-	'features': ('typography')
+	'features': ('typography', 'linked-headings')
 ));
 // .o-layout--documentation ul ul {
 // 	padding: 1em;
