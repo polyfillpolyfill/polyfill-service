@@ -9,7 +9,7 @@
 			JavaScript
 			file containing the polyfills which should be served to the requesting browser.</p>
 
-		<h3 class="nav-heading" id="request">Request</h3>
+		<h3 id="request">Request</h3>
 
 		<table class="o-table o-table--horizontal-lines o-table--row-headings">
 			<tbody>
@@ -84,7 +84,11 @@
 			</tbody>
 		</table>
 
-		<h3 class="nav-heading" id="response">Response</h3>
+		<h4>Example request:</h4>
+		<p>Requesting the polyfill sets: ES5, ES6, and ES7. Wrapping each polyfill in a feature detect</p>
+		<pre><code class="o-syntax-highlight--bash">https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&amp;flags=gated</code></pre>
+
+		<h3 id="response">Response</h3>
 
 		<table class="o-table o-table--horizontal-lines o-table--row-headings">
 			<tbody>
@@ -127,9 +131,5 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<h3>Example request:</h3>
-		<h6>Requesting the polyfill sets: ES5, ES6, and ES7. Wrapping each polyfill in a feature detect</h6>
-		<pre><code>https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&amp;flags=gated</code></pre>
 	</div>
 </div>
