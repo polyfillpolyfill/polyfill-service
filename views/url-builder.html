@@ -1,26 +1,17 @@
 <div  class="o-layout__heading o-layout-typography" data-o-component="o-syntax-highlight">
 	<h6 class="bundle-heading">Your polyfill bundle:</h6>
-	<div class="bundle-tabs o-layout--unstyled-element">
-		<ul data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs" role="tablist">
-			<li role="tab">
-				<a href="#tabContent0">url</a>
-			</li>
-			<li role="tab">
-				<a href="#tabContent1">html</a>
-			</li>
-		</ul>
-		<div id="tabContent0" class="o-tabs__tabpanel">
-			<div>
-				<button id="copy-url" class="o-buttons o-buttons--mono bundle-copy-button">Copy URL to clipboard</button>
-				<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
-			</div>
-		</div>
-		<div id="tabContent1" class="o-tabs__tabpanel">
-			<div>
-				<button id="copy-html" class="o-buttons o-buttons--mono bundle-copy-button">Copy HTML to clipboard</button>
-				<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" href="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
-			</div>
-		</div>
+
+	<ul data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs o-layout__unstyled-element" role="tablist">
+		<li role="tab" aria-selected="true"><a class="o-layout__unstyled-element" href="#url">URL</a></li>
+		<li role="tab"><a class="o-layout__unstyled-element" href="#html">HTML</a></li>
+	</ul>
+	<div id="url" class="o-tabs__tabpanel">
+		<button id="copy-url" class="o-buttons o-buttons--mono bundle-copy-button">Copy URL to clipboard</button>
+		<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
+	</div>
+	<div id="html" class="o-tabs__tabpanel">
+		<button id="copy-html" class="o-buttons o-buttons--mono bundle-copy-button">Copy HTML to clipboard</button>
+		<pre class="bundle-box"><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" href="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 	</div>
 </div>
 
