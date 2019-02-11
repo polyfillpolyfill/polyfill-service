@@ -11,6 +11,10 @@ the developers managing and developing this open source project. In return,
 they should reciprocate that respect in addressing your issue or assessing
 patches and features.
 
+## Dependencies
+
+This project requires [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com).
+
 ## Submitting a Pull Request
 
 Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
