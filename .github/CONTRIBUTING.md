@@ -28,9 +28,9 @@ Every merge to the master branch will trigger a release to [staging]. When ready
 
 1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
 2. Create a new branch to make changes into. `git checkout -b [name]`
-3. Follow the interactive release process. `npm run release`
+3. Follow the interactive release process. `npm version [major|minor|patch]`
 4. Push the changes to GitHub and make a Pull-Request. `git push origin [name]`
-5. Merge the Pull-Request and create a new GitHub release with the same version that is in the `package.json` file. This triggers [circle-ci] to deploy the service and to publish the package to [npm].
+5. Merge the Pull-Request. This triggers [circle-ci] to deploy the service and to publish the package to [npm].
 6. Announce the release on the [@polyfillio] Twitter account.
 
 ---
