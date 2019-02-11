@@ -1,15 +1,7 @@
-<div class="o-layout__sidebar">
-	<ol class="o-layout__navigation" role="navigation">
-		<li>
-			<a href="#request">Request</a>
-		</li>
-		<li>
-			<a href="#response">Response</a>
-		</li>
-	</ol>
-</div>
-<div class="o-layout__main" data-o-component="o-syntax-highlight">
-	<h1>API Reference</h1>
+<div class="o-layout__sidebar"></div>
+
+<div class="o-layout__main o-layout-typography" data-o-component="o-syntax-highlight">
+	<h1 id="#api-reference">API Reference</h1>
 	<div>
 		<h2 id="get-v3-polyfill-(minify)">Requesting a minified polyfill bundle</h2>
 		<p>Get a bundle of polyfills which have been minified ready for production website use. This endpoint responds with a
@@ -91,6 +83,10 @@
 			</tbody>
 		</table>
 
+		<h4>Example request:</h4>
+		<p>Requesting the polyfill sets: ES5, ES6, and ES7. Wrapping each polyfill in a feature detect</p>
+		<pre><code class="o-syntax-highlight--bash">https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&amp;flags=gated</code></pre>
+
 		<h3 id="response">Response</h3>
 
 		<table class="o-table o-table--horizontal-lines o-table--row-headings">
@@ -134,9 +130,5 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<h3>Example request:</h3>
-		<h4>Requesting the polyfill sets: ES5, ES6, and ES7. Wrapping each polyfill in a feature detect</h4>
-		<pre><code>https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&amp;flags=gated</code></pre>
 	</div>
 </div>

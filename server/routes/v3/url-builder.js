@@ -46,6 +46,8 @@ module.exports = app => {
 			"cache-control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
 		});
 		response.render("url-builder", {
+			modifier: "o-layout--query",
+			urlBuilder: true,
 			polyfills,
 			polyfillAliases
 		});

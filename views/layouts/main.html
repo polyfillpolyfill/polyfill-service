@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="/static/main.css">
   </head>
   <body>
-    <div class="o-layout" data-o-component="o-layout">
+    <div class="o-layout {{#if modifier}} {{modifier}} {{else}} o-layout--docs {{/if}}" data-o-component="o-layout">
       <div class="o-layout__header">
         {{> header }}
       </div>

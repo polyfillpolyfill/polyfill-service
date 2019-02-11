@@ -74,9 +74,9 @@ module.exports = app => {
 			"cache-control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
 		});
 		if (fastly) {
-			response.render("index", { fastly: stats });
+			response.render("index", { fastly: stats, modifier: "o-layout--landing" });
 		} else {
-			response.render("index");
+			response.render("index", { modifier: "o-layout--landing" });
 		}
 	});
 };
