@@ -49,7 +49,6 @@ $o-tooltip-is-silent: false;
 
 .o-tabs__tabpanel {
 	position: relative;
-	height: 24px;
 
 	button {
 		position: absolute;
@@ -60,7 +59,12 @@ $o-tooltip-is-silent: false;
 
 	pre {
 		margin-top: 0;
+		height: 24px;
 	}
+}
+
+.o-forms {
+	padding: 0;
 }
 
 .polyfill {
