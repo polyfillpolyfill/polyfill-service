@@ -15,4 +15,4 @@ terraform.tfstate.backup
 ws-*.json
 ws-log-npm-report
 website/
-public/static/main.js
+public/static/

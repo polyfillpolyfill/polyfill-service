@@ -1,7 +1,6 @@
 "use strict";
 
-const UA = require("polyfill-library/lib/UA");
-const supportedBrowsers = Object.entries(UA.getBaselines()).map(([browser, version]) => {
+const supportedBrowsers = Object.entries(require("@financial-times/polyfill-useragent-normaliser/data.json").baselineVersions).map(([browser, version]) => {
 	switch (browser) {
 		case "ie": {
 			browser = "Internet Explorer";

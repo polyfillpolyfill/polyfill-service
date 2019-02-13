@@ -1,6 +1,6 @@
 // @import url("https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-header-services%402.2.2%2Co-fonts%40%5E3.0.0%2Co-normalise%40%5E1.0.0%2Co-footer-services%40%5E1.0.2&brand=internal");
 $o-brand: 'internal';
-$polyfill-logo: "./images/data.svg";
+$polyfill-logo: "./logo.svg";
 
 $o-normalise-is-silent: false;
 @import 'o-normalise/main.scss';
