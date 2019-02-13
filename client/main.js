@@ -1,6 +1,3 @@
-/* eslint-env browser */
-"use strict";
-
 import Layout from "@financial-times/o-layout";
 Layout.init(document.body);
 

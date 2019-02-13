@@ -16,3 +16,4 @@ ws-*.json
 ws-log-npm-report
 website/
 public/static/
+client/
