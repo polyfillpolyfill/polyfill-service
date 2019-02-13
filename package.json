@@ -61,10 +61,12 @@
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "sass": "^1.17.0",
+    "parcel-bundler": "^1.11.0",
+    "dart-sass": "^1.17.0"
   },
   "devDependencies": {
-    "dart-sass": "^1.17.0",
     "eslint": "^4.19.1",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
@@ -72,10 +74,8 @@
     "mocha": "^3.5.3",
     "mockery": "^2.1.0",
     "nyc": "^12.0.2",
-    "parcel-bundler": "^1.11.0",
     "prettier": "^1.13.7",
     "proclaim": "^3.5.0",
-    "sass": "^1.17.0",
     "sinon": "^4.5.0",
     "supertest": "^3.0.0",
     "utf8": "^3.0.0",
