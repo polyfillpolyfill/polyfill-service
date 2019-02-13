@@ -15,6 +15,16 @@ patches and features.
 
 This project requires [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com).
 
+## Getting started
+
+```shell
+$ git clone https://github.com/Financial-Times/polyfill-service.git
+$ cd polyfill-service
+$ yarn install # the way we include old polyfill-library versions requires yarn
+$ yarn build # build the assets for the website
+$ yarn start # start a server on localhost:8080
+```
+
 ## Submitting a Pull Request
 
 Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
