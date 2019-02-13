@@ -100,6 +100,11 @@
     "@financial-times/origami-service-makefile" "^6.0.1"
     lodash "^4.17.4"
 
+"@financial-times/fticons@^1.15.1":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/fticons/-/fticons-1.19.0.tgz#570629960a3eaa23196a91e555dc315b2f1cec86"
+  integrity sha512-9Pog6yxoZyBwLZX1to2gB2eWNCD653hUZZTOwcKuyRJb1EAPZ7fxUQW1MIIOWY4O1QXRc4N+L/G5ApFYNXn0lg==
+
 "@financial-times/n-logger@^5.5.6":
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/@financial-times/n-logger/-/n-logger-5.7.2.tgz#b51fd65ba73815d925684414976c90388519b14f"
@@ -108,6 +113,218 @@
     isomorphic-fetch "^2.2.1"
     request "^2.83.0"
     winston "^2.4.0"
+
+"@financial-times/o-assets@>= 0.4.1 <4":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-assets/-/o-assets-3.1.1.tgz#87314e76ad51ed65b60b0631f52131c105d52a55"
+  integrity sha512-gjWRErucinFQ/mebRToqPPgrfsLjrgnQ+ZtKPookAXsqXY+8IpCt9aY6MYrJaVaabaARx9eKPF1lUoI6F/M7Vw==
+
+"@financial-times/o-brand@>=2.2.0 <4", "@financial-times/o-brand@>=2.3.0 <4", "@financial-times/o-brand@^3.1.1", "@financial-times/o-brand@^3.2.0":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-brand/-/o-brand-3.2.2.tgz#46845cd0eb492e42a82f4c7e5d151e202ae9fedf"
+  integrity sha512-1mKGzrO0vEap67k/R+w6qxqf8bOMauK3cq+NmnCCWFca3mCi+GMciHZWbh68S8AORlYdurZ0U2WlX9FjviUAig==
+
+"@financial-times/o-buttons@^5.11.8", "@financial-times/o-buttons@^5.14.0", "@financial-times/o-buttons@^5.15.0", "@financial-times/o-buttons@^5.15.1":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-buttons/-/o-buttons-5.16.0.tgz#2fc13a0ba089eea2d7eb9d0ad3fabd2b2629715b"
+  integrity sha512-VRUxhXVxvVqXqjD+U4+Jar/crbcGyXs3/zd4RXJ4avURJc/ySvQK4u/YrrP9u3RsIAIBOo5v0bLROGBgTvS3Lw==
+  dependencies:
+    "@financial-times/o-brand" ">=2.3.0 <4"
+    "@financial-times/o-colors" "^4.3.0"
+    "@financial-times/o-icons" ">=4.5.0 <6"
+    "@financial-times/o-normalise" "^1.2.0"
+
+"@financial-times/o-colors@^4.0.0", "@financial-times/o-colors@^4.0.1", "@financial-times/o-colors@^4.0.2", "@financial-times/o-colors@^4.2.3", "@financial-times/o-colors@^4.2.4", "@financial-times/o-colors@^4.3.0", "@financial-times/o-colors@^4.7.1", "@financial-times/o-colors@^4.7.2", "@financial-times/o-colors@^4.7.9":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-colors/-/o-colors-4.8.1.tgz#e4fe7013a50b711f7372e0c79d831d0853a8b311"
+  integrity sha512-XKv+IwESTSU2qQ20hzBdHzR5ab/rdX/T2IdJ3Bxi9IlxBPAh8lBUmeHPW0T9ggjVEVjwyfL6IVn+Eid7U9iq/g==
+  dependencies:
+    "@financial-times/o-brand" ">=2.3.0 <4"
+    mathsass "^0.10.1"
+
+"@financial-times/o-fonts@^3.0.4", "@financial-times/o-fonts@^3.2.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-fonts/-/o-fonts-3.3.0.tgz#fd158867297367cd6f27cdc77ad3ca9984129b8e"
+  integrity sha512-9CyzPcvKMFNDsw2ENQ4B6d3jV2TnZnBbg17R/VgP6M1sn0uy33boq8x4fAieICaPpTZjJEvKVrbfuZ2t9eZb4w==
+  dependencies:
+    "@financial-times/o-brand" ">=2.3.0 <4"
+
+"@financial-times/o-footer-services@^2.0.3":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-footer-services/-/o-footer-services-2.1.0.tgz#ce16b041e695eb2e99cf6ebb7aa32b34d11f2e40"
+  integrity sha512-if6seovJh4aGKpZlCojOjxYZ1mCVwyoQvgeW0q6T+tTi4RtGXfiI7Z1kLoFSgEKgrMxBzkLjG6XdPL9kAuLEEQ==
+  dependencies:
+    "@financial-times/o-brand" ">=2.2.0 <4"
+    "@financial-times/o-colors" "^4.7.1"
+    "@financial-times/o-icons" "^5.6.1"
+    "@financial-times/o-typography" "^5.6.0"
+
+"@financial-times/o-forms@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-forms/-/o-forms-6.0.0.tgz#a43a51ec673ed3722b08d44349244157ff6f0ebf"
+  integrity sha512-oVkCtt1EvmGnFBLLkuqoDFJyZ0KBl8t6mIDsW/ZYGfLTGqw01Vr3RAywb+p3KgUGe7tu/Vhf9ORBaANqnucKRA==
+  dependencies:
+    "@financial-times/o-brand" ">=2.2.0 <4"
+    "@financial-times/o-colors" "^4.0.1"
+    "@financial-times/o-grid" "^4.0.0"
+    "@financial-times/o-icons" ">=4.0.0 <6"
+    "@financial-times/o-loading" "^3.0.0"
+    "@financial-times/o-normalise" "^1.5.1"
+    "@financial-times/o-typography" "^5.0.1"
+
+"@financial-times/o-grid@^4.0.0", "@financial-times/o-grid@^4.0.6", "@financial-times/o-grid@^4.3.1", "@financial-times/o-grid@^4.3.6", "@financial-times/o-grid@^4.4.4", "@financial-times/o-grid@^4.4.5":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-grid/-/o-grid-4.5.0.tgz#8c329e74a12202f431bde8ab0b3e8ffc0e5aa158"
+  integrity sha512-qv2nT2jw+Lumbd0ZNX4eWX/8WGb7io+1Y/459ka5GVPqhxZZ0m3EXVPs5F5stR4VmtQ6clZLOVqtWtWfpECg1A==
+  dependencies:
+    sass-mq "^5.0.0"
+
+"@financial-times/o-header-services@^3.0.3":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-header-services/-/o-header-services-3.2.0.tgz#bed1e92fd896621e4b50749e929aa637cc9fd04b"
+  integrity sha512-af5g20o3nyOHOk8cLdCELvJGvnVcl+xIM4KQ6Fwc3L3zzHX261LR75c2ZBfw8/yiMZfY13Dd+qYmcGnjOkPZQg==
+  dependencies:
+    "@financial-times/o-brand" "^3.2.0"
+    "@financial-times/o-buttons" "^5.15.0"
+    "@financial-times/o-colors" "^4.7.2"
+    "@financial-times/o-grid" "^4.4.5"
+    "@financial-times/o-icons" "^5.9.0"
+    "@financial-times/o-normalise" "^1.6.2"
+    "@financial-times/o-typography" "^5.8.0"
+    "@financial-times/o-utils" "^1.0.5"
+    "@financial-times/o-visual-effects" "^2.0.3"
+
+"@financial-times/o-hoverable@>=0.2.0 <4":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-hoverable/-/o-hoverable-3.2.0.tgz#f47d7335bfed2397ca6017c9eae6f0109bfc2d48"
+  integrity sha512-o1cg5EZNZuF5KApfXE2nPECI/VHbNNUnnySnEl2tgk6cOgGOk8HEJKS2U9sd4sKIhM69nmoClX5JKWLbC1O48A==
+
+"@financial-times/o-icons@>=4.0.0 <6", "@financial-times/o-icons@>=4.0.0 <6.0.0", "@financial-times/o-icons@>=4.4.2 <6", "@financial-times/o-icons@>=4.5.0 <6", "@financial-times/o-icons@^5.6.1", "@financial-times/o-icons@^5.9.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-icons/-/o-icons-5.10.0.tgz#ed080082505f6d7fb88f536eb2f6377e732bb925"
+  integrity sha512-yh4/7AXc967mOtmb5SC7K1hPPI0+OsME+AclHNcfRNQtev4ThXikeyvNrCqeqauPM2D7yp82r0gA097Zl7vaqw==
+  dependencies:
+    "@financial-times/fticons" "^1.15.1"
+    "@financial-times/o-assets" ">= 0.4.1 <4"
+
+"@financial-times/o-layers@>=0.2.0 <3":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-layers/-/o-layers-2.1.0.tgz#780ac8c15e97779df779bde97413cf430b33e408"
+  integrity sha512-PgUxLFVB8eZz/xA0+tMOE8eoKyA2IBTqGbzC2ygl886jIa/irLPQSeWi8x6BALhUFGq062f7fwfVn4/jxycxng==
+
+"@financial-times/o-layout@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-layout/-/o-layout-3.1.0.tgz#f008cdc08c6ee3cf0dda38ae6482bf7f7fcca24b"
+  integrity sha512-vIUfPvDJG7kgQIoLuY+znikCmvFWxea6Csql+7aStiaMKbYkBugjUSB5jJXKeR0djzGwnyZ1QlAz93l5JT6y+g==
+  dependencies:
+    "@financial-times/o-colors" "^4.7.9"
+    "@financial-times/o-fonts" "^3.2.0"
+    "@financial-times/o-grid" "^4.4.4"
+    "@financial-times/o-normalise" "^1.6.2"
+    "@financial-times/o-typography" "^5.8.0"
+    "@financial-times/o-utils" "^1.0.5"
+    "@financial-times/o-visual-effects" "^2.0.3"
+
+"@financial-times/o-loading@^3.0.0":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-loading/-/o-loading-3.1.1.tgz#d74a7875ff994bd10a037bf0094e22378dd2d25c"
+  integrity sha512-imqSJs7CnJ8Ezf5PQIVMib3471HSuZKZpRhq2ZNemWfEW2Tr3yHhmh54PoMHfG1aFK5piiMEdsUpu5P2VCILpA==
+  dependencies:
+    "@financial-times/o-brand" "^3.1.1"
+    "@financial-times/o-colors" "^4.2.3"
+
+"@financial-times/o-normalise@^1.2.0", "@financial-times/o-normalise@^1.2.1", "@financial-times/o-normalise@^1.5.1", "@financial-times/o-normalise@^1.6.2":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-normalise/-/o-normalise-1.7.0.tgz#f686386845a2b5dfd77bfe2cc26a1422ae9e6b64"
+  integrity sha512-3UJWUeXmSvCrJAvG9MINOL49DS1tEyQaZ8/bBbtouZLUY3pWSn8aGNYeii3XLEear1XWeywpiz7aG6XbTJyvCw==
+
+"@financial-times/o-overlay@^2.0.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-overlay/-/o-overlay-2.5.0.tgz#278f6ed5c1c825ce0284fd3d332c83c8551a0954"
+  integrity sha512-2vcOj4gyrXjXQjxZq83gRjeAQkEn7nu5XkOf73cBV5fkmGon2v2NqRxi8vQBUxKjhaiuL1bEFv4GgPK5coyGag==
+  dependencies:
+    "@financial-times/o-brand" ">=2.2.0 <4"
+    "@financial-times/o-colors" "^4.0.0"
+    "@financial-times/o-hoverable" ">=0.2.0 <4"
+    "@financial-times/o-icons" ">=4.0.0 <6.0.0"
+    "@financial-times/o-layers" ">=0.2.0 <3"
+    "@financial-times/o-normalise" "^1.2.1"
+    "@financial-times/o-viewport" ">=0.1.1 <4"
+    "@financial-times/o-visual-effects" "^2.0.0"
+    dom-delegate "^2.0.1"
+
+"@financial-times/o-syntax-highlight@^1.1.1":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-syntax-highlight/-/o-syntax-highlight-1.6.0.tgz#e807f1c17f5df272112560a638a62c02cb9783d4"
+  integrity sha512-IEB3xu9bgS/azcvbcvIVJw0p7kb+YAawLmFDUJCh0vV0ahi8FzVAYiScwrYuV3eD9JoNlKAevqeVP1SfYoVn1A==
+  dependencies:
+    "@financial-times/o-colors" "^4.2.4"
+    prismjs "^1.14.0"
+
+"@financial-times/o-table@^7.0.8":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-table/-/o-table-7.2.0.tgz#2044bf2a605ef897362c85b86b334ba1b6560a7b"
+  integrity sha512-6hbTXfjN87WLleK2+OSNLaPhrZOJril6C9EmBtEMvw0JQxgHb7fD5EzHq6EpUGJmELUqCLVFaP8xZn1zQcDswQ==
+  dependencies:
+    "@financial-times/o-brand" "^3.1.1"
+    "@financial-times/o-buttons" "^5.14.0"
+    "@financial-times/o-colors" "^4.0.0"
+    "@financial-times/o-grid" "^4.0.6"
+    "@financial-times/o-icons" ">=4.0.0 <6"
+    "@financial-times/o-typography" "^5.0.0"
+    "@financial-times/o-visual-effects" "^2.0.3"
+    dom-delegate "^2.2.0"
+
+"@financial-times/o-tabs@^4.1.2":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-tabs/-/o-tabs-4.3.0.tgz#d5a8e890ed4800f0bbd98f8732e98d8da73a0d08"
+  integrity sha512-kwKH0Hlkl/GXJUJ/Ln29jojLFqum9AYPVTCRsGRTktsTk7AfbaA2UdsGHJDbeq0aAz4Qd4+9YZ1YphxL1lXp/w==
+  dependencies:
+    "@financial-times/o-brand" ">=2.2.0 <4"
+    "@financial-times/o-buttons" "^5.11.8"
+    "@financial-times/o-colors" "^4.0.2"
+
+"@financial-times/o-tooltip@^3.1.2":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-tooltip/-/o-tooltip-3.3.0.tgz#6a98897cdff8a8d5372ffd7ba25b82926ea5f5cc"
+  integrity sha512-lDfdtszgoW49AScI0pCmxXDvGrUtceT43bomvKAzJDl/gKLCZyl6dagfPOlmXwNWMmothqzKNXf0NnJBJJkeFw==
+  dependencies:
+    "@financial-times/o-grid" "^4.3.6"
+    "@financial-times/o-normalise" "^1.2.1"
+    "@financial-times/o-overlay" "^2.0.0"
+    "@financial-times/o-viewport" "^3.1.2"
+    "@financial-times/o-visual-effects" "^2.0.0"
+    dom-delegate "^2.2.0"
+
+"@financial-times/o-typography@^5.0.0", "@financial-times/o-typography@^5.0.1", "@financial-times/o-typography@^5.6.0", "@financial-times/o-typography@^5.8.0":
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-typography/-/o-typography-5.9.0.tgz#a12a817b626903663c9184b1ccbe4c0edd6492ee"
+  integrity sha512-43JjyMijcN2yTYAs8wa9/rJViwhifNMNlH14k4Zadnx3tKC1KrfOUl8TH67aneD2ydYWtW35+LgqjeihrvQwfQ==
+  dependencies:
+    "@financial-times/o-colors" "^4.7.9"
+    "@financial-times/o-fonts" "^3.2.0"
+    "@financial-times/o-grid" "^4.3.1"
+    "@financial-times/o-icons" ">=4.4.2 <6"
+    fontfaceobserver "^2.0.9"
+
+"@financial-times/o-utils@^1.0.0", "@financial-times/o-utils@^1.0.5":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-utils/-/o-utils-1.1.0.tgz#77e74904b4203a2cb19e684306f6beb49eaf09f2"
+  integrity sha512-mOX1dBoCTtDuQIAsh+q6wlGriP+SiEa+/4/sF/aXIWnMWnL3Ww6VwRU4OiwBWYmr55Cpq6xRQFTeYMzbzNgwqg==
+
+"@financial-times/o-viewport@>=0.1.1 <4", "@financial-times/o-viewport@^3.1.2":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-viewport/-/o-viewport-3.2.0.tgz#146d20bda3b9e3763b5fe93d8102a089b8ecb58c"
+  integrity sha512-mgcmZO5KYT9kPKnUUQbuF/uceSN5onDrm5+yknheBJ7WzA4jgtz/RtrFiUEuOkWDg1HVsTdDiwobPVrY1Ff2mA==
+  dependencies:
+    "@financial-times/o-utils" "^1.0.0"
+
+"@financial-times/o-visual-effects@^2.0.0", "@financial-times/o-visual-effects@^2.0.3":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-visual-effects/-/o-visual-effects-2.1.0.tgz#4e1ee08633e60fe0eae68b0e884555f57bf1d63d"
+  integrity sha512-409D/CAudZskypAq+5zEnYjR9ZeY5Kdw1zvdcUlMGePcgA+l1HQ6hSxkUKzwZe4w5cmm87Q8vbOhpuji52j4Cg==
+  dependencies:
+    "@financial-times/o-colors" "^4.0.1"
 
 "@financial-times/origami-service-makefile@^6.0.1":
   version "6.4.0"
@@ -2057,6 +2274,15 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
+clipboard@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.4.tgz#836dafd66cf0fea5d71ce5d5b0bf6e958009112d"
+  integrity sha512-Vw26VSLRpJfBofiVaFb/I8PVfdI1OxKcYShe6fm0sP/DtmiWQNCjhM/okTvdCo0G+lMMm1rMYbk4IK4x1X+kgQ==
+  dependencies:
+    good-listener "^1.2.2"
+    select "^1.1.2"
+    tiny-emitter "^2.0.0"
+
 clipboardy@1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-1.2.3.tgz#0526361bf78724c1f20be248d428e365433c07ef"
@@ -2819,6 +3045,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
+delegate@^3.1.2:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
+  integrity sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
+
 delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
@@ -2925,6 +3156,11 @@ doctrine@^2.1.0:
   integrity sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==
   dependencies:
     esutils "^2.0.2"
+
+dom-delegate@^2.0.1, dom-delegate@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/dom-delegate/-/dom-delegate-2.2.0.tgz#fcbe2e0de086f82bd03eaa2caaac51e4a87f2e6b"
+  integrity sha512-uhzlGq+RIYiRrXo8jEe8SQ84UYyE1z5Ucq95oQGxW3KjLtqrxI0mNi0Un8t5QZXQ8U7ig0I1pJQNqDvr3aJg2Q==
 
 dom-serialize@^2.2.0:
   version "2.2.1"
@@ -3994,6 +4230,11 @@ follow-redirects@^1.0.0, follow-redirects@^1.3.0:
   dependencies:
     debug "=3.1.0"
 
+fontfaceobserver@^2.0.9:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/fontfaceobserver/-/fontfaceobserver-2.1.0.tgz#e2705d293e2c585a6531c2a722905657317a2991"
+  integrity sha512-ReOsO2F66jUa0jmv2nlM/s1MiutJx/srhAe2+TE8dJCMi02ZZOcCTxTCQFr3Yet+uODUtnr4Mewg+tNQ+4V1Ng==
+
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -4392,6 +4633,13 @@ gonzales-pe-sl@^4.2.3:
   integrity sha1-aoaLw4BkXxQf7rBCxvl/zHG1n+Y=
   dependencies:
     minimist "1.1.x"
+
+good-listener@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
+  integrity sha1-1TswzfkxPf+33JoNR3CWqm0UXFA=
+  dependencies:
+    delegate "^3.1.2"
 
 got@^6.7.1:
   version "6.7.1"
@@ -6293,6 +6541,11 @@ math-random@^1.0.1:
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac"
   integrity sha1-izqsWIuKZuSXXjzepn97sylgH6w=
 
+mathsass@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/mathsass/-/mathsass-0.10.1.tgz#8768fe20210bd5daeab6d645c42c7e69a4c60008"
+  integrity sha1-h2j+ICEL1drqttZFxCx+aaTGAAg=
+
 md5-hex@^1.2.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/md5-hex/-/md5-hex-1.3.0.tgz#d2c4afe983c4370662179b8cad145219135046c4"
@@ -8169,6 +8422,13 @@ prettier@^1.13.7:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
   integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
 
+prismjs@^1.14.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.15.0.tgz#8801d332e472091ba8def94976c8877ad60398d9"
+  integrity sha512-Lf2JrFYx8FanHrjoV5oL8YHCclLQgbJcVZR+gikGGMqz6ub5QVWDTM6YIwm3BuPxM/LOV+rKns3LssXNLIf+DA==
+  optionalDependencies:
+    clipboard "^2.0.0"
+
 private@^0.1.6, private@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -8933,6 +9193,11 @@ sass-lint@^1.12.1:
     path-is-absolute "^1.0.0"
     util "^0.10.3"
 
+sass-mq@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/sass-mq/-/sass-mq-5.0.0.tgz#7e8a8eb0f289591b3521549266f0ff923772809d"
+  integrity sha512-GCN6wGY+l4n10mASeMe2vqISvEEFjv6/NVcywaMU9saZgzw+DKM+fUUAnv07LlxXvDdnHSRf5jGJ10u/iF1BKA==
+
 sass-true@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/sass-true/-/sass-true-4.0.0.tgz#4f1573f5d75f0c5d8539f57ca9c374995d15f278"
@@ -8981,6 +9246,11 @@ seek-bzip@^1.0.5:
   integrity sha1-z+kXyz0nS8/6x5J1ivUxc+sfq9w=
   dependencies:
     commander "~2.8.1"
+
+select@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
+  integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
 
 semver-diff@^2.0.0:
   version "2.1.0"
@@ -9869,6 +10139,11 @@ timers-ext@^0.1.5:
   dependencies:
     es5-ext "~0.10.46"
     next-tick "1"
+
+tiny-emitter@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
+  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 tmp@0.0.31:
   version "0.0.31"
