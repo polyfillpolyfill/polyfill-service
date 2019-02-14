@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">=8.10"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@financial-times/o-buttons": "^5.15.1",
+    "@financial-times/o-fonts": "^3.0.4",
+    "@financial-times/o-footer-services": "^2.1.1",
+    "@financial-times/o-forms": "^6.0.0",
+    "@financial-times/o-header-services": "^3.0.3",
+    "@financial-times/o-layout": "3.1.0",
+    "@financial-times/o-normalise": "^1.6.2",
+    "@financial-times/o-syntax-highlight": "^1.1.1",
+    "@financial-times/o-table": "^7.0.8",
+    "@financial-times/o-tabs": "^4.3.1",
+    "@financial-times/o-tooltip": "^3.1.2"
+  }
+}
