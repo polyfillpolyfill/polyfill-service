@@ -11,7 +11,6 @@ module.exports = {
 		"node/exports-style": "error",
 		"node/no-deprecated-api": "error",
 		"node/no-missing-require": "error",
-		"node/no-unsupported-features": "error",
 		"prettier/prettier": "error",
 		"no-unused-vars": 2,
 		"no-undef": 2,

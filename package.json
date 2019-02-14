@@ -24,8 +24,8 @@
   "scripts": {
     "build": "parcel build --out-dir public/static --out-file main --no-source-maps ./client/main.js ./client/main.scss",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
+    "install": "yarn install --flat --prod --cwd ./client",
     "lint": "eslint .",
-    "heroku-postbuild": "yarn build",
     "start": "node server/index.js",
     "test": "yarn test-unit",
     "test-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
@@ -36,17 +36,6 @@
     "node": ">=8.10"
   },
   "dependencies": {
-    "@financial-times/o-buttons": "^5.15.1",
-    "@financial-times/o-fonts": "^3.0.4",
-    "@financial-times/o-footer-services": "^2.1.1",
-    "@financial-times/o-forms": "^6.0.0",
-    "@financial-times/o-header-services": "^3.0.3",
-    "@financial-times/o-layout": "3.1.0",
-    "@financial-times/o-normalise": "^1.6.2",
-    "@financial-times/o-syntax-highlight": "^1.1.1",
-    "@financial-times/o-table": "^7.0.8",
-    "@financial-times/o-tabs": "^4.3.1",
-    "@financial-times/o-tooltip": "^3.1.2",
     "@financial-times/origami-service": "^4.0.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.0.6",
     "axios": "^0.18.0",
@@ -61,10 +50,7 @@
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "require-all": "^3.0.0",
-    "throng": "^4.0.0",
-    "sass": "^1.17.0",
-    "parcel-bundler": "^1.11.0",
-    "dart-sass": "^1.17.0"
+    "throng": "^4.0.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -79,7 +65,10 @@
     "sinon": "^4.5.0",
     "supertest": "^3.0.0",
     "utf8": "^3.0.0",
-    "yamlparser": "0.0.2"
+    "yamlparser": "0.0.2",
+    "dart-sass": "^1.17.0",
+    "parcel-bundler": "^1.11.0",
+    "sass": "^1.17.0"
   },
   "version": "4.0.15"
 }
