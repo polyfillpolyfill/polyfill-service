@@ -1,20 +1,18 @@
-/* eslint-env browser */
-"use strict";
-
-const Layout = require("o-layout");
+import Layout from "@financial-times/o-layout";
 Layout.init(document.body);
 
-const HeaderServices = require("o-header-services");
+import HeaderServices from "@financial-times/o-header-services";
 HeaderServices.init();
 
 // const polyfillAliases = require("polyfill-library/polyfills/__dist/aliases.json");
 
-const Tabs = require("o-tabs");
+import Tabs from "@financial-times/o-tabs";
+
 Tabs.init(document.body, {
 	disablefocus: false
 });
 
-const Tooltip = require("o-tooltip");
+import Tooltip from "@financial-times/o-tooltip";
 const tooltipObjects = Tooltip.init(document.body);
 
 tooltipObjects.forEach(tooltip => {
