@@ -24,7 +24,7 @@
   "scripts": {
     "build": "parcel build --out-dir public/static --out-file main --no-source-maps ./client/main.js ./client/main.scss",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
-    "install": "yarn install --flat --prod --cwd ./client",
+    "install": "yarn install --frozen-lockfile --flat --prod --cwd ./client",
     "lint": "eslint .",
     "start": "node server/index.js",
     "test": "yarn test-unit",
