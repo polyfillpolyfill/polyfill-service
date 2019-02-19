@@ -996,7 +996,7 @@
     "@financial-times/useragent_parser" "1.0.2"
     semver "^5.6.0"
 
-"@financial-times/useragent_parser@1.0.2":
+"@financial-times/useragent_parser@1.0.2", "@financial-times/useragent_parser@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@financial-times/useragent_parser/-/useragent_parser-1.0.2.tgz#3f26e7cb2e0e4dfc9ac833f8259d7fed9c7fbf9c"
   integrity sha512-zuJMxn5Qnk7CKl+zrVXDqXs0F+p4tshO6B4s8VenJj34EEVuV4iZIbkGiEFJUbn29z9Mcn6k8yfj9qSCNDcPPQ==
@@ -7383,10 +7383,52 @@ pluralize@^7.0.0:
     yaku "0.17.11"
     zlib "^1.0.5"
 
-polyfill-library@^3.27.4:
-  version "3.28.0"
-  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.28.0.tgz#2a42ecdf42cbda771db6f9dd348c3b6ca8fe5817"
-  integrity sha512-VuPzjLeDd3Bv4e1p0VKRjiIkb2AA9XWbJamETKJ+CbAVZ4th6fkWYNvv1/dQB9qruivB/Zj2c87ZGiqz1566ag==
+"polyfill-library-3.27.4@npm:polyfill-library@3.27.4":
+  version "3.27.4"
+  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.27.4.tgz#5ea17239315bcb811489de4b56994153c331c8fd"
+  integrity sha512-OUAZqc1ZoNyHvwS3qwXSfRdhzrheURDPrPDqIAvNgyzXIhdfuGJn5YJP7n/pWamUlglRCoiSpV0Qdd0H6IL2Hw==
+  dependencies:
+    "@financial-times/useragent_parser" "^1.0.2"
+    Base64 "^1.0.0"
+    array.of "^0.1.1"
+    audio-context-polyfill "^1.0.0"
+    babel-core "^6.23.1"
+    babel-preset-es2015 "^6.1.18"
+    denodeify "^1.2.1"
+    diff "1.4.0"
+    event-source-polyfill "^0.0.9"
+    exists-sync "0.0.4"
+    from2-string "^1.1.0"
+    glob "^7.1.1"
+    graceful-fs "^4.1.10"
+    html5shiv "^3.7.3"
+    intersection-observer "^0.4.1"
+    intl "^1.2.5"
+    js-polyfills "^0.1.40"
+    json3 "^3.3.2"
+    lazystream "^1.0.0"
+    lodash "^4.17.4"
+    lru-cache "^4.0.2"
+    merge2 "^1.0.3"
+    mkdirp "^0.5.0"
+    mutationobserver-shim "^0.3.2"
+    picturefill "^3.0.1"
+    rimraf "^2.6.2"
+    semver "^5.3.0"
+    shuffle-array "^1.0.1"
+    stream-from-promise "^1.0.0"
+    stream-to-string "^1.1.0"
+    toposort "^2.0.2"
+    uglify-js "^2.7.5"
+    usertiming "^0.1.8"
+    web-animations-js "^2.2.5"
+    whatwg-fetch "^2.0.3"
+    yaku "0.18.6"
+
+polyfill-library@^3.28.1:
+  version "3.28.1"
+  resolved "https://registry.yarnpkg.com/polyfill-library/-/polyfill-library-3.28.1.tgz#5ffa2867d77488eddadc7a0c6e40912c580eaefe"
+  integrity sha512-31k9fnOQIxxzrJbgOaT50QCys6Wjb382O5dKqSLp70nRU/QMTs4oIVzUlZ6QeoLFypiTMOPZHJnKvRyxM59IZA==
   dependencies:
     "@financial-times/polyfill-useragent-normaliser" "1.0.6"
     Base64 "^1.0.0"
