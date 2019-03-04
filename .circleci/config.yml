@@ -29,7 +29,7 @@ jobs:
       - "checkout"
       - run: "yarn install --frozen-lockfile"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
-      - run: "sed -i '/dist/d' .gitignore && yarn run build:production && git commit -am 'Build website'"
+      - run: "sed -i '/dist/d' .gitignore && yarn run build:production && git config --global user.email "me@jakechampion.name" && git config --global user.name "JakeChampion" && git commit -am 'Build website'"
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
@@ -52,7 +52,7 @@ jobs:
       - "checkout"
       - run: "yarn install --frozen-lockfile"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
-      - run: "sed -i '/dist/d' .gitignore && yarn run build:production && git commit -am 'Build website'"
+      - run: "sed -i '/dist/d' .gitignore && yarn run build:production && git config --global user.email "me@jakechampion.name" && git config --global user.name "JakeChampion" && git commit -am 'Build website'"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
