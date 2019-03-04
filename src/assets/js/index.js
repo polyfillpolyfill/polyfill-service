@@ -81,7 +81,9 @@ const createPolyfillBundleURL = options => {
 		parameters.rum = options.rum;
 	}
 
-	parameters.features = options.features.join(",");
+	if (options.features.length > 0) {
+		parameters.features = options.features.join(",");
+	}
 
 	const minified = options.minified ? true : false;
 	const extension = minified ? ".min.js" : ".js";
@@ -109,7 +111,7 @@ const defaultPolyfillBundleOptions = {
 	gated: false,
 	always: false,
 	rum: 0,
-	features: ["default"],
+	features: [],
 	callback: ""
 };
 
@@ -145,7 +147,7 @@ if (filterInput) {
 			resetFeaturesList();
 		} else {
 			Object.entries(featuresCache).forEach(function([key, node]) {
-				if (key.includes(inputVal.toLowerCase())) {
+				if (key.toLowerCase().includes(inputVal.toLowerCase())) {
 					node.removeAttribute("aria-hidden");
 				} else {
 					node.setAttribute("aria-hidden", true);
@@ -269,9 +271,9 @@ if (featuresList) {
 }
 
 const copyURLButton = document.getElementById("copy-url");
-const copyURLButtonOriginalText = copyURLButton.innerText;
-let copyURLButtonTimeout;
 if (copyURLButton) {
+	let copyURLButtonTimeout;
+	const copyURLButtonOriginalText = copyURLButton.innerText;
 	copyURLButton.addEventListener("click", () => {
 		copyToClipboard(createPolyfillBundleURL(polyfillBundleOptions));
 		copyURLButton.innerText = "Copied to clipboard";
@@ -283,9 +285,9 @@ if (copyURLButton) {
 }
 
 const copyHTMLButton = document.getElementById("copy-html");
-const copyHTMLButtonOriginalText = copyHTMLButton.innerText;
-let copyHTMLButtonTimeout;
 if (copyHTMLButton) {
+	let copyHTMLButtonTimeout;
+	const copyHTMLButtonOriginalText = copyHTMLButton.innerText;
 	copyHTMLButton.addEventListener("click", () => {
 		copyToClipboard(createPolyfillBundleHTML(polyfillBundleOptions));
 		copyHTMLButton.innerText = "Copied to clipboard";

@@ -11,3 +11,7 @@ npm-debug.log
 local.log
 public/
 .cache/
+node_modules
+.cache_eleventy/
+.tmp/
+dist/

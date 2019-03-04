@@ -1,3 +1,7 @@
+---
+layout: layouts/base.njk
+oLayoutStyle: "o-layout--query"
+---
 <div  class="o-layout__heading o-layout-typography" data-o-component="o-syntax-highlight">
 	<h6 class="bundle-heading">Your polyfill bundle:</h6>
 
@@ -74,24 +78,24 @@
 		<legend aria-describedby="avaliable-polyfills-info" class="o-forms__label">Available Polyfills</legend>
 		<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
 		<div class="o-forms__group o-forms__group--inline" id="features-list">
-		{{#each polyfills}}
-			<div class="polyfill" data-feature-name="{{name}}">
-				<input id="{{name}}" name="{{name}}" type="checkbox" class="o-forms__checkbox">
-				<label class="o-forms__label" id="{{labelID}}" for="{{name}}">{{name}}</label>
-				<button title="Links" id="{{name}}-tooltip-target" aria-label="More about {{name}} (opens tooltip)."></button>
+		{% for item in polyfills.polyfills %}
+			<div class="polyfill" data-feature-name="{{item.name}}">
+				<input id="{{item.name}}" name="{{item.name}}" type="checkbox" class="o-forms__checkbox">
+				<label class="o-forms__label" id="{{item.labelID}}" for="{{item.name}}">{{item.name}}</label>
+				<button title="Links" id="{{item.name}}-tooltip-target" aria-label="More about {{item.name}} (opens tooltip)."></button>
 
-				<div id="{{name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
+				<div id="{{item.name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{item.name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
 						<ul>
-							<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{license}}</a></li>
-							{{#if spec}}<li><a href='{{spec}}'>Specification</a></li>{{/if}}
-							{{#if docs}}<li><a href='{{docs}}'>Documentation</a></li>{{/if}}
-							<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{baseDir}}'>Polyfill source</a></li>
+							<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{item.license}}</a></li>
+							{% if spec %}<li><a href='{{item.spec}}'>Specification</a></li>{% endif %}
+							{% if docs %}<li><a href='{{item.docs}}'>Documentation</a></li>{% endif %}
+							<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{item.baseDir}}'>Polyfill source</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
-		{{/each}}
+		{% endfor %}
 		</div>
 	</fieldset>
 </div>
