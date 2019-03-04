@@ -5,7 +5,8 @@ coverage/
 .terraform/
 .serverless/
 .sonarlint/
-
+dist/
+.cache_eleventy/
 .DS_Store
 .env
 local.log

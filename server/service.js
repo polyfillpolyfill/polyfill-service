@@ -3,6 +3,7 @@
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 const path = require("path");
+const serveStatic = require("serve-static");
 
 const notFoundHandler = (request, response) => {
 	response.status(404);
@@ -26,6 +27,7 @@ function service(options) {
 		response.locals.requestUrl = request.url;
 		next();
 	});
+	app.use(serveStatic(path.join(__dirname, "../dist")));
 	mountRoutes(app);
 	app.use(notFoundHandler);
 	app.use(origamiService.middleware.errorHandler());

@@ -1,3 +1,6 @@
+---
+layout: layouts/base.njk
+---
 <div class="o-layout__main o-layout-typography">
 	<h2>Supported Browsers</h2>
 	<p>We support the following browsers:</p>
@@ -9,12 +12,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			{{#each supportedBrowsers}}
+			{% for item in supportedBrowsers.supportedBrowsers %}
 				<tr>
-					<td>{{browser}}</td>
-					<td>{{version}}</td>
+					<td>{{item.browser}}</td>
+					<td>{{item.version}}</td>
 				</tr>
-			{{/each}}
+			{% endfor %}
 		</tbody>
 	</table>
 </div>
