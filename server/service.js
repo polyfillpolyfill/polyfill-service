@@ -4,6 +4,7 @@ const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 const path = require("path");
 const serveStatic = require("serve-static");
+const compression = require("compression");
 
 const notFoundHandler = (request, response) => {
 	response.status(404);
@@ -27,6 +28,8 @@ function service(options) {
 		response.locals.requestUrl = request.url;
 		next();
 	});
+	mountRoutes(app);
+	app.use(compression({ level: 9 }));
 	app.use(
 		serveStatic(path.join(__dirname, "../dist"), {
 			setHeaders: function(res) {
@@ -35,7 +38,6 @@ function service(options) {
 			}
 		})
 	);
-	mountRoutes(app);
 	app.use(notFoundHandler);
 	app.use(origamiService.middleware.errorHandler());
 
