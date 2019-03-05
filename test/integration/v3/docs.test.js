@@ -17,7 +17,7 @@ describe("GET /v3/", function() {
 describe("GET /v3/api", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/api")
+			.get("/v3/api/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
@@ -26,7 +26,7 @@ describe("GET /v3/api", function() {
 describe("GET /v3/url-builder", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/url-builder")
+			.get("/v3/url-builder/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
@@ -35,7 +35,7 @@ describe("GET /v3/url-builder", function() {
 describe("GET /v3/privacy-policy", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/privacy-policy")
+			.get("/v3/privacy-policy/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
@@ -44,7 +44,7 @@ describe("GET /v3/privacy-policy", function() {
 describe("GET /v3/report-a-bug", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/report-a-bug")
+			.get("/v3/report-a-bug/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
@@ -53,7 +53,7 @@ describe("GET /v3/report-a-bug", function() {
 describe("GET /v3/supported-browsers", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/supported-browsers")
+			.get("/v3/supported-browsers/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
@@ -62,7 +62,7 @@ describe("GET /v3/supported-browsers", function() {
 describe("GET /v3/terms", function() {
 	it("works as expected", function() {
 		return request(host)
-			.get("/v3/terms")
+			.get("/v3/terms/")
 			.expect(200)
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			.expect("Content-Type", "text/html; charset=UTF-8");
