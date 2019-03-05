@@ -1,0 +1,18 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".cache/**",
+    ".cache_eleventy/**",
+    ".circleci/**",
+    ".git/**",
+    ".nyc_output/**",
+    "coverage/**",
+    "dist/**",
+    "node_modules/**"
+  ],
+  "verbose": true,
+  "watch": [
+    "./"
+  ],
+  "ext": "js,json,scss,css,njk,png,ico,svg,lock,md"
+}
