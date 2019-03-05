@@ -9,7 +9,7 @@ const notFoundHandler = (request, response) => {
 	response.status(404);
 	response.set({
 		"Cache-Control": "max-age=30, public, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800",
-		"Content-Type": "text/html; charset=utf-8",
+		"Content-Type": "text/html; charset=UTF-8",
 		"Surrogate-Key": "polyfill-service"
 	});
 	response.send("Not Found");
