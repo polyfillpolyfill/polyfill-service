@@ -24,6 +24,7 @@
     "test:unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
     "test:integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail",
     "clean": "rimraf ./dist ./.cache ./.cache_eleventy",
+    "build": "run-s build:production",
     "build:dev": "run-s clean production:eleventy && run-p --race dev:*",
     "build:production": "run-s clean production:eleventy production:parcel",
     "dev:eleventy": "eleventy --watch",
@@ -32,6 +33,7 @@
     "production:eleventy": "eleventy",
     "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3"
   },
+  "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
     "node": ">=8.10"
