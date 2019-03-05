@@ -823,9 +823,9 @@
     "@financial-times/o-brand" ">=2.3.0 <4"
 
 "@financial-times/o-footer-services@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@financial-times/o-footer-services/-/o-footer-services-2.1.1.tgz#c75928f4e8b4237f9fe600924356475ceb6d5f0f"
-  integrity sha512-Zy73fDqUk/8zDjk2kUxAsih2k2klkfRlmVzHaz3cBKkkhX0zJbl/KB9MdHLhMQUSKxLVMTPTaM2gMNOtF6Tmsw==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-footer-services/-/o-footer-services-2.1.2.tgz#466f3e2751432cc077043216ad2fba75bb720a8d"
+  integrity sha512-yOx019ewJVr3k3r/RPKE5nvIsgjLFG6JAI71CpJYeYzGPh17dCBIiiu0UinD5Pl6X/vRpMfNNAj1vEoZYhev3w==
   dependencies:
     "@financial-times/o-brand" ">=2.2.0 <4"
     "@financial-times/o-colors" "^4.7.1"
@@ -853,9 +853,9 @@
     sass-mq "^5.0.0"
 
 "@financial-times/o-header-services@^3.2.4":
-  version "3.2.7"
-  resolved "https://registry.yarnpkg.com/@financial-times/o-header-services/-/o-header-services-3.2.7.tgz#8acf07a81aac94eeb19e3dff18bc2604a93379d7"
-  integrity sha512-jUMOa+D0bkVz2ln2C2hQ/SGW+LIcvpR99/pgHKAcMe6QafydVMCII/HN3jsX53ReQafYqVOIpi9PE8VIisrnUA==
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-header-services/-/o-header-services-3.2.8.tgz#adc02984bc06e69e56553246df91e7fe5d8b463a"
+  integrity sha512-fdH0qQMQpq5gHactQvaZzYMaixnzlTlKQOKL1bEa1jJtWB2BfVdT79NfsHCZPxmyiPIxfkIBJaW+sc2GBu2koQ==
   dependencies:
     "@financial-times/o-brand" "^3.2.0"
     "@financial-times/o-buttons" "^5.15.0"
