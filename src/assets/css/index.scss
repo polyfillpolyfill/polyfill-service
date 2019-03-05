@@ -27,7 +27,6 @@ $o-tooltip-is-silent: false;
 
 @import 'o-table/main';
 @include oTable($opts: (
-	'stripes',
 	'lines',
 	'row-headings'
 ));
