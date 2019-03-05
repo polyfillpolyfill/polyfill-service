@@ -881,9 +881,9 @@
   integrity sha512-PgUxLFVB8eZz/xA0+tMOE8eoKyA2IBTqGbzC2ygl886jIa/irLPQSeWi8x6BALhUFGq062f7fwfVn4/jxycxng==
 
 "@financial-times/o-layout@^3.1.0":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@financial-times/o-layout/-/o-layout-3.1.3.tgz#549d6a64fd74681be5f83a41e086474d47dfe838"
-  integrity sha512-cpXJgMPo1CNmNLCii7jpIf5gbs/F9r87leNigQLWR6GFljx/rtFBXEsPnAPS/EtMbrm4dR3u7XbU4OPt8ZGIaQ==
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@financial-times/o-layout/-/o-layout-3.1.4.tgz#fdcfbb8f65dc08a46ae4b56f7c74350c8fa56e46"
+  integrity sha512-Jpp2PAh9H93B2V+QNgVyQn70ga54eY3jwmOnVSYLEHG30MDvZtEFq/f/nrmubgTlE82Gd1u586jqOMYVKxz+7Q==
   dependencies:
     "@financial-times/o-colors" "^4.7.9"
     "@financial-times/o-fonts" "^3.2.0"
