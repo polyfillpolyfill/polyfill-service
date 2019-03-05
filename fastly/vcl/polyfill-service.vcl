@@ -203,7 +203,7 @@ sub vcl_error {
 	if (obj.status == 911) {
 		set obj.status = 405;
 		set obj.response = "METHOD NOT ALLOWED";
-		set obj.http.Content-Type = "text/html; charset=utf-8";
+		set obj.http.Content-Type = "text/html; charset=UTF-8";
 		set obj.http.Cache-Control = "private, no-store";
 		synthetic req.method " METHOD NOT ALLOWED";
 		return (deliver);
