@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="core">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Polyfill service</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+	<link rel="manifest" href="../assets/images/manifest.json">
+	<link rel="mask-icon" href="../assets/images/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+	<script>
+		var cutsTheMustard = ('MutationObserver' in window); // IE11, Chr27, FF14, Saf6, Op15, BB10
+		if (cutsTheMustard) {
+			document.documentElement.className = document.documentElement.className.replace(/\bcore\b/g, 'enhanced');
+		}
+	</script>
+
+	<style>
+		/* Hide any enhanced experience content when in core mode, and vice versa. */
+		.core .o--if-js,
+		.enhanced .o--if-no-js { display: none !important; }
+	</style>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://origami-build.ft.com/v2/bundles/css?modules=o-techdocs@^5.0.0,o-grid@^4.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0,o-forms@^2.0.0" />
+	<link rel="stylesheet" href="../assets/css/style.css" />
+
+	<!-- Polyfills must load sync, since they need to be active before other script runs -->
+	<script src="https://polyfill.io/v2/polyfill.min.js?features=default,Array.from,HTMLDocument,Array.prototype.forEach,XMLHttpRequest,CustomEvent,Element.prototype.closest&amp;rum=1"></script>
+
+	<!-- Other scripts can be loaded async: see footer -->
+</head>
+<body class='o-techdocs'>
+
+	<header data-o-component="o-header" class="o-header">
+		<div class="o-header__container">
+			<div class="o-header__inner">
+				<div class="o-header__primary">
+					<div class="o-header__primary__left">
+						<h1 class="o-header__title">
+							<img src='../assets/images/logo.svg' class='logo' alt='logo' />
+							Polyfill.io
+						</h1>
+					</div>
+				</div>
+				<div class="o-header__secondary"></div>
+			</div>
+		</div>
+	</header>
+	<div class="o-techdocs-container">
+		<div class="o-techdocs-layout">
+
+	<div class="o-techdocs-sidebar">
+		<ul class="o-techdocs-nav">
+			<li>
+				<a href="index.html">About</a>
+			</li>
+			<li>
+				<a href="features/index.html">Browsers and features</a>
+			</li>
+			<li>
+				<a href="api.html">API reference</a>
+			</li>
+			<li aria-selected="true">
+				<a href="examples.html">Live examples</a>
+			</li>
+			<li>
+				<a href="usage.html">Usage stats</a>
+			</li>
+			<li>
+				<a href="contributing.html">Contributing</a>
+			</li>
+			<li>
+				<a href="privacy-policy.html">Privacy Policy</a>
+			</li>
+			<li>
+				<a href="terms.html">Terms and Conditions</a>
+			</li>
+		</ul>
+	</div>
+
+		<div class="o-techdocs-main o-techdocs-content">
+
+			<h1>Examples</h1>
+
+			<p>Here are some common recipes and advice for constructing polyfill requests.  This isn't a substitute for the full API reference, and is not intended to show all possible permutations.</p>
+
+
+			<h2 id='basic'>Basic case</h2>
+
+			<p>The simplest use: consider default polyfills, bundle, minify and and return those which are required by the current browser:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.min.js'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+			<p>This example is minified by including <code>.min</code> in the URL.  All the other examples on this page are not minified, so you can see the metadata included at the top of the response, but any response can be minified by adding <code>.min</code> in the same way as shown above.</p>
+
+
+			<h2 id='aliases'>Using aliases</h2>
+
+			<p>Consider only the <code>Array.prototype.map</code> and <code>modernizr:es5array</code> polyfills, the first only if needed by the browser, the second regardless of the user-agent.  No <code>.min</code> here so the result is not minified.</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Array.prototype.map,modernizr:es5array|always'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<p>If you don't specify any <code>features</code>, 'default' is assumed, but you can also specify default explicitly if you want to combine it with something else.  This example uses the default set plus fetch:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=default,fetch'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<p>Use the <code>es6</code> alias to include all features that are part of ECMAScript 6 (for which we currently have polyfills):</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=es6'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+
+
+			<h2 id='override-ua'>Overriding the user-agent</h2>
+
+			<p>Consider default polyfills, but for an IE7 user-agent:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?ua=Mozilla%2F5.0%20(Windows%3B%20U%3B%20MSIE%207.0%3B%20Windows%20NT%206.0%3B%20en-US)'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+
+			<h2 id='flags'>Using flags</h2>
+
+			<p>It's often a good idea to use the <code>gated</code> flag to wrap polyfills in a feature-detect.  Some people prefer not to do this and instead just trust the browser targeting, but to guard against mistargeting, incorrect user agent interpretation, and conflicts with other polyfills that may be on the same page, you can apply feature-detect gating to all features in the bundle at once:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Element.prototype.classList,Array.from,Document&amp;flags=gated'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<p>Use the <code>always</code> flag to force a polyfill to be returned regardless of whether the user-agent requires it:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Element.prototype.classList|always,Array.from,Document|always&amp;ua=chrome/37'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+			<p>This example uses a useragent override of chrome/37 to demonstrate one of the problems of using <code>always</code>: in Chrome, there is no polyfill for Document that makes sense, because even in those browsers that do need the polyfill, no two browsers use the same one.  As a result, even if you specify <code>always</code> on this feature, you'll get no polyfill in chrome.</p>
+			<p>With both <code>gated</code> and <code>always</code>, you can apply them either at the feature-level using the pipe delimiter or to the whole request using the <code>flags</code> parameter.  This example applies both flags to one feature but neither to the other:
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Element.prototype.classList|always|gated,Array.from'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<p>And this example applies both flags to the whole request:</p>
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Element.prototype.classList,Array.from&amp;flags=always,gated'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<h2 id='rum'>Real user monitoring</h2>
+
+			<p>To help out the project with collecting compatibility data, please consider enabling the `rum` option:</p>
+
+			<div class='demo' data-src='https://polyfill.io/v2/polyfill.js?features=Element.prototype.classList,Array.from&amp;rum=1&amp;flags=always'>Your browser is too old to run the enhanced experience of https://polyfill.io.  Please upgrade to see this content.</div>
+
+			<h2 id='feature-detection'>Loading strategies</h2>
+
+			<p>There are many ways you can incorporate the polyfill service into your site's resource loading strategy, to suit different standards and rules.</p>
+
+			<h3>Async with callback</h3>
+
+			<p>We recommend the use of the <code>async</code> and <code>defer</code> attributes on <code>&lt;script></code> tags that load from the polyfill service, but loading from us in a non-blocking way means you can't know for certain whether your own code will execute before or after the polyfills are done loading.</p>
+
+			<p>To make sure the polyfills are present before you try to run your own code, you can attach an <code>onload</code> handler to the https://polyfill.io script tag, use a more sophisticated <a href='https://davidwalsh.name/javascript-loader'>script loader</a> or simply use our <code>callback</code> argument to evaluate a global callback when the polyfills are loaded:
+
+			<pre><code>&lt;script src="https://polyfill.io/v2/polyfill.min.js?callback=polyfillsAreLoaded" defer async>&lt;/script>
+&lt;script>
+  function polyfillsAreLoaded() {
+    console.log('Now to do the cool stuff...');
+  }
+&lt;/script></code></pre>
+
+			<h3>Feature detection</h3>
+
+			<p>The polyfill service uses (and advocates) server side feature detection based on <code>User-Agent</code> identification, but you can also use the service with feature detection in the browser if you like.  Just run the tests you want and construct a https://polyfill.io URL, with an <code>always</code> flag to disable our user-agent feature-detection, and a <code>ua</code> identifier set to a supported browser:</p>
+
+			<pre><code>// Create a list of the features this browser needs.
+// Beware of overly simplistic detects!
+var features = [];
+('Promise' in window) || features.push('Promise');
+('IntersectionObserver' in window) || features.push('IntersectionObserver');
+('after' in Element.prototype) || features.push('Element.prototype.after');
+
+// If any features need to be polyfilled, construct
+// a script tag to load the polyfills and append it
+// to the document
+if (features.length) {
+  var s = document.createElement('script');
+
+  // Include a `ua` argument set to a supported browser to skip UA identification
+  // (improves response time) and avoid being treated as unknown UA (which would
+  // otherwise result in no polyfills, even with `always`, if UA is unknown)
+  s.src = 'https://polyfill.io/v2/polyfill.min.js?features='+features.join(',')+'&flags=gated,always&ua=chrome/50&callback=main';
+  s.async = true;
+  document.head.appendChild(s);
+} else {
+
+	// If no polyfills are required, invoke the app
+	// without delay
+	main();
+}
+
+function main() {
+	console.log('Now to do the cool stuff...');
+}</code></pre>
+
+			<p>You can view the above example <a href='https://jsbin.com/sufiboz/'>in a JSBin demo</a>.  Doing live feature detection in the browser is one of our oldest feature requests, and we hope to support this out of the box at some point.  Follow <a href='https://github.com/Financial-Times/polyfill-service/issues/84'>issue 84</a> for updates.</p>
+
+		</div>
+
+		</div>
+	</div>
+	<footer class='o-techdocs-footer'>
+		<p class='o-techdocs-footer__secondary'><i class="fa fa-github"></i> <a href='https://github.com/Financial-Times/polyfill-service'>View project on GitHub</a></p>
+		<p>&copy; Jonathan Neal, The Financial Times Ltd and other <a href='https://github.com/Financial-Times/polyfill-service/graphs/contributors'>contributors</a>. FT and 'Financial Times' are trademarks of The Financial Times Ltd.</p>
+	</footer>
+	<script>
+		(function(srces, fn) {
+			if (!cutsTheMustard) return;
+			var firstScript = document.getElementsByTagName('script')[0];
+			var re = /ded|co/;
+			var onload = 'onload';
+			var onreadystatechange = 'onreadystatechange';
+			var readyState = 'readyState';
+			var count = 0;
+
+			if (typeof srces === 'string') srces = [srces];
+			srces.forEach(function(src) {
+				var script = document.createElement('script');
+				script[onload] = script[onreadystatechange] = function() {
+					if(!this[readyState] || re.test(this[readyState])){
+						script[onload] = script[onreadystatechange] = null;
+						if (++count === srces.length) {
+							fn && fn();
+						}
+					}
+				};
+				script.async = script.defer = true;
+				script.src = src;
+				firstScript.parentNode.insertBefore(script, firstScript);
+			});
+		})([
+			'https://www.ft.com/__origami/service/build/v2/bundles/js?modules=o-techdocs@^5.0.0,o-grid@^4.0.0,o-overlay@^1.4.0,o-fonts@^1.4.0,o-forms@^2.0.0',
+			'https://www.gstatic.com/charts/loader.js',
+			'../assets/js/ui.js'
+		], function() { init(); });
+	</script>
+</body>
+</html>

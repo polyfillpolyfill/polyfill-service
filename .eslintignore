@@ -18,3 +18,9 @@ ws-log-npm-report
 website/
 public/static/
 client/
+v2/
+.cache/
+.cache_eleventy/
+.tmp/
+dist/
+production/
