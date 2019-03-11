@@ -11,7 +11,12 @@ sub vcl_recv {
 	if (req.http.Orig-URL ~ "^/v1") {
 		error 902 "Redirect to V2";
 	}
-
+	
+	if (req.url.path != "/v2/polyfill.js" && req.url.path != "/v2/polyfill.min.js") {
+		if (req.url.path ~ "^/v2($|/)") {
+			error 908;
+		}
+	}
 	if (req.url.path == "/") {
 		error 908;
 	}
