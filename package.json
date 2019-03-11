@@ -30,7 +30,7 @@
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
     "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
-    "production:assetgraph": "cp -R v2 dist && rm -rf production && buildProduction --outroot production --optimizeimages --root dist/ --canonicalroot https://polyfill.io --nofilerev --sourcemaps --subresourceintegrity --contentsecuritypolicy dist/*.html dist/**/*.html dist/**/**/*.html dist/**/**/**/*.html && addIntegrityToForeignRelations production/**/*.html"
+    "production:assetgraph": "rm -rf production && buildProduction --outroot production --optimizeimages --root dist/ --canonicalroot https://polyfill.io --nofilerev --sourcemaps --subresourceintegrity --contentsecuritypolicy dist/**/*.html && addIntegrityToForeignRelations production/**/*.html"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
