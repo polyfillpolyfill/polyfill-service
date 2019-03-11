@@ -79,8 +79,8 @@ oLayoutStyle: "o-layout--query"
 		<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
 		<div class="o-forms__group o-forms__group--inline" id="features-list">
 		{% for item in polyfills.polyfills %}
-			<div class="polyfill" data-feature-name="{{item.name}}-polyfill">
-				<input id="{{item.name}}-polyfill" name="{{item.name}}-polyfill" type="checkbox" class="o-forms__checkbox">
+			<div class="polyfill" data-feature-name="{{item.name}}">
+				<input id="{{item.name}}-polyfill" name="{{item.name}}-polyfill" data-feature-name="{{item.name}}" type="checkbox" class="o-forms__checkbox">
 				<label class="o-forms__label" id="{{item.labelID}}" for="{{item.name}}-polyfill">{{item.name}}</label>
 				<button title="Links" id="{{item.name}}-tooltip-target" aria-label="More about {{item.name}} (opens tooltip)."></button>
 
