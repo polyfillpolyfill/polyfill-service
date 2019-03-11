@@ -35,7 +35,7 @@
   "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
-    "node": ">=8.10"
+    "node": "11.9.0"
   },
   "dependencies": {
     "@financial-times/origami-service": "^4.0.0",
