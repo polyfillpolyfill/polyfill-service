@@ -256,9 +256,9 @@ const removeFeatureToList = (list, feature) => {
 
 const updateFeaturesListFromEvent = e => {
 	if (e.target.checked) {
-		addFeatureToList(polyfillBundleOptions.features, e.target.dataset.featureName);
+		addFeatureToList(polyfillBundleOptions.features, e.target.name);
 	} else {
-		removeFeatureToList(polyfillBundleOptions.features, e.target.dataset.featureName);
+		removeFeatureToList(polyfillBundleOptions.features, e.target.name);
 	}
 	updatePolyfillBundle(polyfillBundleOptions);
 };
