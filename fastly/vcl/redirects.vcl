@@ -12,7 +12,7 @@ sub vcl_recv {
 		error 902 "Redirect to V2";
 	}
 
-	if (req.url.path == "/" || req.url.path == "/v2") {
+	if (req.url.path == "/") {
 		error 908;
 	}
 }
