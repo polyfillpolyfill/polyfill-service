@@ -68,7 +68,7 @@ sub vcl_recv {
 
 	# Because the old service had a router which allowed any words between /v2/polyfill. and .js
 	if (req.url ~ "^/v2/polyfill(\.\w+)+\.js") {
-		set req.url = regsub(req.url, "^/v2/polyfill(\.\w+)+\.js", "/v2/polyfill.min.js");
+		set req.url = regsub(req.url, "^/v2/polyfill(\.\w+)\.js", "/v2/polyfill.min.js");
 	}
 
 	# Override the v3 defaults with the defaults of v2
