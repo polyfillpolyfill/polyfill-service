@@ -31,7 +31,7 @@ function service(options) {
 	});
 	mountRoutes(app);
 	app.use(compression({ level: 9 }));
-	app.use(extractHeaders({ memoize: true }));
+	app.use(extractHeaders());
 	app.use(
 		serveStatic(path.join(__dirname, "../production"), {
 			setHeaders: function(res) {
