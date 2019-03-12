@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.3
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:lodash:20180130':
+    - polyfill-library-3.25.3 > marky-markdown > highlights > first-mate-select-grammar > lodash:
+        patched: '2019-03-12T16:51:02.194Z'
+  'npm:moment:20170905':
+    - polyfill-library-3.25.3 > moment:
+        patched: '2019-03-12T16:51:02.194Z'

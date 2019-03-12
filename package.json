@@ -30,7 +30,9 @@
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
     "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
-    "production:assetgraph": "rm -rf production && buildProduction --outroot production --optimizeimages --root dist/ --canonicalroot https://polyfill.io --nofilerev --sourcemaps --subresourceintegrity --contentsecuritypolicy dist/**/*.html && addIntegrityToForeignRelations production/**/*.html"
+    "production:assetgraph": "rm -rf production && buildProduction --outroot production --optimizeimages --root dist/ --canonicalroot https://polyfill.io --nofilerev --sourcemaps --subresourceintegrity --contentsecuritypolicy dist/**/*.html && addIntegrityToForeignRelations production/**/*.html",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
@@ -50,7 +52,8 @@
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "polyfill-library-3.27.4": "npm:polyfill-library@3.27.4",
     "require-all": "^3.0.0",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "snyk": "^1.136.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.7.1",
@@ -92,5 +95,6 @@
     "utf8": "^3.0.0",
     "yamlparser": "0.0.2"
   },
-  "version": "4.2.4"
+  "version": "4.2.4",
+  "snyk": true
 }
