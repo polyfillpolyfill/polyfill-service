@@ -26,7 +26,7 @@
     "clean": "rimraf ./dist ./.cache ./.cache_eleventy",
     "build": "run-s production",
     "build:dev": "run-s production:*",
-    "dev": "yarn clean && nodemon --exec \"time yarn build:dev && yarn start\"",
+    "dev": "npm run clean && nodemon --exec \"time npm run build:dev && npm run start\"",
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
     "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
