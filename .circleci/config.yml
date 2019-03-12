@@ -13,21 +13,21 @@ jobs:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: "npm i -g npm && npm ci"
+      - run: "sudo npm i -g npm && npm ci"
       - run: "npm run lint"
   unit_tests:
     docker:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: "npm i -g npm && npm ci"
+      - run: "sudo npm i -g npm && npm ci"
       - run: "npm run test:unit"
   deploy_dev:
     docker:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: "npm i -g npm && npm ci"
+      - run: "sudo npm i -g npm && npm ci"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
@@ -42,14 +42,14 @@ jobs:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: npm i -g npm && npm ci
+      - run: sudo npm i -g npm && npm ci
       - run: HOST=https://origami-polyfill-service-dev.in.ft.com npm run test:integration
   deploy_staging:
     docker:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: "npm i -g npm && npm ci"
+      - run: "sudo npm i -g npm && npm ci"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
       - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
@@ -65,14 +65,14 @@ jobs:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: npm i -g npm && npm ci
+      - run: sudo npm i -g npm && npm ci
       - run: HOST=https://qa.polyfill.io npm run test:integration
   deploy_service_production:
     docker:
       - image: "circleci/node:11"
     steps:
       - "checkout"
-      - run: "npm i -g npm && npm ci"
+      - run: "sudo npm i -g npm && npm ci"
       - run: "sudo ~/project/.circleci/install_heroku.sh"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
