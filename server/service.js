@@ -33,7 +33,7 @@ function service(options) {
 	app.use(compression({ level: 9 }));
 	app.use(extractHeaders());
 	app.use(
-		serveStatic(path.join(__dirname, "../production"), {
+		serveStatic(path.join(__dirname, "../dist"), {
 			setHeaders: function(res) {
 				res.setHeader("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
 				res.setHeader("Surrogate-Key", "polyfill-service, polyfill-service-website");
