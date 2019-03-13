@@ -3,12 +3,6 @@
 "use strict";
 
 const proclaim = require("proclaim");
-const sinon = require("sinon");
-
-sinon.assert.expose(proclaim, {
-	includeFail: false,
-	prefix: ""
-});
 
 // Proclaim appears to be unable to compare sets in a deepEqual
 // (any two sets are considered the same), so convert sets to
