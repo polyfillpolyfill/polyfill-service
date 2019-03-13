@@ -89,7 +89,7 @@
     "rimraf": "^2.6.3",
     "sass": "^1.17.2",
     "sinon": "^7.2.7",
-    "supertest": "^4.0.0",
+    "supertest": "^3.0.0",
     "utf8": "^3.0.0",
     "yamlparser": "0.0.2"
   },
