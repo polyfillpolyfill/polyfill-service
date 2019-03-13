@@ -19,7 +19,7 @@
   "scripts": {
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
     "lint": "eslint .",
-    "start": "node server/index.js",
+    "start": "./start_server.sh server/index.js",
     "test": "run-s test:*",
     "test:unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
     "test:integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail",
