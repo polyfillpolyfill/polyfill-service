@@ -29,8 +29,7 @@
     "dev": "npm run clean && nodemon --exec \"time npm run build:dev && npm run start\"",
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
-    "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
-    "production:assetgraph": "rm -rf production && buildProduction --outroot production --optimizeimages --root dist/ --canonicalroot https://polyfill.io --nofilerev --sourcemaps --subresourceintegrity --contentsecuritypolicy dist/**/*.html && addIntegrityToForeignRelations production/**/*.html"
+    "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
@@ -68,10 +67,6 @@
     "@financial-times/o-tooltip": "^3.4.0",
     "@financial-times/origami-service": "^4.0.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.0.6",
-    "assetgraph-builder": "^6.9.0",
-    "browser-sync": "^2.26.3",
-    "cash-cp": "^0.2.0",
-    "chokidar-cli": "^1.2.1",
     "eslint": "^5.15.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",

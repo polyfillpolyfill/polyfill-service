@@ -8,8 +8,7 @@
     ".nyc_output/**",
     "coverage/**",
     "dist/**",
-    "node_modules/**",
-    "production/**"
+    "node_modules/**"
   ],
   "verbose": true,
   "watch": [
