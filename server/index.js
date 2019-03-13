@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const service = require("./service");
 const throng = require("throng");
 
-dotenv.load();
+dotenv.config();
 
 const options = {
 	log: console,
