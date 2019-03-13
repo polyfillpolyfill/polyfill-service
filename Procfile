@@ -1,1 +1,1 @@
-web: npm start
+web: node --optimize_for_size --max_old_space_size=960 --always_compact --max_executable_size=64 server/index.js
