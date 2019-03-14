@@ -14,6 +14,8 @@ describe("https://github.com/Financial-Times/polyfill-service/issues/1865", func
 			this.timeout(30000);
 			return request(host)
 				.get(path)
+				.expect(200)
+				.expect("Content-Type", "text/javascript; charset=utf-8")
 				.then(response => {
 					assert.isString(response.text);
 					assert.doesNotThrow(() => new vm.Script(response.text));
