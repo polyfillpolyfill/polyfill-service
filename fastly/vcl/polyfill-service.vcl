@@ -67,7 +67,7 @@ sub vcl_recv {
 	}
 
 	# Because the old service had a router which allowed any words between /v2/polyfill. and .js
-	if (req.url.path ~ "^/v2/polyfill(\.\w+)*\.js$") {
+	if (req.url.path ~ "^/v2/polyfill(\.\w+)(\.\w+)?" && req.url.ext == "js") {
 		set req.url = regsub(req.url, "^/v2/polyfill(\.\w+)\.js", "/v2/polyfill.min.js");
 	}
 

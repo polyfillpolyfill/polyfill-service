@@ -13,7 +13,7 @@ sub vcl_recv {
 	}
 	
 	if (req.url.path ~ "^/v2/") {
-		if (req.url.path !~ "^/v2/polyfill(\.\w+)*\.js$") {
+		if (!(req.url.path ~ "^/v2/polyfill(\.\w+)(\.\w+)?" && req.url.ext == "js")) {
 			error 908;
 		}
 	}
