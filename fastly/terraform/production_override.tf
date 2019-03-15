@@ -71,7 +71,6 @@ resource "fastly_service_v1" "app" {
     type              = "request"
     destination       = "http.EU_Host"
     source            = "\"origami-polyfill-service-eu.herokuapp.com\""
-    request_condition = "is_eu_server"
   }
 
   header {
