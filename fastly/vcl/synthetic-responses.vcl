@@ -12,6 +12,15 @@ sub vcl_recv {
 	if (req.http.Orig-URL ~ "^/robots.txt") {
 		error 906;
 	}
+	if (req.http.url ~ "^/https://cdn.polyfill.io") {
+		error 907;
+	}
+	if (req.http.url ~ "^/https://polyfill.io") {
+		error 907;
+	}
+	if (req.http.url ~ "^/pages/fixedData") {
+		error 907;
+	}
 }
 
 sub vcl_error {
@@ -76,6 +85,15 @@ sub vcl_error {
 		set obj.http.Content-Type = "text/plain; charset=utf-8";
 		synthetic {"User-agent: *
 Disallow:"};
+		return (deliver);
+	}
+
+	# return 404
+	if (obj.status == 907) {
+		set obj.status = 404;
+		set obj.response = "Not Found";
+		set obj.http.Content-Type = "text/plain; charset=utf-8";
+		synthetic {"Not Found."};
 		return (deliver);
 	}
 }
