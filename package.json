@@ -84,5 +84,5 @@
     "sinon": "^7.2.7",
     "supertest": "^3.0.0"
   },
-  "version": "4.3.4"
+  "version": "4.4.0"
 }
