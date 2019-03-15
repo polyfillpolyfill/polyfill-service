@@ -1,4 +1,9 @@
 sub set_backend {
+	# The Fastly macro is inserted before the backend is selected because the
+	# macro has the code which defines the values avaiable for req.http.Host
+	# but it also contains a default backend which is always set to the EU. I wish we could disable the default backend setting.
+	#FASTLY recv
+	
 	# Calculate the ideal region to route the request to.
   	declare local var.region STRING; 
 	if (server.region ~ "(APAC|Asia|North-America|South-America|US-Central|US-East|US-West)") {
@@ -63,10 +68,6 @@ sub set_backend {
 
 	# Persist the decision so we can debug the result.
   	set req.http.Debug-Backend = req.backend;
-
-	# The Fastly macro is inserted after the backend is selected because the
-	# macro has the code to select the correct req.http.Host value based on the backend.
-	#FASTLY recv
 }
 
 sub vcl_recv {
@@ -101,10 +102,12 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
-		call normalise_querystring_parameters_for_polyfill_bundle;
-		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
-		# If querystring is empty, remove the ? from the url.
-		set req.url = querystring.clean(querystring.sort(req.url));
+		if (!req.http.Fastly-FF) {
+			call normalise_querystring_parameters_for_polyfill_bundle;
+			# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
+			# If querystring is empty, remove the ? from the url.
+			set req.url = querystring.clean(querystring.sort(req.url));
+		}
 		call set_backend;
 	} else {
 		# The request is to an endpoint which doesn't use query parameters, let's remove them to increase our cache-hit-ratio

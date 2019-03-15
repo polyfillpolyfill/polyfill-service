@@ -49,35 +49,19 @@ resource "fastly_service_v1" "app" {
     window    = 5
   }
 
-  condition {
-    name      = "is_eu_server"
-    statement = "req.backend == F_v3_eu"
-    type      = "REQUEST"
-    priority  = 10
-  }
-
-  condition {
-    name      = "is_us_server"
-    statement = "req.backend == F_v3_us"
-    type      = "REQUEST"
-    priority  = 10
+  header {
+    name              = "EU Host"
+    action            = "set"
+    type              = "request"
+    destination       = "http.EU_Host"
+    source            = "\"origami-polyfill-service-int.herokuapp.com\""
   }
 
   header {
-    name              = "Set EU Host"
+    name              = "US Host"
     action            = "set"
     type              = "request"
-    destination       = "http.Host"
+    destination       = "http.US_Host"
     source            = "\"origami-polyfill-service-int.herokuapp.com\""
-    request_condition = "is_eu_server"
-  }
-
-  header {
-    name              = "Set US Host"
-    action            = "set"
-    type              = "request"
-    destination       = "http.Host"
-    source            = "\"origami-polyfill-service-int.herokuapp.com\""
-    request_condition = "is_us_server"
   }
 }
