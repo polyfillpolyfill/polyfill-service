@@ -1,11 +1,11 @@
 sub set_backend {
 	# Calculate the ideal region to route the request to.
-	declare local var.region STRING;
+  	declare local var.region STRING; 
 	if (server.region ~ "(APAC|Asia|North-America|South-America|US-Central|US-East|US-West)") {
-		set var.region = "US";
-	} else {
-		set var.region = "EU";
-	}
+    	set var.region = "US";
+  	} else {
+    	set var.region = "EU";
+  	}
 
 	# Gather the health of the shields and origins.
 	declare local var.v3_eu_is_healthy BOOL;
@@ -13,32 +13,48 @@ sub set_backend {
 	set var.v3_eu_is_healthy = req.backend.healthy;
 
 	declare local var.v3_us_is_healthy BOOL;
-	set req.backend = F_v3_us;
-	set var.v3_us_is_healthy = req.backend.healthy;
+  	set req.backend = F_v3_us;
+  	set var.v3_us_is_healthy = req.backend.healthy;
 
-	# Set some sort of default, that shouldn't get used.
-	set req.backend = F_v3_eu;
+  	declare local var.shield_eu_is_healthy BOOL;
+  	set req.backend = ssl_shield_london_city_uk;
+  	set var.shield_eu_is_healthy = req.backend.healthy;
+
+  	declare local var.shield_us_is_healthy BOOL;
+  	set req.backend = ssl_shield_iad_va_us;
+  	set var.shield_us_is_healthy = req.backend.healthy;
+
+  	# Set some sort of default, that shouldn't get used.
+  	set req.backend = F_v3_eu;
 
 	# Route EU requests to the nearest healthy shield or origin.
-	if (var.region == "EU") {
-		if (var.v3_eu_is_healthy) {
-			set req.backend = F_v3_eu;
-		} elseif (var.v3_us_is_healthy) {
-			set req.backend = F_v3_us;
-		} else {
+  	if (var.region == "EU") {
+    	if (server.identity !~ "-LCY$" && req.http.Fastly-FF !~ "-LCY" && var.shield_eu_is_healthy) {
+    		set req.backend = ssl_shield_london_city_uk;
+    	} elseif (var.v3_eu_is_healthy) {
+	    	set req.backend = F_v3_eu;
+	    } elseif (var.shield_us_is_healthy) {
+    		set req.backend = ssl_shield_iad_va_us;
+    	} elseif (var.v3_us_is_healthy) {
+	    	set req.backend = F_v3_us;
+	    } else {
 			# Everything is on fire... but lets try the origin anyway just in case
 			# it's the probes that are wrong
 			# set req.backend = F_origin_last_ditch_eu;
 		}
-	}
+  	}
 
 	# Route US requests to the nearest healthy shield or origin.
-	if (var.region == "US") {
-		if (var.v3_us_is_healthy) {
-			set req.backend = F_v3_us;
-		} elseif (var.v3_eu_is_healthy) {
-			set req.backend = F_v3_eu;
-		} else {
+  	if (var.region == "US") {
+    	if (server.identity !~ "-IAD$" && req.http.Fastly-FF !~ "-IAD" && var.shield_us_is_healthy) {
+    		set req.backend = ssl_shield_iad_va_us;
+    	} elseif (var.v3_us_is_healthy) {
+	    	set req.backend = F_v3_us;
+    	} elseif (var.shield_eu_is_healthy) {
+    		set req.backend = ssl_shield_london_city_uk;
+    	} elseif (var.v3_eu_is_healthy) {
+    		set req.backend = F_v3_eu;
+    	} else {
 			# Everything is on fire... but lets try the origin anyway just in case
 			# it's the probes that are wrong
 			# set req.backend = F_origin_last_ditch_us;
@@ -46,7 +62,7 @@ sub set_backend {
 	}
 
 	# Persist the decision so we can debug the result.
-	set req.http.Debug-Backend = req.backend;
+  	set req.http.Debug-Backend = req.backend;
 
 	# The Fastly macro is inserted after the backend is selected because the
 	# macro has the code to select the correct req.http.Host value based on the backend.
@@ -167,7 +183,7 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
-	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !req.http.Fastly-FF) {
 		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
 		# "Vary: User-Agent" entering the Varnish cache.
 		# We need "Vary: User-Agent" in the browser cache because a browser
