@@ -14,6 +14,7 @@ resource "fastly_service_v1" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
+    shield                = "london_city-uk"
   }
 
   healthcheck {
@@ -36,6 +37,7 @@ resource "fastly_service_v1" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
+    shield                = "iad-va-us"
   }
 
   healthcheck {
