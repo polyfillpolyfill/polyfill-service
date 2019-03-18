@@ -32,15 +32,15 @@ sub set_backend {
   	# Set some sort of default, that shouldn't get used.
   	set req.backend = F_v3_eu;
 
-	# declare local var.EU_shield_server_name STRING;
-	# set var.EU_shield_server_name = "-LCY$";
+	declare local var.EU_shield_server_name STRING;
+	set var.EU_shield_server_name = "LCY";
 
-	# declare local var.US_shield_server_name STRING;
-	# set var.US_shield_server_name = "-IAD$";
+	declare local var.US_shield_server_name STRING;
+	set var.US_shield_server_name = "IAD";
 
 	# Route EU requests to the nearest healthy shield or origin.
   	if (var.region == "EU") {
-		if (server.datacenter != "LCY" && req.http.Request_Came_From_Shield != "LCY" && var.shield_eu_is_healthy) {
+		if (server.datacenter != var.EU_shield_server_name && req.http.Request_Came_From_Shield != var.EU_shield_server_name && var.shield_eu_is_healthy) {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
@@ -59,7 +59,7 @@ sub set_backend {
 
 	# Route US requests to the nearest healthy shield or origin.
   	if (var.region == "US") {
-		if (server.datacenter != "IAD" && req.http.Request_Came_From_Shield != "IAD" && var.shield_us_is_healthy) {
+		if (server.datacenter != var.US_shield_server_name && req.http.Request_Came_From_Shield != var.US_shield_server_name && var.shield_us_is_healthy) {
 			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
