@@ -112,12 +112,10 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
-		if (!req.http.Request_Came_From_Shield) {
-			call normalise_querystring_parameters_for_polyfill_bundle;
-			# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
-			# If querystring is empty, remove the ? from the url.
-			set req.url = querystring.clean(querystring.sort(req.url));
-		}
+		call normalise_querystring_parameters_for_polyfill_bundle;
+		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
+		# If querystring is empty, remove the ? from the url.
+		set req.url = querystring.clean(querystring.sort(req.url));
 		call set_backend;
 	} else {
 		# The request is to an endpoint which doesn't use query parameters, let's remove them to increase our cache-hit-ratio
