@@ -19,10 +19,10 @@ sub breadcrumb_pass {
 }
 
 sub breadcrumb_fetch {
-	set beresp.http.X-VCL-Route = req.http.X-VCL-Route;
 	set beresp.http.X-PreFetch-Pass = req.http.X-PreFetch-Pass;
 	set beresp.http.X-PreFetch-Miss = req.http.X-PreFetch-Miss;
-	set beresp.http.X-PostFetch = ",VCL_FETCH(status: " beresp.status ")";
+	set beresp.http.X-PostFetch = ",VCL_FETCH(status: " beresp.status if (beresp.http.X-VCL-Route, "; BERESP_VCL_ROUTE: " beresp.http.X-VCL-Route, "")")";
+	set beresp.http.X-VCL-Route = req.http.X-VCL-Route;
 }
 
 sub breadcrumb_deliver {
