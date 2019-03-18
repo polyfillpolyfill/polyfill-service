@@ -32,9 +32,15 @@ sub set_backend {
   	# Set some sort of default, that shouldn't get used.
   	set req.backend = F_v3_eu;
 
+	declare local var.EU_shield_server_name STRING;
+	set var.EU_shield_server_name = "-LCY$";
+
+	declare local var.US_shield_server_name STRING;
+	set var.US_shield_server_name = "-IAD$";
+
 	# Route EU requests to the nearest healthy shield or origin.
   	if (var.region == "EU") {
-		if (server.identity !~ "-LCY$" && req.http.Fastly-FF !~ "-LCY" && var.shield_eu_is_healthy) {
+		if (server.identity !~ var.EU_shield_server_name && var.shield_eu_is_healthy && req.http.Request_Came_From_Shield != "EU") {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
@@ -53,7 +59,7 @@ sub set_backend {
 
 	# Route US requests to the nearest healthy shield or origin.
   	if (var.region == "US") {
-		if (server.identity !~ "-IAD$" && req.http.Fastly-FF !~ "-IAD" && var.shield_us_is_healthy) {
+		if (server.identity !~ var.US_shield_server_name && var.shield_us_is_healthy && req.http.Request_Came_From_Shield != "US") {
 			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
@@ -106,7 +112,7 @@ sub vcl_recv {
 	}
 
 	if (req.url ~ "^/v3/polyfill(\.min)?\.js") {
-		if (!req.http.Fastly-FF) {
+		if (!req.http.Request_Came_From_Shield) {
 			call normalise_querystring_parameters_for_polyfill_bundle;
 			# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 			# If querystring is empty, remove the ? from the url.
@@ -132,16 +138,27 @@ sub vcl_hash {
 	return(hash);
 }
 
+
+sub shielding_header {
+	if (req.backend == ssl_shield_iad_va_us) {
+		set req.http.Request_Came_From_Shield = "US";
+	} elsif (req.backend == ssl_shield_london_city_uk) {
+		set req.http.Request_Came_From_Shield = "EU";
+	}
+}
+
 sub vcl_miss {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_miss;
 	}
+	call shielding_header;
 }
 
 sub vcl_pass {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_pass;
 	}
+	call shielding_header;
 }
 
 sub vcl_fetch {
@@ -190,7 +207,7 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
-	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !req.http.Fastly-FF) {
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !req.http.Request_Came_From_Shield) {
 		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
 		# "Vary: User-Agent" entering the Varnish cache.
 		# We need "Vary: User-Agent" in the browser cache because a browser
