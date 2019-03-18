@@ -40,7 +40,7 @@ sub set_backend {
 
 	# Route EU requests to the nearest healthy shield or origin.
   	if (var.region == "EU") {
-		if (server.identity !~ "-LCY$" && var.shield_eu_is_healthy && req.http.Request_Came_From_Shield != "EU") {
+		if (server.datacenter != "LCY" && var.shield_eu_is_healthy && req.http.Request_Came_From_Shield != "LCY") {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
@@ -59,7 +59,7 @@ sub set_backend {
 
 	# Route US requests to the nearest healthy shield or origin.
   	if (var.region == "US") {
-		if (server.identity !~ "-IAD$" && var.shield_us_is_healthy && req.http.Request_Came_From_Shield != "US") {
+		if (server.datacenter != "IAD" && var.shield_us_is_healthy && req.http.Request_Came_From_Shield != "IAD") {
 			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
@@ -141,9 +141,9 @@ sub vcl_hash {
 
 sub shielding_header {
 	if (req.backend == ssl_shield_iad_va_us) {
-		set req.http.Request_Came_From_Shield = "US";
+		set req.http.Request_Came_From_Shield = server.datacenter;
 	} elsif (req.backend == ssl_shield_london_city_uk) {
-		set req.http.Request_Came_From_Shield = "EU";
+		set req.http.Request_Came_From_Shield = server.datacenter;
 	}
 }
 
