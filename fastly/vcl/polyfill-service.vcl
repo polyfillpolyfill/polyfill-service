@@ -236,6 +236,9 @@ sub vcl_deliver {
 		unset resp.http.X-Served-By;
 		unset resp.http.X-Timer;
 		unset resp.http.Fastly-Restarts;
+		unset resp.http.X-PreFetch-Pass;
+		unset resp.http.X-PreFetch-Miss;
+		unset resp.http.X-PostFetch;
 	}
 }
 
