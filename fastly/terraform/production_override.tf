@@ -66,18 +66,18 @@ resource "fastly_service_v1" "app" {
   }
 
   header {
-    name              = "EU Host"
-    action            = "set"
-    type              = "request"
-    destination       = "http.EU_Host"
-    source            = "\"origami-polyfill-service-eu.herokuapp.com\""
+    name        = "EU Host"
+    action      = "set"
+    type        = "request"
+    destination = "http.EU_Host"
+    source      = "\"origami-polyfill-service-eu.herokuapp.com\""
   }
 
   header {
-    name              = "US Host"
-    action            = "set"
-    type              = "request"
-    destination       = "http.US_Host"
-    source            = "\"origami-polyfill-service-us.herokuapp.com\""
+    name        = "US Host"
+    action      = "set"
+    type        = "request"
+    destination = "http.US_Host"
+    source      = "\"origami-polyfill-service-us.herokuapp.com\""
   }
 }
