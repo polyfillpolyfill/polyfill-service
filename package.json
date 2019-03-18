@@ -29,7 +29,9 @@
     "dev": "npm run clean && nodemon --exec \"time npm run build:dev && npm run start\"",
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
-    "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3"
+    "production:parcel": "parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
@@ -50,7 +52,8 @@
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "polyfill-library-3.27.4": "npm:polyfill-library@3.27.4",
     "require-all": "^3.0.0",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "snyk": "^1.136.3"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.7.1",
@@ -84,5 +87,6 @@
     "sinon": "^7.2.7",
     "supertest": "^3.0.0"
   },
-  "version": "4.5.2"
+  "version": "4.5.2",
+  "snyk": true
 }

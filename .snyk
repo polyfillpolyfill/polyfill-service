@@ -1,0 +1,10 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.3
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - polyfill-library-3.25.3 > mocha > debug:
+        patched: '2019-03-18T09:32:31.834Z'
+    - polyfill-library-3.25.3 > morgan > debug:
+        patched: '2019-03-18T09:32:31.834Z'
