@@ -212,8 +212,7 @@ sub vcl_deliver {
 		# We need "Vary: User-Agent" in the browser cache because a browser
 		# may update itself to a version which needs different polyfills
 		# So we need to have it ignore the browser cached bundle when the user-agent changes.
-		add resp.http.Vary = "User-Agent";
-		add resp.http.Vary = "Accept-Encoding";
+		set resp.http.Vary = "User-Agent, Accept-Encoding";
 	}
 
 	add resp.http.Server-Timing = fastly_info.state {", fastly;desc="Edge time";dur="} time.elapsed.msec;
