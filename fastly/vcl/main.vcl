@@ -103,7 +103,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
 		set var.querystring = var.querystring "&flags=";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "flags", re.group.1);
+		set var.querystring = querystring.set(var.querystring, "flags", urldecode(re.group.1));
 	}
 
 	# If version is not set, set to default value ""
