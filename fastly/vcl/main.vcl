@@ -127,7 +127,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		}
 		set var.querystring = querystring.set(var.querystring, "ua", req.http.Normalized-User-Agent);
 	} else {
-		set var.querystring = querystring.set(var.querystring, "ua", re.group.1);
+		set var.querystring = querystring.set(var.querystring, "ua", urldecode(re.group.1));
 	}
 
 	# If callback is not set, set to default value ""
