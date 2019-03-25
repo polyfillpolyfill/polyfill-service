@@ -38,15 +38,22 @@ function* loop(amount, thing) {
 	}
 }
 
-function createTest(polyfillBundleOptions, polyfillBundle) {
-	describe("test all combinations of polyfills/aliases", function() {
-		context(host + polyfillBundleOptions, function() {
-			this.timeout(30000);
-			it("responds with a correct polyfill bundle", () => {
-				return request(host)
-					.get(polyfillBundleOptions)
-					.expect(polyfillBundle);
+function createTest(polyfillBundleOptions, ua) {
+	context(host + polyfillBundleOptions, function() {
+		this.timeout(30000);
+		it("responds with a correct polyfill bundle", async () => {
+			const polyfillBundle = await polyfillio.getPolyfillString({
+				minify: false,
+				uaString: ua,
+				features: arrayToObject(polyfillBundleOptions)
 			});
+			const qs = querystring.stringify({
+				features: polyfillBundleOptions.join(","),
+				ua
+			});
+			return request(host)
+				.get(`/v3/polyfill.js?${qs}`)
+				.expect(polyfillBundle);
 		});
 	});
 }
@@ -67,19 +74,11 @@ async function tests() {
 	const polyfillsWithOnlyOneIntlLocale = polyfillsWithoutIntl.concat(_.sample(intlPolyfills));
 	const features = [].concat(polyfillsWithOnlyOneIntlLocale, aliases);
 	const ua = "ie/10";
-	for (const subset of take(15, sample(10, loop(Infinity, features)))) {
-		const polyfillBundle = await polyfillio.getPolyfillString({
-			minify: false,
-			uaString: ua,
-			features: arrayToObject(subset.length === 0 ? ["default"] : subset.sort())
-		});
-		const qs = querystring.stringify({
-			features: subset.join(","),
-			ua
-		});
-		const polyfillBundleOptions = `/v3/polyfill.js?${qs}`;
-		createTest(polyfillBundleOptions, polyfillBundle);
-	}
+	describe("test combinations of polyfills/aliases", function() {
+		for (const polyfillBundleOptions of take(1024, sample(10, loop(Infinity, features)))) {
+			createTest(polyfillBundleOptions.sort(), ua);
+		}
+	});
 	run();
 }
 
