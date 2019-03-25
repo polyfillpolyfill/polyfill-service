@@ -90,7 +90,6 @@ async function tests() {
 	const intlPolyfills = polyfills.filter(feature => feature.startsWith("Intl"));
 	const polyfillsWithOnlyOneIntlLocale = polyfillsWithoutIntl.concat(_.sample(intlPolyfills));
 	const features = [].concat(polyfillsWithOnlyOneIntlLocale, aliases);
-	// const ua = "ie/10";
 	describe("test combinations of polyfills/aliases", function() {
 		for (const polyfillBundleOptions of take(1024, sample(10, loop(Infinity, features)))) {
 			const ua = _.sample(useragents);
