@@ -22,7 +22,7 @@
     "start": "./start_server.sh server/index.js",
     "test": "run-s test:*",
     "test:unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
-    "test:integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail --delay",
+    "test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail --delay --check-leaks --forbid-only --forbid-pending",
     "clean": "rimraf ./dist ./.cache ./.cache_eleventy",
     "build": "run-s production",
     "build:dev": "run-s production:*",
