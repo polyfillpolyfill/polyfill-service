@@ -8,9 +8,6 @@ const querystring = require("querystring");
 const _ = require("lodash");
 const polyfillio = require("polyfill-library");
 process.env.NODE_ENV = "production";
-// const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
-// const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
-// const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
 
 function* mapWith(fn, iterable) {
 	for (const element of iterable) {
