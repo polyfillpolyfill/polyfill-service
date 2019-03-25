@@ -7,9 +7,8 @@ const assert = require("proclaim");
 const host = require("../helpers").host;
 const querystring = require("querystring");
 const _ = require("lodash");
-const streamToString = require("stream-to-string");
 const polyfillio = require("polyfill-library");
-const polyfillioSources = require("polyfill-library/lib/sources");
+process.env.NODE_ENV = "production";
 // const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
 // const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 // const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
@@ -25,7 +24,7 @@ function* subsets(array, offset = 0) {
 	yield [];
 }
 
-function createTest(polyfillBundleOptions, polyfillSources) {
+function createTest(polyfillBundleOptions, polyfillBundle) {
 	describe("test all combinations of polyfills/aliases", function() {
 		context(polyfillBundleOptions, function() {
 			this.timeout(30000);
@@ -39,13 +38,11 @@ function createTest(polyfillBundleOptions, polyfillSources) {
 					.expect("surrogate-key", "polyfill-service")
 					.then(response => {
 						assert.isString(response.text);
-						for (const polyfill of polyfillSources) {
-							assert.include(response.text, polyfill);
-						}
+						assert.include(response.text, polyfillBundle);
 						assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
 					});
 			});
-		});;
+		});
 	});
 }
 
@@ -68,20 +65,17 @@ async function tests() {
 	const features = [].concat(sample(polyfillsWithoutIntl));
 	const ua = "ie/10";
 	for (const subset of subsets(features)) {
-		const polyfills = Object.keys(
-			await polyfillio.getPolyfills({
-				minify: false,
-				uaString: ua,
-				features: arrayToObject(subset)
-			})
-		);
-		const polyfillSources = await Promise.all(polyfills.map(polyfill => streamToString(polyfillioSources.streamPolyfillSource(polyfill, "raw"))));
+		const polyfillBundle = await polyfillio.getPolyfillString({
+			minify: false,
+			uaString: ua,
+			features: arrayToObject(subset.length === 0 ? ["default"] : subset.sort())
+		});
 		const qs = querystring.stringify({
 			features: subset.join(","),
 			ua
 		});
 		const polyfillBundleOptions = `/v3/polyfill.js?${qs}`;
-		createTest(polyfillBundleOptions, polyfillSources);
+		createTest(polyfillBundleOptions, polyfillBundle);
 	}
 	run();
 }
