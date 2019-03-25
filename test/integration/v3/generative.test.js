@@ -8,6 +8,7 @@ const querystring = require("querystring");
 const _ = require("lodash");
 const polyfillio = require("polyfill-library");
 process.env.NODE_ENV = "production";
+const browserslist = require("browserslist");
 
 function* mapWith(fn, iterable) {
 	for (const element of iterable) {
@@ -64,24 +65,21 @@ function arrayToObject(arr) {
 }
 
 async function tests() {
-	const useragents = {
-		edge: _.range(12, 18),
-		edge_mob: _.range(12, 18),
-		ie: _.range(8, 12),
-		ie_mob: [11],
-		chrome: _.range(29, 80),
-		safari: _.range(9, 18),
-		ios_saf: _.range(9, 18),
-		ios_chr: _.range(9, 18),
-		firefox: _.range(38, 80),
-		firefox_mob: _.range(38, 80),
-		android: _.range(4.3, 5.3, 0.1).map(num => _.round(num, 2)),
-		opera: _.range(33, 80),
-		op_mob: _.range(10, 80),
-		op_mini: _.range(5, 80),
-		bb: _.range(6, 11),
-		samsung_mob: _.range(4.3, 10.3, 0.1).map(num => _.round(num, 2))
-	};
+	const browsers = browserslist("last 80 versions").reduce((accumulator, browser) => {
+		if (browser.includes("-")) {
+			return accumulator;
+		}
+		browser = browser.replace(" ", "/");
+		if (browser.startsWith("edge")) {
+			return accumulator.concat([browser, browser.replace("edge", "edge_mob")]);
+		} else if (browser.startsWith("firefox")) {
+			return accumulator.concat([browser, browser.replace("firefox", "firefox_mob")]);
+		} else if (browser.startsWith("samsung")) {
+			return accumulator.concat(browser.replace("samsung", "samsung_mob"));
+		} else {
+			return accumulator.concat(browser);
+		}
+	}, []);
 	const polyfills = (await polyfillio.listAllPolyfills()).filter(feature => !feature.startsWith("_"));
 	const polyfillsWithoutIntl = polyfills.filter(feature => !feature.startsWith("Intl"));
 	const aliases = Object.keys(await polyfillio.listAliases()).filter(alias => !alias.startsWith("modernizr") && !alias.startsWith("caniuse"));
@@ -90,9 +88,8 @@ async function tests() {
 	const features = [].concat(polyfillsWithOnlyOneIntlLocale, aliases);
 	describe("test combinations of polyfills/aliases", function() {
 		for (const polyfillBundleOptions of take(1024, sample(10, loop(Infinity, features)))) {
-			const ua = _.sample(useragents);
-			const version = _.sample(useragents[ua]);
-			createTest(polyfillBundleOptions.sort(), `${ua}/${version}`);
+			const ua = _.sample(browsers);
+			createTest(polyfillBundleOptions.sort(), ua);
 		}
 	});
 	run();

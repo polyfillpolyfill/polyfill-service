@@ -68,6 +68,7 @@
     "@financial-times/origami-service": "^4.0.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.0.6",
     "axios": "^0.18.0",
+    "browserslist": "^4.5.2",
     "eslint": "^5.15.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
