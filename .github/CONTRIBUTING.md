@@ -29,7 +29,7 @@ $ npm start # start a server on localhost:8080
 
 Good pull requests, such as patches, improvements, and new features, are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
 
-Please **ask first** if somebody else is already working on this or the core developers think your feature is in-scope for Create React App. Generally always have a related issue with discussions for whatever you are including.
+Please **ask first** if somebody else is already working on this or the core developers think your feature is in-scope. Generally always have a related issue with discussions for whatever you are including.
 
 Please also provide a **test plan**, i.e. specify how you verified that your addition works.
 
@@ -48,7 +48,7 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 
 ## Cutting a Release
 
-Every merge to the master branch will trigger a release to [staging]. When ready to deploy to [production], follow these steps: 
+Every merge to the master branch will trigger a release to [staging]. When ready to deploy to [production], follow these steps:
 
 1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
 2. Create a new branch to make changes into. `git checkout -b [name]`
