@@ -36,7 +36,12 @@ function* loop(amount, thing) {
 }
 
 function createTest(polyfillBundleOptions, ua) {
-	context(host + polyfillBundleOptions, function() {
+	const qs = querystring.stringify({
+		features: polyfillBundleOptions.join(","),
+		ua
+	});
+	const path = `/v3/polyfill.js?${qs}`;
+	context(host + path, function() {
 		this.timeout(30000);
 		it("responds with a correct polyfill bundle", async () => {
 			const polyfillBundle = await polyfillio.getPolyfillString({
@@ -44,12 +49,8 @@ function createTest(polyfillBundleOptions, ua) {
 				uaString: ua,
 				features: arrayToObject(polyfillBundleOptions)
 			});
-			const qs = querystring.stringify({
-				features: polyfillBundleOptions.join(","),
-				ua
-			});
 			return request(host)
-				.get(`/v3/polyfill.js?${qs}`)
+				.get(path)
 				.expect(polyfillBundle);
 		});
 	});
