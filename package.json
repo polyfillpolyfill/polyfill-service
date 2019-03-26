@@ -84,7 +84,7 @@
     "rimraf": "^2.6.3",
     "sass": "^1.17.3",
     "sinon": "^7.3.0",
-    "supertest": "^3.0.0"
+    "supertest": "^4.0.2"
   },
   "version": "4.7.2"
 }
