@@ -84,7 +84,7 @@ $o-tooltip-is-silent: false;
 		flex-grow: 1;
 	}
 
-	button {
+	.tooltip-button {
 		@include oButtons($theme: 'mono');
 		@include oButtonsIconButton(
 			$icon-name: 'more',
