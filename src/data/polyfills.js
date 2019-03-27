@@ -13,13 +13,15 @@ module.exports = async () => {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr")) {
 				if (alias === "default") {
 					polyfillAliases.push({
-						alias,
+						name: alias,
+						labelID: `${snakeCase(alias)}_label`,
 						polyfills: aliases[alias],
 						isDefaultSet: true
 					});
-				} else {
+				} else if (alias !== "all") {
 					polyfillAliases.push({
-						alias,
+						name: alias,
+						labelID: `${snakeCase(alias)}_label`,
 						polyfills: aliases[alias]
 					});
 				}
