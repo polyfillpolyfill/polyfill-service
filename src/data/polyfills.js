@@ -11,19 +11,21 @@ module.exports = async () => {
 		const aliases = await polyfillLibrary.listAliases();
 		for (const alias of Object.keys(aliases).sort()) {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr")) {
-				if (alias === "default") {
-					polyfillAliases.push({
-						name: alias,
-						labelID: `${snakeCase(alias)}_label`,
-						polyfills: aliases[alias],
-						isDefaultSet: true
-					});
-				} else if (alias !== "all") {
-					polyfillAliases.push({
-						name: alias,
-						labelID: `${snakeCase(alias)}_label`,
-						polyfills: aliases[alias]
-					});
+				if (aliases[alias].length > 1) {
+					if (alias === "default") {
+						polyfillAliases.push({
+							name: alias,
+							labelID: `${snakeCase(alias)}_label`,
+							polyfills: aliases[alias],
+							isDefaultSet: true
+						});
+					} else if (alias !== "all") {
+						polyfillAliases.push({
+							name: alias,
+							labelID: `${snakeCase(alias)}_label`,
+							polyfills: aliases[alias]
+						});
+					}
 				}
 			}
 		}
