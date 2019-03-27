@@ -84,7 +84,7 @@ $o-tooltip-is-silent: false;
 		flex-grow: 1;
 	}
 
-	button {
+	.tooltip-button {
 		@include oButtons($theme: 'mono');
 		@include oButtonsIconButton(
 			$icon-name: 'more',
@@ -98,6 +98,7 @@ $o-tooltip-is-silent: false;
 .o-tooltip .o-tooltip-content {
 	hyphens: unset;
 	white-space: nowrap;
+	max-height: 50vh;
 
 	> :last-child {
 		margin-bottom: 8px;
