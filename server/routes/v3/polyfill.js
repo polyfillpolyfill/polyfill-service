@@ -7,6 +7,7 @@ const polyfillio = require("polyfill-library");
 const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
 const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
+const polyfillio_3_28_1 = require("polyfill-library-3.28.1");
 
 async function respondWithBundle(response, params, bundle) {
 	const file = await compressBundle(params.compression, bundle);
@@ -29,6 +30,11 @@ module.exports = app => {
 		switch (params.version) {
 			case latestVersion: {
 				const bundle = await polyfillio.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle);
+				break;
+			}
+			case "3.28.1": {
+				const bundle = await polyfillio_3_28_1.getPolyfillString(params);
 				await respondWithBundle(response, params, bundle);
 				break;
 			}

@@ -2,7 +2,7 @@ import querystring;
 
 sub sort_comma_separated_value {
 	# This function takes a CSV and tranforms it into a url where each
-	# comma-separated-value is a query-string parameter and then uses 
+	# comma-separated-value is a query-string parameter and then uses
 	# Fastly's querystring.sort function to sort the values. Once sorted
 	# it then turn the query-parameters back into a CSV.
 	# Set the CSV on the header `Sort-Value`.
@@ -19,13 +19,13 @@ sub sort_comma_separated_value {
 	# Replace all `,` characters with `&` to break them into individual query values
 	# Append `1-` infront of all the query values to make them simpler to transform later
 	set var.value = "1-" regsuball(var.value, ",", "&1-");
-	
+
 	# Create a querystring-like string in order for querystring.sort to work.
 	set var.value = querystring.sort("?" var.value);
 
 	# Grab all the query values from the sorted url
 	set var.value = regsub(var.value, "\?", "");
-	
+
 	# Reverse all the previous transformations to get back the single `features` query value value
 	set var.value = regsuball(var.value, "1-", "");
 	set var.value = regsuball(var.value, "&", ",");
@@ -64,7 +64,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		# Parameter has not been set, use the default value.
 		set var.querystring = querystring.set(var.querystring, "features", "default");
 	}
-	
+
 	# (?i) makes the regex case-insensitive
 	# The regex will match only if their are characters after `excludes=` which are not an ampersand (&).
 	if (req.url.qs ~ "(?i)[^&=]*excludes=([^&]+)") {
@@ -84,14 +84,14 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		# If excludes is not set, set to default value ""
 		set var.querystring = var.querystring "&excludes=";
 	}
-	
+
 	# If rum is not set, set to default value "0"
 	if (req.url.qs !~ "(?i)[^&=]*rum=([^&]+)") {
 		set var.querystring = querystring.set(var.querystring, "rum", "0");
 	} else {
 		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
 	}
-	
+
 	# If unknown is not set, set to default value "polyfill"
 	if (req.url.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
 		set var.querystring = querystring.set(var.querystring, "unknown", "polyfill");
@@ -111,13 +111,13 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
 		set var.querystring = var.querystring "&version=";
 	} else {
-		if (re.group.1 == "3.27.4" || re.group.1 == "3.25.3" || re.group.1 == "3.25.2" || re.group.1 == "3.25.1") {
+		if (re.group.1 == "3.28.1" || re.group.1 == "3.27.4" || re.group.1 == "3.25.3" || re.group.1 == "3.25.2" || re.group.1 == "3.25.1") {
 			set var.querystring = querystring.set(var.querystring, "version", re.group.1);
 		} else {
 			set var.querystring = var.querystring "&version=";
 		}
 	}
-	
+
 	# If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
 	if (req.url.qs !~ "(?i)[^&=]*ua=([^&]+)") {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
@@ -136,10 +136,10 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	} else {
 		set var.querystring = querystring.set(var.querystring, "callback", re.group.1);
 	}
-	
+
 	# If compression is not set, use the best compression that the user-agent supports.
 	if (req.url.qs !~ "(?i)[^&=]*compression=([^&]+)") {
-		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with: 
+		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with:
 		# `set var.querystring = querystring.set(var.querystring, "compression", req.http.Accept-Encoding || "")`
 
 		# Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
