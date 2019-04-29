@@ -49,7 +49,7 @@
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "polyfill-library-3.27.4": "npm:polyfill-library@3.27.4",
-    "polyfill-library-3.28.1": "npm:polyfill-service@3.28.1",
+    "polyfill-library-3.28.1": "npm:polyfill-library@3.28.1",
     "require-all": "^3.0.0",
     "throng": "^4.0.0"
   },
