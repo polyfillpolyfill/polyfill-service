@@ -66,7 +66,7 @@ const createPolyfillBundleURL = options => {
 	const always = options.always ? true : false;
 
 	if (gated && always) {
-		parameters.flags = "gated|always";
+		parameters.flags = "gated,always";
 	} else if (gated) {
 		parameters.flags = "gated";
 	} else if (always) {
