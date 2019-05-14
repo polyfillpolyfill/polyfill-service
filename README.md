@@ -1,4 +1,3 @@
-
 # [Polyfill.io][website] &middot; [![license][license-badge]][license] [![CircleCI Status][circle-ci-badge]][circle-ci] [![PRs Welcome][pull-requests-badge]][contributing guide]
 
 Polyfill.io is a service which makes web development less frustrating by selectively polyfilling just what the browser needs.
@@ -8,6 +7,17 @@ Polyfill.io reads the User-Agent header of each request and returns polyfills th
 
 Polyfill.io documentation is [on the website][website].
 
+## Run polyfill-service with docker
+
+If you want to host the service yourself.
+
+```sh
+# build the image
+docker build . -t polyfillio
+
+# run a container
+docker run -d -p 8080:8080 polyfillio
+```
 
 ## [Contributing][contributing guide]
 
