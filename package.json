@@ -38,7 +38,7 @@
     "npm": ">=6.9.0"
   },
   "dependencies": {
-    "@financial-times/origami-service": "^4.0.0",
+    "@financial-times/origami-service": "^4.1.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.0.6",
     "compression": "^1.7.4",
     "denodeify": "^1.2.1",
@@ -66,7 +66,6 @@
     "@financial-times/o-table": "^7.2.1",
     "@financial-times/o-tabs": "^4.3.2",
     "@financial-times/o-tooltip": "^3.4.0",
-    "@financial-times/origami-service": "^4.0.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.0.6",
     "axios": "^0.18.0",
     "browserslist": "^4.5.2",
