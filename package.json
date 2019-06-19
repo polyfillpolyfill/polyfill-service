@@ -51,6 +51,7 @@
     "polyfill-library-3.27.4": "npm:polyfill-library@3.27.4",
     "polyfill-library-3.28.1": "npm:polyfill-library@3.28.1",
     "require-all": "^3.0.0",
+    "serve-static": "^1.14.1",
     "throng": "^4.0.0"
   },
   "devDependencies": {
