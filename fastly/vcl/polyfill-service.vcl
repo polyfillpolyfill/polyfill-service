@@ -122,6 +122,11 @@ sub vcl_recv {
 		set req.url = querystring.remove(req.url);
 		call set_backend;
 	}
+	
+	if (req.backend == ssl_shield_iad_va_us || req.backend == ssl_shield_london_city_uk) {
+		# avoid passing stale content from Shield POP to Edge POP
+		set req.max_stale_while_revalidate = 0s;
+	}
 }
 
 sub vcl_hash {
