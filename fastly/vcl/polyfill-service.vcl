@@ -126,6 +126,8 @@ sub vcl_recv {
 	if (req.backend == ssl_shield_iad_va_us || req.backend == ssl_shield_london_city_uk) {
 		# avoid passing stale content from Shield POP to Edge POP
 		set req.max_stale_while_revalidate = 0s;
+	} else {
+		set req.http.referer_domain = if(req.http.referer ~ "^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)", re.group.1, "");
 	}
 }
 
