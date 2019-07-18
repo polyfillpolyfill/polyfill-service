@@ -123,7 +123,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		if (req.url.qs ~ "(?i)[^&=]*version=3\.25\.1(&|$)") {
 			call normalise_user_agent_3_25_1;
 		} else {
-			call normalise_user_agent_1_0_6;
+			call normalise_user_agent_1_1_0;
 		}
 		set var.querystring = querystring.set(var.querystring, "ua", req.http.Normalized-User-Agent);
 	} else {
