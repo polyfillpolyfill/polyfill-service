@@ -43,7 +43,7 @@
     "compression": "^1.7.4",
     "denodeify": "^1.2.1",
     "dotenv": "^8.0.0",
-    "express-extractheaders": "^2.1.3",
+    "express-extractheaders": "^3.0.0",
     "iltorb": "^2.4.2",
     "polyfill-library": "^3.35.0",
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
