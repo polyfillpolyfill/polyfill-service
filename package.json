@@ -62,7 +62,7 @@
     "@financial-times/o-footer-services": "^2.2.0",
     "@financial-times/o-forms": "^6.0.2",
     "@financial-times/o-header-services": "^3.3.3",
-    "@financial-times/o-layout": "^3.1.12",
+    "@financial-times/o-layout": "^3.2.0",
     "@financial-times/o-normalise": "^1.7.3",
     "@financial-times/o-syntax-highlight": "^1.6.0",
     "@financial-times/o-table": "^7.3.2",
