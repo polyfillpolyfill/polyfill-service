@@ -26,7 +26,7 @@ sub vcl_recv {
 sub vcl_error {
 	# Normalise User Agent API
 	if (obj.status == 903) {
-		call normalise_user_agent_1_1_0;
+		call normalise_user_agent_1_4_2;
 		set obj.status = 200;
 		set obj.response = "OK";
 		set obj.http.Content-Type = "text/plain; charset=utf-8";
