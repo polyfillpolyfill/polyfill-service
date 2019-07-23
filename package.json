@@ -59,7 +59,7 @@
     "@11ty/eleventy": "^0.8.3",
     "@financial-times/o-buttons": "^5.16.6",
     "@financial-times/o-fonts": "^3.3.2",
-    "@financial-times/o-footer-services": "^2.1.4",
+    "@financial-times/o-footer-services": "^2.2.0",
     "@financial-times/o-forms": "^6.0.2",
     "@financial-times/o-header-services": "^3.3.0",
     "@financial-times/o-layout": "^3.1.12",
