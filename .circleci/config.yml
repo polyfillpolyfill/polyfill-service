@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+    change-api: financial-times/change-api@0.24.0
+
 jobs:
   lint_terraform:
     docker:
@@ -113,6 +116,18 @@ workflows:
             - lint_terraform
             - lint_js
             - unit_tests
+      - change-api/release-log:
+          requires:
+            - deploy_dev
+          systemCode: 'origami-polyfill-service'
+          environment: 'Dev'
+          slackChannels: 'origami-deploys'
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              only:
+               - master
       - integration_tests_dev:
           filters:
             tags:
@@ -122,6 +137,18 @@ workflows:
           requires:
             - deploy_dev
       - deploy_staging:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              only:
+               - master
+      - change-api/release-log:
+          requires:
+            - deploy_staging
+          systemCode: 'origami-polyfill-service'
+          environment: 'Test'
+          slackChannels: 'origami-deploys'
           filters:
             tags:
               ignore: /^v.*/
@@ -138,6 +165,17 @@ workflows:
           requires:
             - deploy_staging
       - deploy_service_production:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - change-api/release-log:
+          requires:
+            - deploy_service_production
+          systemCode: 'origami-polyfill-service'
+          environment: 'prod'
+          slackChannels: 'origami-deploys'
           filters:
             tags:
               only: /^v.*/
