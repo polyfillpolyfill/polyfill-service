@@ -44,7 +44,7 @@
     "denodeify": "^1.2.1",
     "dotenv": "^8.0.0",
     "express-extractheaders": "^3.0.0",
-    "iltorb": "^2.4.2",
+    "iltorb": "^2.4.3",
     "polyfill-library": "^3.35.0",
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
