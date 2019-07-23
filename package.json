@@ -65,7 +65,7 @@
     "@financial-times/o-layout": "^3.2.0",
     "@financial-times/o-normalise": "^1.7.3",
     "@financial-times/o-syntax-highlight": "^1.6.0",
-    "@financial-times/o-table": "^7.3.2",
+    "@financial-times/o-table": "^7.3.3",
     "@financial-times/o-tabs": "^4.3.2",
     "@financial-times/o-tooltip": "^3.5.1",
     "axios": "^0.19.0",
