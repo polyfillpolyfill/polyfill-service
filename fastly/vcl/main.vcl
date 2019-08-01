@@ -111,7 +111,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	if (req.url.qs !~ "(?i)[^&=]*version=([^&]+)") {
 		set var.querystring = var.querystring "&version=";
 	} else {
-		if (re.group.1 == "3.37.0" || re.group.1 == "3.36.0" || re.group.1 == "3.35.0" || re.group.1 == "3.34.0" || re.group.1 == "3.28.1" || re.group.1 == "3.27.4" || re.group.1 == "3.25.3" || re.group.1 == "3.25.2" || re.group.1 == "3.25.1") {
+		if (re.group.1 == "3.38.0" || re.group.1 == "3.37.0" || re.group.1 == "3.36.0" || re.group.1 == "3.35.0" || re.group.1 == "3.34.0" || re.group.1 == "3.28.1" || re.group.1 == "3.27.4" || re.group.1 == "3.25.3" || re.group.1 == "3.25.2" || re.group.1 == "3.25.1") {
 			set var.querystring = querystring.set(var.querystring, "version", re.group.1);
 		} else {
 			set var.querystring = var.querystring "&version=";
