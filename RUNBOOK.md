@@ -2,10 +2,6 @@
 
 This is a microservice for web developers who wish to build websites with polyfills to cater for older browsers that may not have the latest technologies on which their CSS and JavaScript code depend. Normally, developers would search the web for a suitable polyfill, and then either include it in their code or link to it. This service removes the need for both of these by delivering the polyfill code directly to the browser with a one-line integration into the HTML source of the page.
 
-## Code
-
-origami-polyfill-service
-
 ## Service Tier
 
 Silver
