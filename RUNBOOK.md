@@ -40,10 +40,6 @@ origami-team
 * jake.champion
 * rowan.manning
 
-## Dependent Products
-
-* polyfill-service
-
 ## Dependencies
 
 * ft-fastly
