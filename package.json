@@ -45,7 +45,7 @@
     "dotenv": "^8.0.0",
     "express-extractheaders": "^3.0.0",
     "iltorb": "^2.4.3",
-    "polyfill-library": "^3.38.0",
+    "polyfill-library": "3.39.0",
     "polyfill-library-3.25.1": "npm:polyfill-library@3.25.1",
     "polyfill-library-3.25.3": "npm:polyfill-service@3.25.3",
     "polyfill-library-3.27.4": "npm:polyfill-library@3.27.4",
@@ -54,6 +54,7 @@
     "polyfill-library-3.35.0": "npm:polyfill-library@3.35.0",
     "polyfill-library-3.36.0": "npm:polyfill-library@3.36.0",
     "polyfill-library-3.37.0": "npm:polyfill-library@3.37.0",
+    "polyfill-library-3.38.0": "npm:polyfill-library@3.38.0",
     "require-all": "^3.0.0",
     "serve-static": "^1.14.1",
     "throng": "^4.0.0"
