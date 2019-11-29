@@ -34,7 +34,7 @@
   "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
-    "node": "8.10 - 11",
+    "node": "8.10 - 12",
     "npm": ">=6.9.0"
   },
   "dependencies": {

@@ -6,28 +6,28 @@ orbs:
 jobs:
   lint_terraform:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: "terraform fmt -check=true fastly/terraform/"
   lint_js:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
       - run: "npm run lint"
   unit_tests:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
       - run: "npm run test:unit"
   deploy_dev:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
@@ -42,14 +42,14 @@ jobs:
       - run: "FASTLY_API_KEY=\"$FASTLY_API_KEY_FT_ACCOUNT\" curl -X POST -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_DEV/purge_all"
   integration_tests_dev:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: sudo npm i -g npm && npm ci
       - run: HOST=https://origami-polyfill-service-dev.in.ft.com npm run test:integration
   deploy_staging:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
@@ -65,14 +65,14 @@ jobs:
       - run: "FASTLY_API_KEY=\"$FASTLY_API_KEY_POLYFILL_ACCOUNT\" curl -X POST -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_STAGING/purge_all"
   integration_tests_staging:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: sudo npm i -g npm && npm ci
       - run: HOST=https://qa.polyfill.io npm run test:integration
   deploy_service_production:
     docker:
-      - image: "circleci/node:11"
+      - image: "circleci/node:12"
     steps:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
