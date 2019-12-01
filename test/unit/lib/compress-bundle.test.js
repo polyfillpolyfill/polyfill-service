@@ -60,7 +60,7 @@ describe("compress-bundle", function() {
 		proclaim.notEqual(result, file);
 		proclaim.calledOnce(zlib.BrotliCompress);
 		proclaim.calledWith(zlib.BrotliCompress, Buffer.from(file), {
-			quality: 11
+			params: { quality: 11 }
 		});
 	});
 });
