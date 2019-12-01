@@ -2,7 +2,8 @@
 
 const denodeify = require("denodeify");
 const zlib = require("zlib");
-const brotliCompress = denodeify(require("iltorb").compress);
+const { BROTLI_PARAM_QUALITY, BROTLI_MAX_QUALITY } = zlib.constants;
+const brotliCompress = denodeify(zlib.BrotliCompress);
 const gzipCompress = denodeify(zlib.gzip.bind(zlib));
 
 module.exports = function compressBundle(compression, file) {
@@ -13,7 +14,9 @@ module.exports = function compressBundle(compression, file) {
 			});
 		case "br":
 			return brotliCompress(Buffer.from(file), {
-				quality: 11
+				params: {
+					[BROTLI_PARAM_QUALITY]: BROTLI_MAX_QUALITY
+				}
 			});
 		case "identity":
 		default:
