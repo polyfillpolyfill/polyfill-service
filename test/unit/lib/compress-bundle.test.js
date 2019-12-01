@@ -27,9 +27,6 @@ describe("compress-bundle", function() {
 		zlib = require("../mock/zlib.mock");
 		mockery.registerMock("zlib", zlib);
 
-		brotli = require("../mock/iltorb.mock");
-		mockery.registerMock("iltorb", brotli);
-
 		compressBundle = require("../../../server/lib/compress-bundle");
 	});
 
