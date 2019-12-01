@@ -14,7 +14,6 @@ sinon.assert.expose(proclaim, {
 describe("compress-bundle", function() {
 	this.timeout(30000);
 	let zlib;
-	let brotli;
 	let compressBundle;
 
 	beforeEach(() => {
