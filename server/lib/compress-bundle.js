@@ -1,10 +1,10 @@
 "use strict";
 
-const denodeify = require("denodeify");
+const promisify = require("util").promisify;
 const zlib = require("zlib");
 const { BROTLI_PARAM_QUALITY, BROTLI_MAX_QUALITY } = zlib.constants;
-const brotliCompress = denodeify(zlib.BrotliCompress);
-const gzipCompress = denodeify(zlib.gzip.bind(zlib));
+const brotliCompress = promisify(zlib.brotliCompress);
+const gzipCompress = promisify(zlib.gzip.bind(zlib));
 
 module.exports = function compressBundle(compression, file) {
 	switch (compression) {
@@ -13,7 +13,7 @@ module.exports = function compressBundle(compression, file) {
 				level: zlib.Z_BEST_COMPRESSION
 			});
 		case "br":
-			return brotliCompress(Buffer.from(file), {
+			return brotliCompress(file, {
 				params: {
 					[BROTLI_PARAM_QUALITY]: BROTLI_MAX_QUALITY
 				}
