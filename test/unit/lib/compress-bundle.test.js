@@ -58,8 +58,8 @@ describe("compress-bundle", function() {
 		const file = "This is the file";
 		const result = compressBundle("br", file);
 		proclaim.notEqual(result, file);
-		proclaim.calledOnce(zlib.BrotliCompress);
-		proclaim.calledWith(zlib.BrotliCompress, file, {
+		proclaim.calledOnce(zlib.brotliCompress);
+		proclaim.calledWith(zlib.brotliCompress, file, {
 			params: { quality: 11 }
 		});
 	});
