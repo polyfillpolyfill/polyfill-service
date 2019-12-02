@@ -34,14 +34,13 @@
   "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
-    "node": "8.10 - 12",
+    "node": "11 - 12",
     "npm": ">=6.9.0"
   },
   "dependencies": {
     "@financial-times/origami-service": "^4.1.0",
     "@financial-times/polyfill-useragent-normaliser": "^1.4.2",
     "compression": "^1.7.4",
-    "denodeify": "^1.2.1",
     "dotenv": "^8.0.0",
     "express-extractheaders": "^3.0.0",
     "polyfill-library": "^3.42.0",
