@@ -70,4 +70,9 @@ resource "fastly_service_v1" "app" {
     name    = "synthetic-responses.vcl"
     content = "${file("${path.module}/../vcl/synthetic-responses.vcl")}"
   }
+
+  vcl {
+    name    = "top_pops.vcl"
+    content = "${file("${path.module}/../vcl/top_pops.vcl")}"
+  }
 }
