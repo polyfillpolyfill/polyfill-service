@@ -81,9 +81,6 @@ resource "fastly_service_v1" "app" {
     source      = "\"origami-polyfill-service-us.herokuapp.com\""
   }
 
-  dictionary {
-    name = "toppops_config"
-  }
 }
 
 
