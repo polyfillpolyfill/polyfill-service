@@ -17,12 +17,12 @@ output "service_id" {
 }
 
 resource "fastly_service_v1" "app" {
-  name = "${var.name}"
+  name = var.name
 
   force_destroy = false
 
   domain {
-    name = "${var.domain}"
+    name = var.domain
   }
 
   vcl {
