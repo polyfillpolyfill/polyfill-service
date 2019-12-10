@@ -1,5 +1,5 @@
 provider "fastly" {
-  version = "0.1.2"
+  version = "0.11.0"
 }
 
 variable "domain" {
