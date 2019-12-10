@@ -4,14 +4,13 @@ orbs:
     change-api: financial-times/change-api@0.24.0
 
 jobs:
-  # do not lint terraform right now because Fastly Edge Dictionaries in Terraform break the `terraform fmt` command
-  # lint_terraform:
-  #   docker:
-  #     - image: "circleci/node:12"
-  #   steps:
-  #     - "checkout"
-  #     - run: "sudo ~/project/.circleci/install_terraform.sh"
-  #     - run: "terraform fmt -check=true fastly/terraform/"
+  lint_terraform:
+    docker:
+      - image: "circleci/node:12"
+    steps:
+      - "checkout"
+      - run: "sudo ~/project/.circleci/install_terraform.sh"
+      - run: "terraform fmt -check=true fastly/terraform/"
   lint_js:
     docker:
       - image: "circleci/node:12"
@@ -89,12 +88,12 @@ jobs:
 workflows:
   test:
     jobs:
-      # - lint_terraform:
-      #     filters:
-      #       tags:
-      #         ignore: /^v.*/
-      #       branches:
-      #         ignore: master
+      - lint_terraform:
+          filters:
+            tags:
+              ignore: /^v.*/
+            branches:
+              ignore: master
       - lint_js:
           filters:
             tags:
@@ -114,7 +113,7 @@ workflows:
             branches:
               ignore: master
           requires:
-            # - lint_terraform
+            - lint_terraform
             - lint_js
             - unit_tests
       - change-api/release-log:

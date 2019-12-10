@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-VERSION="0.11.8"
+VERSION="0.12.17"
 
 # This script downloads, verifies via PGP and shasum, and installs Terraform.
 
