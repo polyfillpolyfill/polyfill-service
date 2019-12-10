@@ -83,6 +83,7 @@ jobs:
       - run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
       - run: terraform init fastly/terraform/
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform import -config="fastly/terraform" fastly_service_v1.app $FASTLY_SERVICE_ID_PROD
+      - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform import -config=terraform/ fastly_service_dictionary_items_v1.items "$FASTLY_SERVICE_ID_PROD/3t3bjgcYBnC8nfCHM60Hay"
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
 
 workflows:
