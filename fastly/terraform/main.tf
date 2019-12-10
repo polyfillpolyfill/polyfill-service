@@ -75,4 +75,8 @@ resource "fastly_service_v1" "app" {
     name    = "top_pops.vcl"
     content = "${file("${path.module}/../vcl/top_pops.vcl")}"
   }
+
+  dictionary {
+    name = "toppops_config"
+  }
 }
