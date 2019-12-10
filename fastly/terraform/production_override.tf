@@ -80,4 +80,19 @@ resource "fastly_service_v1" "app" {
     destination = "http.US_Host"
     source      = "\"origami-polyfill-service-us.herokuapp.com\""
   }
+
+  dictionary {
+    name = "toppops_config"
+  }
+}
+
+
+resource "fastly_service_dictionary_items_v1" "secrets_items" {
+    service_id = "${fastly_service_v1.app.id}"
+    dictionary_id = "${{for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id}["secrets"]}"
+
+    items = {
+      datacenters: "LCY,NRT,HAM,BWI,DCA"
+      sample_percent: "5"
+    }
 }

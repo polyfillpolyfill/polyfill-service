@@ -160,6 +160,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 	set req.url = var.url var.querystring;
 }
 
+include "top_pops.vcl";
 include "normalise-user-agent-3-25-1.vcl";
 include "normalise-user-agent.vcl";
 
