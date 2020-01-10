@@ -21,13 +21,7 @@ sub toppops_collect {
 }
 
 sub vcl_log {
-    # Only call the toppops when we are on a production domain because only the
-    # production Fastly Service has the "toppops-collector" log endpoint
-	if (
-        req.http.url ~ "^/https?://(cdn.)?polyfill.io" || 
-        req.http.url ~ "^/https?://(cdn.)?polyfills.io" || 
-        req.http.url ~ "^/https?://polyfill.webservices.ft.com"
-    ) {
-        call toppops_collect;
-    }
+  # This log endpoint only exists in production but there's actually no harm 
+  # in logging to log endpoints that don't exist. It's a no-op.
+  call toppops_collect;
 }
