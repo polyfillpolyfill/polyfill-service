@@ -86,7 +86,7 @@ resource "fastly_service_v1" "app" {
 
 resource "fastly_service_dictionary_items_v1" "items" {
   service_id    = fastly_service_v1.app.id
-  dictionary_id = "${ { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["secrets"]}"
+  dictionary_id = "${ { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]}"
 
   items = {
     datacenters : "LCY,NRT,HAM,BWI,DCA"
