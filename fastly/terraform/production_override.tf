@@ -92,4 +92,8 @@ resource "fastly_service_dictionary_items_v1" "items" {
     datacenters : "LCY,NRT,HAM,BWI,DCA"
     sample_percent : "5"
   }
+
+  lifecycle {
+    ignore_changes = [items, ]
+  }
 }
