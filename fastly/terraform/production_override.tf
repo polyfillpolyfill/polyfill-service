@@ -2,6 +2,10 @@ resource "fastly_service_v1" "app" {
   domain {
     name = "polyfill.io"
   }
+  
+  domain {
+    name = "www.polyfill.io"
+  }
 
   domain {
     name = "cdn.polyfill.io"
@@ -13,6 +17,10 @@ resource "fastly_service_v1" "app" {
 
   domain {
     name = "polyfills.io"
+  }
+  
+  domain {
+    name = "www.polyfills.io"
   }
 
   domain {

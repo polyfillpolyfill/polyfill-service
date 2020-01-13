@@ -4,9 +4,14 @@ sub vcl_recv {
 		# Do the canonicalise checks before the HTTPS check to avoid a double redirect
 		error 901 "Canonicalise";
 	}
+	if (req.http.Host ~ "www.polyfills.io") {
+		# Fastly recommend using the 900-999 range of status codes for custom errors within an application's VCL.
+		# Do the canonicalise checks before the HTTPS check to avoid a double redirect
+		error 901 "Canonicalise";
+	}
 	if (req.http.Host ~ "www.polyfill.io") {
 		# Do the canonicalise checks before the HTTPS check to avoid a double redirect
-		error 909 "Canonicalise";
+		error 901 "Canonicalise";
 	}
 	if (!req.http.Fastly-SSL) {
 		# 801 is a special error code that Fastly uses to Force HTTPS on the request
