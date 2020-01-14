@@ -1,14 +1,12 @@
 provider "fastly" {
-  version = "0.11.0"
+  version = "0.11.1"
 }
 
 variable "domain" {
-  type    = string
   default = "polyfill.io"
 }
 
 variable "name" {
-  type    = string
   default = "Origami Polyfill Service"
 }
 
