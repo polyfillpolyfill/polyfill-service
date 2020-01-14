@@ -32,7 +32,7 @@ sub vcl_recv {
 }
 
 sub vcl_error {
-  # Redirect to canonical prod/qa origins
+	# Redirect to canonical prod/qa origins
 	if (obj.status == 901) {
 		set obj.status = 301;
 		set obj.response = "Moved Permanently";
@@ -58,13 +58,5 @@ sub vcl_error {
 		set obj.http.Location = "/v3/";
 		return (deliver);
 	}
-	
-	# Redirect to home
-	if (obj.status == 908) {
-		set obj.status = 301;
-		set obj.response = "Moved Permanently";
-		set obj.http.Location = "https://polyfill.io";
-		synthetic {""};
-		return (deliver);
-	}
+
 }
