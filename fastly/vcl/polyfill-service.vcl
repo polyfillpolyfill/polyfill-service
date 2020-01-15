@@ -44,12 +44,10 @@ sub set_backend {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
-			set req.http.Host = req.http.EU_Host;
 		} elseif (var.shield_us_is_healthy) {
 			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
-			set req.http.Host = req.http.US_Host;
 		} else {
 			# Everything is on fire... but lets try the origin anyway just in case
 			# it's the probes that are wrong
@@ -63,12 +61,10 @@ sub set_backend {
 			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
-			set req.http.Host = req.http.US_Host;
 		} elseif (var.shield_eu_is_healthy) {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
-			set req.http.Host = req.http.EU_Host;
 		} else {
 			# Everything is on fire... but lets try the origin anyway just in case
 			# it's the probes that are wrong
