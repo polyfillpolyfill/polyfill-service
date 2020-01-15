@@ -84,8 +84,6 @@ resource "fastly_service_dictionary_items_v1" "items" {
   dictionary_id = "${ { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]}"
 
   items = {
-    datacenters : "LCY,NRT,HAM,BWI,DCA"
-    sample_percent : "0"
   }
 
   lifecycle {
