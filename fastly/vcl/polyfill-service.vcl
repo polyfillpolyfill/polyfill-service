@@ -218,6 +218,10 @@ sub vcl_deliver {
 		set resp.http.Vary = "User-Agent, Accept-Encoding";
 	}
 
+	if (resp.status == 304) {
+		set resp.http.Age = "0";
+	}
+
 	add resp.http.Server-Timing = fastly_info.state {", fastly;desc="Edge time";dur="} time.elapsed.msec;
 
 	if (req.http.Fastly-Debug) {
