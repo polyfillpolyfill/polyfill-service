@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@financial-times/origami-service": "^4.1.0",
-    "@financial-times/polyfill-useragent-normaliser": "^1.4.2",
+    "@financial-times/polyfill-useragent-normaliser": "^1.6.1",
     "compression": "^1.7.4",
     "dotenv": "^8.0.0",
     "express-extractheaders": "^3.0.0",
