@@ -32,7 +32,7 @@ jobs:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
-      - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD:master --force"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-int.git HEAD^{}:refs/heads/master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
       - run: terraform init fastly/terraform/
@@ -55,8 +55,8 @@ jobs:
       - "checkout"
       - run: "sudo npm i -g npm && npm ci"
       - run: "bash ~/project/.circleci/create_netrc_file.sh"
-      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force"
-      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-eu.git HEAD^{}:refs/heads/master --force"
+      - run: "git push https://git.heroku.com/origami-polyfill-service-qa-us.git HEAD^{}:refs/heads/master --force"
       - run: "sudo ~/project/.circleci/install_terraform.sh"
       - run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
       - run: terraform init fastly/terraform/
