@@ -18,12 +18,12 @@ describe("Request with a If-None-Match value which is the same as the ETag", fun
 					.get("/v3/polyfill.min.js")
 					.set("if-none-match", eTag)
 					.expect(304)
-					.expect("Age", 0);
+					.expect("Age", "0");
 			});
 	});
 });
 
-describe("Request with a If-None-Match value which is the different to the ETag", function() {
+describe("Request with a If-None-Match value which is different to the ETag", function() {
 	it(`responds with a 200 and an Age reset to 0`, function() {
 		this.timeout(30000);
 		return request(host)
@@ -36,7 +36,7 @@ describe("Request with a If-None-Match value which is the different to the ETag"
 					.get("/v3/polyfill.min.js")
 					.set("if-none-match", eTag)
 					.expect(304)
-					.expect("Age", 0);
+					.expect("Age", "0");
 			});
 	});
 });
