@@ -117,6 +117,8 @@ $system-code: "origami-polyfill-service";
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	display: flex;
 	padding-left: 8px;
+	padding-top: oSpacingByName('s1');
+	padding-bottom: oSpacingByName('s1');
 
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.05);
