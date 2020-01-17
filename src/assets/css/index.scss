@@ -1,48 +1,90 @@
-// @import url("https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-header-services%402.2.2%2Co-fonts%40%5E3.0.0%2Co-normalise%40%5E1.0.0%2Co-footer-services%40%5E1.0.2&brand=internal");
-$o-brand: 'internal';
+$o-brand: "internal";
 $polyfill-logo: "../img/logo.svg";
+$system-code: "origami-polyfill-service";
 
-$o-normalise-is-silent: false;
-@import 'o-normalise/main.scss';
-$o-footer-services-is-silent: false;
-@import 'o-footer-services/main.scss';
-$o-forms-is-silent: false;
-@import 'o-forms/main.scss';
-$o-syntax-highlight-is-silent: false;
-@import 'o-syntax-highlight/main.scss';
-$o-tabs-is-silent: false;
-@import 'o-tabs/main.scss';
-$o-tooltip-is-silent: false;
-@import 'o-tooltip/main.scss';
+@import "o-normalise/main.scss";
+@include oNormalise();
 
-@import 'o-header-services/main';
-@include oHeaderServices($opts:  (
-	'types': ('primary-nav'),
-	'features': ('drop-down'),
-	'logo': $polyfill-logo
-));
+@import "o-footer-services/main.scss";
+@include oFooterServices(
+	$opts: (
+		"icons": (
+			"github"
+		)
+	)
+);
 
-@import 'o-layout/main';
+@import "o-forms/main.scss";
+@include oForms();
+
+@import "o-syntax-highlight/main.scss";
+@include oSyntaxHighlight(
+	$opts: (
+		"languages": (
+			"html"
+		)
+	)
+);
+
+@import "o-tabs/main.scss";
+@include oTabs(
+	$opts: (
+		"button-tabs": (
+			("type": "secondary")
+		)
+	)
+);
+
+@import "o-tooltip/main.scss";
+@include oTooltip();
+
+@import "o-header-services/main";
+@include oHeaderServices(
+	$opts: (
+		"types": (
+			"primary-nav"
+		),
+		"features": (
+			"drop-down"
+		),
+		"logo": $polyfill-logo
+	)
+);
+
+@import "o-layout/main";
 @include oLayout();
 
-@import 'o-table/main';
-@include oTable($opts: (
-	'lines',
-	'row-headings'
-));
+@import "o-table/main";
+@include oTable(
+	$opts: (
+		"lines",
+		"row-headings"
+	)
+);
 
-@import 'o-buttons/main';
+@import "o-buttons/main";
 
-.copy-button {
-	@include oButtons($theme: 'mono');
-}
+@include oButtons(
+	$opts: (
+		"themes": (
+			"mono"
+		),
+		"icons": (
+			"more"
+		),
+		"types": (
+			"primary",
+			"secondary"
+		)
+	)
+);
 
 .core .o--if-js,
 .enhanced .o--if-no-js {
 	display: none !important;
 }
 
-#features-list [aria-hidden=true] {
+#features-list [aria-hidden="true"] {
 	display: none !important;
 }
 
@@ -85,12 +127,6 @@ $o-tooltip-is-silent: false;
 	}
 
 	.tooltip-button {
-		@include oButtons($theme: 'mono');
-		@include oButtonsIconButton(
-			$icon-name: 'more',
-			$theme: 'mono',
-			$is-icon-only: true
-		);
 		border: 0;
 	}
 }

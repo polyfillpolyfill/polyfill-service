@@ -5,84 +5,78 @@ oLayoutStyle: "o-layout--query"
 <div  class="o-layout__heading o-layout-typography" data-o-component="o-syntax-highlight">
 	<h6 class="bundle-heading">Your polyfill bundle:</h6>
 
-	<ul data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs o-layout__unstyled-element" role="tablist">
+	<ul data-o-component="o-tabs" class="o-tabs o-tabs--secondary o-tabs--buttontabs o-layout__unstyled-element" role="tablist">
 		<li role="tab" aria-selected="true"><a class="o-layout__unstyled-element" href="#url">URL</a></li>
 		<li role="tab"><a class="o-layout__unstyled-element" href="#html">HTML</a></li>
 	</ul>
 	<div id="url" class="o-tabs__tabpanel">
-		<button id="copy-url" class="copy-button">Copy URL to clipboard</button>
+		<button id="copy-url" class="o-buttons o-buttons--primary o-buttons--mono">Copy URL to clipboard</button>
 		<pre><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
 	</div>
 	<div id="html" class="o-tabs__tabpanel">
-		<button id="copy-html" class="copy-button">Copy HTML to clipboard</button>
+		<button id="copy-html" class="o-buttons o-buttons--primary o-buttons--mono">Copy HTML to clipboard</button>
 		<pre><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
 	</div>
 </div>
 
 <div class="o-layout__query-sidebar o-layout-typography">
 	<div>
-		<div class="o-forms">
-			<label aria-describedby="filter-info" class="o-forms__label" for="filter">Filter polyfills</label>
-			<div id="filter-info" class="o-forms__additional-info">Filter the polyfills in the "Available Polyfills" list.</div>
-			<input name="filter" id="filter" type="text" class="o-forms__text" placeholder="Type to filter by name">
+		<label class="o-forms-field o-forms-field--optional">
+			<span class="o-forms-title">
+				<span class="o-forms-title__main">Filter polyfills</span>
+				<span class="o-forms-title__prompt">Filter the polyfills in the "Available Polyfills" list.</span>
+			</span>
+			<span class="o-forms-input o-forms-input--text">
+					<input name="filter" id="filter" type="text" class="o-forms__text" placeholder="Type to filter by name">
+			</span>
+		</label>
+		<label class="o-forms-field o-forms-field--optional">
+			<span class="o-forms-title">
+				<span class="o-forms-title__main">Callback</span>
+				<span class="o-forms-title__prompt">Name of the function to call after the polyfills are loaded.</span>
+			</span>
+			<span class="o-forms-input o-forms-input--text">
+					<input name="callback" id="callback" type="text" class="o-forms__text" placeholder="Type to filter by name">
+			</span>
+		</label>
+		
+		<div class="o-forms-field o-forms-field--optional" role="group" aria-labelledby="minify-title" aria-describedby="minify-info">
+			<span class="o-forms-title">
+				<span class="o-forms-title__main" id="minify-title">Minify bundle</span>
+					<span class="o-forms-title__prompt" id="minify-info">Have the polyfill bundle be minified.</span>
+			</span>
+			<span class="o-forms-input o-forms-input--radio-box">
+				<div class="o-forms-input--radio-box__container">
+					<label>
+						<input type="radio" name="minified" value="Yes" aria-label="Minify bundle" checked="" id="minified1">
+							<span class="o-forms-input__label" aria-hidden="true">Yes</span>
+					</label>
+					<label>
+						<input type="radio" name="minified" value="No" aria-label="Do not minify bundle" id="minified2">
+							<span class="o-forms-input__label" aria-hidden="true">No</span>
+					</label>
+				</div>
+			</span>
 		</div>
-		<div class="o-forms">
-			<label aria-describedby="callback-info" for="callback" class="o-forms__label">Callback</label>
-			<div id="callback-info" class="o-forms__additional-info">Name of the function to call after the polyfills are loaded.</div>
-			<input type="text" id="callback" class="o-forms__text" name="callback">
-		</div>
-		<fieldset class="o-forms">
-			<legend aria-describedby="bundle-info" class="o-forms__label">Minify bundle</legend>
-			<div id="bundle-info" class="o-forms__additional-info">Check the boxes of the polyfills you want to have in your bundle.</div>
-			<div class="o-forms__group o-forms__group--inline-together">
-				<input type="radio" name="minified" class="o-forms__radio-button" id="minified1" checked>
-				<label for="minified1" aria-label="Minify bundle" class="o-forms__label">Yes</label>
-				<input type="radio" name="minified" class="o-forms__radio-button o-forms__radio-button--negative" id="minified2">
-				<label for="minified2" aria-label="Do not minify bundle" class="o-forms__label">No</label>
-			</div>
-		</fieldset>
-		<fieldset class="o-forms">
-			<legend aria-describedby="rum-info" class="o-forms__label">Real User Monitoring</legend>
-			<div id="rum-info" class="o-forms__additional-info">Help us tune our browser targeting to better serve your particular users.</div>
-			<div class="o-forms__group o-forms__group--inline-together">
-				<input type="radio" name="rum" class="o-forms__radio-button" id="rum1">
-				<label for="rum1" aria-label="Send real user metrics." class="o-forms__label">Yes</label>
-				<input type="radio" name="rum" class="o-forms__radio-button o-forms__radio-button--negative" id="rum2" checked>
-				<label for="rum2" aria-label="Do not send real user metrics." class="o-forms__label">No</label>
-			</div>
-		</fieldset>
-		<fieldset class="o-forms">
-			<legend aria-describedby="feature-info" class="o-forms__label">Feature Detects</legend>
-			<div id="feature-info" class="o-forms__additional-info">Have every polyfill wrapped in a feature detect, which will only execute the polyfill if the native API is not present.</div>
-			<div class="o-forms__group o-forms__group--inline-together">
-				<input type="radio" name="gated" class="o-forms__radio-button" id="gated1">
-				<label for="gated1" aria-label="Enable feature detects." class="o-forms__label">Yes</label>
-				<input type="radio" name="gated" class="o-forms__radio-button o-forms__radio-button--negative" id="gated2" checked>
-				<label for="gated2" aria-label="Disable feature detects." class="o-forms__label">No</label>
-			</div>
-		</fieldset>
-		<fieldset class="o-forms">
-			<legend aria-describedby="always-info" class="o-forms__label">Always load polyfills</legend>
-			<div id="always-info" class="o-forms__additional-info">Have every polyfill be included regardless of whether it is required by the browser making the request.</div>
-			<div class="o-forms__group o-forms__group--inline-together">
-				<input type="radio" name="always" class="o-forms__radio-button" id="always1">
-				<label for="always1" aria-label="Include every polyfill, regardless of the browser" class="o-forms__label">Yes</label>
-				<input type="radio" name="always" class="o-forms__radio-button o-forms__radio-button--negative" id="always2" checked>
-				<label for="always2" aria-label="Include only polyfills the requesting browser needs" class="o-forms__label">No</label>
-			</div>
-		</fieldset>
 	</div>
 </div>
 <div class="o-layout__main o-layout-typography">
-	<fieldset class="o-forms o-forms--wide">
-		<legend aria-describedby="avaliable-polyfills-info" class="o-forms__label">Available Polyfills</legend>
-		<div id="avaliable-polyfills-info" class="o-forms__additional-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</div>
-		<div class="o-forms__group o-forms__group--inline" id="features-list">
+	<div class="o-forms-field o-forms-field--optional" role="group" aria-labelledby="avaliable-polyfills-title" aria-describedby="avaliable-polyfills-info">
+			<span class="o-forms-title">
+				<span class="o-forms-title__main" id="avaliable-polyfills-title">Available Polyfills</span>
+					<span class="o-forms-title__prompt" id="avaliable-polyfills-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</span>
+			</span>
+	
+		<div class="o-forms-input o-forms-input--checkbox" id="features-list">
 		{% for item in polyfills.polyfillAliases %}
 			<div class="polyfill" data-feature-name="{{item.name}}-polyfill">
-				<input id="{{item.name}}-polyfill" name="{{item.name}}" type="checkbox" class="o-forms__checkbox">
-				<label class="o-forms__label" id="{{item.labelID}}" for="{{item.name}}-polyfill">{{item.name}}</label>
-				<button class="tooltip-button" title="Links" id="{{item.name}}-tooltip-target" aria-label="More about {{item.name}} (opens tooltip)."></button>
+				<label>
+					<input type="checkbox" name="{{item.name}}">
+					<span class="o-forms-input__label">{{item.name}}</span>
+				</label>
+				<button class="tooltip-button o-buttons o-buttons--secondary o-buttons--mono o-buttons-icon o-buttons-icon--more o-buttons-icon--icon-only" id="{{item.name}}-tooltip-target">
+					<span class="o-buttons-icon__label">More about {{item.name}} (opens tooltip).</span>
+				</button>
 
 				<div id="{{item.name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{item.name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
@@ -97,9 +91,13 @@ oLayoutStyle: "o-layout--query"
 		{% endfor %}
 		{% for item in polyfills.polyfills %}
 			<div class="polyfill" data-feature-name="{{item.name}}-polyfill">
-				<input id="{{item.name}}-polyfill" name="{{item.name}}" type="checkbox" class="o-forms__checkbox">
-				<label class="o-forms__label" id="{{item.labelID}}" for="{{item.name}}-polyfill">{{item.name}}</label>
-				<button class="tooltip-button" title="Links" id="{{item.name}}-tooltip-target" aria-label="More about {{item.name}} (opens tooltip)."></button>
+				<label>
+					<input type="checkbox" name="{{item.name}}">
+					<span class="o-forms-input__label">{{item.name}}</span>
+				</label>
+				<button class="tooltip-button o-buttons o-buttons--secondary o-buttons--mono o-buttons-icon o-buttons-icon--more o-buttons-icon--icon-only" id="{{item.name}}-tooltip-target">
+					<span class="o-buttons-icon__label">More about {{item.name}} (opens tooltip).</span>
+				</button>
 
 				<div id="{{item.name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{item.name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
@@ -114,6 +112,6 @@ oLayoutStyle: "o-layout--query"
 			</div>
 		{% endfor %}
 		</div>
-	</fieldset>
+	</div>
 </div>
 <div class="o-layout__aside-sidebar"></div>
