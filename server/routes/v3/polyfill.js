@@ -20,6 +20,8 @@ const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
 async function respondWithBundle(response, params, bundle) {
 	const file = await compressBundle(params.compression, bundle);
 	const headers = {
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
 		"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 		"Content-Type": "text/javascript; charset=utf-8",
 		"surrogate-key": "polyfill-service"
