@@ -82,7 +82,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^7.0.0",
     "mockery": "^2.1.0",
-    "nodemon": "^1.19.1",
+    "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
     "nunjucks": "^3.2.0",
     "nyc": "^15.0.0",
