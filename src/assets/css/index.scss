@@ -140,3 +140,31 @@ $system-code: "origami-polyfill-service";
 		margin-bottom: 8px;
 	}
 }
+
+img {
+	display: inline-block;
+	max-width: 100%;
+}
+
+.o-layout__hero:before {
+	background-image: url("../img/home-page-hero.jpg");
+}
+svg {
+	display: none;
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 490px) {
+	.o-website__hero--home {
+		padding: 0;
+	}
+	.o-website__hero--home.o-layout__hero:before {
+		content: none;
+	}
+	.o-website__hero--home svg {
+		display: block;
+		width: 100vw;
+	}
+	.o-website__hero--text {
+		position: absolute;
+		pointer-events: none;
+	}
+}
