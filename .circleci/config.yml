@@ -40,7 +40,7 @@ jobs:
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_FT_ACCOUNT" terraform import -config="fastly/terraform" fastly_service_dictionary_items_v1.items "$FASTLY_SERVICE_ID_DEV/2RYpb2YAbYtpjSjwok0VWc"
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_FT_ACCOUNT" terraform apply --auto-approve -var name=origami-polyfill-service-dev.in.ft.com -var domain=origami-polyfill-service-dev.in.ft.com fastly/terraform/
       - run: sleep 60
-      - run: "FASTLY_API_KEY=\"$FASTLY_API_KEY_FT_ACCOUNT\" curl -X POST --fail -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_DEV/purge_all"
+      - run: 'curl -X POST --fail -H "Fastly-Key: $FASTLY_API_KEY_FT_ACCOUNT" https://api.fastly.com/service/$FASTLY_SERVICE_ID_DEV/purge_all'
   integration_tests_dev:
     docker:
       - image: "circleci/node:12"
@@ -64,7 +64,7 @@ jobs:
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform import -config="fastly/terraform" fastly_service_dictionary_items_v1.items "$FASTLY_SERVICE_ID_STAGING/4dfSlimwvlJELO6htcnGsi"
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform apply --auto-approve -var name=qa.polyfill.io -var domain=qa.polyfill.io fastly/terraform/
       - run: sleep 60
-      - run: "FASTLY_API_KEY=\"$FASTLY_API_KEY_POLYFILL_ACCOUNT\" curl -X POST --fail -H \"Fastly-Key: $FASTLY_API_KEY\" https://api.fastly.com/service/$FASTLY_SERVICE_ID_STAGING/purge_all"
+      - run: 'curl -X POST --fail -H "Fastly-Key: $FASTLY_API_KEY_POLYFILL_ACCOUNT" https://api.fastly.com/service/$FASTLY_SERVICE_ID_STAGING/purge_all'
   integration_tests_staging:
     docker:
       - image: "circleci/node:12"
