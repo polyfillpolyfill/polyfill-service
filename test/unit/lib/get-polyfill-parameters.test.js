@@ -44,6 +44,7 @@ describe("get-polyfill-parameters", function() {
 				minify: false,
 				rum: false,
 				stream: false,
+				strict: false,
 				uaString: "",
 				unknown: "polyfill",
 				version: require("polyfill-library/package.json").version
@@ -120,6 +121,7 @@ describe("get-polyfill-parameters", function() {
 					minify: false,
 					rum: false,
 					stream: false,
+					strict: false,
 					uaString: "",
 					unknown: "ignore",
 					version: require("polyfill-library/package.json").version
@@ -144,6 +146,17 @@ describe("get-polyfill-parameters", function() {
 					}
 				}).excludes,
 				["es5", "es6", "es7"]
+			);
+		});
+
+		it("sets `strict` to `true` if the `strict` query parameter exists", () => {
+			proclaim.deepStrictEqual(
+				getPolyfillParameters({
+					query: {
+						strict: undefined
+					}
+				}).strict,
+				true
 			);
 		});
 
