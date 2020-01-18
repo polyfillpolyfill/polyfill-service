@@ -9,6 +9,7 @@ module.exports = function getPolyfillParameters(req = {}) {
 	const { excludes = "", features = "default", rum, unknown = "polyfill", version, callback } = query;
 	const uaString = query.ua || (req.headers && req.headers["user-agent"]) || (typeof req.get === "function" && req.get("User-Agent")) || "";
 	const compression = query.compression !== "identity" ? query.compression : undefined;
+	const strict = Object.prototype.hasOwnProperty.call(query, "strict");
 
 	return {
 		excludes: excludes ? excludes.split(",") : [],
@@ -20,6 +21,7 @@ module.exports = function getPolyfillParameters(req = {}) {
 		unknown,
 		uaString,
 		version: version || latestVersion,
-		compression
+		compression,
+		strict
 	};
 };
