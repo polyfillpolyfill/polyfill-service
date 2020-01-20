@@ -88,6 +88,7 @@ jobs:
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform import -config="fastly/terraform" fastly_service_dictionary_items_v1.items "$FASTLY_SERVICE_ID_PROD/3t3bjgcYBnC8nfCHM60Hay"
       - run: FASTLY_API_KEY="$FASTLY_API_KEY_POLYFILL_ACCOUNT" terraform apply --auto-approve -var name=cdn.polyfill.io -var domain=cdn.polyfill.io fastly/terraform/
       - run: 'curl -X POST --fail -H "Fastly-Key: $FASTLY_API_KEY_POLYFILL_ACCOUNT" https://api.fastly.com/service/$FASTLY_SERVICE_ID_PROD/purge/polyfill-service-website'
+      - run: "bash ~/project/.circleci/toppops.sh"
 
 workflows:
   test:
