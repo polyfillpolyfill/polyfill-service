@@ -75,7 +75,7 @@
     "@financial-times/o-table": "^8.0.0",
     "@financial-times/o-tabs": "^5.0.0",
     "@financial-times/o-tooltip": "^4.0.3",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "browserslist": "^4.8.4",
     "eslint": "^6.1.0",
     "eslint-plugin-node": "^11.0.0",
