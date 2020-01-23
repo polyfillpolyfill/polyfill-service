@@ -16,7 +16,7 @@ module.exports = function getPolyfillParameters(req = {}) {
 		features: featuresfromQueryParam(features, query.flags),
 		minify: path.endsWith(".min.js"),
 		rum: Number.parseInt(rum, 10) === 1,
-		stream: false,
+		stream: true,
 		callback: /^[\w\.]+$/.test(callback || "") ? callback : false,
 		unknown,
 		uaString,
