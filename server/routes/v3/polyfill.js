@@ -4,6 +4,7 @@ const compressBundle = require("../../lib/compress-bundle");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
+const pipeline = require("util").promisify(require("stream").pipeline);
 const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
 const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
@@ -18,7 +19,7 @@ const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
 const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
 
 async function respondWithBundle(response, params, bundle) {
-	const file = await compressBundle(params.compression, bundle);
+	const compressor = await compressBundle(params.compression);
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
@@ -31,7 +32,8 @@ async function respondWithBundle(response, params, bundle) {
 	}
 	response.status(200);
 	response.set(headers);
-	response.send(file);
+
+	await pipeline(bundle, compressor, response);
 }
 
 async function respondWithMissingFeatures(response, missingFeatures) {
