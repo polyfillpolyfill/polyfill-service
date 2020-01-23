@@ -63,7 +63,7 @@ describe("createCompressor", function() {
 		proclaim.deepStrictEqual(result, gzipCompressor);
 	});
 
-	it("brotlis `file` with best compression if `compression` is `br`", async () => {
+	it("returns brotli compressor if `compression` is `br`", async () => {
 		const result = createCompressor("br");
 		proclaim.calledOnce(zlib.createBrotliCompress);
 		proclaim.calledWith(zlib.createBrotliCompress, {
