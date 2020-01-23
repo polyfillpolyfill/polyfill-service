@@ -13,6 +13,8 @@ describe("Request with a If-None-Match value which is the same as the ETag", fun
 			.expect(200)
 			.then(response => {
 				const eTag = response.headers["etag"];
+				const lastModified = response.headers["last-modified"];
+				console.log({ eTag, lastModified });
 
 				return request(host)
 					.get("/v3/polyfill.min.js")
