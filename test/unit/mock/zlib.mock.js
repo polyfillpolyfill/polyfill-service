@@ -3,9 +3,9 @@
 const sinon = require("sinon");
 
 module.exports = {
-	gzip: sinon.stub().resolves(),
+	createGzip: sinon.stub(),
 	Z_BEST_COMPRESSION: sinon.spy(),
-	brotliCompress: sinon.stub().resolves(),
+	createBrotliCompress: sinon.stub(),
 	constants: {
 		BROTLI_PARAM_QUALITY: "quality",
 		BROTLI_MAX_QUALITY: 11

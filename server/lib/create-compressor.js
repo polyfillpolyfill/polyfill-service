@@ -12,7 +12,7 @@ const gzipCompress = zlib.createGzip({
 });
 const { PassThrough } = require("stream");
 
-module.exports = function compressBundle(compression) {
+module.exports = function(compression) {
 	switch (compression) {
 		case "gzip":
 			return gzipCompress;
