@@ -4,7 +4,7 @@ const createCompressor = require("../../lib/create-compressor");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
-const pipeline = require("util").promisify(require("stream").pipeline);
+// const pipeline = require("util").promisify(require("stream").pipeline);
 const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
 const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
@@ -19,7 +19,7 @@ const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
 const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
 
 const lastModified = new Date().toUTCString();
-async function respondWithBundle(response, params, bundle) {
+async function respondWithBundle(response, params, bundle, next) {
 	const compressor = await createCompressor(params.compression);
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
@@ -35,7 +35,12 @@ async function respondWithBundle(response, params, bundle) {
 	response.status(200);
 	response.set(headers);
 
-	await pipeline(bundle, compressor, response);
+	bundle
+		.on("error", next)
+		.pipe(compressor)
+		.on("error", next)
+		.pipe(response);
+	// await pipeline(bundle, compressor, response);
 }
 
 async function respondWithMissingFeatures(response, missingFeatures) {
@@ -48,7 +53,7 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 }
 
 module.exports = app => {
-	app.get(["/v3/polyfill.js", "/v3/polyfill.min.js"], async (request, response) => {
+	app.get(["/v3/polyfill.js", "/v3/polyfill.min.js"], async (request, response, next) => {
 		const params = getPolyfillParameters(request);
 		switch (params.version) {
 			case latestVersion: {
@@ -62,7 +67,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.41.0": {
@@ -76,7 +81,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_41_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.40.0": {
@@ -90,7 +95,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_40_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.39.0": {
@@ -104,7 +109,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_39_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.38.0": {
@@ -118,7 +123,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_38_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.37.0": {
@@ -132,7 +137,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_37_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.36.0": {
@@ -146,7 +151,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_36_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.35.0": {
@@ -160,7 +165,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_35_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.34.0": {
@@ -174,7 +179,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_34_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.28.1": {
@@ -188,7 +193,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_28_1.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.27.4": {
@@ -202,7 +207,7 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio_3_27_4.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.25.3":
@@ -222,7 +227,7 @@ module.exports = app => {
 					bundle += "\ntypeof " + params.callback + "==='function' && " + params.callback + "();";
 				}
 
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			case "3.25.1": {
@@ -241,7 +246,7 @@ module.exports = app => {
 					bundle += "\ntypeof " + params.callback + "==='function' && " + params.callback + "();";
 				}
 
-				await respondWithBundle(response, params, bundle);
+				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
 			default: {
