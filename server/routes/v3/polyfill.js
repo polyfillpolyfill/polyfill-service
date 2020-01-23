@@ -1,6 +1,6 @@
 "use strict";
 
-const compressBundle = require("../../lib/compress-bundle");
+const createCompressor = require("../../lib/create-compressor");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
@@ -19,7 +19,7 @@ const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
 const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
 
 async function respondWithBundle(response, params, bundle) {
-	const compressor = await compressBundle(params.compression);
+	const compressor = await createCompressor(params.compression);
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
