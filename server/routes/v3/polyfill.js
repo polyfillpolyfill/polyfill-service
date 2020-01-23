@@ -18,6 +18,7 @@ const polyfillio_3_39_0 = require("polyfill-library-3.39.0");
 const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
 const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
 
+const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, params, bundle) {
 	const compressor = await createCompressor(params.compression);
 	const headers = {
@@ -25,7 +26,8 @@ async function respondWithBundle(response, params, bundle) {
 		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
 		"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 		"Content-Type": "text/javascript; charset=utf-8",
-		"surrogate-key": "polyfill-service"
+		"surrogate-key": "polyfill-service",
+		"Last-Modified": lastModified
 	};
 	if (params.compression) {
 		headers["Content-Encoding"] = params.compression;
