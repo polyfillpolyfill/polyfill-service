@@ -1,25 +1,25 @@
 "use strict";
 
-const promisify = require("util").promisify;
 const zlib = require("zlib");
 const { BROTLI_PARAM_QUALITY, BROTLI_MAX_QUALITY } = zlib.constants;
-const brotliCompress = promisify(zlib.brotliCompress);
-const gzipCompress = promisify(zlib.gzip.bind(zlib));
+const brotliCompress = zlib.createBrotliCompress({
+	params: {
+		[BROTLI_PARAM_QUALITY]: BROTLI_MAX_QUALITY
+	}
+});
+const gzipCompress = zlib.createGzip({
+	level: zlib.Z_BEST_COMPRESSION
+});
+const { PassThrough } = require("stream");
 
-module.exports = function compressBundle(compression, file) {
+module.exports = function compressBundle(compression) {
 	switch (compression) {
 		case "gzip":
-			return gzipCompress(file, {
-				level: zlib.Z_BEST_COMPRESSION
-			});
+			return gzipCompress;
 		case "br":
-			return brotliCompress(file, {
-				params: {
-					[BROTLI_PARAM_QUALITY]: BROTLI_MAX_QUALITY
-				}
-			});
+			return brotliCompress;
 		case "identity":
 		default:
-			return Promise.resolve(file);
+			return PassThrough;
 	}
 };
