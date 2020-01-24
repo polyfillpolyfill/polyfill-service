@@ -5,7 +5,7 @@
 const request = require("supertest");
 const host = require("../helpers").host;
 
-describe("Request with a If-Modified-Since value which is the same as the lastModified", function() {
+describe("Request with a If-Modified-Since value which is the same as the last-modified", function() {
 	it(`responds with a 304 and an Age reset to 0`, function() {
 		this.timeout(30000);
 		return request(host)
@@ -23,19 +23,17 @@ describe("Request with a If-Modified-Since value which is the same as the lastMo
 	});
 });
 
-describe("Request with a If-Modified-Since value which is different to the lastModified", function() {
+describe("Request with a If-Modified-Since value which is before last-modified", function() {
 	it(`responds with a 200 and an Age reset to 0`, function() {
 		this.timeout(30000);
 		return request(host)
 			.get("/v3/polyfill.min.js")
 			.expect(200)
-			.then(response => {
-				const lastModified = response.headers["last-modified"];
-
+			.then(() => {
 				return request(host)
 					.get("/v3/polyfill.min.js")
-					.set("if-modified-since", lastModified)
-					.expect(304)
+					.set("if-modified-since", "Mon, 28 Jan 2019 00:00:00 GMT")
+					.expect(200)
 					.expect("Age", "0");
 			});
 	});
