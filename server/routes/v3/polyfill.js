@@ -4,7 +4,7 @@ const createCompressor = require("../../lib/create-compressor");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
-// const pipeline = require("util").promisify(require("stream").pipeline);
+const pipeline = require("util").promisify(require("stream").pipeline);
 const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
 const polyfillio_3_25_3 = require("polyfill-library-3.25.3");
 const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
@@ -35,12 +35,13 @@ async function respondWithBundle(response, params, bundle, next) {
 	response.status(200);
 	response.set(headers);
 
-	bundle
-		.on("error", next)
-		.pipe(compressor)
-		.on("error", next)
-		.pipe(response);
-	// await pipeline(bundle, compressor, response);
+	try {
+		await pipeline(bundle, compressor, response);
+	} catch (e) {
+		if (e && e.code !== "ERR_STREAM_PREMATURE_CLOSE") {
+			throw e;
+		}
+	}
 }
 
 async function respondWithMissingFeatures(response, missingFeatures) {
