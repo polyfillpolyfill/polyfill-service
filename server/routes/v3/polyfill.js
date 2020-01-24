@@ -1,5 +1,7 @@
 "use strict";
 
+const mergeStream = require("merge2");
+const { Readable } = require("stream");
 const createCompressor = require("../../lib/create-compressor");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
@@ -36,6 +38,10 @@ async function respondWithBundle(response, params, bundle, next) {
 	response.set(headers);
 
 	try {
+		console.log({
+			bundle,
+			compressor
+		});
 		await pipeline(bundle, compressor, response);
 	} catch (e) {
 		if (e && e.code !== "ERR_STREAM_PREMATURE_CLOSE") {
@@ -222,10 +228,10 @@ module.exports = app => {
 						break;
 					}
 				}
-				let bundle = await polyfillio_3_25_3.getPolyfillString(params);
+				const bundle = mergeStream(await polyfillio_3_25_3.getPolyfillString(params));
 
 				if (params.callback) {
-					bundle += "\ntypeof " + params.callback + "==='function' && " + params.callback + "();";
+					bundle.add(Readable.from("\ntypeof " + params.callback + "==='function' && " + params.callback + "();"));
 				}
 
 				await respondWithBundle(response, params, bundle, next);
@@ -241,10 +247,10 @@ module.exports = app => {
 						break;
 					}
 				}
-				let bundle = await polyfillio_3_25_1.getPolyfillString(params);
+				const bundle = mergeStream(await polyfillio_3_25_1.getPolyfillString(params));
 
 				if (params.callback) {
-					bundle += "\ntypeof " + params.callback + "==='function' && " + params.callback + "();";
+					bundle.add(Readable.from("\ntypeof " + params.callback + "==='function' && " + params.callback + "();"));
 				}
 
 				await respondWithBundle(response, params, bundle, next);
