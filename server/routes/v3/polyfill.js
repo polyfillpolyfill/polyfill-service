@@ -39,7 +39,7 @@ async function respondWithBundle(response, params, bundle, next) {
 		await pipeline(bundle, compressor, response);
 	} catch (e) {
 		if (e && e.code !== "ERR_STREAM_PREMATURE_CLOSE") {
-			throw e;
+			next(e);
 		}
 	}
 }
