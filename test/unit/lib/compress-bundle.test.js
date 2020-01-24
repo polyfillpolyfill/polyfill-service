@@ -47,11 +47,11 @@ describe("createCompressor", function() {
 
 	it("returns `PassThrough` if `compression` is not set to either `br` or `gzip`", async () => {
 		const result = await createCompressor(undefined);
-		proclaim.deepStrictEqual(result, require("stream").PassThrough);
+		proclaim.isInstanceOf(result, require("stream").PassThrough);
 	});
 	it("returns `PassThrough` if `compression` is `identity`", async () => {
 		const result = await createCompressor("identity");
-		proclaim.deepStrictEqual(result, require("stream").PassThrough);
+		proclaim.isInstanceOf(result, require("stream").PassThrough);
 	});
 
 	it("returns `gzip` compressor if `compression` is `gzip`", async () => {
