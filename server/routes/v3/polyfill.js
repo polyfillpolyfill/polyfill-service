@@ -38,10 +38,6 @@ async function respondWithBundle(response, params, bundle, next) {
 	response.set(headers);
 
 	try {
-		console.log({
-			bundle,
-			compressor
-		});
 		await pipeline(bundle, compressor, response);
 	} catch (e) {
 		if (e && e.code !== "ERR_STREAM_PREMATURE_CLOSE") {
