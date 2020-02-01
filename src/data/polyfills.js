@@ -49,16 +49,16 @@ module.exports = async () => {
 				polyfills.push(polyfillInfo);
 			}
 		}
-	}
 
-	// non-icu case-sensitive alphabetical sort
-	polyfills.sort((a, b) =>
-		a.name > b.name
-		? 1
-		: a.name < b.name
-		? -1
-		: 0
-	);
+		// non-icu case-sensitive alphabetical sort
+		polyfills.sort((a, b) =>
+			a.name > b.name
+			? 1
+			: a.name < b.name
+			? -1
+			: 0
+		);
+	}
 
 	return {
 		polyfills,
