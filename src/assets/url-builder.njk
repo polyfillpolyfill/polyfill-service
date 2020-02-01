@@ -103,8 +103,8 @@ oLayoutStyle: "o-layout--query"
 					<div class="o-tooltip-content">
 						<ul>
 							{% if item.license %}<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{item.licenseLowerCase}}'>License: {{item.license}}</a></li>{% endif %}
-							{% if spec %}<li><a href='{{item.spec}}'>Specification</a></li>{% endif %}
-							{% if docs %}<li><a href='{{item.docs}}'>Documentation</a></li>{% endif %}
+							{% if item.spec %}<li><a href='{{item.spec}}'>Specification</a></li>{% endif %}
+							{% if item.docs %}<li><a href='{{item.docs}}'>Documentation</a></li>{% endif %}
 							<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{item.baseDir}}'>Polyfill source</a></li>
 						</ul>
 					</div>
