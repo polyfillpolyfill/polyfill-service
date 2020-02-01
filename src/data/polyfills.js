@@ -26,6 +26,11 @@ module.exports = async () => {
 							polyfills: aliases[alias]
 						});
 					}
+				} else {
+					polyfills.push({
+						name: alias,
+						labelID: `${snakeCase(alias)}_label`
+					});
 				}
 			}
 		}
@@ -45,6 +50,16 @@ module.exports = async () => {
 			}
 		}
 	}
+
+	// non-icu case-sensitive alphabetical sort
+	polyfills.sort((a, b) =>
+		a.name > b.name
+		? 1
+		: a.name < b.name
+		? -1
+		: 0
+	);
+
 	return {
 		polyfills,
 		polyfillAliases
