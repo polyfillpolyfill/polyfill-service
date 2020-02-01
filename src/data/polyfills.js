@@ -29,11 +29,13 @@ module.exports = async () => {
 				} else {
 					polyfills.push({
 						name: alias,
-						labelID: `${snakeCase(alias)}_label`
+						labelID: `${snakeCase(alias)}_label`,
+						aliasFor: aliases[alias]
 					});
 				}
 			}
 		}
+
 		for (const polyfill of await polyfillLibrary.listAllPolyfills()) {
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
 			if (!polyfill.startsWith("_") && !polyfill.startsWith("Intl.~locale")) {
