@@ -39,7 +39,7 @@ oLayoutStyle: "o-layout--query"
 					<input name="callback" id="callback" type="text" class="o-forms__text" placeholder="Type to filter by name">
 			</span>
 		</label>
-		
+
 		<div class="o-forms-field o-forms-field--optional" role="group" aria-labelledby="minify-title" aria-describedby="minify-info">
 			<span class="o-forms-title">
 				<span class="o-forms-title__main" id="minify-title">Minify bundle</span>
@@ -66,7 +66,7 @@ oLayoutStyle: "o-layout--query"
 				<span class="o-forms-title__main" id="avaliable-polyfills-title">Available Polyfills</span>
 					<span class="o-forms-title__prompt" id="avaliable-polyfills-info">Check the boxes of the polyfills or polyfill-sets you want to have in your bundle.</span>
 			</span>
-	
+
 		<div class="o-forms-input o-forms-input--checkbox" id="features-list">
 		{% for item in polyfills.polyfillAliases %}
 			<div class="polyfill" data-feature-name="{{item.name}}-polyfill">
@@ -102,7 +102,7 @@ oLayoutStyle: "o-layout--query"
 				<div id="{{item.name}}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-position="right" data-o-tooltip-target="{{item.name}}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
 						<ul>
-							<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{item.license}}</a></li>
+							{% if item.license %}<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/{{licenseLowerCase}}'>License: {{item.license}}</a></li>{% endif %}
 							{% if spec %}<li><a href='{{item.spec}}'>Specification</a></li>{% endif %}
 							{% if docs %}<li><a href='{{item.docs}}'>Documentation</a></li>{% endif %}
 							<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/{{item.baseDir}}'>Polyfill source</a></li>
