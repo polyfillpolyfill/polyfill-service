@@ -1,0 +1,20 @@
+name: Add a new GitHub Project card linked to a GitHub issue to the specified project column
+on: [issues, pull_request]
+jobs:
+  github-actions-automate-projects:
+    runs-on: ubuntu-latest
+    steps:
+    - name: add-new-issues-to-repository-based-project-column
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
+      if: github.event_name == 'issues' && github.event.action == 'opened'
+      env:
+        GITHUB_TOKEN: ${{ secrets.ORIGAMI_FOX_ACCESS_TOKEN }}
+        GITHUB_PROJECT_URL: https://github.com/orgs/Financial-Times/projects/83
+        GITHUB_PROJECT_COLUMN_NAME: incoming
+    - name: add-new-prs-to-repository-based-project-column
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
+      if: github.event_name == 'pull_request' && github.event.action == 'opened'
+      env:
+        GITHUB_TOKEN: ${{ secrets.ORIGAMI_FOX_ACCESS_TOKEN }}
+        GITHUB_PROJECT_URL: https://github.com/orgs/Financial-Times/projects/83
+        GITHUB_PROJECT_COLUMN_NAME: incoming
