@@ -68,7 +68,7 @@
     "@financial-times/o-footer-services": "^3.0.1",
     "@financial-times/o-forms": "^8.1.11",
     "@financial-times/o-header-services": "^4.0.0",
-    "@financial-times/o-layout": "^4.0.8",
+    "@financial-times/o-layout": "^4.0.11",
     "@financial-times/o-normalise": "^2.0.1",
     "@financial-times/o-spacing": "^2.0.0",
     "@financial-times/o-syntax-highlight": "^3.0.0",
