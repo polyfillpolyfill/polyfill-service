@@ -33,6 +33,27 @@ layout: layouts/base.njk
 						<dl>
 							<dt>
 								<code>
+									<var>features</var>
+								</code>
+							</dt>
+							<dd>
+								<p>Comma-separated list of the polyfills which you want to include in the response if the requesting browser does not support the feature natively.</p>
+								<p>Available feature names are shown on the <a href="/v3/url-builder">features page</a>.</p>
+								<dl>
+									<dt>
+										<code>|always</code>
+									</dt>
+									<dd>Polyfill should be included regardless of whether it is required by the user-agent making the request.  If there are multiple browser-specific variants of the polyfill, the default one will be used for browser that doesn't actually require the polyfill.  In some cases where the only way of implementing a polyfill is to use browser-specific proprietary technology, the default variant may be empty.</dd>
+									<dt>
+										<code>|gated</code>
+									</dt>
+									<dd>If the polyfill is included in the bundle, it will be accompanied by a feature detect, which will only execute the polyfill if the native API is not present.</dd>
+								</dl>
+
+								<p>Omitting or setting to an empty string is equivalent to the value "default", which is an alias for a curated list of polyfills.</p>
+							</dd>
+							<dt>
+								<code>
 									<var>callback</var>
 								</code>
 							</dt>
@@ -71,13 +92,18 @@ layout: layouts/base.njk
 					<th scope="row">Headers</th>
 					<td>
 						<dl>
-							<dt>User-Agent</dt>
-							<dd>If no `ua` querystring value is configured, the User-Agent header's value will be used for polyfill
-								targeting instead.</dd>
-							<dt>Accept-Encoding</dt>
-							<dd>If no `compression` querystring value is configured, the Accept-Encoding header's value will be used to
-								decide if
-								compression should be used on the polyfill</dd>
+							<dt>
+								<code><var>User-Agent</var></code>
+							</dt>
+							<dd>
+								<p>If no <code><var>ua</var></code> querystring value is configured, the <code><var>User-Agent</var></code> header's value will be used for polyfill targeting instead.</p>
+							</dd>
+							<dt>
+								<code><var>Accept-Encoding</var></code>
+							</dt>
+							<dd>
+								<p>If no <code><var>compression</var></code> querystring value is configured, the <code><var>Accept-Encoding</var></code> header's value will be used to decide if compression should be used on the polyfill</p>
+							</dd>
 						</dl>
 					</td>
 				</tr>
