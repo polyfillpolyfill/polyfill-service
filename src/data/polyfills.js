@@ -26,9 +26,16 @@ module.exports = async () => {
 							polyfills: aliases[alias]
 						});
 					}
+				} else {
+					polyfills.push({
+						name: alias,
+						labelID: `${snakeCase(alias)}_label`,
+						aliasFor: aliases[alias]
+					});
 				}
 			}
 		}
+
 		for (const polyfill of await polyfillLibrary.listAllPolyfills()) {
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
 			if (!polyfill.startsWith("_") && !polyfill.startsWith("Intl.~locale")) {
@@ -44,7 +51,11 @@ module.exports = async () => {
 				polyfills.push(polyfillInfo);
 			}
 		}
+
+		// non-icu case-sensitive alphabetical sort
+		polyfills.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
 	}
+
 	return {
 		polyfills,
 		polyfillAliases
