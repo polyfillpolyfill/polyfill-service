@@ -8,5 +8,10 @@
     "slack": "financialtimes/origami-support"
   },
   "supportStatus": "active",
-  "serviceUrl": "https://polyfill.io"
+  "serviceUrl": "https://polyfill.io",
+  "keywords": [
+    "website",
+    "polyfill",
+    "ecmascript"
+  ]
 }
