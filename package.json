@@ -93,7 +93,7 @@
     "proclaim": "^3.6.0",
     "rimraf": "^3.0.2",
     "sass": "^1.25.0",
-    "sinon": "^8.1.1",
+    "sinon": "^9.0.0",
     "supertest": "^4.0.2"
   },
   "version": "4.18.0"
