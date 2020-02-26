@@ -19,6 +19,11 @@ const polyfillio_3_38_0 = require("polyfill-library-3.38.0");
 const polyfillio_3_39_0 = require("polyfill-library-3.39.0");
 const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
 const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
+const polyfillio_3_42_0 = require("polyfill-library-3.42.0");
+const polyfillio_3_43_0 = require("polyfill-library-3.43.0");
+const polyfillio_3_44_0 = require("polyfill-library-3.44.0");
+const polyfillio_3_45_0 = require("polyfill-library-3.45.0");
+const polyfillio_3_46_0 = require("polyfill-library-3.46.0");
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, params, bundle, next) {
@@ -70,6 +75,76 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.46.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_46_0.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.45.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_45_0.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.44.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_44_0.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.43.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_43_0.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.42.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_42_0.getPolyfillString(params);
 				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
