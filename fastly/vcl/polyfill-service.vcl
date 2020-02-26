@@ -140,26 +140,16 @@ sub vcl_hash {
 }
 
 
-sub shielding_header {
-	if (req.backend == ssl_shield_iad_va_us) {
-		set req.http.Request_Came_From_Shield = server.datacenter;
-	} elsif (req.backend == ssl_shield_london_city_uk) {
-		set req.http.Request_Came_From_Shield = server.datacenter;
-	}
-}
-
 sub vcl_miss {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_miss;
 	}
-	call shielding_header;
 }
 
 sub vcl_pass {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_pass;
 	}
-	call shielding_header;
 }
 
 sub vcl_fetch {
@@ -209,7 +199,7 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
-	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !resp.http.Request_Came_From_Shield && req.backend != ssl_shield_iad_va_us && req.backend != ssl_shield_london_city_uk) {
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && fastly.ff.visits_this_service == 0 && req.restarts == 0 && req.backend != ssl_shield_iad_va_us && req.backend != ssl_shield_london_city_uk) {
 		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
 		# "Vary: User-Agent" entering the Varnish cache.
 		# We need "Vary: User-Agent" in the browser cache because a browser
