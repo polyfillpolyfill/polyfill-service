@@ -38,7 +38,7 @@ module.exports = async () => {
 
 		for (const polyfill of await polyfillLibrary.listAllPolyfills()) {
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
-			if (!polyfill.startsWith("_") && !polyfill.startsWith("Intl.~locale")) {
+			if (!polyfill.startsWith("_")) {
 				const polyfillInfo = Object.assign(
 					{
 						name: polyfill,
