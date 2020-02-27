@@ -27,6 +27,7 @@ const polyfillio_3_46_0 = require("polyfill-library-3.46.0");
 const polyfillio_3_48_0 = require("polyfill-library-3.48.0");
 const polyfillio_3_49_0 = require("polyfill-library-3.49.0");
 const polyfillio_3_50_2 = require("polyfill-library-3.50.2");
+const polyfillio_3_51_0 = require("polyfill-library-3.51.0");
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, params, bundle, next) {
@@ -78,6 +79,20 @@ module.exports = app => {
 					}
 				}
 				const bundle = await polyfillio.getPolyfillString(params);
+				await respondWithBundle(response, params, bundle, next);
+				break;
+			}
+			case "3.51.0": {
+				if (params.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_51_0.getPolyfillString(params);
 				await respondWithBundle(response, params, bundle, next);
 				break;
 			}
