@@ -13,17 +13,19 @@ Tabs.init(document.body, {
 });
 
 import Tooltip from "@financial-times/o-tooltip";
-const tooltipObjects = Tooltip.init(document.body);
+const createTooltips = () => {
+	const tooltipObjects = Tooltip.init(document.body);
 
-tooltipObjects.forEach(tooltip => {
-	tooltip.tooltipEl.addEventListener("oTooltip.show", event => {
-		tooltipObjects.forEach(tooltip => {
-			if (tooltip.tooltipEl !== event.target) {
-				tooltip.close();
-			}
+	tooltipObjects.forEach(tooltip => {
+		tooltip.tooltipEl.addEventListener("oTooltip.show", event => {
+			tooltipObjects.forEach(tooltip => {
+				if (tooltip.tooltipEl !== event.target) {
+					tooltip.close();
+				}
+			});
 		});
 	});
-});
+};
 
 const copyToClipboard = str => {
 	// Create a <textarea> element
@@ -195,6 +197,7 @@ if (libraryVersionInput) {
 			polyfillBundleOptions.features = [];
 			polyfillBundleOptions.version = version;
 			updatePolyfillBundle(polyfillBundleOptions);
+			createTooltips();
 		}
 	});
 }
