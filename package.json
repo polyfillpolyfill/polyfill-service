@@ -29,7 +29,7 @@
     "dev": "npm run clean && nodemon --exec \"time npm run build:dev && npm run start\"",
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
-    "production:parcel": "mkdir -p './dist/v3/json' && cp -R './.cache_eleventy/json/' './dist/v3/json' && parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
+    "production:parcel": "mkdir -p './dist/v3/json' && cp -R './.cache_eleventy/json/' './dist/v3/' && parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
     "postshrinkwrap": "lockspot flat --pattern '^@financial-times/o-' --file './package-lock.json' || (echo -e \"\\033[31mChecking the package-lock.json file showed some FT components were included multiple times with different versions. This can result in client builds including multiple copies of the CSS/JS for those packages, increasing build size. Please check the dependency ranges to ensure each dependency is only included once.\n\nFT components included more than once, with their count:\\033[0m\"; lockspot depcount --min 2 --pattern '^@financial-times/' --file './package-lock.json' && exit 1)"
   },
   "heroku-run-build-script": true,
