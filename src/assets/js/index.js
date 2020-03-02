@@ -73,6 +73,10 @@ const createPolyfillBundleURL = options => {
 		parameters.flags = "always";
 	}
 
+	if (options.version) {
+		parameters.version = options.version;
+	}
+
 	if (options.callback) {
 		parameters.callback = options.callback;
 	}
@@ -112,20 +116,91 @@ const defaultPolyfillBundleOptions = {
 	always: false,
 	rum: 0,
 	features: [],
-	callback: ""
+	callback: "",
+	version: ""
 };
 
 const polyfillBundleOptions = Object.assign({}, defaultPolyfillBundleOptions);
 
+const featuresCache = {};
+const featuresRows = Array.from(document.querySelectorAll("#features-list [data-feature-name]"));
+
+featuresRows.forEach(node => {
+	featuresCache[node.dataset.featureName.toLowerCase()] = node;
+});
+
+const renderFeatureList = ({ polyfillAliases, polyfills }) => {
+	let html = "";
+	for (const item of polyfillAliases) {
+		html += `<div class="polyfill" data-feature-name="${item.name}-polyfill">
+				<label>
+					<input type="checkbox" name="${item.name}">
+					<span class="o-forms-input__label">${item.name}</span>
+				</label>
+				<button class="tooltip-button o-buttons o-buttons--secondary o-buttons--mono o-buttons-icon o-buttons-icon--more o-buttons-icon--icon-only" id="${item.name}-tooltip-target">
+					<span class="o-buttons-icon__label">More about ${item.name} (opens tooltip).</span>
+				</button>
+
+				<div id="${item.name}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-append-to-body data-o-tooltip-position="right" data-o-tooltip-target="${
+			item.name
+		}-tooltip-target" data-o-tooltip-toggle-on-click="true">
+					<div class="o-tooltip-content">
+						<ul>
+						${item.polyfills.map(polyfill => `<li>${polyfill}</li>`)}
+						</ul>
+					</div>
+				</div>
+			</div>`;
+	}
+	for (const item of polyfills) {
+		html += `<div class="polyfill" data-feature-name="${item.name}-polyfill">
+				<label>
+					<input type="checkbox" name="${item.name}">
+					<span class="o-forms-input__label">${item.name}</span>
+				</label>
+				<button class="tooltip-button o-buttons o-buttons--secondary o-buttons--mono o-buttons-icon o-buttons-icon--more o-buttons-icon--icon-only" id="${item.name}-tooltip-target">
+					<span class="o-buttons-icon__label">More about ${item.name} (opens tooltip).</span>
+				</button>
+
+				<div id="${item.name}-tooltip-element" data-o-component="o-tooltip" data-o-tooltip-append-to-body data-o-tooltip-position="right" data-o-tooltip-target="${
+			item.name
+		}-tooltip-target" data-o-tooltip-toggle-on-click="true">
+					<div class="o-tooltip-content">
+						<ul>
+							${item.aliasFor ? `<li class='alias'>Alias for <code>${item.aliasFor}</code></li>` : ""}
+							${item.license ? `<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/${item.licenseLowerCase}'>License: ${item.license}</a></li>` : ""}
+							${item.spec ? `<li><a href='${item.spec}'>Specification</a></li>` : ""}
+							${item.docs ? `<li><a href='${item.docs}'>Documentation</a></li>` : ""}
+							${item.baseDir ? `<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/${item.baseDir}'>Polyfill source</a></li>` : ""}
+						</ul>
+					</div>
+				</div>
+			</div>`;
+	}
+	return html;
+};
+
+const libraryVersionInput = document.getElementById("library-version");
+if (libraryVersionInput) {
+	libraryVersionInput.addEventListener("change", async event => {
+		const version = event.target.value;
+		// if version is not selected, get the data for the latest version
+		const res = await fetch(`/v3/json/library-${version || event.target.options[1].value}.json`);
+		if (res.ok) {
+			const data = await res.json();
+			featuresList.innerHTML = renderFeatureList(data);
+			Array.from(featuresList.getElementsByTagName("input")).forEach(node => {
+				node.addEventListener("change", updateFeaturesListFromEvent);
+			});
+			polyfillBundleOptions.features = [];
+			polyfillBundleOptions.version = version;
+			updatePolyfillBundle(polyfillBundleOptions);
+		}
+	});
+}
+
 const filterInput = document.getElementById("filter");
 if (filterInput) {
-	const featuresCache = {};
-	const featuresRows = Array.from(document.querySelectorAll("#features-list [data-feature-name]"));
-
-	featuresRows.forEach(node => {
-		featuresCache[node.dataset.featureName.toLowerCase()] = node;
-	});
-
 	filterInput.addEventListener("keyup", filterFeatures);
 	filterInput.addEventListener("paste", filterFeatures);
 
