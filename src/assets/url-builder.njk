@@ -23,6 +23,24 @@ oLayoutStyle: "o-layout--query"
 	<div>
 		<label class="o-forms-field o-forms-field--optional">
 			<span class="o-forms-title">
+				<span class="o-forms-title__main">Polyfill-Library version</span>
+				<span class="o-forms-title__prompt">Use a specific version of the polyfill-library (recommended for production websites).</span>
+			</span>
+			<span class="o-forms-input o-forms-input--select">
+					<select id="library-version">
+					{% for version in polyfills.versions | reverse %}
+						{% if loop.first %} 
+							<option value="" selected></option>
+						{% else %}
+							<option value="{{version}}" >{{version}}</option>
+						{% endif %}
+					{% endfor %}
+					</select>	
+			</span>
+		</label>
+
+		<label class="o-forms-field o-forms-field--optional">
+			<span class="o-forms-title">
 				<span class="o-forms-title__main">Filter polyfills</span>
 				<span class="o-forms-title__prompt">Filter the polyfills in the "Available Polyfills" list.</span>
 			</span>
