@@ -27,6 +27,8 @@ const createTooltips = () => {
 	});
 };
 
+createTooltips();
+
 const copyToClipboard = str => {
 	// Create a <textarea> element
 	const el = document.createElement("textarea");
