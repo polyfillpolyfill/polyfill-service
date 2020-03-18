@@ -1,0 +1,9 @@
+on: [issues, pull_request]
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+    name: Sync repository labels
+    steps:
+      - uses: Financial-Times/origami-labels@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
