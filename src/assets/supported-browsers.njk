@@ -12,7 +12,7 @@ layout: layouts/base.njk
 			</tr>
 		</thead>
 		<tbody>
-			{% for item in supportedBrowsers.supportedBrowsers %}
+			{% for item in browsers.supported %}
 				<tr>
 					<td>{{item.browser}}</td>
 					<td>{{item.version}}</td>

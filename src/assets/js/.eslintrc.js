@@ -1,15 +1,16 @@
 module.exports = {
-    plugins: ["prettier"],
-	"parserOptions": {
-        "sourceType": "module"
+	env: {
+		browser: true,
+		es6: true
 	},
-	"env": {
-		"browser": true,
+	extends: ["eslint:recommended", "plugin:unicorn/recommended"],
+	globals: {
+		Atomics: "readonly",
+		SharedArrayBuffer: "readonly"
 	},
-	rules: {
-        "node/exports-style": 0,
-		"node/no-deprecated-api": 0,
-		"node/no-missing-require": 0,
-		"node/no-unsupported-features": 0,
-	}
+	parserOptions: {
+		ecmaVersion: 2018,
+		sourceType: "module"
+	},
+	rules: {}
 };

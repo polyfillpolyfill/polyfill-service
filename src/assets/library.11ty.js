@@ -100,7 +100,7 @@ async function getPolyfillNamesFrom(libraryVersion) {
 		}
 
 		// non-icu case-sensitive alphabetical sort
-		polyfills.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+		polyfills.sort((a, b) => (a.name > b.name ? 1 : (a.name < b.name ? -1 : 0)));
 	}
 
 	return {
