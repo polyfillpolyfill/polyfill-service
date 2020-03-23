@@ -105,7 +105,7 @@
     "nunjucks": "^3.2.1",
     "nyc": "^15.0.0",
     "parcel-bundler": "^1.12.4",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.1",
     "proclaim": "^3.6.0",
     "rimraf": "^3.0.2",
     "sass": "^1.26.3",
