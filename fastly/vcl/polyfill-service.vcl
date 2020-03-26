@@ -209,7 +209,7 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
-	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !resp.http.Request_Came_From_Shield && req.backend != ssl_shield_dca-dc-us && req.backend != ssl_shield_london_city_uk) {
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && !resp.http.Request_Came_From_Shield && req.backend != ssl_shield_dca_dc_us && req.backend != ssl_shield_london_city_uk) {
 		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
 		# "Vary: User-Agent" entering the Varnish cache.
 		# We need "Vary: User-Agent" in the browser cache because a browser
