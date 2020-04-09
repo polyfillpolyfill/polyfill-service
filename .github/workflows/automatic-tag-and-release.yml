@@ -17,4 +17,4 @@ jobs:
         name: Create new version/tag
         if: github.event.pull_request.merged  # Only run on merged pull-requests
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
