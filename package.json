@@ -39,7 +39,7 @@
     "npm": ">=6.9.0"
   },
   "dependencies": {
-    "@financial-times/origami-service": "^4.1.1",
+    "@financial-times/origami-service": "^4.1.2",
     "@financial-times/polyfill-useragent-normaliser": "1.7.0",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
