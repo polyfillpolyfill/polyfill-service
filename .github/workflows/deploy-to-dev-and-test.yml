@@ -1,0 +1,114 @@
+name: Deploy to dev and test
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+env:
+  terraform_version: 'latest'
+  terraform_working_dir: 'fastly/terraform/'
+  fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_DEV }}
+  domain: origami-polyfill-service-dev.in.ft.com
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --prune --unshallow
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove the staging and production terraform configuration overrides
+        run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - name: Deploy to Heroku
+        run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:master --force
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Terraform Import Fastly Service'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'import'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+          args: 'fastly_service_v1.app ${{ env.fastly_service_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+      - name: 'Terraform Import Fastly Service Dictionary Items'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'import'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+          args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/2RYpb2YAbYtpjSjwok0VWc"'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+      - name: 'Terraform Validate'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+          args: '-out=plan.tfplan'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+      - name: 'Terraform Apply'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'apply'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: true
+          args: '--auto-approve'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+      - run: sleep 60
+
+  purge-cdn:
+    needs: [deploy-dev]
+    runs-on: ubuntu-latest
+    steps:
+      - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
+      - run: sleep 60
+  
+  end-to-end-test:
+    needs: [purge-cdn]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - run: npm run test:integration
+        env:
+          HOST: "https://${{ env.domain }}"
+
