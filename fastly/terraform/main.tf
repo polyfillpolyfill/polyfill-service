@@ -2,26 +2,14 @@ provider "fastly" {
   version = "0.11.1"
 }
 
-variable "domain" {
-  default = "polyfill.io"
-}
-
-variable "name" {
-  default = "Origami Polyfill Service"
-}
-
 output "service_id" {
   value = ["${fastly_service_v1.app.id}"]
 }
 
 resource "fastly_service_v1" "app" {
-  name = "${var.name}"
+  name = "placeholder"
 
   force_destroy = false
-
-  domain {
-    name = "${var.domain}"
-  }
 
   vcl {
     name    = "main.vcl"
