@@ -14,9 +14,9 @@ jobs:
     - uses: actions/checkout@v2
     - run: git fetch --prune --unshallow
     - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: npm ci
+      with:
+        node-version: 12.x
+    - run: npm ci
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-eu.git HEAD:master --force
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-us.git HEAD:master --force
     - name: Remove the development and staging terraform configuration overrides
@@ -31,27 +31,27 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: 'Terraform Import Fastly Service'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: true
-          args: 'fastly_service_v1.app ${{ env.fastly_service_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
-      - name: 'Terraform Import Fastly Service Dictionary Items'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: true
-          args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+      uses: hashicorp/terraform-github-actions@v0.8.0
+      with:
+        tf_actions_version: ${{ env.terraform_version }}
+        tf_actions_subcommand: 'import'
+        tf_actions_working_dir: ${{ env.terraform_working_dir }}
+        tf_actions_comment: true
+        args: 'fastly_service_v1.app ${{ env.fastly_service_id }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+    - name: 'Terraform Import Fastly Service Dictionary Items'
+      uses: hashicorp/terraform-github-actions@v0.8.0
+      with:
+        tf_actions_version: ${{ env.terraform_version }}
+        tf_actions_subcommand: 'import'
+        tf_actions_working_dir: ${{ env.terraform_working_dir }}
+        tf_actions_comment: true
+        args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
     - name: 'Terraform Validate'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
