@@ -40,7 +40,7 @@ jobs:
           args: 'fastly_service_v1.app ${{ env.fastly_service_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
       - name: 'Terraform Import Fastly Service Dictionary Items'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -51,7 +51,7 @@ jobs:
           args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
     - name: 'Terraform Validate'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
@@ -71,7 +71,7 @@ jobs:
         args: '-out=plan.tfplan'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
     - name: 'Terraform Apply'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
@@ -82,9 +82,11 @@ jobs:
         args: '--auto-approve'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
     - name: "Add the http logger for Top of the POPS"
       run: "npm run toppops"
+      env:
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
 
   create-change-log:
     needs: [deploy-to-production]
