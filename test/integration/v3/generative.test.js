@@ -27,12 +27,12 @@ const sample = (amount, iterable) => mapWith(element => _.sampleSize(element, am
 // Yield the first n items from the iterable.
 function* take(n, iter) {
 	let index = 0;
-	for (const val of iter) {
+	for (const value of iter) {
 		if (index >= n) {
 			return;
 		}
 		index = index + 1;
-		yield val;
+		yield value;
 	}
 }
 // Create an iterable that yields thing n times.
@@ -46,8 +46,8 @@ function* repeat(n, thing) {
 // Takes an array and converts it to an object,
 // where the array items are property keys
 // and the property values are empty objects
-function arrayToObject(arr) {
-	return arr.reduce(function(accumulator, item) {
+function arrayToObject(array) {
+	return array.reduce(function(accumulator, item) {
 		accumulator[item] = {};
 		return accumulator;
 	}, {});

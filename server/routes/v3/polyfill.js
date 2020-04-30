@@ -24,10 +24,20 @@ const polyfillio_3_43_0 = require("polyfill-library-3.43.0");
 const polyfillio_3_44_0 = require("polyfill-library-3.44.0");
 const polyfillio_3_45_0 = require("polyfill-library-3.45.0");
 const polyfillio_3_46_0 = require("polyfill-library-3.46.0");
+const polyfillio_3_48_0 = require("polyfill-library-3.48.0");
+const polyfillio_3_49_0 = require("polyfill-library-3.49.0");
+const polyfillio_3_50_2 = require("polyfill-library-3.50.2");
+const polyfillio_3_51_0 = require("polyfill-library-3.51.0");
+const polyfillio_3_52_0 = require("polyfill-library-3.52.0");
+const polyfillio_3_52_1 = require("polyfill-library-3.52.1");
+const polyfillio_3_52_2 = require("polyfill-library-3.52.2");
+const polyfillio_3_52_3 = require("polyfill-library-3.52.3");
+const polyfillio_3_53_1 = require("polyfill-library-3.53.1");
+const polyfillio_3_89_4 = require("polyfill-library-3.89.4");
 
 const lastModified = new Date().toUTCString();
-async function respondWithBundle(response, params, bundle, next) {
-	const compressor = await createCompressor(params.compression);
+async function respondWithBundle(response, parameters, bundle, next) {
+	const compressor = await createCompressor(parameters.compression);
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
@@ -36,17 +46,17 @@ async function respondWithBundle(response, params, bundle, next) {
 		"surrogate-key": "polyfill-service",
 		"Last-Modified": lastModified
 	};
-	if (params.compression) {
-		headers["Content-Encoding"] = params.compression;
+	if (parameters.compression) {
+		headers["Content-Encoding"] = parameters.compression;
 	}
 	response.status(200);
 	response.set(headers);
 
 	try {
 		await pipeline(bundle, compressor, response);
-	} catch (e) {
-		if (e && e.code !== "ERR_STREAM_PREMATURE_CLOSE") {
-			next(e);
+	} catch (error) {
+		if (error && error.code !== "ERR_STREAM_PREMATURE_CLOSE") {
+			next(error);
 		}
 	}
 }
@@ -62,269 +72,409 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 
 module.exports = app => {
 	app.get(["/v3/polyfill.js", "/v3/polyfill.min.js"], async (request, response, next) => {
-		const params = getPolyfillParameters(request);
-		switch (params.version) {
+		const parameters = getPolyfillParameters(request);
+		switch (parameters.version) {
 			case latestVersion: {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.89.4": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_89_4.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.53.1": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_53_1.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.52.3": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_52_3.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.52.2": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_52_2.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.52.1": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_52_1.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.52.0": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_52_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.51.0": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_51_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.50.2": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_50_2.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.49.0": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_49_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
+				break;
+			}
+			case "3.48.0": {
+				if (parameters.strict) {
+					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					if (!requestedFeaturesAllExist) {
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
+						break;
+					}
+				}
+				const bundle = await polyfillio_3_48_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.46.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_46_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_46_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.45.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_45_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_45_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.44.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_44_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_44_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.43.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_43_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_43_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.42.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_42_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_42_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.41.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_41_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_41_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.40.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_40_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_40_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.39.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_39_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_39_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.38.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_38_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_38_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.37.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_37_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_37_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.36.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_36_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_36_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.35.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_35_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_35_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.34.0": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_34_0.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_34_0.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.28.1": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_28_1.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_28_1.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.27.4": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = await polyfillio_3_27_4.getPolyfillString(params);
-				await respondWithBundle(response, params, bundle, next);
+				const bundle = await polyfillio_3_27_4.getPolyfillString(parameters);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.25.3":
 			case "3.25.2": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = mergeStream(await polyfillio_3_25_3.getPolyfillString(params));
+				const bundle = mergeStream(await polyfillio_3_25_3.getPolyfillString(parameters));
 
-				if (params.callback) {
-					bundle.add(Readable.from("\ntypeof " + params.callback + "==='function' && " + params.callback + "();"));
+				if (parameters.callback) {
+					bundle.add(Readable.from("\ntypeof " + parameters.callback + "==='function' && " + parameters.callback + "();"));
 				}
 
-				await respondWithBundle(response, params, bundle, next);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			case "3.25.1": {
-				if (params.strict) {
+				if (parameters.strict) {
 					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = params.features.every(feature => features.includes(feature));
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = params.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
 				}
-				const bundle = mergeStream(await polyfillio_3_25_1.getPolyfillString(params));
+				const bundle = mergeStream(await polyfillio_3_25_1.getPolyfillString(parameters));
 
-				if (params.callback) {
-					bundle.add(Readable.from("\ntypeof " + params.callback + "==='function' && " + params.callback + "();"));
+				if (parameters.callback) {
+					bundle.add(Readable.from("\ntypeof " + parameters.callback + "==='function' && " + parameters.callback + "();"));
 				}
 
-				await respondWithBundle(response, params, bundle, next);
+				await respondWithBundle(response, parameters, bundle, next);
 				break;
 			}
 			default: {
@@ -333,7 +483,7 @@ module.exports = app => {
 					"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 					"surrogate-key": "polyfill-service"
 				});
-				response.send(`version: ${params.version} does not exist`);
+				response.send(`version: ${parameters.version} does not exist`);
 				break;
 			}
 		}

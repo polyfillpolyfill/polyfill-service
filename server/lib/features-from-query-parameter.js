@@ -1,16 +1,16 @@
 "use strict";
 
-module.exports = function featuresfromQueryParam(features, flags) {
+module.exports = function featuresfromQueryParameter(features, flags) {
 	features = features.split(",");
 	flags = flags ? flags.split(",") : [];
 
-	features = features.filter(x => x.length).map(x => x.replace(/[\*\/]/g, "")); // Eliminate XSS vuln
+	features = features.filter(x => x.length).map(x => x.replace(/[*/]/g, "")); // Eliminate XSS vuln
 
-	return features.sort().reduce((obj, feature) => {
+	return features.sort().reduce((object, feature) => {
 		const [name, ...featureSpecificFlags] = feature.split("|");
-		obj[name] = {
+		object[name] = {
 			flags: new Set(featureSpecificFlags.concat(flags))
 		};
-		return obj;
+		return object;
 	}, {});
 };

@@ -36,7 +36,3 @@ module.exports = (eleventyConfig) => {
         passthroughFileCopy: true
     };
 };
-
-function resolveNameFromPath(path) {
-    return path.basename(path);
-}

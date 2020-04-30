@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-	supportedBrowsers: Object.entries(require("@financial-times/polyfill-useragent-normaliser/data.json").baselineVersions).map(([browser, version]) => {
+	supported: Object.entries(require("@financial-times/polyfill-useragent-normaliser/data.json").baselineVersions).map(([browser, version]) => {
 		switch (browser) {
 			case "ie": {
 				browser = "Internet Explorer";

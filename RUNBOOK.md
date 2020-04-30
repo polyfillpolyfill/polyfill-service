@@ -87,56 +87,47 @@ This system is a Node.js [application](https://github.com/Financial-Times/polyfi
 		<td><b>Hours of Support</b></td>
 		<td>Engineering support is available in Business hours.</td>
 	</tr>
-
 	<tr>
 		<td><b>Hardware</b></td>
 		<td>Heroku</td>
 	</tr>
-
 	<tr>
 		<td><b>Network</b></td>
 		<td>Requires HTTP and HTTPS inbound</td>
 	</tr>
-
 	<tr>
 		<td><b>Operating System</b></td>
 		<td>Unix-like (Heroku)</td>
 	</tr>
-
 	<tr>
 		<td><b>Database</b></td>
 		<td>None (the service does not store any data)</td>
 	</tr>
-
 	<tr>
 		<td><b>Backups</b></td>
 		<td>None (the service does not store any data)</td>
 	</tr>
-
 	<tr>
 		<td><b>Technical Dependencies</b></td>
 		<td>NodeJS &gt;= 0.10.13</td>
 	</tr>
-
 	<tr>
 		<td><b>Link to Architecture Diagram</b></td>
 		<td><a href='https://docs.google.com/a/ft.com/drawings/d/1eA_sYaSRkvOqIxdkN6LRpyHeOzv8Mxr51WMfXM1sS3Q/edit?usp=sharing'>On Google Drive</a></td>
 	</tr>
-
 	<tr>
 		<td><b>Link to Business Continuity Plan</b></td>
 		<td>None</td>
 	</tr>
-
 	<tr>
 		<td><b>Agreed Maintenance Window(s)</b></td>
 		<td>None</td>
 	</tr>
-
 	<tr>
 		<td><b>Useful Sites/Other Information</b></td>
 		<td>
-			Full information on setting up and deploying the service is in the <a rel='nofollow' href='https://github.com/Financial-Times/polyfill-service'>README in the git repo</a>, which is publicly accessible on GitHub.<br/> 	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.
+			Full information on setting up and deploying the service is in the <a rel='nofollow' href='https://github.com/Financial-Times/polyfill-service'>README in the git repo</a>, which is publicly accessible on GitHub.<br/>
+ 	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.
 		</td>
 	</tr>
 </table>

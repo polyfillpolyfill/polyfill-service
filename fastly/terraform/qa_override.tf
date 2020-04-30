@@ -1,4 +1,6 @@
 resource "fastly_service_v1" "app" {
+  name = "qa.polyfill.io"
+
   domain {
     name = "qa.polyfill.io"
   }
@@ -38,7 +40,7 @@ resource "fastly_service_v1" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
-    shield                = "iad-va-us"
+    shield                = "dca-dc-us"
     override_host         = "origami-polyfill-service-qa-us.herokuapp.com"
   }
 

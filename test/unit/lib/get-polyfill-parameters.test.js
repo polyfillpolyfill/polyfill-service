@@ -8,13 +8,13 @@ const proclaim = require("proclaim");
 // (any two sets are considered the same), so convert sets to
 // arrays.  Since sets do not have order, sort the resulting
 // arrays to ensure they are comparable.
-function setsToArrays(obj) {
-	if (typeof obj !== "object") return obj;
-	if (obj.constructor === Set) return Array.from(obj).sort();
-	Object.keys(obj).forEach(k => {
-		obj[k] = setsToArrays(obj[k]);
+function setsToArrays(object) {
+	if (typeof object !== "object") return object;
+	if (object.constructor === Set) return [...object].sort();
+	Object.keys(object).forEach(k => {
+		object[k] = setsToArrays(object[k]);
 	});
-	return obj;
+	return object;
 }
 
 describe("get-polyfill-parameters", function() {
