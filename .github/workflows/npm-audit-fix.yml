@@ -1,13 +1,13 @@
 name: npm audit fix
 
-# on:
-#   schedule:
-#     - cron: 0 0 * * * # Runs at 00:00 UTC every day
-
 on:
-  push:
-    branches:
-      - 'master'
+  schedule:
+    - cron: 0 0 * * * # Runs at 00:00 UTC every day
+
+# on:
+#   push:
+#     branches:
+#       - 'master'
 
 jobs:
   run:
