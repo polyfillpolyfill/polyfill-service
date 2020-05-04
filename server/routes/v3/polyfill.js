@@ -483,7 +483,7 @@ module.exports = app => {
 					"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 					"surrogate-key": "polyfill-service"
 				});
-				response.send(`version: ${parameters.version} does not exist`);
+				response.send(`version: ${JSON.stringify(parameters.version)} does not exist`);
 				break;
 			}
 		}
