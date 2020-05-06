@@ -31,7 +31,9 @@
     "production": "run-s clean production:*",
     "production:eleventy": "eleventy",
     "production:parcel": "mkdir -p './dist/v3/json' && cp -R './.cache_eleventy/json/' './dist/v3/' && parcel build ./.cache_eleventy/**/*.html ./.cache_eleventy/*.html --out-dir ./dist/v3 --public-url /v3",
-    "postshrinkwrap": "lockspot flat --pattern '^@financial-times/o-' --file './package-lock.json' || (echo -e \"\\033[31mChecking the package-lock.json file showed some FT components were included multiple times with different versions. This can result in client builds including multiple copies of the CSS/JS for those packages, increasing build size. Please check the dependency ranges to ensure each dependency is only included once.\n\nFT components included more than once, with their count:\\033[0m\"; lockspot depcount --min 2 --pattern '^@financial-times/' --file './package-lock.json' && exit 1)"
+    "postshrinkwrap": "lockspot flat --pattern '^@financial-times/o-' --file './package-lock.json' || (echo -e \"\\033[31mChecking the package-lock.json file showed some FT components were included multiple times with different versions. This can result in client builds including multiple copies of the CSS/JS for those packages, increasing build size. Please check the dependency ranges to ensure each dependency is only included once.\n\nFT components included more than once, with their count:\\033[0m\"; lockspot depcount --min 2 --pattern '^@financial-times/' --file './package-lock.json' && exit 1)",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
@@ -76,7 +78,8 @@
     "polyfill-library-3.89.4": "npm:polyfill-library@3.89.4",
     "require-all": "^3.0.0",
     "serve-static": "^1.14.1",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "snyk": "^1.319.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
@@ -114,5 +117,6 @@
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"
   },
-  "version": "4.28.1"
+  "version": "4.28.1",
+  "snyk": true
 }
