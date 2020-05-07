@@ -120,10 +120,9 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 
 describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version", function() {
 	this.timeout(30000);
-	it("responds with a 400 status", () => {
+	it("responds with a generic message", () => {
 		return request(host)
 			.get("/v3/polyfill.js?version=hello-i-am-not-a-version")
-			.expect(400)
 			.expect("Content-Type", "text/html; charset=utf-8")
 			.then(response => {
 				assert.deepEqual(response.text, 'requested version does not exist')
