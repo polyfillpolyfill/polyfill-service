@@ -86,7 +86,8 @@ jobs:
     - name: "Add the http logger for Top of the POPS"
       run: "npm run toppops"
       env:
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY_POLYFILL_ACCOUNT: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_SERVICE_ID_PROD: ${{ secrets.FASTLY_SERVICE_ID_PROD }}
 
   create-change-log:
     needs: [deploy-to-production]
