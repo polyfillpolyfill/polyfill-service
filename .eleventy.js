@@ -15,7 +15,7 @@ module.exports = (eleventyConfig) => {
         includes: `../includes/`,
         output: "./.cache_eleventy"
     }
-    const files = glob.sync(path.join(process.cwd(), dirs.input, "**/*"), { ignore: ['**/node_modules/**'] });
+    const files = glob.sync(path.join(process.cwd(), dirs.input, "**/*"), { ignore: ['**/node_modules/**', '.github/**'] });
     const exts = files.map(file => path.extname(file).replace('.', ''));
 
     // Make all files pass through to output folder
