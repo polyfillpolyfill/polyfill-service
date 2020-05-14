@@ -14,7 +14,7 @@ COPY --chown=node:node . /home/node/app/
 RUN npm run build
 RUN npm prune --prod
 # hardlink duplicate files to save space (saves 50% for polyfill-service)
-RUN dupe-krill .
+# RUN dupe-krill .
 
 FROM node:12-alpine
 COPY --chown=node:node --from=build /home/node/app /home/node/app/
