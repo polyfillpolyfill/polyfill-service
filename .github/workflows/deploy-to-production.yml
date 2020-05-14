@@ -13,12 +13,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: git fetch --prune --unshallow
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: npm ci
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-eu.git HEAD:refs/heads/master --force
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-us.git HEAD:refs/heads/master --force
+    - name: Login to Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      run: heroku container:login
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      run: heroku container:push -a origami-polyfill-service-eu web
+      run: heroku container:push -a origami-polyfill-service-us web
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      run: heroku container:release -a origami-polyfill-service-eu web
+      run: heroku container:release -a origami-polyfill-service-us web
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
     - name: 'Terraform Init'

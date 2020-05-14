@@ -27,17 +27,17 @@ jobs:
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
       - name: Deploy to Heroku
       - name: Login to Heroku Container registry
-        env: 
+        env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
-        run: heroku container:login 
+        run: heroku container:login
       - name: Build and push
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
-        run: heroku container:push -a origami-polyfill-service-int web 
+        run: heroku container:push -a origami-polyfill-service-int web
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
-        run: heroku container:release -a origami-polyfill-service-int web 
+        run: heroku container:release -a origami-polyfill-service-int web
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -108,7 +108,7 @@ jobs:
     steps:
       - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
       - run: sleep 60
-  
+
   end-to-end-test:
     needs: [purge-cdn]
     runs-on: ubuntu-latest
