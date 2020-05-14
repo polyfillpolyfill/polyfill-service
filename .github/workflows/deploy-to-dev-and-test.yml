@@ -33,10 +33,12 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
         run: heroku container:login
-      - name: Build and push
+      - name: Build Docker image
+        run: docker build . --tag registry.heroku.com/origami-polyfill-service-int/web
+      - name: Push Docker image to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
-        run: heroku container:push -a origami-polyfill-service-int web
+        run: docker push registry.heroku.com/origami-polyfill-service-int/web
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}

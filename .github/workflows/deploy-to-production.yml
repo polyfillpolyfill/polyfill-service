@@ -17,15 +17,23 @@ jobs:
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
       run: heroku container:login
-    - name: Build and push
+    - name: Build Docker image
+      run: docker build . --tag registry.heroku.com/origami-polyfill-service-eu/web --tag registry.heroku.com/origami-polyfill-service-us/web
+    - name: Push Docker image to Heroku eu
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
-      run: heroku container:push -a origami-polyfill-service-eu web
-      run: heroku container:push -a origami-polyfill-service-us web
-    - name: Release
+      run: docker push registry.heroku.com/origami-polyfill-service-eu/web
+    - name: Push Docker image to Heroku us
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      run: docker push registry.heroku.com/origami-polyfill-service-us/web
+    - name: Release eu
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
       run: heroku container:release -a origami-polyfill-service-eu web
+    - name: Release us
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
       run: heroku container:release -a origami-polyfill-service-us web
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
