@@ -1,5 +1,9 @@
 name: Deploy to dev and test
-on: [pull_request]
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
 env:
   terraform_version: 'latest'
   terraform_working_dir: 'fastly/terraform/'
