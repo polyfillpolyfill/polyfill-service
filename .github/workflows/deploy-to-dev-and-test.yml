@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git fetch --prune --unshallow
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -29,6 +26,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Remove the staging and production terraform configuration overrides
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
