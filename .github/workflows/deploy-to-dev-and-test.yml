@@ -29,7 +29,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Remove the staging and production terraform configuration overrides
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
-      - name: Deploy to Heroku
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
