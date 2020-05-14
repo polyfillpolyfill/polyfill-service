@@ -18,7 +18,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm ci
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -31,7 +30,18 @@ jobs:
       - name: Remove the staging and production terraform configuration overrides
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
       - name: Deploy to Heroku
-        run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:master --force
+      - name: Login to Heroku Container registry
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+        run: heroku container:login 
+      - name: Build and push
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+        run: heroku container:push -a origami-polyfill-service-int web 
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_TOKEN }}
+        run: heroku container:release -a origami-polyfill-service-int web 
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
