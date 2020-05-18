@@ -132,7 +132,7 @@ module.exports = app => {
 			}
 		}
 
-		// Return a polyfil bundle
+		// Return a polyfill bundle
 		switch (parameters.version) {
 			case "3.25.3":
 			case "3.25.2": {
