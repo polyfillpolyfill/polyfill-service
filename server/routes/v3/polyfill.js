@@ -76,10 +76,10 @@ module.exports = app => {
 		switch (parameters.version) {
 			case latestVersion: {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -90,10 +90,10 @@ module.exports = app => {
 			}
 			case "3.89.4": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -104,10 +104,10 @@ module.exports = app => {
 			}
 			case "3.53.1": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -118,10 +118,10 @@ module.exports = app => {
 			}
 			case "3.52.3": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -132,10 +132,10 @@ module.exports = app => {
 			}
 			case "3.52.2": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -146,10 +146,10 @@ module.exports = app => {
 			}
 			case "3.52.1": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -160,10 +160,10 @@ module.exports = app => {
 			}
 			case "3.52.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -174,10 +174,10 @@ module.exports = app => {
 			}
 			case "3.51.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -188,10 +188,10 @@ module.exports = app => {
 			}
 			case "3.50.2": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -202,10 +202,10 @@ module.exports = app => {
 			}
 			case "3.49.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -216,10 +216,10 @@ module.exports = app => {
 			}
 			case "3.48.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -230,10 +230,10 @@ module.exports = app => {
 			}
 			case "3.46.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -244,10 +244,10 @@ module.exports = app => {
 			}
 			case "3.45.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -258,10 +258,10 @@ module.exports = app => {
 			}
 			case "3.44.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -272,10 +272,10 @@ module.exports = app => {
 			}
 			case "3.43.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -286,10 +286,10 @@ module.exports = app => {
 			}
 			case "3.42.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -300,10 +300,10 @@ module.exports = app => {
 			}
 			case "3.41.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -314,10 +314,10 @@ module.exports = app => {
 			}
 			case "3.40.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -328,10 +328,10 @@ module.exports = app => {
 			}
 			case "3.39.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -342,10 +342,10 @@ module.exports = app => {
 			}
 			case "3.38.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -356,10 +356,10 @@ module.exports = app => {
 			}
 			case "3.37.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -370,10 +370,10 @@ module.exports = app => {
 			}
 			case "3.36.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -384,10 +384,10 @@ module.exports = app => {
 			}
 			case "3.35.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -398,10 +398,10 @@ module.exports = app => {
 			}
 			case "3.34.0": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -412,10 +412,10 @@ module.exports = app => {
 			}
 			case "3.28.1": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -426,10 +426,10 @@ module.exports = app => {
 			}
 			case "3.27.4": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -441,10 +441,10 @@ module.exports = app => {
 			case "3.25.3":
 			case "3.25.2": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
@@ -460,10 +460,10 @@ module.exports = app => {
 			}
 			case "3.25.1": {
 				if (parameters.strict) {
-					const features = [].concat(await polyfillio.listAliases(), await polyfillio.listAllPolyfills());
-					const requestedFeaturesAllExist = parameters.features.every(feature => features.includes(feature));
+					const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+					const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 					if (!requestedFeaturesAllExist) {
-						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.includes(feature));
+						const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 						await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 						break;
 					}
