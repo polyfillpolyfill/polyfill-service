@@ -44,7 +44,7 @@ async function respondWithBundle(response, parameters, bundle, next) {
 		"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 		"Content-Type": "text/javascript; charset=utf-8",
 		"surrogate-key": "polyfill-service",
-		"Last-Modified": lastModified,
+		"Last-Modified": lastModified
 	};
 	if (parameters.compression) {
 		headers["Content-Encoding"] = parameters.compression;
@@ -65,7 +65,7 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 	response.status(400);
 	response.set({
 		"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
-		"surrogate-key": "polyfill-service",
+		"surrogate-key": "polyfill-service"
 	});
 	response.send(`Requested features do not all exist in polyfill-service, please remove them from the URL: ${missingFeatures.join(",")} do not exist.`);
 }
@@ -73,41 +73,41 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 // provide option for consumers to run their service on another context path
 const contextPath = process.env.CONTEXT_PATH || "";
 
-module.exports = (app) => {
+module.exports = app => {
 	app.get([`${contextPath}/v3/polyfill.js`, `${contextPath}/v3/polyfill.min.js`], async (request, response, next) => {
 		const parameters = getPolyfillParameters(request);
 
 		// Map the version parameter to a version of the polyfill library.
 		const versionToLibraryMap = new Map([
 			[latestVersion, polyfillio],
-			["3.25.1", polyfillio_3_25_1],
-			["3.25.2", polyfillio_3_25_3], // '3.25.2' maps to polyfillio_3_25_3
-			["3.25.3", polyfillio_3_25_3],
-			["3.27.4", polyfillio_3_27_4],
-			["3.28.1", polyfillio_3_28_1],
-			["3.34.0", polyfillio_3_34_0],
-			["3.35.0", polyfillio_3_35_0],
-			["3.36.0", polyfillio_3_36_0],
-			["3.37.0", polyfillio_3_37_0],
-			["3.38.0", polyfillio_3_38_0],
-			["3.39.0", polyfillio_3_39_0],
-			["3.40.0", polyfillio_3_40_0],
-			["3.41.0", polyfillio_3_41_0],
-			["3.42.0", polyfillio_3_42_0],
-			["3.43.0", polyfillio_3_43_0],
-			["3.44.0", polyfillio_3_44_0],
-			["3.45.0", polyfillio_3_45_0],
-			["3.46.0", polyfillio_3_46_0],
-			["3.48.0", polyfillio_3_48_0],
-			["3.49.0", polyfillio_3_49_0],
-			["3.50.2", polyfillio_3_50_2],
-			["3.51.0", polyfillio_3_51_0],
-			["3.52.0", polyfillio_3_52_0],
-			["3.52.1", polyfillio_3_52_1],
-			["3.52.2", polyfillio_3_52_2],
-			["3.52.3", polyfillio_3_52_3],
-			["3.53.1", polyfillio_3_53_1],
-			["3.89.4", polyfillio_3_89_4],
+			['3.25.1', polyfillio_3_25_1],
+			['3.25.2', polyfillio_3_25_3], // '3.25.2' maps to polyfillio_3_25_3
+			['3.25.3', polyfillio_3_25_3],
+			['3.27.4', polyfillio_3_27_4],
+			['3.28.1', polyfillio_3_28_1],
+			['3.34.0', polyfillio_3_34_0],
+			['3.35.0', polyfillio_3_35_0],
+			['3.36.0', polyfillio_3_36_0],
+			['3.37.0', polyfillio_3_37_0],
+			['3.38.0', polyfillio_3_38_0],
+			['3.39.0', polyfillio_3_39_0],
+			['3.40.0', polyfillio_3_40_0],
+			['3.41.0', polyfillio_3_41_0],
+			['3.42.0', polyfillio_3_42_0],
+			['3.43.0', polyfillio_3_43_0],
+			['3.44.0', polyfillio_3_44_0],
+			['3.45.0', polyfillio_3_45_0],
+			['3.46.0', polyfillio_3_46_0],
+			['3.48.0', polyfillio_3_48_0],
+			['3.49.0', polyfillio_3_49_0],
+			['3.50.2', polyfillio_3_50_2],
+			['3.51.0', polyfillio_3_51_0],
+			['3.52.0', polyfillio_3_52_0],
+			['3.52.1', polyfillio_3_52_1],
+			['3.52.2', polyfillio_3_52_2],
+			['3.52.3', polyfillio_3_52_3],
+			['3.53.1', polyfillio_3_53_1],
+			['3.89.4', polyfillio_3_89_4]
 		]);
 
 		// Get the polyfill library for the requested version.
@@ -118,7 +118,7 @@ module.exports = (app) => {
 			response.status(400);
 			response.set({
 				"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
-				"surrogate-key": "polyfill-service",
+				"surrogate-key": "polyfill-service"
 			});
 			response.send(`requested version does not exist`);
 			return;
@@ -126,10 +126,10 @@ module.exports = (app) => {
 
 		// 400 if requested polyfills are missing
 		if (polyfillLibrary && parameters.strict) {
-			const features = new Set([...(await polyfillio.listAliases()), ...(await polyfillio.listAllPolyfills())]);
-			const requestedFeaturesAllExist = parameters.features.every((feature) => features.has(feature));
+			const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
+			const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
 			if (!requestedFeaturesAllExist) {
-				const requestedFeaturesWhichDoNotExist = parameters.features.filter((feature) => !features.has(feature));
+				const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
 				await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 				return;
 			}
