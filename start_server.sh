@@ -10,4 +10,4 @@ if [ ! "$WEB_MEMORY" = "" ]; then
   fi
 fi
 
-ENV CONTEXT_PATH=$CONTEXT_PATH node $NODE_FLAGS "$@"
+node $NODE_FLAGS "$@"
