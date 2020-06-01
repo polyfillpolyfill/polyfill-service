@@ -13,7 +13,7 @@ module.exports = (eleventyConfig) => {
         input: "./src/assets/",
         data: `../data/`,
         includes: `../includes/`,
-        output: "./.cache_eleventy"
+        output: "./dist/"
     }
     const files = glob.sync(path.join(process.cwd(), dirs.input, "**/*"), { ignore: ['**/node_modules/**'] });
     const exts = files.map(file => path.extname(file).replace('.', ''));
@@ -32,7 +32,7 @@ module.exports = (eleventyConfig) => {
         markdownTemplateEngine: "njk",
         dataTemplateEngine: "njk",
 
-        // Set up eleventy to pass-through files to be compiled by Parcel
+        // Set up eleventy to pass-through files
         passthroughFileCopy: true
     };
 };

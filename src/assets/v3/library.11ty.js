@@ -12,7 +12,7 @@ class Test {
 				alias: "version"
 			},
 			permalink: data => {
-				return `json/library-${data.version}.json`;
+				return `v3/json/library-${data.version}.json`;
 			},
 			versions: [
 				"3.27.4",
