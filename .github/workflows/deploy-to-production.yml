@@ -17,8 +17,8 @@ jobs:
       with:
         node-version: 12.x
     - run: npm ci
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-eu.git HEAD:master --force
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-us.git HEAD:master --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-eu.git HEAD:refs/heads/master --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-us.git HEAD:refs/heads/master --force
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
     - name: 'Terraform Init'
@@ -86,7 +86,8 @@ jobs:
     - name: "Add the http logger for Top of the POPS"
       run: "npm run toppops"
       env:
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY_POLYFILL_ACCOUNT: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_SERVICE_ID_PROD: ${{ secrets.FASTLY_SERVICE_ID_PROD }}
 
   create-change-log:
     needs: [deploy-to-production]

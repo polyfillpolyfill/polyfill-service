@@ -118,6 +118,20 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 	});
 });
 
+describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version", function() {
+	this.timeout(30000);
+	it("responds with a generic message", () => {
+		if (!host.includes('origami-polyfill-service-dev.in.ft.com') && !host.includes('qa.polyfill.io')) {
+			return request(host)
+				.get("/v3/polyfill.js?version=hello-i-am-not-a-version")
+				.expect("Content-Type", "text/html; charset=utf-8")
+				.then(response => {
+					assert.deepEqual(response.text, 'requested version does not exist')
+				});
+		}
+	});
+});
+
 describe("encoding", function() {
 	this.timeout(30000);
 	it("responds with no compression if client does not accept compressed responses", () => {

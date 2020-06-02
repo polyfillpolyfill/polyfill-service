@@ -41,7 +41,7 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
 2. Create a new branch to make changes into. `git checkout -b [name]`
 3. In `package.json` rename the `polyfill-library` dependency to `polyfill-library-$version` and change the version to be an npm alias. E.G. `"polyfill-library": "^3.27.4"` becomes `"polyfill-library-3.27.4": "npm:polyfill-library@3.27.4"`
-4. In `server/routes/v3/polyfill.js` add a new case statement for the version of `polyfill-library` you have just added.
+4. In `server/routes/v3/polyfill.js` add a new map entry for the version of `polyfill-library` you have just added.
 5. In the terminal run `npm install polyfill-library@*`
 6. In `fastly/vcl/main.vcl:114` add the new version to the if statement for setting the version query parameter.
 7. Commit the file changes into git, push up the branch and open a pull-request

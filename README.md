@@ -13,6 +13,12 @@ Polyfill.io documentation is [on the website][website].
 
 Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
 
+## Self-Hosting
+
+If you are wanting to self-host this application you need Node.js 12 and npm or yarn installed.
+
+You can prefix the path the application uses for the polyfill API by setting the environment variable `CONTEXT_PATH`.
+
 ## License
 
 Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
