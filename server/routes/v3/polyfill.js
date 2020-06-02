@@ -70,8 +70,11 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 	response.send(`Requested features do not all exist in polyfill-service, please remove them from the URL: ${missingFeatures.join(",")} do not exist.`);
 }
 
+// provide option for consumers to run their service on another context path
+const contextPath = process.env.CONTEXT_PATH || "";
+
 module.exports = app => {
-	app.get(["/v3/polyfill.js", "/v3/polyfill.min.js"], async (request, response, next) => {
+	app.get([`${contextPath}/v3/polyfill.js`, `${contextPath}/v3/polyfill.min.js`], async (request, response, next) => {
 		const parameters = getPolyfillParameters(request);
 
 		// Map the version parameter to a version of the polyfill library.

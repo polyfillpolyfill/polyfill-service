@@ -2,7 +2,6 @@
   "restartable": "rs",
   "ignore": [
     ".cache/**",
-    ".cache_eleventy/**",
     ".circleci/**",
     ".git/**",
     ".nyc_output/**",
@@ -10,7 +9,6 @@
     "dist/**",
     "node_modules/**"
   ],
-  "verbose": true,
   "watch": [
     "./"
   ],
