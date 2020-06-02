@@ -94,7 +94,6 @@
     "@financial-times/o-table": "^8.0.3",
     "@financial-times/o-tabs": "^5.0.4",
     "@financial-times/o-tooltip": "^4.0.5",
-    "@financial-times/sass": "^1.31.0",
     "autoprefixer": "^9.7.6",
     "axios": "^0.19.2",
     "browserslist": "^4.11.0",
@@ -116,6 +115,7 @@
     "prettier": "^2.0.2",
     "proclaim": "^3.6.0",
     "rimraf": "^3.0.2",
+    "sass": "^1.26.7",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"
   },
