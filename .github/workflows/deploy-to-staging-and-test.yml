@@ -18,8 +18,8 @@ jobs:
       with:
         node-version: 12.x
     - run: npm ci
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:master --force
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-us.git HEAD:master --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:refs/heads/master --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-us.git HEAD:refs/heads/master --force
     - name: Remove the development and production terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
     - name: 'Terraform Init'
