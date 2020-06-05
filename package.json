@@ -103,7 +103,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-unicorn": "^20.0.0",
     "fast-glob": "^3.2.2",
-    "is-origami-flat": "^1.0.2",
+    "is-origami-flat": "^1.0.3",
     "lockspot": "0.0.7",
     "mocha": "^7.1.2",
     "mockery": "^2.1.0",
