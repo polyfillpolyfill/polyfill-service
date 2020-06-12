@@ -81,7 +81,7 @@
     "snyk": "^1.336.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.10.0",
+    "@11ty/eleventy": "^0.11.0",
     "@financial-times/o-buttons": "^6.0.14",
     "@financial-times/o-fonts": "^4.3.3",
     "@financial-times/o-footer-services": "^3.0.4",
