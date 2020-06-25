@@ -84,7 +84,7 @@ sub vcl_error {
 		set obj.response = "OK";
 		set obj.http.Content-Type = "text/plain; charset=utf-8";
 		synthetic {"User-agent: *
-Disallow:"};
+Disallow: /"};
 		return (deliver);
 	}
 
