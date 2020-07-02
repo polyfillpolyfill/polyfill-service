@@ -1,3 +1,4 @@
+name: Sync Origami labels
 on: [issues, pull_request]
 jobs:
   apply-labels:
