@@ -98,7 +98,7 @@
     "axios": "^0.19.2",
     "browserslist": "^4.13.0",
     "esbuild": "^0.5.22",
-    "eslint": "^6.8.0",
+    "eslint": "^7.4.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-unicorn": "^20.1.0",
