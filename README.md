@@ -19,6 +19,11 @@ If you are wanting to self-host this application you need Node.js 12 and npm or 
 
 You can prefix the path the application uses for the polyfill API by setting the environment variable `CONTEXT_PATH`.
 
+## Testing powered by 
+<a target="_blank" href="https://www.browserstack.com/"><img width="200" src="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png"></a><br>
+[[BrowserStack Open-Source Program](https://www.browserstack.com/open-source)]<br>
+
+
 ## License
 
 Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
