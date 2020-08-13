@@ -3,7 +3,7 @@ on:
   release:
     types: [created]
 env:
-  terraform_version: 'latest'
+  terraform_version: '0.11.1'
   terraform_working_dir: 'fastly/terraform/'
   fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_PROD }}
   domain: cdn.polyfill.io

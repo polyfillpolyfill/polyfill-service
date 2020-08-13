@@ -1,7 +1,7 @@
 name: Deploy to dev and test
 on: [pull_request]
 env:
-  terraform_version: 'latest'
+  terraform_version: '0.11.1'
   terraform_working_dir: 'fastly/terraform/'
   fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_DEV }}
   domain: origami-polyfill-service-dev.in.ft.com
