@@ -2,7 +2,7 @@ name: Deploy to staging and test
 on:
   push:
     branches:
-      - master
+      - $default-branch
 env:
   terraform_version: '0.12.29'
   terraform_working_dir: 'fastly/terraform/'
