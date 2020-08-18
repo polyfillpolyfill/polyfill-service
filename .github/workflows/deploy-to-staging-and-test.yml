@@ -29,6 +29,10 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - run: npm ci
+    - name: Turnstyle
+      uses: softprops/turnstyle@v1
+      with:
+        same-branch-only: false
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-eu.git HEAD:refs/heads/master --force
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-qa-us.git HEAD:refs/heads/master --force
     - name: Remove the development and production terraform configuration overrides
