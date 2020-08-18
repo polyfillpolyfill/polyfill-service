@@ -92,7 +92,7 @@
     "@financial-times/o-spacing": "^2.0.5",
     "@financial-times/o-syntax-highlight": "^3.0.8",
     "@financial-times/o-table": "^8.1.2",
-    "@financial-times/o-tabs": "^5.0.6",
+    "@financial-times/o-tabs": "^5.0.8",
     "@financial-times/o-tooltip": "^4.0.8",
     "autoprefixer": "^9.8.6",
     "axios": "^0.19.2",
