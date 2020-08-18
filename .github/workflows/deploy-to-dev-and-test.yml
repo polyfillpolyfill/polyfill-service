@@ -1,7 +1,7 @@
 name: Deploy to dev and test
-on: [pull_request]
+on: [pull_request_target]
 env:
-  terraform_version: 'latest'
+  terraform_version: '0.12.29'
   terraform_working_dir: 'fastly/terraform/'
   fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_DEV }}
   domain: origami-polyfill-service-dev.in.ft.com
@@ -14,6 +14,18 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - run: npm ci
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@v0.8.0
@@ -26,6 +38,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Remove the staging and production terraform configuration overrides
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          same-branch-only: false
       - name: Deploy to Heroku
         run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:refs/heads/master --force
       - name: 'Terraform Init'
@@ -107,8 +123,19 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - run: npm ci
       - run: npm run test:integration
         env:
           HOST: "https://${{ env.domain }}"
-

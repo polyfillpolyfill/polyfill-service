@@ -7,7 +7,7 @@ on:
 # on:
 #   push:
 #     branches:
-#       - 'master'
+#       - $default-branch
 
 jobs:
   run:
@@ -18,5 +18,5 @@ jobs:
         with:
           github_token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
           # branch: "npm-audit-fix"
-          # default_branch: "master"
+          # default_branch: $default-branch
           # commit_title: "chore(deps): npm audit fix"
