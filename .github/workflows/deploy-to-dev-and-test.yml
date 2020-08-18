@@ -38,6 +38,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Remove the staging and production terraform configuration overrides
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          same-branch-only: false
       - name: Deploy to Heroku
         run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:refs/heads/master --force
       - name: 'Terraform Init'
