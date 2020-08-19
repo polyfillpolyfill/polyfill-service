@@ -1,0 +1,38 @@
+name: automerge
+on:
+  pull_request_target:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Wait for status checks'
+        id: waitforstatuschecks
+        uses: "WyriHaximus/github-action-wait-for-status@v1.1"
+        with:
+          ignoreActions: automerge
+          checkInterval: 13
+        env:
+          GITHUB_TOKEN: "${{ secrets.ORIGAMI_GITHUB_TOKEN }}"
+      - name: automerge
+        uses: "JakeChampion/automerge-action@patch-1"
+        env:
+          GITHUB_TOKEN: "${{ secrets.ORIGAMI_GITHUB_TOKEN }}"
+          MERGE_LABELS: "dependencies"
+          MERGE_METHOD: "rebase"
+          MERGE_FORKS: "false"
