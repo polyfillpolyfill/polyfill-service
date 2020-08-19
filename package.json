@@ -96,7 +96,7 @@
     "@financial-times/o-tooltip": "^4.0.8",
     "autoprefixer": "^9.8.6",
     "axios": "^0.19.2",
-    "browserslist": "^4.13.0",
+    "browserslist": "^4.14.0",
     "esbuild": "^0.6.25",
     "eslint": "^7.7.0",
     "eslint-plugin-node": "^11.1.0",
