@@ -7,8 +7,9 @@ updates:
       interval: "daily"
     labels:
       - "dependencies"
+    rebase-strategy: "disabled"
     ignore:
-      - dependency-name: "snyk"
+      - dependency-name: "mocha"
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -16,3 +17,4 @@ updates:
       interval: "daily"
     labels:
       - "dependencies"
+    rebase-strategy: "disabled"
