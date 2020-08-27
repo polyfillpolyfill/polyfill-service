@@ -2,7 +2,7 @@
   "restartable": "rs",
   "ignore": [
     ".cache/**",
-    ".circleci/**",
+    ".github/**",
     ".git/**",
     ".nyc_output/**",
     "coverage/**",
