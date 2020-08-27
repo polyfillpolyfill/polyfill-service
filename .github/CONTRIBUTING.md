@@ -62,7 +62,6 @@ Every merge to the master branch will trigger a release to [staging]. When ready
 _Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
 
 [@polyfillio]: https://twitter.com/polyfillio
-[circle-ci]: https://circleci.com/gh/Financial-Times/polyfill-service
 [npm]: https://www.npmjs.com/
 [staging]: https://qa.polyfill.io
 [production]: https://polyfill.io
