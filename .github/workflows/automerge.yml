@@ -20,6 +20,8 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    timeout-minutes: 120
     steps:
       - name: 'Wait for status checks'
         id: waitforstatuschecks
@@ -28,9 +30,9 @@ jobs:
           ignoreActions: automerge
           checkInterval: 13
         env:
-          GITHUB_TOKEN: "${{ secrets.ORIGAMI_GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: automerge
-        uses: "JakeChampion/automerge-action@patch-1"
+        uses: "pascalgn/automerge-action@v0.10.0"
         env:
           GITHUB_TOKEN: "${{ secrets.ORIGAMI_GITHUB_TOKEN }}"
           MERGE_LABELS: "dependencies"
