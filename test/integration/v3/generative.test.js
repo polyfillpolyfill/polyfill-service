@@ -96,7 +96,7 @@ const browsers = browserslist("last 80 versions").reduce((accumulator, browser) 
 async function createFeaturesSet() {
 	const polyfills = (await polyfillio.listAllPolyfills()).filter(feature => !feature.startsWith("_"));
 	const polyfillsWithoutIntl = polyfills.filter(feature => !feature.startsWith("Intl"));
-	const aliases = Object.keys(await polyfillio.listAliases()).filter(alias => !alias.startsWith("modernizr") && !alias.startsWith("caniuse"));
+	const aliases = Object.keys(await polyfillio.listAliases()).filter(alias => !alias.startsWith("modernizr") && !alias.startsWith("caniuse") && !alias.startsWith("Intl") && alias !== 'all');
 	const intlPolyfills = polyfills.filter(feature => feature.startsWith("Intl"));
 	const polyfillsWithOnlyOneIntlLocale = polyfillsWithoutIntl.concat(_.sample(intlPolyfills));
 	const features = [].concat(polyfillsWithOnlyOneIntlLocale, aliases);
@@ -107,6 +107,8 @@ async function tests() {
 	const features = await createFeaturesSet();
 
 	describe("test combinations of polyfills/aliases", function() {
+		this.timeout(30 * 1000);
+
 		// Create 1024 random sets of 10 features
 		for (const polyfillBundleOptions of take(1024, sample(10, repeat(Infinity, features)))) {
 			const ua = _.sample(browsers);
