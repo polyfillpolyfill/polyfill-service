@@ -10,7 +10,7 @@ module.exports = async () => {
 	if (polyfills.length === 0) {
 		const aliases = await polyfillLibrary.listAliases();
 		for (const alias of Object.keys(aliases).sort()) {
-			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr")) {
+			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr") && !alias.includes("~locale")) {
 				if (aliases[alias].length > 1) {
 					if (alias === "default") {
 						polyfillAliases.push({
@@ -38,16 +38,19 @@ module.exports = async () => {
 
 		for (const polyfill of await polyfillLibrary.listAllPolyfills()) {
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
-			if (!polyfill.startsWith("_") && !polyfill.startsWith("Intl.~locale")) {
+			if (!polyfill.startsWith("_") && !polyfill.includes("~locale")) {
 				const polyfillInfo = Object.assign(
 					{
 						name: polyfill,
 						labelID: `${snakeCase(polyfill)}_label`,
-						license: "MIT"
+						license: "MIT",aliases: [],
 					},
 					await polyfillLibrary.describePolyfill(polyfill)
 				);
 				polyfillInfo.licenseLowerCase = polyfillInfo.license.toLowerCase();
+				polyfillInfo.aliases = polyfillInfo.aliases.filter(alias => {
+					return !alias.includes("~locale");
+				});
 				polyfills.push(polyfillInfo);
 			}
 		}
@@ -81,7 +84,10 @@ module.exports = async () => {
 			"3.51.0",
 			"3.52.0",
 			"3.52.1",
-			"3.52.2"
+			"3.52.2",
+			"3.52.3",
+			"3.53.1",
+			"3.89.4"
 		]
 	};
 };
