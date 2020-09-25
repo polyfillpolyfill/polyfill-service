@@ -1,5 +1,5 @@
 on:
-  pull_request_target:
+  pull_request:
     types: [closed] # Merged pull-requests count as closed pull-requests.
 
 jobs:
@@ -16,6 +16,6 @@ jobs:
         if: github.event.pull_request.merged # Only run on merged pull-requests
       - uses: Financial-Times/origami-version@v1
         name: Create new version/tag
-        if: github.event.pull_request.merged  # Only run on merged pull-requests
+        if: github.event.pull_request.merged # Only run on merged pull-requests
         with:
           github-token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
