@@ -2,10 +2,10 @@ $o-brand: "internal";
 $polyfill-logo: "../img/logo.svg";
 $system-code: "origami-polyfill-service";
 
-@import "o-normalise/main.scss";
+@import "@financial-times/o-normalise";
 @include oNormalise();
 
-@import "o-footer-services/main.scss";
+@import "@financial-times/o-footer-services";
 @include oFooterServices(
 	$opts: (
 		"icons": (
@@ -14,10 +14,10 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
-@import "o-forms/main.scss";
+@import "@financial-times/o-forms";
 @include oForms();
 
-@import "o-syntax-highlight/main.scss";
+@import "@financial-times/o-syntax-highlight";
 @include oSyntaxHighlight(
 	$opts: (
 		"languages": (
@@ -26,7 +26,7 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
-@import "o-tabs/main.scss";
+@import "@financial-times/o-tabs";
 @include oTabs(
 	$opts: (
 		"button-tabs": (
@@ -35,10 +35,10 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
-@import "o-tooltip/main.scss";
+@import "@financial-times/o-tooltip";
 @include oTooltip();
 
-@import "o-header-services/main";
+@import "@financial-times/o-header-services";
 @include oHeaderServices(
 	$opts: (
 		"types": (
@@ -51,10 +51,10 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
-@import "o-layout/main";
+@import "@financial-times/o-layout";
 @include oLayout();
 
-@import "o-table/main";
+@import "@financial-times/o-table";
 @include oTable(
 	$opts: (
 		"lines",
@@ -62,7 +62,7 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
-@import "o-buttons/main";
+@import "@financial-times/o-buttons";
 
 @include oButtons(
 	$opts: (

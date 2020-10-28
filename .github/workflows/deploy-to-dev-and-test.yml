@@ -14,6 +14,8 @@ jobs:
       - uses: actions/setup-node@v2.1.2
         with:
           node-version: 12.x
+          registry-url: 'https://origami-npm-registry-prototype.herokuapp.com'
+      - run: npm install --global npm@7
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -114,7 +116,7 @@ jobs:
     steps:
       - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
       - run: sleep 60
-  
+
   end-to-end-test:
     needs: [purge-cdn]
     runs-on: ubuntu-latest
