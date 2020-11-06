@@ -118,7 +118,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.29.0",
     "sinon": "^9.2.1",
-    "supertest": "^5.0.0"
+    "supertest": "^6.0.1"
   },
   "version": "4.28.1",
   "snyk": true
