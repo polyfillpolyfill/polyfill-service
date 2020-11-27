@@ -35,6 +35,13 @@ const polyfillio_3_52_3 = require("polyfill-library-3.52.3");
 const polyfillio_3_53_1 = require("polyfill-library-3.53.1");
 const polyfillio_3_89_4 = require("polyfill-library-3.89.4");
 const polyfillio_3_96_0 = require("polyfill-library-3.96.0");
+const murmurhash = require("murmurhash");
+const NodeCache = require("node-cache");
+
+// Bundle cache is enabled when the `BUNDLE_CACHE_ENABLE` environment variable is set to `true`
+const isActivatedBundleCache = process.env.BUNDLE_CACHE_ENABLE === 'true';
+const bundleCacheTTL = process.env.BUNDLE_CACHE_TTL || 60 * 10
+const bundleCache = new NodeCache({stdTTL: bundleCacheTTL});
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, parameters, bundle, next) {
@@ -54,8 +61,42 @@ async function respondWithBundle(response, parameters, bundle, next) {
 	response.set(headers);
 
 	try {
+		const cacheKey = response.locals.bundleCacheKey;
+		// When the cache feature is enabled, it sends a response while also storing data in cache storage.
+		if(isActivatedBundleCache && cacheKey) {
+			const bufs = [];
+			compressor
+				.on('data', (d) => {
+					bufs.push(Buffer.from(d));
+				})
+				.on('end', () => {
+					bundleCache.set(
+						cacheKey,
+						{
+							headers,
+							data: [...bufs],
+						}
+					)
+				});
+		}
 		await pipeline(bundle, compressor, response);
 	} catch (error) {
+		if (error && error.code !== "ERR_STREAM_PREMATURE_CLOSE") {
+			next(error);
+		}
+	}
+}
+
+// Instantly transfer data stored in cache storage.
+async function respondWithCachedBundle(response, cacheKey, next) {
+	try {
+		const {headers, data} = bundleCache.get(cacheKey);
+		response.status(200);
+		response.set(headers);
+		// The TTL value is reset so that the hit cache information can last longer.
+		bundleCache.ttl(cacheKey, bundleCacheTTL);
+		await pipeline(Readable.from(data), response);
+	} catch(error) {
 		if (error && error.code !== "ERR_STREAM_PREMATURE_CLOSE") {
 			next(error);
 		}
@@ -74,8 +115,30 @@ async function respondWithMissingFeatures(response, missingFeatures) {
 // provide option for consumers to run their service on another context path
 const contextPath = process.env.CONTEXT_PATH || "";
 
+// Create cache key using Url(including QueryString) and UserAgent information.
+const createBundleCacheKey = (request) => {
+	let key;
+	if(request) {
+		key = murmurhash.v3(
+			request.url + request.headers['user-agent']);
+	}
+	return String(key);
+}
+
 module.exports = app => {
 	app.get([`${contextPath}/v3/polyfill.js`, `${contextPath}/v3/polyfill.min.js`], async (request, response, next) => {
+		// When the cache is activated, a cache key is generated using the request information,
+		// and the cache key is shared within this request.
+		if(isActivatedBundleCache){
+			const cacheKey = createBundleCacheKey(request);
+			// This key information is used in the function where the cache response is implemented.
+			response.locals.bundleCacheKey = cacheKey;
+			if(cacheKey && bundleCache.has(cacheKey)) {
+				await respondWithCachedBundle(response, cacheKey);
+				return;
+			}
+		}
+
 		const parameters = getPolyfillParameters(request);
 
 		// Map the version parameter to a version of the polyfill library.
