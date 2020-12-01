@@ -96,11 +96,7 @@ const createPolyfillBundleURL = options => {
 	const minified = options.minified ? true : false;
 	const extension = minified ? ".min.js" : ".js";
 
-	if (Object.keys(parameters).length > 0) {
-		return `https://polyfill.io/v3/polyfill${extension}?${new URLSearchParams(parameters).toString()}`;
-	} else {
-		return `https://polyfill.io/v3/polyfill${extension}`;
-	}
+	return Object.keys(parameters).length > 0 ? `https://polyfill.io/v3/polyfill${extension}?${new URLSearchParams(parameters).toString()}` : `https://polyfill.io/v3/polyfill${extension}`;
 };
 
 const createPolyfillBundleHTML = options => {

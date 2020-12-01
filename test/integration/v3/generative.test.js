@@ -14,9 +14,9 @@ const browserslist = require("browserslist");
 // The same as Array.prototype.map but for generators/iterators
 // Applies the given function to each item in the iterable and yields the result.
 // E.G. Array.from(mapWith(x=>x*2,[1,2,3])) -> [ 2, 4, 6 ]
-function* mapWith(fn, iterable) {
+function* mapWith(function_, iterable) {
 	for (const element of iterable) {
-		yield fn(element);
+		yield function_(element);
 	}
 }
 
