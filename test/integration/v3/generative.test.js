@@ -47,10 +47,11 @@ function* repeat(n, thing) {
 // where the array items are property keys
 // and the property values are empty objects
 function arrayToObject(array) {
-	return array.reduce(function(accumulator, item) {
-		accumulator[item] = {};
-		return accumulator;
-	}, {});
+	const object = {};
+	for (const value of array) {
+		object[value] = {};
+	}
+	return object;
 }
 
 function createTest(polyfillBundleOptions, ua) {
@@ -75,23 +76,26 @@ function createTest(polyfillBundleOptions, ua) {
 }
 
 // get browser names and versions which polyfill-service supports.
-// browserslist does not have edge mobile or firefox mobile so we copy the versions from their desktop counterparts.
-// polyfill-service named samsung browser "samsung_mob" and browserslist named it "samsung".
-const browsers = browserslist("last 80 versions").reduce((accumulator, browser) => {
+const browsers = []
+
+for (const browser of browserslist("last 80 versions")) {
 	if (browser.includes("-")) {
-		return accumulator;
+		continue;
 	}
-	browser = browser.replace(" ", "/");
-	if (browser.startsWith("edge")) {
-		return accumulator.concat([browser, browser.replace("edge", "edge_mob")]);
-	} else if (browser.startsWith("firefox")) {
-		return accumulator.concat([browser, browser.replace("firefox", "firefox_mob")]);
-	} else if (browser.startsWith("samsung")) {
-		return accumulator.concat(browser.replace("samsung", "samsung_mob"));
+	const browserName = browser.replace(" ", "/");
+	// browserslist does not have edge mobile or firefox mobile so we copy the versions from their desktop counterparts.
+	if (browserName.startsWith("edge")) {
+		browsers.push(browserName, browser.replace("edge", "edge_mob"));
+	} else if (browserName.startsWith("firefox")) {
+		browsers.push(browserName, browser.replace("firefox", "firefox_mob"));
+	} else if (browserName.startsWith("samsung")) {
+		// polyfill-service named samsung browser "samsung_mob" and browserslist named it "samsung".
+		browsers.push(browserName.replace("samsung", "samsung_mob"));
 	} else {
-		return accumulator.concat(browser);
+		browsers.push(browserName);
 	}
-}, []);
+}
+
 
 async function createFeaturesSet() {
 	const polyfills = (await polyfillio.listAllPolyfills()).filter(feature => !feature.startsWith("_"));
