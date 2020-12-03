@@ -5,7 +5,7 @@ module.exports = function featuresfromQueryParameter(featuresParameter, flagsPar
 	const globalFlags = flagsParameter ? flagsParameter.split(",") : [];
 	const featuresWithFlags = {};
 
-	for (const feature of features) {
+	for (const feature of features.sort()) {
 		// Eliminate XSS vuln
 		const safeFeature = feature.replace(/[*/]/g, "");
 		const [name, ...featureSpecificFlags] = safeFeature.split("|");
