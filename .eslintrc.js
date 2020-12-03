@@ -6,7 +6,6 @@ module.exports = {
 	},
 	extends: ["eslint:recommended", "plugin:unicorn/recommended"],
 	rules: {
-		"unicorn/no-reduce": 0,
 		"unicorn/no-useless-undefined": 0,
 	},
 	globals: {
