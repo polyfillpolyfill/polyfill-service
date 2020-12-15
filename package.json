@@ -101,7 +101,7 @@
     "esbuild": "^0.8.21",
     "eslint": "^7.12.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-unicorn": "^23.0.0",
     "fast-glob": "^3.2.4",
     "is-origami-flat": "^1.0.3",
