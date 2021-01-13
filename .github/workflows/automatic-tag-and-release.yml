@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* # Get all tags from the origin
         if: github.event.pull_request.merged # Only run on merged pull-requests
-      - uses: Financial-Times/origami-version@v1.1.3
+      - uses: Financial-Times/origami-version@v1.2.0
         name: Create new version/tag
         if: github.event.pull_request.merged # Only run on merged pull-requests
         with:
