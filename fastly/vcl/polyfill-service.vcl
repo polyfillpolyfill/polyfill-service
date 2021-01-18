@@ -182,11 +182,40 @@ sub vcl_fetch {
 		set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
 		set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
 	}
+	
+	# We end up here if
+	# - The origin is HEALTHY; and
+	# - It returned a valid HTTP response
+	#
+	# We may still not want to *use* that response, if it's an HTTP error,
+	# so that's the case we need to catch here.
+	if (beresp.status >= 500 && beresp.status < 600) {
+		# There's a stale version available! Serve it.
+		if (stale.exists) {
+			return(deliver_stale);
+		}
+		# Cache the error for 1s to allow it to be used for any collapsed requests
+		set beresp.cacheable = true;
+		set beresp.ttl = 1s;
+		return(deliver);
+	}
+	# If the response is not an error, but it is stale content that's being
+	# served from a cache upstream, cache it for a very brief period to
+	# clear the request queue.
+	if (beresp.status == 200 && beresp.http.x-resp-is-stale) {
+		set beresp.ttl = 1s;
+		set beresp.stale_while_revalidate = 0s;
+		set beresp.stale_if_error = 0s;
+		return (deliver);
+	}
 }
 
 sub vcl_deliver {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_deliver;
+	}
+	if (fastly_info.state ~ "STALE") {
+		set resp.http.x-resp-is-stale = "true";
 	}
 
 	set req.http.Fastly-Force-Shield = "yes";
@@ -237,6 +266,12 @@ sub vcl_deliver {
 }
 
 sub vcl_error {
+	if (obj.status >= 500 && obj.status < 600) {
+		if (stale.exists) {
+			return(deliver_stale);
+		}
+		return(deliver);
+	}
 	if (obj.status == 911) {
 		set obj.status = 405;
 		set obj.response = "METHOD NOT ALLOWED";
