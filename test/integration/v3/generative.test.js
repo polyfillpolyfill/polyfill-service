@@ -114,7 +114,7 @@ async function tests() {
 		this.timeout(30 * 1000);
 
 		// Create 1024 random sets of 10 features
-		for (const polyfillBundleOptions of take(1024, sample(10, repeat(Infinity, features)))) {
+		for (const polyfillBundleOptions of take(1024, sample(10, repeat(Number.POSITIVE_INFINITY, features)))) {
 			const ua = _.sample(browsers);
 			createTest(polyfillBundleOptions.sort(), ua);
 		}
