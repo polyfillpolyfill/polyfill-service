@@ -197,8 +197,8 @@ sub vcl_deliver {
 		set resp.http.Access-Control-Allow-Methods = "GET,HEAD,OPTIONS";
 	}
 
-	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && fastly.ff.visits_this_service == 0 && req.restarts == 0 && req.backend != ssl_shield_dca_dc_us && req.backend != ssl_shield_london_city_uk) {
-		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the 
+	if (req.url ~ "^/v3/polyfill(\.min)?\.js" && fastly.ff.visits_this_service == 0) {
+		# Need to add "Vary: User-Agent" in after vcl_fetch to avoid the
 		# "Vary: User-Agent" entering the Varnish cache.
 		# We need "Vary: User-Agent" in the browser cache because a browser
 		# may update itself to a version which needs different polyfills
