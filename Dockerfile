@@ -63,7 +63,7 @@ RUN rm -rf .git
 # hardlink duplicate files to save space (saves 50% for polyfill-service)
 RUN dupe-krill .
 
-FROM node:12-alpine
+FROM node:12-alpine AS runtime
 COPY --chown=node:node --from=BUILD_IMAGE /home/node/app /home/node/app/
 USER node
 EXPOSE 8080
