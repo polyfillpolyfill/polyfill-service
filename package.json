@@ -101,7 +101,7 @@
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
     "browserslist": "^4.16.1",
-    "esbuild": "^0.8.30",
+    "esbuild": "^0.8.36",
     "eslint": "^7.18.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.0",
