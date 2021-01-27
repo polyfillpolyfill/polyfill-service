@@ -6,7 +6,71 @@ env:
   fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_DEV }}
   domain: origami-polyfill-service-dev.in.ft.com
 jobs:
-  deploy-dev-and-purge-cdn:
+  deploy-to-heroku-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: all
+      - name: Available platforms
+        run: echo ${{ steps.qemu.outputs.platforms }}
+      - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_AUTH_TOKEN}}
+          heroku_app_name: "origami-polyfill-service-int"
+          heroku_email: "jake.champion@ft.com"
+          justlogin: true
+      - name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=ghcr.io/financial-times/polyfill-service
+          VERSION=edge
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          TAGS="$TAGS,registry.heroku.com/origami-polyfill-service-int/web"
+          echo ::set-output name=tags::${TAGS}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      - name: Login to heroku container registry
+        uses: docker/login-action@v1
+        with:
+          registry: registry.heroku.com
+          username: _
+          password: ${{ secrets.HEROKU_AUTH_TOKEN }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: .
+          file: ./Dockerfile
+          target: runtime
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+      - run: heroku container:release web --app "origami-polyfill-service-int"
+
+  deploy-to-fastly-dev:
+    needs: [deploy-to-heroku-dev]
     runs-on: ubuntu-latest
     steps:
       - name: env
@@ -59,9 +123,6 @@ jobs:
         uses: softprops/turnstyle@v1
         with:
           same-branch-only: false
-      - name: Deploy to Heroku
-        if: steps.witness.outputs.cache-hit != 'true'
-        run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:refs/heads/master --force
       - name: 'Terraform Init'
         if: steps.witness.outputs.cache-hit != 'true'
         uses: hashicorp/terraform-github-actions@v0.8.0
@@ -136,7 +197,7 @@ jobs:
         if: steps.witness.outputs.cache-hit != 'true'
 
   end-to-end-test:
-    needs: [deploy-dev-and-purge-cdn]
+    needs: [deploy-to-fastly-dev]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
