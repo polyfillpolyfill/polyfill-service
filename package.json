@@ -100,7 +100,7 @@
     "@financial-times/o-tooltip": "^4.0.9",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
-    "browserslist": "^4.16.1",
+    "browserslist": "^4.16.3",
     "esbuild": "^0.8.39",
     "eslint": "^7.18.0",
     "eslint-plugin-node": "^11.1.0",
