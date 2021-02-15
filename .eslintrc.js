@@ -7,6 +7,8 @@ module.exports = {
 	extends: ["eslint:recommended", "plugin:unicorn/recommended"],
 	rules: {
 		"unicorn/no-useless-undefined": 0,
+		"unicorn/prefer-spread": 0,
+		"unicorn/no-array-for-each": 0,
 	},
 	globals: {
 		Atomics: "readonly",

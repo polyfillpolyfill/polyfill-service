@@ -105,7 +105,7 @@
     "eslint": "^7.19.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-unicorn": "^26.0.1",
+    "eslint-plugin-unicorn": "^28.0.0",
     "fast-glob": "^3.2.5",
     "is-origami-flat": "^1.0.3",
     "lockspot": "0.1.1",
