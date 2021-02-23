@@ -20,6 +20,6 @@ jobs:
     - id: enable-automerge
       name: Enable Github Automerge
       if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
-      uses: ./
+      uses: alexwilson/enable-github-automerge-action@1.0.0
       with:
         github-token: "${{ secrets.ORIGAMI_FOX_ACCESS_TOKEN }}"
