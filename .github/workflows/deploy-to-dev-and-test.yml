@@ -22,7 +22,7 @@ jobs:
         if: steps.witness.outputs.cache-hit != 'true'
       - run: git fetch --prune --unshallow
         if: steps.witness.outputs.cache-hit != 'true'
-      - uses: actions/setup-node@v2.1.4
+      - uses: actions/setup-node@v2.1.5
         if: steps.witness.outputs.cache-hit != 'true'
         with:
           node-version: 12.x
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.4
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: 12.x
       - name: Cache node modules
