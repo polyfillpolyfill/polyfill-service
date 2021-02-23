@@ -2,7 +2,7 @@ version: 2
 updates:
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
-    open-pull-requests-limit: 1
+    open-pull-requests-limit: 10
     directory: "/"
     schedule:
       interval: "daily"
@@ -10,8 +10,6 @@ updates:
       - dependency-type: "development"
     labels:
       - "dependencies"
-    ignore:
-      - dependency-name: "snyk"
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
