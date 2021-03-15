@@ -1,25 +1,23 @@
 name: Auto Approve Dependabot PRs
 
-on: pull_request
+on:
+  pull_request_target:
+    types: [labeled]
 
 jobs:
   auto-update-dependabot:
     name: Auto-Approve and enable Auto-Merge for all Dependabot PRs
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies')
     steps:
-    - id: auto-approve-dependabot
-      uses: hmarr/auto-approve-action@v2.0.0
-      if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+
+    # Enable auto-merge *before* issuing an approval.
+    - name: Enable Github Automerge
+      uses: alexwilson/enable-github-automerge-action@main
       with:
         github-token: "${{ secrets.ORIGAMI_FOX_ACCESS_TOKEN }}"
-    - name: Checkout
-      uses: actions/checkout@master
-      if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
-      with:
-        fetch-depth: 1
-    - id: enable-automerge
-      name: Enable Github Automerge
-      if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
-      uses: alexwilson/enable-github-automerge-action@1.0.0
+
+    # We "trust" dependabot updates (this still requires all other checks to pass!)
+    - uses: hmarr/auto-approve-action@bca9db08da72b576ae3273e776e7ccf3f0a36e12
       with:
         github-token: "${{ secrets.ORIGAMI_FOX_ACCESS_TOKEN }}"
