@@ -2,7 +2,6 @@ name: Sync Origami labels
 on:
   - issues
   - pull_request_target
-  - pull_request
 jobs:
   sync-labels:
     runs-on: ubuntu-latest
