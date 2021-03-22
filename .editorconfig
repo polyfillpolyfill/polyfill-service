@@ -11,6 +11,20 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.yaml,*.yml]
+[*.yaml]
+indent_style = space
+indent_size = 2
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[*.tf]
+indent_style = space
+indent_size = 2
+[package.json]
+indent_style = space
+indent_size = 2
+[package-lock.json]
 indent_style = space
 indent_size = 2
