@@ -18,7 +18,7 @@
   },
   "scripts": {
     "toppops": "bash .github/workflows/toppops.sh",
-    "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
+    "fmt": "terraform fmt fastly/terraform/ && eslint . --fix && eclint fix .",
     "lint": "eslint .",
     "start": "./start_server.sh server/index.js",
     "test": "run-s test:*",
@@ -99,6 +99,7 @@
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
     "browserslist": "^4.16.3",
+    "eclint": "^2.8.1",
     "esbuild": "^0.11.0",
     "eslint": "^7.23.0",
     "eslint-plugin-node": "^11.1.0",
