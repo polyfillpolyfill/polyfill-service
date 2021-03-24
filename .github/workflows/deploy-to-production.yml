@@ -3,7 +3,7 @@ on:
   release:
     types: [created]
 env:
-  terraform_version: '0.12.29'
+  terraform_version: '0.14.8'
   terraform_working_dir: 'fastly/terraform/'
   fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_PROD }}
   domain: cdn.polyfill.io
@@ -37,68 +37,38 @@ jobs:
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-us.git HEAD:refs/heads/master --force
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'init'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Terraform Init
+      id: init
+      run: terraform init
+      working-directory: fastly/terraform/
     - name: 'Terraform Import Fastly Service'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'import'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-        args: 'fastly_service_v1.app ${{ env.fastly_service_id }}'
+      if: steps.witness.outputs.cache-hit != 'true'
+      run: terraform import fastly_service_v1.app ${{ env.fastly_service_id }}
+      working-directory: fastly/terraform/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
     - name: 'Terraform Import Fastly Service Dictionary Items'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'import'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-        args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
+      if: steps.witness.outputs.cache-hit != 'true'
+      run: terraform import fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"
+      working-directory: fastly/terraform/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
     - name: 'Terraform Validate'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'validate'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: steps.witness.outputs.cache-hit != 'true'
+      run: terraform validate
+      working-directory: fastly/terraform/
     - name: 'Terraform Plan'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'plan'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-        args: '-out=plan.tfplan'
+      if: steps.witness.outputs.cache-hit != 'true'
+      run: terraform plan
+      working-directory: fastly/terraform/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
     - name: 'Terraform Apply'
-      uses: hashicorp/terraform-github-actions@v0.8.0
-      with:
-        tf_actions_version: ${{ env.terraform_version }}
-        tf_actions_subcommand: 'apply'
-        tf_actions_working_dir: ${{ env.terraform_working_dir }}
-        tf_actions_comment: true
-        args: '--auto-approve'
+      if: steps.witness.outputs.cache-hit != 'true'
+      run: terraform apply --auto-approve
+      working-directory: fastly/terraform/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
     - name: "Add the http logger for Top of the POPS"
       run: "npm run toppops"
       env:

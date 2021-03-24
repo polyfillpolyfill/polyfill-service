@@ -1,65 +1,24 @@
-provider "fastly" {
-  version = "0.11.1"
-}
-
-output "service_id" {
-  value = ["${fastly_service_v1.app.id}"]
+locals {
+  vcl = fileset("${path.module}/../vcl", "*.vcl")
 }
 
 resource "fastly_service_v1" "app" {
-  name = "placeholder"
+  name = "placeholder" // This gets replaced by the name defined in dev_override.tf/qa_override.tf/production_override.tf
 
   force_destroy = false
-
-  vcl {
-    name    = "main.vcl"
-    content = file("${path.module}/../vcl/main.vcl")
-    main    = true
-  }
-
-  vcl {
-    name    = "polyfill-service.vcl"
-    content = file("${path.module}/../vcl/polyfill-service.vcl")
-  }
-
-  vcl {
-    name    = "normalise-user-agent-3-25-1.vcl"
-    content = file("${path.module}/../vcl/normalise-user-agent-3-25-1.vcl")
-  }
 
   vcl {
     name    = "normalise-user-agent.vcl"
     content = file("${path.module}/../../node_modules/@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent.vcl")
   }
 
-  vcl {
-    name    = "fastly-boilerplate-begin.vcl"
-    content = file("${path.module}/../vcl/fastly-boilerplate-begin.vcl")
-  }
-
-  vcl {
-    name    = "fastly-boilerplate-end.vcl"
-    content = file("${path.module}/../vcl/fastly-boilerplate-end.vcl")
-  }
-
-  vcl {
-    name    = "breadcrumbs.vcl"
-    content = file("${path.module}/../vcl/breadcrumbs.vcl")
-  }
-
-  vcl {
-    name    = "redirects.vcl"
-    content = file("${path.module}/../vcl/redirects.vcl")
-  }
-
-  vcl {
-    name    = "synthetic-responses.vcl"
-    content = file("${path.module}/../vcl/synthetic-responses.vcl")
-  }
-
-  vcl {
-    name    = "top_pops.vcl"
-    content = file("${path.module}/../vcl/top_pops.vcl")
+  dynamic "vcl" {
+    for_each = local.vcl
+    content {
+      name    = vcl.value
+      main    = vcl.value == "main.vcl" ? true : false
+      content = file("${path.module}/../vcl/${vcl.value}")
+    }
   }
 
   dictionary {
