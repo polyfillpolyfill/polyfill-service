@@ -1,16 +1,16 @@
 {
-  "restartable": "rs",
-  "ignore": [
-    ".cache/**",
-    ".github/**",
-    ".git/**",
-    ".nyc_output/**",
-    "coverage/**",
-    "dist/**",
-    "node_modules/**"
-  ],
-  "watch": [
-    "./"
-  ],
-  "ext": "js,json,scss,css,njk,png,ico,svg,lock,md"
+	"restartable": "rs",
+	"ignore": [
+		".cache/**",
+		".github/**",
+		".git/**",
+		".nyc_output/**",
+		"coverage/**",
+		"dist/**",
+		"node_modules/**"
+	],
+	"watch": [
+		"./"
+	],
+	"ext": "js,json,scss,css,njk,png,ico,svg,lock,md"
 }

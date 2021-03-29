@@ -1,25 +1,25 @@
 {
-  "name": "polyfill-service",
-  "scripts": {
-  },
-  "env": {
-    "WEB_CONCURRENCY": {
-      "required": true
-    },
-    "FASTLY_API_KEY": {
-      "required": true
-    },
-    "FASTLY_SERVICE_ID": {
-      "required": true
-    },
-    "NODE_ENV": "production"
-  },
-  "formation": {
-  },
-  "addons": [
+	"name": "polyfill-service",
+	"scripts": {
+	},
+	"env": {
+		"WEB_CONCURRENCY": {
+			"required": true
+		},
+		"FASTLY_API_KEY": {
+			"required": true
+		},
+		"FASTLY_SERVICE_ID": {
+			"required": true
+		},
+		"NODE_ENV": "production"
+	},
+	"formation": {
+	},
+	"addons": [
 
-  ],
-  "buildpacks": [
+	],
+	"buildpacks": [
 
-  ]
+	]
 }
