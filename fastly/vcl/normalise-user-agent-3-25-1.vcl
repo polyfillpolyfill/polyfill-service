@@ -1,14 +1,14 @@
 sub useragent_parser_for_polyfill_service_v2 {
-  declare local var.Family STRING;
-  set var.Family = "Other";
-  declare local var.Major STRING;
-  set var.Major = "";
-  declare local var.Minor STRING;
-  set var.Minor = "";
-  declare local var.Patch STRING;
-  set var.Patch = "";
-  if (!req.http.User-Agent) {
-  } else if (req.http.User-Agent ~ {"(iPod|iPod touch|iPhone|iPad);.*CPU.*OS[ +](\d+)_(\d+)(?:_(\d+)|).* like Gecko\) (?!Version\/[\d.]+)[A-Za-z]+\/[\d.]+"}) {
+	declare local var.Family STRING;
+	set var.Family = "Other";
+	declare local var.Major STRING;
+	set var.Major = "";
+	declare local var.Minor STRING;
+	set var.Minor = "";
+	declare local var.Patch STRING;
+	set var.Patch = "";
+	if (!req.http.User-Agent) {
+	} else if (req.http.User-Agent ~ {"(iPod|iPod touch|iPhone|iPad);.*CPU.*OS[ +](\d+)_(\d+)(?:_(\d+)|).* like Gecko\) (?!Version\/[\d.]+)[A-Za-z]+\/[\d.]+"}) {
 		set var.Family = "Mobile Safari UI/WKWebView";
 		set var.Major = re.group.2;
 		set var.Minor = re.group.3;
@@ -1250,10 +1250,10 @@ sub useragent_parser_for_polyfill_service_v2 {
 		set var.Minor = re.group.3;
 		set var.Patch = re.group.4;
 	}
-  set req.http.useragent_parser_family=var.Family;
-  set req.http.useragent_parser_major=var.Major;
-  set req.http.useragent_parser_minor=var.Minor;
-  set req.http.useragent_parser_patch=var.Patch;
+	set req.http.useragent_parser_family=var.Family;
+	set req.http.useragent_parser_major=var.Major;
+	set req.http.useragent_parser_minor=var.Minor;
+	set req.http.useragent_parser_patch=var.Patch;
 }
 
 sub normalise_user_agent_3_25_1 {
@@ -1590,12 +1590,12 @@ sub normalise_user_agent_3_25_1 {
 			# samsung_mob: ">=4"
 			(req.http.normalized_user_agent_family == "samsung_mob" && std.atoi(req.http.normalized_user_agent_major_version) >= 4)
 		) {
-			set req.http.Normalized-User-Agent = req.http.normalized_user_agent_family "/"  req.http.normalized_user_agent_major_version "." req.http.normalized_user_agent_minor_version "." req.http.normalized_user_agent_patch_version;
+			set req.http.Normalized-User-Agent = req.http.normalized_user_agent_family "/"	req.http.normalized_user_agent_major_version "." req.http.normalized_user_agent_minor_version "." req.http.normalized_user_agent_patch_version;
 		} else {
 			set req.http.normalized_user_agent_family = "other";
 			set req.http.normalized_user_agent_major_version = "0";
 			set req.http.normalized_user_agent_minor_version = "0";
-			set req.http.Normalized-User-Agent = req.http.normalized_user_agent_family "/"  req.http.normalized_user_agent_major_version "." req.http.normalized_user_agent_minor_version "." req.http.normalized_user_agent_patch_version;
+			set req.http.Normalized-User-Agent = req.http.normalized_user_agent_family "/"	req.http.normalized_user_agent_major_version "." req.http.normalized_user_agent_minor_version "." req.http.normalized_user_agent_patch_version;
 		}
 	} else {
 		set req.http.Normalized-User-Agent = "other/0.0.0";

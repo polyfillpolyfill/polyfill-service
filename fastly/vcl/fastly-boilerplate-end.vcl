@@ -1,38 +1,38 @@
 # Finish up the VCL.
 sub vcl_recv {
-  if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
-    return (pass);
-  }
+	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+		return (pass);
+	}
 
-  return (lookup);
+	return (lookup);
 }
 
 sub vcl_fetch {
-  if (beresp.http.Set-Cookie) {
-    set req.http.Fastly-Cachetype = "SETCOOKIE";
-    return (pass);
-  }
+	if (beresp.http.Set-Cookie) {
+		set req.http.Fastly-Cachetype = "SETCOOKIE";
+		return (pass);
+	}
 
-  if (beresp.http.Cache-Control ~ "private") {
-    set req.http.Fastly-Cachetype = "PRIVATE";
-    return (pass);
-  }
+	if (beresp.http.Cache-Control ~ "private") {
+		set req.http.Fastly-Cachetype = "PRIVATE";
+		return (pass);
+	}
 
-  return (deliver);
+	return (deliver);
 }
 
 sub vcl_hit {
-  if (!obj.cacheable) {
-    return (pass);
-  }
+	if (!obj.cacheable) {
+		return (pass);
+	}
 
-  return (deliver);
+	return (deliver);
 }
 
 sub vcl_miss {
-  return (fetch);
+	return (fetch);
 }
 
 sub vcl_deliver {
-  return (deliver);
+	return (deliver);
 }

@@ -3,14 +3,14 @@ sub set_backend {
 	# macro has the code which defines the values avaiable for req.http.Host
 	# but it also contains a default backend which is always set to the EU. I wish we could disable the default backend setting.
 	#FASTLY recv
-	
+
 	# Calculate the ideal region to route the request to.
-  	declare local var.region STRING; 
+	declare local var.region STRING;
 	if (server.region ~ "(APAC|Asia|North-America|South-America|US-Central|US-East|US-West)") {
 		set var.region = "US";
-  	} else {
+	} else {
 		set var.region = "EU";
-  	}
+	}
 
 	# Gather the health of the shields and origins.
 	declare local var.v3_eu_is_healthy BOOL;
@@ -18,19 +18,19 @@ sub set_backend {
 	set var.v3_eu_is_healthy = req.backend.healthy;
 
 	declare local var.v3_us_is_healthy BOOL;
-  	set req.backend = F_v3_us;
-  	set var.v3_us_is_healthy = req.backend.healthy;
+	set req.backend = F_v3_us;
+	set var.v3_us_is_healthy = req.backend.healthy;
 
-  	declare local var.shield_eu_is_healthy BOOL;
-  	set req.backend = ssl_shield_london_city_uk;
-  	set var.shield_eu_is_healthy = req.backend.healthy;
+	declare local var.shield_eu_is_healthy BOOL;
+	set req.backend = ssl_shield_london_city_uk;
+	set var.shield_eu_is_healthy = req.backend.healthy;
 
-  	declare local var.shield_us_is_healthy BOOL;
-  	set req.backend = ssl_shield_dca_dc_us;
-  	set var.shield_us_is_healthy = req.backend.healthy;
+	declare local var.shield_us_is_healthy BOOL;
+	set req.backend = ssl_shield_dca_dc_us;
+	set var.shield_us_is_healthy = req.backend.healthy;
 
-  	# Set some sort of default, that shouldn't get used.
-  	set req.backend = F_v3_eu;
+	# Set some sort of default, that shouldn't get used.
+	set req.backend = F_v3_eu;
 
 	declare local var.EU_shield_server_name STRING;
 	set var.EU_shield_server_name = "LCY";
@@ -39,7 +39,7 @@ sub set_backend {
 	set var.US_shield_server_name = "DCA";
 
 	# Route EU requests to the nearest healthy shield or origin.
-  	if (var.region == "EU") {
+	if (var.region == "EU") {
 		if (server.datacenter != var.EU_shield_server_name && fastly.ff.visits_this_service == 0 && req.restarts == 0 && var.shield_eu_is_healthy) {
 			set req.backend = ssl_shield_london_city_uk;
 		} elseif (var.v3_eu_is_healthy) {
@@ -53,10 +53,10 @@ sub set_backend {
 			# it's the probes that are wrong
 			# set req.backend = F_origin_last_ditch_eu;
 		}
-  	}
+	}
 
 	# Route US requests to the nearest healthy shield or origin.
-  	if (var.region == "US") {
+	if (var.region == "US") {
 		if (server.datacenter != var.US_shield_server_name && fastly.ff.visits_this_service == 0 && req.restarts == 0 && var.shield_us_is_healthy) {
 			set req.backend = ssl_shield_dca_dc_us;
 		} elseif (var.v3_us_is_healthy) {
@@ -73,7 +73,7 @@ sub set_backend {
 	}
 
 	# Persist the decision so we can debug the result.
-  	set req.http.Debug-Backend = req.backend;
+	set req.http.Debug-Backend = req.backend;
 }
 
 sub vcl_recv {
@@ -118,7 +118,7 @@ sub vcl_recv {
 		set req.url = querystring.remove(req.url);
 		call set_backend;
 	}
-	
+
 	if (req.backend == ssl_shield_dca_dc_us || req.backend == ssl_shield_london_city_uk) {
 		# avoid passing stale content from Shield POP to Edge POP
 		set req.max_stale_while_revalidate = 0s;
@@ -159,7 +159,7 @@ sub vcl_fetch {
 	# These header are only required for HTML documents.
 	if (beresp.http.Content-Type ~ "text/html") {
 		# Enables the cross-site scripting filter built into most modern web browsers.
-		set beresp.http.X-XSS-Protection = "1; mode=block";	
+		set beresp.http.X-XSS-Protection = "1; mode=block";
 	}
 	# Prevents MIME-sniffing a response away from the declared content type.
 	set beresp.http.X-Content-Type-Options = "nosniff";
@@ -182,7 +182,7 @@ sub vcl_fetch {
 		set beresp.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
 		set beresp.http.Detected-User-Agent = req.http.useragent_parser_family "/"  req.http.useragent_parser_major "." req.http.useragent_parser_minor "." req.http.useragent_parser_patch;
 	}
-	
+
 	# We end up here if
 	# - The origin is HEALTHY; and
 	# - It returned a valid HTTP response

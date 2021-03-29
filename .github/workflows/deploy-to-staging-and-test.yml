@@ -120,7 +120,7 @@ jobs:
     steps:
       - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY_STAGING }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
       - run: sleep 60
-  
+
   end-to-end-test:
     needs: [purge-cdn]
     runs-on: ubuntu-latest
@@ -145,4 +145,3 @@ jobs:
       - run: npm run test:integration
         env:
           HOST: "https://${{ env.domain }}"
-

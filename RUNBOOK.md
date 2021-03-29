@@ -1,6 +1,6 @@
 <!--
-    Written in the format prescribed by https://github.com/Financial-Times/runbook.md.
-    Any future edits should abide by this format.
+	Written in the format prescribed by https://github.com/Financial-Times/runbook.md.
+	Any future edits should abide by this format.
 -->
 # Polyfill service
 
@@ -134,7 +134,7 @@ This system is a Node.js [application](https://github.com/Financial-Times/polyfi
 		Full information on setting up and deploying the service is in the <a rel='nofollow' href='https://github.com/Financial-Times/polyfill-service'>README in the git repo</a>, which is publicly accessible on GitHub.<br/>
 ```
 
- 	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.
+	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.
 
 ```
 	</td>
