@@ -96,7 +96,7 @@
     "@financial-times/o-table": "^8.1.4",
     "@financial-times/o-tabs": "^5.0.9",
     "@financial-times/o-tooltip": "^4.0.9",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.2.5",
     "axios": "^0.21.0",
     "browserslist": "^4.16.3",
     "eclint": "^2.8.1",
