@@ -85,7 +85,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@financial-times/o-buttons": "^6.2.0",
-    "@financial-times/o-fonts": "^4.4.2",
+    "@financial-times/o-fonts": "^4.5.0",
     "@financial-times/o-footer-services": "^3.3.0",
     "@financial-times/o-forms": "^8.4.3",
     "@financial-times/o-header-services": "^4.0.15",
