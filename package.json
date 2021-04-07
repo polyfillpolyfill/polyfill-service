@@ -100,7 +100,7 @@
     "axios": "^0.21.0",
     "browserslist": "^4.16.3",
     "eclint": "^2.8.1",
-    "esbuild": "^0.11.1",
+    "esbuild": "^0.11.5",
     "eslint": "^7.23.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
