@@ -7,16 +7,16 @@ on:
 # on:
 #   push:
 #     branches:
-#       - $default-branch
+#       - master
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ybiquitous/npm-audit-fix-action@v3
+      - uses: ybiquitous/npm-audit-fix-action@v3.0.1
         with:
           github_token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
           # branch: "npm-audit-fix"
-          # default_branch: $default-branch
+          # default_branch: master
           # commit_title: "chore(deps): npm audit fix"
