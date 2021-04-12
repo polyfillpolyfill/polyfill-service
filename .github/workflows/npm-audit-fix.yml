@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: 0 0 * * * # Runs at 00:00 UTC every day
 
-# on:
-#   push:
-#     branches:
-#       - master
-
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -17,6 +12,3 @@ jobs:
       - uses: ybiquitous/npm-audit-fix-action@v3.0.1
         with:
           github_token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
-          # branch: "npm-audit-fix"
-          # default_branch: master
-          # commit_title: "chore(deps): npm audit fix"
