@@ -35,8 +35,8 @@
   "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
-    "node": "11 - 12",
-    "npm": ">=6.9.0"
+    "node": "^12",
+    "npm": "^7"
   },
   "dependencies": {
     "@financial-times/origami-service": "^5.0.1",
@@ -125,6 +125,7 @@
   "version": "4.28.1",
   "snyk": true,
   "volta": {
-    "node": "12.21.0"
+    "node": "12.22.1",
+    "npm": "7.11.2"
   }
 }
