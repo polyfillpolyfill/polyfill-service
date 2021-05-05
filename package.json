@@ -29,14 +29,13 @@
     "build:sass": "mkdir -p dist/css && sass src/assets/css/index.scss  --style=compressed --load-path=node_modules --load-path=node_modules/@financial-times | postcss --use autoprefixer --output dist/css/index.css --map",
     "build:js": "mkdir -p dist/js && esbuild src/assets/js/index.js --bundle --minify > dist/js/index.min.js",
     "dev": "npm run clean && nodemon --exec \"time npm run build && npm run start\"",
-    "eleventy": "eleventy",
-    "postshrinkwrap": "is-origami-flat"
+    "eleventy": "eleventy"
   },
   "heroku-run-build-script": true,
   "license": "MIT",
   "engines": {
-    "node": "11 - 12",
-    "npm": ">=6.9.0"
+    "node": "^12",
+    "npm": "^7"
   },
   "dependencies": {
     "@financial-times/origami-service": "^5.0.1",
@@ -84,18 +83,18 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
-    "@financial-times/o-buttons": "^6.2.0",
-    "@financial-times/o-fonts": "^4.5.0",
-    "@financial-times/o-footer-services": "^3.3.0",
-    "@financial-times/o-forms": "^8.5.1",
-    "@financial-times/o-header-services": "^4.0.15",
-    "@financial-times/o-layout": "^4.5.0",
-    "@financial-times/o-normalise": "^2.0.7",
-    "@financial-times/o-spacing": "^2.1.0",
-    "@financial-times/o-syntax-highlight": "^3.0.8",
-    "@financial-times/o-table": "^8.1.4",
-    "@financial-times/o-tabs": "^5.0.9",
-    "@financial-times/o-tooltip": "^4.0.9",
+    "@financial-times/o-buttons": "prerelease",
+    "@financial-times/o-fonts": "prerelease",
+    "@financial-times/o-footer-services": "prerelease",
+    "@financial-times/o-forms": "prerelease",
+    "@financial-times/o-header-services": "prerelease",
+    "@financial-times/o-layout": "prerelease",
+    "@financial-times/o-normalise": "prerelease",
+    "@financial-times/o-spacing": "prerelease",
+    "@financial-times/o-syntax-highlight": "prerelease",
+    "@financial-times/o-table": "prerelease",
+    "@financial-times/o-tabs": "prerelease",
+    "@financial-times/o-tooltip": "prerelease",
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.0",
     "browserslist": "^4.16.6",
@@ -106,7 +105,6 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-unicorn": "^30.0.0",
     "fast-glob": "^3.2.5",
-    "is-origami-flat": "^1.0.4",
     "lockspot": "0.1.1",
     "mocha": "^8.3.2",
     "mockery": "^2.1.0",
@@ -125,6 +123,7 @@
   "version": "4.28.1",
   "snyk": true,
   "volta": {
-    "node": "12.21.0"
+    "node": "12.22.1",
+    "npm": "7.11.2"
   }
 }
