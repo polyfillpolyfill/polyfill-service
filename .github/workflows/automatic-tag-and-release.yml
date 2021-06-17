@@ -12,6 +12,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha }} # Checkout the merged commit
           fetch-depth: 0
+          token: ${{ secrets.ORIGAMI_GITHUB_TOKEN }}
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* # Get all tags from the origin
         if: github.event.pull_request.merged # Only run on merged pull-requests
       - uses: Financial-Times/origami-version@v1.2.1
