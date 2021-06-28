@@ -83,18 +83,18 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
-    "@financial-times/o-buttons": "prerelease",
-    "@financial-times/o-fonts": "prerelease",
-    "@financial-times/o-footer-services": "prerelease",
-    "@financial-times/o-forms": "prerelease",
-    "@financial-times/o-header-services": "prerelease",
-    "@financial-times/o-layout": "prerelease",
-    "@financial-times/o-normalise": "prerelease",
-    "@financial-times/o-spacing": "prerelease",
-    "@financial-times/o-syntax-highlight": "prerelease",
-    "@financial-times/o-table": "prerelease",
-    "@financial-times/o-tabs": "prerelease",
-    "@financial-times/o-tooltip": "prerelease",
+    "@financial-times/o-buttons": "^7.0.0",
+    "@financial-times/o-fonts": "^5.0.0",
+    "@financial-times/o-footer-services": "^4.0.1",
+    "@financial-times/o-forms": "^9.0.0",
+    "@financial-times/o-header-services": "^5.0.0",
+    "@financial-times/o-layout": "^5.0.1",
+    "@financial-times/o-normalise": "^3.0.0",
+    "@financial-times/o-spacing": "^3.0.0",
+    "@financial-times/o-syntax-highlight": "^4.0.0",
+    "@financial-times/o-table": "^9.0.0",
+    "@financial-times/o-tabs": "^6.0.0",
+    "@financial-times/o-tooltip": "^5.0.1",
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.0",
     "browserslist": "^4.16.6",
@@ -124,6 +124,6 @@
   "snyk": true,
   "volta": {
     "node": "12.22.1",
-    "npm": "7.11.2"
+    "npm": "7.19.0"
   }
 }
