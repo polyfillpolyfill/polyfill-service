@@ -58,7 +58,6 @@ module.exports = async () => {
 		// non-icu case-sensitive alphabetical sort
 		polyfills.sort((a, b) => (a.name > b.name ? 1 : (a.name < b.name ? -1 : 0)));
 	}
-
 	return {
 		polyfills,
 		polyfillAliases,
@@ -87,7 +86,12 @@ module.exports = async () => {
 			"3.52.2",
 			"3.52.3",
 			"3.53.1",
-			"3.89.4"
+			"3.89.4",
+			"3.96.0",
+			"3.98.0",
+			"3.100.0",
+			"3.101.0",
+			"3.103.0",
 		]
 	};
 };
