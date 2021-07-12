@@ -43,9 +43,10 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 3. In `package.json` rename the `polyfill-library` dependency to `polyfill-library-$version` and change the version to be an npm alias. E.G. `"polyfill-library": "^3.27.4"` becomes `"polyfill-library-3.27.4": "npm:polyfill-library@3.27.4"`
 4. In `server/routes/v3/polyfill.js` add a new map entry for the version of `polyfill-library` you have just added.
 5. In `src/data/polyfills.js` add a new entry to the `versions` array for the version of `polyfill-library` you have just added.
-6. In the terminal run `npm install polyfill-library@*`
-7. In `fastly/vcl/main.vcl:114` add the new version to the if statement for setting the version query parameter.
-8. Commit the file changes into git, push up the branch and open a pull-request
+6. In `src/assets/v3/library.11ty.js:17` add a new entry to the `versions` array for the version of `polyfill-library` you have just added.
+7. In the terminal run `npm install polyfill-library@*`
+8. In `fastly/vcl/main.vcl:114` add the new version to the if statement for setting the version query parameter.
+9. Commit the file changes into git, push up the branch and open a pull-request
 
 ## Cutting a Release
 
