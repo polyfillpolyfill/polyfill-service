@@ -6,21 +6,21 @@
 {% set oLayoutStyle = oLayoutStyle | default(site.oLayoutStyle) %}
 
 {% block headStyles %}
-    {% include "partials/styles.njk" %}
+	{% include "partials/styles.njk" %}
 {% endblock %}
 
 {% block headMisc %}
 {% endblock %}
 
 {% block body %}
-    {{ super() }}
-     <div class="o-layout {{ oLayoutStyle }}" data-o-component="o-layout">
-        {% include "partials/header.njk" %}
-        {{ content | safe }}
-        {% include "partials/footer.njk" %}
-    </div>
+	{{ super() }}
+	<div class="o-layout {{ oLayoutStyle }}" data-o-component="o-layout">
+		{% include "partials/header.njk" %}
+		{{ content | safe }}
+		{% include "partials/footer.njk" %}
+	</div>
 {% endblock %}
 
 {% block bodyScripts %}
-    {% include "partials/scripts.njk" %}
+	{% include "partials/scripts.njk" %}
 {% endblock %}

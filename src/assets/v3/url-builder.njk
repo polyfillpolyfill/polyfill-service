@@ -29,13 +29,13 @@ oLayoutStyle: "o-layout--query"
 			<span class="o-forms-input o-forms-input--select">
 					<select id="library-version">
 					{% for version in polyfills.versions | reverse %}
-						{% if loop.first %} 
+						{% if loop.first %}
 							<option value="" selected></option>
 						{% else %}
 							<option value="{{version}}" >{{version}}</option>
 						{% endif %}
 					{% endfor %}
-					</select>	
+					</select>
 			</span>
 		</label>
 

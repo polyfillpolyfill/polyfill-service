@@ -1,8 +1,8 @@
 {
-    "registry": {
-        "search": [
-            "https://origami-bower-registry.ft.com",
-            "https://registry.bower.io"
-        ]
-    }
+	"registry": {
+		"search": [
+			"https://origami-bower-registry.ft.com",
+			"https://registry.bower.io"
+		]
+	}
 }

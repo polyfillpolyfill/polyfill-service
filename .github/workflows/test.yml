@@ -1,15 +1,15 @@
-name: Test
-on: [pull_request_target]
+name: Linting and Unit Tests
+on: [pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.2
+    - uses: actions/setup-node@v2.1.5
       with:
         node-version: 12.x
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.5
       env:
         cache-name: cache-node-modules
       with:

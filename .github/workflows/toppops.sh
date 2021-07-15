@@ -6,14 +6,14 @@ cloned_version=`curl -X PUT --fail -H "Fastly-Key: $FASTLY_API_KEY_POLYFILL_ACCO
 
 cat <<EOT >> toppops-logging-config.json
 {
-    "name": "toppops-collector",
-    "url": "https://toppops-ingest.fastlylabs.com/ingest",
-    "message_type": "blank",
-    "format_version": 2,
-    "format": "",
-    "content_type": "text/plain",
-    "method": "POST",
-    "placement": "none"
+	"name": "toppops-collector",
+	"url": "https://toppops-ingest.fastlylabs.com/ingest",
+	"message_type": "blank",
+	"format_version": 2,
+	"format": "",
+	"content_type": "text/plain",
+	"method": "POST",
+	"placement": "none"
 }
 EOT
 

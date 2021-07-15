@@ -78,7 +78,7 @@ sub vcl_error {
 		return (deliver);
 	}
 
-	# /robots.txt endpoint 
+	# /robots.txt endpoint
 	if (obj.status == 906) {
 		set obj.status = 200;
 		set obj.response = "OK";

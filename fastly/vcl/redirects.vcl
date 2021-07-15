@@ -20,7 +20,7 @@ sub vcl_recv {
 	if (req.http.Orig-URL ~ "^/v1") {
 		error 902 "Redirect to V2";
 	}
-	
+
 	if (req.url.path ~ "^/v2/?") {
 		if (!(req.url.path ~ "^/v2/polyfill(\.\w+)(\.\w+)?" && req.url.ext == "js")) {
 			error 908;

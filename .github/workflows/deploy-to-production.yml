@@ -13,11 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: git fetch --prune --unshallow
-    - uses: actions/setup-node@v2.1.2
+    - uses: actions/setup-node@v2.1.5
       with:
         node-version: 12.x
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.5
       env:
         cache-name: cache-node-modules
       with:
