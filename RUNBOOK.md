@@ -77,12 +77,11 @@ This system is a Node.js [application](https://github.com/Financial-Times/polyfi
 ## More Information
 
 <table width=100% style="border:1px solid;">
-	<tr>
-		<td><b>Hours of Support</b></td>
-		<td>Engineering support is available in Business hours.</td>
-	</tr>
+<tr>
+	<td><b>Hours of Support</b></td>
+	<td>Engineering support is available in Business hours.</td>
+</tr>
 
-```
 <tr>
 	<td><b>Hardware</b></td>
 	<td>Heroku</td>
@@ -130,17 +129,9 @@ This system is a Node.js [application](https://github.com/Financial-Times/polyfi
 
 <tr>
 	<td><b>Useful Sites/Other Information</b></td>
-	<td>
-		Full information on setting up and deploying the service is in the <a rel='nofollow' href='https://github.com/Financial-Times/polyfill-service'>README in the git repo</a>, which is publicly accessible on GitHub.<br/>
-```
-
-	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.
-
-```
-	</td>
+	<td>Full information on setting up and deploying the service is in the <a rel='nofollow' href='https://github.com/Financial-Times/polyfill-service'>README in the git repo</a>, which is publicly accessible on GitHub.<br/>
+	Control of the service is via the <a rel='nofollow' href='https://app.fastly.com/#analytics/4E1GeTez3EFH3cnwfyMAog'>Fastly dashboard</a> and <a rel='nofollow' href='https://dashboard-next.heroku.com/orgs/financial-times/apps/ft-polyfill-service/activity'>Heroku dashboard</a>, so check that you can access both of these.</td>
 </tr>
-```
-
 </table>
 
 ## First Line Troubleshooting
