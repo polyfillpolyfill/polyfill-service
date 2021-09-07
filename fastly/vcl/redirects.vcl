@@ -2,7 +2,8 @@ sub vcl_recv {
 	if (req.http.Host ~ "polyfills.io") {
 		# Fastly recommend using the 900-999 range of status codes for custom errors within an application's VCL.
 		# Do the canonicalise checks before the HTTPS check to avoid a double redirect
-		error 901 "Canonicalise";
+		# TODO: We are no longer redirecting this domain as an alternative domain for when polyfill.io is blocked: https://github.com/Financial-Times/polyfill-service/issues/2638
+		# error 901 "Canonicalise";
 	}
 	if (req.http.Host ~ "www.polyfills.io") {
 		# Fastly recommend using the 900-999 range of status codes for custom errors within an application's VCL.
