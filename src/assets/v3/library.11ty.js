@@ -3,6 +3,8 @@
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
 
+const latestLibraryVersion = "3.108.0";
+
 class Test {
 	data() {
 		return {
@@ -46,7 +48,7 @@ class Test {
 				"3.101.0",
 				"3.103.0",
 				"3.104.0",
-				"3.108.0",
+				latestLibraryVersion,
 			]
 		};
 	}
@@ -60,7 +62,7 @@ class Test {
 module.exports = Test;
 
 async function getPolyfillNamesFrom(libraryVersion) {
-	const library = require(`polyfill-library-${libraryVersion}`);
+	const library = libraryVersion === latestLibraryVersion ? require(`polyfill-library`) : require(`polyfill-library-${libraryVersion}`);
 
 	const polyfills = [];
 	const polyfillAliases = [];

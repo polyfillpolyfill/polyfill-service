@@ -122,13 +122,6 @@ const defaultPolyfillBundleOptions = {
 
 const polyfillBundleOptions = Object.assign({}, defaultPolyfillBundleOptions);
 
-const featuresCache = {};
-const featuresRows = [...document.querySelectorAll("#features-list [data-feature-name]")];
-
-featuresRows.forEach(node => {
-	featuresCache[node.dataset.featureName.toLowerCase()] = node;
-});
-
 const renderFeatureList = ({ polyfillAliases, polyfills }) => {
 	let html = "";
 	for (const item of polyfillAliases) {
@@ -196,12 +189,15 @@ if (libraryVersionInput) {
 			polyfillBundleOptions.version = version;
 			updatePolyfillBundle(polyfillBundleOptions);
 			createTooltips();
+
+			// reset the polyfill name filter.
+			document.querySelector("#filter").value = '';
 		}
 	});
 }
 
 function resetFeaturesList() {
-	return [...featuresRows].forEach(function(element) {
+	return [...document.querySelectorAll("#features-list [data-feature-name]")].forEach(function(element) {
 		element.removeAttribute("aria-hidden");
 	});
 }
@@ -217,7 +213,13 @@ function filterFeatures(event) {
 	if (inputValue === "") {
 		resetFeaturesList();
 	} else {
-		Object.entries(featuresCache).forEach(function([key, node]) {
+		const featuresByName = {}
+		const featuresRows = [...document.querySelectorAll("#features-list [data-feature-name]")];
+
+		featuresRows.forEach(node => {
+			featuresByName[node.dataset.featureName] = node;
+		});
+		Object.entries(featuresByName).forEach(function([key, node]) {
 			if (key.toLowerCase().includes(inputValue.toLowerCase())) {
 				node.removeAttribute("aria-hidden");
 			} else {
