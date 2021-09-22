@@ -31,6 +31,7 @@ oLayoutStyle: "o-layout--query"
 					{% for version in polyfills.versions | reverse %}
 						{% if loop.first %}
 							<option value="" selected></option>
+							<option value="{{version}}" >{{version}}</option>
 						{% else %}
 							<option value="{{version}}" >{{version}}</option>
 						{% endif %}
