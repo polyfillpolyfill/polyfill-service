@@ -139,7 +139,7 @@ const renderFeatureList = ({ polyfillAliases, polyfills }) => {
 		}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
 						<ul>
-						${item.polyfills.map(polyfill => `<li>${polyfill}</li>`)}
+						${item.polyfills.map(polyfill => `<li>${polyfill}</li>`).join('')}
 						</ul>
 					</div>
 				</div>
