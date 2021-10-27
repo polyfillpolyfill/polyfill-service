@@ -157,6 +157,13 @@ sub vcl_fetch {
 		call breadcrumb_fetch;
 	}
 
+	# https://yann.mandragor.org/posts/purge-group-pattern/
+	if (beresp.http.Surrogate-Key && !std.strstr(beresp.http.Surrogate-Key, "PurgeGroup")) {
+		set beresp.http.Surrogate-Key = beresp.http.Surrogate-Key " PurgeGroup" randomint(0, 999);
+	} else if (!beresp.http.Surrogate-Key) {
+		set beresp.http.Surrogate-Key = "PurgeGroup" randomint(0, 999);
+	}
+
 	# These header are only required for HTML documents.
 	if (beresp.http.Content-Type ~ "text/html") {
 		# Enables the cross-site scripting filter built into most modern web browsers.
