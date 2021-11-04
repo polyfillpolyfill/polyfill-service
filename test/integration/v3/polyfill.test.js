@@ -56,7 +56,7 @@ describe("HEAD /v3/polyfill.js", function() {
 			.expect("Access-Control-Allow-Origin", "*")
 			.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-			.expect("surrogate-key", "polyfill-service");
+			.expect("surrogate-key", /polyfill-service/);
 	});
 });
 
@@ -71,7 +71,7 @@ describe("GET /v3/polyfill.js", function() {
 			.expect("Access-Control-Allow-Origin", "*")
 			.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-			.expect("surrogate-key", "polyfill-service")
+			.expect("surrogate-key", /polyfill-service/)
 			.then(response => {
 				assert.isString(response.text);
 				assert.doesNotThrow(() => new vm.Script(response.text));
@@ -89,7 +89,7 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 			.expect(200)
 			.expect("Content-Type", "text/javascript; charset=utf-8")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-			.expect("surrogate-key", "polyfill-service")
+			.expect("surrogate-key", /polyfill-service/)
 			.then(response => {
 				assert.isString(response.text);
 				assert.doesNotThrow(() => new vm.Script(response.text));
@@ -109,7 +109,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 			.expect("Access-Control-Allow-Origin", "*")
 			.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 			.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-			.expect("surrogate-key", "polyfill-service")
+			.expect("surrogate-key", /polyfill-service/)
 			.then(response => {
 				assert.isString(response.text);
 				assert.doesNotThrow(() => new vm.Script(response.text));
