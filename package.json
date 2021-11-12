@@ -44,7 +44,7 @@
     "dotenv": "^8.2.0",
     "express-extractheaders": "^3.1.0",
     "merge2": "^1.4.1",
-    "polyfill-library": "^3.108.0",
+    "polyfill-library": "^3.109.0",
     "polyfill-library-3.100.0": "npm:polyfill-library@3.100.0",
     "polyfill-library-3.101.0": "npm:polyfill-library@3.101.0",
     "polyfill-library-3.103.0": "npm:polyfill-library@3.103.0",
