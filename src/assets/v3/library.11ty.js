@@ -3,7 +3,7 @@
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
 
-const latestLibraryVersion = "3.108.0";
+const latestLibraryVersion = "3.109.0";
 
 class Test {
 	data() {
@@ -48,6 +48,7 @@ class Test {
 				"3.101.0",
 				"3.103.0",
 				"3.104.0",
+				"3.108.0",
 				latestLibraryVersion,
 			]
 		};
