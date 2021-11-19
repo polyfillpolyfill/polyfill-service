@@ -142,7 +142,7 @@ jobs:
       - run: >-
           for PURGE_GROUP in `seq 0 999`;
           do
-            curl --fail --show-error --silent -X POST -H "Fastly-Key: ${{ secrets.FASTLY_API_KEY }}" "https://api.fastly.com/service/${{ env.fastly_service_id }}/purge/PurgeGroup${PURGE_GROUP}"
+            curl --fail --show-error --silent -X POST -H "Fastly-Key: ${{ secrets.FASTLY_API_KEY }}" "https://api.fastly.com/service/${{ env.fastly_service_id }}/purge/PurgeGroup$PURGE_GROUP"
             sleep 5
           done
 
