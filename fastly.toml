@@ -1,0 +1,30 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.comreference/fastly-toml/
+
+authors = ["me@jakechampion.name"]
+description = "A basic starter kit that demonstrates routing, simple synthetic responses and overriding caching rules."
+language = "javascript"
+manifest_version = 2
+name = "polyfill-service-c-at-e"
+service_id = "3AfcolkTD4KUfkrKGIYZ4T"
+
+[local_server]
+  [local_server.backends]
+    [local_server.backends.ssl_shield_london_city_uk]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
+    [local_server.backends.ssl_shield_dca_dc_us]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
+    [local_server.backends.F_v3_eu]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
+    [local_server.backends.F_v3_us]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
+    [local_server.backends.F_origin_last_ditch_eu]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
+    [local_server.backends.F_origin_last_ditch_us]
+      url = "https://origami-polyfill-service-eu.herokuapp.com"
+      override_host = "origami-polyfill-service-eu.herokuapp.com"
