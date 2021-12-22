@@ -9,7 +9,7 @@ dotenv.config();
 const options = {
 	log: console,
 	name: "Origami Polyfill Service",
-	requestLogFormat: process.env.NODE_ENV === "production" ? null : undefined,
+	requestLogFormat: process.env.DISABLE_REQUEST_LOGGING ? null : undefined,
 	workers: process.env.WEB_CONCURRENCY || 1
 };
 
