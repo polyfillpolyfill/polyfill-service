@@ -26,7 +26,7 @@ sub set_backend {
 	set var.shield_eu_is_healthy = req.backend.healthy;
 
 	declare local var.shield_us_is_healthy BOOL;
-	set req.backend = ssl_shield_dca_dc_us;
+	set req.backend = ssl_shield_iad_va_us;
 	set var.shield_us_is_healthy = req.backend.healthy;
 
 	# Set some sort of default, that shouldn't get used.
@@ -36,7 +36,7 @@ sub set_backend {
 	set var.EU_shield_server_name = "LCY";
 
 	declare local var.US_shield_server_name STRING;
-	set var.US_shield_server_name = "DCA";
+	set var.US_shield_server_name = "IAD";
 
 	# Route EU requests to the nearest healthy shield or origin.
 	if (var.region == "EU") {
@@ -45,7 +45,7 @@ sub set_backend {
 		} elseif (var.v3_eu_is_healthy) {
 			set req.backend = F_v3_eu;
 		} elseif (var.shield_us_is_healthy) {
-			set req.backend = ssl_shield_dca_dc_us;
+			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
 		} else {
@@ -58,7 +58,7 @@ sub set_backend {
 	# Route US requests to the nearest healthy shield or origin.
 	if (var.region == "US") {
 		if (server.datacenter != var.US_shield_server_name && fastly.ff.visits_this_service == 0 && req.restarts == 0 && var.shield_us_is_healthy) {
-			set req.backend = ssl_shield_dca_dc_us;
+			set req.backend = ssl_shield_iad_va_us;
 		} elseif (var.v3_us_is_healthy) {
 			set req.backend = F_v3_us;
 		} elseif (var.shield_eu_is_healthy) {
@@ -119,7 +119,7 @@ sub vcl_recv {
 		call set_backend;
 	}
 
-	if (req.backend == ssl_shield_dca_dc_us || req.backend == ssl_shield_london_city_uk) {
+	if (req.backend == ssl_shield_iad_va_us || req.backend == ssl_shield_london_city_uk) {
 		# avoid passing stale content from Shield POP to Edge POP
 		set req.max_stale_while_revalidate = 0s;
 	} else {
