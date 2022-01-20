@@ -13,6 +13,7 @@ const options = {
 };
 
 if (process.env.DISABLE_REQUEST_LOGGING) {
+	// eslint-disable-next-line unicorn/no-null
 	options.requestLogFormat = null;
 }
 
