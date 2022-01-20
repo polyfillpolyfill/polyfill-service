@@ -149,13 +149,6 @@ describe("Querystring normalising", function() {
 				assert.deepStrictEqual(response.body.version, "3.25.1");
 			});
 	});
-	it("uses version if set to a version in the service (3.25.3)", function() {
-		return request(host)
-			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?version=3.25.3")
-			.then(response => {
-				assert.deepStrictEqual(response.body.version, "3.25.3");
-			});
-	});
 	it("uses version if set to a version in the service (3.27.4)", function() {
 		return request(host)
 			.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?version=3.27.4")
