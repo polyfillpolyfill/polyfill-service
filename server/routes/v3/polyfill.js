@@ -30,6 +30,7 @@ const polyfillio_3_101_0 = require("polyfill-library-3.101.0");
 const polyfillio_3_103_0 = require("polyfill-library-3.103.0");
 const polyfillio_3_104_0 = require("polyfill-library-3.104.0");
 const polyfillio_3_108_0 = require("polyfill-library-3.108.0");
+const polyfillio_3_109_0 = require("polyfill-library-3.109.0");
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, parameters, bundle, next) {
@@ -99,6 +100,7 @@ module.exports = app => {
 			['3.103.0', polyfillio_3_103_0],
 			['3.104.0', polyfillio_3_104_0],
 			['3.108.0', polyfillio_3_108_0],
+			['3.109.0', polyfillio_3_109_0],
 		]);
 
 		// Get the polyfill library for the requested version.
