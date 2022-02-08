@@ -20,10 +20,6 @@ To run this project:
 
 # Issues with fastly/js-compute-runtime
 
-- If using `@financial-times/polyfill-useragent-normaliser` or `useragent_parser`, the compiler will error with "too much recursion" (<https://github.com/fastly/js-compute-runtime/issues/1>). This project has an internal fork of both packages with modifications to make them work with the compiler.
-
-- I could not get `fetch` to work correctly with a Request instance but it would work correctly with a String instance. I.E. `fetch(request, {backend: request.backend})` would not work but `fetch(request.url, {backend: request.backend})` would work.
-
 - It's very odd to have the [console methods only accept one parameter](https://github.com/fastly/js-compute-runtime/blob/ec94553de56287e925216ecaf635bbae3a87d77d/c-dependencies/js-compute-runtime/js-compute-builtins.cpp#L668-L675) and to coerce the value to a String in a way which is different to other JavaScript Runtimes.
 
 - Calling `fastly.env.get()` during initialise will work but the return value will be `undefined`, this was confusing to see as I was requesting a Fastly environment variable. I think it would be nicer for developers if calling `fastly.env.get()` during initialise will throw an error which explains why it should not be used during initialisation.
