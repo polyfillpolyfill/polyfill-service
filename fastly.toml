@@ -2,7 +2,7 @@
 # https://developer.fastly.comreference/fastly-toml/
 
 authors = ["me@jakechampion.name"]
-description = "A basic starter kit that demonstrates routing, simple synthetic responses and overriding caching rules."
+description = "polyfill.io cdn implemented in javascript"
 language = "javascript"
 manifest_version = 2
 name = "polyfill-service-c-at-e"
