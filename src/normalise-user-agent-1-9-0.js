@@ -1,6 +1,6 @@
 "use strict";
 
-import {useragent_parser} from "./ua-parser";
+import {useragent_parser} from "./ua-parser.js";
 import semver from "semver";
 
 export function UA(uaString) {

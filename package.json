@@ -2,20 +2,29 @@
 	"private": true,
 	"name": "polyfill-service",
 	"version": "1.0.0",
+	"type": "module",
 	"scripts": {
 		"prebuild": "esbuild src/index.js --target=es2020 --platform=browser --bundle --minify --outfile=bin/index.js",
 		"build": "js-compute-runtime bin/index.js bin/main.wasm",
 		"deploy": "npm run build && fastly compute deploy",
-		"dev": "npm run build && fastly compute serve"
+		"dev": "npm run build && fastly compute serve",
+		"test": "run-s test:*",
+		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
 	},
 	"dependencies": {
-		"@fastly/js-compute": "^0.2.1",
+		"@fastly/js-compute": "0.2.2",
 		"@financial-times/polyfill-useragent-normaliser": "^1.10.1",
-		"core-js": "^3.19.2",
-		"esbuild": "^0.14.1",
+		"esbuild": "^0.14.23",
 		"flight-path": "^1.0.11"
 	},
 	"devDependencies": {
-		"eslint": "^8.5.0"
+		"axios": "^0.26.0",
+		"browserslist": "^4.19.3",
+		"eslint": "^8.5.0",
+		"lodash": "^4.17.21",
+		"mocha": "^9.2.1",
+		"npm-run-all": "^4.1.5",
+		"polyfill-library": "3.110.1",
+		"proclaim": "^3.6.0"
 	}
 }
