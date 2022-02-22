@@ -3,7 +3,6 @@ import { Router } from "flight-path";
 import { UA } from "./normalise-user-agent-1-9-0.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
 import { useragent_parser } from "./ua-parser.js";
-import { makeBackendRequest } from "./set-backend.js";
 
 const allowed_methods = ["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"];
 
@@ -158,7 +157,10 @@ router.route("*", "*", async function (request, res) {
     request.url.search = "";
   }
 
-  let response = await makeBackendRequest(request);
+  let response = await fetch(request.url, {
+    backend: "polyfill",
+    cacheOverride:  new CacheOverride("none"),
+  });
 
   if (urlPath === "/v3/polyfill.min.js" || urlPath === "/v3/polyfill.js") {
     let vary = response.headers.get("vary");
