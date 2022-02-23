@@ -85,6 +85,17 @@ layout: layouts/base.njk
 								E.G.
 								`always,gated`.
 							</dd>
+							<dt>
+								<code>
+									<var>use-compute-at-edge-backend</var>
+								</code>
+							</dt>
+							<dd>
+								Whether to opt-in or opt-out of the new compute-at-edge implemenation of the CDN. Setting this to `yes` will
+								make the request always use the compute-at-edge implementation. Setting this to `no` will make the request
+								never use the compute-at-edge implementation. If this is not set, then the polyfill.io service will decide
+								which implementation to use.
+							</dd>
 						</dl>
 					</td>
 				</tr>

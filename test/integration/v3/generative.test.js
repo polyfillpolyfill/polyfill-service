@@ -54,10 +54,12 @@ function arrayToObject(array) {
 	return object;
 }
 
-function createTest(polyfillBundleOptions, ua) {
+function createTest(polyfillBundleOptions, ua, useComputeAtEdgeBackend = false) {
+
 	const qs = querystring.stringify({
 		features: polyfillBundleOptions.join(","),
-		ua
+		ua,
+		'use-compute-at-edge-backend': useComputeAtEdgeBackend ? 'yes' : 'no'
 	});
 	const path = `/v3/polyfill.js?${qs}`;
 	context(host + path, function() {
@@ -110,13 +112,23 @@ async function createFeaturesSet() {
 async function tests() {
 	const features = await createFeaturesSet();
 
-	describe("test combinations of polyfills/aliases", function() {
+	describe("test combinations of polyfills/aliases - vcl service", function() {
 		this.timeout(30 * 1000);
 
 		// Create 1024 random sets of 10 features
 		for (const polyfillBundleOptions of take(1024, sample(10, repeat(Number.POSITIVE_INFINITY, features)))) {
 			const ua = _.sample(browsers);
-			createTest(polyfillBundleOptions.sort(), ua);
+			createTest(polyfillBundleOptions.sort(), ua, false);
+		}
+	});
+
+	describe("test combinations of polyfills/aliases - compute-at-edge service", function() {
+		this.timeout(30 * 1000);
+
+		// Create 1024 random sets of 10 features
+		for (const polyfillBundleOptions of take(1024, sample(10, repeat(Number.POSITIVE_INFINITY, features)))) {
+			const ua = _.sample(browsers);
+			createTest(polyfillBundleOptions.sort(), ua, true);
 		}
 	});
 

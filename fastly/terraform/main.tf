@@ -65,11 +65,27 @@ resource "fastly_service_v1" "app" {
   dictionary {
     name = "toppops_config"
   }
+
+  dictionary {
+    name = "compute_at_edge_config"
+  }
 }
 
-resource "fastly_service_dictionary_items_v1" "items" {
+resource "fastly_service_dictionary_items_v1" "toppops_config_items" {
   service_id    = fastly_service_v1.app.id
   dictionary_id = { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
+
+  items = {
+  }
+
+  lifecycle {
+    ignore_changes = [items, ]
+  }
+}
+
+resource "fastly_service_dictionary_items_v1" "compute_at_edge_config_items" {
+  service_id    = fastly_service_v1.app.id
+  dictionary_id = { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
 
   items = {
   }
