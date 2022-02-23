@@ -59,14 +59,27 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
-    - name: 'Terraform Import Fastly Service Dictionary Items'
+    - name: 'Terraform Import Fastly Service Dictionary Top-pops Config Items'
+      if: steps.witness.outputs.cache-hit != 'true'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
         tf_actions_version: ${{ env.terraform_version }}
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items_v1.items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
+        args: 'fastly_service_dictionary_items_v1.toppops_config_items "${{ env.fastly_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
+    - name: 'Terraform Import Fastly Service Dictionary Compute At Edge Config Items'
+      if: steps.witness.outputs.cache-hit != 'true'
+      uses: hashicorp/terraform-github-actions@v0.8.0
+      with:
+        tf_actions_version: ${{ env.terraform_version }}
+        tf_actions_subcommand: 'import'
+        tf_actions_working_dir: ${{ env.terraform_working_dir }}
+        tf_actions_comment: true
+        args: 'fastly_service_dictionary_items_v1.compute_at_edge_config_items "${{ env.fastly_service_id }}/5E74ZKOhK81rU53qOP4X4U"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
@@ -120,7 +133,7 @@ jobs:
           environment: prod
           slack-channels: "ft-changes,origami-deploys"
 
-  scale-up:    
+  scale-up:
     needs: [deploy-to-production]
     runs-on: ubuntu-latest
     steps:

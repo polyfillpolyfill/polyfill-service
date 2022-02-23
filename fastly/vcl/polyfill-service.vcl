@@ -81,6 +81,39 @@ sub vcl_recv {
 		call breadcrumb_recv;
 	}
 
+
+	declare local var.compute-at-edge-active BOOL;
+	if (std.atoi(table.lookup(compute_at_edge_config, "active", "0")) == 1) {
+		set var.compute-at-edge-active = true;
+	} else {
+		set var.compute-at-edge-active = false;
+	}
+	if (var.compute-at-edge-active) {
+		# if the querystring parameter `use-compute-at-edge-backend` is set to yes`
+		# then use the c@e backend.
+		# else if the `use-compute-at-edge-backend` is not set to `no` then make
+		# 1 in 1000 requests which come directly from a client use the c@e backend
+		declare local var.use-compute-at-edge-backend STRING;
+		set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
+		if (var.use-compute-at-edge-backend == "yes" && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
+			set req.backend = F_compute_at_edge;
+			if (req.backend.healthy) {
+				# if using the c@e backend then do not use the cache at all
+				return(pass);
+			}
+		} else if (var.use-compute-at-edge-backend != "no") {
+			declare local var.selected BOOL;
+			set var.selected = randombool(1, std.atoi(table.lookup(compute_at_edge_config, "sample", "1000")));
+			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0 && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
+				set req.backend = F_compute_at_edge;
+				if (req.backend.healthy) {
+					# if using the c@e backend then do not use the cache at all
+					return(pass);
+				}
+			}
+		}
+	}
+
 	if (req.method != "GET" && req.method != "HEAD" && req.method != "OPTIONS" && req.method != "FASTLYPURGE" && req.method != "PURGE") {
 		error 911;
 	}
