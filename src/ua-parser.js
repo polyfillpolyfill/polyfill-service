@@ -283,7 +283,7 @@
 		const minor = result[3];
 		return {family,major,minor,patch};
 	} else if (result =
-		/\/((?:Ant-|)Nutch|[A-z]+[Bb]ot|[A-z]+[Ss]pider|Axtaris|fetchurl|Isara|ShopSalad|Tailsweep)[ \-](\d+)(?:\.(\d+)|)(?:\.(\d+)|)/.exec(
+		/\/((?:Ant-|)Nutch|[A-z]+[Bb]ot|[A-z]+[Ss]pider|Axtaris|fetchurl|Isara|ShopSalad|Tailsweep)[ -](\d+)(?:\.(\d+)|)(?:\.(\d+)|)/.exec(
 			ua
 		)){
 		const family = result[1];
@@ -365,8 +365,9 @@
 		return {family,major,minor,patch};
 	} else if (result = /\[FB.*;/.exec(ua)) {
 		const family = "Facebook";
+		return {family,major,minor,patch};
 	} else if (result =
-		/(?:\/[A-Za-z0-9\.]+|) {0,5}([A-Za-z0-9 \-_\!\[\]:]{0,50}(?:[Aa]rchiver|[Ii]ndexer|[Ss]craper|[Bb]ot|[Ss]pider|[Cc]rawl[a-z]{0,50}))[/ ](\d+)(?:\.(\d+)(?:\.(\d+)|)|)/.exec(
+		/(?:\/[A-Za-z0-9.]+|) {0,5}([A-Za-z0-9 \-_![\]:]{0,50}(?:[Aa]rchiver|[Ii]ndexer|[Ss]craper|[Bb]ot|[Ss]pider|[Cc]rawl[a-z]{0,50}))[/ ](\d+)(?:\.(\d+)(?:\.(\d+)|)|)/.exec(
 			ua
 		)){
 		const family = result[1];
@@ -384,7 +385,7 @@
 		patch = result[4];
 		return {family,major,minor,patch};
 	} else if (result =
-		/((?:[A-z0-9]{1,50}|[A-z\-]{1,50} ?|)(?: the |)(?:[Ss][Pp][Ii][Dd][Ee][Rr]|[Ss]crape|[Cc][Rr][Aa][Ww][Ll])[A-z0-9]{0,50})(?:(?:[ /]| v)(\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)/.exec(
+		/((?:[A-z0-9]{1,50}|[A-z-]{1,50} ?|)(?: the |)(?:[Ss][Pp][Ii][Dd][Ee][Rr]|[Ss]crape|[Cc][Rr][Aa][Ww][Ll])[A-z0-9]{0,50})(?:(?:[ /]| v)(\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)/.exec(
 			ua
 		)){
 		const family = result[1];
@@ -751,7 +752,7 @@
 	} else if (result = /(Nintendo 3DS)/.exec(ua)) {
 		const family = "NetFront NX";
 		return {family,major,minor,patch};
-	} else if (result = /(Silk)\/(\d+)\.(\d+)(?:\.([0-9\-]+)|)/.exec(ua)) {
+	} else if (result = /(Silk)\/(\d+)\.(\d+)(?:\.([0-9-]+)|)/.exec(ua)) {
 		const family = "Amazon Silk";
 		const major = result[2];
 		const minor = result[3];
@@ -883,24 +884,6 @@
 		const family = "Sogou Explorer";
 		const major = result[2];
 		const minor = result[3];
-		return {family,major,minor,patch};
-	} else if (result = /(MQQBrowser\/Mini)(?:(\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)/.exec(ua)){
-		const family = "QQ Browser Mini";
-		const major = result[2];
-		const minor = result[3];
-		patch = result[4];
-		return {family,major,minor,patch};
-	} else if (result = /(MQQBrowser)(?:\/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)/.exec(ua)){
-		const family = "QQ Browser Mobile";
-		const major = result[2];
-		const minor = result[3];
-		patch = result[4];
-		return {family,major,minor,patch};
-	} else if (result = /(QQBrowser)(?:\/(\d+)(?:\.(\d+)\.(\d+)(?:\.(\d+)|)|)|)/.exec(ua)){
-		const family = "QQ Browser";
-		const major = result[2];
-		const minor = result[3];
-		patch = result[4];
 		return {family,major,minor,patch};
 	} else if (result = /(Rackspace Monitoring)\/(\d+)\.(\d+)/.exec(ua)) {
 		const family = "RackspaceBot";
@@ -1059,7 +1042,7 @@
 		const minor = result[3];
 		patch = result[4];
 		return {family,major,minor,patch};
-	} else if (result = /\b(Dolphin)(?: |HDCN\/|\/INT\-)(\d+)\.(\d+)(?:\.(\d+)|)/.exec(
+	} else if (result = /\b(Dolphin)(?: |HDCN\/|\/INT-)(\d+)\.(\d+)(?:\.(\d+)|)/.exec(
 		ua
 		)){
 		const family = result[1];
@@ -1221,7 +1204,7 @@
 		const major = result[2];
 		const minor = result[3];
 		return {family,major,minor,patch};
-	} else if (result = /(Zune|BeyondPod) (\d+)(?:\.(\d+)|)[\);]/.exec(ua)) {
+	} else if (result = /(Zune|BeyondPod) (\d+)(?:\.(\d+)|)[);]/.exec(ua)) {
 		const family = result[1];
 		const major = result[2];
 		const minor = result[3];
@@ -1234,6 +1217,7 @@
 		return {family,major,minor,patch};
 	} else if (result = /^(Lavf)/.exec(ua)) {
 		const family = "WMPlayer";
+		return {family,major,minor,patch};
 	} else if (result = /^(RSSRadio)[ /]?(\d+|)/.exec(ua)) {
 		const family = result[1];
 		const major = result[2];
@@ -1378,7 +1362,7 @@
 	} else if (result = /(Obigo)InternetBrowser/.exec(ua)) {
 		const family = result[1];
 		return {family,major,minor,patch};
-	} else if (result = /(Obigo)\-Browser/.exec(ua)) {
+	} else if (result = /(Obigo)-Browser/.exec(ua)) {
 		const family = result[1];
 		return {family,major,minor,patch};
 	} else if (result = /(Obigo|OBIGO)[^\d]*(\d+)(?:.(\d+)|)/.exec(ua)) {
@@ -1643,7 +1627,7 @@
 		const major = "0";
 		const minor = result[3];
 		return {family,major,minor,patch};
-	} else if (result = /(SEMC\-Browser)\/(\d+)\.(\d+)/.exec(ua)) {
+	} else if (result = /(SEMC-Browser)\/(\d+)\.(\d+)/.exec(ua)) {
 		const family = result[1];
 		const major = result[2];
 		const minor = result[3];
@@ -1714,12 +1698,6 @@
 		/\b(Windows-Update-Agent|Microsoft-CryptoAPI|SophosUpdateManager|SophosAgent|Debian APT-HTTP|Ubuntu APT-HTTP|libcurl-agent|libwww-perl|urlgrabber|curl|PycURL|Wget|aria2|Axel|OpenBSD ftp|lftp|jupdate|insomnia|fetch libfetch|akka-http|got)(?:[ /](\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)/.exec(
 			ua
 		)){
-		const family = result[1];
-		const major = result[2];
-		const minor = result[3];
-		patch = result[4];
-		return {family,major,minor,patch};
-	} else if (result = /(Python\/3\.\d{1,3} aiohttp)\/(\d+)\.(\d+)\.(\d+)/.exec(ua)){
 		const family = result[1];
 		const major = result[2];
 		const minor = result[3];

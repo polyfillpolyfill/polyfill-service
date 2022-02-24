@@ -114,9 +114,6 @@ describe("Querystring normalising", function () {
   });
 
   it("uses features if set", async function () {
-    console.log(
-      `/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc`
-    );
     const response = await axios.get(
       `/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc`
     );
