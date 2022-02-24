@@ -112,7 +112,7 @@
     "sinon": "^10.0.1",
     "supertest": "^6.1.1"
   },
-  "version": "4.46.0",
+  "version": "4.46.1",
   "snyk": true,
   "volta": {
     "node": "12.22.1",
