@@ -6,9 +6,10 @@
 	"scripts": {
 		"prebuild": "esbuild src/index.js --target=es2020 --platform=browser --bundle --minify --outfile=bin/index.js",
 		"build": "js-compute-runtime bin/index.js bin/main.wasm",
-		"deploy": "npm run build && fastly compute deploy",
+		"deploy": "rm -rf bin/ pkg/ && npm run build && fastly compute deploy",
 		"dev": "npm run build && fastly compute serve",
-		"test": "run-s test:*",
+		"lint": "eslint .",
+		"test": "start-server-and-test 'fastly compute serve' 7676 'run-s test:*'",
 		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
 	},
 	"dependencies": {
@@ -25,6 +26,7 @@
 		"mocha": "^9.2.1",
 		"npm-run-all": "^4.1.5",
 		"polyfill-library": "3.110.1",
-		"proclaim": "^3.6.0"
+		"proclaim": "^3.6.0",
+		"start-server-and-test": "^1.14.0"
 	}
 }
