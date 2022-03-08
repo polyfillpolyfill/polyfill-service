@@ -102,6 +102,14 @@ router.route("*", "*", async function (request, res) {
     res.status = 405;
     return res.send(`${request.method} METHOD NOT ALLOWED`);
   }
+  
+  if (request.method === "PURGE") {
+    let response = await fetch(request.url, {
+      backend: "polyfill",
+      method: request.method
+    });
+    return res.send(response);
+  }
 
   const host = request.headers.host;
   // Canonicalize requests onto https://polyfill.io (and allow https://polyfills.io)
