@@ -107,6 +107,8 @@ router.route("*", "*", async function (request, res) {
   if (request.method === "PURGE") {
     let response = await fetch(request.url, {
       backend: "polyfill",
+      cacheOverride:  new CacheOverride("none"),
+      headers: request.headers,
       method: request.method
     });
     return res.send(response);
@@ -169,6 +171,8 @@ router.route("*", "*", async function (request, res) {
   let response = await fetch(request.url, {
     backend: "polyfill",
     cacheOverride:  new CacheOverride("none"),
+    headers: request.headers,
+    method: request.method
   });
 
   if (urlPath === "/v3/polyfill.min.js" || urlPath === "/v3/polyfill.js") {
