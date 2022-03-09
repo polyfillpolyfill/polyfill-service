@@ -102,7 +102,8 @@ router.route("*", "*", async function (request, res) {
     res.status = 405;
     return res.send(`${request.method} METHOD NOT ALLOWED`);
   }
-  
+  console.log(request.url)
+
   if (request.method === "PURGE") {
     let response = await fetch(request.url, {
       backend: "polyfill",
