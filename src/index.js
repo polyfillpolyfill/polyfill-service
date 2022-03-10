@@ -8,6 +8,9 @@ const allowed_methods = ["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"];
 
 const router = new Router();
 
+router.use(async function(request, response) {
+  response.setHeader("Server-Timing", fastly.env.get("FASTLY_HOSTNAME"));
+})
 router.get("/", async (_, response) => {
   response.redirect("/v3/");
 });
