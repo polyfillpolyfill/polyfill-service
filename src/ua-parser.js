@@ -121,6 +121,11 @@
 		const minor = result[3];
 		patch = result[4];
 		return { family, major, minor, patch };
+	} else if (result = /(iPod|iPhone|iPad).+OS (\d+)_(\d+) like Mac OS X\) AppleWebKit\/605\.1(?:\.\d+|) \(KHTML, like Gecko\) Mobile\/\w+/.exec(ua)){
+		const family = "Mobile Safari/WKWebView";
+		const major = result[2];
+		const minor = result[3];
+		return { family, major, minor, patch };
 	} else if (result = /(iPod|iPhone|iPad).+AppleWebKit\/605\.1(?:\.\d+|)/.exec(ua)){
 		const family = "Mobile Safari/WKWebView";
 		const major = "11";
