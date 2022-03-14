@@ -77,15 +77,6 @@ function configureV2Defaults(request) {
   }
 }
 
-router.use("/v3/polyfill.js", async function (request) {
-  request.url.search = normalise_querystring_parameters_for_polyfill_bundle(
-    request,
-    request.url.searchParams
-  ).toString();
-  // # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
-  request.url.searchParams.sort();
-});
-
 router.get(
   "/v3/normalise_querystring_parameters_for_polyfill_bundle",
   async function (request, response) {
@@ -105,7 +96,6 @@ router.route("*", "*", async function (request, res) {
     res.status = 405;
     return res.send(`${request.method} METHOD NOT ALLOWED`);
   }
-  console.log(request.url)
 
   if (request.method === "PURGE") {
     let response = await fetch(request.url, {
