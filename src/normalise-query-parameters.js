@@ -11,8 +11,13 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
     let features;
     if (features = currentQuerystring.get('features')) {
 		// # Parameter has already been set, use the already set value.
-        features = sort_comma_separated_value(decodeURIComponent(features));
-        newQuerystring.set('features', features);
+        try {
+            features = sort_comma_separated_value(decodeURIComponent(features));
+            newQuerystring.set('features', encodeURIComponent(features));
+        } catch {
+            // This is here because the VCL version of polyfill.io would silently ignore URI Errors
+            newQuerystring.set('features', features);
+        }
 	} else {
 		// # Parameter has not been set, use the default value.
         newQuerystring.set('features', "default");
@@ -20,9 +25,14 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 
 	let excludes;
 	if (excludes = currentQuerystring.get('excludes')) {
-		// # Parameter has already been set, use the already set value.
-        excludes = sort_comma_separated_value(decodeURIComponent(excludes));
-        newQuerystring.set('excludes', excludes);
+		try {
+            // # Parameter has already been set, use the already set value.
+            excludes = sort_comma_separated_value(decodeURIComponent(excludes));
+            newQuerystring.set('excludes', encodeURIComponent(excludes));
+        } catch {
+            // This is here because the VCL version of polyfill.io would silently ignore URI Errors
+            newQuerystring.set('excludes', excludes);
+        }
 	} else {
 		newQuerystring.set('excludes', "");
 	}
