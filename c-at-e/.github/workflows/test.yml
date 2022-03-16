@@ -1,0 +1,15 @@
+name: Linting and Unit Tests
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2.1.5
+    - name: Set up Fastly CLI
+      uses: fastly/compute-actions/setup@main
+      with:
+        cli_version: '1.7.0'
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run test
