@@ -1,4 +1,4 @@
-resource "fastly_service_v1" "app" {
+resource "fastly_service_vcl" "app" {
   name = "origami-polyfill-service-dev.in.ft.com"
 
   domain {

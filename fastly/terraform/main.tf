@@ -1,12 +1,17 @@
-provider "fastly" {
-  version = "0.11.1"
+terraform {
+  required_providers {
+    fastly = {
+      source  = "fastly/fastly"
+      version = "1.1.2"
+    }
+  }
 }
 
 output "service_id" {
-  value = ["${fastly_service_v1.app.id}"]
+  value = ["${fastly_service_vcl.app.id}"]
 }
 
-resource "fastly_service_v1" "app" {
+resource "fastly_service_vcl" "app" {
   name = "placeholder"
 
   force_destroy = false
@@ -71,9 +76,9 @@ resource "fastly_service_v1" "app" {
   }
 }
 
-resource "fastly_service_dictionary_items_v1" "toppops_config_items" {
-  service_id    = fastly_service_v1.app.id
-  dictionary_id = { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
+resource "fastly_service_dictionary_items" "toppops_config_items" {
+  service_id    = fastly_service_vcl.app.id
+  dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
 
   items = {
   }
@@ -83,9 +88,9 @@ resource "fastly_service_dictionary_items_v1" "toppops_config_items" {
   }
 }
 
-resource "fastly_service_dictionary_items_v1" "compute_at_edge_config_items" {
-  service_id    = fastly_service_v1.app.id
-  dictionary_id = { for dictionary in fastly_service_v1.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
+resource "fastly_service_dictionary_items" "compute_at_edge_config_items" {
+  service_id    = fastly_service_vcl.app.id
+  dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
 
   items = {
   }

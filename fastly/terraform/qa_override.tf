@@ -1,4 +1,4 @@
-resource "fastly_service_v1" "app" {
+resource "fastly_service_vcl" "app" {
   name = "qa.polyfill.io"
 
   domain {
