@@ -2,7 +2,7 @@
 import { Router } from "flight-path";
 import { UA } from "./normalise-user-agent-1-10-1.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
-import { useragent_parser } from "./ua-parser.js";
+import useragent_parser from "@financial-times/useragent_parser";
 
 const allowed_methods = ["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"];
 

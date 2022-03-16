@@ -1,6 +1,6 @@
 "use strict";
 
-import {useragent_parser as useragent } from "./ua-parser.js";
+import useragent_parser from "@financial-times/useragent_parser";
 import semver from "semver";
 
 export function UA(uaString) {
@@ -79,7 +79,7 @@ export function UA(uaString) {
         ""
       );
 
-      this.ua = useragent(uaString);
+      this.ua = useragent_parser(uaString);
 
       this.ua.patch = "0";
 
