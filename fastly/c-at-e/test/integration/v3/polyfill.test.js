@@ -118,7 +118,7 @@ describe('compute-at-edge service', function() {
 		});
 	});
 
-	describe.skip("encoding", function() {
+	describe("encoding", function() {
 		it("responds with no compression if client does not accept compressed responses", async () => {
 			const response = await axios.get(`/v3/polyfill.js`,{
 				headers: {
@@ -136,7 +136,7 @@ describe('compute-at-edge service', function() {
 			const response = await axios.get(`/v3/polyfill.js`,{
 				headers: {
 					"Fastly-Debug": "true",
-					"Accept-Encoding": "gzip"
+					"accept-encoding": "gzip"
 				}
 			});
 

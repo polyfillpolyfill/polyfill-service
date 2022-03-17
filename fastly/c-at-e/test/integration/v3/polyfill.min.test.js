@@ -66,7 +66,7 @@ import axios from "../helpers.js";
 		});
 	});
 
-	describe.skip("encoding", function() {
+	describe("encoding", function() {
 		it("responds with no compression if client does not accept compressed responses", async () => {
 			const response = await axios.get(`/v3/polyfill.js`, {
 				headers: {
