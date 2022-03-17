@@ -4,7 +4,7 @@ import UA from "@financial-times/polyfill-useragent-normaliser";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
 import useragent_parser from "@financial-times/useragent_parser";
 
-const allowed_methods = ["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"];
+const allowed_methods = new Set(["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"]);
 
 const router = new Router();
 
@@ -91,20 +91,20 @@ router.get(
   }
 );
 
-router.route("*", "*", async function (request, res) {
-  if (!allowed_methods.includes(request.method)) {
-    res.status = 405;
-    return res.send(`${request.method} METHOD NOT ALLOWED`);
+router.route("*", "*", async function (request, response) {
+  if (!allowed_methods.has(request.method)) {
+    response.status = 405;
+    return response.send(`${request.method} METHOD NOT ALLOWED`);
   }
 
   if (request.method === "PURGE") {
-    let response = await fetch(request.url, {
+    let backendResponse = await fetch(request.url.toString(), {
       backend: "polyfill",
       cacheOverride:  new CacheOverride("none"),
       headers: request.headers,
       method: request.method
     });
-    return res.send(response);
+    return response.send(backendResponse);
   }
 
   const host = request.headers.host;
@@ -117,7 +117,7 @@ router.route("*", "*", async function (request, res) {
     case "www.polyfills.io":
     case "www.polyfill.io": {
       // Do the canonicalise redirects before the HTTPS redirect to avoid a double redirect
-      return res.redirect(`https://polyfill.io${request.url.pathname}`);
+      return response.redirect(`https://polyfill.io${request.url.pathname}`);
     }
   }
   const fastlyHostname = fastly.env.get("FASTLY_HOSTNAME");
@@ -126,7 +126,7 @@ router.route("*", "*", async function (request, res) {
   // https://developer.fastly.com/learning/compute/testing/#constraints-and-limitations-1
   // if (!isRunningLocally && !request.headers['fastly-ssl']) {
   if (!isRunningLocally && request.url.protocol != "https:") {
-    return res.redirect(`https://${host}${request.url.pathname}`);
+    return response.redirect(`https://${host}${request.url.pathname}`);
   }
 
   // # Because the old service had a router which allowed any words between /v2/polyfill. and .js
@@ -141,7 +141,7 @@ router.route("*", "*", async function (request, res) {
   ) {
     let urlPath = request.url.pathname;
     if (!(urlPath.startsWith("/v2/polyfill.") && urlPath.endsWith("js"))) {
-      return res.redirect("/v3/");
+      return response.redirect("/v3/");
     }
   }
 
@@ -161,7 +161,7 @@ router.route("*", "*", async function (request, res) {
     request.url.search = "";
   }
 
-  let response = await fetch(request.url, {
+  let backendResponse = await fetch(request.url.toString(), {
     backend: "polyfill",
     cacheOverride:  new CacheOverride("none"),
     headers: request.headers,
@@ -169,38 +169,38 @@ router.route("*", "*", async function (request, res) {
   });
 
   if (urlPath === "/v3/polyfill.min.js" || urlPath === "/v3/polyfill.js") {
-    let vary = response.headers.get("vary");
+    let vary = backendResponse.headers.get("vary");
     if (vary) {
       if (!/\bUser-Agent\b/.test(vary)) {
-        response.headers.set("vary", `${vary}, User-Agent`);
+        backendResponse.headers.set("vary", `${vary}, User-Agent`);
       }
     } else {
-      response.headers.set("vary", "User-Agent");
+      backendResponse.headers.set("vary", "User-Agent");
     }
   }
 
-  let vary = response.headers.get("vary");
+  let vary = backendResponse.headers.get("vary");
   if (vary) {
     if (!/\bAccept-Encoding\b/.test(vary)) {
-      response.headers.set("vary", `${vary}, Accept-Encoding`);
+      backendResponse.headers.set("vary", `${vary}, Accept-Encoding`);
     }
   } else {
-    response.headers.set("vary", "Accept-Encoding");
+    backendResponse.headers.set("vary", "Accept-Encoding");
   }
 
-  // if (new Date(request.headers["if-modified-since"]) >= new Date(response.headers.get("last-modified"))) {
-  //   response.headers.set("age", "0")
-  //   response = new Response(await response.text(), {
+  // if (new Date(request.headers["if-modified-since"]) >= new Date(backendResponse.headers.get("last-modified"))) {
+  //   backendResponse.headers.set("age", "0")
+  //   backendResponse = new Response(await backendResponse.text(), {
   //     status: 304,
-  //     headers: response.headers
+  //     headers: backendResponse.headers
   //   });
   // }
 
-  if (response.status == 304 || response.status == 200) {
-    response.headers.set("Age", "0");
+  if (backendResponse.status == 304 || backendResponse.status == 200) {
+    backendResponse.headers.set("Age", "0");
   }
 
-  res.send(response);
+  response.send(backendResponse);
 });
 
 router.listen();

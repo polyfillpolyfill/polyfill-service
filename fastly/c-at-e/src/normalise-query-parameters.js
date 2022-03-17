@@ -122,11 +122,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
         // # If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
         const useragent = originalRequest.headers["user-agent"];
         let normalisedUserAgent;
-		if (version === "3.25.1") {
-			normalisedUserAgent = oldUserAgentNormaliser.UA(useragent);
-		} else {
-            normalisedUserAgent = latestUserAgentNormaliser.UA.normalize(useragent);
-		}
+		normalisedUserAgent = version === "3.25.1" ? oldUserAgentNormaliser.UA(useragent) : latestUserAgentNormaliser.normalize(useragent);
 		newQuerystring.set("ua", normalisedUserAgent);
 	}
 
