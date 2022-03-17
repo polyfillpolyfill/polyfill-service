@@ -122,7 +122,7 @@ describe('vcl service', function() {
 	describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version", function() {
 		this.timeout(30000);
 		it("responds with a generic message", () => {
-			if (!host.includes('origami-polyfill-service-dev.in.ft.com') && !host.includes('qa.polyfill.io')) {
+			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version")
 					.expect("Content-Type", "text/html; charset=utf-8")
@@ -152,7 +152,10 @@ describe('vcl service', function() {
 				.set("Fastly-Debug", "true")
 				.set("Accept-Encoding", "gzip")
 				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip");
+				.expect("Content-Encoding", "gzip")
+				.then(response => {
+					assert.equal(response.headers["content-encoding"], undefined);
+				});
 		});
 
 		it("responds with gzip compression if client accepts gzip and deflate compressed responses", () => {
@@ -298,7 +301,7 @@ describe('compute-at-edge service', function() {
 	describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes", function() {
 		this.timeout(30000);
 		it("responds with a generic message", () => {
-			if (!host.includes('origami-polyfill-service-dev.in.ft.com') && !host.includes('qa.polyfill.io')) {
+			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes")
 					.expect("Content-Type", "text/html; charset=utf-8")
