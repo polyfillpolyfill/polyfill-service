@@ -152,10 +152,7 @@ describe('vcl service', function() {
 				.set("Fastly-Debug", "true")
 				.set("Accept-Encoding", "gzip")
 				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip")
-				.then(response => {
-					assert.equal(response.headers["content-encoding"], undefined);
-				});
+				.expect("Content-Encoding", "gzip");
 		});
 
 		it("responds with gzip compression if client accepts gzip and deflate compressed responses", () => {
