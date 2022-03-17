@@ -6,16 +6,15 @@ description = "polyfill.io cdn implemented in javascript"
 language = "javascript"
 manifest_version = 2
 name = "polyfill-service-c-at-e"
-service_id = "3AfcolkTD4KUfkrKGIYZ4T"
 
 [local_server]
   [local_server.backends]
     [local_server.backends.F_v3_eu]
-      url = "https://origami-polyfill-service-eu.herokuapp.com"
-      override_host = "origami-polyfill-service-eu.herokuapp.com"
+      url = "https://origami-polyfill-service-int.herokuapp.com"
+      override_host = "origami-polyfill-service-int.herokuapp.com"
     [local_server.backends.F_v3_us]
-      url = "https://origami-polyfill-service-eu.herokuapp.com"
-      override_host = "origami-polyfill-service-eu.herokuapp.com"
+      url = "https://origami-polyfill-service-int.herokuapp.com"
+      override_host = "origami-polyfill-service-int.herokuapp.com"
     [local_server.backends.polyfill]
-      url = "https://origami-polyfill-service-eu.herokuapp.com"
-      override_host = "origami-polyfill-service-eu.herokuapp.com"
+      url = "https://origami-polyfill-service-int.herokuapp.com"
+      override_host = "origami-polyfill-service-int.herokuapp.com"
