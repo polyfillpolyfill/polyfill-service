@@ -1,10 +1,11 @@
 name: Deploy to dev and test
 on: [pull_request]
 env:
-  terraform_version: '0.12.29'
+  terraform_version: '1.1.7'
   terraform_working_dir: 'fastly/terraform/'
-  fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_DEV }}
-  domain: origami-polyfill-service-dev.in.ft.com
+  fastly_vcl_service_id: 6oKc8cND9r7mE0Aymoo1ST
+  fastly_compute_service_id: 06FSzBcnfHpOjSqXwzOxvy
+  domain: dev.polyfill.io
 jobs:
   deploy-dev-and-purge-cdn:
     runs-on: ubuntu-latest
@@ -41,6 +42,7 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
         if: steps.witness.outputs.cache-hit != 'true'
+      - run: cd fastly/c-at-e && npm ci && npm run build; cd -
       - name: 'Terraform Format'
         if: steps.witness.outputs.cache-hit != 'true'
         uses: hashicorp/terraform-github-actions@v0.8.0
@@ -72,7 +74,7 @@ jobs:
           tf_actions_comment: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Import Fastly Service'
+      - name: 'Terraform Import Fastly VCL Service'
         if: steps.witness.outputs.cache-hit != 'true'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -80,7 +82,19 @@ jobs:
           tf_actions_subcommand: 'import'
           tf_actions_working_dir: ${{ env.terraform_working_dir }}
           tf_actions_comment: false
-          args: 'fastly_service.app ${{ env.fastly_service_id }}'
+          args: 'fastly_service_vcl.app ${{ env.fastly_vcl_service_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+      - name: 'Terraform Import Fastly Compute Service'
+        if: steps.witness.outputs.cache-hit != 'true'
+        uses: hashicorp/terraform-github-actions@v0.8.0
+        with:
+          tf_actions_version: ${{ env.terraform_version }}
+          tf_actions_subcommand: 'import'
+          tf_actions_working_dir: ${{ env.terraform_working_dir }}
+          tf_actions_comment: false
+          args: 'fastly_service_compute.app ${{ env.fastly_compute_service_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
@@ -92,7 +106,7 @@ jobs:
           tf_actions_subcommand: 'import'
           tf_actions_working_dir: ${{ env.terraform_working_dir }}
           tf_actions_comment: false
-          args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_service_id }}/2RYpb2YAbYtpjSjwok0VWc"'
+          args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/3BORC4S9SFMY71sIT4HmVD"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
@@ -104,7 +118,7 @@ jobs:
           tf_actions_subcommand: 'import'
           tf_actions_working_dir: ${{ env.terraform_working_dir }}
           tf_actions_comment: false
-          args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_service_id }}/2IoLgAUsrJOW8pU8FOQuyg"'
+          args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/3aFM8b6aSloCCTjRFOxWIo"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
@@ -142,7 +156,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
+      - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_vcl_service_id }}/purge_all"
         if: steps.witness.outputs.cache-hit != 'true'
       - run: sleep 60
         if: steps.witness.outputs.cache-hit != 'true'

@@ -1,3 +1,62 @@
+resource "fastly_service_compute" "app" {
+  name = "polyfill-service.edgecompute.com"
+
+  domain {
+    name = "polyfill-service.edgecompute.com"
+  }
+
+  director {
+    name     = "polyfill"
+    backends = ["v3_eu", "v3_us"]
+  }
+
+  backend {
+    name                  = "v3_eu"
+    address               = "origami-polyfill-service-eu.herokuapp.com"
+    port                  = 443
+    healthcheck           = "v3_eu_healthcheck"
+    ssl_cert_hostname     = "*.herokuapp.com"
+    auto_loadbalance      = false
+    connect_timeout       = 5000
+    first_byte_timeout    = 120000
+    between_bytes_timeout = 120000
+    error_threshold       = 0
+    override_host         = "origami-polyfill-service-eu.herokuapp.com"
+  }
+
+  healthcheck {
+    name      = "v3_eu_healthcheck"
+    host      = "origami-polyfill-service-eu.herokuapp.com"
+    path      = "/__gtg"
+    timeout   = 5000
+    threshold = 2
+    window    = 5
+  }
+
+  backend {
+    name                  = "v3_us"
+    address               = "origami-polyfill-service-us.herokuapp.com"
+    port                  = 443
+    healthcheck           = "v3_us_healthcheck"
+    ssl_cert_hostname     = "*.herokuapp.com"
+    auto_loadbalance      = false
+    connect_timeout       = 5000
+    first_byte_timeout    = 120000
+    between_bytes_timeout = 120000
+    error_threshold       = 0
+    override_host         = "origami-polyfill-service-us.herokuapp.com"
+  }
+
+  healthcheck {
+    name      = "v3_us_healthcheck"
+    host      = "origami-polyfill-service-us.herokuapp.com"
+    path      = "/__gtg"
+    timeout   = 5000
+    threshold = 2
+    window    = 5
+  }
+}
+
 resource "fastly_service_vcl" "app" {
   name = "cdn.polyfill.io"
 
@@ -31,7 +90,7 @@ resource "fastly_service_vcl" "app" {
 
   backend {
     name                  = "compute_at_edge"
-    address               = "polyfill-service.edgecompute.app"
+    address               = "polyfill-service.edgecompute.com"
     port                  = 443
     healthcheck           = "compute_at_edge_healthcheck"
     ssl_cert_hostname     = "*.edgecompute.app"
@@ -40,12 +99,12 @@ resource "fastly_service_vcl" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
-    override_host         = "polyfill-service.edgecompute.app"
+    override_host         = "polyfill-service.edgecompute.com"
   }
 
   healthcheck {
     name      = "compute_at_edge_healthcheck"
-    host      = "polyfill-service.edgecompute.app"
+    host      = "polyfill-service.edgecompute.com"
     path      = "/__gtg"
     timeout   = 5000
     threshold = 2

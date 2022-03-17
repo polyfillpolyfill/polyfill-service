@@ -1,9 +1,21 @@
-provider "fastly" {
-  version = "1.1.2"
+terraform {
+  required_providers {
+    fastly = {
+      source  = "fastly/fastly"
+      version = "1.1.2"
+    }
+  }
 }
 
-output "service_id" {
-  value = ["${fastly_service_vcl.app.id}"]
+resource "fastly_service_compute" "app" {
+  name = "placeholder"
+
+  force_destroy = false
+
+  package {
+    filename         = "../c-at-e/pkg/polyfill-service-c-at-e.tar.gz"
+    source_code_hash = filesha512("../c-at-e/pkg/polyfill-service-c-at-e.tar.gz")
+  }
 }
 
 resource "fastly_service_vcl" "app" {
@@ -72,8 +84,8 @@ resource "fastly_service_vcl" "app" {
 }
 
 resource "fastly_service_dictionary_items" "toppops_config_items" {
-  service_id    = fastly_service.app.id
-  dictionary_id = { for dictionary in fastly_service.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
+  service_id    = fastly_service_vcl.app.id
+  dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
 
   items = {
   }
@@ -84,8 +96,8 @@ resource "fastly_service_dictionary_items" "toppops_config_items" {
 }
 
 resource "fastly_service_dictionary_items" "compute_at_edge_config_items" {
-  service_id    = fastly_service.app.id
-  dictionary_id = { for dictionary in fastly_service.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
+  service_id    = fastly_service_vcl.app.id
+  dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
 
   items = {
   }

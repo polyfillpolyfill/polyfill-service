@@ -3,9 +3,10 @@ on:
   push:
     branches: [ master ]
 env:
-  terraform_version: '0.12.29'
+  terraform_version: '1.1.7'
   terraform_working_dir: 'fastly/terraform/'
-  fastly_service_id: ${{ secrets.FASTLY_SERVICE_ID_STAGING }}
+  fastly_vcl_service_id: 2l7QhcR5rkdg691tcdRTD7
+  fastly_compute_service_id: 4cUBTkiSVlJnR8JPnLvt85
   domain: qa.polyfill.io
 jobs:
   deploy-to-staging:
@@ -29,6 +30,7 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - run: npm ci
+    - run: cd fastly/c-at-e && npm ci && npm run build; cd -
     - name: Turnstyle
       uses: softprops/turnstyle@v1
       with:
@@ -46,14 +48,26 @@ jobs:
         tf_actions_comment: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: 'Terraform Import Fastly Service'
+    - name: 'Terraform Import Fastly VCL Service'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
         tf_actions_version: ${{ env.terraform_version }}
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service.app ${{ env.fastly_service_id }}'
+        args: 'fastly_service_vcl.app ${{ env.fastly_vcl_service_id }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+    - name: 'Terraform Import Fastly Compute Service'
+      if: steps.witness.outputs.cache-hit != 'true'
+      uses: hashicorp/terraform-github-actions@v0.8.0
+      with:
+        tf_actions_version: ${{ env.terraform_version }}
+        tf_actions_subcommand: 'import'
+        tf_actions_working_dir: ${{ env.terraform_working_dir }}
+        tf_actions_comment: false
+        args: 'fastly_service_compute.app ${{ env.fastly_compute_service_id }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
@@ -65,7 +79,7 @@ jobs:
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_service_id }}/4dfSlimwvlJELO6htcnGsi"'
+        args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/4dfSlimwvlJELO6htcnGsi"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
@@ -77,7 +91,7 @@ jobs:
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_service_id }}/6J7j8CkzoO7BsnE8iNl4uG"'
+        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/6J7j8CkzoO7BsnE8iNl4uG"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
