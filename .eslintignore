@@ -19,3 +19,4 @@ website/
 public/static/
 client/
 !.eleventy.js
+fastly/c-at-e

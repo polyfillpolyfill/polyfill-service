@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/better-regex */
 export function useragent_parser(ua) {
   let family = "Other";
   let major = "";
