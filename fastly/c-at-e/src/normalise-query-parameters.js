@@ -13,7 +13,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 		// # Parameter has already been set, use the already set value.
         try {
             features = sort_comma_separated_value(decodeURIComponent(features));
-            newQuerystring.set('features', encodeURIComponent(features));
+            newQuerystring.set('features', features);
         } catch {
             // This is here because the VCL version of polyfill.io would silently ignore URI Errors
             newQuerystring.set('features', features);
@@ -28,7 +28,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 		try {
             // # Parameter has already been set, use the already set value.
             excludes = sort_comma_separated_value(decodeURIComponent(excludes));
-            newQuerystring.set('excludes', encodeURIComponent(excludes));
+            newQuerystring.set('excludes', excludes);
         } catch {
             // This is here because the VCL version of polyfill.io would silently ignore URI Errors
             newQuerystring.set('excludes', excludes);

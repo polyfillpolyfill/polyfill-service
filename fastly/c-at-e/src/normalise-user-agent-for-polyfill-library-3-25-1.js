@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/better-regex */
 export function useragent_parser(ua) {
   let family = "Other";
   let major = "";
@@ -1962,12 +1963,10 @@ export function UA(ua) {
     if (family == "edge mobile") {
       family = "ie";
     }
-    if (family == "uc browser") {
-      if (major == "9" && minor == "9") {
+    if (family == "uc browser" && major == "9" && minor == "9") {
         family = "ie";
         major = "10";
       }
-    }
     if (family == "chrome mobile ios") {
       family = "ios_chr";
     }
@@ -2151,12 +2150,10 @@ export function UA(ua) {
       }
     }
 
-    if (family == "googlebot") {
-      if (major == "2" && minor == "1") {
+    if (family == "googlebot" && major == "2" && minor == "1") {
         family = "chrome";
         major = "41";
       }
-    }
 
     // # Supported Browsers and minimum supported versions.
     if (
