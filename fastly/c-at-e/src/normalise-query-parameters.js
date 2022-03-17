@@ -1,4 +1,4 @@
-import * as latestUserAgentNormaliser from "./normalise-user-agent-1-10-1.js";
+import * as latestUserAgentNormaliser from "@financial-times/polyfill-useragent-normaliser";
 import * as oldUserAgentNormaliser from "./normalise-user-agent-for-polyfill-library-3-25-1.js";
 
 function sort_comma_separated_value(value = "") {
