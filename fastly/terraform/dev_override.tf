@@ -1,8 +1,8 @@
 resource "fastly_service_compute" "app" {
-  name = "origami-polyfill-service-dev.edgecompute.com"
+  name = "origami-polyfill-service-dev.edgecompute.app"
 
   domain {
-    name = "origami-polyfill-service-dev.edgecompute.com"
+    name = "origami-polyfill-service-dev.edgecompute.app"
   }
 
   director {
@@ -66,7 +66,7 @@ resource "fastly_service_vcl" "app" {
 
   backend {
     name                  = "compute_at_edge"
-    address               = "origami-polyfill-service-dev.edgecompute.com"
+    address               = "origami-polyfill-service-dev.edgecompute.app"
     port                  = 443
     healthcheck           = "compute_at_edge_healthcheck"
     ssl_cert_hostname     = "*.edgecompute.app"
@@ -75,12 +75,12 @@ resource "fastly_service_vcl" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
-    override_host         = "origami-polyfill-service-dev.edgecompute.com"
+    override_host         = "origami-polyfill-service-dev.edgecompute.app"
   }
 
   healthcheck {
     name      = "compute_at_edge_healthcheck"
-    host      = "origami-polyfill-service-dev.edgecompute.com"
+    host      = "origami-polyfill-service-dev.edgecompute.app"
     path      = "/__gtg"
     timeout   = 5000
     threshold = 2

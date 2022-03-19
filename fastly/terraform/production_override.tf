@@ -1,8 +1,8 @@
 resource "fastly_service_compute" "app" {
-  name = "polyfill-service.edgecompute.com"
+  name = "polyfill-service.edgecompute.app"
 
   domain {
-    name = "polyfill-service.edgecompute.com"
+    name = "polyfill-service.edgecompute.app"
   }
 
   director {
@@ -90,7 +90,7 @@ resource "fastly_service_vcl" "app" {
 
   backend {
     name                  = "compute_at_edge"
-    address               = "polyfill-service.edgecompute.com"
+    address               = "polyfill-service.edgecompute.app"
     port                  = 443
     healthcheck           = "compute_at_edge_healthcheck"
     ssl_cert_hostname     = "*.edgecompute.app"
@@ -99,12 +99,12 @@ resource "fastly_service_vcl" "app" {
     first_byte_timeout    = 120000
     between_bytes_timeout = 120000
     error_threshold       = 0
-    override_host         = "polyfill-service.edgecompute.com"
+    override_host         = "polyfill-service.edgecompute.app"
   }
 
   healthcheck {
     name      = "compute_at_edge_healthcheck"
-    host      = "polyfill-service.edgecompute.com"
+    host      = "polyfill-service.edgecompute.app"
     path      = "/__gtg"
     timeout   = 5000
     threshold = 2
