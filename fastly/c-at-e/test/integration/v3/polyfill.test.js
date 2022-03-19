@@ -63,7 +63,8 @@ describe('compute-at-edge service', function() {
 			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true"
-				}
+				},
+				decompress: true
 			});
 
 			assert.equal(response.status, 200);
@@ -73,7 +74,14 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			assert.include(response.headers["surrogate-key"], 'polyfill-service');
 			assert.isString(response.data);
-			assert.doesNotThrow(() => new vm.Script(response.data));
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
 			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
@@ -83,7 +91,8 @@ describe('compute-at-edge service', function() {
 			const response = await axios.get(`/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes`,{
 				headers: {
 					"Fastly-Debug": "true"
-				}
+				},
+				decompress: true
 			});
 
 			assert.equal(response.status, 200);
@@ -93,7 +102,14 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			assert.include(response.headers["surrogate-key"], 'polyfill-service');
 			assert.isString(response.data);
-			assert.doesNotThrow(() => new vm.Script(response.data));
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
 			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
@@ -103,7 +119,8 @@ describe('compute-at-edge service', function() {
 			const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true"
-				}
+				},
+				decompress: true
 			});
 
 			assert.equal(response.status, 200);
@@ -113,7 +130,14 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 			assert.include(response.headers["surrogate-key"], 'polyfill-service');
 			assert.isString(response.data);
-			assert.doesNotThrow(() => new vm.Script(response.data));
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
 			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 		});
 	});
