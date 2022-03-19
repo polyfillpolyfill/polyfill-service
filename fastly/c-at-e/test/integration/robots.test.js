@@ -7,7 +7,7 @@ import axios from "./helpers.js";
 
 describe("GET /robots.txt", function() {
 	it("does not disallow any paths", async function() {
-		const response = await axios.get(`/robots.txt`)
+		const response = await axios.get(`/robots.txt?use-compute-at-edge-backend=yes`)
 
 		assert.equal(response.status, 200)
 		assert.equal(response.headers["content-type"], "text/plain; charset=utf-8")

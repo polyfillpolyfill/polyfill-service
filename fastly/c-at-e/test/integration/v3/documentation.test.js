@@ -7,7 +7,7 @@ import axios from "../helpers.js";
 
 describe("GET /v3/", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/`);
+    const response = await axios.get(`/v3/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -18,7 +18,7 @@ describe("GET /v3/", function () {
 });
 describe("GET /v3/api", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/api/`);
+    const response = await axios.get(`/v3/api/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -29,7 +29,7 @@ describe("GET /v3/api", function () {
 });
 describe("GET /v3/url-builder", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/url-builder/`);
+    const response = await axios.get(`/v3/url-builder/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -40,7 +40,7 @@ describe("GET /v3/url-builder", function () {
 });
 describe("GET /v3/privacy-policy", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/privacy-policy/`);
+    const response = await axios.get(`/v3/privacy-policy/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -51,7 +51,7 @@ describe("GET /v3/privacy-policy", function () {
 });
 describe("GET /v3/report-a-bug", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/report-a-bug/`);
+    const response = await axios.get(`/v3/report-a-bug/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -62,7 +62,7 @@ describe("GET /v3/report-a-bug", function () {
 });
 describe("GET /v3/supported-browsers", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/supported-browsers/`);
+    const response = await axios.get(`/v3/supported-browsers/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
@@ -73,7 +73,7 @@ describe("GET /v3/supported-browsers", function () {
 });
 describe("GET /v3/terms", function () {
   it("works as expected", async function () {
-    const response = await axios.get(`/v3/terms/`);
+    const response = await axios.get(`/v3/terms/?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],

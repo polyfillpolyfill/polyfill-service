@@ -8,7 +8,7 @@ import axios from "../helpers.js";
 
 	describe("GET /v3/polyfill.js", function() {
 		it("responds with a 200 status", async () => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true"
 				}
@@ -28,7 +28,7 @@ import axios from "../helpers.js";
 
 	describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 		it("responds with a 200 status", async () => {
-			const response = await axios.get(`/v3/polyfill.js?features=carrot&strict`, {
+			const response = await axios.get(`/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true"
 				}
@@ -48,7 +48,7 @@ import axios from "../helpers.js";
 
 	describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 		it("responds with a 200 status", async () => {
-			const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB`, {
+			const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true"
 				}
@@ -68,7 +68,7 @@ import axios from "../helpers.js";
 
 	describe("encoding", function() {
 		it("responds with no compression if client does not accept compressed responses", async () => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true",
 					"Accept-Encoding": "identity"
@@ -81,7 +81,7 @@ import axios from "../helpers.js";
 		});
 
 		it("responds with gzip compression if client accepts gzip compressed responses", async() => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true",
 					"Accept-Encoding": "gzip"
@@ -94,7 +94,7 @@ import axios from "../helpers.js";
 		});
 
 		it("responds with gzip compression if client accepts gzip and deflate compressed responses", async () => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true",
 					"Accept-Encoding": "gzip, deflate"
@@ -107,7 +107,7 @@ import axios from "../helpers.js";
 		});
 
 		it("responds with brotli compression if client accepts brotli compressed responses", async () => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true",
 					"Accept-Encoding": "br"
@@ -120,7 +120,7 @@ import axios from "../helpers.js";
 		});
 
 		it("responds with brotli compression if client accepts brotli and gzip compressed responses", async () => {
-			const response = await axios.get(`/v3/polyfill.js`, {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
 				headers: {
 					"Fastly-Debug": "true",
 					"Accept-Encoding": "br, gzip"
@@ -136,7 +136,7 @@ import axios from "../helpers.js";
 
 describe("OPTIONS /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.options(`/v3/polyfill.min.js`);
+		const response = await axios.options(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
 		assert.equal(response.status, 200);
 		assert.equal(response.headers.allow, "OPTIONS, GET, HEAD");
 	});
@@ -144,28 +144,28 @@ describe("OPTIONS /v3/polyfill.min.js", function() {
 
 describe("POST /v3/polyfill.min.js", function() {
 	it("responds with a 405 status", async () => {
-		const response = await axios.post(`/v3/polyfill.min.js`);
+		const response = await axios.post(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
 		assert.equal(response.status, 405);
 	});
 });
 
 describe("DELETE /v3/polyfill.min.js", function() {
 	it("responds with a 405 status", async () => {
-		const response = await axios.delete(`/v3/polyfill.min.js`);
+		const response = await axios.delete(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
 		assert.equal(response.status, 405);
 	});
 });
 
 // describe("PURGE /v3/polyfill.min.js", function() {
 // 	it("responds with a 401 status", async () => {
-// 		const response = await axios.purge(`/v3/polyfill.min.js`);
+// 		const response = await axios.purge(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
 // 		assert.equal(response.status, 401);
 // 	});
 // });
 
 describe("HEAD /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.head(`/v3/polyfill.min.js`, {
+		const response = await axios.head(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`, {
 			headers: {
 				"Fastly-Debug": "true"
 			}
@@ -183,7 +183,7 @@ describe("HEAD /v3/polyfill.min.js", function() {
 
 describe("GET /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.min.js`, {
+		const response = await axios.get(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`, {
 			headers: {
 				"Fastly-Debug": "true"
 			}
@@ -204,7 +204,7 @@ describe("GET /v3/polyfill.min.js", function() {
 
 describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.min.js?callback=AAA&callback=BBB`, {
+		const response = await axios.get(`/v3/polyfill.min.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
 			headers: {
 				"Fastly-Debug": "true"
 			}
@@ -225,7 +225,7 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 
 describe("GET /v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1`, {
+		const response = await axios.get(`/v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1&use-compute-at-edge-backend=yes`, {
 			headers: {
 				"Fastly-Debug": "true"
 			}

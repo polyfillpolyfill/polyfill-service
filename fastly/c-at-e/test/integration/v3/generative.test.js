@@ -59,6 +59,7 @@ function createTest(polyfillBundleOptions, ua) {
 	const qs = querystring.stringify({
 		features: polyfillBundleOptions.join(","),
 		ua,
+		'use-compute-at-edge-backend': 'yes',
 	});
 	const path = `/v3/polyfill.js?${qs}`;
 	context(path, function() {
