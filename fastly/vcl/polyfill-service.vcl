@@ -81,7 +81,6 @@ sub vcl_recv {
 		call breadcrumb_recv;
 	}
 
-
     # We use this edge dictionary item as a flag for whether to use compute-at-edge for any requests.
     # If the item is not found, then we default to `"0"`, which we interpret to mean the flag is off.
 	declare local var.compute-at-edge-active BOOL;
@@ -93,13 +92,15 @@ sub vcl_recv {
 	if (var.compute-at-edge-active) {
 		# if the querystring parameter `use-compute-at-edge-backend` is set to yes`
 		# then use the c@e backend.
-		# The querystring parameter is used within our tests, so that we can confirm 
+		# The querystring parameter is used within our tests, so that we can confirm
 		# the compute-at-edge backend is working as we expect it to.
 		declare local var.use-compute-at-edge-backend STRING;
 		set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
 		if (var.use-compute-at-edge-backend == "yes" && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
 			set req.backend = F_compute_at_edge;
 			if (req.backend.healthy) {
+				# add the original accept-encoding header so that the compute-at-edge service can detect brotli support
+				set req.http.Accept-Encoding = req.http.Fastly-Orig-Accept-Encoding;
 				# if using the c@e backend then do not use the cache at all
 				return(pass);
 			}
@@ -117,6 +118,8 @@ sub vcl_recv {
 			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0 && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
 				set req.backend = F_compute_at_edge;
 				if (req.backend.healthy) {
+					# add the original accept-encoding header so that the compute-at-edge service can detect brotli support
+					set req.http.Accept-Encoding = req.http.Fastly-Orig-Accept-Encoding;
 					# if using the c@e backend then do not use the cache at all
 					return(pass);
 				}
