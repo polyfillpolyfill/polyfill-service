@@ -91,7 +91,7 @@ jobs:
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/6J7j8CkzoO7BsnE8iNl4uG"'
+        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/52hxZN9sNy7jyAdvvGKekc"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
