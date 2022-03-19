@@ -42,7 +42,8 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
         if: steps.witness.outputs.cache-hit != 'true'
-      - run: cd fastly/c-at-e && npm ci && npm run build; cd -
+      - run: npm ci && npm run build
+        working-directory: fastly/c-at-e
       - name: 'Terraform Format'
         if: steps.witness.outputs.cache-hit != 'true'
         uses: hashicorp/terraform-github-actions@v0.8.0
@@ -183,5 +184,11 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
       - run: npm run test:integration
+        env:
+          HOST: "https://${{ env.domain }}"
+      - run: npm ci
+        working-directory: fastly/c-at-e
+      - run: npm run test:integration
+        working-directory: fastly/c-at-e
         env:
           HOST: "https://${{ env.domain }}"
