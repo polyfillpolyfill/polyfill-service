@@ -97,7 +97,7 @@ describe("Querystring normalising", function () {
       const response = await axios.get(
         `/v3/normalise_querystring_parameters_for_polyfill_bundle?use-compute-at-edge-backend=yes`
       );
-      assert.deepStrictEqual(response.data.ua, "other/0.0.0");
+      assert.deepStrictEqual(response.data.ua, "other%2F0.0.0");
     });
     it("should set ua to the normalised user-agent", async function () {
       const response = await axios.get(
@@ -109,7 +109,7 @@ describe("Querystring normalising", function () {
           },
         }
       );
-      assert.deepStrictEqual(response.data.ua, "chrome/65.0.0");
+      assert.deepStrictEqual(response.data.ua, "chrome%2F65.0.0");
     });
   });
 
@@ -117,13 +117,13 @@ describe("Querystring normalising", function () {
     const response = await axios.get(
       `/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc&use-compute-at-edge-backend=yes`
     );
-    assert.deepStrictEqual(response.data.features, "a,b,c");
+    assert.deepStrictEqual(response.data.features, "a%2Cb%2Cc");
   });
   it("uses excludes if set", async function () {
     const response = await axios.get(
       `/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=a%2Cb,c&use-compute-at-edge-backend=yes`
     );
-    assert.deepStrictEqual(response.data.excludes, "a,b,c");
+    assert.deepStrictEqual(response.data.excludes, "a%2Cb%2Cc");
   });
   it("uses rum if set", async function () {
     const response = await axios.get(
@@ -171,7 +171,7 @@ describe("Querystring normalising", function () {
     const response = await axios.get(
       `/v3/normalise_querystring_parameters_for_polyfill_bundle?ua=carrot/1.2.3&use-compute-at-edge-backend=yes`
     );
-    assert.deepStrictEqual(response.data.ua, "carrot/1.2.3");
+    assert.deepStrictEqual(response.data.ua, "carrot%2F1.2.3");
   });
 
   it("should sort features parameter", async function () {
@@ -180,7 +180,7 @@ describe("Querystring normalising", function () {
     );
     assert.deepStrictEqual(
       response.data.features,
-      "IntersectionObserver,atob,fetch"
+      "IntersectionObserver%2Catob%2Cfetch"
     );
   });
 
@@ -190,7 +190,7 @@ describe("Querystring normalising", function () {
     );
     assert.deepStrictEqual(
       response.data.excludes,
-      "Array.from,Map,Symbol,atob"
+      "Array.from%2CMap%2CSymbol%2Catob"
     );
   });
 });
