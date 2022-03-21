@@ -4,5 +4,7 @@ module.exports = {
         "fetch": "writeable",
         "CacheOverride": "writeable",
         "URLSearchParams": "writeable",
+        "Request": "writeable",
+        "Response": "writeable",
     }
 };
