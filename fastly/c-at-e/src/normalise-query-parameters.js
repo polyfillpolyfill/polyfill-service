@@ -140,9 +140,9 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 	} else {
         // # If compression is not set, use the best compression that the user-agent supports.
 		// # Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
-        let acceptEncoding = originalRequest.headers['accept-encoding']
-        let isNotIE6 = originalRequest.headers['user-agent'] && !originalRequest.headers['user-agent'].includes("MSIE 6")
-		if (acceptEncoding && isNotIE6) {
+        let acceptEncoding = originalRequest.headers['fastly-orig-accept-encoding'] || originalRequest.headers['accept-encoding']
+        let isIE6 = Boolean(originalRequest.headers['user-agent'] && originalRequest.headers['user-agent'].includes("MSIE 6"))
+		if (acceptEncoding && !isIE6) {
 			if (acceptEncoding.includes("br")) {
 				newQuerystring.set("compression", "br");
 			} else if (acceptEncoding.includes("gzip")) {
@@ -154,5 +154,6 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 			newQuerystring.set("compression", "");
 		}
 	}
+
 	return newQuerystring;
 }
