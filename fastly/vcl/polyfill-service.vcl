@@ -77,10 +77,6 @@ sub set_backend {
 }
 
 sub vcl_recv {
-	if (req.http.Fastly-Debug) {
-		call breadcrumb_recv;
-	}
-
 	if (req.method != "GET" && req.method != "HEAD" && req.method != "OPTIONS" && req.method != "FASTLYPURGE" && req.method != "PURGE") {
 		error 911;
 	}

@@ -56,13 +56,13 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the features parameter.
-			set var.querystring = querystring.set(var.querystring, "features", req.http.Sorted-Value);
+			set var.querystring = var.querystring "features=" req.http.Sorted-Value;
 		} else {
-			set var.querystring = querystring.set(var.querystring, "features", urldecode(re.group.1));
+			set var.querystring = var.querystring "features=" urldecode(re.group.1);
 		}
 	} else {
 		# Parameter has not been set, use the default value.
-		set var.querystring = querystring.set(var.querystring, "features", "default");
+		set var.querystring = var.querystring "features=" "default";
 	}
 
 	# (?i) makes the regex case-insensitive
@@ -76,9 +76,9 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set req.http.Sort-Value = urldecode(re.group.1);
 			call sort_comma_separated_value;
 			# The header Sorted-Value now contains the sorted version of the excludes parameter.
-			set var.querystring = querystring.set(var.querystring, "excludes", req.http.Sorted-Value);
+			set var.querystring = var.querystring "&excludes=" req.http.Sorted-Value;
 		} else {
-			set var.querystring = querystring.set(var.querystring, "excludes", urldecode(re.group.1));
+			set var.querystring = var.querystring "&excludes=" urldecode(re.group.1);
 		}
 	} else {
 		# If excludes is not set, set to default value ""
@@ -87,23 +87,23 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 
 	# If rum is not set, set to default value "0"
 	if (req.url.qs !~ "(?i)[^&=]*rum=([^&]+)") {
-		set var.querystring = querystring.set(var.querystring, "rum", "0");
+		set var.querystring = var.querystring "&rum=" "0";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "rum", re.group.1);
+		set var.querystring = var.querystring "&rum=" re.group.1;
 	}
 
 	# If unknown is not set, set to default value "polyfill"
 	if (req.url.qs !~ "(?i)[^&=]*unknown=([^&]+)") {
-		set var.querystring = querystring.set(var.querystring, "unknown", "polyfill");
+		set var.querystring = var.querystring "&unknown=" "polyfill";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "unknown", re.group.1);
+		set var.querystring = var.querystring "&unknown=" re.group.1;
 	}
 
 	# If flags is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*flags=([^&]+)") {
 		set var.querystring = var.querystring "&flags=";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "flags", urldecode(re.group.1));
+		set var.querystring = var.querystring "&flags=" urldecode(re.group.1);
 	}
 
 	# If version is not set, set to default value ""
@@ -112,7 +112,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		set var.querystring = var.querystring "&version=";
 	} else {
 		if (re.group.1 == "3.110.1" || re.group.1 == "3.109.0" || re.group.1 == "3.108.0" || re.group.1 == "3.104.0" || re.group.1 == "3.103.0" || re.group.1 == "3.101.0" || re.group.1 == "3.98.0" || re.group.1 == "3.96.0" || re.group.1 == "3.89.4" || re.group.1 == "3.53.1" || re.group.1 == "3.52.3" || re.group.1 == "3.52.2" || re.group.1 == "3.52.1" || re.group.1 == "3.52.0" || re.group.1 == "3.51.0" || re.group.1 == "3.50.2" || re.group.1 == "3.48.0" || re.group.1 == "3.46.0" || re.group.1 == "3.42.0" || re.group.1 == "3.41.0" || re.group.1 == "3.40.0" || re.group.1 == "3.39.0" || re.group.1 == "3.34.0" || re.group.1 == "3.27.4" || re.group.1 == "3.25.1") {
-			set var.querystring = querystring.set(var.querystring, "version", re.group.1);
+			set var.querystring = var.querystring "&version=" re.group.1;
 		} else {
 			set var.querystring = var.querystring "&version=";
 		}
@@ -125,29 +125,29 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 		} else {
 			call normalise_user_agent_1_10_1;
 		}
-		set var.querystring = querystring.set(var.querystring, "ua", req.http.Normalized-User-Agent);
+		set var.querystring = var.querystring "&ua=" req.http.Normalized-User-Agent;
 	} else {
-		set var.querystring = querystring.set(var.querystring, "ua", urldecode(re.group.1));
+		set var.querystring = var.querystring "&ua=" urldecode(re.group.1);
 	}
 
 	# If callback is not set, set to default value ""
 	if (req.url.qs !~ "(?i)[^&=]*callback=([^&]+)") {
 		set var.querystring = var.querystring "&callback=";
 	} else {
-		set var.querystring = querystring.set(var.querystring, "callback", re.group.1);
+		set var.querystring = var.querystring "&callback=" re.group.1;
 	}
 
 	# If compression is not set, use the best compression that the user-agent supports.
 	if (req.url.qs !~ "(?i)[^&=]*compression=([^&]+)") {
 		# When Fastly adds Brotli into the Accept-Encoding normalisation we can replace this with:
-		# `set var.querystring = querystring.set(var.querystring, "compression", req.http.Accept-Encoding || "")`
+		# `set var.querystring = var.querystring "&compression=" req.http.Accept-Encoding || ""`
 
 		# Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
 		if (req.http.Fastly-Orig-Accept-Encoding && req.http.User-Agent !~ "MSIE 6") {
 			if (req.http.Fastly-Orig-Accept-Encoding ~ "br") {
-				set var.querystring = querystring.set(var.querystring, "compression", "br");
+				set var.querystring = var.querystring "&compression=" "br";
 			} elsif (req.http.Fastly-Orig-Accept-Encoding ~ "gzip") {
-				set var.querystring = querystring.set(var.querystring, "compression", "gzip");
+				set var.querystring = var.querystring "&compression=" "gzip";
 			} else {
 				set var.querystring = var.querystring "&compression=";
 			}
@@ -155,11 +155,25 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 			set var.querystring = var.querystring "&compression=";
 		}
 	} else {
-		set var.querystring = querystring.set(var.querystring, "compression", re.group.1);
+		set var.querystring = var.querystring "&compression=" re.group.1;
 	}
 	set req.url = var.url var.querystring;
 }
 
+include "top_pops.vcl";
+include "normalise-user-agent-3-25-1.vcl";
+include "normalise-user-agent.vcl";
+
+# The Fastly VCL boilerplate.
+include "fastly-boilerplate-begin.vcl";
+
+include "breadcrumbs.vcl";
+
+sub vcl_recv {
+	if (req.http.Fastly-Debug) {
+		call breadcrumb_recv;
+	}
+}
 
 sub vcl_recv {
 	# We use this edge dictionary item as a flag for whether to use compute-at-edge for any requests.
@@ -177,11 +191,9 @@ sub vcl_recv {
 		# the compute-at-edge backend is working as we expect it to.
 		declare local var.use-compute-at-edge-backend STRING;
 		set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
-		if (var.use-compute-at-edge-backend == "yes" && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
+		if (var.use-compute-at-edge-backend == "yes") {
 			set req.backend = F_compute_at_edge;
 			if (req.backend.healthy) {
-				# add the original accept-encoding header so that the compute-at-edge service can detect brotli support
-				set req.http.Accept-Encoding = req.http.Fastly-Orig-Accept-Encoding;
 				# if using the c@e backend then do not use the cache at all
 				return(pass);
 			}
@@ -196,11 +208,9 @@ sub vcl_recv {
 			# We also have logic which decides how many of those direct client requests use compute-at-edge.
 			# We default to 1 in 1000 requests using compute-at-edge, this can be configured by the edge dictionary
 			# named `compute_at_edge_config` and the item in the dictionary named `sample`
-			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0 && (std.prefixof(req.url.path, "/v3/polyfill.js") || std.prefixof(req.url.path, "/v3/polyfill.min.js"))) {
+			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0) {
 				set req.backend = F_compute_at_edge;
 				if (req.backend.healthy) {
-					# add the original accept-encoding header so that the compute-at-edge service can detect brotli support
-					set req.http.Accept-Encoding = req.http.Fastly-Orig-Accept-Encoding;
 					# if using the c@e backend then do not use the cache at all
 					return(pass);
 				}
@@ -209,14 +219,6 @@ sub vcl_recv {
 	}
 }
 
-include "top_pops.vcl";
-include "normalise-user-agent-3-25-1.vcl";
-include "normalise-user-agent.vcl";
-
-# The Fastly VCL boilerplate.
-include "fastly-boilerplate-begin.vcl";
-
-include "breadcrumbs.vcl";
 include "redirects.vcl";
 include "synthetic-responses.vcl";
 include "polyfill-service.vcl";
