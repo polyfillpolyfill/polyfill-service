@@ -188,13 +188,13 @@ router.route("*", "*", async function (request, response) {
     backendResponse.headers.set("vary", "Accept-Encoding");
   }
 
-  // if (new Date(request.headers["if-modified-since"]) >= new Date(backendResponse.headers.get("last-modified"))) {
-  //   backendResponse.headers.set("age", "0")
-  //   backendResponse = new Response(await backendResponse.text(), {
-  //     status: 304,
-  //     headers: backendResponse.headers
-  //   });
-  // }
+  if (new Date(request.headers["if-modified-since"]) >= new Date(backendResponse.headers.get("last-modified"))) {
+    backendResponse.headers.set("age", "0")
+    backendResponse = new Response(null, {
+      status: 304,
+      headers: backendResponse.headers
+    });
+  }
 
   if (backendResponse.status == 304 || backendResponse.status == 200) {
     backendResponse.headers.set("Age", "0");
