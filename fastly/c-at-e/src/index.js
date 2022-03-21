@@ -98,9 +98,10 @@ router.route("*", "*", async function (request, response) {
   }
 
   if (request.method === "PURGE") {
+		request.headers['Fastly-Purge-Requires-Auth'] = "1";
     let backendResponse = await fetch(request.url.toString(), {
       backend: "polyfill",
-      cacheOverride:  new CacheOverride("none"),
+      cacheOverride:  new CacheOverride("pass"),
       headers: request.headers,
       method: request.method
     });
@@ -163,7 +164,7 @@ router.route("*", "*", async function (request, response) {
 
   let backendResponse = await fetch(request.url.toString(), {
     backend: "polyfill",
-    cacheOverride:  new CacheOverride("none"),
+    cacheOverride:  new CacheOverride("pass"),
     headers: request.headers,
     method: request.method
   });
