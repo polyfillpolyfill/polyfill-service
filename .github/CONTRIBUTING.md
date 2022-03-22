@@ -46,7 +46,8 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 6. In `src/assets/v3/library.11ty.js:17` add a new entry to the `versions` array for the version of `polyfill-library` you have just added.
 7. In the terminal run `npm install polyfill-library@*`
 8. In `fastly/vcl/main.vcl:114` add the new version to the if statement for setting the version query parameter.
-9. Commit the file changes into git, push up the branch and open a pull-request
+9. In `fastly/c-at-e/src/normalise-query-parameters.js:69` add the new version to the switch statement for setting the version query parameter.
+10. Commit the file changes into git, push up the branch and open a pull-request
 
 ## Cutting a Release
 
