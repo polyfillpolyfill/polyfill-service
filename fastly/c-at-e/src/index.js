@@ -92,6 +92,7 @@ router.get(
 );
 
 router.route("*", "*", async function (request, response) {
+	console.log(request.url)
   if (!allowed_methods.has(request.method)) {
     response.status = 405;
     return response.send(`${request.method} METHOD NOT ALLOWED`);
