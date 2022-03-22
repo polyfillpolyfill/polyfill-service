@@ -34,6 +34,7 @@ jobs:
       with:
         cli_version: '1.7.0'
     - run: npm i
+    - run: npm i
       working-directory: fastly/c-at-e
     - run: npm run lint
       working-directory: fastly/c-at-e
