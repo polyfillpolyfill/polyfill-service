@@ -82,7 +82,7 @@ jobs:
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/3t3bjgcYBnC8nfCHM60Hay"'
+        args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/446GW5am9tyUvsz9qPQ1jW"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
@@ -94,7 +94,7 @@ jobs:
         tf_actions_subcommand: 'import'
         tf_actions_working_dir: ${{ env.terraform_working_dir }}
         tf_actions_comment: true
-        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/5E74ZKOhK81rU53qOP4X4U"'
+        args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/0YxAHTtZA6o2U7ZKVcbbL1"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
