@@ -6,5 +6,6 @@ module.exports = {
         "URLSearchParams": "writeable",
         "Request": "writeable",
         "Response": "writeable",
+        "console": "writeable",
     }
 };
