@@ -95,7 +95,7 @@ describe("Querystring normalising", function() {
 				return request(host)
 					.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?use-compute-at-edge-backend=yes")
 					.then(response => {
-						assert.deepStrictEqual(response.body.ua, "other%2F0.0.0");
+						assert.deepStrictEqual(decodeURIComponent(response.body.ua), "other/0.0.0");
 					});
 			});
 			it("should set ua to the normalised user-agent", function() {
@@ -103,7 +103,7 @@ describe("Querystring normalising", function() {
 					.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?use-compute-at-edge-backend=yes")
 					.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Safari/537.36")
 					.then(response => {
-						assert.deepStrictEqual(response.body.ua, "chrome%2F65.0.0");
+						assert.deepStrictEqual(decodeURIComponent(response.body.ua), "chrome/65.0.0");
 					});
 			});
 		});
@@ -112,14 +112,14 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc&use-compute-at-edge-backend=yes")
 				.then(response => {
-					assert.deepStrictEqual(response.body.features, "a%2Cb%2Cc");
+					assert.deepStrictEqual(decodeURIComponent(response.body.features), "a,b,c");
 				});
 		});
 		it("uses excludes if set", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=a%2Cb,c&use-compute-at-edge-backend=yes")
 				.then(response => {
-					assert.deepStrictEqual(response.body.excludes, "a%2Cb%2Cc");
+					assert.deepStrictEqual(decodeURIComponent(response.body.excludes), "a,b,c");
 				});
 		});
 		it("uses rum if set", function() {
@@ -175,7 +175,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?ua=carrot/1.2.3&use-compute-at-edge-backend=yes")
 				.then(response => {
-					assert.deepStrictEqual(response.body.ua, "carrot%2F1.2.3");
+					assert.deepStrictEqual(decodeURIComponent(response.body.ua), "carrot/1.2.3");
 				});
 		});
 
@@ -183,7 +183,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=fetch,atob%2CIntersectionObserver&use-compute-at-edge-backend=yes")
 				.then(response => {
-					assert.deepStrictEqual(response.body.features, "IntersectionObserver%2Catob%2Cfetch");
+					assert.deepStrictEqual(decodeURIComponent(response.body.features), "IntersectionObserver,atob,fetch");
 				});
 		});
 
@@ -191,7 +191,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=Map,Array.from%2CSymbol,atob&use-compute-at-edge-backend=yes")
 				.then(response => {
-					assert.deepStrictEqual(response.body.excludes, "Array.from%2CMap%2CSymbol%2Catob");
+					assert.deepStrictEqual(decodeURIComponent(response.body.excludes), "Array.from,Map,Symbol,atob");
 				});
 		});
 	});
@@ -284,7 +284,7 @@ describe("Querystring normalising", function() {
 				return request(host)
 					.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?use-compute-at-edge-backend=no")
 					.then(response => {
-						assert.deepStrictEqual(response.body.ua, "other%2F0.0.0");
+						assert.deepStrictEqual(decodeURIComponent(response.body.ua), "other/0.0.0");
 					});
 			});
 			it("should set ua to the normalised user-agent", function() {
@@ -292,7 +292,7 @@ describe("Querystring normalising", function() {
 					.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?use-compute-at-edge-backend=no")
 					.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.220 Safari/537.36")
 					.then(response => {
-						assert.deepStrictEqual(response.body.ua, "chrome%2F65.0.0");
+						assert.deepStrictEqual(decodeURIComponent(response.body.ua), "chrome/65.0.0");
 					});
 			});
 		});
@@ -301,14 +301,14 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=a,b%2Cc&use-compute-at-edge-backend=no")
 				.then(response => {
-					assert.deepStrictEqual(response.body.features, "a%2Cb%2Cc");
+					assert.deepStrictEqual(decodeURIComponent(response.body.features), "a,b,c");
 				});
 		});
 		it("uses excludes if set", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=a%2Cb,c&use-compute-at-edge-backend=no")
 				.then(response => {
-					assert.deepStrictEqual(response.body.excludes, "a%2Cb%2Cc");
+					assert.deepStrictEqual(decodeURIComponent(response.body.excludes), "a,b,c");
 				});
 		});
 		it("uses rum if set", function() {
@@ -364,7 +364,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?ua=carrot/1.2.3&use-compute-at-edge-backend=no")
 				.then(response => {
-					assert.deepStrictEqual(response.body.ua, "carrot%2F1.2.3");
+					assert.deepStrictEqual(decodeURIComponent(response.body.ua), "carrot/1.2.3");
 				});
 		});
 
@@ -372,7 +372,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?features=fetch,atob%2CIntersectionObserver&use-compute-at-edge-backend=no")
 				.then(response => {
-					assert.deepStrictEqual(response.body.features, "IntersectionObserver%2Catob%2Cfetch");
+					assert.deepStrictEqual(decodeURIComponent(response.body.features), "IntersectionObserver,atob,fetch");
 				});
 		});
 
@@ -380,7 +380,7 @@ describe("Querystring normalising", function() {
 			return request(host)
 				.get("/v3/normalise_querystring_parameters_for_polyfill_bundle?excludes=Map,Array.from%2CSymbol,atob&use-compute-at-edge-backend=no")
 				.then(response => {
-					assert.deepStrictEqual(response.body.excludes, "Array.from%2CMap%2CSymbol%2Catob");
+					assert.deepStrictEqual(decodeURIComponent(response.body.excludes), "Array.from,Map,Symbol,atob");
 				});
 		});
 	});
