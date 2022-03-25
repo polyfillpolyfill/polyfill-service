@@ -8,7 +8,7 @@
 		"build": "js-compute-runtime bin/index.js bin/main.wasm",
 		"dev": "npm run build && fastly compute serve",
 		"lint": "eslint .",
-		"test": "start-server-and-test 'fastly compute serve' 7676 'run-s test:*'",
+		"test": "NODE_ENV='production' start-server-and-test 'npm --prefix ../../ run start' 8080 \"start-server-and-test 'fastly compute serve' 7676 'run-s test:*'\"",
 		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
 	},
 	"dependencies": {
