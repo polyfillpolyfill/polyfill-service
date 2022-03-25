@@ -6,9 +6,11 @@
 	"scripts": {
 		"prebuild": "esbuild src/index.js --target=es2020 --platform=browser --bundle --minify --outfile=bin/index.js",
 		"build": "js-compute-runtime bin/index.js bin/main.wasm",
-		"dev": "npm run build && fastly compute serve",
+		"dev": "npm run build && npm run start:c-at-e",
+    "start:c-at-e": "fastly compute serve",
+    "start:server": "npm --prefix ../../ run start",
 		"lint": "eslint .",
-		"test": "NODE_ENV='production' start-server-and-test 'npm --prefix ../../ run start' 8080 \"start-server-and-test 'fastly compute serve' 7676 'run-s test:*'\"",
+    "test": "NODE_ENV='production' start-test start:server 8080 start:c-at-e 7676 test:integration",
 		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
 	},
 	"dependencies": {
