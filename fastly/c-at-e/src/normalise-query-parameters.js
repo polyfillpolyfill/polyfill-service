@@ -67,6 +67,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
     let version;
 	if (version = currentQuerystring.get('version')) {
         switch (version) {
+            case "3.111.0":
             case "3.110.1":
             case "3.109.0":
             case "3.108.0":
