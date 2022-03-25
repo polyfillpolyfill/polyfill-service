@@ -41,7 +41,6 @@ class Test {
 				"3.108.0",
 				"3.109.0",
 				"3.110.1",
-				"3.111.0",
 				latestLibraryVersion,
 			]
 		};
