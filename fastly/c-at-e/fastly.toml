@@ -1,5 +1,5 @@
 # This file describes a Fastly Compute@Edge package. To learn more visit:
-# https://developer.fastly.comreference/fastly-toml/
+# https://developer.fastly.com/reference/fastly-toml/
 
 authors = ["me@jakechampion.name"]
 description = "polyfill.io cdn implemented in javascript"
@@ -11,10 +11,10 @@ name = "polyfill-service-c-at-e"
   [local_server.backends]
     [local_server.backends.F_v3_eu]
       url = "http://localhost:8080"
-      override_host = "origami-polyfill-service-int.herokuapp.com"
+      # override_host = "origami-polyfill-service-int.herokuapp.com"
     [local_server.backends.F_v3_us]
       url = "http://localhost:8080"
-      override_host = "origami-polyfill-service-int.herokuapp.com"
+      # override_host = "origami-polyfill-service-int.herokuapp.com"
     [local_server.backends.polyfill]
       url = "http://localhost:8080"
-      override_host = "origami-polyfill-service-int.herokuapp.com"
+      # override_host = "origami-polyfill-service-int.herokuapp.com"
