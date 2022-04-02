@@ -96,7 +96,7 @@
     "esbuild": "^0.11.19",
     "eslint": "^7.25.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^30.0.0",
     "fast-glob": "^3.2.5",
     "lockspot": "0.1.1",
