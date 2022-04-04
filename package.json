@@ -76,7 +76,7 @@
     "throng": "^4.0.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy": "^1.0.0",
     "@financial-times/o-buttons": "^7.0.0",
     "@financial-times/o-fonts": "^5.0.0",
     "@financial-times/o-footer-services": "^4.0.1",
