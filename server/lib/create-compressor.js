@@ -16,6 +16,7 @@ module.exports = function(compression) {
 			return zlib.createGzip({
 				level: zlib.Z_BEST_COMPRESSION
 			});
+		// eslint-disable-next-line unicorn/no-useless-switch-case
 		case "identity":
 		default:
 			return new PassThrough();

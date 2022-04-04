@@ -9,6 +9,7 @@ module.exports = {
 		"unicorn/no-useless-undefined": 0,
 		"unicorn/prefer-spread": 0,
 		"unicorn/no-array-for-each": 0,
+		"unicorn/prefer-module": 0
 	},
 	globals: {
 		Atomics: "readonly",
