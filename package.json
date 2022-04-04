@@ -42,7 +42,7 @@
     "@financial-times/polyfill-useragent-normaliser": "1.10.1",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
-    "express-extractheaders": "^3.1.0",
+    "express-extractheaders": "^4.0.1",
     "merge2": "^1.4.1",
     "polyfill-library": "^3.111.0",
     "polyfill-library-3.101.0": "npm:polyfill-library@3.101.0",
