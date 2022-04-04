@@ -107,7 +107,7 @@
     "nunjucks": "^3.2.3",
     "nyc": "^15.1.0",
     "postcss-cli": "^8.3.1",
-    "prettier": "^2.2.1",
+    "prettier": "^2.6.2",
     "proclaim": "^3.6.0",
     "rimraf": "^3.0.2",
     "sass": "^1.32.12",
