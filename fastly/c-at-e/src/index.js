@@ -1,8 +1,8 @@
 /// <reference types="@fastly/js-compute" />
 import { Router } from "flight-path";
-import UA from "@financial-times/polyfill-useragent-normaliser";
+import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
-import useragent_parser from "@financial-times/useragent_parser";
+import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
 
 const allowed_methods = new Set(["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"]);
 

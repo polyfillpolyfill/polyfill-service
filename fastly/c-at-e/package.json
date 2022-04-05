@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@fastly/js-compute": "0.2.4",
-		"@financial-times/polyfill-useragent-normaliser": "^1.10.1",
+		"@financial-times/polyfill-useragent-normaliser": "^1.10.2",
 		"flight-path": "^1.0.11"
 	},
 	"devDependencies": {
