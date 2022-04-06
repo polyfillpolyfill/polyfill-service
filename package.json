@@ -93,7 +93,7 @@
     "axios": "^0.26.1",
     "browserslist": "^4.20.2",
     "eclint": "^2.8.1",
-    "esbuild": "^0.14.31",
+    "esbuild": "^0.14.32",
     "eslint": "^8.12.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
