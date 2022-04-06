@@ -14,7 +14,7 @@ jobs:
   deploy-to-production:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: git fetch --prune --unshallow
     - uses: actions/setup-node@v3.1.0
       with:
@@ -139,7 +139,7 @@ jobs:
     needs: [deploy-to-production]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: Financial-Times/change-api-action@v1
         name: Create new change log
         with:
@@ -152,7 +152,7 @@ jobs:
     needs: [deploy-to-production]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: bash .github/workflows/create-netrc.sh
         env:
           HEROKU_LOGIN: ${{ secrets.HEROKU_LOGIN }}
@@ -178,7 +178,7 @@ jobs:
     needs: [purge-cdn]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: bash .github/workflows/create-netrc.sh
         env:
           HEROKU_LOGIN: ${{ secrets.HEROKU_LOGIN }}

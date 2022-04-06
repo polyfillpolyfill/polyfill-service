@@ -4,7 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/setup-node@v3.1.0
       with:
         node-version: 12.x
@@ -27,7 +27,7 @@ jobs:
   test-compute-at-edge:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/setup-node@v3.1.0
     - name: Set up Fastly CLI
       uses: fastly/compute-actions/setup@main

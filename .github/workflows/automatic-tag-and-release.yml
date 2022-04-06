@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Create new version/tag
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         if: github.event.pull_request.merged # Only run on merged pull-requests
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha }} # Checkout the merged commit
