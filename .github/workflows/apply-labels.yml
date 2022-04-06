@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Apply Origami labels to new issues and pull requests.
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: Financial-Times/origami-apply-labels@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

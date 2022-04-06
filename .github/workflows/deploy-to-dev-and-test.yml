@@ -19,7 +19,7 @@ jobs:
         with:
           path: $GITHUB_WORKSPACE/witness-${{ env.commit-sha }}
           key: witness--${{ env.commit-sha }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         if: steps.witness.outputs.cache-hit != 'true'
       - run: git fetch --prune --unshallow
         if: steps.witness.outputs.cache-hit != 'true'
@@ -166,7 +166,7 @@ jobs:
     needs: [deploy-dev-and-purge-cdn]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.1.0
         with:
           node-version: 12.x
