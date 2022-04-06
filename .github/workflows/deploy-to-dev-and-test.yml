@@ -64,7 +64,7 @@ jobs:
           same-branch-only: false
       - name: Deploy to Heroku
         if: steps.witness.outputs.cache-hit != 'true'
-        run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:refs/heads/master --force
+        run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/origami-polyfill-service-int.git HEAD:refs/heads/main --force
       - name: 'Terraform Init'
         if: steps.witness.outputs.cache-hit != 'true'
         uses: hashicorp/terraform-github-actions@v0.8.0

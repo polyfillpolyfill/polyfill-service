@@ -38,8 +38,8 @@ jobs:
       uses: softprops/turnstyle@v1
       with:
         same-branch-only: false
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.eu_app }}.git HEAD:refs/heads/master --force
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.us_app }}.git HEAD:refs/heads/master --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.eu_app }}.git HEAD:refs/heads/main --force
+    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.us_app }}.git HEAD:refs/heads/main --force
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
     - name: 'Terraform Init'

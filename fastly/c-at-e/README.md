@@ -1,6 +1,6 @@
 # polyfill.io VCL ported to JavaScript
 
-This is a near direct port of <https://github.com/Financial-Times/polyfill-service/tree/master/fastly/vcl>.
+This is a near direct port of <https://github.com/Financial-Times/polyfill-service/tree/main/fastly/vcl>.
 You can view the deployed version at <https://polyfill-service.edgecompute.app/>
 
 To run this project:

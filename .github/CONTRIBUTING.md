@@ -38,7 +38,7 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 
 ## Updating polyfill-library
 
-1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
+1. Open a terminal to the root folder of the repository and ensure that the latest version of main is checked out. `git checkout main && git pull origin main`
 2. Create a new branch to make changes into. `git checkout -b [name]`
 3. In `package.json` rename the `polyfill-library` dependency to `polyfill-library-$version` and change the version to be an npm alias. E.G. `"polyfill-library": "^3.27.4"` becomes `"polyfill-library-3.27.4": "npm:polyfill-library@3.27.4"`
 4. In `server/routes/v3/polyfill.js` add a new map entry for the version of `polyfill-library` you have just added.
@@ -51,9 +51,9 @@ owners to license your work under the terms of the [MIT License](../LICENSE.md).
 
 ## Cutting a Release
 
-Every merge to the master branch will trigger a release to [staging]. When ready to deploy to [production], follow these steps:
+Every merge to the main branch will trigger a release to [staging]. When ready to deploy to [production], follow these steps:
 
-1. Open a terminal to the root folder of the repository and ensure that the latest version of master is checked out. `git checkout master && git pull origin master`
+1. Open a terminal to the root folder of the repository and ensure that the latest version of main is checked out. `git checkout main && git pull origin main`
 2. Create a new branch to make changes into. `git checkout -b [name]`
 3. Follow the interactive release process. `npm version [major|minor|patch]`
 4. Push the changes to GitHub and make a Pull-Request. `git push origin [name]`
@@ -62,7 +62,7 @@ Every merge to the master branch will trigger a release to [staging]. When ready
 
 ---
 
-_Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md) for the inspiration with this contributing guide_
+_Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/main/CONTRIBUTING.md) for the inspiration with this contributing guide_
 
 [@polyfillio]: https://twitter.com/polyfillio
 [npm]: https://www.npmjs.com/

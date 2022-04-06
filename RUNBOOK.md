@@ -164,7 +164,7 @@ There is no data to recover.
 
 ## Release Details
 
-The application is deployed to QA whenever a new commit is pushed to the `master` branch of this repo on GitHub. To release to production, the QA application must be [manually promoted through the Heroku interface](https://dashboard.heroku.com/pipelines/10cf6498-6c61-4321-b758-26728d3cffc7).
+The application is deployed to QA whenever a new commit is pushed to the `main` branch of this repo on GitHub. To release to production, the QA application must be [manually promoted through the Heroku interface](https://dashboard.heroku.com/pipelines/10cf6498-6c61-4321-b758-26728d3cffc7).
 
 ## Key Management Details
 
