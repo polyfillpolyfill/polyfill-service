@@ -15,7 +15,7 @@ jobs:
       - run : echo "${{ env.commit-sha }}" > $GITHUB_WORKSPACE/witness-${{ env.commit-sha }}
       - name: record ${{ env.commit-sha }} witness
         id: witness
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.1
         with:
           path: $GITHUB_WORKSPACE/witness-${{ env.commit-sha }}
           key: witness--${{ env.commit-sha }}
@@ -29,7 +29,7 @@ jobs:
           node-version: 12.x
       - name: Cache node modules
         if: steps.witness.outputs.cache-hit != 'true'
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.1
         env:
           cache-name: cache-node-modules
         with:
@@ -171,7 +171,7 @@ jobs:
         with:
           node-version: 12.x
       - name: Cache node modules
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.1
         env:
           cache-name: cache-node-modules
         with:
