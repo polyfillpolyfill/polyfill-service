@@ -224,6 +224,16 @@ sub vcl_recv {
 	}
 }
 
+sub vcl_fetch {
+	# if using the compute-at-edge backend, we want to ensure request collapsing is not enabled
+	# we don't want request collapsing because request collapsing would cause multiple requests 
+	# for the same path to be served the same response, which would end up meaning one browser 
+	# would get a polyfill bundle meant for a different browser
+	if (req.backend == F_compute_at_edge) {
+		return(pass);
+	}
+}
+
 include "redirects.vcl";
 include "synthetic-responses.vcl";
 include "polyfill-service.vcl";
