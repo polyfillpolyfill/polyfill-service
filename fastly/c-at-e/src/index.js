@@ -168,6 +168,8 @@ router.route("*", "*", async function (request, response) {
     method: request.method
   });
 
+	backendResponse.headers['useragent_normaliser'] = request.query.ua;
+
   if (urlPath === "/v3/polyfill.min.js" || urlPath === "/v3/polyfill.js") {
     let vary = backendResponse.headers.get("vary");
     if (vary) {
