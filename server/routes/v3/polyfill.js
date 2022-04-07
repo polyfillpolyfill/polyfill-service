@@ -123,10 +123,10 @@ module.exports = app => {
 
 		// 400 if requested polyfills are missing
 		if (polyfillLibrary && parameters.strict) {
-			const features = new Set([...await polyfillio.listAliases(), ...await polyfillio.listAllPolyfills()]);
-			const requestedFeaturesAllExist = parameters.features.every(feature => features.has(feature));
+			const features = new Set([...Object.values(await polyfillio.listAliases()).flat(), ...Object.values(await polyfillio.listAllPolyfills()).flat()]);
+			const requestedFeaturesAllExist = Object.keys(parameters.features).every(feature => features.has(feature));
 			if (!requestedFeaturesAllExist) {
-				const requestedFeaturesWhichDoNotExist = parameters.features.filter(feature => !features.has(feature));
+				const requestedFeaturesWhichDoNotExist = Object.keys(parameters.features).filter(feature => !features.has(feature));
 				await respondWithMissingFeatures(response, requestedFeaturesWhichDoNotExist);
 				return;
 			}
