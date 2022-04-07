@@ -149,14 +149,12 @@ router.route("*", "*", async function (request, response) {
   const urlPath = request.url.pathname;
 
   if (urlPath === "/v3/polyfill.min.js" || urlPath === "/v3/polyfill.js") {
-    if (request.url.search) {
-      request.url.search = normalise_querystring_parameters_for_polyfill_bundle(
-        request,
-        request.url.searchParams
-      ).toString();
-      // # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
-      request.url.searchParams.sort();
-    }
+		request.url.search = normalise_querystring_parameters_for_polyfill_bundle(
+			request,
+			request.url.searchParams
+		).toString();
+		// # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
+		request.url.searchParams.sort();
   } else {
     // # The request is to an endpoint which doesn't use query parameters, let's remove them to increase our cache-hit-ratio
     request.url.search = "";
