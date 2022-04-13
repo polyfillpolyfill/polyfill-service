@@ -3,6 +3,7 @@ import { Router } from "flight-path";
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
+import fetchWithFailover from "./fetch-with-failover.js";
 
 const allowed_methods = new Set(["GET", "HEAD", "OPTIONS", "FASTLYPURGE", "PURGE"]);
 
@@ -100,7 +101,7 @@ router.route("*", "*", async function (request, response) {
 
   if (request.method === "PURGE") {
 		request.headers['Fastly-Purge-Requires-Auth'] = "1";
-    let backendResponse = await fetch(request.url.toString(), {
+    let backendResponse = await fetchWithFailover(request.url.toString(), {
       backend: "polyfill",
       headers: request.headers,
       method: request.method
@@ -160,8 +161,7 @@ router.route("*", "*", async function (request, response) {
     request.url.search = "";
   }
 
-  let backendResponse = await fetch(request.url.toString(), {
-    backend: "polyfill",
+  let backendResponse = await fetchWithFailover(request.url.toString(), {
     headers: request.headers,
     method: request.method
   });

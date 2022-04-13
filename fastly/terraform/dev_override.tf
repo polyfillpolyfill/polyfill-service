@@ -5,11 +5,6 @@ resource "fastly_service_compute" "app" {
     name = "origami-polyfill-service-dev.edgecompute.app"
   }
 
-  director {
-    name     = "polyfill"
-    backends = ["v3_eu", "v3_us"]
-  }
-
   backend {
     name                  = "v3_eu"
     address               = "origami-polyfill-service-int.herokuapp.com"
