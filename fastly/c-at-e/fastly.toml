@@ -9,12 +9,9 @@ name = "polyfill-service-c-at-e"
 
 [local_server]
   [local_server.backends]
-    [local_server.backends.F_v3_eu]
+    [local_server.backends.v3_eu]
       url = "http://localhost:8080"
       # override_host = "origami-polyfill-service-int.herokuapp.com"
-    [local_server.backends.F_v3_us]
-      url = "http://localhost:8080"
-      # override_host = "origami-polyfill-service-int.herokuapp.com"
-    [local_server.backends.polyfill]
+    [local_server.backends.v3_us]
       url = "http://localhost:8080"
       # override_host = "origami-polyfill-service-int.herokuapp.com"
