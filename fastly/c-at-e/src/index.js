@@ -196,7 +196,7 @@ router.route("*", "*", async function (request, response) {
     });
   }
 
-  if (backendResponse.status == 304) {
+  if (backendResponse.status == 304 || backendResponse.status == 200) {
     backendResponse.headers.set("Age", "0");
   }
 
