@@ -170,6 +170,9 @@ include "fastly-boilerplate-begin.vcl";
 include "breadcrumbs.vcl";
 
 sub vcl_recv {
+	# enable http/3
+	h3.alt_svc();
+	
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_recv;
 	}
