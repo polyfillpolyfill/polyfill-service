@@ -14,7 +14,7 @@
 		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
 	},
 	"dependencies": {
-		"@fastly/js-compute": "0.2.4",
+		"@fastly/js-compute": "0.5.3",
 		"@financial-times/polyfill-useragent-normaliser": "^1.10.2",
 		"flight-path": "^1.0.11"
 	},
