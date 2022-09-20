@@ -38,6 +38,7 @@
     "npm": "^7"
   },
   "dependencies": {
+    "@fastly/js-compute": "^0.5.3",
     "@financial-times/origami-service": "^5.0.2",
     "@financial-times/polyfill-useragent-normaliser": "1.10.2",
     "compression": "^1.7.4",
