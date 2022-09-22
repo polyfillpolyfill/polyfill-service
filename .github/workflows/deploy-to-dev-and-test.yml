@@ -42,7 +42,7 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
         if: steps.witness.outputs.cache-hit != 'true'
-      - run: npm ci && npm run build
+      - run: npm ci && npm run build && pwd && ls && ls ./pkg
         working-directory: fastly/c-at-e
       - name: 'Terraform Format'
         if: steps.witness.outputs.cache-hit != 'true'
