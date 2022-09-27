@@ -12,7 +12,7 @@ describe("GET /__health", function() {
 			return request(host)
 				.get("/__health?use-compute-at-edge-backend=yes")
 				.expect(200)
-				.expect("Content-Type", "application/json; charset=utf-8")
+				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/)
 				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private");
 		});
 	});
@@ -21,7 +21,7 @@ describe("GET /__health", function() {
 			return request(host)
 				.get("/__health?use-compute-at-edge-backend=no")
 				.expect(200)
-				.expect("Content-Type", "application/json; charset=utf-8")
+				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/)
 				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private");
 		});
 	});

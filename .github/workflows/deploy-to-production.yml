@@ -32,12 +32,18 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - run: npm ci
-    - run: npm ci && npm run build
+    - name: Set up Fastly CLI
+      uses: fastly/compute-actions/setup@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - run: npm ci && fastly compute build 
       working-directory: fastly/c-at-e
     - name: Turnstyle
       uses: softprops/turnstyle@v1
       with:
         same-branch-only: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.eu_app }}.git HEAD:refs/heads/main --force
     - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.us_app }}.git HEAD:refs/heads/main --force
     - name: Remove the development and staging terraform configuration overrides

@@ -11,7 +11,7 @@ describe("GET /__about", function() {
 			return request(host)
 				.get("/__about?use-compute-at-edge-backend=yes")
 				.expect(200)
-				.expect("Content-Type", "application/json; charset=utf-8");
+				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/);
 		});
 	});
 
@@ -20,7 +20,7 @@ describe("GET /__about", function() {
 			return request(host)
 				.get("/__about?use-compute-at-edge-backend=no")
 				.expect(200)
-				.expect("Content-Type", "application/json; charset=utf-8");
+				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/);
 		});
 	});
 });

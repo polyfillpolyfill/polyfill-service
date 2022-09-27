@@ -14,7 +14,7 @@ describe("https://github.com/Financial-Times/polyfill-service/issues/1865", func
 
 			assert.equal(response.status, 200);
 			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
-			assert.equal(response.headers['content-type'], "text/javascript; charset=utf-8")
+			assert.equal(response.headers['content-type'], "text/javascript; charset=UTF-8")
 			assert.isString(response.data);
 			assert.doesNotThrow(() => new vm.Script(response.data));
 		});

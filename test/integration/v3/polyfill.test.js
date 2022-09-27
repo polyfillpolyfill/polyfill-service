@@ -91,7 +91,7 @@ describe("HEAD /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
 				.head("/v3/polyfill.js?use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -104,7 +104,7 @@ describe("HEAD /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
 				.head("/v3/polyfill.js?use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -121,7 +121,7 @@ describe("GET /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
 				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -139,7 +139,7 @@ describe("GET /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
 				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -161,7 +161,7 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 				.get("/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -177,7 +177,7 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 				.get("/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -197,7 +197,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-back
 				.get("/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -215,7 +215,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-back
 				.get("/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("Access-Control-Allow-Origin", "*")
 				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -236,7 +236,7 @@ describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-ed
 			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes")
-					.expect("Content-Type", "text/html; charset=utf-8")
+					.expect("Content-Type", "text/html; charset=UTF-8")
 					.then(response => {
 						assert.deepEqual(response.text, 'requested version does not exist')
 					});
@@ -248,7 +248,7 @@ describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-ed
 			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=no")
-					.expect("Content-Type", "text/html; charset=utf-8")
+					.expect("Content-Type", "text/html; charset=UTF-8")
 					.then(response => {
 						assert.deepEqual(response.text, 'requested version does not exist')
 					});

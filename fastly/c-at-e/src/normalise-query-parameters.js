@@ -121,7 +121,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
         newQuerystring.set("ua", decodeURIComponent(ua));
     } else {
         // # If ua is not set, normalise the User-Agent header based upon the version of the polyfill-library that has been requested.
-        const useragent = originalRequest.headers["user-agent"];
+        const useragent = originalRequest.headers.get("User-Agent");
         let normalisedUserAgent;
 		normalisedUserAgent = version === "3.25.1" ? oldUserAgentNormaliser.UA(useragent) : latestUserAgentNormaliser.normalize(useragent);
 		newQuerystring.set("ua", normalisedUserAgent);
@@ -141,8 +141,8 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 	} else {
         // # If compression is not set, use the best compression that the user-agent supports.
 		// # Before SP2, IE/6 doesn't always read and cache gzipped content correctly.
-        let acceptEncoding = originalRequest.headers['fastly-orig-accept-encoding'] || originalRequest.headers['accept-encoding']
-        let isIE6 = Boolean(originalRequest.headers['user-agent'] && originalRequest.headers['user-agent'].includes("MSIE 6"))
+        let acceptEncoding = originalRequest.headers.get('fastly-orig-accept-encoding') || originalRequest.headers.get('accept-encoding')
+        let isIE6 = Boolean(originalRequest.headers.get('user-agent') && originalRequest.headers.get('user-agent').includes("MSIE 6"))
 		if (acceptEncoding && !isIE6) {
 			if (acceptEncoding.includes("br")) {
 				newQuerystring.set("compression", "br");

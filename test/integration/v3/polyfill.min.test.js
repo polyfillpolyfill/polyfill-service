@@ -89,7 +89,7 @@ describe("HEAD /v3/polyfill.min.js", function() {
 				.head("/v3/polyfill.min.js?use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/);
 		});
@@ -101,7 +101,7 @@ describe("HEAD /v3/polyfill.min.js", function() {
 				.head("/v3/polyfill.min.js?use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/);
 		});
@@ -116,7 +116,7 @@ describe("GET /v3/polyfill.min.js", function() {
 				.get("/v3/polyfill.min.js?use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -132,7 +132,7 @@ describe("GET /v3/polyfill.min.js", function() {
 				.get("/v3/polyfill.min.js?use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -152,7 +152,7 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 				.get("/v3/polyfill.min.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -168,7 +168,7 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 				.get("/v3/polyfill.min.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -188,7 +188,7 @@ describe("GET /v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 				.get("/v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1&use-compute-at-edge-backend=yes")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
@@ -205,7 +205,7 @@ describe("GET /v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 				.get("/v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfill&flags=gated&rum=1&use-compute-at-edge-backend=no")
 				.set("Fastly-Debug", "true")
 				.expect(200)
-				.expect("Content-Type", "text/javascript; charset=utf-8")
+				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
 				.expect("surrogate-key", /polyfill-service/)
 				.then(response => {
