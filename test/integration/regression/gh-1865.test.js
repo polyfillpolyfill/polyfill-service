@@ -16,7 +16,7 @@ describe("https://github.com/Financial-Times/polyfill-service/issues/1865", func
 				return request(host)
 					.get(path + '?use-compute-at-edge-backend=yes')
 					.expect(200)
-					.expect("Content-Type", "text/javascript; charset=utf-8")
+					.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 					.then(response => {
 						assert.isString(response.text);
 						assert.doesNotThrow(() => new vm.Script(response.text));
@@ -30,7 +30,7 @@ describe("https://github.com/Financial-Times/polyfill-service/issues/1865", func
 				return request(host)
 					.get(path + '?use-compute-at-edge-backend=no')
 					.expect(200)
-					.expect("Content-Type", "text/javascript; charset=utf-8")
+					.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
 					.then(response => {
 						assert.isString(response.text);
 						assert.doesNotThrow(() => new vm.Script(response.text));

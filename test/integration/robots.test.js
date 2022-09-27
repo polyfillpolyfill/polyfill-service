@@ -12,7 +12,7 @@ describe("GET /robots.txt", function() {
 			return request(host)
 				.get("/robots.txt?use-compute-at-edge-backend=yes")
 				.expect(200)
-				.expect("Content-Type", "text/plain; charset=utf-8")
+				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
 				.then(response => {
 					assert.isString(response.text);
 					assert.equal(response.text, "User-agent: *\nDisallow:");
@@ -25,7 +25,7 @@ describe("GET /robots.txt", function() {
 			return request(host)
 				.get("/robots.txt?use-compute-at-edge-backend=no")
 				.expect(200)
-				.expect("Content-Type", "text/plain; charset=utf-8")
+				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
 				.then(response => {
 					assert.isString(response.text);
 					assert.equal(response.text, "User-agent: *\nDisallow:");

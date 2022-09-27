@@ -12,7 +12,7 @@ describe("GET /404", function() {
 				.get("/404?use-compute-at-edge-backend=yes")
 				.expect(404)
 				.expect("Cache-Control", "max-age=30, public, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("Content-Type", "text/html; charset=utf-8");
+				.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/);
 		});
 
 		it("responds with a 404 status", () => {
@@ -40,7 +40,7 @@ describe("GET /404", function() {
 				.get("/404?use-compute-at-edge-backend=no")
 				.expect(404)
 				.expect("Cache-Control", "max-age=30, public, s-maxage=31536000, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("Content-Type", "text/html; charset=utf-8");
+				.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/);
 		});
 
 		it("responds with a 404 status", () => {

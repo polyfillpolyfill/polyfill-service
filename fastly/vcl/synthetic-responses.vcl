@@ -29,7 +29,7 @@ sub vcl_error {
 		call normalise_user_agent_1_10_2;
 		set obj.status = 200;
 		set obj.response = "OK";
-		set obj.http.Content-Type = "text/plain; charset=utf-8";
+		set obj.http.Content-Type = "text/plain; charset=UTF-8";
 		set obj.http.Normalized-User-Agent = req.http.Normalized-User-Agent;
 		synthetic req.http.Normalized-User-Agent;
 		return (deliver);
@@ -40,7 +40,7 @@ sub vcl_error {
 		call useragent_parser;
 		set obj.status = 200;
 		set obj.response = "OK";
-		set obj.http.Content-Type = "text/plain; charset=utf-8";
+		set obj.http.Content-Type = "text/plain; charset=UTF-8";
 		set obj.http.useragent_parser_family = req.http.useragent_parser_family;
 		set obj.http.useragent_parser_major = req.http.useragent_parser_major;
 		set obj.http.useragent_parser_minor = req.http.useragent_parser_minor;
@@ -54,7 +54,7 @@ sub vcl_error {
 		call normalise_querystring_parameters_for_polyfill_bundle;
 		set obj.status = 200;
 		set obj.response = "OK";
-		set obj.http.Content-Type = "application/json; charset=utf-8";
+		set obj.http.Content-Type = "application/json; charset=UTF-8";
 		set obj.http.features = subfield(req.url.qs, "features", "&");
 		set obj.http.excludes = subfield(req.url.qs, "excludes", "&");
 		set obj.http.rum = subfield(req.url.qs, "rum", "&");
@@ -82,7 +82,7 @@ sub vcl_error {
 	if (obj.status == 906) {
 		set obj.status = 200;
 		set obj.response = "OK";
-		set obj.http.Content-Type = "text/plain; charset=utf-8";
+		set obj.http.Content-Type = "text/plain; charset=UTF-8";
 		synthetic {"User-agent: *
 Disallow:"};
 		return (deliver);
@@ -92,7 +92,7 @@ Disallow:"};
 	if (obj.status == 907) {
 		set obj.status = 404;
 		set obj.response = "Not Found";
-		set obj.http.Content-Type = "text/plain; charset=utf-8";
+		set obj.http.Content-Type = "text/plain; charset=UTF-8";
 		synthetic {"Not Found."};
 		return (deliver);
 	}

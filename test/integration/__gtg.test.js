@@ -12,7 +12,7 @@ describe("GET /__gtg", function() {
 			return request(host)
 				.get("/__gtg?use-compute-at-edge-backend=yes")
 				.expect(200)
-				.expect("Content-Type", "text/plain; charset=utf-8")
+				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
 				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
 				.then(response => {
 					assert.isString(response.text);
@@ -26,7 +26,7 @@ describe("GET /__gtg", function() {
 			return request(host)
 				.get("/__gtg?use-compute-at-edge-backend=no")
 				.expect(200)
-				.expect("Content-Type", "text/plain; charset=utf-8")
+				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
 				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
 				.then(response => {
 					assert.isString(response.text);
