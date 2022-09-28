@@ -170,7 +170,10 @@ include "fastly-boilerplate-begin.vcl";
 include "breadcrumbs.vcl";
 
 sub vcl_recv {
-	# enable http/3
+	# Sets the alt-svc header on the client response.
+	# When a client connection is using a version of HTTP older than HTTP/3,
+	# invoking this function triggers Fastly to advertise HTTP/3 support, 
+	# on the eventual client response, allowing the client to switch to HTTP/3 for future requests.
 	h3.alt_svc();
 	
 	if (req.http.Fastly-Debug) {
