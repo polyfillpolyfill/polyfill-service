@@ -13,7 +13,7 @@ describe("GET /v3/", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/api", function () {
@@ -24,7 +24,7 @@ describe("GET /v3/api", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/url-builder", function () {
@@ -35,7 +35,7 @@ describe("GET /v3/url-builder", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/privacy-policy", function () {
@@ -46,7 +46,7 @@ describe("GET /v3/privacy-policy", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/report-a-bug", function () {
@@ -57,7 +57,7 @@ describe("GET /v3/report-a-bug", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/supported-browsers", function () {
@@ -68,7 +68,7 @@ describe("GET /v3/supported-browsers", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });
 describe("GET /v3/terms", function () {
@@ -79,6 +79,6 @@ describe("GET /v3/terms", function () {
       response.headers["cache-control"],
       "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
     );
-    assert.equal(response.headers["content-type"], "text/html; charset=UTF-8");
+    assert.match(response.headers['content-type'], /text\/html; charset=(utf|UTF)-8/)
   });
 });

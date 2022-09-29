@@ -16,7 +16,7 @@ import axios from "../helpers.js";
 			});
 
 			assert.equal(response.status, 200);
-			assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -44,7 +44,7 @@ import axios from "../helpers.js";
 			});
 
 			assert.equal(response.status, 200);
-			assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -72,7 +72,7 @@ import axios from "../helpers.js";
 			});
 
 			assert.equal(response.status, 200);
-			assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -196,7 +196,7 @@ describe("HEAD /v3/polyfill.min.js", function() {
 		});
 
 		assert.equal(response.status, 200);
-		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -215,7 +215,7 @@ describe("GET /v3/polyfill.min.js", function() {
 		});
 
 		assert.equal(response.status, 200);
-		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -245,7 +245,7 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 		});
 
 		assert.equal(response.status, 200);
-		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
@@ -274,7 +274,7 @@ describe("GET /v3/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 		});
 
 		assert.equal(response.status, 200);
-		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")

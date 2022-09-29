@@ -236,7 +236,7 @@ describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-ed
 			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes")
-					.expect("Content-Type", "text/html; charset=UTF-8")
+					.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/)
 					.then(response => {
 						assert.deepEqual(response.text, 'requested version does not exist')
 					});
@@ -248,7 +248,7 @@ describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-ed
 			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
 				return request(host)
 					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=no")
-					.expect("Content-Type", "text/html; charset=UTF-8")
+					.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/)
 					.then(response => {
 						assert.deepEqual(response.text, 'requested version does not exist')
 					});
