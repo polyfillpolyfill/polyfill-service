@@ -7,11 +7,23 @@ language = "javascript"
 manifest_version = 2
 name = "polyfill-service-c-at-e"
 
-[local_server]
-  [local_server.backends]
-    [local_server.backends.v3_eu]
-      url = "http://localhost:8080"
-      # override_host = "origami-polyfill-service-int.herokuapp.com"
-    [local_server.backends.v3_us]
-      url = "http://localhost:8080"
-      # override_host = "origami-polyfill-service-int.herokuapp.com"
+[local_server.backends.v3_eu]
+url = "http://localhost:8080"
+# url = "https://origami-polyfill-service-eu.herokuapp.com"
+# override_host = "origami-polyfill-service-eu.herokuapp.com"
+[local_server.backends.v3_us]
+url = "http://localhost:8080"
+# url = "https://origami-polyfill-service-us.herokuapp.com"
+# override_host = "origami-polyfill-service-us.herokuapp.com"
+
+[local_server.object_store]
+bodies = []
+headersAndStatus = []
+
+[setup.backends.v3_eu]
+address = "origami-polyfill-service-eu.herokuapp.com"
+port = 443
+
+[setup.backends.v3_us]
+address = "origami-polyfill-service-us.herokuapp.com"
+port = 443

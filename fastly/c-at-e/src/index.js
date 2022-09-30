@@ -1,8 +1,10 @@
+/* global ObjectStore */
 /// <reference types="@fastly/js-compute" />
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
 import fetchWithFailover from "./fetch-with-failover.js";
+import { cyrb53 } from "./cyrb53.js";
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
 
@@ -133,11 +135,30 @@ async function handler(c) {
     requestURL.search = "";
   }
 
-  let backendResponse = await fetchWithFailover(requestURL, {
-    method: c.req.method,
-    headers: c.req.headers,
-  });
+  const cachedBodies = new ObjectStore('bodies');
+  const cachedHeadersAndStatus = new ObjectStore('headersAndStatus');
 
+  const pathAndQuery = requestURL.href.substring(requestURL.origin.length)
+  const key = cyrb53(pathAndQuery);
+  const cachedBundle = await cachedBodies.get(key);
+  let backendResponse;
+  if (cachedBundle) {
+    const body = await cachedBundle.arrayBuffer()
+    const headersAndStatus = await cachedHeadersAndStatus.get(key).then(a => a.json())
+    backendResponse = new Response(body, headersAndStatus)
+  } else {
+    backendResponse = await fetchWithFailover(requestURL, {
+      method: c.req.method,
+      headers: c.req.headers,
+    });
+    const body = await backendResponse.arrayBuffer()
+    backendResponse = new Response(body, backendResponse)
+    await cachedBodies.put(key, body)
+    await cachedHeadersAndStatus.put(key, JSON.stringify({
+      status: backendResponse.status,
+      headers: Object.fromEntries(Array.from(backendResponse.headers.entries()))
+    }))
+  }
 
   backendResponse.headers.set('useragent_normaliser', requestURL.searchParams.get('ua'));
 
@@ -170,7 +191,7 @@ async function handler(c) {
   }
 
   if (backendResponse.status == 304 || backendResponse.status == 200) {
-    backendResponse.headers.set("Age", "0");
+    backendResponse.headers.set("age", "0");
   }
 
   return backendResponse;
