@@ -11,7 +11,7 @@
 		"start:server": "npm --prefix ../../ run start",
 		"lint": "eslint .",
 		"test": "NODE_ENV='production' start-test start:server 8080 start:c-at-e 7676 test:integration",
-		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail"
+		"test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 30000 --exit --bail --retries 3"
 	},
 	"dependencies": {
 		"@fastly/js-compute": "^0.5.3",
