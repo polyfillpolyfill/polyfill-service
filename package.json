@@ -23,7 +23,7 @@
     "start": "./start_server.sh server/index.js",
     "test": "run-s test:*",
     "test:unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
-    "test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail --delay --check-leaks --forbid-only --forbid-pending --timeout 30000 --exit",
+    "test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail --delay --check-leaks --forbid-only --forbid-pending --timeout 30000 --exit  --retries 3",
     "clean": "rimraf ./dist ./.cache",
     "build": "run-s clean eleventy build:*",
     "build:sass": "mkdir -p dist/css && sass src/assets/css/index.scss  --style=compressed --load-path=node_modules --load-path=node_modules/@financial-times | postcss --use autoprefixer --output dist/css/index.css --map",
