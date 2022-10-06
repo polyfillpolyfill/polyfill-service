@@ -7,32 +7,6 @@ const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
 const pipeline = require("util").promisify(require("stream").pipeline);
-const polyfillio_3_27_4 = require("polyfill-library-3.27.4");
-const polyfillio_3_25_1 = require("polyfill-library-3.25.1");
-const polyfillio_3_34_0 = require("polyfill-library-3.34.0");
-const polyfillio_3_39_0 = require("polyfill-library-3.39.0");
-const polyfillio_3_40_0 = require("polyfill-library-3.40.0");
-const polyfillio_3_41_0 = require("polyfill-library-3.41.0");
-const polyfillio_3_42_0 = require("polyfill-library-3.42.0");
-const polyfillio_3_46_0 = require("polyfill-library-3.46.0");
-const polyfillio_3_48_0 = require("polyfill-library-3.48.0");
-const polyfillio_3_50_2 = require("polyfill-library-3.50.2");
-const polyfillio_3_51_0 = require("polyfill-library-3.51.0");
-const polyfillio_3_52_0 = require("polyfill-library-3.52.0");
-const polyfillio_3_52_1 = require("polyfill-library-3.52.1");
-const polyfillio_3_52_2 = require("polyfill-library-3.52.2");
-const polyfillio_3_52_3 = require("polyfill-library-3.52.3");
-const polyfillio_3_53_1 = require("polyfill-library-3.53.1");
-const polyfillio_3_89_4 = require("polyfill-library-3.89.4");
-const polyfillio_3_96_0 = require("polyfill-library-3.96.0");
-const polyfillio_3_98_0 = require("polyfill-library-3.98.0");
-const polyfillio_3_101_0 = require("polyfill-library-3.101.0");
-const polyfillio_3_103_0 = require("polyfill-library-3.103.0");
-const polyfillio_3_104_0 = require("polyfill-library-3.104.0");
-const polyfillio_3_108_0 = require("polyfill-library-3.108.0");
-const polyfillio_3_109_0 = require("polyfill-library-3.109.0");
-const polyfillio_3_110_1 = require("polyfill-library-3.110.1");
-const polyfillio_3_111_0 = require("polyfill-library-3.111.0");
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, parameters, bundle, next) {
@@ -79,32 +53,7 @@ module.exports = app => {
 		// Map the version parameter to a version of the polyfill library.
 		const versionToLibraryMap = new Map([
 			[latestVersion, polyfillio],
-			['3.25.1', polyfillio_3_25_1],
-			['3.27.4', polyfillio_3_27_4],
-			['3.34.0', polyfillio_3_34_0],
-			['3.39.0', polyfillio_3_39_0],
-			['3.40.0', polyfillio_3_40_0],
-			['3.41.0', polyfillio_3_41_0],
-			['3.42.0', polyfillio_3_42_0],
-			['3.46.0', polyfillio_3_46_0],
-			['3.48.0', polyfillio_3_48_0],
-			['3.50.2', polyfillio_3_50_2],
-			['3.51.0', polyfillio_3_51_0],
-			['3.52.0', polyfillio_3_52_0],
-			['3.52.1', polyfillio_3_52_1],
-			['3.52.2', polyfillio_3_52_2],
-			['3.52.3', polyfillio_3_52_3],
-			['3.53.1', polyfillio_3_53_1],
-			['3.89.4', polyfillio_3_89_4],
-			['3.96.0', polyfillio_3_96_0],
-			['3.98.0', polyfillio_3_98_0],
-			['3.101.0', polyfillio_3_101_0],
-			['3.103.0', polyfillio_3_103_0],
-			['3.104.0', polyfillio_3_104_0],
-			['3.108.0', polyfillio_3_108_0],
-			['3.109.0', polyfillio_3_109_0],
-			['3.110.1', polyfillio_3_110_1],
-			['3.111.0', polyfillio_3_111_0],
+			['3.111.0', polyfillio],
 		]);
 
 		// Get the polyfill library for the requested version.
