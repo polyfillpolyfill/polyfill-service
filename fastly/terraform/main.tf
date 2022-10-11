@@ -13,8 +13,8 @@ resource "fastly_service_compute" "app" {
   force_destroy = false
 
   package {
-    filename         = "../c-at-e/pkg/polyfill-service-c-at-e.tar.gz"
-    source_code_hash = filesha512("../c-at-e/pkg/polyfill-service-c-at-e.tar.gz")
+    filename         = "../c-at-e/pkg/package.tar.gz"
+    source_code_hash = filesha512("../c-at-e/pkg/package.tar.gz")
   }
 }
 
