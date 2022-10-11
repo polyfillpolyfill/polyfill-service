@@ -449,12 +449,20 @@
     "@financial-times/useragent_parser" "^1.6.3"
     semver "^7.1.1"
 
+"@financial-times/polyfill-useragent-normaliser@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.qiwi.com/repository/npm/@financial-times/polyfill-useragent-normaliser/-/polyfill-useragent-normaliser-2.0.1.tgz#39cbfcc985776e13ad61e44bc04af95c6023a01b"
+  integrity sha512-I6zZJgy3cwM9ojo9NVNj5kNTkt96KIKhJQIPQ7vjROaDCpy+sTRQA2HLCjBFKgo0AzsqdMB43Tx0Szt/mf+00g==
+  dependencies:
+    "@financial-times/useragent_parser" "^1.6.1"
+    semver "^7.1.1"
+
 "@financial-times/sass-mq@^5.2.3":
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@financial-times/sass-mq/-/sass-mq-5.2.3.tgz#e6b563af4c01a76edf4307e4771f93aa5f4ccb78"
   integrity sha512-A8+i+9y7Bcmaac72Ggf99D3QnkUxPRceKRGGxMy7GBOdtvCWgU7iN+99u95j/AVPhwX3M0NGqeEObxw1WusaHw==
 
-"@financial-times/useragent_parser@^1.6.3":
+"@financial-times/useragent_parser@^1.6.1", "@financial-times/useragent_parser@^1.6.3":
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/@financial-times/useragent_parser/-/useragent_parser-1.6.3.tgz#338e9d63b77152cda3b7244db7b9b9db996de361"
   integrity sha512-TlQiXt/vS5ZwY0V3salvlyQzIzMGZEyw9inmJA25A8heL2kBVENbToiEc64R6ETNf5YHa2lwnc2I7iNHP9SqeQ==
@@ -4354,6 +4362,13 @@ mnemonist@^0.38.5:
   dependencies:
     obliterator "^2.0.0"
 
+mnemonist@^0.39.2:
+  version "0.39.3"
+  resolved "https://registry.qiwi.com/repository/npm/mnemonist/-/mnemonist-0.39.3.tgz#8340fc2e180b0dff20dca0a44f7af13639ca1ccb"
+  integrity sha512-CQ9Nq2TjXH+bybu89QHHrJnv3FnGtozaQPna3gvGpgHSJhyfHR2khMN6EOL/Z1b6ikmbZgCUD2eOBtTS9FOdFw==
+  dependencies:
+    obliterator "^2.0.1"
+
 mocha@^9.2.2:
   version "9.2.2"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-9.2.2.tgz#d70db46bdb93ca57402c809333e5a84977a88fb9"
@@ -4684,7 +4699,7 @@ object.assign@^4.0.4, object.assign@^4.1.4:
     has-symbols "^1.0.3"
     object-keys "^1.1.1"
 
-obliterator@^2.0.0:
+obliterator@^2.0.0, obliterator@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
   integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
@@ -5000,6 +5015,20 @@ pluralize@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
+
+"polyfill-library-4.5.0@npm:polyfill-library@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.qiwi.com/repository/npm/polyfill-library/-/polyfill-library-4.5.0.tgz#d3b8b105ce6282e3268d975d4d577e32f9d7b474"
+  integrity sha512-97IyFmvssm12Ux2o65fqTIIgQtOu3y0v/FjBLXha1NUf+UjXeU+SX1+SMRMP+eDGoxDFedsG1pfrpBZpJ2AE7g==
+  dependencies:
+    "@financial-times/polyfill-useragent-normaliser" "^2.0.1"
+    from2-string "^1.1.0"
+    graceful-fs "^4.2.10"
+    merge2 "^1.0.3"
+    mnemonist "^0.39.2"
+    stream-from-promise "^1.0.0"
+    stream-to-string "^1.1.0"
+    toposort "^2.0.2"
 
 polyfill-library@^3.111.0:
   version "3.111.0"

@@ -17,6 +17,7 @@ class Test {
 				return `v3/json/library-${data.version}.json`;
 			},
 			versions: [
+				"4.5.0",
 				latestLibraryVersion,
 			]
 		};

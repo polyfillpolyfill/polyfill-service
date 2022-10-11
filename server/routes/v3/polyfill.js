@@ -7,6 +7,7 @@ const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
 const pipeline = require("util").promisify(require("stream").pipeline);
+const polyfillio_4_5_0 = require("polyfill-library-4.5.0");
 
 const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, parameters, bundle, next) {
@@ -54,6 +55,7 @@ module.exports = app => {
 		const versionToLibraryMap = new Map([
 			[latestVersion, polyfillio],
 			['3.111.0', polyfillio],
+			['4.5.0', polyfillio_4_5_0],
 		]);
 
 		// Get the polyfill library for the requested version.

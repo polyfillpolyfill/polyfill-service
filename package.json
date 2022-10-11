@@ -46,6 +46,7 @@
     "express-extractheaders": "^4.0.1",
     "merge2": "^1.4.1",
     "polyfill-library": "^3.111.0",
+    "polyfill-library-4.5.0": "npm:polyfill-library@4.5.0",
     "require-all": "^3.0.0",
     "serve-static": "^1.15.0",
     "throng": "^5.0.0"
