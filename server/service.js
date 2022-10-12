@@ -2,7 +2,7 @@
 
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
-const path = require("path");
+const path = require("node:path");
 const serveStatic = require("serve-static");
 const compression = require("compression");
 const extractHeaders = require("express-extractheaders");

@@ -26,7 +26,7 @@ describe("createCompressor", function() {
 		});
 
 		zlib = require("../mock/zlib.mock");
-		mockery.registerMock("zlib", zlib);
+		mockery.registerMock("node:zlib", zlib);
 
 		gzipCompressor = {};
 		zlib.createGzip.returns(gzipCompressor);
@@ -47,11 +47,11 @@ describe("createCompressor", function() {
 
 	it("returns `PassThrough` if `compression` is not set to either `br` or `gzip`", async () => {
 		const result = await createCompressor(undefined);
-		proclaim.isInstanceOf(result, require("stream").PassThrough);
+		proclaim.isInstanceOf(result, require("node:stream").PassThrough);
 	});
 	it("returns `PassThrough` if `compression` is `identity`", async () => {
 		const result = await createCompressor("identity");
-		proclaim.isInstanceOf(result, require("stream").PassThrough);
+		proclaim.isInstanceOf(result, require("node:stream").PassThrough);
 	});
 
 	it("returns `gzip` compressor if `compression` is `gzip`", async () => {

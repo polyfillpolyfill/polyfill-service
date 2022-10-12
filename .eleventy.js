@@ -1,7 +1,7 @@
 "use strict";
 
 const glob = require('fast-glob');
-const path = require('path');
+const path = require('node:path');
 
 /**
  * The @11ty/eleventy configuration.

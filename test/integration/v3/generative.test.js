@@ -4,7 +4,7 @@
 
 const request = require("supertest");
 const host = require("../helpers").host;
-const querystring = require("querystring");
+const querystring = require("node:querystring");
 const _ = require("lodash");
 const polyfillio = require("polyfill-library");
 // This is required because polyfill-library changes it's output dependent upon the value of NODE_ENV.
@@ -137,4 +137,4 @@ async function tests() {
 	run();
 }
 
-tests();
+tests(); // eslint-disable-line unicorn/prefer-top-level-await

@@ -4,7 +4,7 @@
 
 const request = require("supertest");
 const assert = require("proclaim");
-const vm = require("vm");
+const vm = require("node:vm");
 const host = require("../helpers").host;
 
 describe("OPTIONS /v3/polyfill.min.js", function() {

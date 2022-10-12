@@ -1,24 +1,27 @@
 "use strict";
 
-const zlib = require("zlib");
+const zlib = require("node:zlib");
 const { BROTLI_PARAM_QUALITY, BROTLI_MAX_QUALITY } = zlib.constants;
-const { PassThrough } = require("stream");
+const { PassThrough } = require("node:stream");
 
 module.exports = function(compression) {
 	switch (compression) {
-		case "br":
+		case "br": {
 			return zlib.createBrotliCompress({
 				params: {
 					[BROTLI_PARAM_QUALITY]: BROTLI_MAX_QUALITY
 				}
 			});
-		case "gzip":
+		}
+		case "gzip": {
 			return zlib.createGzip({
 				level: zlib.Z_BEST_COMPRESSION
 			});
+		}
 		// eslint-disable-next-line unicorn/no-useless-switch-case
 		case "identity":
-		default:
+		default: {
 			return new PassThrough();
+		}
 	}
 };

@@ -1,12 +1,12 @@
 "use strict";
 
 const mergeStream = require("merge2");
-const { Readable } = require("stream");
+const { Readable } = require("node:stream");
 const createCompressor = require("../../lib/create-compressor");
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
-const pipeline = require("util").promisify(require("stream").pipeline);
+const pipeline = require("node:util").promisify(require("node:stream").pipeline);
 const polyfillio_4_5_0 = require("polyfill-library-4.5.0");
 
 const lastModified = new Date().toUTCString();
