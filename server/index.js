@@ -18,16 +18,25 @@ if (process.env.DISABLE_REQUEST_LOGGING) {
 }
 
 throng({
-	workers: options.workers,
-	start: startWorker
+	count: options.workers,
+	worker: startWorker,
+	grace: 5000
 });
 
-function startWorker(id) {
+function startWorker(id, disconnect) {
 	console.log(`Started worker ${id}`);
-	service(options)
+	const svc = service(options)
 		.listen()
 		.catch(() => {
 			// eslint-disable-next-line unicorn/no-process-exit
 			process.exit(1);
 		});
+	const shutdown = () => {
+		svc.close();
+		console.log(`Worker ${ id } cleanup.`)
+		disconnect();
+	}
+
+	process.once('SIGTERM', shutdown);
+	process.once('SIGINT', shutdown);
 }
