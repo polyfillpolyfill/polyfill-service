@@ -3,6 +3,8 @@
 const mergeStream = require("merge2");
 const { Readable } = require("node:stream");
 const createCompressor = require("../../lib/create-compressor");
+const cache = require("../../cache")
+const { featureParamsToKey } = require("../../utils/cache")
 const getPolyfillParameters = require("../../lib/get-polyfill-parameters");
 const latestVersion = require("polyfill-library/package.json").version;
 const polyfillio = require("polyfill-library");
@@ -96,7 +98,20 @@ module.exports = app => {
 				break;
 			}
 			default: {
-				const bundle = await polyfillLibrary.getPolyfillString(parameters);
+				const cacheKey = featureParamsToKey(parameters);
+				let bundleString;
+
+				if (cache.has(cacheKey)) {
+					bundleString = cache.get(cacheKey);
+				} else {
+					bundleString = await polyfillLibrary.getPolyfillString({
+						...parameters,
+						stream: false,
+					});
+					cache.set(cacheKey,bundleString )
+				}
+
+				const bundle = new Readable.from(bundleString)
 				await respondWithBundle(response, parameters, bundle, next);
 				return;
 			}
