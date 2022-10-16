@@ -1,5 +1,5 @@
 const { Blob } = require('node:buffer')
-const storage = new Map
+const storage = new Map()
 
 module.exports = {
 	get(key) {
