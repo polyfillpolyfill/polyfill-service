@@ -14,7 +14,11 @@ module.exports = {
 		return storage.has(key)
 	},
 
-	get size() {
+	get memoryUsage() {
 		return (new Blob(storage)).size;
+	},
+
+	get size() {
+		return storage.size;
 	}
 }
