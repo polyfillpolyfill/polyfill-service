@@ -3,7 +3,6 @@
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 const path = require("node:path");
-const serveStatic = require("serve-static");
 const compression = require("compression");
 const extractHeaders = require("express-extractheaders");
 
@@ -32,14 +31,6 @@ function service(options) {
 	mountRoutes(app);
 	app.use(compression({ level: 9 }));
 	app.use(extractHeaders());
-	app.use(
-		serveStatic(path.join(__dirname, "../dist"), {
-			setHeaders: function(response) {
-				response.setHeader("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
-				response.setHeader("Surrogate-Key", "polyfill-service, polyfill-service-website");
-			}
-		})
-	);
 	app.use(notFoundHandler);
 	app.use(origamiService.middleware.errorHandler());
 
