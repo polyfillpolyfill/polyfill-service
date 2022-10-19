@@ -3,8 +3,12 @@
 const origamiService = require("@financial-times/origami-service");
 const requireAll = require("require-all");
 const path = require("node:path");
+const url = require("node:url");
 const compression = require("compression");
 const extractHeaders = require("express-extractheaders");
+const { isProduction } = require("./utils/process");
+
+const CORSAllowedFirstLevelDomains = ['qiwi.com', 'qiwi.ru'];
 
 const notFoundHandler = (request, response) => {
 	response.status(404);
@@ -28,6 +32,26 @@ function service(options) {
 		response.locals.requestUrl = request.url;
 		next();
 	});
+
+	app.use((request, response, next) => {
+		const referer = request.headers.referer;
+		if (!isProduction || !referer) return next();
+
+		try {
+			const refererFirstLevelHost = url.parse(referer).host.match(/\w+\.\w+$/)[0]
+
+			if (CORSAllowedFirstLevelDomains.includes(refererFirstLevelHost)) {
+				response.set("Access-Control-Allow-Origin", referer);
+
+				return next();
+			}
+		} catch (e) {
+			console.error(e)
+		}
+
+		return response.send(403)
+	});
+
 	mountRoutes(app);
 	app.use(compression({ level: 9 }));
 	app.use(extractHeaders());

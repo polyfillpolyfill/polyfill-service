@@ -15,7 +15,6 @@ const lastModified = new Date().toUTCString();
 async function respondWithBundle(response, parameters, bundle, next) {
 	const compressor = await createCompressor(parameters.compression);
 	const headers = {
-		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
 		"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
 		"Content-Type": "text/javascript; charset=UTF-8",
