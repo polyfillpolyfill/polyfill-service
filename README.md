@@ -13,6 +13,7 @@ ALLOWED_DOMAINS=google.com,localhost # <-- must be first level domains
 ```shell
 SERVE_STATIC_SITE=0 # 1 || 0
 ```
+* UPLOAD_DIR env var exposed
 
 ### Integrated bundle analyzer
 ```bash

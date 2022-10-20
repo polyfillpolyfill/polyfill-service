@@ -1,9 +1,10 @@
 const fs = require('node:fs')
 const bundleAnalyzer = require('@qiwi/create-polyfill-service-url')
 const multer = require('multer')
+const { uploadDir } = require('../utils/config')
 
-const uploadDestination = 'uploads/'
-const upload = multer({dest: uploadDestination})
+const uploadDestination = uploadDir || './uploads/'
+const upload = multer({ dest: uploadDestination })
 
 
 module.exports = async app => {
@@ -20,7 +21,7 @@ module.exports = async app => {
 		const bundleFileNames = files.map(({filename}) => filename)
 
 		const result = await bundleAnalyzer({
-			file: bundleFileNames, cwd: `./${uploadDestination}`,
+			file: bundleFileNames, cwd: uploadDestination,
 			omit, hostname, unknown, useComputeAtEdgeBackend, flags,
 		});
 
