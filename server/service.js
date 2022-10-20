@@ -8,7 +8,7 @@ const compression = require("compression");
 const extractHeaders = require("express-extractheaders");
 const { isProduction } = require("./utils/process");
 
-const CORSAllowedFirstLevelDomains = ['qiwi.com', 'qiwi.ru'];
+const CORSAllowedFirstLevelDomains = new Set(['localhost', 'qiwi.local', 'qiwi.com', 'qiwi.ru']);
 
 const notFoundHandler = (request, response) => {
 	response.status(404);
@@ -38,18 +38,19 @@ function service(options) {
 		if (!isProduction || !referer) return next();
 
 		try {
-			const refererFirstLevelHost = url.parse(referer).host.match(/\w+\.\w+$/)[0]
+			const refererFirstLevelHost = url.parse(referer).hostname.match(/(\w+\.)?\w+$/)[0]
 
-			if (CORSAllowedFirstLevelDomains.includes(refererFirstLevelHost)) {
+			if (CORSAllowedFirstLevelDomains.has(refererFirstLevelHost)) {
 				response.set("Access-Control-Allow-Origin", referer);
 
 				return next();
 			}
-		} catch (e) {
-			console.error(e)
+		} catch (error) {
+			console.error(error)
+			return response.sendStatus(500)
 		}
 
-		return response.send(403)
+		return response.sendStatus(403)
 	});
 
 	mountRoutes(app);
