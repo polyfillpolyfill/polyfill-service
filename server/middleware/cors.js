@@ -7,10 +7,9 @@ module.exports = (request, response, next) => {
 	if (!referer) return next();
 
 	try {
-		const { protocol, hostname, host } = url.parse(referer)
-		const refererFirstLevelHost = hostname.match(/(\w+\.)?\w+$/)[0]
+		const { protocol, host, hostname } = url.parse(referer)
 
-		if (CORSAllowedFirstLevelDomains.has(refererFirstLevelHost)) {
+		if (CORSAllowedFirstLevelDomains.some((allowedHost) => hostname === allowedHost || hostname.endsWith(`.${allowedHost}`))) {
 			response.set("Access-Control-Allow-Origin", `${protocol}//${host}`);
 
 			return next();

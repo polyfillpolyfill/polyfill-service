@@ -9,9 +9,7 @@ module.exports = {
 	},
 
 	get CORSAllowedFirstLevelDomains() {
-		return process.env.ALLOWED_DOMAINS
-			? new Set(process.env.ALLOWED_DOMAINS.split(','))
-			: new Set();
+		return process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',') : [];
 	},
 
 	get serveStaticSite() {
