@@ -12,5 +12,11 @@ module.exports = {
 		return process.env.ALLOWED_DOMAINS
 			? new Set(process.env.ALLOWED_DOMAINS.split(','))
 			: new Set();
+	},
+
+	get serveStaticSite() {
+		if (process.env.SERVE_STATIC_SITE) return Boolean(process.env.SERVE_STATIC_SITE);
+
+		return false;
 	}
 }

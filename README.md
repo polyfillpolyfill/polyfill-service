@@ -9,6 +9,10 @@
 ```shell
 ALLOWED_DOMAINS=google.com,localhost # <-- must be first level domains
 ```
+* Ability to switch off documentation site
+```shell
+SERVE_STATIC_SITE=0 # 1 || 0
+```
 
 ## License
 
