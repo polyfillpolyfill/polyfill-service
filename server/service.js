@@ -7,7 +7,7 @@ const serveStatic = require("serve-static");
 const compression = require("compression");
 const extractHeaders = require("express-extractheaders");
 const cors = require("./middleware/cors");
-const { serveStaticSite } = require("./utils/process");
+const { serveStaticSite } = require("./utils/config");
 
 
 const notFoundHandler = (request, response) => {

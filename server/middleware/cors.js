@@ -1,5 +1,5 @@
 const url = require("node:url");
-const { CORSAllowedFirstLevelDomains } = require('../utils/process')
+const { CORSAllowedFirstLevelDomains } = require('../utils/config')
 
 
 module.exports = (request, response, next) => {

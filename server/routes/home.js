@@ -1,5 +1,5 @@
 "use strict";
-const { serveStaticSite } = require("../utils/process");
+const { serveStaticSite } = require("../utils/config");
 
 module.exports = app => {
 	app.get("/", (request, response) => {
