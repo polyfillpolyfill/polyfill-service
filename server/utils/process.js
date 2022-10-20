@@ -1,9 +1,16 @@
 const process = require('node:process')
 
-const nodeEnvironment = process.env.NODE_ENV;
 
 module.exports = {
 	get isProduction() {
+		const nodeEnvironment = process.env.NODE_ENV;
+
 		return nodeEnvironment && (nodeEnvironment.trim() === "production");
+	},
+
+	get CORSAllowedFirstLevelDomains() {
+		return process.env.ALLOWED_DOMAINS
+			? new Set(process.env.ALLOWED_DOMAINS.split(','))
+			: new Set();
 	}
 }
