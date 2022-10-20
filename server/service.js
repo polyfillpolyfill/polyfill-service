@@ -6,7 +6,6 @@ const path = require("node:path");
 const url = require("node:url");
 const compression = require("compression");
 const extractHeaders = require("express-extractheaders");
-const { isProduction } = require("./utils/process");
 
 const CORSAllowedFirstLevelDomains = new Set(['localhost', 'qiwi.local', 'qiwi.com', 'qiwi.ru']);
 
@@ -35,13 +34,14 @@ function service(options) {
 
 	app.use((request, response, next) => {
 		const referer = request.headers.referer;
-		if (!isProduction || !referer) return next();
+		if (!referer) return next();
 
 		try {
-			const refererFirstLevelHost = url.parse(referer).hostname.match(/(\w+\.)?\w+$/)[0]
+			const { protocol, hostname, host } = url.parse(referer)
+			const refererFirstLevelHost = hostname.match(/(\w+\.)?\w+$/)[0]
 
 			if (CORSAllowedFirstLevelDomains.has(refererFirstLevelHost)) {
-				response.set("Access-Control-Allow-Origin", referer);
+				response.set("Access-Control-Allow-Origin", `${protocol}//${host}`);
 
 				return next();
 			}
