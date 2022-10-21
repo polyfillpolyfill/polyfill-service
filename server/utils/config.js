@@ -13,12 +13,16 @@ module.exports = {
 	},
 
 	get serveStaticSite() {
-		if (process.env.SERVE_STATIC_SITE) return Boolean(process.env.SERVE_STATIC_SITE);
+		if (process.env.SERVE_STATIC_SITE) return this.parseBool(process.env.SERVE_STATIC_SITE);
 
 		return false;
 	},
 
 	get uploadDir() {
 		return process.env.UPLOAD_DIR || undefined;
-	}
+	},
+
+	parseBool(value) {
+		return value === 'true' || value === '1' || value === 1 || value === true || false;
+	},
 }
