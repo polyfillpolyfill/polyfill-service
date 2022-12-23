@@ -27,6 +27,10 @@ function service(options) {
 	options.basePath = path.join(__dirname, "../");
 
 	const app = origamiService(options);
+
+	if (options.inject) options.inject(app);
+	app.cache = options.cache;
+
 	app.use(origamiService.middleware.getBasePath());
 	app.use((request, response, next) => {
 		response.locals.requestUrl = request.url;

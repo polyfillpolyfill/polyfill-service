@@ -2,6 +2,7 @@
   "name": "@qiwi/polyfill-service",
   "description": "A polyfill combinator",
   "private": true,
+  "main": "server/index.js",
   "contributors": [
     {
       "name": "FT Origami",
@@ -20,7 +21,7 @@
     "toppops": "bash .github/workflows/toppops.sh",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix && eclint fix .",
     "lint": "eslint .",
-    "start": "./start_server.sh server/index.js",
+    "start": "./start_server.sh server/start.js",
     "test": "run-s test:*",
     "test:unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
     "test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --bail --delay --check-leaks --forbid-only --forbid-pending --timeout 30000 --exit  --retries 3",

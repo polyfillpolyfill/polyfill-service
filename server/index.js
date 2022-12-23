@@ -2,14 +2,14 @@
 
 const dotenv = require("dotenv");
 const service = require("./service");
-const throng = require("throng");
+const cache = require("./cache");
 
 dotenv.config();
 
 const options = {
 	log: console,
+	cache,
 	name: "Origami Polyfill Service",
-	workers: process.env.WEB_CONCURRENCY || 1
 };
 
 if (process.env.DISABLE_REQUEST_LOGGING) {
@@ -17,26 +17,19 @@ if (process.env.DISABLE_REQUEST_LOGGING) {
 	options.requestLogFormat = null;
 }
 
-throng({
-	count: options.workers,
-	worker: startWorker,
-	grace: 5000
-});
+function start(inject) {
+	options.inject = inject
 
-function startWorker(id, disconnect) {
-	console.log(`Started worker ${id}`);
-	const svc = service(options)
+	startWorker()
+}
+
+function startWorker() {
+	service(options)
 		.listen()
 		.catch(() => {
 			// eslint-disable-next-line unicorn/no-process-exit
 			process.exit(1);
 		});
-	const shutdown = () => {
-		svc.close();
-		console.log(`Worker ${ id } cleanup.`)
-		disconnect();
-	}
-
-	process.once('SIGTERM', shutdown);
-	process.once('SIGINT', shutdown);
 }
+
+module.exports = start
