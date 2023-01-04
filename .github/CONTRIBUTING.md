@@ -22,7 +22,7 @@ $ git clone https://github.com/Financial-Times/polyfill-service.git
 $ cd polyfill-service
 $ npm ci
 $ npm run build # build the assets for the website
-$ npm start # start a server on localhost:8080
+$ npm start # start a server on 127.0.0.1:8080
 ```
 
 ## Submitting a Pull Request

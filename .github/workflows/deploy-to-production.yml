@@ -18,7 +18,7 @@ jobs:
     - run: git fetch --prune --unshallow
     - uses: actions/setup-node@v3.1.0
       with:
-        node-version: 12.x
+        node-version: 18.x
     - name: Cache node modules
       uses: actions/cache@v3.0.1
       env:
@@ -36,7 +36,7 @@ jobs:
       uses: fastly/compute-actions/setup@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm ci && fastly compute build 
+    - run: npm ci && fastly compute build --package-name package
       working-directory: fastly/c-at-e
     - name: Turnstyle
       uses: softprops/turnstyle@v1

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO - move to terraform
 version=`curl -X GET --fail -H "Fastly-Key: $FASTLY_API_KEY_POLYFILL_ACCOUNT" "https://api.fastly.com/service/$FASTLY_SERVICE_ID_PROD/version" | jq '.[-1].number'`
 
 cloned_version=`curl -X PUT --fail -H "Fastly-Key: $FASTLY_API_KEY_POLYFILL_ACCOUNT" "https://api.fastly.com/service/$FASTLY_SERVICE_ID_PROD/version/$version/clone" | jq '.number'`
