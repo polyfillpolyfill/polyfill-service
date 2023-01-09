@@ -20,7 +20,6 @@ module.exports = (eleventyConfig) => {
 
 	// Make all files pass through to output folder
 	eleventyConfig.setTemplateFormats(extensions);
-	eleventyConfig.addPassthroughCopy({ "src/data/libraries": "v3/json" });
 
 	return {
 		pathPrefix: "/v3",
