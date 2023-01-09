@@ -2,34 +2,27 @@
 
 "use strict";
 
-const request = require("supertest");
 const assert = require("proclaim");
-const host = require("./helpers").host;
+const axios = require("./helpers.js");
 
 describe("GET /robots.txt", function() {
 	context('compute-at-edge service', function() {
-		it("does not disallow any paths", function() {
-			return request(host)
-				.get("/robots.txt?use-compute-at-edge-backend=yes")
-				.expect(200)
-				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.equal(response.text, "User-agent: *\nDisallow:");
-				});
+		it("does not disallow any paths", async function() {
+			const response = await axios.get("/robots.txt?use-compute-at-edge-backend=yes")
+
+			assert.equal(response.status, 200)
+			assert.match(response.headers["content-type"], /text\/plain; charset=(UTF|utf)-8/);
+			assert.equal(response.data, "User-agent: *\nDisallow:");
 		});
 	});
 
 	context('vcl service', function() {
-		it("does not disallow any paths", function() {
-			return request(host)
-				.get("/robots.txt?use-compute-at-edge-backend=no")
-				.expect(200)
-				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.equal(response.text, "User-agent: *\nDisallow:");
-				});
+		it("does not disallow any paths", async function() {
+			const response = await axios.get("/robots.txt?use-compute-at-edge-backend=no")
+
+			assert.equal(response.status, 200)
+			assert.match(response.headers["content-type"], /text\/plain; charset=(UTF|utf)-8/);
+			assert.equal(response.data, "User-agent: *\nDisallow:");
 		});
 	});
 });

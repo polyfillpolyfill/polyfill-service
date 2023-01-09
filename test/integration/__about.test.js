@@ -2,25 +2,23 @@
 
 "use strict";
 
-const request = require("supertest");
-const host = require("./helpers").host;
+const assert = require('proclaim');
+const axios = require("./helpers.js");
 
 describe("GET /__about", function() {
 	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/__about?use-compute-at-edge-backend=yes")
-				.expect(200)
-				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/);
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/__about?use-compute-at-edge-backend=yes`);
+			assert.equal(response.status, 200);
+			assert.match(response.headers["content-type"], /application\/json; charset=(UTF|utf)-8/);
 		});
 	});
 
 	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/__about?use-compute-at-edge-backend=no")
-				.expect(200)
-				.expect("Content-Type", /application\/json; charset=(UTF|utf)-8/);
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/__about?use-compute-at-edge-backend=no`);
+		assert.equal(response.status, 200);
+		assert.match(response.headers["content-type"], /application\/json; charset=(UTF|utf)-8/);
 		});
 	});
 });

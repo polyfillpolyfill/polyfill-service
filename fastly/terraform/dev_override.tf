@@ -4,7 +4,6 @@ resource "fastly_service_compute" "app" {
   domain {
     name = "origami-polyfill-service-dev.edgecompute.app"
   }
-  
   backend {
     name                  = "v3_eu"
     address               = "origami-polyfill-service-int.herokuapp.com"
@@ -56,7 +55,7 @@ resource "fastly_service_vcl" "app" {
   name = "dev.polyfill.io"
 
   domain {
-    name = "dev-c.polyfill.io"
+    name = "dev.polyfill.io"
   }
 
   backend {

@@ -1,14 +1,14 @@
 /* eslint-env mocha */
 
 "use strict";
+// This is required because polyfill-library changes it's output dependent upon the value of NODE_ENV.
+process.env.NODE_ENV = "production";
 
-const request = require("supertest");
-const host = require("../helpers").host;
+const assert = require("proclaim");
+const axios = require("../helpers.js");
 const querystring = require("querystring");
 const _ = require("lodash");
 const polyfillio = require("polyfill-library");
-// This is required because polyfill-library changes it's output dependent upon the value of NODE_ENV.
-process.env.NODE_ENV = "production";
 const browserslist = require("browserslist");
 
 // The same as Array.prototype.map but for generators/iterators
@@ -62,17 +62,15 @@ function createTest(polyfillBundleOptions, ua, useComputeAtEdgeBackend = false) 
 		'use-compute-at-edge-backend': useComputeAtEdgeBackend ? 'yes' : 'no'
 	});
 	const path = `/v3/polyfill.js?${qs}`;
-	context(host + path, function() {
-		this.timeout(30000);
+	context(path, function() {
 		it("responds with a correct polyfill bundle", async () => {
 			const polyfillBundle = await polyfillio.getPolyfillString({
 				minify: false,
 				uaString: ua,
 				features: arrayToObject(polyfillBundleOptions)
 			});
-			return request(host)
-				.get(path)
-				.expect(polyfillBundle);
+			const response = await axios.get(path);
+			assert.equal(response.data, polyfillBundle);
 		});
 	});
 }
@@ -120,6 +118,7 @@ async function tests() {
 			const ua = _.sample(browsers);
 			createTest(polyfillBundleOptions.sort(), ua, false);
 		}
+
 	});
 
 	describe("test combinations of polyfills/aliases - compute-at-edge service", function() {

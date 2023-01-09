@@ -2,25 +2,23 @@
 
 "use strict";
 
-const request = require("supertest");
-const host = require("./helpers").host;
+const assert = require("proclaim");
+const axios = require("./helpers.js");
 
 describe("GET /", function() {
 	context('compute-at-edge service', function() {
-		it("responds with a 301 status", () => {
-			return request(host)
-				.get("/?use-compute-at-edge-backend=yes")
-				.expect(301)
-				.expect("Location", "/v3/");
+		it("responds with a 301 status", async () => {
+			const response = await axios.get("/?use-compute-at-edge-backend=yes");
+			assert.equal(response.status, 301);
+			assert.equal(response.headers["location"], "/v3/");
 		});
 	});
 
 	context('vcl service', function() {
-		it("responds with a 301 status", () => {
-			return request(host)
-				.get("/?use-compute-at-edge-backend=no")
-				.expect(301)
-				.expect("Location", "/v3/");
+		it("responds with a 301 status", async () => {
+			const response = await axios.get("/?use-compute-at-edge-backend=no");
+			assert.equal(response.status, 301);
+			assert.equal(response.headers["location"], "/v3/");
 		});
 	});
 });

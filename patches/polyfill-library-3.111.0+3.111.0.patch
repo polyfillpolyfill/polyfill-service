@@ -1,7 +1,7 @@
-diff --git a/node_modules/polyfill-library/lib/index.js b/node_modules/polyfill-library/lib/index.js
-index 53902c7..dbfa130 100644
---- a/node_modules/polyfill-library/lib/index.js
-+++ b/node_modules/polyfill-library/lib/index.js
+diff --git a/node_modules/polyfill-library-3.111.0/lib/index.js b/node_modules/polyfill-library-3.111.0/lib/index.js
+index 53902c7..91e20d5 100644
+--- a/node_modules/polyfill-library-3.111.0/lib/index.js
++++ b/node_modules/polyfill-library-3.111.0/lib/index.js
 @@ -11,6 +11,17 @@ const streamToString = require("stream-to-string");
  const normalizeUserAgent = UA.normalize;
  const LRUCache = require("mnemonist/lru-cache");
@@ -28,6 +28,6 @@ index 53902c7..dbfa130 100644
 -			featureEdges.sort(([, a], [, b]) => a.localeCompare(b));
 +			featureNodes.sort(compareStrings);
 +			featureEdges.sort(([, a], [, b]) => compareStrings(a, b));
- 			
+ 
  			const sortedFeatures = toposort(featureNodes, featureEdges);
  

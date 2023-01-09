@@ -2,36 +2,27 @@
 
 "use strict";
 
-const request = require("supertest");
 const assert = require("proclaim");
-const host = require("./helpers").host;
+const axios = require("./helpers.js");
 
-describe("GET /__gtg", function() {
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/__gtg?use-compute-at-edge-backend=yes")
-				.expect(200)
-				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
-				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
-				.then(response => {
-					assert.isString(response.text);
-					assert.equal(response.text, "OK");
-				});
+describe("GET /__gtg", function () {
+	context('compute-at-edge service', function () {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/__gtg?use-compute-at-edge-backend=yes`);
+			assert.equal(response.status, 200);
+			assert.match(response.headers["content-type"], /text\/plain; charset=(UTF|utf)-8/);
+			assert.equal(response.headers["cache-control"], "max-age=0, must-revalidate, no-cache, no-store, private");
+			assert.equal(response.data, "OK");
 		});
 	});
 
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/__gtg?use-compute-at-edge-backend=no")
-				.expect(200)
-				.expect("Content-Type", /text\/plain; charset=(UTF|utf)-8/)
-				.expect("cache-control", "max-age=0, must-revalidate, no-cache, no-store, private")
-				.then(response => {
-					assert.isString(response.text);
-					assert.equal(response.text, "OK");
-				});
+	context('vcl service', function () {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/__gtg?use-compute-at-edge-backend=no`);
+			assert.equal(response.status, 200);
+			assert.match(response.headers["content-type"], /text\/plain; charset=(UTF|utf)-8/);
+			assert.equal(response.headers["cache-control"], "max-age=0, must-revalidate, no-cache, no-store, private");
+			assert.equal(response.data, "OK");
 		});
 	});
 });

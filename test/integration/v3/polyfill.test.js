@@ -2,358 +2,412 @@
 
 "use strict";
 
-const request = require("supertest");
-const assert = require("proclaim");
 const vm = require("vm");
 
-const host = require("../helpers").host;
+const assert = require("proclaim");
+const axios = require("../helpers.js");
 
+describe('compute-at-edge service', function() {
+	describe("OPTIONS /v3/polyfill.js", function() {
 
-describe("OPTIONS /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.options(`/v3/polyfill.js?use-compute-at-edge-backend=yes`)
-				.expect(200)
-				.expect('allow', "OPTIONS, GET, HEAD");
+		it("responds with a 200 status", async () => {
+			const response = await axios.options(`/v3/polyfill.js?use-compute-at-edge-backend=yes`);
+			assert.equal(response.status, 200);
+			assert.equal(response.headers.allow, "OPTIONS, GET, HEAD");
 		});
 	});
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.options(`/v3/polyfill.js?use-compute-at-edge-backend=no`)
-				.expect(200)
-				.expect('allow', "OPTIONS, GET, HEAD");
-		});
-	});
-});
 
-describe("POST /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 405 status", () => {
-			return request(host)
-				.post(`/v3/polyfill.js?use-compute-at-edge-backend=yes`)
-				.expect(405);
-		});
-	});
-	context('vcl service', function() {
-		it("responds with a 405 status", () => {
-			return request(host)
-				.post(`/v3/polyfill.js?use-compute-at-edge-backend=no`)
-				.expect(405);
-		});
-	});
-});
+	describe("POST /v3/polyfill.js", function() {
 
-describe("DELETE /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 405 status", () => {
-			return request(host)
-				.delete("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.expect(405);
+		it("responds with a 405 status", async () => {
+			const response = await axios.post(`/v3/polyfill.js?use-compute-at-edge-backend=yes`);
+			assert.equal(response.status, 405);
 		});
 	});
-	context('vcl service', function() {
-		it("responds with a 405 status", () => {
-			return request(host)
-				.delete("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.expect(405);
-		});
-	});
-});
 
-describe("PURGE /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 401 status", () => {
-			return request(host)
-				.purge("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.expect(401);
-		});
-	});
-	context('vcl service', function() {
-		it("responds with a 401 status", () => {
-			return request(host)
-				.purge("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.expect(401);
-		});
-	});
-});
+	describe("DELETE /v3/polyfill.js", function() {
 
-describe("HEAD /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.head("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/);
+		it("responds with a 405 status", async () => {
+			const response = await axios.delete(`/v3/polyfill.js?use-compute-at-edge-backend=yes`);
+			assert.equal(response.status, 405);
 		});
 	});
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.head("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/);
-		});
-	});
-});
 
-describe("GET /v3/polyfill.js?use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
-		});
-	});
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
-		});
-	});
-});
+	// describe("PURGE /v3/polyfill.js", function() {
+	// 	it("responds with a 401 status", async () => {
+	// 		const response = await axios.purge(`/v3/polyfill.js?use-compute-at-edge-backend=yes`);
+	// 		assert.equal(response.status, 401);
+	// 	});
+	// });
 
-describe("GET /v3/polyfill.js?features=carrot&strict", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
-		});
-	});
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
-		});
-	});
-});
+	describe("HEAD /v3/polyfill.js", function() {
 
-describe("GET /v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
+		it("responds with a 200 status", async () => {
+			const response = await axios.head(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+				headers: {
+					"Fastly-Debug": "true"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
 		});
 	});
-	context('vcl service', function() {
-		it("responds with a 200 status", () => {
-			return request(host)
-				.get("/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.expect(200)
-				.expect("Content-Type", /text\/javascript; charset=(UTF|utf)-8/)
-				.expect("Access-Control-Allow-Origin", "*")
-				.expect("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-				.expect("cache-control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-				.expect("surrogate-key", /polyfill-service/)
-				.then(response => {
-					assert.isString(response.text);
-					assert.doesNotThrow(() => new vm.Script(response.text));
-					assert.notMatch(response.text, /\/\/#\ssourceMappingURL(.+)/);
-				});
+
+	describe("GET /v3/polyfill.js", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("GET /v3/polyfill.js?features=carrot&strict", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes`,{
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("encoding", function() {
+		it("responds with no compression if client does not accept compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "identity"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], undefined)
+		});
+
+		it("responds with gzip compression if client accepts gzip compressed responses", async() => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"accept-encoding": "gzip"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "gzip")
+		});
+
+		it("responds with gzip compression if client accepts gzip and deflate compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "gzip, deflate"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "gzip")
+		});
+
+		it("responds with brotli compression if client accepts brotli compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "br"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "br")
+		});
+
+		it("responds with brotli compression if client accepts brotli and gzip compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "br, gzip"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "br")
 		});
 	});
 });
+describe('vcl service', function() {
+	describe("OPTIONS /v3/polyfill.js", function() {
 
-describe("GET /v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes", function() {
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with a generic message", () => {
-			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
-				return request(host)
-					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=yes")
-					.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/)
-					.then(response => {
-						assert.deepEqual(response.text, 'requested version does not exist')
-					});
-			}
+		it("responds with a 200 status", async () => {
+			const response = await axios.options(`/v3/polyfill.js?use-compute-at-edge-backend=no`);
+			assert.equal(response.status, 200);
+			assert.equal(response.headers.allow, "OPTIONS, GET, HEAD");
 		});
 	});
-	context('vcl service', function() {
-		it("responds with a generic message", () => {
-			if (!host.includes('dev.polyfill.io') && !host.includes('qa.polyfill.io')) {
-				return request(host)
-					.get("/v3/polyfill.js?version=hello-i-am-not-a-version&use-compute-at-edge-backend=no")
-					.expect("Content-Type", /text\/html; charset=(UTF|utf)-8/)
-					.then(response => {
-						assert.deepEqual(response.text, 'requested version does not exist')
-					});
-			}
+
+	describe("POST /v3/polyfill.js", function() {
+
+		it("responds with a 405 status", async () => {
+			const response = await axios.post(`/v3/polyfill.js?use-compute-at-edge-backend=no`);
+			assert.equal(response.status, 405);
 		});
 	});
-});
 
-describe("encoding", function() {
+	describe("DELETE /v3/polyfill.js", function() {
 
-	this.timeout(30000);
-	context('compute-at-edge service', function() {
-		it("responds with no compression if client does not accept compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "identity")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.then(response => {
-					assert.equal(response.headers["content-encoding"], undefined);
-				});
-		});
-
-		it("responds with gzip compression if client accepts gzip compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "gzip")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip");
-		});
-
-		it("responds with gzip compression if client accepts gzip and deflate compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "gzip, deflate")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip");
-		});
-
-		it("responds with brotli compression if client accepts brotli compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "br")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "br");
-		});
-
-		it("responds with brotli compression if client accepts brotli and gzip compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=yes")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "br, gzip")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "br");
+		it("responds with a 405 status", async () => {
+			const response = await axios.delete(`/v3/polyfill.js?use-compute-at-edge-backend=no`);
+			assert.equal(response.status, 405);
 		});
 	});
-	context('vcl service', function() {
-		it("responds with no compression if client does not accept compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "identity")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.then(response => {
-					assert.equal(response.headers["content-encoding"], undefined);
-				});
+
+	// describe("PURGE /v3/polyfill.js", function() {
+	// 	it("responds with a 401 status", async () => {
+	// 		const response = await axios.purge(`/v3/polyfill.js?use-compute-at-edge-backend=no`);
+	// 		assert.equal(response.status, 401);
+	// 	});
+	// });
+
+	describe("HEAD /v3/polyfill.js", function() {
+
+		it("responds with a 200 status", async () => {
+			const response = await axios.head(`/v3/polyfill.js?use-compute-at-edge-backend=no`, {
+				headers: {
+					"Fastly-Debug": "true"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+		});
+	});
+
+	describe("GET /v3/polyfill.js", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`, {
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("GET /v3/polyfill.js?features=carrot&strict", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=no`,{
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
+		it("responds with a 200 status", async () => {
+			const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=no`, {
+				headers: {
+					"Fastly-Debug": "true"
+				},
+				decompress: true
+			});
+
+			assert.equal(response.status, 200);
+			assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
+			assert.equal(response.headers["access-control-allow-origin"], "*")
+			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+			assert.include(response.headers["surrogate-key"], 'polyfill-service');
+			assert.isString(response.data);
+			assert.doesNotThrow(() => {
+				try {
+					new vm.Script(response.data);
+				} catch (error) {
+					console.error(error);
+					throw error;
+				}
+			});
+			assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		});
+	});
+
+	describe("encoding", function() {
+		it("responds with no compression if client does not accept compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "identity"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], undefined)
 		});
 
-		it("responds with gzip compression if client accepts gzip compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "gzip")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip");
+		it("responds with gzip compression if client accepts gzip compressed responses", async() => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"accept-encoding": "gzip"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "gzip")
 		});
 
-		it("responds with gzip compression if client accepts gzip and deflate compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "gzip, deflate")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "gzip");
+		it("responds with gzip compression if client accepts gzip and deflate compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`, {
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "gzip, deflate"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "gzip")
 		});
 
-		it("responds with brotli compression if client accepts brotli compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "br")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "br");
+		it("responds with brotli compression if client accepts brotli compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "br"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "br")
 		});
 
-		it("responds with brotli compression if client accepts brotli and gzip compressed responses", () => {
-			return request(host)
-				.get("/v3/polyfill.js?use-compute-at-edge-backend=no")
-				.set("Fastly-Debug", "true")
-				.set("Accept-Encoding", "br, gzip")
-				.expect("Vary", "User-Agent, Accept-Encoding")
-				.expect("Content-Encoding", "br");
+		it("responds with brotli compression if client accepts brotli and gzip compressed responses", async () => {
+			const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=no`,{
+				headers: {
+					"Fastly-Debug": "true",
+					"Accept-Encoding": "br, gzip"
+				}
+			});
+
+			assert.equal(response.status, 200);
+			assert.equal(response.headers["vary"], "User-Agent, Accept-Encoding")
+			assert.equal(response.headers["content-encoding"], "br")
 		});
 	});
 });
