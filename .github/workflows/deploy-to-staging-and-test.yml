@@ -65,7 +65,7 @@ jobs:
         args: 'fastly_service_vcl.app ${{ env.fastly_vcl_service_id }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - name: 'Terraform Import Fastly Compute Service'
       if: steps.witness.outputs.cache-hit != 'true'
       uses: hashicorp/terraform-github-actions@v0.8.0
@@ -77,7 +77,7 @@ jobs:
         args: 'fastly_service_compute.app ${{ env.fastly_compute_service_id }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - name: 'Terraform Import Fastly Service Dictionary Top-pops Config Items'
       if: steps.witness.outputs.cache-hit != 'true'
       uses: hashicorp/terraform-github-actions@v0.8.0
@@ -89,7 +89,7 @@ jobs:
         args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/4dfSlimwvlJELO6htcnGsi"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - name: 'Terraform Import Fastly Service Dictionary Compute At Edge Config Items'
       if: steps.witness.outputs.cache-hit != 'true'
       uses: hashicorp/terraform-github-actions@v0.8.0
@@ -101,7 +101,7 @@ jobs:
         args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/52hxZN9sNy7jyAdvvGKekc"'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - name: 'Terraform Validate'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
@@ -121,7 +121,7 @@ jobs:
         args: '-out=plan.tfplan'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - name: 'Terraform Apply'
       uses: hashicorp/terraform-github-actions@v0.8.0
       with:
@@ -132,7 +132,7 @@ jobs:
         args: '--auto-approve'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_STAGING }}
+        FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
     - run: sleep 60
 
   create-change-log:
@@ -152,7 +152,7 @@ jobs:
     needs: [deploy-to-staging]
     runs-on: ubuntu-latest
     steps:
-      - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY_STAGING }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
+      - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY_QA }}\" https://api.fastly.com/service/${{ env.fastly_service_id }}/purge_all"
       - run: sleep 60
 
   end-to-end-test:
