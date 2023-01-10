@@ -17,6 +17,7 @@ resource "fastly_service_compute" "app" {
     between_bytes_timeout = 120000
     error_threshold       = 0
     override_host         = "origami-polyfill-service-qa-eu.herokuapp.com"
+    use_ssl               = true
   }
 
   healthcheck {
@@ -40,6 +41,7 @@ resource "fastly_service_compute" "app" {
     between_bytes_timeout = 120000
     error_threshold       = 0
     override_host         = "origami-polyfill-service-qa-us.herokuapp.com"
+    use_ssl               = true
   }
 
   healthcheck {
@@ -71,6 +73,7 @@ resource "fastly_service_vcl" "app" {
     between_bytes_timeout = 120000
     error_threshold       = 0
     override_host         = "qa-polyfill-service.edgecompute.app"
+    use_ssl               = true
   }
 
   healthcheck {
@@ -95,6 +98,7 @@ resource "fastly_service_vcl" "app" {
     error_threshold       = 0
     shield                = "london_city-uk"
     override_host         = "origami-polyfill-service-qa-eu.herokuapp.com"
+    use_ssl               = true
   }
 
   healthcheck {
@@ -119,6 +123,7 @@ resource "fastly_service_vcl" "app" {
     error_threshold       = 0
     shield                = "iad-va-us"
     override_host         = "origami-polyfill-service-qa-us.herokuapp.com"
+    use_ssl               = true
   }
 
   healthcheck {
