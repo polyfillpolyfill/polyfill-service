@@ -1,0 +1,1 @@
+var _mutation=function(){function e(e){return"function"==typeof Node?e instanceof Node:e&&"object"==typeof e&&e.nodeName&&e.nodeType>=1&&e.nodeType<=12}return function n(t){if(1===t.length)return e(t[0])?t[0]:document.createTextNode(t[0]+"");for(var o=document.createDocumentFragment(),r=0;r<t.length;r++)o.appendChild(e(t[r])?t[r]:document.createTextNode(t[r]+""));return o}}();

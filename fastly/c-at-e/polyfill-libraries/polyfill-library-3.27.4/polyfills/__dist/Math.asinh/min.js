@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"asinh",function(n){return isNaN(n)?NaN:0===n&&1/n===Infinity?0:0===n&&1/n==-Infinity?-0:n===Infinity?Infinity:n===-Infinity?-Infinity:Math.log(n+Math.sqrt(n*n+1))});

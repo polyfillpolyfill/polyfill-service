@@ -1,0 +1,1 @@
+!function(){function i(){document.hidden=document[t+"Hidden"],document.visibilityState=document[t+"VisibilityState"]}var t=document.webkitVisibilityState?"webkit":document.mozVisibilityState?"moz":null;t&&(i(),document.addEventListener(t+"visibilitychange",function(){i(),document.dispatchEvent(new CustomEvent("visibilitychange"))}))}();

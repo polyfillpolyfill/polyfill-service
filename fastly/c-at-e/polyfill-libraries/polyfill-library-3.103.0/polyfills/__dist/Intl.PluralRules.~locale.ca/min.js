@@ -1,0 +1,1 @@
+Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({data:{categories:{cardinal:["one","other"],ordinal:["one","two","few","other"]},fn:function(a,e){var l=String(a).split("."),t=!l[1];return e?1==a||3==a?"one":2==a?"two":4==a?"few":"other":1==a&&t?"one":"other"}},locale:"ca"});

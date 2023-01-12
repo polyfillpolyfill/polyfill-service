@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"strike",function t(){var t=this;return CreateHTML(t,"strike","","")});

@@ -1,0 +1,1 @@
+console.trace=function c(){};

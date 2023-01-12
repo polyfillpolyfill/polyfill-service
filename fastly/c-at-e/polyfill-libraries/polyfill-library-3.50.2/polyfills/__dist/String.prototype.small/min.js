@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"small",function t(){var t=this;return CreateHTML(t,"small","","")});

@@ -1,0 +1,1 @@
+console.dirxml=function n(){};

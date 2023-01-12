@@ -1,0 +1,1 @@
+Element.prototype.toggleAttribute=function t(e,i){return i!==undefined&&(i=!!i),null!==this.getAttribute(e)?!!i||(this.removeAttribute(e),!1):!1!==i&&(this.setAttribute(e,""),!0)};

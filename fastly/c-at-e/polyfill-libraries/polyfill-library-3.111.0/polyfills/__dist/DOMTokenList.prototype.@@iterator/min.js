@@ -1,0 +1,1 @@
+!function(t){t.DOMTokenList.prototype[t.Symbol.iterator]=function(){return new ArrayIterator(this)};var r=document.createElement("span");r.classList&&r.classList.constructor&&r.classList.constructor.prototype&&!r.classList.constructor.prototype[t.Symbol.iterator]&&(r.classList.constructor.prototype[t.Symbol.iterator]=function(){return new ArrayIterator(this)})}(self);

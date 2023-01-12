@@ -1,0 +1,23 @@
+{
+  "aliases": [
+    "default-3.3",
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default",
+    "blissfuljs"
+  ],
+  "dependencies": [
+    "Event"
+  ],
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest",
+  "detectSource": "\"XMLHttpRequest\"in this&&\"prototype\"in this.XMLHttpRequest&&\"addEventListener\"in this.XMLHttpRequest.prototype\n",
+  "baseDir": "XMLHttpRequest",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 1285,
+  "browsers": {
+    "ie": "6 - 8"
+  }
+}

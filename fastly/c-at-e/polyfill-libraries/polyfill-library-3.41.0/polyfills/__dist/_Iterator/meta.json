@@ -1,0 +1,37 @@
+{
+  "dependencies": [
+    "Function.prototype.bind",
+    "Object.assign",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Symbol",
+    "Symbol.iterator",
+    "Symbol.toStringTag"
+  ],
+  "license": "MIT",
+  "repo": "https://github.com/medikoo/es6-iterator",
+  "detectSource": "",
+  "baseDir": "_Iterator",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": false,
+  "size": 2605,
+  "browsers": {
+    "android": "*",
+    "bb": "*",
+    "chrome": "*",
+    "edge": "*",
+    "edge_mob": "*",
+    "firefox": "*",
+    "firefox_mob": "*",
+    "ie": "*",
+    "ie_mob": "*",
+    "ios_chr": "*",
+    "ios_saf": "*",
+    "op_mini": "*",
+    "op_mob": "*",
+    "opera": "*",
+    "safari": "*",
+    "samsung_mob": "*"
+  }
+}

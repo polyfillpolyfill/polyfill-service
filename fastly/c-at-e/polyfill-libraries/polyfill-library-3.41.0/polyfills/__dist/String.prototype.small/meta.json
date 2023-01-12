@@ -1,0 +1,22 @@
+{
+  "dependencies": [
+    "_ESAbstract.CreateHTML",
+    "_ESAbstract.CreateMethodProperty"
+  ],
+  "spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-string.prototype.small",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/small",
+  "detectSource": "\"small\"in String.prototype&&function(){var t=\"\".small('\"')\nreturn t==t.toLowerCase()&&t.split('\"').length<=3}()\n",
+  "baseDir": "String/prototype/small",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 107,
+  "browsers": {
+    "bb": "*",
+    "firefox": "< 4",
+    "ie": "*",
+    "ie_mob": "*",
+    "op_mini": "*",
+    "firefox_mob": "< 4"
+  }
+}

@@ -1,0 +1,1 @@
+Document.prototype.append=Element.prototype.append=function p(){this.appendChild(_mutation(arguments))};

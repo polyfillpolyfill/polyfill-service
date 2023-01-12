@@ -1,0 +1,1 @@
+console.exception=function n(){};

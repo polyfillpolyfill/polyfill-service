@@ -1,0 +1,1 @@
+this.console=this.console||{};

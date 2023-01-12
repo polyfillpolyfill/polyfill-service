@@ -1,0 +1,32 @@
+{
+  "dependencies": [
+    "_ESAbstract.CreateMethodProperty",
+    "_ESAbstract.Type"
+  ],
+  "spec": "https://tc39.github.io/ecma262/#sec-object.preventextensions",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions",
+  "detectSource": "\"preventExtensions\"in Object\n",
+  "baseDir": "Object/preventExtensions",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 143,
+  "browsers": {
+    "android": "*",
+    "bb": "*",
+    "chrome": "<44",
+    "edge": "*",
+    "edge_mob": "*",
+    "firefox": "<35",
+    "firefox_mob": "<35",
+    "ie": "<11",
+    "ie_mob": "<11",
+    "ios_chr": "<9",
+    "ios_saf": "<9",
+    "op_mini": "*",
+    "op_mob": "*",
+    "opera": "<31",
+    "safari": "<9",
+    "samsung_mob": "*"
+  }
+}

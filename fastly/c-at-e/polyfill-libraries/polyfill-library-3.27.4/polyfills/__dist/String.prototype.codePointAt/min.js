@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"codePointAt",function(e){var t=RequireObjectCoercible(this),r=ToString(t),o=ToInteger(e),n=r.length;if(o<0||o>=n)return undefined;var i=String.prototype.charCodeAt.call(r,o);if(i<55296||i>56319||o+1===n)return i;var c=String.prototype.charCodeAt.call(r,o+1);return c<56320||c>57343?i:UTF16Decode(i,c)});

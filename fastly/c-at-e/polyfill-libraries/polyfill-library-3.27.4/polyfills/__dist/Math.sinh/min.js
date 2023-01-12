@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"sinh",function(r){var t=r<0?-1:1,a=Math.abs(r);if(a<22){if(a<Math.pow(2,-28))return r;var e=Math.exp(a)-1;return a<1?t*(2*e-e*e/(e+1))/2:t*(e+e/(e+1))/2}if(a<709.7822265625)return t*Math.exp(a)/2;var h=Math.exp(.5*a),e=t*h/2;return e*h});

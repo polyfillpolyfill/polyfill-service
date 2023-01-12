@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"sub",function t(){var t=this;return CreateHTML(t,"sub","","")});

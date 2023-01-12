@@ -1,0 +1,1 @@
+function IsRegExp(e){if("object"!==Type(e))return!1;var t="Symbol"in this&&"match"in this.Symbol?Get(e,this.Symbol.match):undefined;if(t!==undefined)return ToBoolean(t);try{var n=e.lastIndex;return e.lastIndex=0,RegExp.prototype.exec.call(e),!0}catch(r){}finally{e.lastIndex=n}return!1}

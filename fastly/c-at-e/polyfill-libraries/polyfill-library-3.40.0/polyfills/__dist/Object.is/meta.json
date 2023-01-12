@@ -1,0 +1,34 @@
+{
+  "aliases": [
+    "es6",
+    "es2015",
+    "modernizr:es6object"
+  ],
+  "dependencies": [
+    "_ESAbstract.CreateMethodProperty",
+    "_ESAbstract.SameValue"
+  ],
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is",
+  "detectSource": "\"is\"in Object\n",
+  "baseDir": "Object/is",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 73,
+  "browsers": {
+    "android": "< 4.4",
+    "bb": "*",
+    "chrome": "< 29",
+    "edge": "< 12",
+    "edge_mob": "< 14",
+    "firefox": "< 22",
+    "firefox_mob": "< 22",
+    "ie": "*",
+    "ie_mob": "*",
+    "opera": "< 32",
+    "op_mini": "*",
+    "op_mob": "< 32",
+    "safari": "< 9",
+    "ios_saf": "< 9"
+  }
+}

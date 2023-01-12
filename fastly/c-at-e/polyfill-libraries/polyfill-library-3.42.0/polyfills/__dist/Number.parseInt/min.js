@@ -1,0 +1,1 @@
+CreateMethodProperty(Number,"parseInt",parseInt);

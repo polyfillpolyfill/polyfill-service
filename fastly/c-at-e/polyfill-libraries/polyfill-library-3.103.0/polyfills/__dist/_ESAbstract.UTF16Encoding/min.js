@@ -1,0 +1,1 @@
+function UTF16Encoding(n){return n<=65535?n:[Math.floor((n-65536)/1024)+55296,(n-65536)%1024+56320]}

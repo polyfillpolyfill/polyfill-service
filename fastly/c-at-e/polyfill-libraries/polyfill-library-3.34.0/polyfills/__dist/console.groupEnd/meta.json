@@ -1,0 +1,1 @@
+{"aliases":["caniuse:console-basic"],"browsers":{"ie":"*","firefox":"1 - 4"},"dependencies":["Window","console"],"spec":"https://console.spec.whatwg.org","docs":"https://developer.mozilla.org/en/docs/Web/API/console","detectSource":"\"console\"in this&&\"groupEnd\"in this.console\n","baseDir":"console/groupEnd","hasTests":true,"isTestable":true,"isPublic":true,"size":32}

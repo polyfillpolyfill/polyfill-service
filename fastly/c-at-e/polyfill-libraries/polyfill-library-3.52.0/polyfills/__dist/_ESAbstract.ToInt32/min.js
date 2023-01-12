@@ -1,0 +1,1 @@
+function ToInt32(n){var t=Number(n);if(isNaN(t)||1/t===Infinity||1/t==-Infinity||t===Infinity||t===-Infinity)return 0;var i=(t<0?-1:1)*Math.floor(Math.abs(t)),a=i%Math.pow(2,32);return a>=Math.pow(2,31)?a-Math.pow(2,32):a}

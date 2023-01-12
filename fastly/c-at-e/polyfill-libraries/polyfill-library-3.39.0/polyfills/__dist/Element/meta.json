@@ -1,0 +1,23 @@
+{
+  "aliases": [
+    "default-3.3",
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default"
+  ],
+  "dependencies": [
+    "document"
+  ],
+  "spec": "https://dom.spec.whatwg.org/#interface-element",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+  "detectSource": "\"Element\"in this&&\"HTMLElement\"in this\n",
+  "baseDir": "Element",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 1292,
+  "browsers": {
+    "ie": "6 - 8"
+  }
+}

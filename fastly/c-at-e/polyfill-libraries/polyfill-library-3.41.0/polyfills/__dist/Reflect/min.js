@@ -1,0 +1,1 @@
+Object.defineProperty(self,"Reflect",{value:self.Reflect||{},writable:!0,configurable:!0}),Object.defineProperty(self,"Reflect",{value:self.Reflect||{},enumerable:!1});
