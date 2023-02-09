@@ -1,0 +1,22 @@
+{
+  "dependencies": [
+    "_ESAbstract.CreateHTML",
+    "_ESAbstract.CreateMethodProperty"
+  ],
+  "spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-string.prototype.strike",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/strike",
+  "detectSource": "\"strike\"in String.prototype&&function(){var t=\"\".strike('\"')\nreturn t==t.toLowerCase()&&t.split('\"').length<=3}()\n",
+  "baseDir": "String/prototype/strike",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 109,
+  "browsers": {
+    "bb": "*",
+    "firefox": "< 4",
+    "ie": "*",
+    "ie_mob": "*",
+    "op_mini": "*",
+    "firefox_mob": "< 4"
+  }
+}

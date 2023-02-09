@@ -1,0 +1,33 @@
+{
+  "dependencies": [
+    "Reflect",
+    "_ESAbstract.CreateMethodProperty",
+    "_ESAbstract.Type",
+    "Object.isExtensible"
+  ],
+  "spec": "https://tc39.github.io/ecma262/#sec-reflect.isextensible",
+  "detectSource": "\"isExtensible\"in Reflect\n",
+  "baseDir": "Reflect/isExtensible",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 187,
+  "browsers": {
+    "android": "*",
+    "bb": "*",
+    "chrome": "*",
+    "edge": "*",
+    "edge_mob": "*",
+    "firefox": "*",
+    "firefox_mob": "*",
+    "ie": "*",
+    "ie_mob": "*",
+    "ios_chr": "*",
+    "ios_saf": "*",
+    "op_mini": "*",
+    "op_mob": "*",
+    "opera": "*",
+    "safari": "*",
+    "samsung_mob": "*"
+  }
+}

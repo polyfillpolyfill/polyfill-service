@@ -1,0 +1,1 @@
+!function(t){t.DOMTokenList.prototype.forEach=t.Array.prototype.forEach;var o=document.createElement("span");o.classList&&o.classList.constructor&&o.classList.constructor.prototype&&!o.classList.constructor.prototype.forEach&&(o.classList.constructor.prototype.forEach=t.Array.prototype.forEach)}(self);

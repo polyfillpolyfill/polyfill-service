@@ -1,0 +1,1 @@
+function UTF16Decode(e,n){return 1024*(e-55296)+(n-56320)+65536}

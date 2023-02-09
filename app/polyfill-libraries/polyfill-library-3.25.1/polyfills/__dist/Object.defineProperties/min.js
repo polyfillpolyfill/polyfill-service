@@ -1,0 +1,1 @@
+Object.defineProperties=function(e,r){for(var n in r)r.hasOwnProperty(n)&&Object.defineProperty(e,n,r[n]);return e};

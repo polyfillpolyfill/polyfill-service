@@ -1,0 +1,1 @@
+CreateMethodProperty(Array.prototype,"entries",function r(){var r=ToObject(this);return new ArrayIterator(r,"key+value")});

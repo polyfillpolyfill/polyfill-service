@@ -1,0 +1,1 @@
+console.timeline=function n(){};

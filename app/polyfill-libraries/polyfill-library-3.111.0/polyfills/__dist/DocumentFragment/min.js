@@ -1,0 +1,1 @@
+!function(t){t.DocumentFragment=function n(){return document.createDocumentFragment()};var e=document.createDocumentFragment();t.DocumentFragment.prototype=Object.create(e.constructor.prototype)}(self);

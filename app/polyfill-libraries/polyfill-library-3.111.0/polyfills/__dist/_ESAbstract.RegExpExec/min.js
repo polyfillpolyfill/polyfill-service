@@ -1,0 +1,1 @@
+function RegExpExec(e,l){var r=Get(e,"exec");if(IsCallable(r)){var t=Call(r,e,[l]);if("object"!==Type(t)&&"null"!==Type(t))throw new TypeError("Invalid result: must be an object or null.");return t}return Call(RegExp.prototype.exec,e,[l])}

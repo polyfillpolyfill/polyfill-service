@@ -1,0 +1,1 @@
+function IsPropertyKey(e){return"string"===Type(e)||"symbol"===Type(e)}

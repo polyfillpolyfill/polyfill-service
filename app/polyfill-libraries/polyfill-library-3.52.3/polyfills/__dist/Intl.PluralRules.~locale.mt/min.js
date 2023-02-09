@@ -1,0 +1,1 @@
+Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({locale:"mt",categories:{cardinal:["one","few","many","other"],ordinal:["other"]},fn:function(e,l){var a=String(e).split("."),t=Number(a[0])==e,n=t&&a[0].slice(-2);return l?"other":1==e?"one":0==e||n>=2&&n<=10?"few":n>=11&&n<=19?"many":"other"}});

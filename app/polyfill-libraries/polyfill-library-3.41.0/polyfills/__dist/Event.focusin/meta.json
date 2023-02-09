@@ -1,0 +1,23 @@
+{
+  "aliases": [
+    "default-3.3",
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default"
+  ],
+  "dependencies": [
+    "Event"
+  ],
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/Events/focusin",
+  "detectSource": "(function(n,e,t){function o(){n=!0}return\"onfocusin\"in window||(t.href=\"#\",\"addEventListener\"in t?t.addEventListener(\"focusin\",o):t.attachEvent(\"onfocusin\",o),e.appendChild(t).focus(),e.removeChild(t),n)})(!1,document.documentElement,document.createElement(\"a\"))\n",
+  "baseDir": "Event/focusin",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 238,
+  "browsers": {
+    "firefox": "<52",
+    "firefox_mob": "<52"
+  }
+}

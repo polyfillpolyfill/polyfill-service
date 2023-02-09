@@ -1,0 +1,1 @@
+function CanonicalNumericIndexString(n){if("-0"===n)return-0;var e=ToNumber(n);return!1===SameValue(ToString(e),n)?undefined:e}

@@ -1,0 +1,1 @@
+function StringIndexOf(r,n,e){var f=r.length;if(""===n&&e<=f)return e;for(var t=n.length,a=e,i=-1;a+t<=f;){for(var g=!0,o=0;o<t;o+=1)if(r[a+o]!==n[o]){g=!1;break}if(g){i=a;break}a+=1}return i}

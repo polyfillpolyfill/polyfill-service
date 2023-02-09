@@ -1,0 +1,1 @@
+Document.prototype.before=Element.prototype.before=function e(){if(this.parentNode){for(var e=Array.prototype.slice.call(arguments),t=this.previousSibling,o=t?e.indexOf(t):-1;-1!==o&&(t=t.previousSibling);)o=e.indexOf(t);this.parentNode.insertBefore(_mutation(arguments),t?t.nextSibling:this.parentNode.firstChild)}},"Text"in self&&(Text.prototype.before=Element.prototype.before);

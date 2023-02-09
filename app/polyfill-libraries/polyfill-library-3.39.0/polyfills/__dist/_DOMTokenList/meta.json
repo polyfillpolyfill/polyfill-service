@@ -1,0 +1,31 @@
+{
+  "dependencies": [
+    "Object.defineProperty"
+  ],
+  "license": "ISC",
+  "repo": "https://github.com/Alhadis/DOMTokenList",
+  "detectSource": "",
+  "baseDir": "_DOMTokenList",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": false,
+  "size": 1519,
+  "browsers": {
+    "android": "*",
+    "bb": "*",
+    "chrome": "*",
+    "edge": "*",
+    "edge_mob": "*",
+    "firefox": "*",
+    "ios_chr": "*",
+    "ios_saf": "*",
+    "ie": "*",
+    "ie_mob": "*",
+    "opera": "*",
+    "op_mini": "*",
+    "op_mob": "*",
+    "safari": "*",
+    "firefox_mob": "*",
+    "samsung_mob": "*"
+  }
+}

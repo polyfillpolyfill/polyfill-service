@@ -1,0 +1,1 @@
+function SpeciesConstructor(e,o){var r=Get(e,"constructor");if(r===undefined)return o;if("object"!==Type(r))throw new TypeError("O.constructor is not an Object");var n="function"==typeof self.Symbol&&"symbol"==typeof self.Symbol.species?r[self.Symbol.species]:undefined;if(n===undefined||null===n)return o;if(IsConstructor(n))return n;throw new TypeError("No constructor found")}

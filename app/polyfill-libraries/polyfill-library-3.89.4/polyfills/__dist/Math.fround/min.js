@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"fround",function(n){return isNaN(n)?NaN:1/n==+Infinity||1/n==-Infinity||n===+Infinity||n===-Infinity?n:new Float32Array([n])[0]});

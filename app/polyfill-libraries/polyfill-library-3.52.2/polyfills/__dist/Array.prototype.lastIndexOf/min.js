@@ -1,0 +1,1 @@
+CreateMethodProperty(Array.prototype,"lastIndexOf",function t(r){var e=ToObject(this),n=ToLength(Get(e,"length"));if(0===n)return-1;var o=arguments.length>1?ToInteger(arguments[1]):n-1;if(o>=0)var i=1/o==-Infinity?0:Math.min(o,n-1);else i=n+o;for(;i>=0;){if(HasProperty(e,ToString(i))){if(r===Get(e,ToString(i)))return i}i-=1}return-1});

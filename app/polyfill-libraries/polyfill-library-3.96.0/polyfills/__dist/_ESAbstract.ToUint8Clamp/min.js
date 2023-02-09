@@ -1,0 +1,1 @@
+function ToUint8Clamp(r){var n=Number(r);if(isNaN(n))return 0;if(n<=0)return 0;if(n>=255)return 255;var t=Math.floor(n);return t+.5<n?t+1:n<t+.5?t:t%2==1?t+1:t}

@@ -1,0 +1,1 @@
+self.HTMLDocument=self.Document;

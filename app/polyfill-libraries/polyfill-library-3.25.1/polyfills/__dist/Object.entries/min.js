@@ -1,0 +1,1 @@
+Object.entries=function(e){return Object.keys(e).reduce(function(r,t){var n="string"==typeof t&&e.propertyIsEnumerable(t)?[[t,e[t]]]:[];return r.concat(n)},[])};

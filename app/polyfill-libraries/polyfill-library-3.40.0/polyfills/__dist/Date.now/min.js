@@ -1,0 +1,1 @@
+Date.now=function e(){return(new Date).getTime()};
