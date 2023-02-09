@@ -1,1 +1,0 @@
-!function(t){document.createDocumentFragment().constructor.prototype.append=function n(){this.appendChild(_mutation(arguments))},t.DocumentFragment.prototype.append=function e(){this.appendChild(_mutation(arguments))}}(self);

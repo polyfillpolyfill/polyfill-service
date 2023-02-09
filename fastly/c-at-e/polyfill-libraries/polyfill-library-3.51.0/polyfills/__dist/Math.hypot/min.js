@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"hypot",function t(n,r){if(0===arguments.length)return 0;for(var i=0,e=0,a=0;a<arguments.length;++a){if(arguments[a]===Infinity)return Infinity;if(arguments[a]===-Infinity)return Infinity;var f=Math.abs(Number(arguments[a]));f>e&&(i*=Math.pow(e/f,2),e=f),0===f&&0===e||(i+=Math.pow(f/e,2))}return e*Math.sqrt(i)});

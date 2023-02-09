@@ -1,1 +1,0 @@
-!function(){"use strict";Object.defineProperty(HTMLCanvasElement.prototype,"toBlob",{value:function(t,e,n){for(var o=atob(this.toDataURL(e,n).split(",")[1]),a=o.length,r=new Uint8Array(a),i=0;i<a;i++)r[i]=o.charCodeAt(i);t(new Blob([r],{type:e||"image/png"}))}})}();

@@ -1,1 +1,0 @@
-Array.prototype.map=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n=Object(this),i=arguments[1],r=n instanceof String?n.split(""):n,o=Math.max(Math.min(r.length,9007199254740991),0)||0,e=-1,a=[];++e<o;)e in r&&(a[e]=t.call(i,r[e],e,n));return a};

@@ -1,1 +1,0 @@
-Array.prototype.filter=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n,i=Object(this),r=arguments[1],o=i instanceof String?i.split(""):i,e=Math.max(Math.min(o.length,9007199254740991),0)||0,f=-1,h=[];++f<e;)n=o[f],f in o&&t.call(r,n,f,i)&&h.push(n);return h};

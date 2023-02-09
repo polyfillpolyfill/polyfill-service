@@ -1,1 +1,0 @@
-CreateMethodProperty(Object,"values",function(e){var t=ToObject(e);return Object.keys(t).map(function(e){return t[e]})});

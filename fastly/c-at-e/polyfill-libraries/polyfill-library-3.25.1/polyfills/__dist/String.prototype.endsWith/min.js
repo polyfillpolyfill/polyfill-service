@@ -1,1 +1,0 @@
-String.prototype.endsWith=function(t){var n=arguments.length<2?this.length:arguments[1],e=this.lastIndexOf(t);return-1!==e&&e===n-t.length};

@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"log10",function t(e){return Math.log(e)/Math.LN10});

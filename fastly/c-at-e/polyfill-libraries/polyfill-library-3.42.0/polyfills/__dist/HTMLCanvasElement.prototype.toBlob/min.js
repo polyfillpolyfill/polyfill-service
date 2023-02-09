@@ -1,1 +1,0 @@
-CreateMethodProperty(HTMLCanvasElement.prototype,"toBlob",function(t,e,o){for(var a=atob(this.toDataURL(e,o).split(",")[1]),n=a.length,r=new Uint8Array(n),p=0;p<n;p++)r[p]=a.charCodeAt(p);t(new Blob([r],{type:e||"image/png"}))});

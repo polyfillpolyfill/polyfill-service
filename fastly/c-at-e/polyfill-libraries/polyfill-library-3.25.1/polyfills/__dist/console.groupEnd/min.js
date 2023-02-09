@@ -1,1 +1,0 @@
-this.console.groupEnd=function(){};

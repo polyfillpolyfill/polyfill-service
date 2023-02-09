@@ -1,1 +1,0 @@
-String.prototype.includes=function(t,e){if("object"==typeof t&&t instanceof RegExp)throw new TypeError("First argument to String.prototype.includes must not be a regular expression");return-1!==this.indexOf(t,e)};

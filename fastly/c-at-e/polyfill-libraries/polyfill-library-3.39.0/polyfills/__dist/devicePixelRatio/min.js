@@ -1,1 +1,0 @@
-this.devicePixelRatio=1;

@@ -1,1 +1,0 @@
-Math.sinh=function(n){var t=Math.exp(n);return(t-1/t)/2};

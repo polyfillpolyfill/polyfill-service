@@ -1,1 +1,0 @@
-function ToBoolean(o){return Boolean(o)}

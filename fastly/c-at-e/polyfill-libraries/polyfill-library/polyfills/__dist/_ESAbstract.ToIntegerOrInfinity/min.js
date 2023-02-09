@@ -1,1 +1,0 @@
-function ToIntegerOrInfinity(n){var i=ToNumber(n);if(isNaN(i)||0===i||1/i==-Infinity)return 0;if(i===Infinity)return Infinity;if(i===-Infinity)return-Infinity;var r=Math.floor(Math.abs(i));return i<0&&(r=-r),r}

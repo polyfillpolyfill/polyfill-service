@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"atanh",function n(t){return isNaN(t)?NaN:t<-1?NaN:t>1?NaN:-1===t?-Infinity:1===t?Infinity:0===t&&1/t===Infinity?0:0===t&&1/t==-Infinity?-0:Math.log((1+t)/(1-t))/2});

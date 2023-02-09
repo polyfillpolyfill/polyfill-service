@@ -1,1 +1,0 @@
-CreateMethodProperty(String.prototype,"repeat",function(r){"use strict";var e=RequireObjectCoercible(this),t=ToString(e),n=ToInteger(r);if(n<0)throw new RangeError("Invalid count value");if(n===Infinity)throw new RangeError("Invalid count value");return 0===n?"":new Array(n+1).join(t)});

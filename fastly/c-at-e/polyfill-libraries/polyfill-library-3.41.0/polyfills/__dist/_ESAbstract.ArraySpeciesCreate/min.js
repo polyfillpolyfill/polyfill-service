@@ -1,1 +1,0 @@
-function ArraySpeciesCreate(r,e){if(1/e==-Infinity&&(e=0),!1===IsArray(r))return ArrayCreate(e);var t=Get(r,"constructor");if("object"===Type(t)&&null===(t="Symbol"in this&&"species"in this.Symbol?Get(t,this.Symbol.species):undefined)&&(t=undefined),t===undefined)return ArrayCreate(e);if(!IsConstructor(t))throw new TypeError("C must be a constructor");return Construct(t,[e])}

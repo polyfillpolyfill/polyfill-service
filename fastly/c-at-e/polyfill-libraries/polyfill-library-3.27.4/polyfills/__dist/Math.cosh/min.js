@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"cosh",function(n){if(isNaN(n))return NaN;if(0===n&&1/n===Infinity)return 1;if(0===n&&1/n==-Infinity)return 1;if(n===Infinity)return Infinity;if(n===-Infinity)return Infinity;if((n=Math.abs(n))>709){var t=Math.exp(.5*n);return t/2*t}var t=Math.exp(n);return(t+1/t)/2});

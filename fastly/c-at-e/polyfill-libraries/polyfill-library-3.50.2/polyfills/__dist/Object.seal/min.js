@@ -1,1 +1,0 @@
-!function(e){CreateMethodProperty(Object,"seal",function t(c){return"object"===Type(c)?c:e?e(c):c})}(Object.seal);
