@@ -42,7 +42,7 @@
     "toposort": "^2.0.2"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.0",
+    "@11ty/eleventy": "^2.0.0",
     "@financial-times/o-buttons": "^7.5.0",
     "@financial-times/o-fonts": "^5.3.0",
     "@financial-times/o-footer-services": "^4.2.3",
