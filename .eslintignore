@@ -20,3 +20,7 @@ public/static/
 client/
 !.eleventy.js
 fastly/c-at-e
+/node_modules
+/bin
+/pkg
+app/polyfill-libraries

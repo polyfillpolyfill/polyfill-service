@@ -36,16 +36,13 @@ jobs:
       uses: fastly/compute-actions/setup@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm ci && fastly compute build --package-name package
-      working-directory: fastly/c-at-e
+    - run: fastly compute build --package-name package
     - name: Turnstyle
       uses: softprops/turnstyle@v1
       with:
         same-branch-only: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.eu_app }}.git HEAD:refs/heads/main --force
-    - run: git push https://heroku:${{ secrets.HEROKU_AUTH_TOKEN }}@git.heroku.com/${{ env.us_app }}.git HEAD:refs/heads/main --force
     - name: Remove the development and staging terraform configuration overrides
       run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
     - name: 'Terraform Init'
@@ -135,11 +132,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_PROD }}
-    - name: "Add the http logger for Top of the POPS"
-      run: "npm run toppops"
-      env:
-        FASTLY_API_KEY_POLYFILL_ACCOUNT: ${{ secrets.FASTLY_API_KEY_PROD }}
-        FASTLY_SERVICE_ID_PROD: ${{ secrets.FASTLY_SERVICE_ID_PROD }}
 
   create-change-log:
     needs: [deploy-to-production]
@@ -154,42 +146,3 @@ jobs:
           environment: prod
           slack-channels: "ft-changes,origami-deploys"
 
-  scale-up:
-    needs: [deploy-to-production]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: bash .github/workflows/create-netrc.sh
-        env:
-          HEROKU_LOGIN: ${{ secrets.HEROKU_LOGIN }}
-          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-      - run: heroku ps:scale web=10:performance-l --app ${{ env.eu_app }}
-      - run: heroku ps:scale web=10:performance-l --app ${{ env.us_app }}
-      # Wait for the applications to be fully booted before finishing the job
-      - run: sleep 60
-
-  purge-cdn:
-    needs: [scale-up]
-    runs-on: ubuntu-latest
-    timeout-minutes: 200
-    steps:
-      - run: >-
-          for PURGE_GROUP in `seq 0 999`;
-          do
-            curl --fail --show-error --silent -X POST -H "Fastly-Key: ${{ secrets.FASTLY_API_KEY_PROD }}" "https://api.fastly.com/service/${{ env.fastly_vcl_service_id }}/purge/PurgeGroup$PURGE_GROUP"
-            sleep 5
-          done
-
-  scale-down:
-    needs: [purge-cdn]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: bash .github/workflows/create-netrc.sh
-        env:
-          HEROKU_LOGIN: ${{ secrets.HEROKU_LOGIN }}
-          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-      # Wait for the cache to build back up before scaling back down
-      - run: sleep 300
-      - run: heroku ps:scale web=1:performance-l --app ${{ env.eu_app }}
-      - run: heroku ps:scale web=1:performance-l --app ${{ env.us_app }}

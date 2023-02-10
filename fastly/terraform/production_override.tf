@@ -4,6 +4,14 @@ resource "fastly_service_compute" "app" {
   domain {
     name = "polyfill-service.edgecompute.app"
   }
+}
+
+resource "fastly_service_compute" "app" {
+  name = "polyfill-service.edgecompute.app"
+
+  domain {
+    name = "polyfill-service.edgecompute.app"
+  }
 
   backend {
     name                  = "v3_eu"
