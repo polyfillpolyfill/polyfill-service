@@ -132,7 +132,7 @@ jobs:
         FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY_QA }}
 
   end-to-end-test:
-    needs: [purge-cdn]
+    needs: [deploy-to-staging]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
