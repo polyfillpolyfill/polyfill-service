@@ -2,9 +2,8 @@
 
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
-
-const latestLibraryVersion = require("polyfill-library/package.json").version;
-
+const fs = require("fs/promises");
+const path = require("path");
 class Test {
 	data() {
 		return {
@@ -41,7 +40,7 @@ class Test {
 				"3.108.0",
 				"3.109.0",
 				"3.110.1",
-				latestLibraryVersion,
+				"3.111.0",
 			]
 		};
 	}
@@ -55,12 +54,11 @@ class Test {
 module.exports = Test;
 
 async function getPolyfillNamesFrom(libraryVersion) {
-	const library = libraryVersion === latestLibraryVersion ? require(`polyfill-library`) : require(`polyfill-library-${libraryVersion}`);
+	const aliases = require(`../../../app/polyfill-libraries/polyfill-library-${libraryVersion}/polyfills/__dist/aliases.json`);
 
 	const polyfills = [];
 	const polyfillAliases = [];
 	if (polyfills.length === 0) {
-		const aliases = await library.listAliases();
 		for (const alias of Object.keys(aliases).sort()) {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr") && !alias.includes("~locale")) {
 				if (aliases[alias].length > 1) {
@@ -88,7 +86,14 @@ async function getPolyfillNamesFrom(libraryVersion) {
 			}
 		}
 
-		for (const polyfill of await library.listAllPolyfills()) {
+		
+		let p = await fs.readdir(path.join(__dirname, `../../../app/polyfill-libraries/polyfill-library-${libraryVersion}/polyfills/__dist/`), {
+			withFileTypes: true
+		});
+		p = p.filter(a => a.isDirectory());
+		p = p.map(p => p.name)
+		for (const polyfill of p)  {
+		// console.log({polyfill})
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
 			if (!polyfill.startsWith("_") && !polyfill.includes("~locale")) {
 				const polyfillInfo = Object.assign(
@@ -98,7 +103,7 @@ async function getPolyfillNamesFrom(libraryVersion) {
 						license: "MIT",
 						aliases: [],
 					},
-					await library.describePolyfill(polyfill)
+					require(`../../../app/polyfill-libraries/polyfill-library-${libraryVersion}/polyfills/__dist/${polyfill}/meta.json`)
 				);
 				polyfillInfo.licenseLowerCase = polyfillInfo.license.toLowerCase();
 				polyfillInfo.aliases = polyfillInfo.aliases.filter(alias => {

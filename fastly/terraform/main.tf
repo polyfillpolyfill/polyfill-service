@@ -13,8 +13,14 @@ resource "fastly_service_compute" "app" {
   force_destroy = false
 
   package {
-    filename         = "../c-at-e/pkg/package.tar.gz"
-    source_code_hash = filesha512("../c-at-e/pkg/package.tar.gz")
+    filename         = "../../pkg/package.tar.gz"
+    source_code_hash = filesha512("../../pkg/package.tar.gz")
+  }
+
+  backend {
+    name    = "synthetic"
+    address = "127.0.0.1"
+    port    = 80
   }
 }
 

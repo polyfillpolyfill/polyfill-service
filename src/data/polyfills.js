@@ -2,13 +2,14 @@
 
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
-const polyfillLibrary = require("polyfill-library");
+const fs = require("fs/promises");
+const path = require("path");
 
 module.exports = async () => {
 	const polyfills = [];
 	const polyfillAliases = [];
 	if (polyfills.length === 0) {
-		const aliases = await polyfillLibrary.listAliases();
+		const aliases = require(`../../app/polyfill-libraries/polyfill-library-3.111.0/polyfills/__dist/aliases.json`);
 		for (const alias of Object.keys(aliases).sort()) {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr") && !alias.includes("~locale")) {
 				if (aliases[alias].length > 1) {
@@ -35,8 +36,13 @@ module.exports = async () => {
 				}
 			}
 		}
+		let p = await fs.readdir(path.join(__dirname, `../../app/polyfill-libraries/polyfill-library-3.111.0/polyfills/__dist/`), {
+			withFileTypes: true
+		});
+		p = p.filter(a => a.isDirectory());
+		p = p.map(p => p.name)
 
-		for (const polyfill of await polyfillLibrary.listAllPolyfills()) {
+		for (const polyfill of p) {
 			// Polyfills which start with _ are internal functions used by other polyfills, they should not be displayed on the website.
 			if (!polyfill.startsWith("_") && !polyfill.includes("~locale")) {
 				const polyfillInfo = Object.assign(
@@ -45,7 +51,7 @@ module.exports = async () => {
 						labelID: `${snakeCase(polyfill)}_label`,
 						license: "MIT",aliases: [],
 					},
-					await polyfillLibrary.describePolyfill(polyfill)
+					require(`../../app/polyfill-libraries/polyfill-library-3.111.0/polyfills/__dist/${polyfill}/meta.json`)
 				);
 				polyfillInfo.licenseLowerCase = polyfillInfo.license.toLowerCase();
 				polyfillInfo.aliases = polyfillInfo.aliases.filter(alias => {

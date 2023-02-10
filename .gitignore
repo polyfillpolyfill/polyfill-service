@@ -15,3 +15,7 @@ node_modules
 .cache_eleventy/
 .tmp/
 dist/
+pkg/
+bin/
+bin/main.wasm
+pkg/polyfill-service-c-at-e.tar.gz
