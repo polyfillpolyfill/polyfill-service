@@ -1,23 +1,45 @@
 /// <reference types="@fastly/js-compute" />
-import {ObjectStore} from 'fastly:object-store';
+// import {ObjectStore} from 'fastly:object-store';
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import {normalise_querystring_parameters_for_polyfill_bundle} from "./normalise-query-parameters.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
-import { cyrb53 } from "./cyrb53.js";
+// import { cyrb53 } from "./cyrb53.js";
 import {Hono} from 'hono'
-import {logger} from 'hono/logger'
-import {get} from "@jakechampion/c-at-e-file-server";
+import {logger} from './logger.js'
+import {get as getFile} from "@jakechampion/c-at-e-file-server";
 import {getPolyfillParameters} from "./get-polyfill-parameters.js";
 
 const latestVersion = '3.111.0';
 import * as polyfillio from "./polyfill-libraries/polyfill-library/lib/index.js";
 console.trace = console.log;
 const app = new Hono()
-app.use('*', logger())
+app.onError((error, c) => {
+	console.error('Internal App Error:', error, error.stack, error.message);
+	return c.text('Internal Server Error', 500)
+})
 
 app.get("/", (c) => c.redirect("/v3/", 301));
 app.head("/", (c) => c.redirect("/v3/", 301));
 app.get("/__health", (c) => {
+	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
+	return c.json({
+		schemaVersion: 1,
+		name: "origami-polyfill-service",
+		systemCode: "origami-polyfill-service",
+		description: "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent",
+		checks: [{
+			name: "Server is up",
+			ok: true,
+			severity: 1,
+			businessImpact: "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
+			technicalSummary: "Tests that the service is up.",
+			panicGuide: "Look at the application logs.",
+			checkOutput: "None",
+			lastUpdated: new Date()
+		}]
+	});
+});
+app.head("/__health", (c) => {
 	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	return c.json({
 		schemaVersion: 1,
@@ -44,6 +66,7 @@ app.head("/__gtg", (c) => {
 	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	return c.text("OK");
 });
+app.use('*', logger())
 app.get("/v3/normalizeUa", (c) => {
 	const useragent = UA.normalize(c.req.headers.get("User-Agent"));
 	c.res.headers.set("Normalized-User-Agent", useragent);
@@ -156,11 +179,9 @@ async function polyfill(requestURL, c) {
 		['3.111.0', 'polyfill-library-3.111.0'],
 	]);
 	
-	// Get the polyfill library for the requested version.
-	const polyfillLibrary = polyfillio;
-	
+	const library = versionToLibraryMap.get(parameters.version);
 	// 404 if no library for the requested version was found.
-	if (!polyfillLibrary) {
+	if (!library) {
 		c.status(400);
 		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
 		return c.text(`requested version does not exist`);
@@ -181,50 +202,29 @@ async function polyfill(requestURL, c) {
 	// 	}
 	// }
 
-	const cache = new ObjectStore('cache');
+	// const cache = new ObjectStore('cache');
 
-	const key = cyrb53(String(requestURL))
-	let bundle = await cache.get(key);
-	if (bundle) {
-		return new Response(bundle.body, {
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
-				"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
-				"Content-Type": "text/javascript; charset=UTF-8",
-				"surrogate-key": "polyfill-service",
-				"Last-Modified": lastModified,
-				"x-compress-hint": "on",
-			}
-		})
-	} else {
-		if (parameters.version === "3.25.1") {
-			bundle = await polyfillLibrary.getPolyfillString(parameters, versionToLibraryMap.get(parameters.version), parameters.version);
+	// const key = cyrb53(String(requestURL))
+	// let bundle = await cache.get(key);
+	// if (bundle) {
+	// 	return new Response(bundle.body, {
+	// 		headers: {
+	// 			"Access-Control-Allow-Origin": "*",
+	// 			"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
+	// 			"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
+	// 			"Content-Type": "text/javascript; charset=UTF-8",
+	// 			"surrogate-key": "polyfill-service",
+	// 			"Last-Modified": lastModified,
+	// 			"x-compress-hint": "on",
+	// 		}
+	// 	})
+	// } else {
+		let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
 
-			if (parameters.callback) {
-				bundle += "\ntypeof " + parameters.callback + "==='function' && " + parameters.callback + "();";
-			}
-		} else {
-			bundle = await polyfillLibrary.getPolyfillString(parameters, versionToLibraryMap.get(parameters.version), parameters.version);
-		}
-
-		c.executionCtx.waitUntil(cache.put(key, bundle));
-	}
+		// c.executionCtx.waitUntil(cache.put(key, bundle));
+	// }
 	return respondWithBundle(c, bundle);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get("*", handler);
 app.head("*", handler);
@@ -234,15 +234,13 @@ app.all("*", c => {
 })
 
 app.notFound((c) => {
-	c.res.headers.set("Cache-Control", "max-age=30, public, stale-while-revalidate=604800, stale-if-error=604800");
+	c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
 	return c.text('Not Found', 404)
 })
 
 
 async function handler(c) {
-	console.log(`FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}`)
-
-	const response = await get('site', c.req)
+	const response = await getFile('site', c.req)
 	if (response) {
 		// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
 		response.headers.set("x-compress-hint", "on");
@@ -274,7 +272,10 @@ async function handler(c) {
 	}
 
 	// # Because the old service had a router which allowed any words between /v2/polyfill. and .js
-	if (/v2\/polyfill(\..*)?\.js/.test(requestURL.pathname)) {
+	if (requestURL.pathname == '/v2/polyfill.js') {
+		requestURL.pathname = "/v2/polyfill.js";
+		requestURL = configureV2Defaults(requestURL);
+	} else if (/v2\/polyfill(\..*)?\.js/.test(requestURL.pathname)) {
 		requestURL.pathname = "/v2/polyfill.min.js";
 		requestURL = configureV2Defaults(requestURL);
 	}
@@ -299,7 +300,7 @@ async function handler(c) {
 		// # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		requestURL.searchParams.sort();
 	} else {
-		c.res.headers.set("Cache-Control", "max-age=30, public, stale-while-revalidate=604800, stale-if-error=604800");
+		c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
 		return c.text('Not Found', 404)
 	}
 

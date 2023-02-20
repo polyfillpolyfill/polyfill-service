@@ -182,61 +182,55 @@ sub vcl_recv {
 }
 
 sub vcl_recv {
-	# We use this edge dictionary item as a flag for whether to use compute-at-edge for any requests.
-	# If the item is not found, then we default to `"0"`, which we interpret to mean the flag is off.
-	declare local var.compute-at-edge-active BOOL;
-	if (std.atoi(table.lookup(compute_at_edge_config, "active", "0")) == 1) {
-		set var.compute-at-edge-active = true;
-	} else {
-		set var.compute-at-edge-active = false;
-	}
-	if (var.compute-at-edge-active) {
-		# if the querystring parameter `use-compute-at-edge-backend` is set to yes`
-		# then use the c@e backend.
-		# The querystring parameter is used within our tests, so that we can confirm
-		# the compute-at-edge backend is working as we expect it to.
-		declare local var.use-compute-at-edge-backend STRING;
-		set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
-		if (var.use-compute-at-edge-backend == "yes") {
-			set req.backend = F_compute_at_edge;
-			if (req.backend.healthy) {
-				# if using the c@e backend then do not use the cache at all
-				return(pass);
-			}
-		# requests can set the querystring parameter to `no` to avoid ever user compute-at-edge
-		# if the querystring parameter is not set to no, then we run some logic to decide whether
-		# to use compute-at-edge for this request or not.
-		} else if (var.use-compute-at-edge-backend != "no") {
-			declare local var.selected BOOL;
-			set var.selected = randombool(1, std.atoi(table.lookup(compute_at_edge_config, "sample", "1000")));
-			# this logic is saying, only use compute-at-edge for a request which has come from outside this Fastly
-			# service. I.E. The request has directly from a client.
-			# We also have logic which decides how many of those direct client requests use compute-at-edge.
-			# We default to 1 in 1000 requests using compute-at-edge, this can be configured by the edge dictionary
-			# named `compute_at_edge_config` and the item in the dictionary named `sample`
-			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0) {
+	# Set some sort of default, that shouldn't get used.
+	set req.backend = F_v3_eu;
+	if (req.url !~ "all") {
+		# We use this edge dictionary item as a flag for whether to use compute-at-edge for any requests.
+		# If the item is not found, then we default to `"0"`, which we interpret to mean the flag is off.
+		declare local var.compute-at-edge-active BOOL;
+		if (std.atoi(table.lookup(compute_at_edge_config, "active", "0")) == 1) {
+			set var.compute-at-edge-active = true;
+		} else {
+			set var.compute-at-edge-active = false;
+		}
+		if (var.compute-at-edge-active) {
+			# if the querystring parameter `use-compute-at-edge-backend` is set to yes`
+			# then use the c@e backend.
+			# The querystring parameter is used within our tests, so that we can confirm
+			# the compute-at-edge backend is working as we expect it to.
+			declare local var.use-compute-at-edge-backend STRING;
+			set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
+			if (var.use-compute-at-edge-backend == "yes") {
 				set req.backend = F_compute_at_edge;
-				if (req.backend.healthy) {
-					# if using the c@e backend then do not use the cache at all
-					return(pass);
+				if (!req.backend.healthy) {
+					# Set some sort of default, that shouldn't get used.
+					set req.backend = F_v3_eu;
+				}
+			# requests can set the querystring parameter to `no` to avoid ever user compute-at-edge
+			# if the querystring parameter is not set to no, then we run some logic to decide whether
+			# to use compute-at-edge for this request or not.
+			} else if (var.use-compute-at-edge-backend != "no") {
+				declare local var.selected BOOL;
+				set var.selected = randombool(1, std.atoi(table.lookup(compute_at_edge_config, "sample", "1000")));
+				# this logic is saying, only use compute-at-edge for a request which has come from outside this Fastly
+				# service. I.E. The request has directly from a client.
+				# We also have logic which decides how many of those direct client requests use compute-at-edge.
+				# We default to 1 in 1000 requests using compute-at-edge, this can be configured by the edge dictionary
+				# named `compute_at_edge_config` and the item in the dictionary named `sample`
+				if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0) {
+					set req.backend = F_compute_at_edge;
+					if (!req.backend.healthy) {
+						# Set some sort of default, that shouldn't get used.
+						set req.backend = F_v3_eu;
+					}
 				}
 			}
 		}
 	}
 }
 
-sub vcl_fetch {
-	# if using the compute-at-edge backend, we want to ensure request collapsing is not enabled
-	# we don't want request collapsing because request collapsing would cause multiple requests 
-	# for the same path to be served the same response, which would end up meaning one browser 
-	# would get a polyfill bundle meant for a different browser
-	if (req.backend == F_compute_at_edge) {
-		return(pass);
-	}
-}
-
-include "redirects.vcl";
-include "synthetic-responses.vcl";
+# include "redirects.vcl";
+# include "synthetic-responses.vcl";
 include "polyfill-service.vcl";
 
 # Finally include the last bit of VCL, this _must_ be last!

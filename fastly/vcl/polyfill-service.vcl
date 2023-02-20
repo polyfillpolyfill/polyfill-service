@@ -108,11 +108,15 @@ sub vcl_recv {
 		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		# If querystring is empty, remove the ? from the url.
 		set req.url = querystring.clean(querystring.sort(req.url));
-		call set_backend;
+		if (req.backend != F_compute_at_edge) {
+			call set_backend;
+		}
 	} else {
 		# The request is to an endpoint which doesn't use query parameters, let's remove them to increase our cache-hit-ratio
 		set req.url = querystring.remove(req.url);
-		call set_backend;
+		if (req.backend != F_compute_at_edge) {
+			call set_backend;
+		}
 	}
 
 	if (req.backend == ssl_shield_iad_va_us || req.backend == ssl_shield_london_city_uk) {
@@ -151,6 +155,11 @@ sub vcl_pass {
 sub vcl_fetch {
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_fetch;
+	}
+	unset beresp.http.Vary;
+
+	if (beresp.status == 301 || beresp.status == 308) {
+		set beresp.http.Cache-Control = "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800";
 	}
 
 	# https://yann.mandragor.org/posts/purge-group-pattern/

@@ -9,7 +9,7 @@ function featuresfromQueryParameter(featuresParameter, flagsParameter) {
 		// Eliminate XSS vuln
 		const safeFeature = feature.replace(/[*/]/g, "");
 		const [name, ...featureSpecificFlags] = safeFeature.split("|");
-		featuresWithFlags[name] = {
+		featuresWithFlags[name.replace(/\?/g, '')] = {
 			flags: new Set(featureSpecificFlags.concat(globalFlags)),
 		};
 	}

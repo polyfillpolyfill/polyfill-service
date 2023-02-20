@@ -3,6 +3,16 @@ import UA from "@financial-times/polyfill-useragent-normaliser";
 import {UA as oldUA} from './old-ua.js';
 import {listPolyfills, getConfigAliases, getPolyfillMeta, streamPolyfillSource} from "./sources.js";
 
+const encoder = new TextEncoder()
+function stringToReadableStream(value) {
+	return new ReadableStream({
+		start(controller) {
+			controller.enqueue(encoder.encode(value));
+			controller.close();
+		},
+	});
+}
+
 /**
  * Get a list of all the polyfills which exist within the collection of polyfill sources.
  * @returns {Promise<Array>} A promise which resolves with an array of all the polyfills within the collection.
@@ -66,6 +76,7 @@ export function getOptions(options_ = {}) {
  * @return {Promise<Object>} - Canonicalised feature definitions filtered for UA
  */
 export async function getPolyfills(options_, store, version) {
+	// const now = Date.now();
 	const options = getOptions(options_);
 	const ua = version === '3.25.1' ? new oldUA(options.uaString) : new UA(options.uaString);
 	const featureNames = new Set(Object.keys(options.features));
@@ -170,6 +181,7 @@ export async function getPolyfills(options_, store, version) {
 			removeFeature(featureName);
 		}
 	}
+	// console.log('getPolyfills', 'took', Date.now() - now);
 	return targetedFeatures;
 }
 
@@ -185,12 +197,13 @@ export async function getPolyfills(options_, store, version) {
  * @return {Promise<String> | ReadStream} - Polyfill bundle as either a utf-8 stream or a promise of a utf-8 string.
  */
 export async function getPolyfillString(options_, store, appVersion) {
+	// const now = Date.now();
 	const options = getOptions(options_);
 	const lf = options.minify ? "" : "\n";
 	const allWarnText =
 		"Using the `all` alias with polyfill.io is a very bad idea. In a future version of the service, `all` will deliver the same behaviour as `default`, so we recommend using `default` instead.";
 	const appVersionText = "Polyfill service " + "v" + appVersion
-	let output = '';
+	let output = [];
 	const explainerComment = [];
 	// Build a polyfill bundle of polyfill sources sorted in dependency order
 	const targetedFeatures = await getPolyfills(options, store);
@@ -267,11 +280,11 @@ export async function getPolyfillString(options_, store, appVersion) {
 			"Disable minification (remove `.min` from URL path) for more info"
 		);
 	}
-	output += "/* " + explainerComment.join("\n * ") + " */\n\n";
+	output.push(stringToReadableStream("/* " + explainerComment.join("\n * ") + " */\n\n"));
 
 	if (sortedFeatures.length > 0) {
 		// Outer closure hides private features from global scope
-		output += "(function(self, undefined) {" + lf;
+		output.push(stringToReadableStream("(function(self, undefined) {" + lf));
 
 		// Using the graph, stream all the polyfill sources in dependency order
 		for (const featureName of sortedFeatures) {
@@ -279,41 +292,46 @@ export async function getPolyfillString(options_, store, appVersion) {
 			if (wrapInDetect) {
 				const meta = await getPolyfillMeta(store, featureName);
 				if (meta.detectSource) {
-					output += "if (!(" + meta.detectSource + ")) {" + lf;
+					output.push(stringToReadableStream("if (!(" + meta.detectSource + ")) {" + lf));
 				}
-				output += await streamPolyfillSource(store, featureName, options.minify ? "min" : "raw");
+				output.push(await streamPolyfillSource(store, featureName, options.minify ? "min" : "raw"));
 				if (meta.detectSource) {
-					output += lf + "}" + lf + lf;
+					output.push(stringToReadableStream(lf + "}" + lf + lf));
 				}
 			} else {
-				output += await streamPolyfillSource(store,
+				output.push(await streamPolyfillSource(store,
 					featureName,
 					options.minify ? "min" : "raw"
-				);
+				));
 			}
 		}
 		// Invoke the closure, passing the global object as the only argument
-		output += "})" +
+		output.push(stringToReadableStream("})" +
 			lf +
 			"('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});" +
-			lf
+			lf));
 	} else {
 		if (!options.minify) {
-			output += "\n/* No polyfills needed for current settings and browser */\n\n"
+			output.push(stringToReadableStream("\n/* No polyfills needed for current settings and browser */\n\n"));
 		}
 	}
 
 	if ("all" in options.features) {
-		output += "\nconsole.log('" + allWarnText + "');\n"
+		output.push(stringToReadableStream("\nconsole.log('" + allWarnText + "');\n"));
 	}
 
 	if (options.callback) {
-		output += "\ntypeof " +
+		output.push(stringToReadableStream("\ntypeof " +
 			options.callback +
 			"==='function' && " +
 			options.callback +
-			"();"
+			"();"));
 	}
-
-	return output
+	let {readable, writable} = new TransformStream;
+	output.reduce(
+		(a, res, i, arr) => a.then(() => res.pipeTo(writable, {preventClose: (i+1) !== arr.length})),
+		Promise.resolve()
+	)
+	// console.log('getPolyfillString', 'took', Date.now() - now, options_, store, appVersion);
+	return readable;
 }

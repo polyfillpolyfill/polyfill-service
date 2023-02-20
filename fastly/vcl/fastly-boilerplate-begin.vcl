@@ -43,10 +43,10 @@ sub vcl_fetch {
 
 sub vcl_hit {
 #FASTLY hit
-
+/* 
 	if (!obj.cacheable) {
 		return(pass);
-	}
+	} */
 }
 
 sub vcl_miss {

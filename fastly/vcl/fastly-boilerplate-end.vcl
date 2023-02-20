@@ -8,7 +8,7 @@ sub vcl_recv {
 }
 
 sub vcl_fetch {
-	if (beresp.http.Set-Cookie) {
+	/* if (beresp.http.Set-Cookie) {
 		set req.http.Fastly-Cachetype = "SETCOOKIE";
 		return (pass);
 	}
@@ -16,15 +16,15 @@ sub vcl_fetch {
 	if (beresp.http.Cache-Control ~ "private") {
 		set req.http.Fastly-Cachetype = "PRIVATE";
 		return (pass);
-	}
+	} */
 
 	return (deliver);
 }
 
 sub vcl_hit {
-	if (!obj.cacheable) {
+	/* if (!obj.cacheable) {
 		return (pass);
-	}
+	} */
 
 	return (deliver);
 }
