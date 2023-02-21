@@ -1,3 +1,4 @@
+import {ConfigStore} from 'fastly:config-store';
 var humanize = (times) => {
 	const [delimiter, separator] = [",", "."];
 	const orderTimes = times.map((v) => v.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + delimiter));
@@ -27,16 +28,26 @@ function log(function_, prefix, method, url, status = 0, elapsed) {
 }
 var logger = (function_ = console.log) => {
 	return async (c, next) => {
-		const {
-			method
-		} = c.req;
-		const url = c.req.url;
-		log(function_, `<-- (Incoming) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Incoming */ , method, url);
-		const start = Date.now();
-		await next();
-		log(function_, `--> (Outgoing) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Outgoing */ , method, url, c.res.status, time(start));
+		if (shouldLog()) {
+			const {
+				method
+			} = c.req;
+			const url = c.req.url;
+			log(function_, `<-- (Incoming) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Incoming */ , method, url);
+			const start = Date.now();
+			await next();
+			log(function_, `--> (Outgoing) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Outgoing */ , method, url, c.res.status, time(start));
+		} else {
+			await next();
+		}
 	};
 };
+
+function shouldLog() {
+	const config = new ConfigStore('config');
+	return config.get('log') === 1;
+}
 export {
+	shouldLog,
 	logger
 };

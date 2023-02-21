@@ -1,7 +1,7 @@
 import {ConfigStore} from 'fastly:config-store';
 import {ObjectStore} from 'fastly:object-store';
+import { shouldLog } from "../../../logger";
 import { features } from "./features.js";
-import { env } from "fastly:env";
 
 /**
  * Get the metadata for a specific polyfill within the collection of polyfill sources.
@@ -18,7 +18,9 @@ export async function getPolyfillMeta(store, featureName) {
 	}
 	let meta = await config.get(featureName)
 	if (!meta) {
-		console.log('store: ', store, 'missing: ', featureName)
+		if (shouldLog()) {
+			console.log('store: ', store, 'missing: ', featureName)
+		}
 		return undefined;
 	}
 	let b = JSON.parse(meta);
@@ -86,7 +88,9 @@ export async function streamPolyfillSource(store, featureName, type) {
 		const ttype = type === 'raw' ? 'min' : 'raw';
 		polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
 		if (!polyfill) {
-			console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+			if (shouldLog()) {
+				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+			}
 		}
 	}
 	let b = polyfill.body;
