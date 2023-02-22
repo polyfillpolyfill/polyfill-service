@@ -14,6 +14,11 @@ function featuresfromQueryParameter(featuresParameter, flagsParameter) {
 		};
 	}
 
+	if (featuresWithFlags.all) {
+		featuresWithFlags.default = featuresWithFlags.all;
+		delete featuresWithFlags.all;
+	}
+
 	return featuresWithFlags;
 }
 
