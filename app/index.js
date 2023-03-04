@@ -240,14 +240,6 @@ app.notFound((c) => {
 
 
 async function handler(c) {
-	const response = await getFile('site', c.req)
-	if (response) {
-		// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
-		response.headers.set("x-compress-hint", "on");
-		response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
-		return response
-	}
-
 	let requestURL = new URL(c.req.url);
 	const host = c.req.headers.get('host');
 	// Canonicalize requests onto https://polyfill.io (and allow https://polyfills.io)
@@ -300,6 +292,21 @@ async function handler(c) {
 		// # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		requestURL.searchParams.sort();
 	} else {
+		// Thrown if the provided name is longer than 255 in length
+		// Thrown if the provided name is an empty string
+		// Thrown if the provided name does not start with an ascii alphabetical character
+		// Thrown if the provided name contains control characters (\u0000-\u001F)
+		if (urlPath.length <= 255 && /^[a-zA-Z][^\p{C}]*$/.test(urlPath)) {
+			try {
+				const response = await getFile('site', c.req)
+				if (response) {
+					// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
+					response.headers.set("x-compress-hint", "on");
+					response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
+					return response;
+				}
+			} catch { /* empty */ }
+		}
 		c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
 		return c.text('Not Found', 404)
 	}
