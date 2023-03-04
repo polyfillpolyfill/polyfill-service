@@ -296,7 +296,7 @@ async function handler(c) {
 		// Thrown if the provided name is an empty string
 		// Thrown if the provided name does not start with an ascii alphabetical character
 		// Thrown if the provided name contains control characters (\u0000-\u001F)
-		if (urlPath.length <= 255 && /^[a-zA-Z][^\p{C}]*$/.test(urlPath)) {
+		if (urlPath.length > 0 && urlPath.length <= 255 && /^[a-zA-Z][^\p{C}]*$/.test(urlPath)) {
 			try {
 				const response = await getFile('site', c.req)
 				if (response) {
