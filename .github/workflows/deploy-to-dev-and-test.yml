@@ -24,24 +24,10 @@ jobs:
       - run: git fetch --prune --unshallow
         if: steps.witness.outputs.cache-hit != 'true'
       - uses: actions/setup-node@v3.1.0
-        if: steps.witness.outputs.cache-hit != 'true'
         with:
           node-version: 18.x
-      - name: Cache node modules
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: actions/cache@v3.0.1
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          cache: 'npm'
       - run: npm ci
-        if: steps.witness.outputs.cache-hit != 'true'
       - name: Set up Fastly CLI
         uses: fastly/compute-actions/setup@v2
         with:
@@ -172,18 +158,10 @@ jobs:
       - uses: actions/setup-node@v3.1.0
         with:
           node-version: 18.x
-      - name: Cache node modules
-        uses: actions/cache@v3.0.1
-        env:
-          cache-name: cache-node-modules
+      - uses: actions/setup-node@v3.1.0
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          node-version: 18.x
+          cache: 'npm'
       - run: npm ci
       - run: npm run test:integration
         env:
