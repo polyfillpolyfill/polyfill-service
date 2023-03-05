@@ -292,11 +292,19 @@ async function handler(c) {
 		// # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		requestURL.searchParams.sort();
 	} else {
-		// Thrown if the provided name is longer than 255 in length
-		// Thrown if the provided name is an empty string
-		// Thrown if the provided name does not start with an ascii alphabetical character
-		// Thrown if the provided name contains control characters (\u0000-\u001F)
-		if (urlPath.length > 0 && urlPath.length <= 255 && /^[a-zA-Z][^\p{C}]*$/.test(urlPath)) {
+		// Maybe make this a fixed list of paths we know exist?
+		// If the provided key:
+		// Is any of the strings "", ".", or ".."
+		// Starts with the string ".well-known/acme-challenge/"
+		// Contains any of the characters "#?*[]\n\r"
+		// Is longer than 1024 characters
+		if (urlPath.length > 0 && 
+			urlPath.length <= 1024 && 
+			urlPath != '.' && 
+			urlPath != '..' && 
+			urlPath.startsWith(".well-known/acme-challenge/") === false &&
+			/[#*?[]\n\r]/.test(urlPath) === false
+			) {
 			try {
 				const response = await getFile('site', c.req)
 				if (response) {
@@ -306,6 +314,8 @@ async function handler(c) {
 					return response;
 				}
 			} catch { /* empty */ }
+		} else {
+			console.log('naughty')
 		}
 		c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
 		return c.text('Not Found', 404)

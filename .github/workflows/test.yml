@@ -21,9 +21,16 @@ jobs:
           ${{ runner.os }}-
     - run: npm i
     - run: npm run lint
-    - name: Set up Fastly CLI
-      uses: fastly/compute-actions/setup@v2
+    - uses: actions/checkout@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: 'fastly/viceroy'
+        path: 'viceroy'
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - uses: actions-rs/cargo@v1
+      with:
+          command: install --path viceroy
     - run: npm run build
     - run: npm run test
