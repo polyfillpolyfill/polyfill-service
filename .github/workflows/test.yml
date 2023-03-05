@@ -18,7 +18,7 @@ jobs:
     - uses: actions-rs/cargo@v1
       with:
           command: install 
-          args: --path viceroy
+          args: --path viceroy/cli
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3.1.0
       with:
