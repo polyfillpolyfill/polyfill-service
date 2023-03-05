@@ -2,8 +2,8 @@
 
 const _ = require("lodash");
 const snakeCase = _.snakeCase;
-const fs = require("fs/promises");
-const path = require("path");
+const fs = require("node:fs/promises");
+const path = require("node:path");
 
 module.exports = async () => {
 	const polyfills = [];
