@@ -8,6 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        repository: 'fastly/viceroy'
+        path: 'viceroy'
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - uses: actions-rs/cargo@v1
+      with:
+          command: install --path viceroy
+    - uses: actions/checkout@v3
     - uses: actions/setup-node@v3.1.0
       with:
         node-version: 18.x
@@ -24,16 +35,5 @@ jobs:
           ${{ runner.os }}-
     - run: npm i
     - run: npm run lint
-    - uses: actions/checkout@v3
-      with:
-        repository: 'fastly/viceroy'
-        path: 'viceroy'
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
-    - uses: actions-rs/cargo@v1
-      with:
-          command: install --path viceroy
     - run: npm run build
     - run: npm run test
