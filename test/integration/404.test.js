@@ -9,7 +9,7 @@ describe("GET /404", function () {
   it("responds with a 404 status", async () => {
     const response = await axios.get(`/404?use-compute-at-edge-backend=yes`);
     assert.equal(response.status, 404);
-    // assert.match(response.headers["content-type"], /text\/plain; charset=(UTF|utf)-8/);
+    // assert.match(response.headers["content-type"], /text\/plain; ?charset=(UTF|utf)-8/);
   });
 
   it("responds with a 404 status", async () => {
