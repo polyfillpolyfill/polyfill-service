@@ -2,6 +2,7 @@
 // import {ObjectStore} from 'fastly:object-store';
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
+import {normalise_querystring_parameters_for_polyfill_bundle} from "./normalise-query-parameters.js";
 // import { cyrb53 } from "./cyrb53.js";
 import {Hono} from 'hono'
 import {logger} from './logger.js'
