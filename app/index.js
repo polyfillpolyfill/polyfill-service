@@ -1,7 +1,6 @@
 /// <reference types="@fastly/js-compute" />
 // import {ObjectStore} from 'fastly:object-store';
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
-import {normalise_querystring_parameters_for_polyfill_bundle} from "./normalise-query-parameters.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
 // import { cyrb53 } from "./cyrb53.js";
 import {Hono} from 'hono'
@@ -116,19 +115,6 @@ function configureV2Defaults(url) {
 	}
 	return url;
 }
-
-app.get(
-	"/v3/normalise_querystring_parameters_for_polyfill_bundle",
-	function (c) {
-		return c.json(
-			Object.fromEntries(Array.from(
-				normalise_querystring_parameters_for_polyfill_bundle(
-					c.req,
-					new URL(c.req.url).searchParams
-				).entries()))
-		);
-	}
-);
 
 const lastModified = new Date().toUTCString();
 
