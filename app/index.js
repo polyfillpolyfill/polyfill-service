@@ -117,6 +117,20 @@ function configureV2Defaults(url) {
 	return url;
 }
 
+app.get(
+	"/v3/normalise_querystring_parameters_for_polyfill_bundle",
+	function (c) {
+		c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
+		return c.json(
+			Object.fromEntries(Array.from(
+				normalise_querystring_parameters_for_polyfill_bundle(
+					c.req,
+					new URL(c.req.url).searchParams
+				).entries()))
+		);
+	}
+);
+
 const lastModified = new Date().toUTCString();
 
 function respondWithBundle(c, bundle) {
