@@ -67,6 +67,11 @@ resource "fastly_service_vcl" "app" {
     content = file("${path.module}/vcl/top_pops.vcl")
   }
 
+  vcl {
+    name    = "fastly-devhub-globe.vcl"
+    content = file("${path.module}/vcl/fastly-devhub-globe.vcl")
+  }
+
   dictionary {
     name = "toppops_config"
   }
