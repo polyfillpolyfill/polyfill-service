@@ -161,6 +161,7 @@ sub normalise_querystring_parameters_for_polyfill_bundle {
 }
 
 include "top_pops.vcl";
+include "fastly-devhub-globe.vcl";
 include "normalise-user-agent-3-25-1.vcl";
 include "normalise-user-agent.vcl";
 
