@@ -4,10 +4,6 @@ on:
   release:
     types: [created]
 env:
-  eu_app: origami-polyfill-service-eu
-  us_app: origami-polyfill-service-us
-  terraform_version: '1.1.7'
-  terraform_working_dir: 'fastly/terraform/'
   fastly_vcl_service_id: 4E1GeTez3EFH3cnwfyMAog
   fastly_compute_service_id: 3AfcolkTD4KUfkrKGIYZ4T
   fastly_top_pops_config: 446GW5am9tyUvsz9qPQ1jW
@@ -37,10 +33,10 @@ jobs:
       with:
         name: ${{ steps.cache-key.outputs.CACHE_KEY }}
         path: pkg/package.tar.gz
-    - name: Remove the development and staging terraform configuration overrides
-      run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/qa_override.tf fastly/terraform/domains_override.tf
     - uses: ./.github/actions/terraform
       with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_working_dir: fastly/terraform/production
         fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
         fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
         fastly_compute_service_id: ${{ env.fastly_compute_service_id }}

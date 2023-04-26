@@ -1,23 +1,17 @@
-resource "fastly_service_compute" "app" {
-  name = "qa.polyfill.io.edgecompute.app"
+compute_name = "qa-polyfill-service.edgecompute.app"
 
-  domain {
+compute_domains = [
+  {
     name = "qa-polyfill-service.edgecompute.app"
   }
-}
+]
 
-resource "fastly_service_vcl" "app" {
-  name = "qa.polyfill.io"
-
-  domain {
-    name = "qa.polyfill.io"
-  }
-
-  backend {
+vcl_name = "qa.polyfill.io"
+vcl_backends = [
+  {
     name                  = "compute_at_edge"
     address               = "qa-polyfill-service.edgecompute.app"
     port                  = 443
-    healthcheck           = "compute_at_edge_healthcheck"
     ssl_cert_hostname     = "*.edgecompute.app"
     auto_loadbalance      = false
     connect_timeout       = 5000
@@ -27,5 +21,11 @@ resource "fastly_service_vcl" "app" {
     override_host         = "qa-polyfill-service.edgecompute.app"
     use_ssl               = true
   }
+]
 
-}
+
+vcl_domains = [
+  {
+    name = "qa.polyfill.io"
+  }
+]

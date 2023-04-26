@@ -1,73 +1,70 @@
-terraform {
-  required_providers {
-    fastly = {
-      source  = "fastly/fastly"
-      version = ">= 4.3.0"
+resource "fastly_service_vcl" "app" {
+  name = var.vcl_name
+
+  force_destroy = false
+
+  dynamic "backend" {
+    for_each = var.vcl_backends
+    content {
+      name                  = backend.value["name"]
+      address               = backend.value["address"]
+      port                  = backend.value["port"]
+      ssl_cert_hostname     = backend.value["ssl_cert_hostname"]
+      auto_loadbalance      = backend.value["auto_loadbalance"]
+      connect_timeout       = backend.value["connect_timeout"]
+      first_byte_timeout    = backend.value["first_byte_timeout"]
+      between_bytes_timeout = backend.value["between_bytes_timeout"]
+      error_threshold       = backend.value["error_threshold"]
+      override_host         = backend.value["override_host"]
     }
   }
-}
 
-resource "fastly_service_compute" "app" {
-  name = "placeholder"
-
-  force_destroy = false
-
-  package {
-    filename         = "../../pkg/package.tar.gz"
-    source_code_hash = filesha512("../../pkg/package.tar.gz")
+  dynamic "domain" {
+    for_each = var.vcl_domains
+    content {
+      name= domain.value["name"]
+    }
   }
-
-  backend {
-    name    = "synthetic"
-    address = "127.0.0.1"
-    port    = 80
-  }
-}
-
-resource "fastly_service_vcl" "app" {
-  name = "placeholder"
-
-  force_destroy = false
 
   vcl {
     name    = "main.vcl"
-    content = file("${path.module}/../vcl/main.vcl")
+    content = file("${path.module}/vcl/main.vcl")
     main    = true
   }
 
   vcl {
     name    = "polyfill-service.vcl"
-    content = file("${path.module}/../vcl/polyfill-service.vcl")
+    content = file("${path.module}/vcl/polyfill-service.vcl")
   }
 
   vcl {
     name    = "normalise-user-agent-3-25-1.vcl"
-    content = file("${path.module}/../vcl/normalise-user-agent-3-25-1.vcl")
+    content = file("${path.module}/vcl/normalise-user-agent-3-25-1.vcl")
   }
 
   vcl {
     name    = "normalise-user-agent.vcl"
-    content = file("${path.module}/../../node_modules/@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent.vcl")
+    content = file("${path.module}/../../../../node_modules/@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent.vcl")
   }
 
   vcl {
     name    = "fastly-boilerplate-begin.vcl"
-    content = file("${path.module}/../vcl/fastly-boilerplate-begin.vcl")
+    content = file("${path.module}/vcl/fastly-boilerplate-begin.vcl")
   }
 
   vcl {
     name    = "fastly-boilerplate-end.vcl"
-    content = file("${path.module}/../vcl/fastly-boilerplate-end.vcl")
+    content = file("${path.module}/vcl/fastly-boilerplate-end.vcl")
   }
 
   vcl {
     name    = "breadcrumbs.vcl"
-    content = file("${path.module}/../vcl/breadcrumbs.vcl")
+    content = file("${path.module}/vcl/breadcrumbs.vcl")
   }
 
   vcl {
     name    = "top_pops.vcl"
-    content = file("${path.module}/../vcl/top_pops.vcl")
+    content = file("${path.module}/vcl/top_pops.vcl")
   }
 
   dictionary {

@@ -4,8 +4,6 @@ on:
   push:
     branches: [ main ]
 env:
-  terraform_version: '1.1.7'
-  terraform_working_dir: 'fastly/terraform/'
   fastly_vcl_service_id: 2l7QhcR5rkdg691tcdRTD7
   fastly_compute_service_id: 4cUBTkiSVlJnR8JPnLvt85
   fastly_top_pops_config: 4dfSlimwvlJELO6htcnGsi
@@ -30,13 +28,6 @@ jobs:
       with:
         path: pkg/package.tar.gz
         key: ${{ steps.cache-key.outputs.CACHE_KEY }}
-    - if: steps.compute-package.outputs.cache-hit != 'true'
-      uses: actions/setup-node@v3.1.0
-      with:
-        node-version: 18.x
-        cache: 'npm'
-    - if: steps.compute-package.outputs.cache-hit != 'true'
-      run: npm ci
     - name: Set up Fastly CLI
       if: steps.compute-package.outputs.cache-hit != 'true'
       uses: fastly/compute-actions/setup@v2
@@ -49,10 +40,10 @@ jobs:
       with:
         name: ${{ steps.cache-key.outputs.CACHE_KEY }}
         path: pkg/package.tar.gz
-    - name: Remove the development and production terraform configuration overrides
-      run: rm -f terraform.tfstate fastly/terraform/dev_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
     - uses: ./.github/actions/terraform
       with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_working_dir: fastly/terraform/staging
         fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
         fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
         fastly_compute_service_id: ${{ env.fastly_compute_service_id }}

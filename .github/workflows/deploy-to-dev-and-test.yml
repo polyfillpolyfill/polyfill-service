@@ -2,6 +2,7 @@ name: Deploy to dev and test
 concurrency: dev_environment
 on:
   pull_request:
+  push:
 env:
   terraform_version: '1.1.7'
   terraform_working_dir: 'fastly/terraform/'
@@ -48,20 +49,23 @@ jobs:
           node-version: 18.x
           cache: 'npm'
       - run: npm ci
+      - name: Set cache-key
+        id: cache-key
+        run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Restore compute-package from cache
         uses: actions/cache@v3
         id: compute-package
         with:
           path: pkg/package.tar.gz
-          key: compute-package-${GITHUB_SHA}
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
           fail-on-cache-miss: true
       - name: 'Terraform Format'
         run: terraform fmt -check
         working-directory: ${{ env.terraform_working_dir }}
-      - name: Remove the staging and production terraform configuration overrides
-        run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
       - uses: ./.github/actions/terraform
         with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_working_dir: fastly/terraform/dev
           fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
           fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
           fastly_compute_service_id: ${{ env.fastly_compute_service_id }}
