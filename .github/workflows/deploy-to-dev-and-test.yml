@@ -12,11 +12,10 @@ env:
   fastly_compute_edge_config: 3aFM8b6aSloCCTjRFOxWIo
   domain: dev.polyfill.io
 jobs:
-  deploy-dev-and-purge-cdn:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: git fetch
       - uses: actions/setup-node@v3.1.0
         with:
           node-version: 18.x
@@ -26,10 +25,37 @@ jobs:
         uses: fastly/compute-actions/setup@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          cli_version: '7.0.1'
       - run: fastly compute build --package-name package
-      - uses: hashicorp/setup-terraform@v2
+      - name: Set cache-key
+        id: cache-key
+        run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v3
         with:
-          terraform_version: ${{ env.terraform_version }}
+          name: ${{ steps.cache-key.outputs.CACHE_KEY }}
+          path: pkg/package.tar.gz
+      - uses: actions/cache@v3
+        with:
+          path: pkg/package.tar.gz
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+
+  deploy-dev-and-purge-cdn:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.1.0
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - run: npm ci
+      - name: Restore compute-package from cache
+        uses: actions/cache@v3
+        id: compute-package
+        with:
+          path: pkg/package.tar.gz
+          key: compute-package-${GITHUB_SHA}
+          fail-on-cache-miss: true
       - name: 'Terraform Format'
         run: terraform fmt -check
         working-directory: ${{ env.terraform_working_dir }}
@@ -45,7 +71,7 @@ jobs:
       - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_vcl_service_id }}/purge_all"
       - run: sleep 60
 
-  end-to-end-test:
+  dev-end-to-end-test:
     needs: [deploy-dev-and-purge-cdn]
     runs-on: ubuntu-latest
     steps:
