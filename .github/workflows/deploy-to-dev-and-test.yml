@@ -2,7 +2,6 @@ name: Deploy to dev and test
 concurrency: dev_environment
 on:
   pull_request:
-  push:
 env:
   terraform_version: '1.1.7'
   terraform_working_dir: 'fastly/terraform/'
