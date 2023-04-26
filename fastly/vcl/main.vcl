@@ -172,63 +172,16 @@ include "breadcrumbs.vcl";
 sub vcl_recv {
 	# Sets the alt-svc header on the client response.
 	# When a client connection is using a version of HTTP older than HTTP/3,
-	# invoking this function triggers Fastly to advertise HTTP/3 support, 
+	# invoking this function triggers Fastly to advertise HTTP/3 support,
 	# on the eventual client response, allowing the client to switch to HTTP/3 for future requests.
 	h3.alt_svc();
-	
+
 	if (req.http.Fastly-Debug) {
 		call breadcrumb_recv;
 	}
+	set req.backend = F_compute_at_edge;
 }
 
-sub vcl_recv {
-	# Set some sort of default, that shouldn't get used.
-	set req.backend = F_v3_eu;
-	# We use this edge dictionary item as a flag for whether to use compute-at-edge for any requests.
-	# If the item is not found, then we default to `"0"`, which we interpret to mean the flag is off.
-	declare local var.compute-at-edge-active BOOL;
-	if (std.atoi(table.lookup(compute_at_edge_config, "active", "0")) == 1) {
-		set var.compute-at-edge-active = true;
-	} else {
-		set var.compute-at-edge-active = false;
-	}
-	if (var.compute-at-edge-active) {
-		# if the querystring parameter `use-compute-at-edge-backend` is set to yes`
-		# then use the c@e backend.
-		# The querystring parameter is used within our tests, so that we can confirm
-		# the compute-at-edge backend is working as we expect it to.
-		declare local var.use-compute-at-edge-backend STRING;
-		set var.use-compute-at-edge-backend = querystring.get(req.url, "use-compute-at-edge-backend");
-		if (var.use-compute-at-edge-backend == "yes") {
-			set req.backend = F_compute_at_edge;
-			if (!req.backend.healthy) {
-				# Set some sort of default, that shouldn't get used.
-				set req.backend = F_v3_eu;
-			}
-		# requests can set the querystring parameter to `no` to avoid ever user compute-at-edge
-		# if the querystring parameter is not set to no, then we run some logic to decide whether
-		# to use compute-at-edge for this request or not.
-		} else if (var.use-compute-at-edge-backend != "no") {
-			declare local var.selected BOOL;
-			set var.selected = randombool(1, std.atoi(table.lookup(compute_at_edge_config, "sample", "1000")));
-			# this logic is saying, only use compute-at-edge for a request which has come from outside this Fastly
-			# service. I.E. The request has directly from a client.
-			# We also have logic which decides how many of those direct client requests use compute-at-edge.
-			# We default to 1 in 1000 requests using compute-at-edge, this can be configured by the edge dictionary
-			# named `compute_at_edge_config` and the item in the dictionary named `sample`
-			if (var.selected && fastly_info.edge.is_tls && !req.is_background_fetch && !req.is_purge && req.restarts == 0 && fastly.ff.visits_this_service == 0) {
-				set req.backend = F_compute_at_edge;
-				if (!req.backend.healthy) {
-					# Set some sort of default, that shouldn't get used.
-					set req.backend = F_v3_eu;
-				}
-			}
-		}
-	}
-}
-
-# include "redirects.vcl";
-# include "synthetic-responses.vcl";
 include "polyfill-service.vcl";
 
 # Finally include the last bit of VCL, this _must_ be last!

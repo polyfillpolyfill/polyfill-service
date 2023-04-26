@@ -2,3 +2,8 @@ node_modules
 bin
 dist
 pkg
+fastly/terraform/.terraform
+fastly/terraform/.terraform.lock.hcl
+fastly/terraform/terraform.tfstate
+fastly/terraform/terraform.tfstate.backup
+fastly/terraform/plan.tfplan

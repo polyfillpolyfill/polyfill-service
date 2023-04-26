@@ -1,90 +1,4 @@
-sub set_backend {
-	# The Fastly macro is inserted before the backend is selected because the
-	# macro has the code which defines the values avaiable for req.http.Host
-	# but it also contains a default backend which is always set to the EU. I wish we could disable the default backend setting.
-	#FASTLY recv
-
-	# Calculate the ideal region to route the request to.
-	declare local var.region STRING;
-	if (server.region ~ "(APAC|Asia|North-America|South-America|US-Central|US-East|US-West)") {
-		set var.region = "US";
-	} else {
-		set var.region = "EU";
-	}
-
-	# Gather the health of the shields and origins.
-	declare local var.v3_eu_is_healthy BOOL;
-	set req.backend = F_v3_eu;
-	set var.v3_eu_is_healthy = req.backend.healthy;
-
-	declare local var.v3_us_is_healthy BOOL;
-	set req.backend = F_v3_us;
-	set var.v3_us_is_healthy = req.backend.healthy;
-
-	declare local var.shield_eu_is_healthy BOOL;
-	set req.backend = ssl_shield_london_city_uk;
-	set var.shield_eu_is_healthy = req.backend.healthy;
-
-	declare local var.shield_us_is_healthy BOOL;
-	set req.backend = ssl_shield_iad_va_us;
-	set var.shield_us_is_healthy = req.backend.healthy;
-
-	# Set some sort of default, that shouldn't get used.
-	set req.backend = F_v3_eu;
-
-	declare local var.EU_shield_server_name STRING;
-	set var.EU_shield_server_name = "LCY";
-
-	declare local var.US_shield_server_name STRING;
-	set var.US_shield_server_name = "IAD";
-
-	# Route EU requests to the nearest healthy shield or origin.
-	if (var.region == "EU") {
-		if (server.datacenter != var.EU_shield_server_name && fastly.ff.visits_this_service == 0 && req.restarts == 0 && var.shield_eu_is_healthy) {
-			set req.backend = ssl_shield_london_city_uk;
-		} elseif (var.v3_eu_is_healthy) {
-			set req.backend = F_v3_eu;
-		} elseif (var.shield_us_is_healthy) {
-			set req.backend = ssl_shield_iad_va_us;
-		} elseif (var.v3_us_is_healthy) {
-			set req.backend = F_v3_us;
-		} else {
-			# Everything is on fire... but lets try the origin anyway just in case
-			# it's the probes that are wrong
-			# set req.backend = F_origin_last_ditch_eu;
-		}
-	}
-
-	# Route US requests to the nearest healthy shield or origin.
-	if (var.region == "US") {
-		if (server.datacenter != var.US_shield_server_name && fastly.ff.visits_this_service == 0 && req.restarts == 0 && var.shield_us_is_healthy) {
-			set req.backend = ssl_shield_iad_va_us;
-		} elseif (var.v3_us_is_healthy) {
-			set req.backend = F_v3_us;
-		} elseif (var.shield_eu_is_healthy) {
-			set req.backend = ssl_shield_london_city_uk;
-		} elseif (var.v3_eu_is_healthy) {
-			set req.backend = F_v3_eu;
-		} else {
-			# Everything is on fire... but lets try the origin anyway just in case
-			# it's the probes that are wrong
-			# set req.backend = F_origin_last_ditch_us;
-		}
-	}
-
-	# Persist the decision so we can debug the result.
-	set req.http.Debug-Backend = req.backend;
-}
-
 sub vcl_recv {
-	if (req.method != "GET" && req.method != "HEAD" && req.method != "OPTIONS" && req.method != "FASTLYPURGE" && req.method != "PURGE") {
-		error 911;
-	}
-
-	if (req.method == "OPTIONS") {
-		error 912;
-	}
-
 	# Because the old service had a router which allowed any words between /v2/polyfill. and .js
 	if (req.url.path ~ "^/v2/polyfill(\.\w+)(\.\w+)?" && req.url.ext == "js") {
 		if (re.group.2) {
@@ -108,23 +22,9 @@ sub vcl_recv {
 		# Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
 		# If querystring is empty, remove the ? from the url.
 		set req.url = querystring.clean(querystring.sort(req.url));
-		if (req.backend != F_compute_at_edge) {
-			call set_backend;
-		}
-	} else {
-		# The request is to an endpoint which doesn't use query parameters, let's remove them to increase our cache-hit-ratio
-		set req.url = querystring.remove(req.url);
-		if (req.backend != F_compute_at_edge) {
-			call set_backend;
-		}
 	}
 
-	if (req.backend == ssl_shield_iad_va_us || req.backend == ssl_shield_london_city_uk) {
-		# avoid passing stale content from Shield POP to Edge POP
-		set req.max_stale_while_revalidate = 0s;
-	} else {
-		set req.http.referer_domain = if(req.http.referer ~ "^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)", re.group.1, "");
-	}
+	set req.http.referer_domain = if(req.http.referer ~ "^https?\:\/\/([^\/:?#]+)(?:[\/:?#]|$)", re.group.1, "");
 }
 
 sub vcl_hash {
@@ -284,19 +184,5 @@ sub vcl_error {
 			return(deliver_stale);
 		}
 		return(deliver);
-	}
-	if (obj.status == 911) {
-		set obj.status = 405;
-		set obj.response = "METHOD NOT ALLOWED";
-		set obj.http.Content-Type = "text/html; charset=UTF-8";
-		set obj.http.Cache-Control = "private, no-store";
-		synthetic req.method " METHOD NOT ALLOWED";
-		return (deliver);
-	}
-	if (obj.status == 912) {
-		set obj.status = 200;
-		set obj.response = "OK";
-		set obj.http.Allow = "OPTIONS, GET, HEAD";
-		return (deliver);
 	}
 }

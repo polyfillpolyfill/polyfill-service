@@ -1,28 +1,22 @@
 name: Deploy to dev and test
-on: [pull_request]
+concurrency: dev_environment
+on:
+  pull_request:
+  push:
 env:
   terraform_version: '1.1.7'
   terraform_working_dir: 'fastly/terraform/'
   fastly_vcl_service_id: 6oKc8cND9r7mE0Aymoo1ST
   fastly_compute_service_id: 06FSzBcnfHpOjSqXwzOxvy
+  fastly_top_pops_config: 3BORC4S9SFMY71sIT4HmVD
+  fastly_compute_edge_config: 3aFM8b6aSloCCTjRFOxWIo
   domain: dev.polyfill.io
 jobs:
   deploy-dev-and-purge-cdn:
     runs-on: ubuntu-latest
     steps:
-      - name: env
-        run: echo "commit-sha=$(echo ${GITHUB_SHA})" >> $GITHUB_ENV
-      - run : echo "${{ env.commit-sha }}" > $GITHUB_WORKSPACE/witness-${{ env.commit-sha }}
-      - name: record ${{ env.commit-sha }} witness
-        id: witness
-        uses: actions/cache@v3.0.1
-        with:
-          path: $GITHUB_WORKSPACE/witness-${{ env.commit-sha }}
-          key: witness--${{ env.commit-sha }}
       - uses: actions/checkout@v3
-        if: steps.witness.outputs.cache-hit != 'true'
-      - run: git fetch --prune --unshallow
-        if: steps.witness.outputs.cache-hit != 'true'
+      - run: git fetch
       - uses: actions/setup-node@v3.1.0
         with:
           node-version: 18.x
@@ -33,122 +27,23 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: fastly compute build --package-name package
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.terraform_version }}
       - name: 'Terraform Format'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'fmt'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: terraform fmt -check
+        working-directory: ${{ env.terraform_working_dir }}
       - name: Remove the staging and production terraform configuration overrides
-        if: steps.witness.outputs.cache-hit != 'true'
         run: rm -f terraform.tfstate fastly/terraform/qa_override.tf fastly/terraform/production_override.tf fastly/terraform/domains_override.tf
-      - name: Turnstyle
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: softprops/turnstyle@v1
+      - uses: ./.github/actions/terraform
         with:
-          same-branch-only: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Init'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Import Fastly VCL Service'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: 'fastly_service_vcl.app ${{ env.fastly_vcl_service_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - name: 'Terraform Import Fastly Compute Service'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: 'fastly_service_compute.app ${{ env.fastly_compute_service_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - name: 'Terraform Import Fastly Service Dictionary Top-pops Config Items'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: 'fastly_service_dictionary_items.toppops_config_items "${{ env.fastly_vcl_service_id }}/3BORC4S9SFMY71sIT4HmVD"'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - name: 'Terraform Import Fastly Service Dictionary Compute At Edge Config Items'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'import'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: 'fastly_service_dictionary_items.compute_at_edge_config_items "${{ env.fastly_vcl_service_id }}/3aFM8b6aSloCCTjRFOxWIo"'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - name: 'Terraform Validate'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Plan'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: '-out=plan.tfplan'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
-      - name: 'Terraform Apply'
-        if: steps.witness.outputs.cache-hit != 'true'
-        uses: hashicorp/terraform-github-actions@v0.8.0
-        with:
-          tf_actions_version: ${{ env.terraform_version }}
-          tf_actions_subcommand: 'apply'
-          tf_actions_working_dir: ${{ env.terraform_working_dir }}
-          tf_actions_comment: false
-          args: '--auto-approve'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
+          fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
+          fastly_compute_service_id: ${{ env.fastly_compute_service_id }}
+          fastly_top_pops_config: ${{ env.fastly_top_pops_config }}
+          fastly_compute_edge_config: ${{ env.fastly_compute_edge_config }}
       - run: "curl -X POST -H \"Fastly-Key: ${{ secrets.FASTLY_API_KEY }}\" https://api.fastly.com/service/${{ env.fastly_vcl_service_id }}/purge_all"
-        if: steps.witness.outputs.cache-hit != 'true'
       - run: sleep 60
-        if: steps.witness.outputs.cache-hit != 'true'
 
   end-to-end-test:
     needs: [deploy-dev-and-purge-cdn]

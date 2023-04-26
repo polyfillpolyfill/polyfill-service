@@ -1,0 +1,76 @@
+name: 'Terraform init/import/validate/plan/deploy'
+description: 'Do all the steps to deploy the application and infrastrcture changes'
+
+inputs:
+  fastly_vcl_service_id:
+    description: 'The Fastly VCL Service ID'
+    required: true
+  fastly_compute_service_id:
+    description: 'The Fastly Compute Service ID'
+    required: true
+  fastly_top_pops_config:
+    description: 'The Fastly VCL Service Top Pops Dictionary ID'
+    required: true
+  fastly_compute_edge_config:
+    description: 'The Fastly VCL Service Compute Dictionary ID'
+    required: true
+  fastly-api-token:
+    description: 'The Fastly API token to use for interacting with Fastly API'
+    required: true
+  terraform_version:
+    description: 'The Terraform version to use'
+    default: '1.1.7'
+  terraform_working_dir:
+    description: 'The directory container to run terraform within'
+    default: 'fastly/terraform/'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.terraform_version }}
+    - name: 'Terraform Init'
+      shell: bash
+      run: terraform init
+      working-directory: ${{ inputs.terraform_working_dir }}
+    - name: 'Terraform Import Fastly VCL Service'
+      shell: bash
+      run: terraform import fastly_service_vcl.app ${{ inputs.fastly_vcl_service_id }}
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}
+    - name: 'Terraform Import Fastly Compute Service'
+      shell: bash
+      run: terraform import fastly_service_compute.app ${{ inputs.fastly_compute_service_id }}
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}
+    - name: 'Terraform Import Fastly Service Dictionary Top-pops Config Items'
+      shell: bash
+      run: terraform import fastly_service_dictionary_items.toppops_config_items "${{ inputs.fastly_vcl_service_id }}/${{inputs.fastly_top_pops_config}}"
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}
+    - name: 'Terraform Import Fastly Service Dictionary Compute At Edge Config Items'
+      shell: bash
+      run: terraform import fastly_service_dictionary_items.compute_at_edge_config_items "${{ inputs.fastly_vcl_service_id }}/${{inputs.fastly_compute_edge_config}}"
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}
+    - name: 'Terraform Validate'
+      shell: bash
+      run: terraform validate
+      working-directory: ${{ inputs.terraform_working_dir }}
+    - name: 'Terraform Plan'
+      shell: bash
+      run: terraform plan -out=plan.tfplan
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}
+    - name: 'Terraform Apply'
+      shell: bash
+      run: terraform apply --auto-approve
+      working-directory: ${{ inputs.terraform_working_dir }}
+      env:
+        FASTLY_API_KEY: ${{ inputs.fastly-api-token }}

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     fastly = {
       source  = "fastly/fastly"
-      version = "1.1.2"
+      version = ">= 4.3.0"
     }
   }
 }
@@ -63,16 +63,6 @@ resource "fastly_service_vcl" "app" {
   vcl {
     name    = "breadcrumbs.vcl"
     content = file("${path.module}/../vcl/breadcrumbs.vcl")
-  }
-
-  vcl {
-    name    = "redirects.vcl"
-    content = file("${path.module}/../vcl/redirects.vcl")
-  }
-
-  vcl {
-    name    = "synthetic-responses.vcl"
-    content = file("${path.module}/../vcl/synthetic-responses.vcl")
   }
 
   vcl {
