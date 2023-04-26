@@ -93,7 +93,7 @@ resource "fastly_service_vcl" "app" {
 
   logging_https {
     name           = "fastly-devrel-traffic-globe"
-    url            = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com"
+    url            = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com/collector"
     message_type   = "blank"
     format_version = 2
     format         = ""
