@@ -23,8 +23,12 @@ jobs:
     - uses: actions/setup-node@v3.1.0
       with:
         node-version: 18.x
-        cache: 'npm'
-    - run: npm i
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 6.0.2
+        run_install: |
+          - recursive: true
+            args: [--frozen-lockfile, --strict-peer-dependencies]
     - run: npm run lint
     - run: npm run build
     - run: npm run test

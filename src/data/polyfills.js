@@ -14,7 +14,6 @@ module.exports = async () => {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr") && !alias.includes("~locale")) {
 				const entry = JSON.parse(aliases[alias]);
 				if (entry.length > 1) {
-					console.log({alias,l:entry.length})
 					if (alias === "default") {
 						polyfillAliases.push({
 							name: alias,
