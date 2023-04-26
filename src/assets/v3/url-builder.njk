@@ -5,18 +5,18 @@ oLayoutStyle: "o-layout--query"
 <div  class="o-layout__heading o-layout-typography" data-o-component="o-syntax-highlight">
 	<h6 class="bundle-heading">Your polyfill bundle:</h6>
 
-	<ul data-o-component="o-tabs" class="o-tabs o-tabs--secondary o-tabs--buttontabs o-layout__unstyled-element" role="tablist">
-		<li role="tab" aria-selected="true"><a class="o-layout__unstyled-element" href="#url">URL</a></li>
-		<li role="tab"><a class="o-layout__unstyled-element" href="#html">HTML</a></li>
-	</ul>
-	<div id="url" class="o-tabs__tabpanel">
-		<button id="copy-url" class="o-buttons o-buttons--primary o-buttons--mono">Copy URL to clipboard</button>
+	<div data-o-component="o-tabs" class="o-tabs o-tabs--buttontabs o-tabs--secondary" role="tablist">
+      <a role="tab" aria-selected="true" aria-controls="url" href="#url">URL</a>
+      <a role="tab" aria-controls="html" href="#html">HTML</a>
+    </div>
+    <div id="url" class="o-tabs__tabpanel">
+      <button id="copy-url" class="o-buttons o-buttons--primary o-buttons--mono">Copy URL to clipboard</button>
 		<pre><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-url">https://polyfill.io/v3/polyfill.min.js</code></pre>
-	</div>
-	<div id="html" class="o-tabs__tabpanel">
-		<button id="copy-html" class="o-buttons o-buttons--primary o-buttons--mono">Copy HTML to clipboard</button>
+    </div>
+    <div id="html" class="o-tabs__tabpanel">
+      <button id="copy-html" class="o-buttons o-buttons--primary o-buttons--mono">Copy HTML to clipboard</button>
 		<pre><code class="o-syntax-highlight--html bundle-box-code" id="polyfill-bundle-html">&lt;script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"&gt;&lt;/script&gt;</code></pre>
-	</div>
+    </div>
 </div>
 
 <div class="o-layout__query-sidebar o-layout-typography">

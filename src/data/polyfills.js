@@ -12,26 +12,28 @@ module.exports = async () => {
 		const aliases = require(`../../app/polyfill-libraries/polyfill-library-3.111.0/polyfills/__dist/aliases.json`);
 		for (const alias of Object.keys(aliases).sort()) {
 			if (!alias.startsWith("caniuse") && !alias.startsWith("default-") && !alias.startsWith("modernizr") && !alias.includes("~locale")) {
-				if (aliases[alias].length > 1) {
+				const entry = JSON.parse(aliases[alias]);
+				if (entry.length > 1) {
+					console.log({alias,l:entry.length})
 					if (alias === "default") {
 						polyfillAliases.push({
 							name: alias,
 							labelID: `${snakeCase(alias)}_label`,
-							polyfills: aliases[alias],
+							polyfills: entry,
 							isDefaultSet: true
 						});
 					} else if (alias !== "all") {
 						polyfillAliases.push({
 							name: alias,
 							labelID: `${snakeCase(alias)}_label`,
-							polyfills: aliases[alias]
+							polyfills: entry
 						});
 					}
 				} else {
 					polyfills.push({
 						name: alias,
 						labelID: `${snakeCase(alias)}_label`,
-						aliasFor: aliases[alias]
+						aliasFor: entry
 					});
 				}
 			}

@@ -125,6 +125,7 @@ const polyfillBundleOptions = Object.assign({}, defaultPolyfillBundleOptions);
 const renderFeatureList = ({ polyfillAliases, polyfills }) => {
 	let html = "";
 	for (const item of polyfillAliases) {
+		const polyfills = JSON.parse(item.polyfills);
 		html += `<div class="polyfill" data-feature-name="${item.name}-polyfill">
 				<label>
 					<input type="checkbox" name="${item.name}">
@@ -139,7 +140,7 @@ const renderFeatureList = ({ polyfillAliases, polyfills }) => {
 		}-tooltip-target" data-o-tooltip-toggle-on-click="true">
 					<div class="o-tooltip-content">
 						<ul>
-						${item.polyfills.map(polyfill => `<li>${polyfill}</li>`).join('')}
+						${polyfills.map(polyfill => `<li>${polyfill}</li>`).join('')}
 						</ul>
 					</div>
 				</div>
