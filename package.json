@@ -17,7 +17,6 @@
     "url": "https://github.com/financial-times/polyfill-service/issues"
   },
   "scripts": {
-    "toppops": "bash .github/workflows/toppops.sh",
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
     "lint": "eslint .",
     "clean": "rimraf ./dist ./.cache",

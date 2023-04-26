@@ -77,6 +77,28 @@ resource "fastly_service_vcl" "app" {
   dictionary {
     name = "compute_at_edge_config"
   }
+
+  logging_https {
+    name           = "toppops-collector"
+    url            = "https://toppops-ingest.fastlylabs.com/ingest"
+    message_type   = "blank"
+    format_version = 2
+    format         = ""
+    content_type   = "text/plain"
+    method         = "POST"
+    placement      = "none"
+  }
+
+  logging_https {
+    name           = "fastly-devrel-traffic-globe"
+    url            = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com"
+    message_type   = "blank"
+    format_version = 2
+    format         = ""
+    content_type   = "text/plain"
+    method         = "POST"
+    placement      = "none"
+  }
 }
 
 resource "fastly_service_dictionary_items" "toppops_config_items" {
