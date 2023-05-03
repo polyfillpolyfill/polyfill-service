@@ -19,7 +19,7 @@ jobs:
         node-version: 18.x
     - uses: pnpm/action-setup@v2
       with:
-        version: 6.0.2
+        version: 8.3.1
         run_install: |
           - recursive: true
             args: [--frozen-lockfile, --strict-peer-dependencies]
@@ -64,7 +64,7 @@ jobs:
           node-version: 18.x
       - uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: 8.3.1
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]

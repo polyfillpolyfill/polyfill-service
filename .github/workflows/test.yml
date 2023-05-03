@@ -8,6 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3.1.0
+      with:
+        node-version: 18.x
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8.3.1
+        run_install: |
+          - recursive: true
+            args: [--frozen-lockfile, --strict-peer-dependencies]
+    - uses: actions/checkout@v3
       with:
         repository: 'fastly/viceroy'
         path: 'viceroy'
@@ -17,18 +27,8 @@ jobs:
         override: true
     - uses: actions-rs/cargo@v1
       with:
-          command: install 
+          command: install
           args: --path viceroy/cli
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3.1.0
-      with:
-        node-version: 18.x
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 6.0.2
-        run_install: |
-          - recursive: true
-            args: [--frozen-lockfile, --strict-peer-dependencies]
     - run: npm run lint
     - run: npm run build
     - run: npm run test
