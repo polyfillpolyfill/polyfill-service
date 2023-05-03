@@ -62,6 +62,14 @@ $system-code: "origami-polyfill-service";
 	)
 );
 
+@import "o-message/main";
+@include oMessage(
+	$opts: (
+		'types': ('alert'),
+		'states': ('warning-light'),
+	)
+);
+
 @import "o-buttons/main";
 
 @include oButtons(
