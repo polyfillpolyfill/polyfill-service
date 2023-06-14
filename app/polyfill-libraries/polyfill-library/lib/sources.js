@@ -73,41 +73,26 @@ function stringToReadableStream(value) {
 */
 let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
-	console.log(1, {store, featureName, type})
 	if (!config) {
-		console.log(2, {store, featureName, type})
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
 	}
 	let c;
 	try {
-		console.log(3, {store, featureName, type})
 		c =  config.get(featureName+'/'+ type + ".js")
-		console.log(4, {store, featureName, type})
 	} catch(e) {}
-	console.log(5, {store, featureName, type})
 	if (c) {
-		console.log(6, {store, featureName, type})
 		return stringToReadableStream(c);
 	}
-	console.log(7, {store, featureName, type})
 	if (!polyfills) {
-		console.log(8, {store, featureName, type})
 		polyfills = new KVStore(store);
 	}
-	console.log(9, {store, featureName, type})
 	let polyfill = await polyfills.get(featureName+'/'+ type + ".js");
-	console.log(10, {store, featureName, type})
 	if (!polyfill) {
-		console.log(11, {store, featureName, type})
 		const ttype = type === 'raw' ? 'min' : 'raw';
-		console.log(12, {store, featureName, type})
 		polyfill = await polyfills.get(featureName+'/'+ ttype + ".js");
-		console.log(13, {store, featureName, type})
 		if (!polyfill) {
-			console.log(14, {store, featureName, type})
 			if (shouldLog()) {
-				console.log(15, {store, featureName, type})
 				console.log('store: ', store, 'missing: ', featureName+'/'+ type + ".js")
 			}
 		}
