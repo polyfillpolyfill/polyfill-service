@@ -16,7 +16,7 @@ Silver
 
 ## Lifecycle Stage
 
-Production
+Discontinued
 
 ## Primary URL
 
