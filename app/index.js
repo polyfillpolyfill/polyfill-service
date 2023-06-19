@@ -313,7 +313,6 @@ async function handler(c) {
 			/[#*?[]\n\r]/.test(urlPath) === false
 		) {
 			try {
-				console.log(111, c.req.url)
 				const response = await getFile('site', c.req)
 				if (response) {
 					// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
