@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  '@jakechampion/c-at-e-file-server@0.0.2-main':
-    hash: jcu6lfvlklw6sf3mi3n43m7eii
-    path: patches/@jakechampion__c-at-e-file-server@0.0.2-main.patch
-
 dependencies:
   '@fastly/js-compute':
     specifier: ^2.3.0
@@ -24,7 +19,7 @@ dependencies:
     version: 1.6.3
   '@jakechampion/c-at-e-file-server':
     specifier: ^0.0.2-main
-    version: 0.0.2-main(patch_hash=jcu6lfvlklw6sf3mi3n43m7eii)
+    version: 0.0.2-main
   hono:
     specifier: ^3.1.7
     version: 3.1.7
@@ -1327,12 +1322,11 @@ packages:
     dev: true
     optional: true
 
-  /@jakechampion/c-at-e-file-server@0.0.2-main(patch_hash=jcu6lfvlklw6sf3mi3n43m7eii):
+  /@jakechampion/c-at-e-file-server@0.0.2-main:
     resolution: {integrity: sha512-QIeZcdFPtvnPfdQL8xJD8tMezEmqihlHe5SAFJjiiDh0p1D3Eui51MsW51DFBN5r8Kv1+96MtE8ryLv1IlQwgw==}
     dependencies:
       range-parser: 1.2.1
     dev: false
-    patched: true
 
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}

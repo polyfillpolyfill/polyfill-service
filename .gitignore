@@ -3,3 +3,4 @@ bin
 dist
 pkg
 .terraform/
+app/polyfill-libraries/polyfill-library-*
