@@ -11,8 +11,8 @@ import { getPolyfillParameters } from "./get-polyfill-parameters.js";
 
 const latestVersion = '3.111.0';
 import * as polyfillio from "./polyfill-libraries/polyfill-library/lib/index.js";
-console.trace = console.log;
 // TODO: Implement ReadableStream getIterator() and [@@asyncIterator]() methods
+// eslint-disable-next-line no-unused-vars
 async function streamToString(stream) {
 	const decoder = new TextDecoder();
 	let string = '';
