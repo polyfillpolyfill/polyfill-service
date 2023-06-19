@@ -103,10 +103,5 @@
   },
   "volta": {
     "node": "20.3.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@jakechampion/c-at-e-file-server@0.0.2-main": "patches/@jakechampion__c-at-e-file-server@0.0.2-main.patch"
-    }
   }
 }
