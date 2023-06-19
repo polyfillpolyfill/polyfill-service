@@ -2,10 +2,6 @@
 import * as latestUserAgentNormaliser from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import * as oldUserAgentNormaliser from "./normalise-user-agent-for-polyfill-library-3-25-1.js";
 
-function sort_comma_separated_value(value = "") {
-    return value.split(',').sort((a, b) => a.localeCompare(b)).join(',');
-}
-
 export function normalise_querystring_parameters_for_polyfill_bundle(originalRequest, currentQuerystring) {
     const newQuerystring = new URLSearchParams;
 
@@ -13,7 +9,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
     if (features = currentQuerystring.get('features')) {
 		// # Parameter has already been set, use the already set value.
         try {
-            features = sort_comma_separated_value(decodeURIComponent(features));
+            features = decodeURIComponent(features);
             newQuerystring.set('features', features);
         } catch {
             // This is here because the VCL version of polyfill.io would silently ignore URI Errors
@@ -28,7 +24,7 @@ export function normalise_querystring_parameters_for_polyfill_bundle(originalReq
 	if (excludes = currentQuerystring.get('excludes')) {
 		try {
             // # Parameter has already been set, use the already set value.
-            excludes = sort_comma_separated_value(decodeURIComponent(excludes));
+            excludes = decodeURIComponent(excludes);
             newQuerystring.set('excludes', excludes);
         } catch {
             // This is here because the VCL version of polyfill.io would silently ignore URI Errors

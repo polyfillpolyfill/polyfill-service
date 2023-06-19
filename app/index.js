@@ -1,23 +1,38 @@
 /// <reference types="@fastly/js-compute" />
-// import {ObjectStore} from 'fastly:object-store';
+// import { SimpleCache } from 'fastly:cache';
+// import { ConfigStore } from "fastly:config-store";
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
-import {normalise_querystring_parameters_for_polyfill_bundle} from "./normalise-query-parameters.js";
-// import { cyrb53 } from "./cyrb53.js";
-import {Hono} from 'hono'
-import {logger} from './logger.js'
-import {get as getFile} from "@jakechampion/c-at-e-file-server";
-import {getPolyfillParameters} from "./get-polyfill-parameters.js";
+import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
+import { Hono } from 'hono'
+import { logger } from './logger.js'
+import { get as getFile } from "@jakechampion/c-at-e-file-server";
+import { getPolyfillParameters } from "./get-polyfill-parameters.js";
 
 const latestVersion = '3.111.0';
 import * as polyfillio from "./polyfill-libraries/polyfill-library/lib/index.js";
 console.trace = console.log;
+// TODO: Implement ReadableStream getIterator() and [@@asyncIterator]() methods
+async function streamToString(stream) {
+	const decoder = new TextDecoder();
+	let string = '';
+	let reader = stream.getReader()
+	// eslint-disable-next-line no-constant-condition
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done) {
+			return string;
+		}
+		string += decoder.decode(value)
+	}
+}
+
 const app = new Hono()
 app.onError((error, c) => {
 	console.error('Internal App Error:', error, error.stack, error.message);
 	return c.text('Internal Server Error', 500)
-})
-
+});
+app.use('*', logger());
 app.get("/", (c) => c.redirect("/v3/", 301));
 app.head("/", (c) => c.redirect("/v3/", 301));
 app.get("/__health", (c) => {
@@ -66,7 +81,6 @@ app.head("/__gtg", (c) => {
 	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	return c.text("OK");
 });
-app.use('*', logger())
 app.get("/v3/normalizeUa", (c) => {
 	const useragent = UA.normalize(c.req.headers.get("User-Agent"));
 	c.res.headers.set("Normalized-User-Agent", useragent);
@@ -146,9 +160,23 @@ function respondWithBundle(c, bundle) {
 	return c.body(bundle);
 }
 
+let FASTLY_SERVICE_VERSION = '';
 async function polyfill(requestURL, c) {
+	// const config = new ConfigStore('config');
+	// const cacheEnabled = config.get('cache') === 'yes'
+	// let cacheKey;
+	// if (cacheEnabled) {
+	// 	const generation = config.get('cache-generation') || '173'
+	// 	cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
+	// 	let value = SimpleCache.get(cacheKey);
+	// 	if (value) {
+	// 		c.header("x-cache", "hit");
+	// 		return respondWithBundle(c, await value.text());
+	// 	}
+	// 	c.header("x-cache", "miss");
+	// }
 	const parameters = getPolyfillParameters(requestURL);
-	
+
 	// Map the version parameter to a version of the polyfill library.
 	const versionToLibraryMap = new Map([
 		[latestVersion, 'polyfill-library'],
@@ -179,7 +207,7 @@ async function polyfill(requestURL, c) {
 		['3.110.1', 'polyfill-library-3.110.1'],
 		['3.111.0', 'polyfill-library-3.111.0'],
 	]);
-	
+
 	const library = versionToLibraryMap.get(parameters.version);
 	// 404 if no library for the requested version was found.
 	if (!library) {
@@ -187,52 +215,29 @@ async function polyfill(requestURL, c) {
 		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
 		return c.text(`requested version does not exist`);
 	}
-	
-	// 400 if requested polyfills are missing
-	// if (polyfillLibrary && parameters.strict) {
-	// 	const features = new Set([
-	// 		...Object.values(await polyfillLibrary.listAliases()).flat(), 
-	// 		...Object.values(await polyfillLibrary.listAllPolyfills()).flat()
-	// 	]);
-	// 	const requestedFeaturesAllExist = Object.keys(parameters.features).every(feature => features.has(feature));
-	// 	if (!requestedFeaturesAllExist) {
-	// 		const requestedFeaturesWhichDoNotExist = Object.keys(parameters.features).filter(feature => !features.has(feature));
-	// 		c.status(400);
-	// 		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
-	// 		return c.text(`Requested features do not all exist in polyfill-service, please remove them from the URL: ${requestedFeaturesWhichDoNotExist.join(",")} do not exist.`);
-	// 	}
-	// }
 
-	// const cache = new ObjectStore('cache');
+	let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
+	// if (cacheEnabled) {
+	// 	const one_year_in_nanoseconds = 3.156e+16;
+	// 	let [bundle1, bundle2] = bundle.tee();
+	// 	c.executionCtx.waitUntil(streamToString(bundle1).then(value => {
+	// 		SimpleCache.set(cacheKey, value, one_year_in_nanoseconds);
+	// 	}));
 
-	// const key = cyrb53(String(requestURL))
-	// let bundle = await cache.get(key);
-	// if (bundle) {
-	// 	return new Response(bundle.body, {
-	// 		headers: {
-	// 			"Access-Control-Allow-Origin": "*",
-	// 			"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS",
-	// 			"Cache-Control": "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800",
-	// 			"Content-Type": "text/javascript; charset=UTF-8",
-	// 			"surrogate-key": "polyfill-service",
-	// 			"Last-Modified": lastModified,
-	// 			"x-compress-hint": "on",
-	// 		}
-	// 	})
+	// 	return respondWithBundle(c, bundle2);
 	// } else {
-		let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
-
-		// c.executionCtx.waitUntil(cache.put(key, bundle));
+		return respondWithBundle(c, bundle);
 	// }
-	return respondWithBundle(c, bundle);
 }
 
 app.get("*", handler);
 app.head("*", handler);
 app.options("*", handler);
-app.all("*", c => {
+function methodNotAllowed(c) {
 	return c.text(`${c.req.method} METHOD NOT ALLOWED`, 405);
-})
+}
+app.all("*", methodNotAllowed)
+app.on(['HEADX', 'PROPFIND'], '*', methodNotAllowed);
 
 app.notFound((c) => {
 	c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
@@ -243,6 +248,9 @@ app.notFound((c) => {
 async function handler(c) {
 	let requestURL = new URL(c.req.url);
 	const host = c.req.headers.get('host');
+	FASTLY_SERVICE_VERSION = fastly.env.get('FASTLY_SERVICE_VERSION');
+	// console.log('FASTLY_SERVICE_VERSION', FASTLY_SERVICE_VERSION);
+	c.header('FASTLY_SERVICE_VERSION', FASTLY_SERVICE_VERSION);
 	// Canonicalize requests onto https://polyfill.io (and allow https://polyfills.io)
 	switch (host) {
 		//  We are no longer redirecting this domain and instead using it as an
@@ -290,8 +298,6 @@ async function handler(c) {
 			c.req,
 			requestURL.searchParams
 		).toString();
-		// # Sort the querystring parameters alphabetically to improve chances of hitting a cached copy.
-		requestURL.searchParams.sort();
 	} else {
 		// Maybe make this a fixed list of paths we know exist?
 		// If the provided key:
@@ -299,14 +305,15 @@ async function handler(c) {
 		// Starts with the string ".well-known/acme-challenge/"
 		// Contains any of the characters "#?*[]\n\r"
 		// Is longer than 1024 characters
-		if (urlPath.length > 0 && 
-			urlPath.length <= 1024 && 
-			urlPath != '.' && 
-			urlPath != '..' && 
+		if (urlPath.length > 0 &&
+			urlPath.length <= 1024 &&
+			urlPath != '.' &&
+			urlPath != '..' &&
 			urlPath.startsWith(".well-known/acme-challenge/") === false &&
 			/[#*?[]\n\r]/.test(urlPath) === false
-			) {
+		) {
 			try {
+				console.log(111, c.req.url)
 				const response = await getFile('site', c.req)
 				if (response) {
 					// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
@@ -323,7 +330,6 @@ async function handler(c) {
 	}
 
 	let backendResponse = await polyfill(requestURL, c);
-
 
 	backendResponse.headers.set('useragent_normaliser', requestURL.searchParams.get('ua'));
 

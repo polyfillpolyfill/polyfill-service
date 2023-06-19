@@ -3,12 +3,12 @@
 "use strict";
 
 import vm from "node:vm";
-import assert from "proclaim";
+import assert from "node:assert";
 import axios from "../helpers.js";
 
 describe("GET /v3/polyfill.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+		const response = await axios.get(`/v3/polyfill.js`, {
 			headers: {
 				"Fastly-Debug": "true"
 			},
@@ -20,8 +20,8 @@ describe("GET /v3/polyfill.js", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
-		assert.isString(response.data);
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
 				new vm.Script(response.data);
@@ -30,13 +30,13 @@ describe("GET /v3/polyfill.js", function() {
 				throw error;
 			}
 		});
-		assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.js?features=carrot&strict&use-compute-at-edge-backend=yes`, {
+		const response = await axios.get(`/v3/polyfill.js?features=carrot&strict`, {
 			headers: {
 				"Fastly-Debug": "true"
 			},
@@ -48,8 +48,8 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
-		assert.isString(response.data);
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
 				new vm.Script(response.data);
@@ -58,13 +58,13 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 				throw error;
 			}
 		});
-		assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
+		const response = await axios.get(`/v3/polyfill.js?callback=AAA&callback=BBB`, {
 			headers: {
 				"Fastly-Debug": "true"
 			},
@@ -76,8 +76,8 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
-		assert.isString(response.data);
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
 				new vm.Script(response.data);
@@ -86,13 +86,13 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 				throw error;
 			}
 		});
-		assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 // describe("encoding", function() {
 // 	it("responds with no compression if client does not accept compressed responses", async () => {
-// 		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+// 		const response = await axios.get(`/v3/polyfill.js`, {
 // 			headers: {
 // 				"Fastly-Debug": "true",
 // 				"Accept-Encoding": "identity"
@@ -105,7 +105,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 // 	});
 
 // 	it("responds with gzip compression if client accepts gzip compressed responses", async() => {
-// 		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+// 		const response = await axios.get(`/v3/polyfill.js`, {
 // 			headers: {
 // 				"Fastly-Debug": "true",
 // 				"Accept-Encoding": "gzip"
@@ -118,7 +118,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 // 	});
 
 // 	it("responds with gzip compression if client accepts gzip and deflate compressed responses", async () => {
-// 		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+// 		const response = await axios.get(`/v3/polyfill.js`, {
 // 			headers: {
 // 				"Fastly-Debug": "true",
 // 				"Accept-Encoding": "gzip, deflate"
@@ -131,7 +131,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 // 	});
 
 // 	it("responds with brotli compression if client accepts brotli compressed responses", async () => {
-// 		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+// 		const response = await axios.get(`/v3/polyfill.js`, {
 // 			headers: {
 // 				"Fastly-Debug": "true",
 // 				"Accept-Encoding": "br"
@@ -144,7 +144,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 // 	});
 
 // 	it("responds with brotli compression if client accepts brotli and gzip compressed responses", async () => {
-// 		const response = await axios.get(`/v3/polyfill.js?use-compute-at-edge-backend=yes`, {
+// 		const response = await axios.get(`/v3/polyfill.js`, {
 // 			headers: {
 // 				"Fastly-Debug": "true",
 // 				"Accept-Encoding": "br, gzip"
@@ -160,7 +160,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 
 describe("OPTIONS /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.options(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
+		const response = await axios.options(`/v3/polyfill.min.js`);
 		assert.equal(response.status, 200);
 		assert.equal(response.headers.allow, "OPTIONS, GET, HEAD");
 	});
@@ -168,21 +168,21 @@ describe("OPTIONS /v3/polyfill.min.js", function() {
 
 describe("POST /v3/polyfill.min.js", function() {
 	it("responds with a 405 status", async () => {
-		const response = await axios.post(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
+		const response = await axios.post(`/v3/polyfill.min.js`);
 		assert.equal(response.status, 405);
 	});
 });
 
 describe("DELETE /v3/polyfill.min.js", function() {
 	it("responds with a 405 status", async () => {
-		const response = await axios.delete(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`);
+		const response = await axios.delete(`/v3/polyfill.min.js`);
 		assert.equal(response.status, 405);
 	});
 });
 
 describe("HEAD /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.head(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`, {
+		const response = await axios.head(`/v3/polyfill.min.js`, {
 			headers: {
 				"Fastly-Debug": "true"
 			}
@@ -193,14 +193,14 @@ describe("HEAD /v3/polyfill.min.js", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 	});
 });
 
 
 describe("GET /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.min.js?use-compute-at-edge-backend=yes`, {
+		const response = await axios.get(`/v3/polyfill.min.js`, {
 			headers: {
 				"Fastly-Debug": "true"
 			},
@@ -212,9 +212,9 @@ describe("GET /v3/polyfill.min.js", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 
-		assert.isString(response.data);
+		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
 				new vm.Script(response.data);
@@ -223,13 +223,13 @@ describe("GET /v3/polyfill.min.js", function() {
 				throw error;
 			}
 		});
-		assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 	it("responds with a 200 status", async () => {
-		const response = await axios.get(`/v3/polyfill.min.js?callback=AAA&callback=BBB&use-compute-at-edge-backend=yes`, {
+		const response = await axios.get(`/v3/polyfill.min.js?callback=AAA&callback=BBB`, {
 			headers: {
 				"Fastly-Debug": "true",
 				"Accept-Encoding": "identity"
@@ -242,9 +242,9 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
-		assert.include(response.headers["surrogate-key"], 'polyfill-service');
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 
-		assert.isString(response.data);
+		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
 				new vm.Script(response.data);
@@ -253,6 +253,6 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 				throw error;
 			}
 		});
-		assert.notMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });

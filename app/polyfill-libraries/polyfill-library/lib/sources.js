@@ -1,5 +1,5 @@
 import {ConfigStore} from 'fastly:config-store';
-import {ObjectStore} from 'fastly:object-store';
+import {KVStore} from 'fastly:kv-store';
 import { shouldLog } from "../../../logger";
 import { features } from "./features.js";
 
@@ -16,7 +16,10 @@ export async function getPolyfillMeta(store, featureName) {
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
 	}
-	let meta = await config.get(featureName)
+	let meta;
+	try {
+		meta = await config.get(featureName)
+	} catch (e) {}
 	if (!meta) {
 		if (shouldLog()) {
 			console.log('store: ', store, 'missing: ', featureName)
@@ -70,30 +73,45 @@ function stringToReadableStream(value) {
 */
 let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
-	// const now = Date.now();
+	console.log(1, {store, featureName, type})
 	if (!config) {
+		console.log(2, {store, featureName, type})
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
 	}
-	let c =  config.get(featureName+'/'+ type + ".js")
+	let c;
+	try {
+		console.log(3, {store, featureName, type})
+		c =  config.get(featureName+'/'+ type + ".js")
+		console.log(4, {store, featureName, type})
+	} catch(e) {}
+	console.log(5, {store, featureName, type})
 	if (c) {
-		// console.log('streamPolyfillSource', env("FASTLY_POP"),  'config-store', 'took', Date.now() - now, store, featureName, type);
+		console.log(6, {store, featureName, type})
 		return stringToReadableStream(c);
 	}
+	console.log(7, {store, featureName, type})
 	if (!polyfills) {
-		polyfills = new ObjectStore(store);
+		console.log(8, {store, featureName, type})
+		polyfills = new KVStore(store);
 	}
-	let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
+	console.log(9, {store, featureName, type})
+	let polyfill = await polyfills.get(featureName+'/'+ type + ".js");
+	console.log(10, {store, featureName, type})
 	if (!polyfill) {
+		console.log(11, {store, featureName, type})
 		const ttype = type === 'raw' ? 'min' : 'raw';
-		polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+		console.log(12, {store, featureName, type})
+		polyfill = await polyfills.get(featureName+'/'+ ttype + ".js");
+		console.log(13, {store, featureName, type})
 		if (!polyfill) {
+			console.log(14, {store, featureName, type})
 			if (shouldLog()) {
-				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+				console.log(15, {store, featureName, type})
+				console.log('store: ', store, 'missing: ', featureName+'/'+ type + ".js")
 			}
 		}
 	}
 	let b = polyfill.body;
-	// console.log('streamPolyfillSource', env("FASTLY_POP"),  'object-store', 'took', Date.now() - now, store, featureName, type);
 	return b;
 }
