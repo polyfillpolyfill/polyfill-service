@@ -1,0 +1,178 @@
+diff --git a/node_modules/@jakechampion/c-at-e-file-server/index.js b/node_modules/@jakechampion/c-at-e-file-server/index.js
+index efa782c..d7727b7 100644
+--- a/node_modules/@jakechampion/c-at-e-file-server/index.js
++++ b/node_modules/@jakechampion/c-at-e-file-server/index.js
+@@ -1,11 +1,13 @@
++/* eslint-disable unicorn/no-null */
++import {KVStore} from 'fastly:kv-store'
+ import parseRange from 'range-parser'
+ 
+ /**
+- * Attempt to locate the requested resource from a Fastly Object-Store,
+- * If the request is a GET or HEAD request and a resource was found in the Object-Store, this will return a `Response`.
+- * If request is not GET or HEAD, or no resource was found in the Object-Store, this will return `null`
+- * @param {string} store_name The name of the Fastly Object-Store to search within.
+- * @param {Request} request The request to attempt to match against a resource within the Object-Store.
++ * Attempt to locate the requested resource from a Fastly KV-Store,
++ * If the request is a GET or HEAD request and a resource was found in the KV-Store, this will return a `Response`.
++ * If request is not GET or HEAD, or no resource was found in the KV-Store, this will return `null`
++ * @param {string} store_name The name of the Fastly KV-Store to search within.
++ * @param {Request} request The request to attempt to match against a resource within the KV-Store.
+  * @returns {Promise<Response | null>} Returns a `Response` if a resource was found, else returns `null`.
+  */
+ export async function get(store_name, request) {
+@@ -26,7 +28,7 @@ export async function get(store_name, request) {
+ 
+     const metadataPath = path + '__metadata__'
+ 
+-    let metadata = await (new ObjectStore(store_name)).get(metadataPath)
++    let metadata = await (new KVStore(store_name)).get(metadataPath)
+     if (metadata == null) {
+         return null
+     }
+@@ -39,7 +41,7 @@ export async function get(store_name, request) {
+         return response;
+     }
+ 
+-    const item = await (new ObjectStore(store_name)).get(path)
++    const item = await (new KVStore(store_name)).get(path)
+ 
+     if (item == null) {
+         return null
+@@ -48,9 +50,8 @@ export async function get(store_name, request) {
+     let range = request.headers.get("range");
+     if (range == null) {
+         return new Response(isHeadRequest ? null : item.body, { status: 200, headers: responseHeaders })
+-    } else {
+-        return handleRangeRequest(item, range, responseHeaders, isHeadRequest)
+     }
++    return handleRangeRequest(item, range, responseHeaders, isHeadRequest)
+ }
+ 
+ async function handleRangeRequest(item, range, headers, isHeadRequest) {
+@@ -119,7 +120,6 @@ async function handleRangeRequest(item, range, headers, isHeadRequest) {
+ }
+ 
+ function concat(views, length) {
+-    console.log({length})
+     const buf = new Uint8Array(length)
+     let offset = 0
+     for (const v of views) {
+@@ -139,7 +139,6 @@ function checkPreconditions(request, responseHeaders) {
+     // - if false, respond 412 (Precondition Failed) unless it can be determined that the state-changing request has already succeeded (see Section 13.1.1)
+     let header = request.headers.get("if-match");
+     if (typeof header === 'string') {
+-        console.log("!ifMatch(responseHeaders, header)", !ifMatch(responseHeaders, header));
+         if (!ifMatch(responseHeaders, header)) {
+             return new Response(null, { status: 412 });
+         }
+@@ -149,7 +148,6 @@ function checkPreconditions(request, responseHeaders) {
+     //     // - if false, respond 412 (Precondition Failed) unless it can be determined that the state-changing request has already succeeded (see Section 13.1.4)
+     //     header = request.headers.get("if-unmodified-since");
+     //     if (typeof header === 'string') {
+-    //         // console.log("!ifUnmodifiedSince(responseHeaders, header)", !ifUnmodifiedSince(responseHeaders, header));
+     //         if (!ifUnmodifiedSince(responseHeaders, header)) {
+     //             return new Response(null, { status: 412 });
+     //         }
+@@ -165,7 +163,6 @@ function checkPreconditions(request, responseHeaders) {
+     const get = "GET";
+     const head = "HEAD";
+     if (typeof header === 'string') {
+-        // console.log("!ifNoneMatch(responseHeaders, header)", !ifNoneMatch(responseHeaders, header));
+         if (!ifNoneMatch(responseHeaders, header)) {
+             if (method === get || method === head) {
+                 return new Response(null, { status: 304, headers: responseHeaders })
+@@ -178,30 +175,22 @@ function checkPreconditions(request, responseHeaders) {
+         // - if false, respond 304 (Not Modified)
+         if (method === get || method === head) {
+             header = request.headers.get("if-modified-since");
+-            if (typeof header === 'string') {
+-                // console.log("!ifModifiedSince(responseHeaders, header)", !ifModifiedSince(responseHeaders, header));
+-                if (!ifModifiedSince(responseHeaders, header)) {
++            if (typeof header === 'string' && !ifModifiedSince(responseHeaders, header)) {
+                     return new Response(null, { status: 304, headers: responseHeaders })
+                 }
+-            }
+         }
+     }
+ 
+     // 5. When the method is GET and both Range and If-Range are present, evaluate the If-Range precondition:
+     // - if true and the Range is applicable to the selected representation, respond 206 (Partial Content)
+     // - otherwise, ignore the Range header field and respond 200 (OK)
+-    if (method === get) {
+-        if (request.headers.get("range")) {
++    if (method === get && request.headers.get("range")) {
+             header = request.headers.get("if-range");
+-            if (typeof header === 'string') {
+-                // console.log("!ifRange(responseHeaders, header)", !ifRange(responseHeaders, header));
+-                if (!ifRange(responseHeaders, header)) {
++            if (typeof header === 'string' && !ifRange(responseHeaders, header)) {
+                     // We delete the range headers so that the `get` function will return the full body
+                     request.headers.delete("range")
+                 }
+-            }
+         }
+-    }
+ 
+     // 6. Otherwise,
+     // - perform the requested method and respond according to its success or failure.
+@@ -218,7 +207,7 @@ function isStrong(etag) {
+ 
+ function opaqueTag(etag) {
+     if (isWeak(etag)) {
+-        return etag.substring(2);
++        return etag.slice(2);
+     }
+     return etag;
+ }
+@@ -254,7 +243,6 @@ function ifMatch(validationFields, header) {
+         // An origin server MUST use the strong comparison function when comparing entity tags for If-Match (Section 8.8.3.2), 
+         // since the client intends this precondition to prevent the method from being applied if there have been any changes to the representation data.
+         if (splitList(header).some(etag => {
+-            console.log(`strongMatch(${etag}, ${validationFields.ETag}) -- ${strongMatch(etag, validationFields.ETag)}`);
+             return strongMatch(etag, validationFields.ETag)
+         })) {
+             return true;
+@@ -288,7 +276,7 @@ function ifNoneMatch(validationFields, header) {
+ function ifModifiedSince(validationFields, header) {
+     // A recipient MUST ignore the If-Modified-Since header field if the received field value is not a valid HTTP-date, the field value has more than one member, or if the request method is neither GET nor HEAD.
+     const date = new Date(header);
+-    if (isNaN(date)) {
++    if (Number.isNaN(date)) {
+         return true;
+     }
+ 
+@@ -319,9 +307,15 @@ function ifModifiedSince(validationFields, header) {
+ // https://httpwg.org/specs/rfc9110.html#field.if-range
+ function ifRange(validationFields, header) {
+     const date = new Date(header);
+-    console.log(new Date(validationFields["Last-Modified"]), date);
+-    console.log(new Date(validationFields["Last-Modified"]).getTime() === date.getTime());
+-    if (!isNaN(date)) {
++    if (Number.isNaN(date)) {
++        // To evaluate a received If-Range header field containing an entity-tag:
++        // 1. If the entity-tag validator provided exactly matches the ETag field value for the selected representation using the strong comparison function (Section 8.8.3.2), the condition is true.
++        if (strongMatch(header, validationFields.ETag)) {
++            return true;
++        }
++        // 2. Otherwise, the condition is false.
++        return false;
++    } else {
+         // To evaluate a received If-Range header field containing an HTTP-date:
+         // 1. If the HTTP-date validator provided is not a strong validator in the sense defined by Section 8.8.2.2, the condition is false.
+         // 2. If the HTTP-date validator provided exactly matches the Last-Modified field value for the selected representation, the condition is true.
+@@ -330,13 +324,5 @@ function ifRange(validationFields, header) {
+         }
+         // 3. Otherwise, the condition is false.
+         return false;
+-    } else {
+-        // To evaluate a received If-Range header field containing an entity-tag:
+-        // 1. If the entity-tag validator provided exactly matches the ETag field value for the selected representation using the strong comparison function (Section 8.8.3.2), the condition is true.
+-        if (strongMatch(header, validationFields.ETag)) {
+-            return true;
+-        }
+-        // 2. Otherwise, the condition is false.
+-        return false;
+     }
+ }
+\ No newline at end of file

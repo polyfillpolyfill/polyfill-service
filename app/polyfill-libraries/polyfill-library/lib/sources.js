@@ -1,5 +1,5 @@
 import {ConfigStore} from 'fastly:config-store';
-import {ObjectStore} from 'fastly:object-store';
+import {KVStore} from 'fastly:kv-store';
 import { shouldLog } from "../../../logger";
 import { features } from "./features.js";
 
@@ -16,7 +16,10 @@ export async function getPolyfillMeta(store, featureName) {
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
 	}
-	let meta = await config.get(featureName)
+	let meta;
+	try {
+		meta = await config.get(featureName)
+	} catch (e) {}
 	if (!meta) {
 		if (shouldLog()) {
 			console.log('store: ', store, 'missing: ', featureName)
@@ -70,18 +73,20 @@ function stringToReadableStream(value) {
 */
 let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
-	// const now = Date.now();
+	console.log({store, featureName, type})
 	if (!config) {
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
 	}
-	let c =  config.get(featureName+'/'+ type + ".js")
+	let c;
+	try {
+		c =  config.get(featureName+'/'+ type + ".js")
+	} catch(e) {}
 	if (c) {
-		// console.log('streamPolyfillSource', env("FASTLY_POP"),  'config-store', 'took', Date.now() - now, store, featureName, type);
 		return stringToReadableStream(c);
 	}
 	if (!polyfills) {
-		polyfills = new ObjectStore(store);
+		polyfills = new KVStore(store);
 	}
 	let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
 	if (!polyfill) {
@@ -94,6 +99,5 @@ export async function streamPolyfillSource(store, featureName, type) {
 		}
 	}
 	let b = polyfill.body;
-	// console.log('streamPolyfillSource', env("FASTLY_POP"),  'object-store', 'took', Date.now() - now, store, featureName, type);
 	return b;
 }

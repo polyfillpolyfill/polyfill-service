@@ -33,12 +33,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@fastly/js-compute": "^1.11.0",
+    "@fastly/js-compute": "^2.3.0",
     "@financial-times/o-message": "^5.4.2",
     "@financial-times/polyfill-useragent-normaliser": "^1.10.2",
     "@financial-times/useragent_parser": "^1.6.3",
     "@jakechampion/c-at-e-file-server": "^0.0.2-main",
-    "hono": "^3.1.6",
+    "hono": "^3.1.7",
     "mnemonist": "^0.39.5",
     "toposort": "^2.0.2"
   },
@@ -94,7 +94,6 @@
     "postcss": ">=8.1.0 <9.0.0",
     "postcss-cli": "^10.1.0",
     "prettier": "^2.8.8",
-    "proclaim": "^3.6.0",
     "rimraf": "^5.0.0",
     "sass": "^1.62.1",
     "sinon": "^15.0.4",
@@ -103,7 +102,6 @@
     "util": "^0.12.5"
   },
   "volta": {
-    "node": "18.16.0",
-    "npm": "8.19.4"
+    "node": "20.3.0"
   }
 }

@@ -118,7 +118,11 @@ export async function getPolyfills(options_, store, version) {
 
 		// If featureName is an alias for a group of features
 		// Add each feature.
-		const alias = await getConfigAliases(store, featureName);
+		let alias;
+		try {
+			alias = await getConfigAliases(store, featureName);
+		} catch (e) {
+		}
 		if (alias) {
 			const aliasProperties = {
 				aliasOf: new Set(properties.aliasOf),
@@ -145,7 +149,11 @@ export async function getPolyfills(options_, store, version) {
 			}
 		}
 
-		const meta = await getPolyfillMeta(store, featureName);
+		let meta;
+		try {
+			meta = await getPolyfillMeta(store, featureName)
+		} catch (e) {
+		}
 		if (!meta) {
 			// this is a bit strange but the best thing I could come up with.
 			// by adding the feature, it will show up as an "unrecognized" polyfill
