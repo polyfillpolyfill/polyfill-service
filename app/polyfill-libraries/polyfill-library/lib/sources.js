@@ -1,5 +1,7 @@
-import {ConfigStore} from 'fastly:config-store';
-import {KVStore} from 'fastly:kv-store';
+/// <reference types="@fastly/js-compute" />
+import { SimpleCache } from 'fastly:cache';
+import { ConfigStore } from 'fastly:config-store';
+import { KVStore } from 'fastly:kv-store';
 import { shouldLog } from "../../../logger";
 import { features } from "./features.js";
 
@@ -87,16 +89,22 @@ export async function streamPolyfillSource(store, featureName, type) {
 	if (!polyfills) {
 		polyfills = new KVStore(store);
 	}
-	let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
-	if (!polyfill) {
-		const ttype = type === 'raw' ? 'min' : 'raw';
-		polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+	let polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+		let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
 		if (!polyfill) {
-			if (shouldLog()) {
-				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+			const ttype = type === 'raw' ? 'min' : 'raw';
+			polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+			if (!polyfill) {
+				if (shouldLog()) {
+					console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+				}
 			}
 		}
-	}
+		return {
+			value: polyfill,
+			ttl: 86400,
+		}
+	})
 	let b = polyfill.body;
 	return b;
 }
