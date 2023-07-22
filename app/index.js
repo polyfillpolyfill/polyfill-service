@@ -11,21 +11,6 @@ import { getPolyfillParameters } from "./get-polyfill-parameters.js";
 
 const latestVersion = '3.111.0';
 import * as polyfillio from "./polyfill-libraries/polyfill-library/lib/index.js";
-// TODO: Implement ReadableStream getIterator() and [@@asyncIterator]() methods
-// eslint-disable-next-line no-unused-vars
-async function streamToString(stream) {
-	const decoder = new TextDecoder();
-	let string = '';
-	let reader = stream.getReader()
-	// eslint-disable-next-line no-constant-condition
-	while (true) {
-		const { done, value } = await reader.read();
-		if (done) {
-			return string;
-		}
-		string += decoder.decode(value)
-	}
-}
 
 const app = new Hono()
 app.onError((error, c) => {
