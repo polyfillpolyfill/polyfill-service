@@ -1,6 +1,5 @@
 /// <reference types="@fastly/js-compute" />
-// import { SimpleCache } from 'fastly:cache';
-// import { ConfigStore } from "fastly:config-store";
+import { SimpleCache } from 'fastly:cache';
 import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-user-agent-c-at-e.js";
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
@@ -151,72 +150,59 @@ function respondWithBundle(c, bundle) {
 
 let FASTLY_SERVICE_VERSION = '';
 async function polyfill(requestURL, c) {
-	// const config = new ConfigStore('config');
-	// const cacheEnabled = config.get('cache') === 'yes'
-	// let cacheKey;
-	// if (cacheEnabled) {
-	// 	const generation = config.get('cache-generation') || '173'
-	// 	cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
-	// 	let value = SimpleCache.get(cacheKey);
-	// 	if (value) {
-	// 		c.header("x-cache", "hit");
-	// 		return respondWithBundle(c, await value.text());
-	// 	}
-	// 	c.header("x-cache", "miss");
-	// }
-	const parameters = getPolyfillParameters(requestURL);
+	let cacheKey;
+	const generation = '173'
+	cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
+	let value = SimpleCache.getOrSet(cacheKey, async () => {
 
-	// Map the version parameter to a version of the polyfill library.
-	const versionToLibraryMap = new Map([
-		[latestVersion, 'polyfill-library'],
-		['3.25.1', 'polyfill-library-3.25.1'],
-		['3.27.4', 'polyfill-library-3.27.4'],
-		['3.34.0', 'polyfill-library-3.34.0'],
-		['3.39.0', 'polyfill-library-3.39.0'],
-		['3.40.0', 'polyfill-library-3.40.0'],
-		['3.41.0', 'polyfill-library-3.41.0'],
-		['3.42.0', 'polyfill-library-3.42.0'],
-		['3.46.0', 'polyfill-library-3.46.0'],
-		['3.48.0', 'polyfill-library-3.48.0'],
-		['3.50.2', 'polyfill-library-3.50.2'],
-		['3.51.0', 'polyfill-library-3.51.0'],
-		['3.52.0', 'polyfill-library-3.52.0'],
-		['3.52.1', 'polyfill-library-3.52.1'],
-		['3.52.2', 'polyfill-library-3.52.2'],
-		['3.52.3', 'polyfill-library-3.52.3'],
-		['3.53.1', 'polyfill-library-3.53.1'],
-		['3.89.4', 'polyfill-library-3.89.4'],
-		['3.96.0', 'polyfill-library-3.96.0'],
-		['3.98.0', 'polyfill-library-3.98.0'],
-		['3.101.0', 'polyfill-library-3.101.0'],
-		['3.103.0', 'polyfill-library-3.103.0'],
-		['3.104.0', 'polyfill-library-3.104.0'],
-		['3.108.0', 'polyfill-library-3.108.0'],
-		['3.109.0', 'polyfill-library-3.109.0'],
-		['3.110.1', 'polyfill-library-3.110.1'],
-		['3.111.0', 'polyfill-library-3.111.0'],
-	]);
+		const parameters = getPolyfillParameters(requestURL);
 
-	const library = versionToLibraryMap.get(parameters.version);
-	// 404 if no library for the requested version was found.
-	if (!library) {
-		c.status(400);
-		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
-		return c.text(`requested version does not exist`);
-	}
+		// Map the version parameter to a version of the polyfill library.
+		const versionToLibraryMap = new Map([
+			[latestVersion, 'polyfill-library'],
+			['3.25.1', 'polyfill-library-3.25.1'],
+			['3.27.4', 'polyfill-library-3.27.4'],
+			['3.34.0', 'polyfill-library-3.34.0'],
+			['3.39.0', 'polyfill-library-3.39.0'],
+			['3.40.0', 'polyfill-library-3.40.0'],
+			['3.41.0', 'polyfill-library-3.41.0'],
+			['3.42.0', 'polyfill-library-3.42.0'],
+			['3.46.0', 'polyfill-library-3.46.0'],
+			['3.48.0', 'polyfill-library-3.48.0'],
+			['3.50.2', 'polyfill-library-3.50.2'],
+			['3.51.0', 'polyfill-library-3.51.0'],
+			['3.52.0', 'polyfill-library-3.52.0'],
+			['3.52.1', 'polyfill-library-3.52.1'],
+			['3.52.2', 'polyfill-library-3.52.2'],
+			['3.52.3', 'polyfill-library-3.52.3'],
+			['3.53.1', 'polyfill-library-3.53.1'],
+			['3.89.4', 'polyfill-library-3.89.4'],
+			['3.96.0', 'polyfill-library-3.96.0'],
+			['3.98.0', 'polyfill-library-3.98.0'],
+			['3.101.0', 'polyfill-library-3.101.0'],
+			['3.103.0', 'polyfill-library-3.103.0'],
+			['3.104.0', 'polyfill-library-3.104.0'],
+			['3.108.0', 'polyfill-library-3.108.0'],
+			['3.109.0', 'polyfill-library-3.109.0'],
+			['3.110.1', 'polyfill-library-3.110.1'],
+			['3.111.0', 'polyfill-library-3.111.0'],
+		]);
 
-	let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
-	// if (cacheEnabled) {
-	// 	const one_year_in_nanoseconds = 3.156e+16;
-	// 	let [bundle1, bundle2] = bundle.tee();
-	// 	c.executionCtx.waitUntil(streamToString(bundle1).then(value => {
-	// 		SimpleCache.set(cacheKey, value, one_year_in_nanoseconds);
-	// 	}));
+		const library = versionToLibraryMap.get(parameters.version);
+		// 404 if no library for the requested version was found.
+		if (!library) {
+			c.status(400);
+			c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+			return c.text(`requested version does not exist`);
+		}
 
-	// 	return respondWithBundle(c, bundle2);
-	// } else {
-		return respondWithBundle(c, bundle);
-	// }
+		let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
+		return {
+			value: bundle,
+			ttl: 86400,
+		}
+	});
+	return respondWithBundle(c, await value.text());
 }
 
 app.get("*", handler);
