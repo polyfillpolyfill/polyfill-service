@@ -1,7 +1,6 @@
 {
 	"restartable": "rs",
 	"ignore": [
-		".cache/**",
 		".github/**",
 		".git/**",
 		".nyc_output/**",

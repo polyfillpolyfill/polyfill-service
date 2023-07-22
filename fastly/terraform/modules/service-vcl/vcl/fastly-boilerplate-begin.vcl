@@ -7,7 +7,7 @@ sub vcl_recv {
 	set req.http.Orig-URL = req.url;
 
 	# Enable API key authentication for URL purge requests
-	if ( req.request == "FASTLYPURGE" ) {
+	if ( req.method == "FASTLYPURGE" ) {
 		set req.http.Fastly-Purge-Requires-Auth = "1";
 	}
 }
@@ -23,7 +23,7 @@ sub vcl_fetch {
 			return(deliver_stale);
 		}
 
-		if (req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
+		if (req.restarts < 1 && (req.method == "GET" || req.method == "HEAD")) {
 			restart;
 		}
 
@@ -32,7 +32,7 @@ sub vcl_fetch {
 
 #FASTLY fetch
 
-	if (http_status_matches(beresp.status, "500,502,503,504") && req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
+	if (http_status_matches(beresp.status, "500,502,503,504") && req.restarts < 1 && (req.method == "GET" || req.method == "HEAD")) {
 		restart;
 	}
 

@@ -19,7 +19,7 @@
   "scripts": {
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",
     "lint": "eslint .",
-    "clean": "rimraf ./dist ./.cache",
+    "clean": "rimraf ./dist",
     "build": "run-s clean eleventy build:*",
     "build:app": "js-compute-runtime app/index.js",
     "build:sass": "mkdir -p dist/css && sass src/assets/css/index.scss  --style=compressed --load-path=node_modules --load-path=node_modules/@financial-times | postcss --use autoprefixer --output dist/css/index.css --map",
