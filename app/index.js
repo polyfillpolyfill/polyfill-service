@@ -145,7 +145,7 @@ async function polyfill(requestURL, c) {
 	if (!isRunningLocally) {
 		const generation = '173'
 		let cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
-		let value = SimpleCache.getOrSet(cacheKey, async () => {
+		let value = await SimpleCache.getOrSet(cacheKey, async () => {
 
 			const parameters = getPolyfillParameters(requestURL);
 
