@@ -5,6 +5,7 @@ import UA from "@financial-times/polyfill-useragent-normaliser/lib/normalise-use
 import useragent_parser from "@financial-times/useragent_parser/lib/ua_parser-c-at-e.js";
 import { normalise_querystring_parameters_for_polyfill_bundle } from "./normalise-query-parameters.js";
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { logger } from './logger.js'
 import { get as getFile } from "@jakechampion/c-at-e-file-server";
 import { getPolyfillParameters } from "./get-polyfill-parameters.js";
@@ -33,6 +34,7 @@ app.onError((error, c) => {
 	return c.text('Internal Server Error', 500)
 });
 app.use('*', logger());
+app.use('*', cors())
 app.get("/", (c) => {
 	const response = c.redirect("/v3/", 301)
 	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
