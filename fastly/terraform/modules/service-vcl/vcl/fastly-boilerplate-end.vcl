@@ -1,8 +1,8 @@
 # Finish up the VCL.
 sub vcl_recv {
-	if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
+	/* if (req.request != "HEAD" && req.request != "GET" && req.request != "FASTLYPURGE") {
 		return (pass);
-	}
+	} */
 
 	return (lookup);
 }

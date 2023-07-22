@@ -11,7 +11,7 @@ describe("GET /v3/", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -22,7 +22,7 @@ describe("GET /v3/api", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -33,7 +33,7 @@ describe("GET /v3/url-builder", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -44,7 +44,7 @@ describe("GET /v3/privacy-policy", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -55,7 +55,7 @@ describe("GET /v3/report-a-bug", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -66,7 +66,7 @@ describe("GET /v3/supported-browsers", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });
@@ -77,7 +77,7 @@ describe("GET /v3/terms", function () {
     assert.equal(response.status, 200);
     assert.equal(
       response.headers["cache-control"],
-      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800"
+      "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable"
     );
     assert.match(response.headers['content-type'], /text\/html/)
   });

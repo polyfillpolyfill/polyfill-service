@@ -59,7 +59,7 @@ sub vcl_fetch {
 	unset beresp.http.Vary;
 
 	if (beresp.status == 301 || beresp.status == 308) {
-		set beresp.http.Cache-Control = "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800";
+		set beresp.http.Cache-Control = "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable";
 	}
 
 	# https://yann.mandragor.org/posts/purge-group-pattern/

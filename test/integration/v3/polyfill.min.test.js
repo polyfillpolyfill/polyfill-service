@@ -19,7 +19,7 @@ describe("GET /v3/polyfill.js", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
@@ -47,7 +47,7 @@ describe("GET /v3/polyfill.js?features=carrot&strict", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
@@ -75,7 +75,7 @@ describe("GET /v3/polyfill.js?callback=AAA&callback=BBB", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
@@ -192,7 +192,7 @@ describe("HEAD /v3/polyfill.min.js", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 	});
 });
@@ -211,7 +211,7 @@ describe("GET /v3/polyfill.min.js", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 
 		assert.ok(typeof response.data === 'string');
@@ -241,7 +241,7 @@ describe("GET /v3/polyfill.min.js?callback=AAA&callback=BBB", function() {
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 
 		assert.ok(typeof response.data === 'string');

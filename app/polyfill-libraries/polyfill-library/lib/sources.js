@@ -73,7 +73,6 @@ function stringToReadableStream(value) {
 */
 let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
-	console.log({store, featureName, type})
 	if (!config) {
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);

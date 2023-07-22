@@ -33,8 +33,11 @@ app.onError((error, c) => {
 	return c.text('Internal Server Error', 500)
 });
 app.use('*', logger());
-app.get("/", (c) => c.redirect("/v3/", 301));
-app.head("/", (c) => c.redirect("/v3/", 301));
+app.get("/", (c) => {
+	const response = c.redirect("/v3/", 301)
+	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+	return response;
+});
 app.get("/__health", (c) => {
 	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	return c.json({
@@ -54,30 +57,7 @@ app.get("/__health", (c) => {
 		}]
 	});
 });
-app.head("/__health", (c) => {
-	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
-	return c.json({
-		schemaVersion: 1,
-		name: "origami-polyfill-service",
-		systemCode: "origami-polyfill-service",
-		description: "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent",
-		checks: [{
-			name: "Server is up",
-			ok: true,
-			severity: 1,
-			businessImpact: "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
-			technicalSummary: "Tests that the service is up.",
-			panicGuide: "Look at the application logs.",
-			checkOutput: "None",
-			lastUpdated: new Date()
-		}]
-	});
-});
 app.get("/__gtg", (c) => {
-	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
-	return c.text("OK");
-});
-app.head("/__gtg", (c) => {
 	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
 	return c.text("OK");
 });
@@ -106,19 +86,26 @@ app.get("/https://cdn.polyfill.io/", c => c.notFound());
 app.get("/https://polyfill.io/", c => c.notFound());
 app.get("/pages/fixedData", c => c.notFound());
 app.get("/pages/fixedData/", c => c.notFound());
-app.get("/v1", (c) => c.redirect("/v3/", 301));
+app.get("/v1", (c) => {
+	const response = c.redirect("/v3/", 301)
+	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+	return response
+});
 app.get("/v1/*", (c) => {
 	const requestURL = new URL(c.req.url);
 	requestURL.searchParams.delete("libVersion");
 	requestURL.searchParams.delete("gated");
 	//   res.body = "API version 1 has been decommissioned. Your request is being redirected to v2.  The `libVersion` and `gated` query string parameters are no longer supported and if present have been removed from your request.\n\nA deprecation period for v1 existed between August and December 2015, during which time v1 requests were honoured but a deprecation warning was added to output.";
-	return c.redirect(
+	const response = c.redirect(
 		requestURL.pathname.replace("/v1", "/v2") + requestURL.search, 301
 	);
+	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+	return response
 });
 
 app.options("*", (c) => {
 	c.res.headers.set("allow", "OPTIONS, GET, HEAD");
+	c.res.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	return c.text("");
 });
 
@@ -151,7 +138,7 @@ function respondWithBundle(c, bundle) {
 	c.status(200);
 	c.header("Access-Control-Allow-Origin", "*");
 	c.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
-	c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
+	c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	c.header("Content-Type", "text/javascript; charset=UTF-8");
 	c.header("surrogate-key", "polyfill-service");
 	c.header("Last-Modified", lastModified);
@@ -212,7 +199,7 @@ async function polyfill(requestURL, c) {
 	// 404 if no library for the requested version was found.
 	if (!library) {
 		c.status(400);
-		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
+		c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 		return c.text(`requested version does not exist`);
 	}
 
@@ -231,16 +218,15 @@ async function polyfill(requestURL, c) {
 }
 
 app.get("*", handler);
-app.head("*", handler);
-app.options("*", handler);
 function methodNotAllowed(c) {
+	c.res.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	return c.text(`${c.req.method} METHOD NOT ALLOWED`, 405);
 }
 app.all("*", methodNotAllowed)
 app.on(['HEADX', 'PROPFIND'], '*', methodNotAllowed);
 
 app.notFound((c) => {
-	c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
+	c.res.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	return c.text('Not Found', 404)
 })
 
@@ -260,7 +246,9 @@ async function handler(c) {
 		case "www.polyfills.io":
 		case "www.polyfill.io": {
 			// Do the canonicalise redirects before the HTTPS redirect to avoid a double redirect
-			return c.redirect(`https://polyfill.io${requestURL.pathname}`, 301);
+			const response = c.redirect(`https://polyfill.io${requestURL.pathname}`, 301);
+			response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+			return response
 		}
 	}
 	const fastlyHostname = fastly.env.get("FASTLY_HOSTNAME");
@@ -269,7 +257,9 @@ async function handler(c) {
 	// https://developer.fastly.com/learning/compute/testing/#constraints-and-limitations-1
 	// if (!isRunningLocally && !c.req.headers.get('fastly-ssl')) {
 	if (!isRunningLocally && requestURL.protocol != "https:") {
-		return c.redirect(`https://${host}${requestURL.pathname}`, 301);
+		const response = c.redirect(`https://${host}${requestURL.pathname}`, 301);
+		response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+		return response
 	}
 
 	// # Because the old service had a router which allowed any words between /v2/polyfill. and .js
@@ -287,7 +277,9 @@ async function handler(c) {
 	) {
 		let urlPath = requestURL.pathname;
 		if (!(urlPath.startsWith("/v2/polyfill.") && urlPath.endsWith("js"))) {
-			return c.redirect("/v3/", 301);
+			const response = c.redirect("/v3/", 301);
+			response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+			return response
 		}
 	}
 
@@ -317,14 +309,14 @@ async function handler(c) {
 				if (response) {
 					// Enable Dynamic Compression -- https://developer.fastly.com/learning/concepts/compression/#dynamic-compression
 					response.headers.set("x-compress-hint", "on");
-					response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800");
+					response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 					return response;
 				}
 			} catch { /* empty */ }
 		} else {
 			console.log('naughty')
 		}
-		c.res.headers.set("Cache-Control", "max-age=604800, public, stale-while-revalidate=604800, stale-if-error=604800");
+		c.res.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 		return c.text('Not Found', 404)
 	}
 
