@@ -36,6 +36,7 @@ sub vcl_hash {
 	# As well as any other domains we support such as polyfills.io and cdn.polyfills.io
 	# set req.hash += req.http.host;
 	set req.hash += req.url;
+	set req.hash += req.request;
 	# We include return(hash) to stop the function falling through to the default VCL built into varnish, which for vcl_hash will add req.url and req.http.Host to the hash.
 	return(hash);
 }
