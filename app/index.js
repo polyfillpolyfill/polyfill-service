@@ -141,6 +141,21 @@ function respondWithBundle(c, bundle) {
 }
 
 let FASTLY_SERVICE_VERSION = '';
+// TODO: Implement ReadableStream getIterator() and [@@asyncIterator]() methods
+// eslint-disable-next-line no-unused-vars
+async function streamToString(stream) {
+	const decoder = new TextDecoder();
+	let string = '';
+	let reader = stream.getReader()
+	// eslint-disable-next-line no-constant-condition
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done) {
+			return string;
+		}
+		string += decoder.decode(value)
+	}
+}
 async function polyfill(requestURL, c) {
 	if (!isRunningLocally) {
 		const generation = '173'
@@ -190,7 +205,7 @@ async function polyfill(requestURL, c) {
 
 			let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
 			return {
-				value: bundle,
+				value: await streamToString(bundle),
 				ttl: 86400,
 			}
 		});
