@@ -73,6 +73,7 @@ function stringToReadableStream(value) {
  * @param {'min'|'raw'} type - Which implementation should be returned: minified or raw implementation.
  * @returns {string} A ReadStream instance of the polyfill implementation as a utf-8 string.
 */
+let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
 	if (!config) {
 		let n = store.replace(/(-|\.)/g, '_');
@@ -85,20 +86,20 @@ export async function streamPolyfillSource(store, featureName, type) {
 	if (c) {
 		return stringToReadableStream(c);
 	}
-	let polyfills = new KVStore(store);
 	let polyfill = SimpleCache.get(`${store}:::${featureName}:::${type}`);
 	if (polyfill) return  polyfill.body;
-	polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
-	if (!polyfill) {
-		const ttype = type === 'raw' ? 'min' : 'raw';
-		polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+	polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+		if (!polyfills) {polyfills = new KVStore(store);}
+		polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
 		if (!polyfill) {
-			if (shouldLog()) {
-				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+			const ttype = type === 'raw' ? 'min' : 'raw';
+			polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+			if (!polyfill) {
+				if (shouldLog()) {
+					console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+				}
 			}
 		}
-	}
-	polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
 		return {
 			value: polyfill ? await polyfill.text(): '',
 			ttl: 86400,
