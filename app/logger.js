@@ -32,6 +32,7 @@ var logger = (function_ = console.log) => {
 			method
 		} = c.req;
 		const url = c.req.url;
+		let start = Date.now();
 		if (shouldLog()) {
 			log(function_, `<-- (Incoming) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Incoming */ , method, url);
 			await next();
@@ -39,7 +40,6 @@ var logger = (function_ = console.log) => {
 			await next();
 		}
 		if (shouldLog() || c.error) {
-			const start = Date.now();
 			log(function_, `--> (Outgoing) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Outgoing */ , method, url, c.res.status, time(start));
 		}
 	};
