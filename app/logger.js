@@ -1,7 +1,7 @@
 import {ConfigStore} from 'fastly:config-store';
 var humanize = (times) => {
 	const [delimiter, separator] = [",", "."];
-	const orderTimes = times.map((v) => v.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + delimiter));
+	const orderTimes = times.map((v) => v.replaceAll(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + delimiter));
 	return orderTimes.join(separator);
 };
 var time = (start) => {
