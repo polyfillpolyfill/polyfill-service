@@ -102,7 +102,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 		}
 		return {
 			value: polyfill ? await polyfill.text() : '',
-			ttl: 86400,
+			ttl: 604800,
 		}
 	})
 	let b = polyfill.body;

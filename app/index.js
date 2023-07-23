@@ -204,7 +204,7 @@ async function polyfill(requestURL, c) {
 			let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
 			return {
 				value: await streamToString(bundle),
-				ttl: 86400,
+				ttl: 604800,
 			}
 		});
 		return respondWithBundle(c, value.body);
