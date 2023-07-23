@@ -76,17 +76,17 @@ function stringToReadableStream(value) {
 */
 let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
-	if (!config) {
-		let n = store.replace(/(-|\.)/g, '_');
-		config = new ConfigStore(n);
-	}
-	let c;
-	try {
-		c = config.get(featureName + '/' + type + ".js")
-	} catch (e) { }
-	if (c) {
-		return stringToReadableStream(c);
-	}
+	// if (!config) {
+	// 	let n = store.replace(/(-|\.)/g, '_');
+	// 	config = new ConfigStore(n);
+	// }
+	// let c;
+	// try {
+	// 	c = config.get(featureName + '/' + type + ".js")
+	// } catch (e) { }
+	// if (c) {
+	// 	return stringToReadableStream(c);
+	// }
 	let polyfill = retry(async () => SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
 		if (!polyfills) { polyfills = new KVStore(store); }
 		polyfill = await polyfills.get('/' + featureName + '/' + type + ".js");
