@@ -11,6 +11,7 @@ import { getPolyfillParameters } from "./get-polyfill-parameters.js";
 
 const latestVersion = '3.111.0';
 import * as polyfillio from "./polyfill-libraries/polyfill-library/lib/index.js";
+import { retry } from './retry.js';
 
 export const app = new Hono()
 app.onError((error, c) => {
@@ -140,7 +141,7 @@ async function polyfill(requestURL, c) {
 		const generation = '173'
 		let cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
 		let error = false;
-		let value = await SimpleCache.getOrSet(cacheKey, async () => {
+		let value = await retry(async () => SimpleCache.getOrSet(cacheKey, async () => {
 			const parameters = getPolyfillParameters(requestURL);
 
 			// Map the version parameter to a version of the polyfill library.
@@ -189,7 +190,7 @@ async function polyfill(requestURL, c) {
 				value: await streamToString(bundle),
 				ttl: 604800,
 			}
-		});
+		}));
 		if (error) {
 			c.status(400);
 			c.header("Access-Control-Allow-Origin", "*");

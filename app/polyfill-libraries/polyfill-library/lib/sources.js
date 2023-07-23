@@ -4,6 +4,7 @@ import { ConfigStore } from 'fastly:config-store';
 import { KVStore } from 'fastly:kv-store';
 import { shouldLog } from "../../../logger";
 import { features } from "./features.js";
+import { retry } from '../../../retry';
 
 /**
  * Get the metadata for a specific polyfill within the collection of polyfill sources.
@@ -86,7 +87,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 	if (c) {
 		return stringToReadableStream(c);
 	}
-	let polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+	let polyfill = retry(async () => SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
 		if (!polyfills) { polyfills = new KVStore(store); }
 		polyfill = await polyfills.get('/' + featureName + '/' + type + ".js");
 		if (!polyfill) {
@@ -102,6 +103,6 @@ export async function streamPolyfillSource(store, featureName, type) {
 			value: polyfill ? await polyfill.text() : '',
 			ttl: 604800,
 		}
-	})
+	}))
 	return polyfill.body;
 }
