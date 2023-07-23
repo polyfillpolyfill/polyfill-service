@@ -33,9 +33,6 @@ app.get("/", (c) => {
 app.get("/__gtg", (c) => {
 	return c.text("OK");
 });
-app.head("/__gtg", (c) => {
-	return c.text("OK");
-});
 app.get("/v3/normalizeUa", (c) => {
 	const useragent = UA.normalize(c.req.headers.get("User-Agent"));
 	c.res.headers.set("Normalized-User-Agent", useragent);
