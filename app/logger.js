@@ -39,7 +39,8 @@ var logger = (function_ = console.log) => {
 		} else {
 			await next();
 		}
-		if (shouldLog() || c.error) {
+		let end = (Date.now()-start)/1000
+		if (end > 10 || shouldLog() || c.error) {
 			log(function_, `--> (Outgoing) FASTLY_SERVICE_VERSION: ${fastly.env.get('FASTLY_SERVICE_VERSION')}` /* Outgoing */ , method, url, c.res.status, time(start));
 		}
 	};
