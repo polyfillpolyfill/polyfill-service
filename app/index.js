@@ -29,6 +29,13 @@ app.get("/", (c) => {
 	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	return response;
 });
+
+app.get("/__gtg", (c) => {
+	return c.text("OK");
+});
+app.head("/__gtg", (c) => {
+	return c.text("OK");
+});
 app.get("/v3/normalizeUa", (c) => {
 	const useragent = UA.normalize(c.req.headers.get("User-Agent"));
 	c.res.headers.set("Normalized-User-Agent", useragent);
