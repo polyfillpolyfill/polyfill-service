@@ -95,18 +95,15 @@ export async function streamPolyfillSource(store, featureName, type) {
 		if (!polyfill) {
 			if (shouldLog()) {
 				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
-				polyfill = '';
 			}
 		}
 	}
-	if (polyfill) {
-		polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
-			return {
-				value: await polyfill.text(),
-				ttl: 86400,
-			}
-		})
-		let b = polyfill.body;
-		return b;
-	}
+	polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+		return {
+			value: polyfill ? await polyfill.text(): '',
+			ttl: 86400,
+		}
+	})
+	let b = polyfill.body;
+	return b;
 }
