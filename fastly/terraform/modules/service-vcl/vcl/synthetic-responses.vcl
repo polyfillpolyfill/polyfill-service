@@ -21,12 +21,6 @@ sub vcl_recv {
 	if (req.url ~ "^/pages/fixedData") {
 		error 907;
 	}
-	if (req.url ~ "^/__health") {
-		error 908;
-	}
-	if (req.url ~ "^/__gtg") {
-		error 909;
-	}
 }
 
 sub vcl_error {

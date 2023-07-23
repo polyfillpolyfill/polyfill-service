@@ -29,29 +29,6 @@ app.get("/", (c) => {
 	response.headers.set("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
 	return response;
 });
-app.get("/__health", (c) => {
-	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
-	return c.json({
-		schemaVersion: 1,
-		name: "origami-polyfill-service",
-		systemCode: "origami-polyfill-service",
-		description: "Open API endpoint for retrieving Javascript polyfill libraries based on the user's user agent",
-		checks: [{
-			name: "Server is up",
-			ok: true,
-			severity: 1,
-			businessImpact: "Web page rendering may degrade for customers using certain browsers. Dynamic client side behaviour is likely to fail.",
-			technicalSummary: "Tests that the service is up.",
-			panicGuide: "Look at the application logs.",
-			checkOutput: "None",
-			lastUpdated: new Date()
-		}]
-	});
-});
-app.get("/__gtg", (c) => {
-	c.res.headers.set("Cache-Control", "max-age=0, must-revalidate, no-cache, no-store, private");
-	return c.text("OK");
-});
 app.get("/v3/normalizeUa", (c) => {
 	const useragent = UA.normalize(c.req.headers.get("User-Agent"));
 	c.res.headers.set("Normalized-User-Agent", useragent);
