@@ -139,8 +139,8 @@ async function polyfill(requestURL, c) {
 	if (!isRunningLocally) {
 		const generation = '173'
 		let cacheKey = `${generation}:::${requestURL.pathname + requestURL.search}}`;
+		let error = false;
 		let value = await SimpleCache.getOrSet(cacheKey, async () => {
-
 			const parameters = getPolyfillParameters(requestURL);
 
 			// Map the version parameter to a version of the polyfill library.
@@ -177,9 +177,11 @@ async function polyfill(requestURL, c) {
 			const library = versionToLibraryMap.get(parameters.version);
 			// 404 if no library for the requested version was found.
 			if (!library) {
-				c.status(400);
-				c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
-				return c.text(`requested version does not exist`);
+				error = true;
+				return {
+					value: 'requested version does not exist',
+					ttl: 604800,
+				}
 			}
 
 			let bundle = await polyfillio.getPolyfillString(parameters, library, parameters.version);
@@ -188,6 +190,16 @@ async function polyfill(requestURL, c) {
 				ttl: 604800,
 			}
 		});
+		if (error) {
+			c.status(400);
+			c.header("Access-Control-Allow-Origin", "*");
+			c.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
+			c.header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+			c.header("Content-Type", "text/javascript; charset=UTF-8");
+			c.header("surrogate-key", "polyfill-service");
+			c.header("x-compress-hint", "on");
+			return c.body(value.body)
+		}
 		return respondWithBundle(c, value.body);
 	}
 	const parameters = getPolyfillParameters(requestURL);
