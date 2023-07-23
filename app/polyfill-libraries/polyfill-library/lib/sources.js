@@ -86,22 +86,26 @@ export async function streamPolyfillSource(store, featureName, type) {
 		return stringToReadableStream(c);
 	}
 	let polyfills = new KVStore(store);
-	let polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
-		let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
+	let polyfill = SimpleCache.get(`${store}:::${featureName}:::${type}`);
+	if (polyfill) return  polyfill.body;
+	polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
+	if (!polyfill) {
+		const ttype = type === 'raw' ? 'min' : 'raw';
+		polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
 		if (!polyfill) {
-			const ttype = type === 'raw' ? 'min' : 'raw';
-			polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
-			if (!polyfill) {
-				if (shouldLog()) {
-					console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
-				}
+			if (shouldLog()) {
+				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
 			}
 		}
-		return {
-			value: await polyfill.text(),
-			ttl: 86400,
-		}
-	})
-	let b = polyfill.body;
-	return b;
+	}
+	if (polyfill) {
+		polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+			return {
+				value: await polyfill.text(),
+				ttl: 86400,
+			}
+		})
+		let b = polyfill.body;
+		return b;
+	}
 }
