@@ -337,7 +337,7 @@ export async function getPolyfillString(options_, store, appVersion) {
 	}
 	let {readable, writable} = new TransformStream;
 	output.reduce(
-		(a, res, i, arr) => a.then(() => res.pipeTo(writable, {preventClose: (i+1) !== arr.length})),
+		(a, res, i, arr) => a.then(() => res?.pipeTo(writable, {preventClose: (i+1) !== arr.length})),
 		Promise.resolve()
 	)
 	// console.log('getPolyfillString', 'took', Date.now() - now, options_, store, appVersion);
