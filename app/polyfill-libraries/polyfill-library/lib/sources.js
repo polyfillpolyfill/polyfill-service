@@ -95,6 +95,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 		if (!polyfill) {
 			if (shouldLog()) {
 				console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+				polyfill = '';
 			}
 		}
 	}
