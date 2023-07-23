@@ -73,7 +73,6 @@ function stringToReadableStream(value) {
  * @param {'min'|'raw'} type - Which implementation should be returned: minified or raw implementation.
  * @returns {string} A ReadStream instance of the polyfill implementation as a utf-8 string.
 */
-let polyfills;
 export async function streamPolyfillSource(store, featureName, type) {
 	if (!config) {
 		let n = store.replace(/(-|\.)/g, '_');
@@ -86,9 +85,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 	if (c) {
 		return stringToReadableStream(c);
 	}
-	if (!polyfills) {
-		polyfills = new KVStore(store);
-	}
+	let polyfills = new KVStore(store);
 	let polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
 		let polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
 		if (!polyfill) {
@@ -101,7 +98,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 			}
 		}
 		return {
-			value: polyfill,
+			value: await polyfill.text(),
 			ttl: 86400,
 		}
 	})

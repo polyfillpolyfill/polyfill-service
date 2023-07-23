@@ -209,7 +209,7 @@ async function polyfill(requestURL, c) {
 				ttl: 86400,
 			}
 		});
-		return respondWithBundle(c, await value.text());
+		return respondWithBundle(c, value.body);
 	}
 	const parameters = getPolyfillParameters(requestURL);
 
