@@ -13,7 +13,7 @@ import { features } from "./features.js";
 
 let config;
 export async function getPolyfillMeta(store, featureName) {
-	if (!featureName) { return undefined;}
+	if (!featureName) { return undefined; }
 	if (!config) {
 		let n = store.replace(/(-|\.)/g, '_');
 		config = new ConfigStore(n);
@@ -21,7 +21,7 @@ export async function getPolyfillMeta(store, featureName) {
 	let meta;
 	try {
 		meta = await config.get(featureName)
-	} catch (e) {}
+	} catch (e) { }
 	if (!meta) {
 		if (shouldLog()) {
 			console.log('store: ', store, 'missing: ', featureName)
@@ -47,13 +47,13 @@ let aliases;
  * @returns {Promise<Object|undefined>} A promise which resolves with the metadata or with `undefined` if no alias with that name exists.
  */
 export async function getConfigAliases(store, alias) {
-	if (!alias) { return undefined;}
+	if (!alias) { return undefined; }
 	if (!aliases) {
 		let n = store.replace(/(-|\.)/g, '_');
 		aliases = new ConfigStore(n + '_aliases');
 	}
 	let a = aliases.get(alias);
-	let b =  a ? JSON.parse(a) : undefined;
+	let b = a ? JSON.parse(a) : undefined;
 	return b;
 }
 
@@ -81,27 +81,27 @@ export async function streamPolyfillSource(store, featureName, type) {
 	}
 	let c;
 	try {
-		c =  config.get(featureName+'/'+ type + ".js")
-	} catch(e) {}
+		c = config.get(featureName + '/' + type + ".js")
+	} catch (e) { }
 	if (c) {
 		return stringToReadableStream(c);
 	}
 	let polyfill = SimpleCache.get(`${store}:::${featureName}:::${type}`);
-	if (polyfill) return  polyfill.body;
+	if (polyfill) return polyfill.body;
 	polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
-		if (!polyfills) {polyfills = new KVStore(store);}
-		polyfill = await polyfills.get('/'+featureName+'/'+ type + ".js");
+		if (!polyfills) { polyfills = new KVStore(store); }
+		polyfill = await polyfills.get('/' + featureName + '/' + type + ".js");
 		if (!polyfill) {
 			const ttype = type === 'raw' ? 'min' : 'raw';
-			polyfill = await polyfills.get('/'+featureName+'/'+ ttype + ".js");
+			polyfill = await polyfills.get('/' + featureName + '/' + ttype + ".js");
 			if (!polyfill) {
 				if (shouldLog()) {
-					console.log('store: ', store, 'missing: ', '/'+featureName+'/'+ type + ".js")
+					console.log('store: ', store, 'missing: ', '/' + featureName + '/' + type + ".js")
 				}
 			}
 		}
 		return {
-			value: polyfill ? await polyfill.text(): '',
+			value: polyfill ? await polyfill.text() : '',
 			ttl: 86400,
 		}
 	})
