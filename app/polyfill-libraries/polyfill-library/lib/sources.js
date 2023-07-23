@@ -86,9 +86,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 	if (c) {
 		return stringToReadableStream(c);
 	}
-	let polyfill = SimpleCache.get(`${store}:::${featureName}:::${type}`);
-	if (polyfill) return polyfill.body;
-	polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
+	let polyfill = SimpleCache.getOrSet(`${store}:::${featureName}:::${type}`, async () => {
 		if (!polyfills) { polyfills = new KVStore(store); }
 		polyfill = await polyfills.get('/' + featureName + '/' + type + ".js");
 		if (!polyfill) {
@@ -105,6 +103,5 @@ export async function streamPolyfillSource(store, featureName, type) {
 			ttl: 604800,
 		}
 	})
-	let b = polyfill.body;
-	return b;
+	return polyfill.body;
 }
