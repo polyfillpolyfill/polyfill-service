@@ -24,7 +24,7 @@ export async function getPolyfillMeta(store, featureName) {
 	} catch (e) { }
 	if (!meta) {
 		if (shouldLog()) {
-			console.log('store: ', store, 'missing: ', featureName)
+			console.log('getPolyfillMeta', 'store: ', store, 'missing: ', featureName)
 		}
 		return undefined;
 	}
@@ -96,7 +96,7 @@ export async function streamPolyfillSource(store, featureName, type) {
 			polyfill = await polyfills.get('/' + featureName + '/' + ttype + ".js");
 			if (!polyfill) {
 				if (shouldLog()) {
-					console.log('store: ', store, 'missing: ', '/' + featureName + '/' + type + ".js")
+					console.log('streamPolyfillSource', 'store: ', store, 'missing: ', '/' + featureName + '/' + type + ".js")
 				}
 			}
 		}

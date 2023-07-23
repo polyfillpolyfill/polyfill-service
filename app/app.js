@@ -253,7 +253,6 @@ async function handler(c) {
 	let requestURL = new URL(c.req.url);
 	const host = c.req.headers.get('host');
 	FASTLY_SERVICE_VERSION = fastly.env.get('FASTLY_SERVICE_VERSION');
-	// console.log('FASTLY_SERVICE_VERSION', FASTLY_SERVICE_VERSION);
 	c.header('FASTLY_SERVICE_VERSION', FASTLY_SERVICE_VERSION);
 	// Canonicalize requests onto https://polyfill.io (and allow https://polyfills.io)
 	switch (host) {
