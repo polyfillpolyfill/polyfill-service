@@ -14,8 +14,6 @@ We consider the security of our systems a top priority. But no matter how much e
 
 If you discover a security vulnerability, please use one of the following means of communications to report it to us:
 
-- Report the security issue to the Financial Times through the [HackerOne program](https://hackerone.com/financialtimes). They will help triage the security issue and work with all involved parties to remediate and release a fix. If you are not already invited to our HackerOne program, please email [origami.support+security@ft.com](mailto:origami.support+security@ft.com) and we will add you to the program.
-
-- Report the security issue to the project maintainers directly at [origami.support+security@ft.com](mailto:origami.support+security@ft.com).
+- Report the security issue to the project maintainers directly at [polyfill@jakechampion.name](mailto:polyfill@jakechampion.name).
 
 Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.

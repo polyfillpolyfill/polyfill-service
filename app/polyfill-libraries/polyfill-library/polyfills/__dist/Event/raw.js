@@ -72,7 +72,7 @@
 			listener = arguments[1];
 
 			if (element === window && type in unlistenableWindowEvents) {
-				throw new Error('In IE8 the event: ' + type + ' is not available on the window object. Please see https://github.com/Financial-Times/polyfill-service/issues/317 for more information.');
+				throw new Error('In IE8 the event: ' + type + ' is not available on the window object. Please see https://github.com/JakeChampion/polyfill-service/issues/317 for more information.');
 			}
 
 			if (!element._events) {

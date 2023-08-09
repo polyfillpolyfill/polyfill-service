@@ -165,7 +165,7 @@ const renderFeatureList = ({ polyfillAliases, polyfills }) => {
 							${item.license ? `<li class='license'><a title='This polyfill has a specific licence' href='https://choosealicense.com/licenses/${item.licenseLowerCase}'>License: ${item.license}</a></li>` : ""}
 							${item.spec ? `<li><a href='${item.spec}'>Specification</a></li>` : ""}
 							${item.docs ? `<li><a href='${item.docs}'>Documentation</a></li>` : ""}
-							${item.baseDir ? `<li><a href='https://github.com/Financial-Times/polyfill-library/tree/master/polyfills/${item.baseDir}'>Polyfill source</a></li>` : ""}
+							${item.baseDir ? `<li><a href='https://github.com/JakeChampion/polyfill-library/tree/master/polyfills/${item.baseDir}'>Polyfill source</a></li>` : ""}
 						</ul>
 					</div>
 				</div>

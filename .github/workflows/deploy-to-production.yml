@@ -46,16 +46,3 @@ jobs:
         fastly_compute_service_id: ${{ env.fastly_compute_service_id }}
         fastly_top_pops_config: ${{ env.fastly_top_pops_config }}
         fastly_compute_edge_config: "${{ env.fastly_compute_edge_config }}"
-
-  create-change-log:
-    needs: [deploy-to-production]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: Financial-Times/change-api-action@v1
-        name: Create new change log
-        with:
-          change-api-key: ${{ secrets.CHANGE_API_KEY }}
-          system-code: "origami-polyfill-service"
-          environment: prod
-          slack-channels: "ft-changes,origami-deploys"

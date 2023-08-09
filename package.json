@@ -4,17 +4,17 @@
   "private": true,
   "contributors": [
     {
-      "name": "FT Origami",
-      "email": "origami.support@ft.com",
-      "url": "https://origami.ft.com"
+      "name": "Jake Champion",
+      "email": "me@jakechampion.name",
+      "url": "https://jakechampion.name"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/financial-times/polyfill-service.git"
+    "url": "https://github.com/JakeChampion/polyfill-service.git"
   },
   "bugs": {
-    "url": "https://github.com/financial-times/polyfill-service/issues"
+    "url": "https://github.com/JakeChampion/polyfill-service/issues"
   },
   "scripts": {
     "fmt": "terraform fmt fastly/terraform/ && eslint . --fix",

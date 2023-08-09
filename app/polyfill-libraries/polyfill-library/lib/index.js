@@ -260,7 +260,7 @@ export async function getPolyfillString(options_, store, appVersion) {
 	if (!options.minify) {
 		explainerComment.push(
 			appVersionText,
-			"For detailed credits and licence information see https://github.com/financial-times/polyfill-service.",
+			"For detailed credits and licence information see https://github.com/JakeChampion/polyfill-service.",
 			"",
 			"Features requested: " + Object.keys(options.features),
 			"",

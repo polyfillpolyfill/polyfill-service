@@ -18,7 +18,7 @@ This project requires [Node.js](https://nodejs.org/)
 ## Getting started
 
 ```shell
-$ git clone https://github.com/Financial-Times/polyfill-service.git
+$ git clone https://github.com/JakeChampion/polyfill-service.git
 $ cd polyfill-service
 $ npm ci
 $ npm run build # build the assets for the website
@@ -58,13 +58,11 @@ Every merge to the main branch will trigger a release to [staging]. When ready t
 3. Follow the interactive release process. `npm version [major|minor|patch]`
 4. Push the changes to GitHub and make a Pull-Request. `git push origin [name]`
 5. Merge the Pull-Request. This triggers [circle-ci] to deploy the service and to publish the package to [npm].
-6. Announce the release on the [@polyfillio] Twitter account.
 
 ---
 
 _Many thanks to [create-react-app](https://github.com/facebook/create-react-app/blob/main/CONTRIBUTING.md) for the inspiration with this contributing guide_
 
-[@polyfillio]: https://twitter.com/polyfillio
 [npm]: https://www.npmjs.com/
 [staging]: https://qa.polyfill.io
 [production]: https://polyfill.io

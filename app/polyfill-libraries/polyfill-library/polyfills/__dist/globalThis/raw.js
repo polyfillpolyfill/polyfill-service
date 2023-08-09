@@ -43,7 +43,7 @@
 		// NodeJS
 		freeGlobal ||
 		// Everything else so long as they are not running with a Content Security Policy which forbids using `Function`.
-		// If you reach here and have CSP forbidding `Function`, please open an issue on https://github.com/Financial-Times/polyfill-library
+		// If you reach here and have CSP forbidding `Function`, please open an issue on https://github.com/JakeChampion/polyfill-library
 		Function("return this")();
 
 	// Export the object
