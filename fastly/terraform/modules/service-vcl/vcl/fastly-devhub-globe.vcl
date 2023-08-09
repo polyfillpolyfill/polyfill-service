@@ -1,3 +1,10 @@
+table globeviz_config {
+    "sample_rate": "1000",
+    "sample_rate_AF": "10",
+    "sample_rate_SA": "100",
+    "service_name": "PIO"
+}
+
 // https://deviceatlas.com/device-data/explorer/#defined_property_values/7/2705619
 table globeviz_known_browsers {
   "Chrome": "C",
@@ -23,10 +30,17 @@ table globeviz_known_browsers {
 //    C               Browser (1 char: C, F, E, K, S, A)
 //
 sub vcl_log {
+  declare local var.sample_rate INTEGER;
+  
+  set var.sample_rate = std.atoi(
+    table.lookup(globeviz_config, "sample_rate_"+client.geo.continent_code, 
+      table.lookup(globeviz_config, "sample_rate", "100000")
+    )
+  );
   // Record only non-shielding, non-VPN requests at the specified sample frequency
-  if (fastly.ff.visits_this_service == 0 && client.geo.proxy_type == "?" && randombool(1,std.atoi(table.lookup(toppops_config, "sample_rate", "100000")))) {
+  if (fastly.ff.visits_this_service == 0 && client.geo.proxy_type == "?" && randombool(1, var.sample_rate)) {
     log "syslog " req.service_id " fastly-devrel-traffic-globe :: "
-      table.lookup(toppops_config, "service_name", "-") " "
+      table.lookup(globeviz_config, "service_name", "-") " "
       server.datacenter " "
       client.geo.latitude "," client.geo.longitude " "
       time.elapsed.usec " "
