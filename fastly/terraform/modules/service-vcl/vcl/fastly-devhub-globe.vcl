@@ -1,7 +1,8 @@
 table globeviz_config {
     "sample_rate": "1000",
-    "sample_rate_AF": "10",
+    "sample_rate_AF": "50",
     "sample_rate_SA": "100",
+    "sample_rate_OC": "100",
     "service_name": "PIO"
 }
 
