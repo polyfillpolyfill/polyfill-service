@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@fastly/js-compute':
-    specifier: ^3.3.0
-    version: 3.3.0
+    specifier: ^3.3.1
+    version: 3.3.1
   '@financial-times/o-message':
     specifier: ^5.4.2
     version: 5.4.2(@financial-times/math@1.1.0)(@financial-times/o-brand@4.2.1)(@financial-times/o-buttons@7.8.2)(@financial-times/o-colors@6.6.2)(@financial-times/o-grid@6.1.7)(@financial-times/o-icons@7.6.0)(@financial-times/o-spacing@3.2.3)(@financial-times/o-typography@7.4.1)
@@ -1021,8 +1021,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fastly/js-compute@3.3.0:
-    resolution: {integrity: sha512-kFonE2pDt6SloppCelgOvTb3LrVemzZgwqu6O+g8i2dZ9OW4qf4h8ElB1e/Mc+4lgBPsWwMKJnW3SxLK3Rgrkw==}
+  /@fastly/js-compute@3.3.1:
+    resolution: {integrity: sha512-Oesiu477geflY8pROqZGkvpUiPmLFXjsCJDPA6idg9BIJLUGN67+tE6OhGf4iv8thnhBaIaD/Cxkoj1eBsaycQ==}
     engines: {node: 16 - 20, npm: ^8 || ^9}
     hasBin: true
     dependencies:

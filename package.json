@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@fastly/js-compute": "^3.3.0",
+    "@fastly/js-compute": "^3.3.1",
     "@financial-times/o-message": "^5.4.2",
     "@financial-times/polyfill-useragent-normaliser": "^1.10.2",
     "@financial-times/useragent_parser": "^1.6.3",
