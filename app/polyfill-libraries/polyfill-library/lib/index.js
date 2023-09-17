@@ -238,14 +238,7 @@ export async function getPolyfillString(options_, store, appVersion) {
 						}
 					}
 
-					feature.comment =
-						featureName +
-						", License: " +
-						(polyfill.license || "CC0") +
-						(feature.dependencyOf.size > 0 || feature.aliasOf.size > 0 ?
-							' (required by "' + [...feature.dependencyOf, ...feature.aliasOf].join('", "') +
-							'")' :
-							"");
+					feature.comment = featureName + ", License: " + (polyfill.license || "CC0");
 				}
 			});
 		})
