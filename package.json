@@ -26,7 +26,7 @@
     "build:js": "mkdir -p dist/js && esbuild src/assets/js/index.js --bundle --minify > dist/js/index.min.js",
     "dev": "npm run clean && nodemon --exec \"npm run build && npm run start\"",
     "eleventy": "eleventy --config .eleventy.js",
-    "start": "viceroy bin/main.wasm -C fastly.toml",
+    "start": "fastly compute serve --verbose",
     "test": "NODE_ENV='production' start-test start 'http://127.0.0.1:7878/v3/' test:integration",
     "test:integration": "mocha test/integration/*.test.js test/integration/**/*.test.js --recursive --check-leaks --timeout 60000 --exit --bail",
     "postinstall": "patch-package"
