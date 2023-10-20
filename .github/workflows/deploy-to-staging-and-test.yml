@@ -13,45 +13,45 @@ jobs:
   deploy-to-staging:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions-rust-lang/setup-rust-toolchain@v1
-    - name: Set cache-key
-      id: cache-key
-      run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-    - name: Restore compute-package from cache
-      uses: actions/cache@v3
-      id: compute-package
-      with:
-        path: pkg/package.tar.gz
-        key: ${{ steps.cache-key.outputs.CACHE_KEY }}
-    - if: steps.compute-package.outputs.cache-hit != 'true'
-      name: Set up Fastly CLI
-      uses: fastly/compute-actions/setup@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        cli_version: '10.4.0'
-    - if: steps.compute-package.outputs.cache-hit != 'true'
-      run: fastly compute build --package-name package
-    - uses: actions/upload-artifact@v3
-      with:
-        name: ${{ steps.cache-key.outputs.CACHE_KEY }}
-        path: pkg/package.tar.gz
-    - uses: ./.github/actions/terraform
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        terraform_working_dir: fastly/terraform/staging
-        fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
-        fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
-        fastly_compute_service_id: ${{ env.fastly_compute_service_id }}
-        fastly_top_pops_config: ${{ env.fastly_top_pops_config }}
-        fastly_compute_edge_config: ${{ env.fastly_compute_edge_config }}
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # pin@v3
+      - uses: actions-rust-lang/setup-rust-toolchain@f3c84ee10bf5a86e7a5d607d487bf17d57670965 # pin@v1
+      - name: Set cache-key
+        id: cache-key
+        run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Restore compute-package from cache
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # pin@v3
+        id: compute-package
+        with:
+          path: pkg/package.tar.gz
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+      - if: steps.compute-package.outputs.cache-hit != 'true'
+        name: Set up Fastly CLI
+        uses: fastly/compute-actions/setup@b449664968a1faa936c85ca310370da3cb266d24 # pin@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          cli_version: '10.4.0'
+      - if: steps.compute-package.outputs.cache-hit != 'true'
+        run: fastly compute build --package-name package
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # pin@v3
+        with:
+          name: ${{ steps.cache-key.outputs.CACHE_KEY }}
+          path: pkg/package.tar.gz
+      - uses: ./.github/actions/terraform
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_working_dir: fastly/terraform/staging
+          fastly-api-token: ${{ secrets.FASTLY_API_KEY }}
+          fastly_vcl_service_id: ${{ env.fastly_vcl_service_id }}
+          fastly_compute_service_id: ${{ env.fastly_compute_service_id }}
+          fastly_top_pops_config: ${{ env.fastly_top_pops_config }}
+          fastly_compute_edge_config: ${{ env.fastly_compute_edge_config }}
 
   end-to-end-test:
-    needs: [deploy-to-staging]
+    needs: [ deploy-to-staging ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.1.0
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # pin@v3
+      - uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236 # pin@v3.1.0
         with:
           node-version: 18.x
       - name: 'Install test dependencies'
