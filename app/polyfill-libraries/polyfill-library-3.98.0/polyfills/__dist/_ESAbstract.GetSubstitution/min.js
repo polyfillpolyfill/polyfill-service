@@ -1,1 +1,0 @@
-!function(){function n(n){return/^[0-9]$/.test(n)}}();

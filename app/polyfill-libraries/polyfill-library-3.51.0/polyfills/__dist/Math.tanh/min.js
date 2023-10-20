@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"tanh",function t(n){var e;return n===Infinity?1:n===-Infinity?-1:((e=Math.exp(2*n))-1)/(e+1)});

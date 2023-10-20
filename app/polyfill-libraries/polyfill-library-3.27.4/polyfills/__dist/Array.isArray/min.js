@@ -1,1 +1,0 @@
-CreateMethodProperty(Array,"isArray",function(r){return IsArray(r)});

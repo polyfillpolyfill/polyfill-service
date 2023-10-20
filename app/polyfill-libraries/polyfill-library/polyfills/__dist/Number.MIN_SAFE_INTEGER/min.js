@@ -1,1 +1,0 @@
-Object.defineProperty(Number,"MIN_SAFE_INTEGER",{enumerable:!1,configurable:!1,writable:!1,value:-(Math.pow(2,53)-1)});

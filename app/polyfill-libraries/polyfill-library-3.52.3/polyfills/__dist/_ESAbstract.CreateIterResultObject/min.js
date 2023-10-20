@@ -1,1 +1,0 @@
-function CreateIterResultObject(e,r){if("boolean"!==Type(r))throw new Error;var t={};return CreateDataProperty(t,"value",e),CreateDataProperty(t,"done",r),t}

@@ -1,1 +1,0 @@
-CreateMethodProperty(Number,"isInteger",function(e){return"number"===Type(e)&&(!isNaN(e)&&e!==Infinity&&e!==-Infinity&&ToInteger(e)===e)});

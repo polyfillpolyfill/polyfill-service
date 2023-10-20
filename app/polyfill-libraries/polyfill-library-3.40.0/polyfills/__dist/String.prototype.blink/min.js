@@ -1,1 +1,0 @@
-CreateMethodProperty(String.prototype,"blink",function t(){var t=this;return CreateHTML(t,"blink","","")});

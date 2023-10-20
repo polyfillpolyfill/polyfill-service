@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"trunc",function t(r){return r<0?Math.ceil(r):Math.floor(r)});

@@ -1,1 +1,0 @@
-String.prototype[Symbol.iterator]=function(){return new StringIterator(this)};

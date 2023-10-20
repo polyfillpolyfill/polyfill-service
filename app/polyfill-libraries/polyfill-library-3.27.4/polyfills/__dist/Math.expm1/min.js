@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"expm1",function(n){return isNaN(n)?NaN:0===n&&1/n===Infinity?0:0===n&&1/n==-Infinity?-0:n===Infinity?Infinity:n===-Infinity?-1:n>-1e-6&&n<1e-6?n+n*n/2:Math.exp(n)-1});

@@ -1,1 +1,0 @@
-"Symbol"in this&&"iterator"in Symbol&&"function"==typeof Array.prototype[Symbol.iterator]?CreateMethodProperty(Array.prototype,"values",Array.prototype[Symbol.iterator]):CreateMethodProperty(Array.prototype,"values",function(){var r=ToObject(this);return new ArrayIterator(r,"value")});

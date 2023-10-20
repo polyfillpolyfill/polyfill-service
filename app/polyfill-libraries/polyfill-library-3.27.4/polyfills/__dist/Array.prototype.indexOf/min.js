@@ -1,1 +1,0 @@
-CreateMethodProperty(Array.prototype,"indexOf",function(r){var e=ToObject(this),t=ToLength(Get(e,"length"));if(0===t)return-1;var n=ToInteger(arguments[1]);if(n>=t)return-1;if(n>=0)var o=-0===n?0:n;else{var o=t+n;o<0&&(o=0)}for(;o<t;){if(HasProperty(e,ToString(o))){if(r===Get(e,ToString(o)))return o}o+=1}return-1});

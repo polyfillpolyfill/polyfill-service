@@ -1,1 +1,0 @@
-Math.asinh=function(t){return t===-Infinity?t:Math.log(t+Math.sqrt(t*t+1))};

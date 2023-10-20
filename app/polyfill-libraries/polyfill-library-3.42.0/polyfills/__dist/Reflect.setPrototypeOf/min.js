@@ -1,1 +1,0 @@
-CreateMethodProperty(Reflect,"setPrototypeOf",function t(e,r){if("object"!==Type(e))throw new TypeError(Object.prototype.toString.call(e)+" is not an Object");if("object"!==Type(r)&&null!==r)throw new TypeError(Object.prototype.toString.call(r)+" is not an Object or null");if(e===r)return!1;try{return Object.setPrototypeOf(e,r),Reflect.getPrototypeOf(e)===r}catch(o){return!1}});

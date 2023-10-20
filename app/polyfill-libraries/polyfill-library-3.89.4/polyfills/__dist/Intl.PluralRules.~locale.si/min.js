@@ -1,1 +1,0 @@
-Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({locale:"si",categories:{cardinal:["one","other"],ordinal:["other"]},fn:function(l,a){var e=String(l).split("."),t=e[0],n=e[1]||"";return a?"other":0==l||1==l||0==t&&1==n?"one":"other"}});

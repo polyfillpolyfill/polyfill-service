@@ -1,1 +1,0 @@
-!function(t){document.createDocumentFragment().constructor.prototype.prepend=function e(){this.insertBefore(_mutation(arguments),this.firstChild)},t.DocumentFragment.prototype.prepend=function n(){this.insertBefore(_mutation(arguments),this.firstChild)}}(self);

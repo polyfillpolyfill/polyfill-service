@@ -1,1 +1,0 @@
-function IteratorStep(t){var r=IteratorNext(t);return!0!==IteratorComplete(r)&&r}

@@ -1,1 +1,0 @@
-function IsCallable(n){return"function"==typeof n}

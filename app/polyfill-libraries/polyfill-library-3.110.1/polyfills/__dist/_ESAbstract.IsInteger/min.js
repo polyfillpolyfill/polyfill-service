@@ -1,1 +1,0 @@
-function IsInteger(n){return"number"===Type(n)&&(!isNaN(n)&&n!==Infinity&&n!==-Infinity&&Math.floor(Math.abs(n))===Math.abs(n))}

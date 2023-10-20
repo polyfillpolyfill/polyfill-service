@@ -1,1 +1,0 @@
-function HasOwnProperty(r,t){return Object.prototype.hasOwnProperty.call(r,t)}

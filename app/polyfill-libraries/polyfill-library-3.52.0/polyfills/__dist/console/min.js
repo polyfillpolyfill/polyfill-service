@@ -1,1 +1,0 @@
-self.console=self.console||{};

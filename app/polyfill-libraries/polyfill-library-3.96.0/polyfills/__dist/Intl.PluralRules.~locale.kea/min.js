@@ -1,1 +1,0 @@
-Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({data:{kea:{categories:{cardinal:["other"],ordinal:["other"]},fn:function(a,l){return"other"}}},availableLocales:["kea"]});

@@ -1,1 +1,0 @@
-Object.freeze=function(e){return e};

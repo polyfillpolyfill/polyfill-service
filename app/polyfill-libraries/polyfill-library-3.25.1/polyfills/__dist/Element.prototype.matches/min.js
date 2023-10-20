@@ -1,1 +1,0 @@
-Element.prototype.matches=Element.prototype.webkitMatchesSelector||Element.prototype.oMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.mozMatchesSelector||function(e){for(var t=this,o=(t.document||t.ownerDocument).querySelectorAll(e),r=0;o[r]&&o[r]!==t;)++r;return!!o[r]};

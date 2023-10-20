@@ -1,1 +1,0 @@
-CreateMethodProperty(Array.prototype,"findIndex",function(e){var r=ToObject(this),t=ToLength(Get(r,"length"));if(!1===IsCallable(e))throw new TypeError(e+" is not a function");for(var n=arguments.length>1?arguments[1]:undefined,o=0;o<t;){var a=ToString(o),i=Get(r,a);if(ToBoolean(Call(e,n,[i,o,r])))return o;o+=1}return-1});

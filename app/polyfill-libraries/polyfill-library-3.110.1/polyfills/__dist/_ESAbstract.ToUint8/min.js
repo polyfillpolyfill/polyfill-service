@@ -1,1 +1,0 @@
-function ToUInt8(n){var i=Number(n);return isNaN(i)||1/i===Infinity||1/i==-Infinity||i===Infinity||i===-Infinity?0:(i<0?-1:1)*Math.floor(Math.abs(i))%Math.pow(2,8)}

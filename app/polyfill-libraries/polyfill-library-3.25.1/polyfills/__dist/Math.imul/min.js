@@ -1,1 +1,0 @@
-Math.imul=function(n,r){var t=n>>>16&65535,u=65535&n,a=r>>>16&65535,i=65535&r;return u*i+(t*i+u*a<<16>>>0)|0};

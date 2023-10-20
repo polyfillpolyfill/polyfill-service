@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"cbrt",function n(t){if(isNaN(t))return NaN;if(0===t&&1/t===Infinity)return 0;if(0===t&&1/t==-Infinity)return-0;if(t===Infinity)return Infinity;if(t===-Infinity)return-Infinity;var i=Math.pow(Math.abs(t),1/3);return t<0?-i:i});

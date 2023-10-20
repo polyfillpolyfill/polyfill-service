@@ -1,1 +1,0 @@
-CreateMethodProperty(ArrayBuffer,"isView",function e(r){return"object"===Type(r)&&r.buffer instanceof ArrayBuffer});

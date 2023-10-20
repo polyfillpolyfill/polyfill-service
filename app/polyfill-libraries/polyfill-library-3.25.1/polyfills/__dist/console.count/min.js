@@ -1,1 +1,0 @@
-this.console.count=function(){};

@@ -1,1 +1,0 @@
-Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({locale:"ro",categories:{cardinal:["one","few","other"],ordinal:["one","other"]},fn:function(e,l){var a=String(e).split("."),o=!a[1],n=Number(a[0])==e,r=n&&a[0].slice(-2);return l?1==e?"one":"other":1==e&&o?"one":!o||0==e||r>=2&&r<=19?"few":"other"}});

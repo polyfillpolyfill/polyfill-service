@@ -1,1 +1,0 @@
-document.getElementsByClassName=function(e){return document.querySelectorAll("."+String(e).split(/\s+/).join("."))};

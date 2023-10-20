@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"clz32",function(t){var r=ToUint32(t);return r?32-r.toString(2).length:32});
