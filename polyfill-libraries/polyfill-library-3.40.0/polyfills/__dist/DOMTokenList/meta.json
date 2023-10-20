@@ -1,0 +1,27 @@
+{
+  "aliases": [
+    "default-3.3",
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default"
+  ],
+  "dependencies": [
+    "_DOMTokenList"
+  ],
+  "spec": "http://www.whatwg.org/specs/web-apps/current-work/#domtokenlist",
+  "docs": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+  "detectSource": "\"DOMTokenList\"in this&&function(s){return!(\"classList\"in s)||!s.classList.toggle(\"x\",!1)&&!s.className}(document.createElement(\"x\"))\n",
+  "baseDir": "DOMTokenList",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 1224,
+  "browsers": {
+    "edge": "<14",
+    "edge_mob": "<14",
+    "ie": "*",
+    "safari": "4 - 6.0",
+    "ie_mob": ">=10"
+  }
+}

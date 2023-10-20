@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"log1p",function(t){return Math.log(1+t)});

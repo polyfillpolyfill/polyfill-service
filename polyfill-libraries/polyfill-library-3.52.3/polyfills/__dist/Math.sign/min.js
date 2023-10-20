@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"sign",function i(n){return n=Number(n),isNaN(n)?NaN:1/n==-Infinity?-0:1/n===Infinity?0:n<0?-1:n>0?1:void 0});

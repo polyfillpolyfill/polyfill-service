@@ -1,0 +1,1 @@
+try{Object.defineProperty(self,"Reflect",{value:self.Reflect||{},writable:!0,configurable:!0,enumerable:!1})}catch(e){self.Reflect=self.Reflect||{}}

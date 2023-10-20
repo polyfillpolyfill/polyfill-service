@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"italics",function t(){var t=this;return CreateHTML(t,"i","","")});

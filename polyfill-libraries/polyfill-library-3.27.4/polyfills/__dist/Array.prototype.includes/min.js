@@ -1,0 +1,1 @@
+CreateMethodProperty(Array.prototype,"includes",function(e){"use strict";var r=ToObject(this),t=ToLength(Get(r,"length"));if(0===t)return!1;var o=ToInteger(arguments[1]);if(o>=0)var n=o;else(n=t+o)<0&&(n=0);for(;n<t;){var a=Get(r,ToString(n));if(SameValueZero(e,a))return!0;n+=1}return!1});

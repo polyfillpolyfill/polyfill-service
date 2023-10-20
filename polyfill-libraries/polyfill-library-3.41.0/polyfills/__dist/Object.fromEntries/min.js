@@ -1,0 +1,1 @@
+CreateMethodProperty(Object,"fromEntries",function r(e){RequireObjectCoercible(e);var t={},o=function(r,e){var t=this,o=ToPropertyKey(r);CreateDataPropertyOrThrow(t,o,e)};return AddEntriesFromIterable(t,e,o)});

@@ -1,0 +1,24 @@
+{
+  "aliases": [
+    "caniuse:console-basic"
+  ],
+  "dependencies": [
+    "Window",
+    "console"
+  ],
+  "spec": "https://console.spec.whatwg.org",
+  "docs": "https://developer.mozilla.org/en/docs/Web/API/console",
+  "detectSource": "\"console\"in this&&\"profile\"in this.console\n",
+  "baseDir": "console/profile",
+  "hasTests": true,
+  "isTestable": false,
+  "isPublic": true,
+  "size": 31,
+  "browsers": {
+    "ie": "*",
+    "firefox": "1 - 4"
+  },
+  "test": {
+    "ci": false
+  }
+}

@@ -1,0 +1,1 @@
+CreateMethodProperty(Reflect,"apply",function e(t,r,a){if(!1===IsCallable(t))throw new TypeError("Reflect.apply was called on "+Object.prototype.toString.call(t)+", which is not a function");var l=CreateListFromArrayLike(a);return Call(t,r,l)});

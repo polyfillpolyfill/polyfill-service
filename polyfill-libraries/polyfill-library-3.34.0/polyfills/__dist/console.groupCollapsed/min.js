@@ -1,0 +1,1 @@
+console.groupCollapsed=function o(){};

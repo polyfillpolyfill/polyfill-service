@@ -1,0 +1,1 @@
+Array.prototype.lastIndexOf=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");var n=this instanceof String?this.split(""):this,i=Math.max(Math.min(n.length,9007199254740991),0)||0,r=Number(arguments[1])||0;r=1 in arguments?(r<0?Math.max(i+r,0):r)+1:i;for(;--r>=0;)if(r in n&&n[r]===t)return r;return-1};

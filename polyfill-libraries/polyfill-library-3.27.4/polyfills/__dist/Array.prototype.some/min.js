@@ -1,0 +1,1 @@
+CreateMethodProperty(Array.prototype,"some",function(r){var e=ToObject(this),t=ToLength(Get(e,"length"));if(!1===IsCallable(r))throw new TypeError(r+" is not a function");for(var o=arguments.length>1?arguments[1]:undefined,n=0;n<t;){var a=ToString(n);if(HasProperty(e,a)){var i=Get(e,a);if(ToBoolean(Call(r,o,[i,n,e])))return!0}n+=1}return!1});

@@ -1,0 +1,27 @@
+{
+  "spec": "https://tc39.github.io/ecma262/#sec-arraycreate",
+  "detectSource": "",
+  "baseDir": "_ESAbstract/ArrayCreate",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": false,
+  "size": 142,
+  "browsers": {
+    "android": "*",
+    "bb": "*",
+    "chrome": "*",
+    "edge": "*",
+    "edge_mob": "*",
+    "firefox": "*",
+    "ios_chr": "*",
+    "ios_saf": "*",
+    "ie": "*",
+    "ie_mob": "*",
+    "opera": "*",
+    "op_mini": "*",
+    "op_mob": "*",
+    "safari": "*",
+    "firefox_mob": "*",
+    "samsung_mob": "*"
+  }
+}

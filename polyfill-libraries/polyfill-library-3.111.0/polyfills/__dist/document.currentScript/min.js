@@ -1,0 +1,1 @@
+!function(t){var r=t.getElementsByTagName("script");"currentScript"in t||Object.defineProperty(t,"currentScript",{get:function(){try{throw new Error}catch(n){var t=0,e=(/.*at [^(]*\((.*):.+:.+\)$/gi.exec(n.stack)||[!1])[1];for(t=0;t<r.length;t++)if(r[t].src==e||"interactive"==r[t].readyState)return r[t];return null}}})}(document);

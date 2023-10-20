@@ -1,0 +1,1 @@
+Object.defineProperty(Element.prototype,"previousElementSibling",{get:function(){for(var e=this.previousSibling;e&&1!==e.nodeType;)e=e.previousSibling;return e}});

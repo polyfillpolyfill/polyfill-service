@@ -1,0 +1,1 @@
+function Get(n,t){return n[t]}

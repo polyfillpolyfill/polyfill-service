@@ -1,0 +1,1 @@
+Object.defineProperty(Symbol,"matchAll",{value:Symbol("matchAll")});

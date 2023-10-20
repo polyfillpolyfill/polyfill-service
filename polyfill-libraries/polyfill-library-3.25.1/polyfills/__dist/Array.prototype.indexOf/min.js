@@ -1,0 +1,1 @@
+Array.prototype.indexOf=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");var i=this instanceof String?this.split(""):this,n=Math.max(Math.min(i.length,9007199254740991),0)||0,r=Number(arguments[1])||0;for(r=(r<0?Math.max(n+r,0):r)-1;++r<n;)if(r in i&&i[r]===t)return r;return-1};

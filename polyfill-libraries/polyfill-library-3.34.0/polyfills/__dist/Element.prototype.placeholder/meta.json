@@ -1,0 +1,1 @@
+{"aliases":["caniuse:input-placeholder","modernizr:placeholder"],"browsers":{"ie":"8 - 9"},"dependencies":["Object.defineProperty","document.querySelector","Element"],"detectSource":"\"document\"in this&&\"placeholder\"in document.createElement(\"input\")\n","baseDir":"Element/prototype/placeholder","hasTests":false,"isTestable":true,"isPublic":true,"size":1373}

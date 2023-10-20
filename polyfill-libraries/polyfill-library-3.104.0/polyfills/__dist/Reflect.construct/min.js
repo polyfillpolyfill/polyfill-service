@@ -1,0 +1,1 @@
+CreateMethodProperty(Reflect,"construct",function t(r,o){var e=arguments[2];if(!1===IsConstructor(r))throw new TypeError(Object.prototype.toString.call(r)+" is not a constructor");if(2 in arguments){if(!1===IsConstructor(e))throw new TypeError(Object.prototype.toString.call(e)+" is not a constructor")}else e=r;var n=CreateListFromArrayLike(o);return Construct(r,n,e)});

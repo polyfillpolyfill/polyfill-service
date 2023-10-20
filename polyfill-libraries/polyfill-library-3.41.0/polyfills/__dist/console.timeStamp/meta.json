@@ -1,0 +1,23 @@
+{
+  "aliases": [
+    "caniuse:console-basic"
+  ],
+  "dependencies": [
+    "Window",
+    "console"
+  ],
+  "spec": "https://console.spec.whatwg.org",
+  "docs": "https://developer.mozilla.org/en/docs/Web/API/console",
+  "detectSource": "\"console\"in this&&\"timeStamp\"in this.console\n",
+  "baseDir": "console/timeStamp",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 33,
+  "browsers": {
+    "edge": "*",
+    "edge_mob": "*",
+    "ie": "*",
+    "firefox": "1 - 4"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "dependencies": [
+    "fetch",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getPrototypeOf",
+    "Object.setPrototypeOf",
+    "Event",
+    "Map",
+    "Symbol",
+    "Symbol.toStringTag",
+    "WeakMap"
+  ],
+  "license": "Apache-2.0",
+  "spec": "https://dom.spec.whatwg.org/#interface-abortcontroller",
+  "repo": "https://github.com/mo/abortcontroller-polyfill",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/AbortController",
+  "detectSource": "\"AbortController\"in this&&\"function\"==typeof this.AbortController\n",
+  "baseDir": "AbortController",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 9074,
+  "browsers": {
+    "edge": "12 - 15",
+    "edge_mob": "*",
+    "ie": ">=10",
+    "ie_mob": ">=10",
+    "firefox": "2 - 56",
+    "opera": "10 - 52",
+    "safari": "3.1 - 12",
+    "chrome": "4 - 65",
+    "ios_saf": "3.2 - 11.2",
+    "firefox_mob": "<64",
+    "android": "<67"
+  },
+  "install": {
+    "module": "abort-controller",
+    "paths": [
+      "dist/abort-controller.umd.js"
+    ]
+  }
+}

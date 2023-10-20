@@ -1,0 +1,1 @@
+try{Object.defineProperty(window.location,"origin",{enumerable:!0,writable:!1,value:window.location.protocol+"//"+window.location.hostname+(window.location.port?":"+window.location.port:""),configurable:!1})}catch(e){window.location.origin=window.location.protocol+"//"+window.location.hostname+(window.location.port?":"+window.location.port:"")}

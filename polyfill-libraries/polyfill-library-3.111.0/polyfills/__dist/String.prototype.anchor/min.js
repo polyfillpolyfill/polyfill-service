@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"anchor",function r(t){var e=this;return CreateHTML(e,"a","name",t)});

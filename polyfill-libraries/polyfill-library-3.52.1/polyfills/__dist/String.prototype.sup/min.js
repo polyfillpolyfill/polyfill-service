@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"sup",function t(){var t=this;return CreateHTML(t,"sup","","")});

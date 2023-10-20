@@ -1,0 +1,1 @@
+console.group=function o(){};

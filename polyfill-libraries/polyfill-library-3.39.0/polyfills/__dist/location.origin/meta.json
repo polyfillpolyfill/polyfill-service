@@ -1,0 +1,26 @@
+{
+  "aliases": [
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default"
+  ],
+  "dependencies": [
+    "Object.defineProperties"
+  ],
+  "detectSource": "\"location\"in this&&\"origin\"in this.location\n",
+  "baseDir": "location/origin",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 346,
+  "browsers": {
+    "ie": "6 - 10",
+    "ie_mob": "10",
+    "firefox": "<=20",
+    "safari": "<=6",
+    "ios_saf": "<=6",
+    "chrome": "<=29",
+    "firefox_mob": "<=20"
+  }
+}
