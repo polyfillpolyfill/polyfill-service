@@ -13,7 +13,7 @@ jobs:
   deploy-to-staging:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # pin@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
       - uses: actions-rust-lang/setup-rust-toolchain@f3c84ee10bf5a86e7a5d607d487bf17d57670965 # pin@v1
       - name: Set cache-key
         id: cache-key
@@ -26,7 +26,7 @@ jobs:
           key: ${{ steps.cache-key.outputs.CACHE_KEY }}
       - if: steps.compute-package.outputs.cache-hit != 'true'
         name: Set up Fastly CLI
-        uses: fastly/compute-actions/setup@b449664968a1faa936c85ca310370da3cb266d24 # pin@v2
+        uses: fastly/compute-actions/setup@c2f38daa58a1a6562575c9665f13b080803b8989 # pin@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           cli_version: '10.4.0'
@@ -50,8 +50,8 @@ jobs:
     needs: [ deploy-to-staging ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # pin@v3
-      - uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236 # pin@v3.1.0
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
+      - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # pin@v3.8.1
         with:
           node-version: 18.x
       - name: 'Install test dependencies'
