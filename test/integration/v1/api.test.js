@@ -2,37 +2,118 @@
 
 "use strict";
 
+import vm from "node:vm";
 import assert from "node:assert";
 import axios from "../helpers.js";
 
 describe("GET /v1/polyfill.js", function() {
-	it("responds with a 301 status", async () => {
-		const response = await axios.get(`/v1/polyfill.js`);
-		assert.equal(response.status, 301)
-		assert.equal(response.headers.location, '/v2/polyfill.js')
+	it("responds with a 200 status", async () => {
+		const response = await axios.get(`/v1/polyfill.js`, {
+			headers: {
+				"Fastly-Debug": "true"
+			},
+			decompress: true
+		});
+
+		assert.equal(response.status, 200);
+		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.equal(response.headers["access-control-allow-origin"], "*")
+		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
+		assert.doesNotThrow(() => {
+			try {
+				new vm.Script(response.data);
+			} catch (error) {
+				console.error(error);
+				throw error;
+			}
+		});
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v1/polyfill.js?features=default&libVersion=1&gated=true", function() {
-	it("responds with a 301 status", async () => {
-		const response = await axios.get(`/v1/polyfill.js?features=default&libVersion=1&gated=true`);
-		assert.equal(response.status, 301)
-		assert.equal(response.headers.location, "/v2/polyfill.js?features=default");
+	it("responds with a 200 status", async () => {
+		const response = await axios.get(`/v1/polyfill.js?features=default&libVersion=1&gated=true`, {
+			headers: {
+				"Fastly-Debug": "true"
+			},
+			decompress: true
+		});
+
+		assert.equal(response.status, 200);
+		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.equal(response.headers["access-control-allow-origin"], "*")
+		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
+		assert.doesNotThrow(() => {
+			try {
+				new vm.Script(response.data);
+			} catch (error) {
+				console.error(error);
+				throw error;
+			}
+		});
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v1/polyfill.min.js", function() {
-	it("responds with a 301 status", async () => {
-		const response = await axios.get(`/v1/polyfill.min.js`);
-		assert.equal(response.status, 301)
-		assert.equal(response.headers.location, "/v2/polyfill.min.js");
+	it("responds with a 200 status", async () => {
+		const response = await axios.get(`/v1/polyfill.min.js`, {
+			headers: {
+				"Fastly-Debug": "true"
+			},
+			decompress: true
+		});
+
+		assert.equal(response.status, 200);
+		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.equal(response.headers["access-control-allow-origin"], "*")
+		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
+		assert.doesNotThrow(() => {
+			try {
+				new vm.Script(response.data);
+			} catch (error) {
+				console.error(error);
+				throw error;
+			}
+		});
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });
 
 describe("GET /v1/polyfill.min.js?features=default&libVersion=1&gated=true", function() {
-	it("responds with a 301 status", async () => {
-		const response = await axios.get(`/v1/polyfill.min.js?features=default&libVersion=1&gated=true`);
-		assert.equal(response.status, 301)
-		assert.equal(response.headers.location, "/v2/polyfill.min.js?features=default");
+	it("responds with a 200 status", async () => {
+		const response = await axios.get(`/v1/polyfill.min.js?features=default&libVersion=1&gated=true`, {
+			headers: {
+				"Fastly-Debug": "true"
+			},
+			decompress: true
+		});
+
+		assert.equal(response.status, 200);
+		assert.equal(response.headers["content-type"], "text/javascript; charset=UTF-8")
+		assert.equal(response.headers["access-control-allow-origin"], "*")
+		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
+		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
+		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
+		assert.ok(typeof response.data === 'string');
+		assert.doesNotThrow(() => {
+			try {
+				new vm.Script(response.data);
+			} catch (error) {
+				console.error(error);
+				throw error;
+			}
+		});
+		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
 });

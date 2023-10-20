@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "service",
+    "library",
+]
+
+[profile.release]
+debug = true
