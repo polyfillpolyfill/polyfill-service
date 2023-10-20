@@ -1,1 +1,0 @@
-console.table=function n(){};

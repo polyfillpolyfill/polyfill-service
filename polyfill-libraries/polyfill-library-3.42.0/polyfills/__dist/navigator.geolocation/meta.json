@@ -1,0 +1,23 @@
+{
+  "aliases": [
+    "caniuse:geolocation",
+    "modernizr:geolocation",
+    "Navigator.prototype.geolocation"
+  ],
+  "dependencies": [
+    "document.head"
+  ],
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/geolocation",
+  "spec": "http://www.w3.org/TR/geolocation-API/#navi-geo",
+  "detectSource": "\"navigator\"in this&&\"geolocation\"in this.navigator\n",
+  "baseDir": "navigator/geolocation",
+  "hasTests": false,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 1277,
+  "browsers": {
+    "ie": "<9",
+    "opera": "15",
+    "safari": "4"
+  }
+}

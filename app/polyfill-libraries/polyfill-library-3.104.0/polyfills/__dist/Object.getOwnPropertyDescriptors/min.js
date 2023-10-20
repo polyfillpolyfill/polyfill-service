@@ -1,1 +1,0 @@
-CreateMethodProperty(Object,"getOwnPropertyDescriptors",function e(r){for(var t=ToObject(r),o=Reflect.ownKeys(t),n={},c=o.length,a=0;a<c;a++){var p=o[a],y=Object.getOwnPropertyDescriptor(r,p);y!==undefined&&CreateDataProperty(n,p,y)}return n});

@@ -1,1 +1,0 @@
-function ToNumber(r){return Number(r)}

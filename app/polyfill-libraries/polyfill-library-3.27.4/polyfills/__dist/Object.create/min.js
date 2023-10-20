@@ -1,1 +1,0 @@
-CreateMethodProperty(Object,"create",function(e,t){if("object"!==Type(e)&&"null"!==Type(e))throw new TypeError("Object prototype may only be an Object or null");var r=new Function("e","function Object() {}Object.prototype=e;return new Object")(e);return r.constructor.prototype=e,1 in arguments?Object.defineProperties(r,t):r});

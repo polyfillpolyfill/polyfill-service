@@ -1,0 +1,1 @@
+CreateMethodProperty(Math,"imul",function(t,o){var a=ToUint32(t),r=ToUint32(o),e=a*r%Math.pow(2,32);return e>=Math.pow(2,31)?e-Math.pow(2,32):e});

@@ -1,1 +1,0 @@
-function GetV(t,e){return ToObject(t)[e]}

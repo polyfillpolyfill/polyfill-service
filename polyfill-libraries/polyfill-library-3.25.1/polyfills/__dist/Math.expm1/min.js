@@ -1,0 +1,1 @@
+Math.expm1=function(t){return Math.exp(t)-1};

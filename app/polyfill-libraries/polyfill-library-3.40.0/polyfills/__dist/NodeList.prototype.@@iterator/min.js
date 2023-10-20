@@ -1,1 +1,0 @@
-NodeList.prototype[Symbol.iterator]=function(){return new ArrayIterator(this)};

@@ -1,1 +1,0 @@
-!function(){var e=self;CreateMethodProperty(Number,"isNaN",function r(n){return"number"===Type(n)&&!!e.isNaN(n)})}();

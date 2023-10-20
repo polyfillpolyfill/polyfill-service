@@ -1,1 +1,0 @@
-!function(){function t(t){return null==t||"object"!=typeof t&&"function"!=typeof t}Object.create=function(e,n){if(null!==e&&t(e))throw new TypeError("Object prototype may only be an Object or null");var o=new Function("e","function Object() {}Object.prototype=e;return new Object")(e);return o.constructor.prototype=e,1 in arguments&&Object.defineProperties(o,n),o}}();

@@ -1,0 +1,34 @@
+{
+  "aliases": [
+    "es6",
+    "es2015"
+  ],
+  "dependencies": [
+    "Object.defineProperty",
+    "Symbol"
+  ],
+  "license": "MIT",
+  "spec": "http://www.ecma-international.org/ecma-262/6.0/index.html#sec-symbol.replace",
+  "docs": "https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+  "detectSource": "\"Symbol\"in this&&\"replace\"in this.Symbol\n",
+  "baseDir": "Symbol/replace",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 66,
+  "browsers": {
+    "edge": "<14",
+    "edge_mob": "<14",
+    "ie": "*",
+    "ie_mob": "*",
+    "safari": "<9",
+    "chrome": "< 50",
+    "firefox": "< 49",
+    "firefox_mob": "<49",
+    "ios_saf": "< 10",
+    "opera": "< 37",
+    "samsung_mob": "<5",
+    "android": "<50",
+    "bb": ">=10"
+  }
+}

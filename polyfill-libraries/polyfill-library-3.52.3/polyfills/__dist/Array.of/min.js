@@ -1,0 +1,1 @@
+CreateMethodProperty(Array,"of",function r(){var r=arguments.length,t=arguments,e=this;if(IsConstructor(e))var a=Construct(e,[r]);else a=ArrayCreate(r);for(var o=0;o<r;){var n=t[o],h=ToString(o);CreateDataPropertyOrThrow(a,h,n),o+=1}return a.length=r,a});

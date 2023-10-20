@@ -14,15 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3.1.0
-      with:
-        node-version: 18.x
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 8.6.1
-        run_install: |
-          - recursive: true
-            args: [--frozen-lockfile, --strict-peer-dependencies]
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
     - name: Set cache-key
       id: cache-key
       run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -32,12 +24,12 @@ jobs:
       with:
         path: pkg/package.tar.gz
         key: ${{ steps.cache-key.outputs.CACHE_KEY }}
-    - name: Set up Fastly CLI
-      if: steps.compute-package.outputs.cache-hit != 'true'
+    - if: steps.compute-package.outputs.cache-hit != 'true'
+      name: Set up Fastly CLI
       uses: fastly/compute-actions/setup@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        cli_version: '7.0.1'
+        cli_version: '10.4.0'
     - if: steps.compute-package.outputs.cache-hit != 'true'
       run: fastly compute build --package-name package
     - uses: actions/upload-artifact@v3
@@ -62,12 +54,10 @@ jobs:
       - uses: actions/setup-node@v3.1.0
         with:
           node-version: 18.x
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.6.1
-          run_install: |
-            - recursive: true
-              args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'Install test dependencies'
+        run: npm ci
+        working-directory: "./test"
       - run: npm run test:integration
+        working-directory: "./test"
         env:
           HOST: "https://${{ env.domain }}"

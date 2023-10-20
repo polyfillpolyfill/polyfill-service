@@ -1,0 +1,40 @@
+{
+  "dependencies": [
+    "DocumentFragment",
+    "document.querySelector",
+    "Object.defineProperties",
+    "Object.getOwnPropertyDescriptor",
+    "Object.defineProperty",
+    "Event"
+  ],
+  "license": "BSD-3-Clause",
+  "spec": "https://html.spec.whatwg.org/multipage/scripting.html#the-template-element",
+  "repo": "https://github.com/webcomponents/polyfills/tree/master/packages/template",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template",
+  "detectSource": "\"HTMLTemplateElement\"in this\n",
+  "baseDir": "HTMLTemplateElement",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 7435,
+  "browsers": {
+    "edge": "<13",
+    "edge_mob": "<13",
+    "ie": "11",
+    "ie_mob": "11",
+    "firefox": "4 - 22",
+    "opera": "10 - 22",
+    "safari": "6 - 8",
+    "chrome": "<=26",
+    "ios_saf": "<=8",
+    "firefox_mob": "<67",
+    "bb": "7 - 10",
+    "android": "<67"
+  },
+  "install": {
+    "module": "@webcomponents/template",
+    "paths": [
+      "template.js"
+    ]
+  }
+}

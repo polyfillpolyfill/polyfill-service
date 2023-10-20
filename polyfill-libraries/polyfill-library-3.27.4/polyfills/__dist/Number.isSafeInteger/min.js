@@ -1,0 +1,1 @@
+CreateMethodProperty(Number,"isSafeInteger",function(e){if("number"!==Type(e))return!1;if(isNaN(e)||e===Infinity||e===-Infinity)return!1;var r=ToInteger(e);return r===e&&Math.abs(r)<=Math.pow(2,53)-1});

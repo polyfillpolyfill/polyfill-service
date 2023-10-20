@@ -1,0 +1,1 @@
+Date.prototype.toISOString=function(){function t(t,e){return t=""+t,"0000".substr(0,e-t.length)+t}var e=this;return e.getUTCFullYear()+"-"+t(e.getUTCMonth()+1,2)+"-"+t(e.getUTCDate(),2)+"T"+t(e.getUTCHours(),2)+":"+t(e.getUTCMinutes(),2)+":"+t(e.getUTCSeconds(),2)+"."+t(e.getUTCMilliseconds(),3)+"Z"};

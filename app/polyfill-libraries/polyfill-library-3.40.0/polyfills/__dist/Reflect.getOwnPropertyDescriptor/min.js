@@ -1,1 +1,0 @@
-CreateMethodProperty(Reflect,"getOwnPropertyDescriptor",function e(t,r){if("object"!==Type(t))throw new TypeError(Object.prototype.toString.call(t)+" is not an Object");var o=ToPropertyKey(r);return Object.getOwnPropertyDescriptor(t,o)});

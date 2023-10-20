@@ -1,0 +1,8 @@
+.cargo
+.github
+.vscode
+bin
+fastly/terraform
+pkg
+polyfill-libraries
+target

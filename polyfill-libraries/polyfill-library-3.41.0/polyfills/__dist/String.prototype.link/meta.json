@@ -1,0 +1,22 @@
+{
+  "dependencies": [
+    "_ESAbstract.CreateHTML",
+    "_ESAbstract.CreateMethodProperty"
+  ],
+  "spec": "https://www.ecma-international.org/ecma-262/6.0/#sec-string.prototype.link",
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/link",
+  "detectSource": "\"link\"in String.prototype&&function(){var n=\"\".link('\"')\nreturn n==n.toLowerCase()&&n.split('\"').length<=3}()\n",
+  "baseDir": "String/prototype/link",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 106,
+  "browsers": {
+    "bb": "*",
+    "firefox": "< 4",
+    "ie": "*",
+    "ie_mob": "*",
+    "op_mini": "*",
+    "firefox_mob": "< 4"
+  }
+}

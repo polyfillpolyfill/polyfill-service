@@ -1,0 +1,1 @@
+CreateMethodProperty(Object,"entries",function e(r){var t=ToObject(r);return EnumerableOwnProperties(t,"key+value")});

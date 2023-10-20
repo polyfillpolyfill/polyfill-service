@@ -1,0 +1,34 @@
+{
+  "aliases": [
+    "default-3.3",
+    "default-3.4",
+    "default-3.5",
+    "default-3.6",
+    "default",
+    "caniuse:visib",
+    "caniuse:pagevisibility",
+    "modernizr:pagevisibility",
+    "PageVisibility"
+  ],
+  "dependencies": [
+    "CustomEvent"
+  ],
+  "docs": "https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API",
+  "spec": "http://www.w3.org/TR/page-visibility/",
+  "notes": [
+    "The alias `PageVisibility` works for this feature for backwards compatibility with the name under which it was previously (erroneously) available"
+  ],
+  "detectSource": "\"document\"in this&&\"hidden\"in document&&\"visibilityState\"in document\n",
+  "baseDir": "document/visibilityState",
+  "hasTests": true,
+  "isTestable": true,
+  "isPublic": true,
+  "size": 338,
+  "browsers": {
+    "firefox": "10 - 17",
+    "safari": "4",
+    "android": ">=4.4",
+    "opera": "15 - 19",
+    "chrome": "14 - 32"
+  }
+}

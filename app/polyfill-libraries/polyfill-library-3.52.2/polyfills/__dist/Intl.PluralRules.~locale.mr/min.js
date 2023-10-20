@@ -1,1 +1,0 @@
-Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({locale:"mr",categories:{cardinal:["one","other"],ordinal:["one","two","few","other"]},fn:function(e,l){return l?1==e?"one":2==e||3==e?"two":4==e?"few":"other":1==e?"one":"other"}});

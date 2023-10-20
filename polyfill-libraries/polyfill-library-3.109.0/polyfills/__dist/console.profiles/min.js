@@ -1,0 +1,1 @@
+console.profiles=function o(){};

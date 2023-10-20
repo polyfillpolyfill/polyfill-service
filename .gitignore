@@ -3,4 +3,8 @@ bin
 dist
 pkg
 .terraform/
-app/polyfill-libraries/polyfill-library-*
+target
+.cargo
+.DS_Store
+secrets/polyfill/fastly-api-key.txt
+logs*.txt

@@ -1,1 +1,0 @@
-Math.sign=function(n){return(n=Number(n))?n>0?1:-1:n};

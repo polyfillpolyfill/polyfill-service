@@ -1,1 +1,0 @@
-console.info=console.log;

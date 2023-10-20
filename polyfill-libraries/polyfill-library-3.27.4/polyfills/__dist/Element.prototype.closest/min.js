@@ -1,0 +1,1 @@
+Element.prototype.closest=function(e){for(var n=this;n;){if(n.matches(e))return n;n="SVGElement"in window&&n instanceof SVGElement?n.parentNode:n.parentElement}return null};

@@ -1,0 +1,1 @@
+Object.defineProperty(Number,"EPSILON",{enumerable:!1,configurable:!1,writable:!1,value:Math.pow(2,-52)});
