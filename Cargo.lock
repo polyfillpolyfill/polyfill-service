@@ -437,9 +437,9 @@ checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
 name = "nodejs-semver"
-version = "3.1.0"
+version = "3.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "751f711b1dfefe5ec70308e451810cf3c3ef706b2ba78ab974d18f9094549f67"
+checksum = "ec8a2a3ba148012b4b637cc5dddb83626d12e0f2d459caae6c30630240cc0ab4"
 dependencies = [
  "bytecount",
  "miette",
