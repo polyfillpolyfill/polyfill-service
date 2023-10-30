@@ -25,7 +25,7 @@ nodejs-semver = "3.2.0"
 regex = "1.10.2"
 semver = "1.0.20"
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.107"
+serde_json = "1.0.108"
 sha2 = "0.10.8"
 thousands = "0.2.0"
 urlencoding = "2.1.3"
