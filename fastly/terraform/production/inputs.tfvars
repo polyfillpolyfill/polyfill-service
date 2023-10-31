@@ -32,17 +32,5 @@ vcl_domains = [
   },
   {
     name = "cdn.polyfill.io"
-  },
-  {
-    name = "cdn.polyfills.io"
-  },
-  {
-    name = "polyfills.io"
-  },
-  {
-    name = "www.polyfills.io"
-  },
-  {
-    name = "polyfill.webservices.ft.com"
   }
 ]
