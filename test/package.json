@@ -6,7 +6,7 @@
         "test:integration": "mocha integration/*.test.js integration/**/*.test.js --recursive --check-leaks --timeout 60000 --exit --bail"
     },
     "dependencies": {
-        "axios": "^1.5.1",
+        "axios": "^1.6.0",
         "mocha": "^10.2.0",
         "start-server-and-test": "^2.0.1"
     }
