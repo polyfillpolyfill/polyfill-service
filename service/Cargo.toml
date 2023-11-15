@@ -13,8 +13,8 @@ debug = true
 [dependencies]
 base16ct = { version = "0.2.0", features = ["alloc"] }
 chrono = "0.4.31"
-fastly = "0.9.8"
-http = "0.2.9"
+fastly = "0.9.9"
+http = "0.2.11"
 http-range = "0.1.5"
 httpdate = "1.0.3"
 human_format = "1.0.3"
