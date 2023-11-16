@@ -167,9 +167,9 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 
 [[package]]
 name = "fastly"
-version = "0.9.8"
+version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b58976e58d1fdfb94e3d6b0be4c1ad5a2218c6080c0db66621f397eb9cfd77dc"
+checksum = "c4cc84cdc612a2b687f702a2f142943b327a60e5ef8cedcf46c3c43fd42d97cd"
 dependencies = [
  "anyhow",
  "bytes",
@@ -177,7 +177,7 @@ dependencies = [
  "fastly-macros",
  "fastly-shared",
  "fastly-sys",
- "http",
+ "http 0.2.11",
  "lazy_static",
  "mime",
  "serde",
@@ -191,9 +191,9 @@ dependencies = [
 
 [[package]]
 name = "fastly-macros"
-version = "0.9.8"
+version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "368e73b8d3d46f0dc82f53aef6121a7e1b993cf5a274b62de5ca51d97deb0349"
+checksum = "f9ef0761123a6d645a5360cad9f15233fa278abbeb1a5b645ac5ade18ac8fa95"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -202,20 +202,20 @@ dependencies = [
 
 [[package]]
 name = "fastly-shared"
-version = "0.9.8"
+version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "770484ead4372ba9c8d29ab77a27769847733cfb6b8f3f5f9a04f6aab24362b9"
+checksum = "1da0ec983f501d47af71129b96bb02b8272a55a4fad31d3e889921d077f41823"
 dependencies = [
  "bitflags",
- "http",
+ "http 0.2.11",
  "thiserror",
 ]
 
 [[package]]
 name = "fastly-sys"
-version = "0.9.8"
+version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "35f1209e8a024f87cd6db4808ce74ae0c257b63aed5ac9d50888f95ecb116510"
+checksum = "b9b5d82d9b2837c3eac65d932d6a512f1a476ed9dc26819ce6b0f03fcac59352"
 dependencies = [
  "bitflags",
  "fastly-shared",
@@ -254,9 +254,20 @@ checksum = "f93e7192158dbcda357bdec5fb5788eebf8bbac027f3f33e719d29135ae84156"
 
 [[package]]
 name = "http"
-version = "0.2.9"
+version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd6effc99afb63425aff9b05836f029929e345a6148a14b7ecd5ab67af944482"
+checksum = "8947b1a6fad4393052c7ba1f4cd97bed3e953a95c79c92ad9b051a04611d9fbb"
+dependencies = [
+ "bytes",
+ "fnv",
+ "itoa",
+]
+
+[[package]]
+name = "http"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b32afd38673a8016f7c9ae69e5af41a58f81b1d31689040f2f1959594ce194ea"
 dependencies = [
  "bytes",
  "fnv",
@@ -491,7 +502,7 @@ dependencies = [
  "base16ct",
  "chrono",
  "fastly",
- "http",
+ "http 1.0.0",
  "http-range",
  "httpdate",
  "human_format",
@@ -641,7 +652,7 @@ dependencies = [
  "base16ct",
  "chrono",
  "fastly",
- "http",
+ "http 1.0.0",
  "http-range",
  "httpdate",
  "human_format",
