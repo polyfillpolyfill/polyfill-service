@@ -24,11 +24,13 @@ table globeviz_known_browsers {
 //    LCY             Name of Fastly POP (3 char)
 //    51.43,-0.23     Client location (var length)
 //    17234           Duration (var length)
+//    42426           Minimum observed RTT (var length)
 //    EN              Normalized Accept-Language (2 char)
 //    M               Cache state (1 char: H, M, P)
 //    2               HTTP version (numeric, variable length)
 //    1.2             TLS version (numeric, variable length)
 //    C               Browser (1 char: C, F, E, K, S, A)
+//    M               Is mobile (M) or other (-)
 //
 sub vcl_log {
   declare local var.sample_rate INTEGER;
@@ -45,6 +47,7 @@ sub vcl_log {
       server.datacenter " "
       client.geo.latitude "," client.geo.longitude " "
       time.elapsed.usec " "
+      client.socket.tcpi_min_rtt " "
       std.toupper(
         accept.language_lookup(
           "en:de:fr:nl:jp:es:ar:zh:gu:he:hi:id:it:ko:ms:pl:pt:ru:th:uk",
@@ -55,7 +58,8 @@ sub vcl_log {
       substr(fastly_info.state, 0, 1) " "
       regsuball(req.proto, "[^\d.]", "") " "
       regsuball(tls.client.protocol, "[^\d.]", "") " "
-      table.lookup(globeviz_known_browsers, client.browser.name, "Z")
+      table.lookup(globeviz_known_browsers, client.browser.name, "Z") " "
+      if (client.socket.conn_type == "mobile", "M", "-")
     ;
   }
 }
