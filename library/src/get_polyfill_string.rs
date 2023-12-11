@@ -373,7 +373,7 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
     let sorted_features = toposort(&feature_nodes, &feature_edges).unwrap();
     if !options.minify {
         explainer_comment.push(app_version_text);
-        explainer_comment.push("For detailed credits and licence information see https://github.com/JakeChampion/polyfill-service.".to_owned());
+        explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
         explainer_comment.push("".to_owned());
         let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
         features.sort();
