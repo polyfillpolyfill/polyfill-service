@@ -59,7 +59,7 @@ sub vcl_log {
       regsuball(req.proto, "[^\d.]", "") " "
       regsuball(tls.client.protocol, "[^\d.]", "") " "
       table.lookup(globeviz_known_browsers, client.browser.name, "Z") " "
-      if (client.socket.conn_type == "mobile", "M", "-")
+      if (client.geo.conn_type == "mobile", "M", "-")
     ;
   }
 }
