@@ -382,7 +382,7 @@ pub(crate) fn terms() -> String {
             h2 {"Who we are and how to contact us"}
             p {
                 a href="https://polyfill.io/" target="_self" rel="nofollow noopener"{"Polyfill.io"}
-                " is operated as a community service by Jake Champion (“we”, “us”)."
+                " is operated as a community service by the Polyfill.io maintainers (“we”, “us”)."
             }
 
             h2 {"By using Polyfill.io you agree to our terms"}
@@ -544,7 +544,7 @@ pub(crate) fn privacy() -> String {
             }
             p {"You have the right to lodge a complaint with a supervisory authority. In the UK, this is the Information Commissioner’s Office (ICO)."}
             h2 {"Where this Privacy Policy applies"}
-            p {"Personal information is collected by Jake Champion. Polyfill.io is not intended for children under 16 years of age. We do not intentionally collect or use any information from children."}
+            p {"Polyfill.io is not intended for children under 16 years of age. We do not intentionally collect or use any information from children."}
             p {"Polyfill.io contains links to third party websites which are not subject to this privacy policy. Websites which use the polyfills are not subject to this privacy policy. We are not responsible for third party websites’ content, use of personal information, or security practices."}
             p {
                 "If you have a query in regards to the processing of your personal information, please contact our Data Protection Officer directly at "
@@ -553,7 +553,7 @@ pub(crate) fn privacy() -> String {
             }
 
             h2{"Changes to this privacy policy"}
-            p {"This policy was reviewed on 26/06/2023 and last updated on 26/06/2023."}
+            p {"This policy was reviewed on 26/06/2023 and last updated on 11/12/2023."}
 
             p {
                 "Any changes we may make to this privacy policy will be posted on this page. If changes are significant, we may choose to indicate clearly on the "
