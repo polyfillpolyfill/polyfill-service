@@ -36,7 +36,7 @@ pub(crate) fn polyfill(request: &Request) -> Response {
         "3.110.1" => "polyfill-library-3.110.1",
         "3.111.0" => "polyfill-library-3.111.0",
         _ => {
-            return Response::from_status(StatusCode::BAD_REQUEST)
+            return Response::from_status(400)
             .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
             .with_body("requested version does not exist");
         }
