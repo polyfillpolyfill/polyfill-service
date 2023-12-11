@@ -2,7 +2,6 @@ use std::time::Duration;
 
 use chrono::Utc;
 use fastly::{Request, Response, cache::simple::{get, get_or_set_with, CacheEntry}};
-use http::StatusCode;
 use polyfill_library::{polyfill_parameters::get_polyfill_parameters, get_polyfill_string::get_polyfill_string};
 
 pub(crate) fn polyfill(request: &Request) -> Response {
