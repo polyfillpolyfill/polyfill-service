@@ -14,6 +14,6 @@ We consider the security of our systems a top priority. But no matter how much e
 
 If you discover a security vulnerability, please use one of the following means of communications to report it to us:
 
-- Report the security issue to the project maintainers directly at [polyfill@jakechampion.name](mailto:polyfill@jakechampion.name).
+- Report the security issue to the project maintainers directly at [admin@polyfill.io](mailto:admin@polyfill.io).
 
 Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
