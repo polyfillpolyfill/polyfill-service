@@ -539,7 +539,7 @@ pub(crate) fn privacy() -> String {
             p {"We do not retain personal data relating to the Polyfill.io service."}
             p {
                 "If you have any questions about the personal data processed as a result of your use of this service, please contact "
-                a href="mailto:polyfill@jakechampion.name" {"polyfill@jakechampion.name"}
+                a href="mailto:admin@polyfill.io" {"admin@polyfill.io"}
                 "."
             }
             p {"You have the right to lodge a complaint with a supervisory authority. In the UK, this is the Information Commissioner’s Office (ICO)."}
@@ -548,7 +548,7 @@ pub(crate) fn privacy() -> String {
             p {"Polyfill.io contains links to third party websites which are not subject to this privacy policy. Websites which use the polyfills are not subject to this privacy policy. We are not responsible for third party websites’ content, use of personal information, or security practices."}
             p {
                 "If you have a query in regards to the processing of your personal information, please contact our Data Protection Officer directly at "
-                a href="mailto:polyfill@jakechampion.name" {"polyfill@jakechampion.name"}
+                a href="mailto:admin@polyfill.io" {"admin@polyfill.io"}
                 "."
             }
 
