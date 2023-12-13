@@ -1,0 +1,1 @@
+{"aliases":["caniuse:console-basic"],"dependencies":["Window","console"],"spec":"https://console.spec.whatwg.org","docs":"https://developer.mozilla.org/en/docs/Web/API/console","browsers":{"ie":"*","firefox":"1 - 4"},"detectSource":"\"console\"in self&&\"dirxml\"in self.console\n","baseDir":"console/dirxml","hasTests":true,"isTestable":true,"isPublic":true,"size":30}

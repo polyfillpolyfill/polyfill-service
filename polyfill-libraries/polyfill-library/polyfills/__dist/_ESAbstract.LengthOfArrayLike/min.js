@@ -1,1 +1,0 @@
-function LengthOfArrayLike(e){return ToLength(Get(e,"length"))}

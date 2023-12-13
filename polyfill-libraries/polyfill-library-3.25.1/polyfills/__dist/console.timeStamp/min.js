@@ -1,1 +1,0 @@
-this.console.timeStamp=function(){};

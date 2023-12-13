@@ -1,0 +1,1 @@
+console.groupEnd=function n(){};

@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"big",function t(){var t=this;return CreateHTML(t,"big","","")});

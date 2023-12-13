@@ -1,1 +1,0 @@
-CreateMethodProperty(Reflect,"has",function e(t,r){if("object"!==Type(t))throw new TypeError(Object.prototype.toString.call(t)+" is not an Object");var o=ToPropertyKey(r);return HasProperty(t,o)});

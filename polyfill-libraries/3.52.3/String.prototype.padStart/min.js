@@ -1,0 +1,1 @@
+CreateMethodProperty(String.prototype,"padStart",function e(r){"use strict";var t=arguments.length>1?arguments[1]:undefined,n=RequireObjectCoercible(this),i=ToString(n),o=ToLength(r),u=i.length;if(o<=u)return i;if(t===undefined)var f=" ";else f=ToString(t);if(""===f)return i;for(var a=o-u,d="",g=0;g<a;g++)d+=f;return(d=d.substr(0,a))+i});

@@ -1,0 +1,1 @@
+function SameValueNonNumber(e,n){return e===n}

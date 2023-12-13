@@ -1,1 +1,0 @@
-CreateMethodProperty(String.prototype,"link",function r(t){var e=this;return CreateHTML(e,"a","href",t)});

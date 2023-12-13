@@ -1,1 +1,0 @@
-CreateMethodProperty(Array.prototype,"map",function(r){var e=ToObject(this),t=ToLength(Get(e,"length"));if(!1===IsCallable(r))throw new TypeError(r+" is not a function");for(var a=arguments.length>1?arguments[1]:undefined,o=ArraySpeciesCreate(e,t),n=0;n<t;){var i=ToString(n);if(HasProperty(e,i)){var p=Get(e,i),h=Call(r,a,[p,n,e]);CreateDataPropertyOrThrow(o,i,h)}n+=1}return o});

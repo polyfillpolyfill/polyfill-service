@@ -1,1 +1,0 @@
-function Invoke(n,e){var t=arguments.length>2?arguments[2]:[],l=GetV(n,e);return Call(l,n,t)}

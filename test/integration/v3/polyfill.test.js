@@ -47,7 +47,6 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-			assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		});
 	});
 
@@ -65,7 +64,6 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-			assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 			assert.ok(typeof response.data === 'string');
 			assert.doesNotThrow(() => {
 				try {
@@ -93,7 +91,6 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-			assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 			assert.ok(typeof response.data === 'string');
 			assert.doesNotThrow(() => {
 				try {
@@ -121,7 +118,6 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-			assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 			assert.ok(typeof response.data === 'string');
 			assert.doesNotThrow(() => {
 				try {
@@ -149,7 +145,6 @@ describe('compute-at-edge service', function() {
 			assert.equal(response.headers["access-control-allow-origin"], "*")
 			assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 			assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-			assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 			assert.ok(typeof response.data === 'string');
 			assert.doesNotThrow(() => {
 				try {

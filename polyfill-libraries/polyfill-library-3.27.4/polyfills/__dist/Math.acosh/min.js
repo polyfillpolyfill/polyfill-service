@@ -1,1 +1,0 @@
-CreateMethodProperty(Math,"acosh",function(t){return isNaN(t)?NaN:t<1?NaN:1===t?0:t===Infinity?Infinity:Math.log(t+Math.sqrt(t*t-1))});

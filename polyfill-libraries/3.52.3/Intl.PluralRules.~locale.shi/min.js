@@ -1,0 +1,1 @@
+Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({locale:"shi",categories:{cardinal:["one","few","other"],ordinal:["other"]},fn:function(e,l){var a=String(e).split("."),t=Number(a[0])==e;return l?"other":e>=0&&e<=1?"one":t&&e>=2&&e<=10?"few":"other"}});

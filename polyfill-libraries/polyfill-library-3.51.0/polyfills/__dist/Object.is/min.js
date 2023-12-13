@@ -1,1 +1,0 @@
-CreateMethodProperty(Object,"is",function e(t,r){return SameValue(t,r)});

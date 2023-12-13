@@ -1,0 +1,3034 @@
+{
+  "es6": [
+    "Array.from",
+    "Array.of",
+    "Array.prototype.@@iterator",
+    "Array.prototype.copyWithin",
+    "Array.prototype.entries",
+    "Array.prototype.fill",
+    "Array.prototype.find",
+    "Array.prototype.findIndex",
+    "Array.prototype.keys",
+    "Array.prototype.sort",
+    "Array.prototype.values",
+    "Function.prototype.name",
+    "Map",
+    "Math.acosh",
+    "Math.asinh",
+    "Math.atanh",
+    "Math.cbrt",
+    "Math.clz32",
+    "Math.cosh",
+    "Math.expm1",
+    "Math.fround",
+    "Math.hypot",
+    "Math.imul",
+    "Math.log10",
+    "Math.log1p",
+    "Math.log2",
+    "Math.sign",
+    "Math.sinh",
+    "Math.tanh",
+    "Math.trunc",
+    "Number.Epsilon",
+    "Number.MAX_SAFE_INTEGER",
+    "Number.MIN_SAFE_INTEGER",
+    "Number.isFinite",
+    "Number.isInteger",
+    "Number.isNaN",
+    "Number.isSafeInteger",
+    "Number.parseFloat",
+    "Number.parseInt",
+    "Object.assign",
+    "Object.is",
+    "Object.seal",
+    "Object.setPrototypeOf",
+    "Promise",
+    "RegExp.prototype.flags",
+    "Set",
+    "String.fromCodePoint",
+    "String.prototype.@@iterator",
+    "String.prototype.codePointAt",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.repeat",
+    "String.prototype.startsWith",
+    "Symbol.hasInstance",
+    "Symbol.isConcatSpreadable",
+    "Symbol.iterator",
+    "Symbol.match",
+    "Symbol.replace",
+    "Symbol.search",
+    "Symbol.species",
+    "Symbol.split",
+    "Symbol.toPrimitive",
+    "Symbol.toStringTag",
+    "Symbol.unscopables",
+    "Symbol",
+    "WeakMap",
+    "WeakSet"
+  ],
+  "es2015": [
+    "Array.from",
+    "Array.of",
+    "Array.prototype.@@iterator",
+    "Array.prototype.copyWithin",
+    "Array.prototype.entries",
+    "Array.prototype.fill",
+    "Array.prototype.find",
+    "Array.prototype.findIndex",
+    "Array.prototype.keys",
+    "Array.prototype.sort",
+    "Array.prototype.values",
+    "Function.prototype.name",
+    "Map",
+    "Math.acosh",
+    "Math.asinh",
+    "Math.atanh",
+    "Math.cbrt",
+    "Math.clz32",
+    "Math.cosh",
+    "Math.expm1",
+    "Math.fround",
+    "Math.hypot",
+    "Math.imul",
+    "Math.log10",
+    "Math.log1p",
+    "Math.log2",
+    "Math.sign",
+    "Math.sinh",
+    "Math.tanh",
+    "Math.trunc",
+    "Number.Epsilon",
+    "Number.MAX_SAFE_INTEGER",
+    "Number.MIN_SAFE_INTEGER",
+    "Number.isFinite",
+    "Number.isInteger",
+    "Number.isNaN",
+    "Number.isSafeInteger",
+    "Number.parseFloat",
+    "Number.parseInt",
+    "Object.assign",
+    "Object.is",
+    "Object.seal",
+    "Object.setPrototypeOf",
+    "Promise",
+    "RegExp.prototype.flags",
+    "Set",
+    "String.prototype.@@iterator",
+    "String.prototype.codePointAt",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.repeat",
+    "String.prototype.startsWith",
+    "Symbol.hasInstance",
+    "Symbol.isConcatSpreadable",
+    "Symbol.iterator",
+    "Symbol.match",
+    "Symbol.replace",
+    "Symbol.search",
+    "Symbol.species",
+    "Symbol.split",
+    "Symbol.toPrimitive",
+    "Symbol.toStringTag",
+    "Symbol.unscopables",
+    "Symbol",
+    "WeakMap",
+    "WeakSet"
+  ],
+  "modernizr:es6array": [
+    "Array.from",
+    "Array.of",
+    "Array.prototype.@@iterator",
+    "Array.prototype.entries",
+    "Array.prototype.fill",
+    "Array.prototype.find",
+    "Array.prototype.findIndex",
+    "Array.prototype.keys",
+    "Array.prototype.sort",
+    "Array.prototype.values"
+  ],
+  "blissfuljs": [
+    "Array.from",
+    "Array.isArray",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.some",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Function.prototype.bind",
+    "Object.create",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.keys",
+    "Promise",
+    "String.prototype.endsWith",
+    "String.prototype.startsWith",
+    "String.prototype.trim",
+    "URL",
+    "WeakMap",
+    "XMLHttpRequest",
+    "document.querySelector"
+  ],
+  "default-3.4": [
+    "Array.from",
+    "Array.isArray",
+    "Array.of",
+    "Array.prototype.every",
+    "Array.prototype.fill",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "CustomEvent",
+    "DOMTokenList",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "DocumentFragment.prototype.append",
+    "DocumentFragment.prototype.prepend",
+    "Element.prototype.after",
+    "Element.prototype.append",
+    "Element.prototype.before",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Element.prototype.prepend",
+    "Element.prototype.remove",
+    "Element.prototype.replaceWith",
+    "Element",
+    "Event.focusin",
+    "Event.hashchange",
+    "Event",
+    "Function.prototype.bind",
+    "JSON",
+    "Node.prototype.contains",
+    "Number.isNaN",
+    "Object.assign",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "Promise",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.startsWith",
+    "String.prototype.trim",
+    "URL",
+    "Window",
+    "XMLHttpRequest",
+    "atob",
+    "document.querySelector",
+    "document.visibilityState",
+    "document",
+    "location.origin",
+    "requestAnimationFrame",
+    "~html5-elements"
+  ],
+  "default-3.5": [
+    "Array.from",
+    "Array.isArray",
+    "Array.of",
+    "Array.prototype.every",
+    "Array.prototype.fill",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "CustomEvent",
+    "DOMTokenList",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "DocumentFragment.prototype.append",
+    "DocumentFragment.prototype.prepend",
+    "Element.prototype.after",
+    "Element.prototype.append",
+    "Element.prototype.before",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Element.prototype.prepend",
+    "Element.prototype.remove",
+    "Element.prototype.replaceWith",
+    "Element",
+    "Event.focusin",
+    "Event.hashchange",
+    "Event",
+    "Function.prototype.bind",
+    "JSON",
+    "Node.prototype.contains",
+    "Number.isNaN",
+    "Object.assign",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "Promise",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.startsWith",
+    "String.prototype.trim",
+    "URL",
+    "Window",
+    "XMLHttpRequest",
+    "atob",
+    "document.querySelector",
+    "document.visibilityState",
+    "document",
+    "location.origin",
+    "requestAnimationFrame",
+    "~html5-elements"
+  ],
+  "default-3.6": [
+    "Array.from",
+    "Array.isArray",
+    "Array.of",
+    "Array.prototype.every",
+    "Array.prototype.fill",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "CustomEvent",
+    "DOMTokenList",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "DocumentFragment.prototype.append",
+    "DocumentFragment.prototype.prepend",
+    "Element.prototype.after",
+    "Element.prototype.append",
+    "Element.prototype.before",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Element.prototype.prepend",
+    "Element.prototype.remove",
+    "Element.prototype.replaceWith",
+    "Element",
+    "Event.focusin",
+    "Event.hashchange",
+    "Event",
+    "Function.prototype.bind",
+    "JSON",
+    "Map",
+    "Node.prototype.contains",
+    "Number.isNaN",
+    "Object.assign",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "Promise",
+    "Set",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.startsWith",
+    "String.prototype.trim",
+    "URL",
+    "Window",
+    "XMLHttpRequest",
+    "atob",
+    "document.querySelector",
+    "document.visibilityState",
+    "document",
+    "location.origin",
+    "requestAnimationFrame",
+    "~html5-elements"
+  ],
+  "default": [
+    "Array.from",
+    "Array.isArray",
+    "Array.of",
+    "Array.prototype.every",
+    "Array.prototype.fill",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "CustomEvent",
+    "DOMTokenList",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "DocumentFragment.prototype.append",
+    "DocumentFragment.prototype.prepend",
+    "Element.prototype.after",
+    "Element.prototype.append",
+    "Element.prototype.before",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Element.prototype.prepend",
+    "Element.prototype.remove",
+    "Element.prototype.replaceWith",
+    "Element",
+    "Event.focusin",
+    "Event.hashchange",
+    "Event",
+    "Function.prototype.bind",
+    "JSON",
+    "Map",
+    "Node.prototype.contains",
+    "Number.isNaN",
+    "Object.assign",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "Promise",
+    "Set",
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.startsWith",
+    "String.prototype.trim",
+    "URL",
+    "Window",
+    "XMLHttpRequest",
+    "atob",
+    "document.querySelector",
+    "document.visibilityState",
+    "document",
+    "location.origin",
+    "requestAnimationFrame",
+    "~html5-elements"
+  ],
+  "default-3.3": [
+    "Array.isArray",
+    "Array.prototype.every",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "CustomEvent",
+    "DOMTokenList",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "Element.prototype.classList",
+    "Element.prototype.cloneNode",
+    "Element.prototype.closest",
+    "Element.prototype.matches",
+    "Element",
+    "Event.focusin",
+    "Event.hashchange",
+    "Event",
+    "Function.prototype.bind",
+    "JSON",
+    "Object.assign",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "String.prototype.includes",
+    "String.prototype.trim",
+    "Window",
+    "XMLHttpRequest",
+    "atob",
+    "document.querySelector",
+    "document.visibilityState",
+    "document",
+    "requestAnimationFrame",
+    "~html5-elements"
+  ],
+  "es5": [
+    "Array.isArray",
+    "Array.prototype.every",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some",
+    "Date.now",
+    "Date.prototype.toISOString",
+    "Function.prototype.bind",
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.freeze",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys",
+    "String.prototype.trim"
+  ],
+  "modernizr:es5array": [
+    "Array.isArray",
+    "Array.prototype.every",
+    "Array.prototype.filter",
+    "Array.prototype.forEach",
+    "Array.prototype.indexOf",
+    "Array.prototype.lastIndexOf",
+    "Array.prototype.map",
+    "Array.prototype.reduce",
+    "Array.prototype.reduceRight",
+    "Array.prototype.some"
+  ],
+  "es2019": [
+    "Array.prototype.flat",
+    "Array.prototype.flatMap",
+    "Object.fromEntries",
+    "String.prototype.trimEnd",
+    "String.prototype.trimStart"
+  ],
+  "es7": [
+    "Array.prototype.includes",
+    "String.prototype.padEnd",
+    "String.prototype.padStart"
+  ],
+  "es2016": [
+    "Array.prototype.includes",
+    "String.prototype.padEnd",
+    "String.prototype.padStart"
+  ],
+  "modernizr:es7array": ["Array.prototype.includes"],
+  "caniuse:audio-api": ["AudioContext"],
+  "modernizr:webaudio": ["AudioContext"],
+  "css_fq": ["CSS.supports"],
+  "modernizr:customevent": ["CustomEvent"],
+  "modernizr:es5date": ["Date.now", "Date.prototype.toISOString"],
+  "modernizr:classlist": ["Element.prototype.classList"],
+  "caniuse:matchesselector": ["Element.prototype.matches"],
+  "caniuse:input-placeholder": ["Element.prototype.placeholder"],
+  "modernizr:placeholder": ["Element.prototype.placeholder"],
+  "caniuse:hashchange": ["Event.hashchange"],
+  "modernizr:hashchange": ["Event.hashchange"],
+  "modernizr:es5function": ["Function.prototype.bind"],
+  "Function.name": ["Function.prototype.name"],
+  "HTMLCanvasElement.protoype.toBlob": ["HTMLCanvasElement.prototype.toBlob"],
+  "Intl.~locale.af": [
+    "Intl.DateTimeFormat.~locale.af",
+    "Intl.NumberFormat.~locale.af",
+    "Intl.PluralRules.~locale.af"
+  ],
+  "Intl.~locale.af-NA": [
+    "Intl.DateTimeFormat.~locale.af-NA",
+    "Intl.NumberFormat.~locale.af-NA"
+  ],
+  "Intl.~locale.agq": [
+    "Intl.DateTimeFormat.~locale.agq",
+    "Intl.NumberFormat.~locale.agq"
+  ],
+  "Intl.~locale.ak": [
+    "Intl.DateTimeFormat.~locale.ak",
+    "Intl.NumberFormat.~locale.ak",
+    "Intl.PluralRules.~locale.ak"
+  ],
+  "Intl.~locale.am": [
+    "Intl.DateTimeFormat.~locale.am",
+    "Intl.NumberFormat.~locale.am",
+    "Intl.PluralRules.~locale.am"
+  ],
+  "Intl.~locale.ar": [
+    "Intl.DateTimeFormat.~locale.ar",
+    "Intl.NumberFormat.~locale.ar",
+    "Intl.PluralRules.~locale.ar"
+  ],
+  "Intl.~locale.ar-AE": [
+    "Intl.DateTimeFormat.~locale.ar-AE",
+    "Intl.NumberFormat.~locale.ar-AE"
+  ],
+  "Intl.~locale.ar-BH": [
+    "Intl.DateTimeFormat.~locale.ar-BH",
+    "Intl.NumberFormat.~locale.ar-BH"
+  ],
+  "Intl.~locale.ar-DJ": [
+    "Intl.DateTimeFormat.~locale.ar-DJ",
+    "Intl.NumberFormat.~locale.ar-DJ"
+  ],
+  "Intl.~locale.ar-DZ": [
+    "Intl.DateTimeFormat.~locale.ar-DZ",
+    "Intl.NumberFormat.~locale.ar-DZ"
+  ],
+  "Intl.~locale.ar-EG": [
+    "Intl.DateTimeFormat.~locale.ar-EG",
+    "Intl.NumberFormat.~locale.ar-EG"
+  ],
+  "Intl.~locale.ar-EH": [
+    "Intl.DateTimeFormat.~locale.ar-EH",
+    "Intl.NumberFormat.~locale.ar-EH"
+  ],
+  "Intl.~locale.ar-ER": [
+    "Intl.DateTimeFormat.~locale.ar-ER",
+    "Intl.NumberFormat.~locale.ar-ER"
+  ],
+  "Intl.~locale.ar-IL": [
+    "Intl.DateTimeFormat.~locale.ar-IL",
+    "Intl.NumberFormat.~locale.ar-IL"
+  ],
+  "Intl.~locale.ar-IQ": [
+    "Intl.DateTimeFormat.~locale.ar-IQ",
+    "Intl.NumberFormat.~locale.ar-IQ"
+  ],
+  "Intl.~locale.ar-JO": [
+    "Intl.DateTimeFormat.~locale.ar-JO",
+    "Intl.NumberFormat.~locale.ar-JO"
+  ],
+  "Intl.~locale.ar-KM": [
+    "Intl.DateTimeFormat.~locale.ar-KM",
+    "Intl.NumberFormat.~locale.ar-KM"
+  ],
+  "Intl.~locale.ar-KW": [
+    "Intl.DateTimeFormat.~locale.ar-KW",
+    "Intl.NumberFormat.~locale.ar-KW"
+  ],
+  "Intl.~locale.ar-LB": [
+    "Intl.DateTimeFormat.~locale.ar-LB",
+    "Intl.NumberFormat.~locale.ar-LB"
+  ],
+  "Intl.~locale.ar-LY": [
+    "Intl.DateTimeFormat.~locale.ar-LY",
+    "Intl.NumberFormat.~locale.ar-LY"
+  ],
+  "Intl.~locale.ar-MA": [
+    "Intl.DateTimeFormat.~locale.ar-MA",
+    "Intl.NumberFormat.~locale.ar-MA"
+  ],
+  "Intl.~locale.ar-MR": [
+    "Intl.DateTimeFormat.~locale.ar-MR",
+    "Intl.NumberFormat.~locale.ar-MR"
+  ],
+  "Intl.~locale.ar-OM": [
+    "Intl.DateTimeFormat.~locale.ar-OM",
+    "Intl.NumberFormat.~locale.ar-OM"
+  ],
+  "Intl.~locale.ar-PS": [
+    "Intl.DateTimeFormat.~locale.ar-PS",
+    "Intl.NumberFormat.~locale.ar-PS"
+  ],
+  "Intl.~locale.ar-QA": [
+    "Intl.DateTimeFormat.~locale.ar-QA",
+    "Intl.NumberFormat.~locale.ar-QA"
+  ],
+  "Intl.~locale.ar-SA": [
+    "Intl.DateTimeFormat.~locale.ar-SA",
+    "Intl.NumberFormat.~locale.ar-SA"
+  ],
+  "Intl.~locale.ar-SD": [
+    "Intl.DateTimeFormat.~locale.ar-SD",
+    "Intl.NumberFormat.~locale.ar-SD"
+  ],
+  "Intl.~locale.ar-SO": [
+    "Intl.DateTimeFormat.~locale.ar-SO",
+    "Intl.NumberFormat.~locale.ar-SO"
+  ],
+  "Intl.~locale.ar-SS": [
+    "Intl.DateTimeFormat.~locale.ar-SS",
+    "Intl.NumberFormat.~locale.ar-SS"
+  ],
+  "Intl.~locale.ar-SY": [
+    "Intl.DateTimeFormat.~locale.ar-SY",
+    "Intl.NumberFormat.~locale.ar-SY"
+  ],
+  "Intl.~locale.ar-TD": [
+    "Intl.DateTimeFormat.~locale.ar-TD",
+    "Intl.NumberFormat.~locale.ar-TD"
+  ],
+  "Intl.~locale.ar-TN": [
+    "Intl.DateTimeFormat.~locale.ar-TN",
+    "Intl.NumberFormat.~locale.ar-TN"
+  ],
+  "Intl.~locale.ar-YE": [
+    "Intl.DateTimeFormat.~locale.ar-YE",
+    "Intl.NumberFormat.~locale.ar-YE"
+  ],
+  "Intl.~locale.as": [
+    "Intl.DateTimeFormat.~locale.as",
+    "Intl.NumberFormat.~locale.as",
+    "Intl.PluralRules.~locale.as"
+  ],
+  "Intl.~locale.asa": [
+    "Intl.DateTimeFormat.~locale.asa",
+    "Intl.NumberFormat.~locale.asa",
+    "Intl.PluralRules.~locale.asa"
+  ],
+  "Intl.~locale.ast": [
+    "Intl.DateTimeFormat.~locale.ast",
+    "Intl.NumberFormat.~locale.ast",
+    "Intl.PluralRules.~locale.ast"
+  ],
+  "Intl.~locale.az": [
+    "Intl.DateTimeFormat.~locale.az",
+    "Intl.NumberFormat.~locale.az",
+    "Intl.PluralRules.~locale.az"
+  ],
+  "Intl.~locale.az-Cyrl": [
+    "Intl.DateTimeFormat.~locale.az-Cyrl",
+    "Intl.NumberFormat.~locale.az-Cyrl"
+  ],
+  "Intl.~locale.az-Latn": [
+    "Intl.DateTimeFormat.~locale.az-Latn",
+    "Intl.NumberFormat.~locale.az-Latn"
+  ],
+  "Intl.~locale.bas": [
+    "Intl.DateTimeFormat.~locale.bas",
+    "Intl.NumberFormat.~locale.bas"
+  ],
+  "Intl.~locale.be": [
+    "Intl.DateTimeFormat.~locale.be",
+    "Intl.NumberFormat.~locale.be",
+    "Intl.PluralRules.~locale.be"
+  ],
+  "Intl.~locale.bem": [
+    "Intl.DateTimeFormat.~locale.bem",
+    "Intl.NumberFormat.~locale.bem",
+    "Intl.PluralRules.~locale.bem"
+  ],
+  "Intl.~locale.bez": [
+    "Intl.DateTimeFormat.~locale.bez",
+    "Intl.NumberFormat.~locale.bez",
+    "Intl.PluralRules.~locale.bez"
+  ],
+  "Intl.~locale.bg": [
+    "Intl.DateTimeFormat.~locale.bg",
+    "Intl.NumberFormat.~locale.bg",
+    "Intl.PluralRules.~locale.bg"
+  ],
+  "Intl.~locale.bm": [
+    "Intl.DateTimeFormat.~locale.bm",
+    "Intl.NumberFormat.~locale.bm",
+    "Intl.PluralRules.~locale.bm"
+  ],
+  "Intl.~locale.bn": [
+    "Intl.DateTimeFormat.~locale.bn",
+    "Intl.NumberFormat.~locale.bn",
+    "Intl.PluralRules.~locale.bn"
+  ],
+  "Intl.~locale.bn-IN": [
+    "Intl.DateTimeFormat.~locale.bn-IN",
+    "Intl.NumberFormat.~locale.bn-IN"
+  ],
+  "Intl.~locale.bo": [
+    "Intl.DateTimeFormat.~locale.bo",
+    "Intl.NumberFormat.~locale.bo",
+    "Intl.PluralRules.~locale.bo"
+  ],
+  "Intl.~locale.bo-IN": [
+    "Intl.DateTimeFormat.~locale.bo-IN",
+    "Intl.NumberFormat.~locale.bo-IN"
+  ],
+  "Intl.~locale.br": [
+    "Intl.DateTimeFormat.~locale.br",
+    "Intl.NumberFormat.~locale.br",
+    "Intl.PluralRules.~locale.br"
+  ],
+  "Intl.~locale.brx": [
+    "Intl.DateTimeFormat.~locale.brx",
+    "Intl.NumberFormat.~locale.brx",
+    "Intl.PluralRules.~locale.brx"
+  ],
+  "Intl.~locale.bs": [
+    "Intl.DateTimeFormat.~locale.bs",
+    "Intl.NumberFormat.~locale.bs",
+    "Intl.PluralRules.~locale.bs"
+  ],
+  "Intl.~locale.bs-Cyrl": [
+    "Intl.DateTimeFormat.~locale.bs-Cyrl",
+    "Intl.NumberFormat.~locale.bs-Cyrl"
+  ],
+  "Intl.~locale.bs-Latn": [
+    "Intl.DateTimeFormat.~locale.bs-Latn",
+    "Intl.NumberFormat.~locale.bs-Latn"
+  ],
+  "Intl.~locale.ca": [
+    "Intl.DateTimeFormat.~locale.ca",
+    "Intl.NumberFormat.~locale.ca",
+    "Intl.PluralRules.~locale.ca"
+  ],
+  "Intl.~locale.ca-AD": [
+    "Intl.DateTimeFormat.~locale.ca-AD",
+    "Intl.NumberFormat.~locale.ca-AD"
+  ],
+  "Intl.~locale.ca-ES-VALENCIA": [
+    "Intl.DateTimeFormat.~locale.ca-ES-VALENCIA",
+    "Intl.NumberFormat.~locale.ca-ES-VALENCIA"
+  ],
+  "Intl.~locale.ca-FR": [
+    "Intl.DateTimeFormat.~locale.ca-FR",
+    "Intl.NumberFormat.~locale.ca-FR"
+  ],
+  "Intl.~locale.ca-IT": [
+    "Intl.DateTimeFormat.~locale.ca-IT",
+    "Intl.NumberFormat.~locale.ca-IT"
+  ],
+  "Intl.~locale.ccp": [
+    "Intl.DateTimeFormat.~locale.ccp",
+    "Intl.NumberFormat.~locale.ccp"
+  ],
+  "Intl.~locale.ccp-IN": [
+    "Intl.DateTimeFormat.~locale.ccp-IN",
+    "Intl.NumberFormat.~locale.ccp-IN"
+  ],
+  "Intl.~locale.ce": [
+    "Intl.DateTimeFormat.~locale.ce",
+    "Intl.NumberFormat.~locale.ce",
+    "Intl.PluralRules.~locale.ce"
+  ],
+  "Intl.~locale.ceb": [
+    "Intl.DateTimeFormat.~locale.ceb",
+    "Intl.NumberFormat.~locale.ceb",
+    "Intl.PluralRules.~locale.ceb"
+  ],
+  "Intl.~locale.cgg": [
+    "Intl.DateTimeFormat.~locale.cgg",
+    "Intl.NumberFormat.~locale.cgg",
+    "Intl.PluralRules.~locale.cgg"
+  ],
+  "Intl.~locale.chr": [
+    "Intl.DateTimeFormat.~locale.chr",
+    "Intl.NumberFormat.~locale.chr",
+    "Intl.PluralRules.~locale.chr"
+  ],
+  "Intl.~locale.ckb": [
+    "Intl.DateTimeFormat.~locale.ckb",
+    "Intl.NumberFormat.~locale.ckb",
+    "Intl.PluralRules.~locale.ckb"
+  ],
+  "Intl.~locale.ckb-IR": [
+    "Intl.DateTimeFormat.~locale.ckb-IR",
+    "Intl.NumberFormat.~locale.ckb-IR"
+  ],
+  "Intl.~locale.cs": [
+    "Intl.DateTimeFormat.~locale.cs",
+    "Intl.NumberFormat.~locale.cs",
+    "Intl.PluralRules.~locale.cs"
+  ],
+  "Intl.~locale.cu": [
+    "Intl.DateTimeFormat.~locale.cu",
+    "Intl.NumberFormat.~locale.cu"
+  ],
+  "Intl.~locale.cy": [
+    "Intl.DateTimeFormat.~locale.cy",
+    "Intl.NumberFormat.~locale.cy",
+    "Intl.PluralRules.~locale.cy"
+  ],
+  "Intl.~locale.da": [
+    "Intl.DateTimeFormat.~locale.da",
+    "Intl.NumberFormat.~locale.da",
+    "Intl.PluralRules.~locale.da"
+  ],
+  "Intl.~locale.da-GL": [
+    "Intl.DateTimeFormat.~locale.da-GL",
+    "Intl.NumberFormat.~locale.da-GL"
+  ],
+  "Intl.~locale.dav": [
+    "Intl.DateTimeFormat.~locale.dav",
+    "Intl.NumberFormat.~locale.dav"
+  ],
+  "Intl.~locale.de": [
+    "Intl.DateTimeFormat.~locale.de",
+    "Intl.NumberFormat.~locale.de",
+    "Intl.PluralRules.~locale.de"
+  ],
+  "Intl.~locale.de-AT": [
+    "Intl.DateTimeFormat.~locale.de-AT",
+    "Intl.NumberFormat.~locale.de-AT"
+  ],
+  "Intl.~locale.de-BE": [
+    "Intl.DateTimeFormat.~locale.de-BE",
+    "Intl.NumberFormat.~locale.de-BE"
+  ],
+  "Intl.~locale.de-CH": [
+    "Intl.DateTimeFormat.~locale.de-CH",
+    "Intl.NumberFormat.~locale.de-CH"
+  ],
+  "Intl.~locale.de-IT": [
+    "Intl.DateTimeFormat.~locale.de-IT",
+    "Intl.NumberFormat.~locale.de-IT"
+  ],
+  "Intl.~locale.de-LI": [
+    "Intl.DateTimeFormat.~locale.de-LI",
+    "Intl.NumberFormat.~locale.de-LI"
+  ],
+  "Intl.~locale.de-LU": [
+    "Intl.DateTimeFormat.~locale.de-LU",
+    "Intl.NumberFormat.~locale.de-LU"
+  ],
+  "Intl.~locale.dje": [
+    "Intl.DateTimeFormat.~locale.dje",
+    "Intl.NumberFormat.~locale.dje"
+  ],
+  "Intl.~locale.dsb": [
+    "Intl.DateTimeFormat.~locale.dsb",
+    "Intl.NumberFormat.~locale.dsb",
+    "Intl.PluralRules.~locale.dsb"
+  ],
+  "Intl.~locale.dua": [
+    "Intl.DateTimeFormat.~locale.dua",
+    "Intl.NumberFormat.~locale.dua"
+  ],
+  "Intl.~locale.dyo": [
+    "Intl.DateTimeFormat.~locale.dyo",
+    "Intl.NumberFormat.~locale.dyo"
+  ],
+  "Intl.~locale.dz": [
+    "Intl.DateTimeFormat.~locale.dz",
+    "Intl.NumberFormat.~locale.dz",
+    "Intl.PluralRules.~locale.dz"
+  ],
+  "Intl.~locale.ebu": [
+    "Intl.DateTimeFormat.~locale.ebu",
+    "Intl.NumberFormat.~locale.ebu"
+  ],
+  "Intl.~locale.ee": [
+    "Intl.DateTimeFormat.~locale.ee",
+    "Intl.NumberFormat.~locale.ee",
+    "Intl.PluralRules.~locale.ee"
+  ],
+  "Intl.~locale.ee-TG": [
+    "Intl.DateTimeFormat.~locale.ee-TG",
+    "Intl.NumberFormat.~locale.ee-TG"
+  ],
+  "Intl.~locale.el": [
+    "Intl.DateTimeFormat.~locale.el",
+    "Intl.NumberFormat.~locale.el",
+    "Intl.PluralRules.~locale.el"
+  ],
+  "Intl.~locale.el-CY": [
+    "Intl.DateTimeFormat.~locale.el-CY",
+    "Intl.NumberFormat.~locale.el-CY"
+  ],
+  "Intl.~locale.en": [
+    "Intl.DateTimeFormat.~locale.en",
+    "Intl.NumberFormat.~locale.en",
+    "Intl.PluralRules.~locale.en"
+  ],
+  "Intl": [
+    "Intl.DateTimeFormat.~locale.en",
+    "Intl.DateTimeFormat",
+    "Intl.NumberFormat.~locale.en",
+    "Intl.NumberFormat",
+    "Intl.PluralRules.~locale.en",
+    "Intl.PluralRules",
+    "Intl.getCanonicalLocales"
+  ],
+  "Intl.~locale.en-001": [
+    "Intl.DateTimeFormat.~locale.en-001",
+    "Intl.NumberFormat.~locale.en-001"
+  ],
+  "Intl.~locale.en-150": [
+    "Intl.DateTimeFormat.~locale.en-150",
+    "Intl.NumberFormat.~locale.en-150"
+  ],
+  "Intl.~locale.en-AE": [
+    "Intl.DateTimeFormat.~locale.en-AE",
+    "Intl.NumberFormat.~locale.en-AE"
+  ],
+  "Intl.~locale.en-AG": [
+    "Intl.DateTimeFormat.~locale.en-AG",
+    "Intl.NumberFormat.~locale.en-AG"
+  ],
+  "Intl.~locale.en-AI": [
+    "Intl.DateTimeFormat.~locale.en-AI",
+    "Intl.NumberFormat.~locale.en-AI"
+  ],
+  "Intl.~locale.en-AS": [
+    "Intl.DateTimeFormat.~locale.en-AS",
+    "Intl.NumberFormat.~locale.en-AS"
+  ],
+  "Intl.~locale.en-AT": [
+    "Intl.DateTimeFormat.~locale.en-AT",
+    "Intl.NumberFormat.~locale.en-AT"
+  ],
+  "Intl.~locale.en-AU": [
+    "Intl.DateTimeFormat.~locale.en-AU",
+    "Intl.NumberFormat.~locale.en-AU"
+  ],
+  "Intl.~locale.en-BB": [
+    "Intl.DateTimeFormat.~locale.en-BB",
+    "Intl.NumberFormat.~locale.en-BB"
+  ],
+  "Intl.~locale.en-BE": [
+    "Intl.DateTimeFormat.~locale.en-BE",
+    "Intl.NumberFormat.~locale.en-BE"
+  ],
+  "Intl.~locale.en-BI": [
+    "Intl.DateTimeFormat.~locale.en-BI",
+    "Intl.NumberFormat.~locale.en-BI"
+  ],
+  "Intl.~locale.en-BM": [
+    "Intl.DateTimeFormat.~locale.en-BM",
+    "Intl.NumberFormat.~locale.en-BM"
+  ],
+  "Intl.~locale.en-BS": [
+    "Intl.DateTimeFormat.~locale.en-BS",
+    "Intl.NumberFormat.~locale.en-BS"
+  ],
+  "Intl.~locale.en-BW": [
+    "Intl.DateTimeFormat.~locale.en-BW",
+    "Intl.NumberFormat.~locale.en-BW"
+  ],
+  "Intl.~locale.en-BZ": [
+    "Intl.DateTimeFormat.~locale.en-BZ",
+    "Intl.NumberFormat.~locale.en-BZ"
+  ],
+  "Intl.~locale.en-CA": [
+    "Intl.DateTimeFormat.~locale.en-CA",
+    "Intl.NumberFormat.~locale.en-CA"
+  ],
+  "Intl.~locale.en-CC": [
+    "Intl.DateTimeFormat.~locale.en-CC",
+    "Intl.NumberFormat.~locale.en-CC"
+  ],
+  "Intl.~locale.en-CH": [
+    "Intl.DateTimeFormat.~locale.en-CH",
+    "Intl.NumberFormat.~locale.en-CH"
+  ],
+  "Intl.~locale.en-CK": [
+    "Intl.DateTimeFormat.~locale.en-CK",
+    "Intl.NumberFormat.~locale.en-CK"
+  ],
+  "Intl.~locale.en-CM": [
+    "Intl.DateTimeFormat.~locale.en-CM",
+    "Intl.NumberFormat.~locale.en-CM"
+  ],
+  "Intl.~locale.en-CX": [
+    "Intl.DateTimeFormat.~locale.en-CX",
+    "Intl.NumberFormat.~locale.en-CX"
+  ],
+  "Intl.~locale.en-CY": [
+    "Intl.DateTimeFormat.~locale.en-CY",
+    "Intl.NumberFormat.~locale.en-CY"
+  ],
+  "Intl.~locale.en-DE": [
+    "Intl.DateTimeFormat.~locale.en-DE",
+    "Intl.NumberFormat.~locale.en-DE"
+  ],
+  "Intl.~locale.en-DG": [
+    "Intl.DateTimeFormat.~locale.en-DG",
+    "Intl.NumberFormat.~locale.en-DG"
+  ],
+  "Intl.~locale.en-DK": [
+    "Intl.DateTimeFormat.~locale.en-DK",
+    "Intl.NumberFormat.~locale.en-DK"
+  ],
+  "Intl.~locale.en-DM": [
+    "Intl.DateTimeFormat.~locale.en-DM",
+    "Intl.NumberFormat.~locale.en-DM"
+  ],
+  "Intl.~locale.en-ER": [
+    "Intl.DateTimeFormat.~locale.en-ER",
+    "Intl.NumberFormat.~locale.en-ER"
+  ],
+  "Intl.~locale.en-FI": [
+    "Intl.DateTimeFormat.~locale.en-FI",
+    "Intl.NumberFormat.~locale.en-FI"
+  ],
+  "Intl.~locale.en-FJ": [
+    "Intl.DateTimeFormat.~locale.en-FJ",
+    "Intl.NumberFormat.~locale.en-FJ"
+  ],
+  "Intl.~locale.en-FK": [
+    "Intl.DateTimeFormat.~locale.en-FK",
+    "Intl.NumberFormat.~locale.en-FK"
+  ],
+  "Intl.~locale.en-FM": [
+    "Intl.DateTimeFormat.~locale.en-FM",
+    "Intl.NumberFormat.~locale.en-FM"
+  ],
+  "Intl.~locale.en-GB": [
+    "Intl.DateTimeFormat.~locale.en-GB",
+    "Intl.NumberFormat.~locale.en-GB"
+  ],
+  "Intl.~locale.en-GD": [
+    "Intl.DateTimeFormat.~locale.en-GD",
+    "Intl.NumberFormat.~locale.en-GD"
+  ],
+  "Intl.~locale.en-GG": [
+    "Intl.DateTimeFormat.~locale.en-GG",
+    "Intl.NumberFormat.~locale.en-GG"
+  ],
+  "Intl.~locale.en-GH": [
+    "Intl.DateTimeFormat.~locale.en-GH",
+    "Intl.NumberFormat.~locale.en-GH"
+  ],
+  "Intl.~locale.en-GI": [
+    "Intl.DateTimeFormat.~locale.en-GI",
+    "Intl.NumberFormat.~locale.en-GI"
+  ],
+  "Intl.~locale.en-GM": [
+    "Intl.DateTimeFormat.~locale.en-GM",
+    "Intl.NumberFormat.~locale.en-GM"
+  ],
+  "Intl.~locale.en-GU": [
+    "Intl.DateTimeFormat.~locale.en-GU",
+    "Intl.NumberFormat.~locale.en-GU"
+  ],
+  "Intl.~locale.en-GY": [
+    "Intl.DateTimeFormat.~locale.en-GY",
+    "Intl.NumberFormat.~locale.en-GY"
+  ],
+  "Intl.~locale.en-HK": [
+    "Intl.DateTimeFormat.~locale.en-HK",
+    "Intl.NumberFormat.~locale.en-HK"
+  ],
+  "Intl.~locale.en-IE": [
+    "Intl.DateTimeFormat.~locale.en-IE",
+    "Intl.NumberFormat.~locale.en-IE"
+  ],
+  "Intl.~locale.en-IL": [
+    "Intl.DateTimeFormat.~locale.en-IL",
+    "Intl.NumberFormat.~locale.en-IL"
+  ],
+  "Intl.~locale.en-IM": [
+    "Intl.DateTimeFormat.~locale.en-IM",
+    "Intl.NumberFormat.~locale.en-IM"
+  ],
+  "Intl.~locale.en-IN": [
+    "Intl.DateTimeFormat.~locale.en-IN",
+    "Intl.NumberFormat.~locale.en-IN"
+  ],
+  "Intl.~locale.en-IO": [
+    "Intl.DateTimeFormat.~locale.en-IO",
+    "Intl.NumberFormat.~locale.en-IO"
+  ],
+  "Intl.~locale.en-JE": [
+    "Intl.DateTimeFormat.~locale.en-JE",
+    "Intl.NumberFormat.~locale.en-JE"
+  ],
+  "Intl.~locale.en-JM": [
+    "Intl.DateTimeFormat.~locale.en-JM",
+    "Intl.NumberFormat.~locale.en-JM"
+  ],
+  "Intl.~locale.en-KE": [
+    "Intl.DateTimeFormat.~locale.en-KE",
+    "Intl.NumberFormat.~locale.en-KE"
+  ],
+  "Intl.~locale.en-KI": [
+    "Intl.DateTimeFormat.~locale.en-KI",
+    "Intl.NumberFormat.~locale.en-KI"
+  ],
+  "Intl.~locale.en-KN": [
+    "Intl.DateTimeFormat.~locale.en-KN",
+    "Intl.NumberFormat.~locale.en-KN"
+  ],
+  "Intl.~locale.en-KY": [
+    "Intl.DateTimeFormat.~locale.en-KY",
+    "Intl.NumberFormat.~locale.en-KY"
+  ],
+  "Intl.~locale.en-LC": [
+    "Intl.DateTimeFormat.~locale.en-LC",
+    "Intl.NumberFormat.~locale.en-LC"
+  ],
+  "Intl.~locale.en-LR": [
+    "Intl.DateTimeFormat.~locale.en-LR",
+    "Intl.NumberFormat.~locale.en-LR"
+  ],
+  "Intl.~locale.en-LS": [
+    "Intl.DateTimeFormat.~locale.en-LS",
+    "Intl.NumberFormat.~locale.en-LS"
+  ],
+  "Intl.~locale.en-MG": [
+    "Intl.DateTimeFormat.~locale.en-MG",
+    "Intl.NumberFormat.~locale.en-MG"
+  ],
+  "Intl.~locale.en-MH": [
+    "Intl.DateTimeFormat.~locale.en-MH",
+    "Intl.NumberFormat.~locale.en-MH"
+  ],
+  "Intl.~locale.en-MO": [
+    "Intl.DateTimeFormat.~locale.en-MO",
+    "Intl.NumberFormat.~locale.en-MO"
+  ],
+  "Intl.~locale.en-MP": [
+    "Intl.DateTimeFormat.~locale.en-MP",
+    "Intl.NumberFormat.~locale.en-MP"
+  ],
+  "Intl.~locale.en-MS": [
+    "Intl.DateTimeFormat.~locale.en-MS",
+    "Intl.NumberFormat.~locale.en-MS"
+  ],
+  "Intl.~locale.en-MT": [
+    "Intl.DateTimeFormat.~locale.en-MT",
+    "Intl.NumberFormat.~locale.en-MT"
+  ],
+  "Intl.~locale.en-MU": [
+    "Intl.DateTimeFormat.~locale.en-MU",
+    "Intl.NumberFormat.~locale.en-MU"
+  ],
+  "Intl.~locale.en-MW": [
+    "Intl.DateTimeFormat.~locale.en-MW",
+    "Intl.NumberFormat.~locale.en-MW"
+  ],
+  "Intl.~locale.en-MY": [
+    "Intl.DateTimeFormat.~locale.en-MY",
+    "Intl.NumberFormat.~locale.en-MY"
+  ],
+  "Intl.~locale.en-NA": [
+    "Intl.DateTimeFormat.~locale.en-NA",
+    "Intl.NumberFormat.~locale.en-NA"
+  ],
+  "Intl.~locale.en-NF": [
+    "Intl.DateTimeFormat.~locale.en-NF",
+    "Intl.NumberFormat.~locale.en-NF"
+  ],
+  "Intl.~locale.en-NG": [
+    "Intl.DateTimeFormat.~locale.en-NG",
+    "Intl.NumberFormat.~locale.en-NG"
+  ],
+  "Intl.~locale.en-NL": [
+    "Intl.DateTimeFormat.~locale.en-NL",
+    "Intl.NumberFormat.~locale.en-NL"
+  ],
+  "Intl.~locale.en-NR": [
+    "Intl.DateTimeFormat.~locale.en-NR",
+    "Intl.NumberFormat.~locale.en-NR"
+  ],
+  "Intl.~locale.en-NU": [
+    "Intl.DateTimeFormat.~locale.en-NU",
+    "Intl.NumberFormat.~locale.en-NU"
+  ],
+  "Intl.~locale.en-NZ": [
+    "Intl.DateTimeFormat.~locale.en-NZ",
+    "Intl.NumberFormat.~locale.en-NZ"
+  ],
+  "Intl.~locale.en-PG": [
+    "Intl.DateTimeFormat.~locale.en-PG",
+    "Intl.NumberFormat.~locale.en-PG"
+  ],
+  "Intl.~locale.en-PH": [
+    "Intl.DateTimeFormat.~locale.en-PH",
+    "Intl.NumberFormat.~locale.en-PH"
+  ],
+  "Intl.~locale.en-PK": [
+    "Intl.DateTimeFormat.~locale.en-PK",
+    "Intl.NumberFormat.~locale.en-PK"
+  ],
+  "Intl.~locale.en-PN": [
+    "Intl.DateTimeFormat.~locale.en-PN",
+    "Intl.NumberFormat.~locale.en-PN"
+  ],
+  "Intl.~locale.en-PR": [
+    "Intl.DateTimeFormat.~locale.en-PR",
+    "Intl.NumberFormat.~locale.en-PR"
+  ],
+  "Intl.~locale.en-PW": [
+    "Intl.DateTimeFormat.~locale.en-PW",
+    "Intl.NumberFormat.~locale.en-PW"
+  ],
+  "Intl.~locale.en-RW": [
+    "Intl.DateTimeFormat.~locale.en-RW",
+    "Intl.NumberFormat.~locale.en-RW"
+  ],
+  "Intl.~locale.en-SB": [
+    "Intl.DateTimeFormat.~locale.en-SB",
+    "Intl.NumberFormat.~locale.en-SB"
+  ],
+  "Intl.~locale.en-SC": [
+    "Intl.DateTimeFormat.~locale.en-SC",
+    "Intl.NumberFormat.~locale.en-SC"
+  ],
+  "Intl.~locale.en-SD": [
+    "Intl.DateTimeFormat.~locale.en-SD",
+    "Intl.NumberFormat.~locale.en-SD"
+  ],
+  "Intl.~locale.en-SE": [
+    "Intl.DateTimeFormat.~locale.en-SE",
+    "Intl.NumberFormat.~locale.en-SE"
+  ],
+  "Intl.~locale.en-SG": [
+    "Intl.DateTimeFormat.~locale.en-SG",
+    "Intl.NumberFormat.~locale.en-SG"
+  ],
+  "Intl.~locale.en-SH": [
+    "Intl.DateTimeFormat.~locale.en-SH",
+    "Intl.NumberFormat.~locale.en-SH"
+  ],
+  "Intl.~locale.en-SI": [
+    "Intl.DateTimeFormat.~locale.en-SI",
+    "Intl.NumberFormat.~locale.en-SI"
+  ],
+  "Intl.~locale.en-SL": [
+    "Intl.DateTimeFormat.~locale.en-SL",
+    "Intl.NumberFormat.~locale.en-SL"
+  ],
+  "Intl.~locale.en-SS": [
+    "Intl.DateTimeFormat.~locale.en-SS",
+    "Intl.NumberFormat.~locale.en-SS"
+  ],
+  "Intl.~locale.en-SX": [
+    "Intl.DateTimeFormat.~locale.en-SX",
+    "Intl.NumberFormat.~locale.en-SX"
+  ],
+  "Intl.~locale.en-SZ": [
+    "Intl.DateTimeFormat.~locale.en-SZ",
+    "Intl.NumberFormat.~locale.en-SZ"
+  ],
+  "Intl.~locale.en-TC": [
+    "Intl.DateTimeFormat.~locale.en-TC",
+    "Intl.NumberFormat.~locale.en-TC"
+  ],
+  "Intl.~locale.en-TK": [
+    "Intl.DateTimeFormat.~locale.en-TK",
+    "Intl.NumberFormat.~locale.en-TK"
+  ],
+  "Intl.~locale.en-TO": [
+    "Intl.DateTimeFormat.~locale.en-TO",
+    "Intl.NumberFormat.~locale.en-TO"
+  ],
+  "Intl.~locale.en-TT": [
+    "Intl.DateTimeFormat.~locale.en-TT",
+    "Intl.NumberFormat.~locale.en-TT"
+  ],
+  "Intl.~locale.en-TV": [
+    "Intl.DateTimeFormat.~locale.en-TV",
+    "Intl.NumberFormat.~locale.en-TV"
+  ],
+  "Intl.~locale.en-TZ": [
+    "Intl.DateTimeFormat.~locale.en-TZ",
+    "Intl.NumberFormat.~locale.en-TZ"
+  ],
+  "Intl.~locale.en-UG": [
+    "Intl.DateTimeFormat.~locale.en-UG",
+    "Intl.NumberFormat.~locale.en-UG"
+  ],
+  "Intl.~locale.en-UM": [
+    "Intl.DateTimeFormat.~locale.en-UM",
+    "Intl.NumberFormat.~locale.en-UM"
+  ],
+  "Intl.~locale.en-US-POSIX": [
+    "Intl.DateTimeFormat.~locale.en-US-POSIX",
+    "Intl.NumberFormat.~locale.en-US-POSIX"
+  ],
+  "Intl.~locale.en-VC": [
+    "Intl.DateTimeFormat.~locale.en-VC",
+    "Intl.NumberFormat.~locale.en-VC"
+  ],
+  "Intl.~locale.en-VG": [
+    "Intl.DateTimeFormat.~locale.en-VG",
+    "Intl.NumberFormat.~locale.en-VG"
+  ],
+  "Intl.~locale.en-VI": [
+    "Intl.DateTimeFormat.~locale.en-VI",
+    "Intl.NumberFormat.~locale.en-VI"
+  ],
+  "Intl.~locale.en-VU": [
+    "Intl.DateTimeFormat.~locale.en-VU",
+    "Intl.NumberFormat.~locale.en-VU"
+  ],
+  "Intl.~locale.en-WS": [
+    "Intl.DateTimeFormat.~locale.en-WS",
+    "Intl.NumberFormat.~locale.en-WS"
+  ],
+  "Intl.~locale.en-ZA": [
+    "Intl.DateTimeFormat.~locale.en-ZA",
+    "Intl.NumberFormat.~locale.en-ZA"
+  ],
+  "Intl.~locale.en-ZM": [
+    "Intl.DateTimeFormat.~locale.en-ZM",
+    "Intl.NumberFormat.~locale.en-ZM"
+  ],
+  "Intl.~locale.en-ZW": [
+    "Intl.DateTimeFormat.~locale.en-ZW",
+    "Intl.NumberFormat.~locale.en-ZW"
+  ],
+  "Intl.~locale.eo": [
+    "Intl.DateTimeFormat.~locale.eo",
+    "Intl.NumberFormat.~locale.eo",
+    "Intl.PluralRules.~locale.eo"
+  ],
+  "Intl.~locale.es": [
+    "Intl.DateTimeFormat.~locale.es",
+    "Intl.NumberFormat.~locale.es",
+    "Intl.PluralRules.~locale.es"
+  ],
+  "Intl.~locale.es-419": [
+    "Intl.DateTimeFormat.~locale.es-419",
+    "Intl.NumberFormat.~locale.es-419"
+  ],
+  "Intl.~locale.es-AR": [
+    "Intl.DateTimeFormat.~locale.es-AR",
+    "Intl.NumberFormat.~locale.es-AR"
+  ],
+  "Intl.~locale.es-BO": [
+    "Intl.DateTimeFormat.~locale.es-BO",
+    "Intl.NumberFormat.~locale.es-BO"
+  ],
+  "Intl.~locale.es-BR": [
+    "Intl.DateTimeFormat.~locale.es-BR",
+    "Intl.NumberFormat.~locale.es-BR"
+  ],
+  "Intl.~locale.es-BZ": [
+    "Intl.DateTimeFormat.~locale.es-BZ",
+    "Intl.NumberFormat.~locale.es-BZ"
+  ],
+  "Intl.~locale.es-CL": [
+    "Intl.DateTimeFormat.~locale.es-CL",
+    "Intl.NumberFormat.~locale.es-CL"
+  ],
+  "Intl.~locale.es-CO": [
+    "Intl.DateTimeFormat.~locale.es-CO",
+    "Intl.NumberFormat.~locale.es-CO"
+  ],
+  "Intl.~locale.es-CR": [
+    "Intl.DateTimeFormat.~locale.es-CR",
+    "Intl.NumberFormat.~locale.es-CR"
+  ],
+  "Intl.~locale.es-CU": [
+    "Intl.DateTimeFormat.~locale.es-CU",
+    "Intl.NumberFormat.~locale.es-CU"
+  ],
+  "Intl.~locale.es-DO": [
+    "Intl.DateTimeFormat.~locale.es-DO",
+    "Intl.NumberFormat.~locale.es-DO"
+  ],
+  "Intl.~locale.es-EA": [
+    "Intl.DateTimeFormat.~locale.es-EA",
+    "Intl.NumberFormat.~locale.es-EA"
+  ],
+  "Intl.~locale.es-EC": [
+    "Intl.DateTimeFormat.~locale.es-EC",
+    "Intl.NumberFormat.~locale.es-EC"
+  ],
+  "Intl.~locale.es-GQ": [
+    "Intl.DateTimeFormat.~locale.es-GQ",
+    "Intl.NumberFormat.~locale.es-GQ"
+  ],
+  "Intl.~locale.es-GT": [
+    "Intl.DateTimeFormat.~locale.es-GT",
+    "Intl.NumberFormat.~locale.es-GT"
+  ],
+  "Intl.~locale.es-HN": [
+    "Intl.DateTimeFormat.~locale.es-HN",
+    "Intl.NumberFormat.~locale.es-HN"
+  ],
+  "Intl.~locale.es-IC": [
+    "Intl.DateTimeFormat.~locale.es-IC",
+    "Intl.NumberFormat.~locale.es-IC"
+  ],
+  "Intl.~locale.es-MX": [
+    "Intl.DateTimeFormat.~locale.es-MX",
+    "Intl.NumberFormat.~locale.es-MX"
+  ],
+  "Intl.~locale.es-NI": [
+    "Intl.DateTimeFormat.~locale.es-NI",
+    "Intl.NumberFormat.~locale.es-NI"
+  ],
+  "Intl.~locale.es-PA": [
+    "Intl.DateTimeFormat.~locale.es-PA",
+    "Intl.NumberFormat.~locale.es-PA"
+  ],
+  "Intl.~locale.es-PE": [
+    "Intl.DateTimeFormat.~locale.es-PE",
+    "Intl.NumberFormat.~locale.es-PE"
+  ],
+  "Intl.~locale.es-PH": [
+    "Intl.DateTimeFormat.~locale.es-PH",
+    "Intl.NumberFormat.~locale.es-PH"
+  ],
+  "Intl.~locale.es-PR": [
+    "Intl.DateTimeFormat.~locale.es-PR",
+    "Intl.NumberFormat.~locale.es-PR"
+  ],
+  "Intl.~locale.es-PY": [
+    "Intl.DateTimeFormat.~locale.es-PY",
+    "Intl.NumberFormat.~locale.es-PY"
+  ],
+  "Intl.~locale.es-SV": [
+    "Intl.DateTimeFormat.~locale.es-SV",
+    "Intl.NumberFormat.~locale.es-SV"
+  ],
+  "Intl.~locale.es-US": [
+    "Intl.DateTimeFormat.~locale.es-US",
+    "Intl.NumberFormat.~locale.es-US"
+  ],
+  "Intl.~locale.es-UY": [
+    "Intl.DateTimeFormat.~locale.es-UY",
+    "Intl.NumberFormat.~locale.es-UY"
+  ],
+  "Intl.~locale.es-VE": [
+    "Intl.DateTimeFormat.~locale.es-VE",
+    "Intl.NumberFormat.~locale.es-VE"
+  ],
+  "Intl.~locale.et": [
+    "Intl.DateTimeFormat.~locale.et",
+    "Intl.NumberFormat.~locale.et",
+    "Intl.PluralRules.~locale.et"
+  ],
+  "Intl.~locale.eu": [
+    "Intl.DateTimeFormat.~locale.eu",
+    "Intl.NumberFormat.~locale.eu",
+    "Intl.PluralRules.~locale.eu"
+  ],
+  "Intl.~locale.ewo": [
+    "Intl.DateTimeFormat.~locale.ewo",
+    "Intl.NumberFormat.~locale.ewo"
+  ],
+  "Intl.~locale.fa": [
+    "Intl.DateTimeFormat.~locale.fa",
+    "Intl.NumberFormat.~locale.fa",
+    "Intl.PluralRules.~locale.fa"
+  ],
+  "Intl.~locale.fa-AF": [
+    "Intl.DateTimeFormat.~locale.fa-AF",
+    "Intl.NumberFormat.~locale.fa-AF"
+  ],
+  "Intl.~locale.ff": [
+    "Intl.DateTimeFormat.~locale.ff",
+    "Intl.NumberFormat.~locale.ff",
+    "Intl.PluralRules.~locale.ff"
+  ],
+  "Intl.~locale.ff-Latn": [
+    "Intl.DateTimeFormat.~locale.ff-Latn",
+    "Intl.NumberFormat.~locale.ff-Latn"
+  ],
+  "Intl.~locale.ff-Latn-BF": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-BF",
+    "Intl.NumberFormat.~locale.ff-Latn-BF"
+  ],
+  "Intl.~locale.ff-Latn-CM": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-CM",
+    "Intl.NumberFormat.~locale.ff-Latn-CM"
+  ],
+  "Intl.~locale.ff-Latn-GH": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-GH",
+    "Intl.NumberFormat.~locale.ff-Latn-GH"
+  ],
+  "Intl.~locale.ff-Latn-GM": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-GM",
+    "Intl.NumberFormat.~locale.ff-Latn-GM"
+  ],
+  "Intl.~locale.ff-Latn-GN": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-GN",
+    "Intl.NumberFormat.~locale.ff-Latn-GN"
+  ],
+  "Intl.~locale.ff-Latn-GW": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-GW",
+    "Intl.NumberFormat.~locale.ff-Latn-GW"
+  ],
+  "Intl.~locale.ff-Latn-LR": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-LR",
+    "Intl.NumberFormat.~locale.ff-Latn-LR"
+  ],
+  "Intl.~locale.ff-Latn-MR": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-MR",
+    "Intl.NumberFormat.~locale.ff-Latn-MR"
+  ],
+  "Intl.~locale.ff-Latn-NE": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-NE",
+    "Intl.NumberFormat.~locale.ff-Latn-NE"
+  ],
+  "Intl.~locale.ff-Latn-NG": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-NG",
+    "Intl.NumberFormat.~locale.ff-Latn-NG"
+  ],
+  "Intl.~locale.ff-Latn-SL": [
+    "Intl.DateTimeFormat.~locale.ff-Latn-SL",
+    "Intl.NumberFormat.~locale.ff-Latn-SL"
+  ],
+  "Intl.~locale.fi": [
+    "Intl.DateTimeFormat.~locale.fi",
+    "Intl.NumberFormat.~locale.fi",
+    "Intl.PluralRules.~locale.fi"
+  ],
+  "Intl.~locale.fil": [
+    "Intl.DateTimeFormat.~locale.fil",
+    "Intl.NumberFormat.~locale.fil",
+    "Intl.PluralRules.~locale.fil"
+  ],
+  "Intl.~locale.fo": [
+    "Intl.DateTimeFormat.~locale.fo",
+    "Intl.NumberFormat.~locale.fo",
+    "Intl.PluralRules.~locale.fo"
+  ],
+  "Intl.~locale.fo-DK": [
+    "Intl.DateTimeFormat.~locale.fo-DK",
+    "Intl.NumberFormat.~locale.fo-DK"
+  ],
+  "Intl.~locale.fr": [
+    "Intl.DateTimeFormat.~locale.fr",
+    "Intl.NumberFormat.~locale.fr",
+    "Intl.PluralRules.~locale.fr"
+  ],
+  "Intl.~locale.fr-BE": [
+    "Intl.DateTimeFormat.~locale.fr-BE",
+    "Intl.NumberFormat.~locale.fr-BE"
+  ],
+  "Intl.~locale.fr-BF": [
+    "Intl.DateTimeFormat.~locale.fr-BF",
+    "Intl.NumberFormat.~locale.fr-BF"
+  ],
+  "Intl.~locale.fr-BI": [
+    "Intl.DateTimeFormat.~locale.fr-BI",
+    "Intl.NumberFormat.~locale.fr-BI"
+  ],
+  "Intl.~locale.fr-BJ": [
+    "Intl.DateTimeFormat.~locale.fr-BJ",
+    "Intl.NumberFormat.~locale.fr-BJ"
+  ],
+  "Intl.~locale.fr-BL": [
+    "Intl.DateTimeFormat.~locale.fr-BL",
+    "Intl.NumberFormat.~locale.fr-BL"
+  ],
+  "Intl.~locale.fr-CA": [
+    "Intl.DateTimeFormat.~locale.fr-CA",
+    "Intl.NumberFormat.~locale.fr-CA"
+  ],
+  "Intl.~locale.fr-CD": [
+    "Intl.DateTimeFormat.~locale.fr-CD",
+    "Intl.NumberFormat.~locale.fr-CD"
+  ],
+  "Intl.~locale.fr-CF": [
+    "Intl.DateTimeFormat.~locale.fr-CF",
+    "Intl.NumberFormat.~locale.fr-CF"
+  ],
+  "Intl.~locale.fr-CG": [
+    "Intl.DateTimeFormat.~locale.fr-CG",
+    "Intl.NumberFormat.~locale.fr-CG"
+  ],
+  "Intl.~locale.fr-CH": [
+    "Intl.DateTimeFormat.~locale.fr-CH",
+    "Intl.NumberFormat.~locale.fr-CH"
+  ],
+  "Intl.~locale.fr-CI": [
+    "Intl.DateTimeFormat.~locale.fr-CI",
+    "Intl.NumberFormat.~locale.fr-CI"
+  ],
+  "Intl.~locale.fr-CM": [
+    "Intl.DateTimeFormat.~locale.fr-CM",
+    "Intl.NumberFormat.~locale.fr-CM"
+  ],
+  "Intl.~locale.fr-DJ": [
+    "Intl.DateTimeFormat.~locale.fr-DJ",
+    "Intl.NumberFormat.~locale.fr-DJ"
+  ],
+  "Intl.~locale.fr-DZ": [
+    "Intl.DateTimeFormat.~locale.fr-DZ",
+    "Intl.NumberFormat.~locale.fr-DZ"
+  ],
+  "Intl.~locale.fr-GA": [
+    "Intl.DateTimeFormat.~locale.fr-GA",
+    "Intl.NumberFormat.~locale.fr-GA"
+  ],
+  "Intl.~locale.fr-GF": [
+    "Intl.DateTimeFormat.~locale.fr-GF",
+    "Intl.NumberFormat.~locale.fr-GF"
+  ],
+  "Intl.~locale.fr-GN": [
+    "Intl.DateTimeFormat.~locale.fr-GN",
+    "Intl.NumberFormat.~locale.fr-GN"
+  ],
+  "Intl.~locale.fr-GP": [
+    "Intl.DateTimeFormat.~locale.fr-GP",
+    "Intl.NumberFormat.~locale.fr-GP"
+  ],
+  "Intl.~locale.fr-GQ": [
+    "Intl.DateTimeFormat.~locale.fr-GQ",
+    "Intl.NumberFormat.~locale.fr-GQ"
+  ],
+  "Intl.~locale.fr-HT": [
+    "Intl.DateTimeFormat.~locale.fr-HT",
+    "Intl.NumberFormat.~locale.fr-HT"
+  ],
+  "Intl.~locale.fr-KM": [
+    "Intl.DateTimeFormat.~locale.fr-KM",
+    "Intl.NumberFormat.~locale.fr-KM"
+  ],
+  "Intl.~locale.fr-LU": [
+    "Intl.DateTimeFormat.~locale.fr-LU",
+    "Intl.NumberFormat.~locale.fr-LU"
+  ],
+  "Intl.~locale.fr-MA": [
+    "Intl.DateTimeFormat.~locale.fr-MA",
+    "Intl.NumberFormat.~locale.fr-MA"
+  ],
+  "Intl.~locale.fr-MC": [
+    "Intl.DateTimeFormat.~locale.fr-MC",
+    "Intl.NumberFormat.~locale.fr-MC"
+  ],
+  "Intl.~locale.fr-MF": [
+    "Intl.DateTimeFormat.~locale.fr-MF",
+    "Intl.NumberFormat.~locale.fr-MF"
+  ],
+  "Intl.~locale.fr-MG": [
+    "Intl.DateTimeFormat.~locale.fr-MG",
+    "Intl.NumberFormat.~locale.fr-MG"
+  ],
+  "Intl.~locale.fr-ML": [
+    "Intl.DateTimeFormat.~locale.fr-ML",
+    "Intl.NumberFormat.~locale.fr-ML"
+  ],
+  "Intl.~locale.fr-MQ": [
+    "Intl.DateTimeFormat.~locale.fr-MQ",
+    "Intl.NumberFormat.~locale.fr-MQ"
+  ],
+  "Intl.~locale.fr-MR": [
+    "Intl.DateTimeFormat.~locale.fr-MR",
+    "Intl.NumberFormat.~locale.fr-MR"
+  ],
+  "Intl.~locale.fr-MU": [
+    "Intl.DateTimeFormat.~locale.fr-MU",
+    "Intl.NumberFormat.~locale.fr-MU"
+  ],
+  "Intl.~locale.fr-NC": [
+    "Intl.DateTimeFormat.~locale.fr-NC",
+    "Intl.NumberFormat.~locale.fr-NC"
+  ],
+  "Intl.~locale.fr-NE": [
+    "Intl.DateTimeFormat.~locale.fr-NE",
+    "Intl.NumberFormat.~locale.fr-NE"
+  ],
+  "Intl.~locale.fr-PF": [
+    "Intl.DateTimeFormat.~locale.fr-PF",
+    "Intl.NumberFormat.~locale.fr-PF"
+  ],
+  "Intl.~locale.fr-PM": [
+    "Intl.DateTimeFormat.~locale.fr-PM",
+    "Intl.NumberFormat.~locale.fr-PM"
+  ],
+  "Intl.~locale.fr-RE": [
+    "Intl.DateTimeFormat.~locale.fr-RE",
+    "Intl.NumberFormat.~locale.fr-RE"
+  ],
+  "Intl.~locale.fr-RW": [
+    "Intl.DateTimeFormat.~locale.fr-RW",
+    "Intl.NumberFormat.~locale.fr-RW"
+  ],
+  "Intl.~locale.fr-SC": [
+    "Intl.DateTimeFormat.~locale.fr-SC",
+    "Intl.NumberFormat.~locale.fr-SC"
+  ],
+  "Intl.~locale.fr-SN": [
+    "Intl.DateTimeFormat.~locale.fr-SN",
+    "Intl.NumberFormat.~locale.fr-SN"
+  ],
+  "Intl.~locale.fr-SY": [
+    "Intl.DateTimeFormat.~locale.fr-SY",
+    "Intl.NumberFormat.~locale.fr-SY"
+  ],
+  "Intl.~locale.fr-TD": [
+    "Intl.DateTimeFormat.~locale.fr-TD",
+    "Intl.NumberFormat.~locale.fr-TD"
+  ],
+  "Intl.~locale.fr-TG": [
+    "Intl.DateTimeFormat.~locale.fr-TG",
+    "Intl.NumberFormat.~locale.fr-TG"
+  ],
+  "Intl.~locale.fr-TN": [
+    "Intl.DateTimeFormat.~locale.fr-TN",
+    "Intl.NumberFormat.~locale.fr-TN"
+  ],
+  "Intl.~locale.fr-VU": [
+    "Intl.DateTimeFormat.~locale.fr-VU",
+    "Intl.NumberFormat.~locale.fr-VU"
+  ],
+  "Intl.~locale.fr-WF": [
+    "Intl.DateTimeFormat.~locale.fr-WF",
+    "Intl.NumberFormat.~locale.fr-WF"
+  ],
+  "Intl.~locale.fr-YT": [
+    "Intl.DateTimeFormat.~locale.fr-YT",
+    "Intl.NumberFormat.~locale.fr-YT"
+  ],
+  "Intl.~locale.fur": [
+    "Intl.DateTimeFormat.~locale.fur",
+    "Intl.NumberFormat.~locale.fur",
+    "Intl.PluralRules.~locale.fur"
+  ],
+  "Intl.~locale.fy": [
+    "Intl.DateTimeFormat.~locale.fy",
+    "Intl.NumberFormat.~locale.fy",
+    "Intl.PluralRules.~locale.fy"
+  ],
+  "Intl.~locale.ga": [
+    "Intl.DateTimeFormat.~locale.ga",
+    "Intl.NumberFormat.~locale.ga",
+    "Intl.PluralRules.~locale.ga"
+  ],
+  "Intl.~locale.ga-GB": [
+    "Intl.DateTimeFormat.~locale.ga-GB",
+    "Intl.NumberFormat.~locale.ga-GB"
+  ],
+  "Intl.~locale.gd": [
+    "Intl.DateTimeFormat.~locale.gd",
+    "Intl.NumberFormat.~locale.gd",
+    "Intl.PluralRules.~locale.gd"
+  ],
+  "Intl.~locale.gl": [
+    "Intl.DateTimeFormat.~locale.gl",
+    "Intl.NumberFormat.~locale.gl",
+    "Intl.PluralRules.~locale.gl"
+  ],
+  "Intl.~locale.gsw": [
+    "Intl.DateTimeFormat.~locale.gsw",
+    "Intl.NumberFormat.~locale.gsw",
+    "Intl.PluralRules.~locale.gsw"
+  ],
+  "Intl.~locale.gsw-FR": [
+    "Intl.DateTimeFormat.~locale.gsw-FR",
+    "Intl.NumberFormat.~locale.gsw-FR"
+  ],
+  "Intl.~locale.gsw-LI": [
+    "Intl.DateTimeFormat.~locale.gsw-LI",
+    "Intl.NumberFormat.~locale.gsw-LI"
+  ],
+  "Intl.~locale.gu": [
+    "Intl.DateTimeFormat.~locale.gu",
+    "Intl.NumberFormat.~locale.gu",
+    "Intl.PluralRules.~locale.gu"
+  ],
+  "Intl.~locale.guz": [
+    "Intl.DateTimeFormat.~locale.guz",
+    "Intl.NumberFormat.~locale.guz"
+  ],
+  "Intl.~locale.gv": [
+    "Intl.DateTimeFormat.~locale.gv",
+    "Intl.NumberFormat.~locale.gv",
+    "Intl.PluralRules.~locale.gv"
+  ],
+  "Intl.~locale.ha": [
+    "Intl.DateTimeFormat.~locale.ha",
+    "Intl.NumberFormat.~locale.ha",
+    "Intl.PluralRules.~locale.ha"
+  ],
+  "Intl.~locale.ha-GH": [
+    "Intl.DateTimeFormat.~locale.ha-GH",
+    "Intl.NumberFormat.~locale.ha-GH"
+  ],
+  "Intl.~locale.ha-NE": [
+    "Intl.DateTimeFormat.~locale.ha-NE",
+    "Intl.NumberFormat.~locale.ha-NE"
+  ],
+  "Intl.~locale.haw": [
+    "Intl.DateTimeFormat.~locale.haw",
+    "Intl.NumberFormat.~locale.haw",
+    "Intl.PluralRules.~locale.haw"
+  ],
+  "Intl.~locale.he": [
+    "Intl.DateTimeFormat.~locale.he",
+    "Intl.NumberFormat.~locale.he",
+    "Intl.PluralRules.~locale.he"
+  ],
+  "Intl.~locale.hi": [
+    "Intl.DateTimeFormat.~locale.hi",
+    "Intl.NumberFormat.~locale.hi",
+    "Intl.PluralRules.~locale.hi"
+  ],
+  "Intl.~locale.hr": [
+    "Intl.DateTimeFormat.~locale.hr",
+    "Intl.NumberFormat.~locale.hr",
+    "Intl.PluralRules.~locale.hr"
+  ],
+  "Intl.~locale.hr-BA": [
+    "Intl.DateTimeFormat.~locale.hr-BA",
+    "Intl.NumberFormat.~locale.hr-BA"
+  ],
+  "Intl.~locale.hsb": [
+    "Intl.DateTimeFormat.~locale.hsb",
+    "Intl.NumberFormat.~locale.hsb",
+    "Intl.PluralRules.~locale.hsb"
+  ],
+  "Intl.~locale.hu": [
+    "Intl.DateTimeFormat.~locale.hu",
+    "Intl.NumberFormat.~locale.hu",
+    "Intl.PluralRules.~locale.hu"
+  ],
+  "Intl.~locale.hy": [
+    "Intl.DateTimeFormat.~locale.hy",
+    "Intl.NumberFormat.~locale.hy",
+    "Intl.PluralRules.~locale.hy"
+  ],
+  "Intl.~locale.ia": [
+    "Intl.DateTimeFormat.~locale.ia",
+    "Intl.NumberFormat.~locale.ia",
+    "Intl.PluralRules.~locale.ia"
+  ],
+  "Intl.~locale.id": [
+    "Intl.DateTimeFormat.~locale.id",
+    "Intl.NumberFormat.~locale.id",
+    "Intl.PluralRules.~locale.id"
+  ],
+  "Intl.~locale.ig": [
+    "Intl.DateTimeFormat.~locale.ig",
+    "Intl.NumberFormat.~locale.ig",
+    "Intl.PluralRules.~locale.ig"
+  ],
+  "Intl.~locale.ii": [
+    "Intl.DateTimeFormat.~locale.ii",
+    "Intl.NumberFormat.~locale.ii",
+    "Intl.PluralRules.~locale.ii"
+  ],
+  "Intl.~locale.is": [
+    "Intl.DateTimeFormat.~locale.is",
+    "Intl.NumberFormat.~locale.is",
+    "Intl.PluralRules.~locale.is"
+  ],
+  "Intl.~locale.it": [
+    "Intl.DateTimeFormat.~locale.it",
+    "Intl.NumberFormat.~locale.it",
+    "Intl.PluralRules.~locale.it"
+  ],
+  "Intl.~locale.it-CH": [
+    "Intl.DateTimeFormat.~locale.it-CH",
+    "Intl.NumberFormat.~locale.it-CH"
+  ],
+  "Intl.~locale.it-SM": [
+    "Intl.DateTimeFormat.~locale.it-SM",
+    "Intl.NumberFormat.~locale.it-SM"
+  ],
+  "Intl.~locale.it-VA": [
+    "Intl.DateTimeFormat.~locale.it-VA",
+    "Intl.NumberFormat.~locale.it-VA"
+  ],
+  "Intl.~locale.ja": [
+    "Intl.DateTimeFormat.~locale.ja",
+    "Intl.NumberFormat.~locale.ja",
+    "Intl.PluralRules.~locale.ja"
+  ],
+  "Intl.~locale.jgo": [
+    "Intl.DateTimeFormat.~locale.jgo",
+    "Intl.NumberFormat.~locale.jgo",
+    "Intl.PluralRules.~locale.jgo"
+  ],
+  "Intl.~locale.jmc": [
+    "Intl.DateTimeFormat.~locale.jmc",
+    "Intl.NumberFormat.~locale.jmc",
+    "Intl.PluralRules.~locale.jmc"
+  ],
+  "Intl.~locale.jv": [
+    "Intl.DateTimeFormat.~locale.jv",
+    "Intl.NumberFormat.~locale.jv",
+    "Intl.PluralRules.~locale.jv"
+  ],
+  "Intl.~locale.ka": [
+    "Intl.DateTimeFormat.~locale.ka",
+    "Intl.NumberFormat.~locale.ka",
+    "Intl.PluralRules.~locale.ka"
+  ],
+  "Intl.~locale.kab": [
+    "Intl.DateTimeFormat.~locale.kab",
+    "Intl.NumberFormat.~locale.kab",
+    "Intl.PluralRules.~locale.kab"
+  ],
+  "Intl.~locale.kam": [
+    "Intl.DateTimeFormat.~locale.kam",
+    "Intl.NumberFormat.~locale.kam"
+  ],
+  "Intl.~locale.kde": [
+    "Intl.DateTimeFormat.~locale.kde",
+    "Intl.NumberFormat.~locale.kde",
+    "Intl.PluralRules.~locale.kde"
+  ],
+  "Intl.~locale.kea": [
+    "Intl.DateTimeFormat.~locale.kea",
+    "Intl.NumberFormat.~locale.kea",
+    "Intl.PluralRules.~locale.kea"
+  ],
+  "Intl.~locale.khq": [
+    "Intl.DateTimeFormat.~locale.khq",
+    "Intl.NumberFormat.~locale.khq"
+  ],
+  "Intl.~locale.ki": [
+    "Intl.DateTimeFormat.~locale.ki",
+    "Intl.NumberFormat.~locale.ki"
+  ],
+  "Intl.~locale.kk": [
+    "Intl.DateTimeFormat.~locale.kk",
+    "Intl.NumberFormat.~locale.kk",
+    "Intl.PluralRules.~locale.kk"
+  ],
+  "Intl.~locale.kkj": [
+    "Intl.DateTimeFormat.~locale.kkj",
+    "Intl.NumberFormat.~locale.kkj",
+    "Intl.PluralRules.~locale.kkj"
+  ],
+  "Intl.~locale.kl": [
+    "Intl.DateTimeFormat.~locale.kl",
+    "Intl.NumberFormat.~locale.kl",
+    "Intl.PluralRules.~locale.kl"
+  ],
+  "Intl.~locale.kln": [
+    "Intl.DateTimeFormat.~locale.kln",
+    "Intl.NumberFormat.~locale.kln"
+  ],
+  "Intl.~locale.km": [
+    "Intl.DateTimeFormat.~locale.km",
+    "Intl.NumberFormat.~locale.km",
+    "Intl.PluralRules.~locale.km"
+  ],
+  "Intl.~locale.kn": [
+    "Intl.DateTimeFormat.~locale.kn",
+    "Intl.NumberFormat.~locale.kn",
+    "Intl.PluralRules.~locale.kn"
+  ],
+  "Intl.~locale.ko": [
+    "Intl.DateTimeFormat.~locale.ko",
+    "Intl.NumberFormat.~locale.ko",
+    "Intl.PluralRules.~locale.ko"
+  ],
+  "Intl.~locale.ko-KP": [
+    "Intl.DateTimeFormat.~locale.ko-KP",
+    "Intl.NumberFormat.~locale.ko-KP"
+  ],
+  "Intl.~locale.kok": [
+    "Intl.DateTimeFormat.~locale.kok",
+    "Intl.NumberFormat.~locale.kok"
+  ],
+  "Intl.~locale.ks": [
+    "Intl.DateTimeFormat.~locale.ks",
+    "Intl.NumberFormat.~locale.ks",
+    "Intl.PluralRules.~locale.ks"
+  ],
+  "Intl.~locale.ksb": [
+    "Intl.DateTimeFormat.~locale.ksb",
+    "Intl.NumberFormat.~locale.ksb",
+    "Intl.PluralRules.~locale.ksb"
+  ],
+  "Intl.~locale.ksf": [
+    "Intl.DateTimeFormat.~locale.ksf",
+    "Intl.NumberFormat.~locale.ksf"
+  ],
+  "Intl.~locale.ksh": [
+    "Intl.DateTimeFormat.~locale.ksh",
+    "Intl.NumberFormat.~locale.ksh",
+    "Intl.PluralRules.~locale.ksh"
+  ],
+  "Intl.~locale.ku": [
+    "Intl.DateTimeFormat.~locale.ku",
+    "Intl.NumberFormat.~locale.ku",
+    "Intl.PluralRules.~locale.ku"
+  ],
+  "Intl.~locale.kw": [
+    "Intl.DateTimeFormat.~locale.kw",
+    "Intl.NumberFormat.~locale.kw",
+    "Intl.PluralRules.~locale.kw"
+  ],
+  "Intl.~locale.ky": [
+    "Intl.DateTimeFormat.~locale.ky",
+    "Intl.NumberFormat.~locale.ky",
+    "Intl.PluralRules.~locale.ky"
+  ],
+  "Intl.~locale.lag": [
+    "Intl.DateTimeFormat.~locale.lag",
+    "Intl.NumberFormat.~locale.lag",
+    "Intl.PluralRules.~locale.lag"
+  ],
+  "Intl.~locale.lb": [
+    "Intl.DateTimeFormat.~locale.lb",
+    "Intl.NumberFormat.~locale.lb",
+    "Intl.PluralRules.~locale.lb"
+  ],
+  "Intl.~locale.lg": [
+    "Intl.DateTimeFormat.~locale.lg",
+    "Intl.NumberFormat.~locale.lg",
+    "Intl.PluralRules.~locale.lg"
+  ],
+  "Intl.~locale.lkt": [
+    "Intl.DateTimeFormat.~locale.lkt",
+    "Intl.NumberFormat.~locale.lkt",
+    "Intl.PluralRules.~locale.lkt"
+  ],
+  "Intl.~locale.ln": [
+    "Intl.DateTimeFormat.~locale.ln",
+    "Intl.NumberFormat.~locale.ln",
+    "Intl.PluralRules.~locale.ln"
+  ],
+  "Intl.~locale.ln-AO": [
+    "Intl.DateTimeFormat.~locale.ln-AO",
+    "Intl.NumberFormat.~locale.ln-AO"
+  ],
+  "Intl.~locale.ln-CF": [
+    "Intl.DateTimeFormat.~locale.ln-CF",
+    "Intl.NumberFormat.~locale.ln-CF"
+  ],
+  "Intl.~locale.ln-CG": [
+    "Intl.DateTimeFormat.~locale.ln-CG",
+    "Intl.NumberFormat.~locale.ln-CG"
+  ],
+  "Intl.~locale.lo": [
+    "Intl.DateTimeFormat.~locale.lo",
+    "Intl.NumberFormat.~locale.lo",
+    "Intl.PluralRules.~locale.lo"
+  ],
+  "Intl.~locale.lrc": [
+    "Intl.DateTimeFormat.~locale.lrc",
+    "Intl.NumberFormat.~locale.lrc"
+  ],
+  "Intl.~locale.lrc-IQ": [
+    "Intl.DateTimeFormat.~locale.lrc-IQ",
+    "Intl.NumberFormat.~locale.lrc-IQ"
+  ],
+  "Intl.~locale.lt": [
+    "Intl.DateTimeFormat.~locale.lt",
+    "Intl.NumberFormat.~locale.lt",
+    "Intl.PluralRules.~locale.lt"
+  ],
+  "Intl.~locale.lu": [
+    "Intl.DateTimeFormat.~locale.lu",
+    "Intl.NumberFormat.~locale.lu"
+  ],
+  "Intl.~locale.luo": [
+    "Intl.DateTimeFormat.~locale.luo",
+    "Intl.NumberFormat.~locale.luo"
+  ],
+  "Intl.~locale.luy": [
+    "Intl.DateTimeFormat.~locale.luy",
+    "Intl.NumberFormat.~locale.luy"
+  ],
+  "Intl.~locale.lv": [
+    "Intl.DateTimeFormat.~locale.lv",
+    "Intl.NumberFormat.~locale.lv",
+    "Intl.PluralRules.~locale.lv"
+  ],
+  "Intl.~locale.mas": [
+    "Intl.DateTimeFormat.~locale.mas",
+    "Intl.NumberFormat.~locale.mas",
+    "Intl.PluralRules.~locale.mas"
+  ],
+  "Intl.~locale.mas-TZ": [
+    "Intl.DateTimeFormat.~locale.mas-TZ",
+    "Intl.NumberFormat.~locale.mas-TZ"
+  ],
+  "Intl.~locale.mer": [
+    "Intl.DateTimeFormat.~locale.mer",
+    "Intl.NumberFormat.~locale.mer"
+  ],
+  "Intl.~locale.mfe": [
+    "Intl.DateTimeFormat.~locale.mfe",
+    "Intl.NumberFormat.~locale.mfe"
+  ],
+  "Intl.~locale.mg": [
+    "Intl.DateTimeFormat.~locale.mg",
+    "Intl.NumberFormat.~locale.mg",
+    "Intl.PluralRules.~locale.mg"
+  ],
+  "Intl.~locale.mgh": [
+    "Intl.DateTimeFormat.~locale.mgh",
+    "Intl.NumberFormat.~locale.mgh"
+  ],
+  "Intl.~locale.mgo": [
+    "Intl.DateTimeFormat.~locale.mgo",
+    "Intl.NumberFormat.~locale.mgo",
+    "Intl.PluralRules.~locale.mgo"
+  ],
+  "Intl.~locale.mi": [
+    "Intl.DateTimeFormat.~locale.mi",
+    "Intl.NumberFormat.~locale.mi"
+  ],
+  "Intl.~locale.mk": [
+    "Intl.DateTimeFormat.~locale.mk",
+    "Intl.NumberFormat.~locale.mk",
+    "Intl.PluralRules.~locale.mk"
+  ],
+  "Intl.~locale.ml": [
+    "Intl.DateTimeFormat.~locale.ml",
+    "Intl.NumberFormat.~locale.ml",
+    "Intl.PluralRules.~locale.ml"
+  ],
+  "Intl.~locale.mn": [
+    "Intl.DateTimeFormat.~locale.mn",
+    "Intl.NumberFormat.~locale.mn",
+    "Intl.PluralRules.~locale.mn"
+  ],
+  "Intl.~locale.mr": [
+    "Intl.DateTimeFormat.~locale.mr",
+    "Intl.NumberFormat.~locale.mr",
+    "Intl.PluralRules.~locale.mr"
+  ],
+  "Intl.~locale.ms": [
+    "Intl.DateTimeFormat.~locale.ms",
+    "Intl.NumberFormat.~locale.ms",
+    "Intl.PluralRules.~locale.ms"
+  ],
+  "Intl.~locale.ms-BN": [
+    "Intl.DateTimeFormat.~locale.ms-BN",
+    "Intl.NumberFormat.~locale.ms-BN"
+  ],
+  "Intl.~locale.ms-SG": [
+    "Intl.DateTimeFormat.~locale.ms-SG",
+    "Intl.NumberFormat.~locale.ms-SG"
+  ],
+  "Intl.~locale.mt": [
+    "Intl.DateTimeFormat.~locale.mt",
+    "Intl.NumberFormat.~locale.mt",
+    "Intl.PluralRules.~locale.mt"
+  ],
+  "Intl.~locale.mua": [
+    "Intl.DateTimeFormat.~locale.mua",
+    "Intl.NumberFormat.~locale.mua"
+  ],
+  "Intl.~locale.my": [
+    "Intl.DateTimeFormat.~locale.my",
+    "Intl.NumberFormat.~locale.my",
+    "Intl.PluralRules.~locale.my"
+  ],
+  "Intl.~locale.mzn": [
+    "Intl.DateTimeFormat.~locale.mzn",
+    "Intl.NumberFormat.~locale.mzn"
+  ],
+  "Intl.~locale.naq": [
+    "Intl.DateTimeFormat.~locale.naq",
+    "Intl.NumberFormat.~locale.naq",
+    "Intl.PluralRules.~locale.naq"
+  ],
+  "Intl.~locale.nb": [
+    "Intl.DateTimeFormat.~locale.nb",
+    "Intl.NumberFormat.~locale.nb",
+    "Intl.PluralRules.~locale.nb"
+  ],
+  "Intl.~locale.nb-SJ": [
+    "Intl.DateTimeFormat.~locale.nb-SJ",
+    "Intl.NumberFormat.~locale.nb-SJ"
+  ],
+  "Intl.~locale.nd": [
+    "Intl.DateTimeFormat.~locale.nd",
+    "Intl.NumberFormat.~locale.nd",
+    "Intl.PluralRules.~locale.nd"
+  ],
+  "Intl.~locale.nds": [
+    "Intl.DateTimeFormat.~locale.nds",
+    "Intl.NumberFormat.~locale.nds"
+  ],
+  "Intl.~locale.nds-NL": [
+    "Intl.DateTimeFormat.~locale.nds-NL",
+    "Intl.NumberFormat.~locale.nds-NL"
+  ],
+  "Intl.~locale.ne": [
+    "Intl.DateTimeFormat.~locale.ne",
+    "Intl.NumberFormat.~locale.ne",
+    "Intl.PluralRules.~locale.ne"
+  ],
+  "Intl.~locale.ne-IN": [
+    "Intl.DateTimeFormat.~locale.ne-IN",
+    "Intl.NumberFormat.~locale.ne-IN"
+  ],
+  "Intl.~locale.nl": [
+    "Intl.DateTimeFormat.~locale.nl",
+    "Intl.NumberFormat.~locale.nl",
+    "Intl.PluralRules.~locale.nl"
+  ],
+  "Intl.~locale.nl-AW": [
+    "Intl.DateTimeFormat.~locale.nl-AW",
+    "Intl.NumberFormat.~locale.nl-AW"
+  ],
+  "Intl.~locale.nl-BE": [
+    "Intl.DateTimeFormat.~locale.nl-BE",
+    "Intl.NumberFormat.~locale.nl-BE"
+  ],
+  "Intl.~locale.nl-BQ": [
+    "Intl.DateTimeFormat.~locale.nl-BQ",
+    "Intl.NumberFormat.~locale.nl-BQ"
+  ],
+  "Intl.~locale.nl-CW": [
+    "Intl.DateTimeFormat.~locale.nl-CW",
+    "Intl.NumberFormat.~locale.nl-CW"
+  ],
+  "Intl.~locale.nl-SR": [
+    "Intl.DateTimeFormat.~locale.nl-SR",
+    "Intl.NumberFormat.~locale.nl-SR"
+  ],
+  "Intl.~locale.nl-SX": [
+    "Intl.DateTimeFormat.~locale.nl-SX",
+    "Intl.NumberFormat.~locale.nl-SX"
+  ],
+  "Intl.~locale.nmg": [
+    "Intl.DateTimeFormat.~locale.nmg",
+    "Intl.NumberFormat.~locale.nmg"
+  ],
+  "Intl.~locale.nn": [
+    "Intl.DateTimeFormat.~locale.nn",
+    "Intl.NumberFormat.~locale.nn",
+    "Intl.PluralRules.~locale.nn"
+  ],
+  "Intl.~locale.nnh": [
+    "Intl.DateTimeFormat.~locale.nnh",
+    "Intl.NumberFormat.~locale.nnh",
+    "Intl.PluralRules.~locale.nnh"
+  ],
+  "Intl.~locale.nus": [
+    "Intl.DateTimeFormat.~locale.nus",
+    "Intl.NumberFormat.~locale.nus"
+  ],
+  "Intl.~locale.nyn": [
+    "Intl.DateTimeFormat.~locale.nyn",
+    "Intl.NumberFormat.~locale.nyn",
+    "Intl.PluralRules.~locale.nyn"
+  ],
+  "Intl.~locale.om": [
+    "Intl.DateTimeFormat.~locale.om",
+    "Intl.NumberFormat.~locale.om",
+    "Intl.PluralRules.~locale.om"
+  ],
+  "Intl.~locale.om-KE": [
+    "Intl.DateTimeFormat.~locale.om-KE",
+    "Intl.NumberFormat.~locale.om-KE"
+  ],
+  "Intl.~locale.or": [
+    "Intl.DateTimeFormat.~locale.or",
+    "Intl.NumberFormat.~locale.or",
+    "Intl.PluralRules.~locale.or"
+  ],
+  "Intl.~locale.os": [
+    "Intl.DateTimeFormat.~locale.os",
+    "Intl.NumberFormat.~locale.os",
+    "Intl.PluralRules.~locale.os"
+  ],
+  "Intl.~locale.os-RU": [
+    "Intl.DateTimeFormat.~locale.os-RU",
+    "Intl.NumberFormat.~locale.os-RU"
+  ],
+  "Intl.~locale.pa": [
+    "Intl.DateTimeFormat.~locale.pa",
+    "Intl.NumberFormat.~locale.pa",
+    "Intl.PluralRules.~locale.pa"
+  ],
+  "Intl.~locale.pa-Arab": [
+    "Intl.DateTimeFormat.~locale.pa-Arab",
+    "Intl.NumberFormat.~locale.pa-Arab"
+  ],
+  "Intl.~locale.pa-Guru": [
+    "Intl.DateTimeFormat.~locale.pa-Guru",
+    "Intl.NumberFormat.~locale.pa-Guru"
+  ],
+  "Intl.~locale.pl": [
+    "Intl.DateTimeFormat.~locale.pl",
+    "Intl.NumberFormat.~locale.pl",
+    "Intl.PluralRules.~locale.pl"
+  ],
+  "Intl.~locale.prg": [
+    "Intl.DateTimeFormat.~locale.prg",
+    "Intl.NumberFormat.~locale.prg",
+    "Intl.PluralRules.~locale.prg"
+  ],
+  "Intl.~locale.ps": [
+    "Intl.DateTimeFormat.~locale.ps",
+    "Intl.NumberFormat.~locale.ps",
+    "Intl.PluralRules.~locale.ps"
+  ],
+  "Intl.~locale.ps-PK": [
+    "Intl.DateTimeFormat.~locale.ps-PK",
+    "Intl.NumberFormat.~locale.ps-PK"
+  ],
+  "Intl.~locale.pt": [
+    "Intl.DateTimeFormat.~locale.pt",
+    "Intl.NumberFormat.~locale.pt",
+    "Intl.PluralRules.~locale.pt"
+  ],
+  "Intl.~locale.pt-AO": [
+    "Intl.DateTimeFormat.~locale.pt-AO",
+    "Intl.NumberFormat.~locale.pt-AO"
+  ],
+  "Intl.~locale.pt-CH": [
+    "Intl.DateTimeFormat.~locale.pt-CH",
+    "Intl.NumberFormat.~locale.pt-CH"
+  ],
+  "Intl.~locale.pt-CV": [
+    "Intl.DateTimeFormat.~locale.pt-CV",
+    "Intl.NumberFormat.~locale.pt-CV"
+  ],
+  "Intl.~locale.pt-GQ": [
+    "Intl.DateTimeFormat.~locale.pt-GQ",
+    "Intl.NumberFormat.~locale.pt-GQ"
+  ],
+  "Intl.~locale.pt-GW": [
+    "Intl.DateTimeFormat.~locale.pt-GW",
+    "Intl.NumberFormat.~locale.pt-GW"
+  ],
+  "Intl.~locale.pt-LU": [
+    "Intl.DateTimeFormat.~locale.pt-LU",
+    "Intl.NumberFormat.~locale.pt-LU"
+  ],
+  "Intl.~locale.pt-MO": [
+    "Intl.DateTimeFormat.~locale.pt-MO",
+    "Intl.NumberFormat.~locale.pt-MO"
+  ],
+  "Intl.~locale.pt-MZ": [
+    "Intl.DateTimeFormat.~locale.pt-MZ",
+    "Intl.NumberFormat.~locale.pt-MZ"
+  ],
+  "Intl.~locale.pt-PT": [
+    "Intl.DateTimeFormat.~locale.pt-PT",
+    "Intl.NumberFormat.~locale.pt-PT",
+    "Intl.PluralRules.~locale.pt-PT"
+  ],
+  "Intl.~locale.pt-ST": [
+    "Intl.DateTimeFormat.~locale.pt-ST",
+    "Intl.NumberFormat.~locale.pt-ST"
+  ],
+  "Intl.~locale.pt-TL": [
+    "Intl.DateTimeFormat.~locale.pt-TL",
+    "Intl.NumberFormat.~locale.pt-TL"
+  ],
+  "Intl.~locale.qu": [
+    "Intl.DateTimeFormat.~locale.qu",
+    "Intl.NumberFormat.~locale.qu"
+  ],
+  "Intl.~locale.qu-BO": [
+    "Intl.DateTimeFormat.~locale.qu-BO",
+    "Intl.NumberFormat.~locale.qu-BO"
+  ],
+  "Intl.~locale.qu-EC": [
+    "Intl.DateTimeFormat.~locale.qu-EC",
+    "Intl.NumberFormat.~locale.qu-EC"
+  ],
+  "Intl.~locale.rm": [
+    "Intl.DateTimeFormat.~locale.rm",
+    "Intl.NumberFormat.~locale.rm",
+    "Intl.PluralRules.~locale.rm"
+  ],
+  "Intl.~locale.rn": [
+    "Intl.DateTimeFormat.~locale.rn",
+    "Intl.NumberFormat.~locale.rn"
+  ],
+  "Intl.~locale.ro": [
+    "Intl.DateTimeFormat.~locale.ro",
+    "Intl.NumberFormat.~locale.ro",
+    "Intl.PluralRules.~locale.ro"
+  ],
+  "Intl.~locale.ro-MD": [
+    "Intl.DateTimeFormat.~locale.ro-MD",
+    "Intl.NumberFormat.~locale.ro-MD"
+  ],
+  "Intl.~locale.rof": [
+    "Intl.DateTimeFormat.~locale.rof",
+    "Intl.NumberFormat.~locale.rof",
+    "Intl.PluralRules.~locale.rof"
+  ],
+  "Intl.~locale.root": [
+    "Intl.DateTimeFormat.~locale.root",
+    "Intl.NumberFormat.~locale.root",
+    "Intl.PluralRules.~locale.root"
+  ],
+  "Intl.~locale.ru": [
+    "Intl.DateTimeFormat.~locale.ru",
+    "Intl.NumberFormat.~locale.ru",
+    "Intl.PluralRules.~locale.ru"
+  ],
+  "Intl.~locale.ru-BY": [
+    "Intl.DateTimeFormat.~locale.ru-BY",
+    "Intl.NumberFormat.~locale.ru-BY"
+  ],
+  "Intl.~locale.ru-KG": [
+    "Intl.DateTimeFormat.~locale.ru-KG",
+    "Intl.NumberFormat.~locale.ru-KG"
+  ],
+  "Intl.~locale.ru-KZ": [
+    "Intl.DateTimeFormat.~locale.ru-KZ",
+    "Intl.NumberFormat.~locale.ru-KZ"
+  ],
+  "Intl.~locale.ru-MD": [
+    "Intl.DateTimeFormat.~locale.ru-MD",
+    "Intl.NumberFormat.~locale.ru-MD"
+  ],
+  "Intl.~locale.ru-UA": [
+    "Intl.DateTimeFormat.~locale.ru-UA",
+    "Intl.NumberFormat.~locale.ru-UA"
+  ],
+  "Intl.~locale.rw": [
+    "Intl.DateTimeFormat.~locale.rw",
+    "Intl.NumberFormat.~locale.rw"
+  ],
+  "Intl.~locale.rwk": [
+    "Intl.DateTimeFormat.~locale.rwk",
+    "Intl.NumberFormat.~locale.rwk",
+    "Intl.PluralRules.~locale.rwk"
+  ],
+  "Intl.~locale.sah": [
+    "Intl.DateTimeFormat.~locale.sah",
+    "Intl.NumberFormat.~locale.sah",
+    "Intl.PluralRules.~locale.sah"
+  ],
+  "Intl.~locale.saq": [
+    "Intl.DateTimeFormat.~locale.saq",
+    "Intl.NumberFormat.~locale.saq",
+    "Intl.PluralRules.~locale.saq"
+  ],
+  "Intl.~locale.sbp": [
+    "Intl.DateTimeFormat.~locale.sbp",
+    "Intl.NumberFormat.~locale.sbp"
+  ],
+  "Intl.~locale.sd": [
+    "Intl.DateTimeFormat.~locale.sd",
+    "Intl.NumberFormat.~locale.sd",
+    "Intl.PluralRules.~locale.sd"
+  ],
+  "Intl.~locale.se": [
+    "Intl.DateTimeFormat.~locale.se",
+    "Intl.NumberFormat.~locale.se",
+    "Intl.PluralRules.~locale.se"
+  ],
+  "Intl.~locale.se-FI": [
+    "Intl.DateTimeFormat.~locale.se-FI",
+    "Intl.NumberFormat.~locale.se-FI"
+  ],
+  "Intl.~locale.se-SE": [
+    "Intl.DateTimeFormat.~locale.se-SE",
+    "Intl.NumberFormat.~locale.se-SE"
+  ],
+  "Intl.~locale.seh": [
+    "Intl.DateTimeFormat.~locale.seh",
+    "Intl.NumberFormat.~locale.seh",
+    "Intl.PluralRules.~locale.seh"
+  ],
+  "Intl.~locale.ses": [
+    "Intl.DateTimeFormat.~locale.ses",
+    "Intl.NumberFormat.~locale.ses",
+    "Intl.PluralRules.~locale.ses"
+  ],
+  "Intl.~locale.sg": [
+    "Intl.DateTimeFormat.~locale.sg",
+    "Intl.NumberFormat.~locale.sg",
+    "Intl.PluralRules.~locale.sg"
+  ],
+  "Intl.~locale.shi": [
+    "Intl.DateTimeFormat.~locale.shi",
+    "Intl.NumberFormat.~locale.shi",
+    "Intl.PluralRules.~locale.shi"
+  ],
+  "Intl.~locale.shi-Latn": [
+    "Intl.DateTimeFormat.~locale.shi-Latn",
+    "Intl.NumberFormat.~locale.shi-Latn"
+  ],
+  "Intl.~locale.shi-Tfng": [
+    "Intl.DateTimeFormat.~locale.shi-Tfng",
+    "Intl.NumberFormat.~locale.shi-Tfng"
+  ],
+  "Intl.~locale.si": [
+    "Intl.DateTimeFormat.~locale.si",
+    "Intl.NumberFormat.~locale.si",
+    "Intl.PluralRules.~locale.si"
+  ],
+  "Intl.~locale.sk": [
+    "Intl.DateTimeFormat.~locale.sk",
+    "Intl.NumberFormat.~locale.sk",
+    "Intl.PluralRules.~locale.sk"
+  ],
+  "Intl.~locale.sl": [
+    "Intl.DateTimeFormat.~locale.sl",
+    "Intl.NumberFormat.~locale.sl",
+    "Intl.PluralRules.~locale.sl"
+  ],
+  "Intl.~locale.smn": [
+    "Intl.DateTimeFormat.~locale.smn",
+    "Intl.NumberFormat.~locale.smn",
+    "Intl.PluralRules.~locale.smn"
+  ],
+  "Intl.~locale.sn": [
+    "Intl.DateTimeFormat.~locale.sn",
+    "Intl.NumberFormat.~locale.sn",
+    "Intl.PluralRules.~locale.sn"
+  ],
+  "Intl.~locale.so": [
+    "Intl.DateTimeFormat.~locale.so",
+    "Intl.NumberFormat.~locale.so",
+    "Intl.PluralRules.~locale.so"
+  ],
+  "Intl.~locale.so-DJ": [
+    "Intl.DateTimeFormat.~locale.so-DJ",
+    "Intl.NumberFormat.~locale.so-DJ"
+  ],
+  "Intl.~locale.so-ET": [
+    "Intl.DateTimeFormat.~locale.so-ET",
+    "Intl.NumberFormat.~locale.so-ET"
+  ],
+  "Intl.~locale.so-KE": [
+    "Intl.DateTimeFormat.~locale.so-KE",
+    "Intl.NumberFormat.~locale.so-KE"
+  ],
+  "Intl.~locale.sq": [
+    "Intl.DateTimeFormat.~locale.sq",
+    "Intl.NumberFormat.~locale.sq",
+    "Intl.PluralRules.~locale.sq"
+  ],
+  "Intl.~locale.sq-MK": [
+    "Intl.DateTimeFormat.~locale.sq-MK",
+    "Intl.NumberFormat.~locale.sq-MK"
+  ],
+  "Intl.~locale.sq-XK": [
+    "Intl.DateTimeFormat.~locale.sq-XK",
+    "Intl.NumberFormat.~locale.sq-XK"
+  ],
+  "Intl.~locale.sr": [
+    "Intl.DateTimeFormat.~locale.sr",
+    "Intl.NumberFormat.~locale.sr",
+    "Intl.PluralRules.~locale.sr"
+  ],
+  "Intl.~locale.sr-Cyrl": [
+    "Intl.DateTimeFormat.~locale.sr-Cyrl",
+    "Intl.NumberFormat.~locale.sr-Cyrl"
+  ],
+  "Intl.~locale.sr-Cyrl-BA": [
+    "Intl.DateTimeFormat.~locale.sr-Cyrl-BA",
+    "Intl.NumberFormat.~locale.sr-Cyrl-BA"
+  ],
+  "Intl.~locale.sr-Cyrl-ME": [
+    "Intl.DateTimeFormat.~locale.sr-Cyrl-ME",
+    "Intl.NumberFormat.~locale.sr-Cyrl-ME"
+  ],
+  "Intl.~locale.sr-Cyrl-XK": [
+    "Intl.DateTimeFormat.~locale.sr-Cyrl-XK",
+    "Intl.NumberFormat.~locale.sr-Cyrl-XK"
+  ],
+  "Intl.~locale.sr-Latn": [
+    "Intl.DateTimeFormat.~locale.sr-Latn",
+    "Intl.NumberFormat.~locale.sr-Latn"
+  ],
+  "Intl.~locale.sr-Latn-BA": [
+    "Intl.DateTimeFormat.~locale.sr-Latn-BA",
+    "Intl.NumberFormat.~locale.sr-Latn-BA"
+  ],
+  "Intl.~locale.sr-Latn-ME": [
+    "Intl.DateTimeFormat.~locale.sr-Latn-ME",
+    "Intl.NumberFormat.~locale.sr-Latn-ME"
+  ],
+  "Intl.~locale.sr-Latn-XK": [
+    "Intl.DateTimeFormat.~locale.sr-Latn-XK",
+    "Intl.NumberFormat.~locale.sr-Latn-XK"
+  ],
+  "Intl.~locale.sv": [
+    "Intl.DateTimeFormat.~locale.sv",
+    "Intl.NumberFormat.~locale.sv",
+    "Intl.PluralRules.~locale.sv"
+  ],
+  "Intl.~locale.sv-AX": [
+    "Intl.DateTimeFormat.~locale.sv-AX",
+    "Intl.NumberFormat.~locale.sv-AX"
+  ],
+  "Intl.~locale.sv-FI": [
+    "Intl.DateTimeFormat.~locale.sv-FI",
+    "Intl.NumberFormat.~locale.sv-FI"
+  ],
+  "Intl.~locale.sw": [
+    "Intl.DateTimeFormat.~locale.sw",
+    "Intl.NumberFormat.~locale.sw",
+    "Intl.PluralRules.~locale.sw"
+  ],
+  "Intl.~locale.sw-CD": [
+    "Intl.DateTimeFormat.~locale.sw-CD",
+    "Intl.NumberFormat.~locale.sw-CD"
+  ],
+  "Intl.~locale.sw-KE": [
+    "Intl.DateTimeFormat.~locale.sw-KE",
+    "Intl.NumberFormat.~locale.sw-KE"
+  ],
+  "Intl.~locale.sw-UG": [
+    "Intl.DateTimeFormat.~locale.sw-UG",
+    "Intl.NumberFormat.~locale.sw-UG"
+  ],
+  "Intl.~locale.ta": [
+    "Intl.DateTimeFormat.~locale.ta",
+    "Intl.NumberFormat.~locale.ta",
+    "Intl.PluralRules.~locale.ta"
+  ],
+  "Intl.~locale.ta-LK": [
+    "Intl.DateTimeFormat.~locale.ta-LK",
+    "Intl.NumberFormat.~locale.ta-LK"
+  ],
+  "Intl.~locale.ta-MY": [
+    "Intl.DateTimeFormat.~locale.ta-MY",
+    "Intl.NumberFormat.~locale.ta-MY"
+  ],
+  "Intl.~locale.ta-SG": [
+    "Intl.DateTimeFormat.~locale.ta-SG",
+    "Intl.NumberFormat.~locale.ta-SG"
+  ],
+  "Intl.~locale.te": [
+    "Intl.DateTimeFormat.~locale.te",
+    "Intl.NumberFormat.~locale.te",
+    "Intl.PluralRules.~locale.te"
+  ],
+  "Intl.~locale.teo": [
+    "Intl.DateTimeFormat.~locale.teo",
+    "Intl.NumberFormat.~locale.teo",
+    "Intl.PluralRules.~locale.teo"
+  ],
+  "Intl.~locale.teo-KE": [
+    "Intl.DateTimeFormat.~locale.teo-KE",
+    "Intl.NumberFormat.~locale.teo-KE"
+  ],
+  "Intl.~locale.tg": [
+    "Intl.DateTimeFormat.~locale.tg",
+    "Intl.NumberFormat.~locale.tg"
+  ],
+  "Intl.~locale.th": [
+    "Intl.DateTimeFormat.~locale.th",
+    "Intl.NumberFormat.~locale.th",
+    "Intl.PluralRules.~locale.th"
+  ],
+  "Intl.~locale.ti": [
+    "Intl.DateTimeFormat.~locale.ti",
+    "Intl.NumberFormat.~locale.ti",
+    "Intl.PluralRules.~locale.ti"
+  ],
+  "Intl.~locale.ti-ER": [
+    "Intl.DateTimeFormat.~locale.ti-ER",
+    "Intl.NumberFormat.~locale.ti-ER"
+  ],
+  "Intl.~locale.tk": [
+    "Intl.DateTimeFormat.~locale.tk",
+    "Intl.NumberFormat.~locale.tk",
+    "Intl.PluralRules.~locale.tk"
+  ],
+  "Intl.~locale.to": [
+    "Intl.DateTimeFormat.~locale.to",
+    "Intl.NumberFormat.~locale.to",
+    "Intl.PluralRules.~locale.to"
+  ],
+  "Intl.~locale.tr": [
+    "Intl.DateTimeFormat.~locale.tr",
+    "Intl.NumberFormat.~locale.tr",
+    "Intl.PluralRules.~locale.tr"
+  ],
+  "Intl.~locale.tr-CY": [
+    "Intl.DateTimeFormat.~locale.tr-CY",
+    "Intl.NumberFormat.~locale.tr-CY"
+  ],
+  "Intl.~locale.tt": [
+    "Intl.DateTimeFormat.~locale.tt",
+    "Intl.NumberFormat.~locale.tt"
+  ],
+  "Intl.~locale.twq": [
+    "Intl.DateTimeFormat.~locale.twq",
+    "Intl.NumberFormat.~locale.twq"
+  ],
+  "Intl.~locale.tzm": [
+    "Intl.DateTimeFormat.~locale.tzm",
+    "Intl.NumberFormat.~locale.tzm",
+    "Intl.PluralRules.~locale.tzm"
+  ],
+  "Intl.~locale.ug": [
+    "Intl.DateTimeFormat.~locale.ug",
+    "Intl.NumberFormat.~locale.ug",
+    "Intl.PluralRules.~locale.ug"
+  ],
+  "Intl.~locale.uk": [
+    "Intl.DateTimeFormat.~locale.uk",
+    "Intl.NumberFormat.~locale.uk",
+    "Intl.PluralRules.~locale.uk"
+  ],
+  "Intl.~locale.ur": [
+    "Intl.DateTimeFormat.~locale.ur",
+    "Intl.NumberFormat.~locale.ur",
+    "Intl.PluralRules.~locale.ur"
+  ],
+  "Intl.~locale.ur-IN": [
+    "Intl.DateTimeFormat.~locale.ur-IN",
+    "Intl.NumberFormat.~locale.ur-IN"
+  ],
+  "Intl.~locale.uz": [
+    "Intl.DateTimeFormat.~locale.uz",
+    "Intl.NumberFormat.~locale.uz",
+    "Intl.PluralRules.~locale.uz"
+  ],
+  "Intl.~locale.uz-Arab": [
+    "Intl.DateTimeFormat.~locale.uz-Arab",
+    "Intl.NumberFormat.~locale.uz-Arab"
+  ],
+  "Intl.~locale.uz-Cyrl": [
+    "Intl.DateTimeFormat.~locale.uz-Cyrl",
+    "Intl.NumberFormat.~locale.uz-Cyrl"
+  ],
+  "Intl.~locale.uz-Latn": [
+    "Intl.DateTimeFormat.~locale.uz-Latn",
+    "Intl.NumberFormat.~locale.uz-Latn"
+  ],
+  "Intl.~locale.vai": [
+    "Intl.DateTimeFormat.~locale.vai",
+    "Intl.NumberFormat.~locale.vai"
+  ],
+  "Intl.~locale.vai-Latn": [
+    "Intl.DateTimeFormat.~locale.vai-Latn",
+    "Intl.NumberFormat.~locale.vai-Latn"
+  ],
+  "Intl.~locale.vai-Vaii": [
+    "Intl.DateTimeFormat.~locale.vai-Vaii",
+    "Intl.NumberFormat.~locale.vai-Vaii"
+  ],
+  "Intl.~locale.vi": [
+    "Intl.DateTimeFormat.~locale.vi",
+    "Intl.NumberFormat.~locale.vi",
+    "Intl.PluralRules.~locale.vi"
+  ],
+  "Intl.~locale.vo": [
+    "Intl.DateTimeFormat.~locale.vo",
+    "Intl.NumberFormat.~locale.vo",
+    "Intl.PluralRules.~locale.vo"
+  ],
+  "Intl.~locale.vun": [
+    "Intl.DateTimeFormat.~locale.vun",
+    "Intl.NumberFormat.~locale.vun",
+    "Intl.PluralRules.~locale.vun"
+  ],
+  "Intl.~locale.wae": [
+    "Intl.DateTimeFormat.~locale.wae",
+    "Intl.NumberFormat.~locale.wae",
+    "Intl.PluralRules.~locale.wae"
+  ],
+  "Intl.~locale.wo": [
+    "Intl.DateTimeFormat.~locale.wo",
+    "Intl.NumberFormat.~locale.wo",
+    "Intl.PluralRules.~locale.wo"
+  ],
+  "Intl.~locale.xh": [
+    "Intl.DateTimeFormat.~locale.xh",
+    "Intl.NumberFormat.~locale.xh",
+    "Intl.PluralRules.~locale.xh"
+  ],
+  "Intl.~locale.xog": [
+    "Intl.DateTimeFormat.~locale.xog",
+    "Intl.NumberFormat.~locale.xog",
+    "Intl.PluralRules.~locale.xog"
+  ],
+  "Intl.~locale.yav": [
+    "Intl.DateTimeFormat.~locale.yav",
+    "Intl.NumberFormat.~locale.yav"
+  ],
+  "Intl.~locale.yi": [
+    "Intl.DateTimeFormat.~locale.yi",
+    "Intl.NumberFormat.~locale.yi",
+    "Intl.PluralRules.~locale.yi"
+  ],
+  "Intl.~locale.yo": [
+    "Intl.DateTimeFormat.~locale.yo",
+    "Intl.NumberFormat.~locale.yo",
+    "Intl.PluralRules.~locale.yo"
+  ],
+  "Intl.~locale.yo-BJ": [
+    "Intl.DateTimeFormat.~locale.yo-BJ",
+    "Intl.NumberFormat.~locale.yo-BJ"
+  ],
+  "Intl.~locale.yue": [
+    "Intl.DateTimeFormat.~locale.yue",
+    "Intl.NumberFormat.~locale.yue",
+    "Intl.PluralRules.~locale.yue"
+  ],
+  "Intl.~locale.yue-Hans": [
+    "Intl.DateTimeFormat.~locale.yue-Hans",
+    "Intl.NumberFormat.~locale.yue-Hans"
+  ],
+  "Intl.~locale.yue-Hant": [
+    "Intl.DateTimeFormat.~locale.yue-Hant",
+    "Intl.NumberFormat.~locale.yue-Hant"
+  ],
+  "Intl.~locale.zgh": [
+    "Intl.DateTimeFormat.~locale.zgh",
+    "Intl.NumberFormat.~locale.zgh"
+  ],
+  "Intl.~locale.zh": [
+    "Intl.DateTimeFormat.~locale.zh",
+    "Intl.NumberFormat.~locale.zh",
+    "Intl.PluralRules.~locale.zh"
+  ],
+  "Intl.~locale.zh-Hans": [
+    "Intl.DateTimeFormat.~locale.zh-Hans",
+    "Intl.NumberFormat.~locale.zh-Hans"
+  ],
+  "Intl.~locale.zh-Hans-HK": [
+    "Intl.DateTimeFormat.~locale.zh-Hans-HK",
+    "Intl.NumberFormat.~locale.zh-Hans-HK"
+  ],
+  "Intl.~locale.zh-Hans-MO": [
+    "Intl.DateTimeFormat.~locale.zh-Hans-MO",
+    "Intl.NumberFormat.~locale.zh-Hans-MO"
+  ],
+  "Intl.~locale.zh-Hans-SG": [
+    "Intl.DateTimeFormat.~locale.zh-Hans-SG",
+    "Intl.NumberFormat.~locale.zh-Hans-SG"
+  ],
+  "Intl.~locale.zh-Hant": [
+    "Intl.DateTimeFormat.~locale.zh-Hant",
+    "Intl.NumberFormat.~locale.zh-Hant"
+  ],
+  "Intl.~locale.zh-Hant-HK": [
+    "Intl.DateTimeFormat.~locale.zh-Hant-HK",
+    "Intl.NumberFormat.~locale.zh-Hant-HK"
+  ],
+  "Intl.~locale.zh-Hant-MO": [
+    "Intl.DateTimeFormat.~locale.zh-Hant-MO",
+    "Intl.NumberFormat.~locale.zh-Hant-MO"
+  ],
+  "Intl.~locale.zu": [
+    "Intl.DateTimeFormat.~locale.zu",
+    "Intl.NumberFormat.~locale.zu",
+    "Intl.PluralRules.~locale.zu"
+  ],
+  "Intl.DateTimeFormat.prototype.formatToParts": ["Intl.DateTimeFormat"],
+  "Intl.~locale.an": ["Intl.PluralRules.~locale.an"],
+  "Intl.~locale.ars": ["Intl.PluralRules.~locale.ars"],
+  "Intl.~locale.bho": ["Intl.PluralRules.~locale.bho"],
+  "Intl.~locale.dv": ["Intl.PluralRules.~locale.dv"],
+  "Intl.~locale.guw": ["Intl.PluralRules.~locale.guw"],
+  "Intl.~locale.in": ["Intl.PluralRules.~locale.in"],
+  "Intl.~locale.io": ["Intl.PluralRules.~locale.io"],
+  "Intl.~locale.iu": ["Intl.PluralRules.~locale.iu"],
+  "Intl.~locale.iw": ["Intl.PluralRules.~locale.iw"],
+  "Intl.~locale.jbo": ["Intl.PluralRules.~locale.jbo"],
+  "Intl.~locale.ji": ["Intl.PluralRules.~locale.ji"],
+  "Intl.~locale.jw": ["Intl.PluralRules.~locale.jw"],
+  "Intl.~locale.kaj": ["Intl.PluralRules.~locale.kaj"],
+  "Intl.~locale.kcg": ["Intl.PluralRules.~locale.kcg"],
+  "Intl.~locale.mo": ["Intl.PluralRules.~locale.mo"],
+  "Intl.~locale.nah": ["Intl.PluralRules.~locale.nah"],
+  "Intl.~locale.no": ["Intl.PluralRules.~locale.no"],
+  "Intl.~locale.nqo": ["Intl.PluralRules.~locale.nqo"],
+  "Intl.~locale.nr": ["Intl.PluralRules.~locale.nr"],
+  "Intl.~locale.nso": ["Intl.PluralRules.~locale.nso"],
+  "Intl.~locale.ny": ["Intl.PluralRules.~locale.ny"],
+  "Intl.~locale.osa": ["Intl.PluralRules.~locale.osa"],
+  "Intl.~locale.pap": ["Intl.PluralRules.~locale.pap"],
+  "Intl.~locale.sc": ["Intl.PluralRules.~locale.sc"],
+  "Intl.~locale.scn": ["Intl.PluralRules.~locale.scn"],
+  "Intl.~locale.sdh": ["Intl.PluralRules.~locale.sdh"],
+  "Intl.~locale.sh": ["Intl.PluralRules.~locale.sh"],
+  "Intl.~locale.sma": ["Intl.PluralRules.~locale.sma"],
+  "Intl.~locale.smi": ["Intl.PluralRules.~locale.smi"],
+  "Intl.~locale.smj": ["Intl.PluralRules.~locale.smj"],
+  "Intl.~locale.sms": ["Intl.PluralRules.~locale.sms"],
+  "Intl.~locale.ss": ["Intl.PluralRules.~locale.ss"],
+  "Intl.~locale.ssy": ["Intl.PluralRules.~locale.ssy"],
+  "Intl.~locale.st": ["Intl.PluralRules.~locale.st"],
+  "Intl.~locale.su": ["Intl.PluralRules.~locale.su"],
+  "Intl.~locale.syr": ["Intl.PluralRules.~locale.syr"],
+  "Intl.~locale.tig": ["Intl.PluralRules.~locale.tig"],
+  "Intl.~locale.tl": ["Intl.PluralRules.~locale.tl"],
+  "Intl.~locale.tn": ["Intl.PluralRules.~locale.tn"],
+  "Intl.~locale.ts": ["Intl.PluralRules.~locale.ts"],
+  "Intl.~locale.ve": ["Intl.PluralRules.~locale.ve"],
+  "Intl.~locale.wa": ["Intl.PluralRules.~locale.wa"],
+  "caniuse:json": ["JSON"],
+  "modernizr:json": ["JSON"],
+  "dom4": ["Node.prototype.contains"],
+  "Number.EPSILON": ["Number.Epsilon"],
+  "modernizr:es6object": ["Object.assign", "Object.is"],
+  "modernizr:es5object": [
+    "Object.create",
+    "Object.defineProperties",
+    "Object.defineProperty",
+    "Object.getOwnPropertyDescriptor",
+    "Object.getOwnPropertyNames",
+    "Object.getPrototypeOf",
+    "Object.keys"
+  ],
+  "es2017": [
+    "Object.entries",
+    "Object.getOwnPropertyDescriptors",
+    "Object.values",
+    "String.prototype.padEnd",
+    "String.prototype.padStart"
+  ],
+  "es2018": ["Promise.prototype.finally", "Symbol.asyncIterator"],
+  "modernizr:promises": ["Promise"],
+  "caniuse:promises": ["Promise"],
+  "modernizr:es6string": [
+    "String.prototype.endsWith",
+    "String.prototype.includes",
+    "String.prototype.repeat",
+    "String.prototype.startsWith"
+  ],
+  "modernizr:es5string": ["String.prototype.trim"],
+  "Object.getOwnPropertySymbols": ["Symbol"],
+  "Symbol.for": ["Symbol"],
+  "Symbol.keyFor": ["Symbol"],
+  "TextDecoder": ["TextEncoder"],
+  "modernizr:urlparser": ["URL"],
+  "URLSearchParams": ["URL"],
+  "Int8Array": ["_TypedArray"],
+  "Uint8Array": ["_TypedArray"],
+  "Uint8ClampedArray": ["_TypedArray"],
+  "Int16Array": ["_TypedArray"],
+  "Uint16Array": ["_TypedArray"],
+  "Int32Array": ["_TypedArray"],
+  "Uint32Array": ["_TypedArray"],
+  "Float32Array": ["_TypedArray"],
+  "Float64Array": ["_TypedArray"],
+  "DataView": ["_TypedArray"],
+  "ArrayBuffer": ["_TypedArray"],
+  "caniuse:datauri": ["atob"],
+  "caniuse:console-basic": [
+    "console.assert",
+    "console.clear",
+    "console.count",
+    "console.debug",
+    "console.dir",
+    "console.dirxml",
+    "console.error",
+    "console.exception",
+    "console.group",
+    "console.groupCollapsed",
+    "console.groupEnd",
+    "console.info",
+    "console.log",
+    "console.profile",
+    "console.profileEnd",
+    "console.table",
+    "console.time",
+    "console.timeEnd",
+    "console.timeStamp",
+    "console.timeline",
+    "console.timelineEnd",
+    "console.trace",
+    "console.warn",
+    "console"
+  ],
+  "caniuse:visib": ["document.visibilityState"],
+  "caniuse:pagevisibility": ["document.visibilityState"],
+  "modernizr:pagevisibility": ["document.visibilityState"],
+  "PageVisibility": ["document.visibilityState"],
+  "Document": ["document"],
+  "caniuse:namevalue-storage": ["localStorage"],
+  "modernizr:localstorage": ["localStorage"],
+  "caniuse:matchmedia": ["matchMedia"],
+  "modernizr:matchmedia": ["matchMedia"],
+  "caniuse:geolocation": ["navigator.geolocation"],
+  "modernizr:geolocation": ["navigator.geolocation"],
+  "Navigator.prototype.geolocation": ["navigator.geolocation"],
+  "caniuse:requestanimationframe": ["requestAnimationFrame"],
+  "modernizr:requestanimationframe": ["requestAnimationFrame"],
+  "scroll": ["smoothscroll"],
+  "scrollBy": ["smoothscroll"],
+  "scrollIntoView": ["smoothscroll"],
+  "Element.prototype.scroll": ["smoothscroll"],
+  "Element.prototype.scrollBy": ["smoothscroll"],
+  "Element.prototype.scrollIntoView": ["smoothscroll"],
+  "window.scroll": ["smoothscroll"],
+  "window.scrollBy": ["smoothscroll"],
+  "html5shiv": ["~html5-elements"],
+  "viewport": ["~viewport"],
+  "innerHeight": ["~viewport"],
+  "innerWidth": ["~viewport"],
+  "pageXOffset": ["~viewport"],
+  "pageYOffset": ["~viewport"],
+  "scrollX": ["~viewport"],
+  "scrollY": ["~viewport"]
+}

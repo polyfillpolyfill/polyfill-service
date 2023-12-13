@@ -1,1 +1,0 @@
-!function(){function e(e){if(!(0 in arguments))throw new TypeError("1 argument is required");return this===e}if("HTMLElement"in self&&"isSameNode"in HTMLElement.prototype)try{delete HTMLElement.prototype.isSameNode}catch(t){}"Node"in self?Node.prototype.isSameNode=e:document.isSameNode=Element.prototype.isSameNode=e}();

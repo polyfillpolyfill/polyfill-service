@@ -1,0 +1,1 @@
+console.timeStamp=function n(){};

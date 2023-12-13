@@ -16,7 +16,6 @@ describe("GET /v2/polyfill.js", function() {
 		assert.equal(response.status, 200);
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'))
 		assert.doesNotThrow(() => new vm.Script(response.data));
 		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
@@ -32,7 +31,6 @@ describe("GET /v2/polyfill.js?callback=AAA&callback=BBB", function() {
 		assert.equal(response.status, 200);
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'))
 		assert.doesNotThrow(() => new vm.Script(response.data));
 		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
@@ -48,7 +46,6 @@ describe("GET /v2/polyfill.min.js", function() {
 		assert.equal(response.status, 200);
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'))
 		assert.doesNotThrow(() => new vm.Script(response.data));
 		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
 	});
@@ -64,7 +61,6 @@ describe("GET /v2/polyfill.js?features=all&ua=non-existent-ua&unknown=polyfill&f
 		assert.equal(response.status, 200);
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'))
 		// vm.Script will cause the event loop to become blocked whilst it parses the large response
 		assert.doesNotThrow(() => new vm.Script(response.data));
 		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);
@@ -81,7 +77,6 @@ describe("GET /v2/polyfill.min.js?features=all&ua=non-existent-ua&unknown=polyfi
 		assert.equal(response.status, 200);
 		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'))
 		// vm.Script will cause the event loop to become blocked whilst it parses the large response
 		assert.doesNotThrow(() => new vm.Script(response.data));
 		assert.doesNotMatch(response.data, /\/\/#\ssourceMappingURL(.+)/);

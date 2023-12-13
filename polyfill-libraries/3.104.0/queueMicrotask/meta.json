@@ -1,0 +1,1 @@
+{"dependencies":["Promise","Event"],"browsers":{"chrome":"<71","edge":"<79","firefox":"<69","ie":"*","opera":"<58","safari":"<12.1","android":"<71","firefox_mob":"*","op_mob":"<50","ios_saf":"<12.2","samsung_mob":"<10.0"},"detectSource":"\"queueMicrotask\"in self\n","baseDir":"queueMicrotask","hasTests":true,"isTestable":true,"isPublic":true,"size":446}

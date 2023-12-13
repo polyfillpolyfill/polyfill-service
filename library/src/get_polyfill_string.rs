@@ -49,8 +49,8 @@ fn get_polyfill_meta(store: &str, feature_name: &str) -> Option<PolyfillConfig> 
     }
     println!("{store} {feature_name}");
     let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open(&store).unwrap().unwrap());
-    let meta = polyfills.lookup(&format!("/{feature_name}/meta.json"));
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let meta = polyfills.lookup(&format!("/{store}/{feature_name}/meta.json"));
     let mut meta = match meta {
         Err(_) => return None,
         Ok(None) => return None,
@@ -68,8 +68,8 @@ fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
         return None;
     }
     let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open(&store).unwrap().unwrap());
-    let aliases = polyfills.lookup("/aliases.json");
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let aliases = polyfills.lookup(&format!("/{store}/aliases.json"));
     let mut aliases = match aliases {
         Err(_) => return None,
         Ok(None) => return None,
@@ -461,11 +461,11 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
 
 fn polyfill_source(store: &str, feature_name: &str, format: &str) -> Body {
     let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open(&store).unwrap().unwrap());
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut counter = 0;
     let mut message = String::default();
     while counter < 100 {
-        let polyfill = polyfills.lookup(&format!("/{feature_name}/{format}.js"));
+        let polyfill = polyfills.lookup(&format!("/{store}/{feature_name}/{format}.js"));
         match polyfill {
             Ok(Some(polyfill)) => {
                 return polyfill;

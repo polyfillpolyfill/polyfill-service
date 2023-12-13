@@ -1,1 +1,0 @@
-{"dependencies":["Window"],"docs":"https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle","spec":"http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSview-getComputedStyle","browsers":{"ie":"6 - 8"},"detectSource":"\"getComputedStyle\"in self\n","baseDir":"getComputedStyle","hasTests":false,"isTestable":true,"isPublic":true,"size":1912}

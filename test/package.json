@@ -2,7 +2,7 @@
     "type": "module",
     "scripts": {
         "start": "fastly compute serve --verbose -C ..",
-        "test": "NODE_ENV='production' start-server-and-test start 'http://127.0.0.1:7878/v3/' test:integration",
+        "test": "NODE_ENV='production' start-server-and-test start 'http://127.0.0.1:7676/v3/' test:integration",
         "test:integration": "mocha integration/*.test.js integration/**/*.test.js --recursive --check-leaks --timeout 60000 --exit --bail"
     },
     "dependencies": {

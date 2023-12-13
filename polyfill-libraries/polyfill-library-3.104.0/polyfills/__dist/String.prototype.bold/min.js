@@ -1,1 +1,0 @@
-CreateMethodProperty(String.prototype,"bold",function t(){var t=this;return CreateHTML(t,"b","","")});

@@ -1,1 +1,0 @@
-"undefined"==typeof WorkerGlobalScope&&"function"!=typeof importScripts&&(self.HTMLDocument?self.Document=self.HTMLDocument:(self.Document=self.HTMLDocument=document.constructor=new Function("return function Document() {}")(),self.Document.prototype=document));

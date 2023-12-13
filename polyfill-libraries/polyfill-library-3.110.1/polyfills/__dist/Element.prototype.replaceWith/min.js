@@ -1,1 +1,0 @@
-Document.prototype.replaceWith=Element.prototype.replaceWith=function e(){this.parentNode&&this.parentNode.replaceChild(_mutation(arguments),this)},"Text"in self&&(Text.prototype.replaceWith=Element.prototype.replaceWith);

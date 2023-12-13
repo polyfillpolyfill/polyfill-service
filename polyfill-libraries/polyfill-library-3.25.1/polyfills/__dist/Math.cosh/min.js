@@ -1,1 +1,0 @@
-Math.cosh=function(t){var a=Math.exp(t);return(a+1/a)/2};

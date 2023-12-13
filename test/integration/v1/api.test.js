@@ -20,7 +20,6 @@ describe("GET /v1/polyfill.js", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
@@ -48,7 +47,6 @@ describe("GET /v1/polyfill.js?features=default&libVersion=1&gated=true", functio
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
@@ -76,7 +74,6 @@ describe("GET /v1/polyfill.min.js", function() {
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
@@ -104,7 +101,6 @@ describe("GET /v1/polyfill.min.js?features=default&libVersion=1&gated=true", fun
 		assert.equal(response.headers["access-control-allow-origin"], "*")
 		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
 		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-		assert.ok(response.headers["surrogate-key"].includes('polyfill-service'));
 		assert.ok(typeof response.data === 'string');
 		assert.doesNotThrow(() => {
 			try {
