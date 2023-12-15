@@ -1,10 +1,10 @@
 use std::time::Duration;
 
 use chrono::Utc;
-use fastly::{Request, Response, cache::simple::{get, get_or_set_with, CacheEntry}};
-use polyfill_library::{polyfill_parameters::get_polyfill_parameters, get_polyfill_string::get_polyfill_string};
+use fastly::{Request, Response, cache::simple::{get_or_set_with, CacheEntry}};
+use polyfill_library::{polyfill_parameters::get_polyfill_parameters, get_polyfill_string::{get_polyfill_string, get_polyfill_string_stream}};
 
-pub(crate) fn polyfill(request: &Request) -> Response {
+pub(crate) fn polyfill(request: &Request) {
     let parameters = get_polyfill_parameters(request);
 
     let library = match parameters.version.as_str() {
@@ -35,54 +35,54 @@ pub(crate) fn polyfill(request: &Request) -> Response {
         "3.110.1" => "3.110.1",
         "3.111.0" => "3.111.0",
         _ => {
-            return Response::from_status(400)
+            Response::from_status(400)
             .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-            .with_body("requested version does not exist");
+            .with_body("requested version does not exist").send_to_client();
+            return;
         }
     };
     let version = parameters.version.clone();
     let is_running_locally =
         std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
-    let bundle = if !is_running_locally {
+        let mut res = Response::new();
+        res.set_header("Access-Control-Allow-Origin", "*");
+        res.set_header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
+        res.set_header("X-Compress-Hint", "on");
+        res.set_header("Content-Type", "text/javascript; charset=UTF-8");
+        res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+        res.take_body();
+        let mut sbody = res.stream_to_client();
+    if !is_running_locally {
         let fastly_service_version = std::env::var("FASTLY_SERVICE_VERSION").unwrap();
         let key = fastly_service_version + &request.get_url_str().to_owned();
-        let bundle = get(key.clone());
-        match bundle {
-            Ok(Some(bundle)) => bundle,
-            _ => {
-                let bundle = get_polyfill_string(&parameters, library, &version).into_bytes();
-                match get_or_set_with(
-                    key,
-                    || {
-                        Ok(CacheEntry {
-                            value: bundle.clone().into(),
-                            ttl: Duration::from_secs(u64::MAX),
-                        })
-                    },
-                ) {
-                    Ok(Some(bundle)) => bundle,
-                    Ok(None) => bundle.into(),
-                    Err(e) => {
-                        let message = format!(
-                            "trace: {} utc: {} host: {} error: {}",
-                            std::env::var("FASTLY_TRACE_ID").unwrap(),
-                            Utc::now(),
-                            std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()),
-                            e.to_string()
-                        );
-                        eprintln!("{}", message);
-                        bundle.into()
-                    },
-                }
+        match get_or_set_with(
+            key,
+            || {
+                Ok(CacheEntry {
+                    value: get_polyfill_string(&parameters, library, &version),
+                    ttl: Duration::from_secs(u64::MAX),
+                })
             },
+        ) {
+            Ok(Some(bundle)) => {
+                sbody.append(bundle);
+                sbody.finish().unwrap();
+                return;
+            },
+            Ok(None) => get_polyfill_string_stream(sbody, &parameters, library, &version),
+            Err(e) => {
+                let message = format!(
+                    "trace: {} utc: {} host: {} error: {}",
+                    std::env::var("FASTLY_TRACE_ID").unwrap(),
+                    Utc::now(),
+                    std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()),
+                    e.to_string()
+                );
+                eprintln!("{}", message);
+                get_polyfill_string_stream(sbody, &parameters, library, &version)
+            }
         }
     } else {
-        get_polyfill_string(&parameters, library, &version)
+        get_polyfill_string_stream(sbody, &parameters, library, &version)
     };
-    Response::from_body(bundle)
-        .with_header("Access-Control-Allow-Origin", "*")
-        .with_header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS")
-        .with_header("X-Compress-Hint", "on")
-        .with_header("Content-Type", "text/javascript; charset=UTF-8")
-        .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
 }

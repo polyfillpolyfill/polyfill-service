@@ -3,7 +3,7 @@ use crate::{
     ua::{UserAgent, UA},
 };
 use chrono::Utc;
-use fastly::{Body, KVStore};
+use fastly::{Body, KVStore, http::body::StreamingBody};
 use indexmap::IndexSet;
 use serde::Deserialize;
 use std::{str, io::Read};
@@ -11,6 +11,9 @@ use std::{
     collections::{HashMap, HashSet},
     sync::OnceLock,
 };
+
+use fastly::kv_store::handle::PendingObjectStoreLookupHandle;
+
 
 use crate::{polyfill_parameters::PolyfillParameters, toposort::toposort};
 
@@ -47,7 +50,6 @@ fn get_polyfill_meta(store: &str, feature_name: &str) -> Option<PolyfillConfig> 
     if feature_name.is_empty() {
         return None;
     }
-    println!("{store} {feature_name}");
     let polyfills =
         POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let meta = polyfills.lookup(&format!("/{store}/{feature_name}/meta.json"));
@@ -371,6 +373,13 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
     feature_edges.sort_by_key(|f| f.1.to_string());
 
     let sorted_features = toposort(&feature_nodes, &feature_edges).unwrap();
+    let m = if options.minify { "min" } else { "raw" };
+    let polyfills =
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let mut sorted_features_bb = vec![];
+    for feature_name in &sorted_features {
+        sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
+    }
     if !options.minify {
         explainer_comment.push(app_version_text);
         explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
@@ -406,9 +415,8 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
         output.write_str(lf);
 
         // Using the graph, stream all the polyfill sources in dependency order
-        for feature_name in sorted_features {
-            let wrap_in_detect = targeted_features[&feature_name].flags.contains("gated");
-            let m = if options.minify { "min" } else { "raw" };
+        for (feature_name, bb) in sorted_features_bb {
+            let wrap_in_detect = targeted_features[feature_name].flags.contains("gated");
             if wrap_in_detect {
                 let meta = get_polyfill_meta(store, &feature_name);
                 if let Some(meta) = meta {
@@ -418,26 +426,26 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
                             output.write_str(detect_source.as_str());
                             output.write_str(")) {");
                             output.write_str(lf);
-                            let bb = polyfill_source(store, &feature_name, m);
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
                             output.append(bb);
                             output.write_str(lf);
                             output.write_str("}");
                             output.write_str(lf);
                             output.write_str(lf);
                         } else {
-                            let bb = polyfill_source(store, &feature_name, m);
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
                             output.append(bb);
                         }
                     } else {
-                        let bb = polyfill_source(store, &feature_name, m);
+                        let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
                         output.append(bb);
                     }
                 } else {
-                    let bb = polyfill_source(store, &feature_name, m);
+                    let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
                     output.append(bb);
                 }
             } else {
-                let bb = polyfill_source(store, &feature_name, m);
+                let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
                 output.append(bb);
             }
         }
@@ -459,13 +467,145 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
     output
 }
 
-fn polyfill_source(store: &str, feature_name: &str, format: &str) -> Body {
+pub fn get_polyfill_string_stream(mut output: StreamingBody, options: &PolyfillParameters, store: &str, app_version: &str) {
+    let lf = if options.minify { "" } else { "\n" };
+    let app_version_text = "Polyfill service v".to_owned() + &app_version;
+    let mut explainer_comment: Vec<String> = vec![];
+    // Build a polyfill bundle of polyfill sources sorted in dependency order
+    let mut targeted_features = get_polyfills(&options, store, "3.111.0");
+    let mut warnings: Vec<String> = vec![];
+    let mut feature_nodes: Vec<String> = vec![];
+    let mut feature_edges: Vec<(String, String)> = vec![];
+
+    let t = targeted_features.clone();
+    for (feature_name, feature) in targeted_features.iter_mut() {
+        let polyfill = get_polyfill_meta(store, feature_name);
+        match polyfill {
+            Some(polyfill) => {
+                feature_nodes.push(feature_name.to_string());
+                if let Some(deps) = polyfill.dependencies {
+                    for dep_name in deps {
+                        if t.contains_key(&dep_name) {
+                            feature_edges.push((dep_name, feature_name.to_string()));
+                        }
+                    }
+                }
+                let license = polyfill.license.unwrap_or_else(|| "CC0".to_owned());
+                feature.comment = feature
+                    .comment
+                    .clone()
+                    .map(|comment| format!("{feature_name}, License: {license} ({})", &comment))
+                    .or_else(|| Some(format!("{feature_name}, License: {license}")));
+            }
+            None => warnings.push(feature_name.to_string()),
+        }
+    }
+
+    feature_nodes.sort();
+    feature_edges.sort_by_key(|f| f.1.to_string());
+
+    let sorted_features = toposort(&feature_nodes, &feature_edges).unwrap();
+    let m = if options.minify { "min" } else { "raw" };
+    let polyfills =
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let mut sorted_features_bb = vec![];
+    for feature_name in &sorted_features {
+        sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
+    }
+    if !options.minify {
+        explainer_comment.push(app_version_text);
+        explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
+        explainer_comment.push("".to_owned());
+        let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
+        features.sort();
+        explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
+        explainer_comment.push("".to_owned());
+        sorted_features.iter().for_each(|feature_name| {
+            if let Some(feature) = targeted_features.get(feature_name) {
+                explainer_comment.push(format!("- {}", feature.comment.as_ref().unwrap()));
+            }
+        });
+        if !warnings.is_empty() {
+            explainer_comment.push("".to_owned());
+            explainer_comment.push("These features were not recognised:".to_owned());
+            let mut warnings = warnings
+                .iter()
+                .map(|s| "- ".to_owned() + s)
+                .collect::<Vec<String>>();
+            warnings.sort();
+            explainer_comment.push(warnings.join(","));
+        }
+    } else {
+        explainer_comment.push(app_version_text);
+        explainer_comment
+            .push("Disable minification (remove `.min` from URL path) for more info".to_owned());
+    }
+    output.write_str(format!("/* {} */\n\n", explainer_comment.join("\n * ")).as_str());
+    if !sorted_features.is_empty() {
+        // Outer closure hides private features from global scope
+        output.write_str("(function(self, undefined) {");
+        output.write_str(lf);
+
+        // Using the graph, stream all the polyfill sources in dependency order
+        for (feature_name, bb) in sorted_features_bb {
+            let wrap_in_detect = targeted_features[feature_name].flags.contains("gated");
+            if wrap_in_detect {
+                let meta = get_polyfill_meta(store, &feature_name);
+                if let Some(meta) = meta {
+                    if let Some(detect_source) = meta.detect_source {
+                        if !detect_source.is_empty() {
+                            output.write_str("if (!(");
+                            output.write_str(detect_source.as_str());
+                            output.write_str(")) {");
+                            output.write_str(lf);
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            output.append(bb);
+                            output.write_str(lf);
+                            output.write_str("}");
+                            output.write_str(lf);
+                            output.write_str(lf);
+                        } else {
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            output.append(bb);
+                        }
+                    } else {
+                        let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                        output.append(bb);
+                    }
+                } else {
+                    let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                    output.append(bb);
+                }
+            } else {
+                let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                output.append(bb);
+            }
+        }
+        // Invoke the closure, passing the global object as the only argument
+        output.write_str("})");
+        output.write_str(lf);
+        output.write_str("('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});");
+        output.write_str(lf);
+    } else if !options.minify {
+        output.write_str("\n/* No polyfills needed for current settings and browser */\n\n");
+    }
+    if let Some(callback) = &options.callback {
+        output.write_str("\ntypeof ");
+        output.write_str(&callback);
+        output.write_str("==='function' && ");
+        output.write_str(&callback);
+        output.write_str("();");
+    }
+    output.finish().unwrap();
+}
+
+fn polyfill_source(store: &str, feature_name: &str, format: &str) -> PendingObjectStoreLookupHandle {
     let polyfills =
         POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut counter = 0;
-    let mut message = String::default();
+    let mut message: String = String::default();
     while counter < 100 {
-        let polyfill = polyfills.lookup(&format!("/{store}/{feature_name}/{format}.js"));
+        let polyfill = polyfills.lookup_async(&format!("/{store}/{feature_name}/{format}.js"));
         match polyfill {
             Ok(Some(polyfill)) => {
                 return polyfill;
