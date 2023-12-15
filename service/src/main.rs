@@ -526,7 +526,7 @@ fn main() -> Result<(), Error> {
             }
 
             if path == "/v3/polyfill.min.js" || path == "/v3/polyfill.js" {
-                polyfill(&req).send_to_client();
+                polyfill(&req);
                 return Ok(());
             } else {
                 Response::from_status(StatusCode::NOT_FOUND).with_body("Not Found")
