@@ -32,7 +32,7 @@ jobs:
           cli_version: '10.4.0'
       - if: steps.compute-package.outputs.cache-hit != 'true'
         run: fastly compute build --package-name package
-      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # pin@v3
+      - uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # pin@v3
         with:
           name: ${{ steps.cache-key.outputs.CACHE_KEY }}
           path: pkg/package.tar.gz
