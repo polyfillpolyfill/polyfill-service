@@ -1,8 +1,13 @@
 use std::time::Duration;
 
-use chrono::Utc;
-use fastly::{Request, Response, cache::simple::{get_or_set_with, CacheEntry}};
-use polyfill_library::{polyfill_parameters::get_polyfill_parameters, get_polyfill_string::{get_polyfill_string, get_polyfill_string_stream}};
+use fastly::{
+    cache::core::Transaction,
+    Request, Response,
+};
+use polyfill_library::{
+    get_polyfill_string::get_polyfill_string_stream,
+    polyfill_parameters::get_polyfill_parameters,
+};
 
 pub(crate) fn polyfill(request: &Request) {
     let parameters = get_polyfill_parameters(request);
@@ -44,45 +49,53 @@ pub(crate) fn polyfill(request: &Request) {
     let version = parameters.version.clone();
     let is_running_locally =
         std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
-        let mut res = Response::new();
-        res.set_header("Access-Control-Allow-Origin", "*");
-        res.set_header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
-        res.set_header("X-Compress-Hint", "on");
-        res.set_header("Content-Type", "text/javascript; charset=UTF-8");
-        res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
-        res.take_body();
-        let mut sbody = res.stream_to_client();
-    if !is_running_locally {
-        let fastly_service_version = std::env::var("FASTLY_SERVICE_VERSION").unwrap();
-        let key = fastly_service_version + &request.get_url_str().to_owned();
-        match get_or_set_with(
-            key,
-            || {
-                Ok(CacheEntry {
-                    value: get_polyfill_string(&parameters, library, &version),
-                    ttl: Duration::from_secs(u64::MAX),
-                })
-            },
-        ) {
-            Ok(Some(bundle)) => {
-                sbody.append(bundle);
-                sbody.finish().unwrap();
-                return;
-            },
-            Ok(None) => get_polyfill_string_stream(sbody, &parameters, library, &version),
-            Err(e) => {
-                let message = format!(
-                    "trace: {} utc: {} host: {} error: {}",
-                    std::env::var("FASTLY_TRACE_ID").unwrap(),
-                    Utc::now(),
-                    std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()),
-                    e.to_string()
-                );
-                eprintln!("{}", message);
-                get_polyfill_string_stream(sbody, &parameters, library, &version)
-            }
+    let mut res = Response::new();
+    res.set_header("Access-Control-Allow-Origin", "*");
+    res.set_header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
+    res.set_header("X-Compress-Hint", "on");
+    res.set_header("Content-Type", "text/javascript; charset=UTF-8");
+    res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+    res.take_body();
+    let mut sbody = res.stream_to_client();
+    if is_running_locally {
+        get_polyfill_string_stream(sbody, &parameters, library, &version);
+        return;
+    }
+    let fastly_service_version = std::env::var("FASTLY_SERVICE_VERSION").unwrap();
+    let key = fastly_service_version + &request.get_url_str().to_owned();
+
+    const TTL: Duration = Duration::from_secs(31536000);
+    // perform the lookup
+    let lookup_tx = Transaction::lookup(key.into())
+        .execute()
+        .unwrap();
+    if let Some(found) = lookup_tx.found() {
+        // a cached item was found; we use it now even though it might be stale,
+        // and we'll revalidate it below
+        sbody.append(found.to_stream().unwrap());
+        sbody.finish().unwrap();
+    }
+    // now we need to handle the "must insert" and "must update" cases
+    else if lookup_tx.must_insert() {
+        // a cached item was not found, and we've been chosen to insert it
+        let (writer, found) = lookup_tx
+            .insert(TTL)
+            // stream back the object so we can use it after inserting
+            .execute_and_stream_back()
+            .unwrap();
+        get_polyfill_string_stream(writer, &parameters, library, &version);
+        // now we can use the item we just inserted
+        sbody.append(found.to_stream().unwrap());
+        sbody.finish().unwrap();
+    } else if lookup_tx.must_insert_or_update() {
+        // a cached item was found and used above, and now we need to perform
+        // revalidation
+        if lookup_tx.found().is_some() {
+            // update the stale object's metadata
+            lookup_tx
+                .update(TTL)
+                .execute()
+                .unwrap();
         }
-    } else {
-        get_polyfill_string_stream(sbody, &parameters, library, &version)
-    };
+    }
 }
