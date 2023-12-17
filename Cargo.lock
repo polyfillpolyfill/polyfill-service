@@ -624,7 +624,6 @@ dependencies = [
  "http 1.0.0",
  "humansize",
  "indexmap",
- "lazy_static",
  "maud",
  "nodejs-semver",
  "polyfill-library",
