@@ -76,10 +76,6 @@ resource "fastly_service_vcl" "app" {
     name = "toppops_config"
   }
 
-  dictionary {
-    name = "compute_at_edge_config"
-  }
-
   logging_https {
     name           = "toppops-collector"
     url            = "https://toppops-ingest.fastlylabs.com/ingest"
@@ -106,18 +102,6 @@ resource "fastly_service_vcl" "app" {
 resource "fastly_service_dictionary_items" "toppops_config_items" {
   service_id    = fastly_service_vcl.app.id
   dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["toppops_config"]
-
-  items = {
-  }
-
-  lifecycle {
-    ignore_changes = [items, ]
-  }
-}
-
-resource "fastly_service_dictionary_items" "compute_at_edge_config_items" {
-  service_id    = fastly_service_vcl.app.id
-  dictionary_id = { for dictionary in fastly_service_vcl.app.dictionary : dictionary.name => dictionary.dictionary_id }["compute_at_edge_config"]
 
   items = {
   }
