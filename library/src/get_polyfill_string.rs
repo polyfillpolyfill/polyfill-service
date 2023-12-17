@@ -3,8 +3,9 @@ use crate::{
     ua::{UserAgent, UA},
 };
 use chrono::Utc;
-use fastly::{http::body::StreamingBody, KVStore};
+use fastly::{http::body::StreamingBody, KVStore, Body};
 use indexmap::IndexSet;
+
 use serde::Deserialize;
 use std::{
     collections::{HashMap, HashSet},
@@ -61,8 +62,7 @@ fn lookup(key: &str) -> Option<Vec<u8>> {
             .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
         let value = polyfills.lookup(key);
         let mut value = match value {
-            Err(_) => return None,
-            Ok(None) => return None,
+            Err(_) | Ok(None) => return None,
             Ok(Some(value)) => value,
         };
         let mut bytes = Vec::new();
@@ -91,7 +91,7 @@ fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
     if alias.is_empty() {
         return None;
     }
-    if let Some(bytes) = lookup(&format!("/{store}/aliases.json")) {
+    lookup(&format!("/{store}/aliases.json")).and_then(|bytes| {
         let aliases = serde_json::from_slice::<HashMap<String, Vec<String>>>(&bytes)
             .map_err(|e| {
                 panic!(
@@ -101,9 +101,7 @@ fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
             })
             .unwrap();
         aliases.get(alias).cloned()
-    } else {
-        None
-    }
+    })
 }
 
 #[derive(Clone, Default, Debug)]
@@ -200,7 +198,7 @@ fn get_polyfills(
     feature_names.sort();
     let mut targeted_features: HashMap<String, FeatureProperties> = HashMap::new();
     // println!("feature_names: {:#?}", feature_names);
-    let mut seen_removed: HashSet<String> = Default::default();
+    let mut seen_removed: HashSet<String> = HashSet::default();
     loop {
         let mut breakk = true;
         for feature_name in feature_names.clone() {
@@ -221,19 +219,17 @@ fn get_polyfills(
                         .get(&feature_name)
                         .cloned()
                         .unwrap_or_default(),
-                    comment: Default::default(),
+                    comment: Option::default(),
                 });
 
             let mut properties = FeatureProperties {
                 flags: HashSet::new(),
-                comment: Default::default(),
+                comment: Option::default(),
             };
 
             // Handle alias logic here
-            let alias = match get_config_aliases(store, &feature_name) {
-                Some(alias) => alias,
-                None => Default::default(),
-            };
+            let alias = get_config_aliases(store, &feature_name)
+                .map_or_else(Default::default, |alias| alias);
 
             if !alias.is_empty() {
                 feature_names.remove(&feature_name);
@@ -264,23 +260,20 @@ fn get_polyfills(
                 }
             }
 
-            let meta = match get_polyfill_meta(store, &feature_name) {
-                Some(meta) => meta,
-                None => {
-                    feature_names.remove(&feature_name);
-                    if add_feature(
-                        &feature_name,
-                        HashSet::new(),
-                        properties,
-                        // None,
-                        &mut feature_names,
-                        &mut targeted_features,
-                    ) {
-                        breakk = false;
-                        // println!("meow unknown - {}", feature_name);
-                    }
-                    continue;
+            let Some(meta) = get_polyfill_meta(store, &feature_name) else {
+                feature_names.remove(&feature_name);
+                if add_feature(
+                    &feature_name,
+                    HashSet::new(),
+                    properties,
+                    // None,
+                    &mut feature_names,
+                    &mut targeted_features,
+                ) {
+                    breakk = false;
+                    // println!("meow unknown - {}", feature_name);
                 }
+                continue;
             };
 
             if !targeted {
@@ -347,6 +340,139 @@ fn get_polyfills(
     targeted_features
 }
 
+pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_version: &str) -> Body {
+    let lf = if options.minify { "" } else { "\n" };
+    let app_version_text = "Polyfill service v".to_owned() + &app_version;
+    let mut output = Body::new();
+    let mut explainer_comment: Vec<String> = vec![];
+    // Build a polyfill bundle of polyfill sources sorted in dependency order
+    let mut targeted_features = get_polyfills(&options, store, "3.111.0");
+    let mut warnings: Vec<String> = vec![];
+    let mut feature_nodes: Vec<String> = vec![];
+    let mut feature_edges: Vec<(String, String)> = vec![];
+
+    let t = targeted_features.clone();
+    for (feature_name, feature) in targeted_features.iter_mut() {
+        let polyfill = get_polyfill_meta(store, feature_name);
+        match polyfill {
+            Some(polyfill) => {
+                feature_nodes.push(feature_name.to_string());
+                if let Some(deps) = polyfill.dependencies {
+                    for dep_name in deps {
+                        if t.contains_key(&dep_name) {
+                            feature_edges.push((dep_name, feature_name.to_string()));
+                        }
+                    }
+                }
+                let license = polyfill.license.unwrap_or_else(|| "CC0".to_owned());
+                feature.comment = feature
+                    .comment
+                    .clone()
+                    .map(|comment| format!("{feature_name}, License: {license} ({})", &comment))
+                    .or_else(|| Some(format!("{feature_name}, License: {license}")));
+            }
+            None => warnings.push(feature_name.to_string()),
+        }
+    }
+
+    feature_nodes.sort();
+    feature_edges.sort_by_key(|f| f.1.to_string());
+
+    let sorted_features = toposort(&feature_nodes, &feature_edges).unwrap();
+    let m = if options.minify { "min" } else { "raw" };
+    let polyfills =
+        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let mut sorted_features_bb = vec![];
+    for feature_name in &sorted_features {
+        sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
+    }
+    if !options.minify {
+        explainer_comment.push(app_version_text);
+        explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
+        explainer_comment.push("".to_owned());
+        let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
+        features.sort();
+        explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
+        explainer_comment.push("".to_owned());
+        sorted_features.iter().for_each(|feature_name| {
+            if let Some(feature) = targeted_features.get(feature_name) {
+                explainer_comment.push(format!("- {}", feature.comment.as_ref().unwrap()));
+            }
+        });
+        if !warnings.is_empty() {
+            explainer_comment.push("".to_owned());
+            explainer_comment.push("These features were not recognised:".to_owned());
+            let mut warnings = warnings
+                .iter()
+                .map(|s| "- ".to_owned() + s)
+                .collect::<Vec<String>>();
+            warnings.sort();
+            explainer_comment.push(warnings.join(","));
+        }
+    } else {
+        explainer_comment.push(app_version_text);
+        explainer_comment
+            .push("Disable minification (remove `.min` from URL path) for more info".to_owned());
+    }
+    output.write_str(format!("/* {} */\n\n", explainer_comment.join("\n * ")).as_str());
+    if !sorted_features.is_empty() {
+        // Outer closure hides private features from global scope
+        output.write_str("(function(self, undefined) {");
+        output.write_str(lf);
+
+        // Using the graph, stream all the polyfill sources in dependency order
+        for (feature_name, bb) in sorted_features_bb {
+            let wrap_in_detect = targeted_features[feature_name].flags.contains("gated");
+            if wrap_in_detect {
+                let meta = get_polyfill_meta(store, &feature_name);
+                if let Some(meta) = meta {
+                    if let Some(detect_source) = meta.detect_source {
+                        if !detect_source.is_empty() {
+                            output.write_str("if (!(");
+                            output.write_str(detect_source.as_str());
+                            output.write_str(")) {");
+                            output.write_str(lf);
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            output.append(bb);
+                            output.write_str(lf);
+                            output.write_str("}");
+                            output.write_str(lf);
+                            output.write_str(lf);
+                        } else {
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            output.append(bb);
+                        }
+                    } else {
+                        let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                        output.append(bb);
+                    }
+                } else {
+                    let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                    output.append(bb);
+                }
+            } else {
+                let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                output.append(bb);
+            }
+        }
+        // Invoke the closure, passing the global object as the only argument
+        output.write_str("})");
+        output.write_str(lf);
+        output.write_str("('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});");
+        output.write_str(lf);
+    } else if !options.minify {
+        output.write_str("\n/* No polyfills needed for current settings and browser */\n\n");
+    }
+    if let Some(callback) = &options.callback {
+        output.write_str("\ntypeof ");
+        output.write_str(&callback);
+        output.write_str("==='function' && ");
+        output.write_str(&callback);
+        output.write_str("();");
+    }
+    output
+}
+
 pub fn get_polyfill_string_stream(
     mut output: StreamingBody,
     options: &PolyfillParameters,
@@ -397,13 +523,17 @@ pub fn get_polyfill_string_stream(
     for feature_name in &sorted_features {
         sorted_features_bb.push((feature_name, polyfill_source(store, feature_name, m)));
     }
+    explainer_comment.push(app_version_text);
     if !options.minify {
-        explainer_comment.push(app_version_text);
         explainer_comment.push(
             "For detailed credits and licence information see https://polyfill.io.".to_owned(),
         );
         explainer_comment.push(String::new());
-        let mut features: Vec<String> = options.features.keys().map(std::clone::Clone::clone).collect();
+        let mut features: Vec<String> = options
+            .features
+            .keys()
+            .map(std::clone::Clone::clone)
+            .collect();
         features.sort();
         explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
         explainer_comment.push(String::new());
@@ -423,7 +553,6 @@ pub fn get_polyfill_string_stream(
             explainer_comment.push(warnings.join(","));
         }
     } else {
-        explainer_comment.push(app_version_text);
         explainer_comment
             .push("Disable minification (remove `.min` from URL path) for more info".to_owned());
     }
@@ -444,7 +573,10 @@ pub fn get_polyfill_string_stream(
                 let meta = get_polyfill_meta(store, feature_name);
                 if let Some(meta) = meta {
                     if let Some(detect_source) = meta.detect_source {
-                        if !detect_source.is_empty() {
+                        if detect_source.is_empty() {
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            output.append(bb);
+                        } else {
                             output.write_str("if (!(");
                             output.write_str(detect_source.as_str());
                             output.write_str(")) {");
@@ -455,9 +587,6 @@ pub fn get_polyfill_string_stream(
                             output.write_str("}");
                             output.write_str(lf);
                             output.write_str(lf);
-                        } else {
-                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
-                            output.append(bb);
                         }
                     } else {
                         let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
