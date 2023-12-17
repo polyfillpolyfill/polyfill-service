@@ -3,17 +3,16 @@ use crate::{
     ua::{UserAgent, UA},
 };
 use chrono::Utc;
-use fastly::{KVStore, http::body::StreamingBody};
+use fastly::{http::body::StreamingBody, KVStore};
 use indexmap::IndexSet;
 use serde::Deserialize;
-use std::{str, io::Read};
 use std::{
     collections::{HashMap, HashSet},
     sync::OnceLock,
 };
+use std::{io::Read, str, sync::Mutex};
 
 use fastly::kv_store::handle::PendingObjectStoreLookupHandle;
-
 
 use crate::{polyfill_parameters::PolyfillParameters, toposort::toposort};
 
@@ -46,50 +45,65 @@ struct PolyfillConfig {
 }
 
 static POLYFILL_SOURCE_KV_STORE: OnceLock<KVStore> = OnceLock::new();
+
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref POLYFILL_STORE_CACHE: Mutex<HashMap<String, Vec<u8>>> = Mutex::new(HashMap::new());
+}
+
+fn lookup(key: &str) -> Option<Vec<u8>> {
+    let mut cache = POLYFILL_STORE_CACHE.lock().unwrap();
+    if let Some(value) = cache.get(key) {
+        return Some(value.to_vec());
+    } else {
+        let polyfills = POLYFILL_SOURCE_KV_STORE
+            .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+        let value = polyfills.lookup(key);
+        let mut value = match value {
+            Err(_) => return None,
+            Ok(None) => return None,
+            Ok(Some(value)) => value,
+        };
+        let mut bytes = Vec::new();
+        if value.read_to_end(&mut bytes).is_err() {
+            return None;
+        } else {
+            cache.insert(key.to_owned(), bytes.clone());
+            return Some(bytes);
+        }
+    }
+}
+
 fn get_polyfill_meta(store: &str, feature_name: &str) -> Option<PolyfillConfig> {
     if feature_name.is_empty() {
         return None;
     }
-    let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
-    let meta = polyfills.lookup(&format!("/{store}/{feature_name}/meta.json"));
-    let mut meta = match meta {
-        Err(_) => return None,
-        Ok(None) => return None,
-        Ok(Some(meta)) => meta,
+    let meta = lookup(&format!("/{store}/{feature_name}/meta.json"));
+    let meta = match meta {
+        None => return None,
+        Some(meta) => meta,
     };
-    let mut buffer = Vec::new();
-    if meta.read_to_end(&mut buffer).is_err() {
-        return None
-    }
-    serde_json::from_slice(&buffer).unwrap()
+    serde_json::from_slice(&meta).unwrap()
 }
 
 fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
     if alias.is_empty() {
         return None;
     }
-    let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
-    let aliases = polyfills.lookup(&format!("/{store}/aliases.json"));
-    let mut aliases = match aliases {
-        Err(_) => return None,
-        Ok(None) => return None,
-        Ok(Some(aliases)) => aliases,
-    };
-    let mut bytes = Vec::new();
-    if aliases.read_to_end(&mut bytes).is_err() {
-        return None
+    if let Some(bytes) = lookup(&format!("/{store}/aliases.json")) {
+        let aliases = serde_json::from_slice::<HashMap<String, Vec<String>>>(&bytes)
+            .map_err(|e| {
+                panic!(
+                    "failed to json parse alias: {} from store: {} error: {:#?}",
+                    alias, store, e
+                );
+            })
+            .unwrap();
+        aliases.get(alias).cloned()
+    } else {
+        None
     }
-    let aliases = serde_json::from_slice::<HashMap<String, Vec<String>>>(&bytes)
-        .map_err(|e| {
-            panic!(
-                "failed to json parse alias: {} from store: {} error: {:#?}",
-                alias, store, e
-            );
-        })
-        .unwrap();
-    aliases.get(alias).cloned()
 }
 
 #[derive(Clone, Default, Debug)]
@@ -334,7 +348,12 @@ fn get_polyfills(
     targeted_features
 }
 
-pub fn get_polyfill_string_stream(mut output: StreamingBody, options: &PolyfillParameters, store: &str, app_version: &str) {
+pub fn get_polyfill_string_stream(
+    mut output: StreamingBody,
+    options: &PolyfillParameters,
+    store: &str,
+    app_version: &str,
+) {
     let lf = if options.minify { "" } else { "\n" };
     let app_version_text = "Polyfill service v".to_owned() + &app_version;
     let mut explainer_comment: Vec<String> = vec![];
@@ -373,15 +392,17 @@ pub fn get_polyfill_string_stream(mut output: StreamingBody, options: &PolyfillP
 
     let sorted_features = toposort(&feature_nodes, &feature_edges).unwrap();
     let m = if options.minify { "min" } else { "raw" };
-    let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+    let polyfills = POLYFILL_SOURCE_KV_STORE
+        .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut sorted_features_bb = vec![];
     for feature_name in &sorted_features {
         sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
     }
     if !options.minify {
         explainer_comment.push(app_version_text);
-        explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
+        explainer_comment.push(
+            "For detailed credits and licence information see https://polyfill.io.".to_owned(),
+        );
         explainer_comment.push("".to_owned());
         let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
         features.sort();
@@ -470,9 +491,13 @@ pub fn get_polyfill_string_stream(mut output: StreamingBody, options: &PolyfillP
     output.finish().unwrap();
 }
 
-fn polyfill_source(store: &str, feature_name: &str, format: &str) -> PendingObjectStoreLookupHandle {
-    let polyfills =
-        POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
+fn polyfill_source(
+    store: &str,
+    feature_name: &str,
+    format: &str,
+) -> PendingObjectStoreLookupHandle {
+    let polyfills = POLYFILL_SOURCE_KV_STORE
+        .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut counter = 0;
     let mut message: String = String::default();
     while counter < 100 {

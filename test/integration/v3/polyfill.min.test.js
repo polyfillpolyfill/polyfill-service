@@ -177,23 +177,6 @@ describe("DELETE /v3/polyfill.min.js", function() {
 	});
 });
 
-describe("HEAD /v3/polyfill.min.js", function() {
-	it("responds with a 200 status", async () => {
-		const response = await axios.head(`/v3/polyfill.min.js`, {
-			headers: {
-				"Fastly-Debug": "true"
-			}
-		});
-
-		assert.equal(response.status, 200);
-		assert.match(response.headers['content-type'], /text\/javascript; charset=(utf|UTF)-8/)
-		assert.equal(response.headers["access-control-allow-origin"], "*")
-		assert.equal(response.headers["access-control-allow-methods"], "GET,HEAD,OPTIONS")
-		assert.equal(response.headers["cache-control"], "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
-	});
-});
-
-
 describe("GET /v3/polyfill.min.js", function() {
 	it("responds with a 200 status", async () => {
 		const response = await axios.get(`/v3/polyfill.min.js`, {

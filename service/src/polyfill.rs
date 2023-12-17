@@ -47,8 +47,6 @@ pub(crate) fn polyfill(request: &Request) {
         }
     };
     let version = parameters.version.clone();
-    let is_running_locally =
-        std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
     let mut res = Response::new();
     res.set_header("Access-Control-Allow-Origin", "*");
     res.set_header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
@@ -57,6 +55,9 @@ pub(crate) fn polyfill(request: &Request) {
     res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
     res.take_body();
     let mut sbody = res.stream_to_client();
+    
+    let is_running_locally =
+        std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
     if is_running_locally {
         get_polyfill_string_stream(sbody, &parameters, library, &version);
         return;
