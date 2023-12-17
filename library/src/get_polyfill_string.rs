@@ -3,7 +3,7 @@ use crate::{
     ua::{UserAgent, UA},
 };
 use chrono::Utc;
-use fastly::{http::body::StreamingBody, Body, KVStore};
+use fastly::{http::body::StreamingBody, KVStore};
 use indexmap::IndexSet;
 use serde::Deserialize;
 use std::{
