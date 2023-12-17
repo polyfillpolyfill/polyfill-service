@@ -55,7 +55,7 @@ lazy_static! {
 fn lookup(key: &str) -> Option<Vec<u8>> {
     let mut cache = POLYFILL_STORE_CACHE.lock().unwrap();
     if let Some(value) = cache.get(key) {
-        return Some(value.to_vec());
+        Some(value.clone())
     } else {
         let polyfills = POLYFILL_SOURCE_KV_STORE
             .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
@@ -67,10 +67,10 @@ fn lookup(key: &str) -> Option<Vec<u8>> {
         };
         let mut bytes = Vec::new();
         if value.read_to_end(&mut bytes).is_err() {
-            return None;
+            None
         } else {
             cache.insert(key.to_owned(), bytes.clone());
-            return Some(bytes);
+            Some(bytes)
         }
     }
 }
@@ -121,21 +121,21 @@ enum U {
 impl U {
     fn is_unknown(&self) -> bool {
         match self {
-            U::Old(u) => u.is_unknown(),
-            U::Current(u) => u.is_unknown(),
+            Self::Old(u) => u.is_unknown(),
+            Self::Current(u) => u.is_unknown(),
         }
     }
 
     fn get_family(&self) -> String {
         match self {
-            U::Old(u) => u.get_family(),
-            U::Current(u) => u.get_family(),
+            Self::Old(u) => u.get_family(),
+            Self::Current(u) => u.get_family(),
         }
     }
     fn satisfies(&self, range: String) -> bool {
         match self {
-            U::Old(u) => u.satisfies(range),
-            U::Current(u) => u.satisfies(range),
+            Self::Old(u) => u.satisfies(range),
+            Self::Current(u) => u.satisfies(range),
         }
     }
 }
@@ -146,7 +146,7 @@ fn remove_feature(
     targeted_features: &mut HashMap<String, FeatureProperties>,
 ) -> bool {
     feature_names.remove(feature_name);
-    return targeted_features.remove(feature_name).is_some();
+    targeted_features.remove(feature_name).is_some()
 }
 
 fn add_feature(
@@ -181,9 +181,9 @@ fn add_feature(
             .insert(feature_name.to_string(), f)
             .is_none();
     }
-    return targeted_features
+    targeted_features
         .insert(feature_name.to_string(), properties)
-        .is_none();
+        .is_none()
 }
 
 fn get_polyfills(
@@ -237,7 +237,7 @@ fn get_polyfills(
 
             if !alias.is_empty() {
                 feature_names.remove(&feature_name);
-                for aliased_feature in alias.iter() {
+                for aliased_feature in &alias {
                     if add_feature(
                         aliased_feature,
                         feature.flags.clone(),
@@ -287,8 +287,7 @@ fn get_polyfills(
                 if let Some(browsers) = meta.browsers {
                     let is_browser_match = browsers
                         .get(&ua.get_family())
-                        .map(|browser| ua.satisfies(browser.to_string()))
-                        .unwrap_or(false);
+                        .map_or(false, |browser| ua.satisfies(browser.to_string()));
 
                     targeted = is_browser_match;
                 }
@@ -311,7 +310,7 @@ fn get_polyfills(
                     }
 
                     if let Some(deps) = meta.dependencies {
-                        for dep in deps.iter() {
+                        for dep in &deps {
                             if add_feature(
                                 dep,
                                 feature.flags.clone(),
@@ -355,16 +354,16 @@ pub fn get_polyfill_string_stream(
     app_version: &str,
 ) {
     let lf = if options.minify { "" } else { "\n" };
-    let app_version_text = "Polyfill service v".to_owned() + &app_version;
+    let app_version_text = "Polyfill service v".to_owned() + app_version;
     let mut explainer_comment: Vec<String> = vec![];
     // Build a polyfill bundle of polyfill sources sorted in dependency order
-    let mut targeted_features = get_polyfills(&options, store, "3.111.0");
+    let mut targeted_features = get_polyfills(options, store, "3.111.0");
     let mut warnings: Vec<String> = vec![];
     let mut feature_nodes: Vec<String> = vec![];
     let mut feature_edges: Vec<(String, String)> = vec![];
 
     let t = targeted_features.clone();
-    for (feature_name, feature) in targeted_features.iter_mut() {
+    for (feature_name, feature) in &mut targeted_features {
         let polyfill = get_polyfill_meta(store, feature_name);
         match polyfill {
             Some(polyfill) => {
@@ -396,25 +395,25 @@ pub fn get_polyfill_string_stream(
         .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut sorted_features_bb = vec![];
     for feature_name in &sorted_features {
-        sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
+        sorted_features_bb.push((feature_name, polyfill_source(store, feature_name, m)));
     }
     if !options.minify {
         explainer_comment.push(app_version_text);
         explainer_comment.push(
             "For detailed credits and licence information see https://polyfill.io.".to_owned(),
         );
-        explainer_comment.push("".to_owned());
-        let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
+        explainer_comment.push(String::new());
+        let mut features: Vec<String> = options.features.keys().map(std::clone::Clone::clone).collect();
         features.sort();
         explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
-        explainer_comment.push("".to_owned());
-        sorted_features.iter().for_each(|feature_name| {
+        explainer_comment.push(String::new());
+        for feature_name in &sorted_features {
             if let Some(feature) = targeted_features.get(feature_name) {
                 explainer_comment.push(format!("- {}", feature.comment.as_ref().unwrap()));
             }
-        });
+        }
         if !warnings.is_empty() {
-            explainer_comment.push("".to_owned());
+            explainer_comment.push(String::new());
             explainer_comment.push("These features were not recognised:".to_owned());
             let mut warnings = warnings
                 .iter()
@@ -430,7 +429,7 @@ pub fn get_polyfill_string_stream(
     }
     output.write_str("/*\n");
     for line in explainer_comment {
-        output.write_str(format!(" * {}\n", line).as_str());
+        output.write_str(format!(" * {line}\n").as_str());
     }
     output.write_str("*/\n\n");
     if !sorted_features.is_empty() {
@@ -442,7 +441,7 @@ pub fn get_polyfill_string_stream(
         for (feature_name, bb) in sorted_features_bb {
             let wrap_in_detect = targeted_features[feature_name].flags.contains("gated");
             if wrap_in_detect {
-                let meta = get_polyfill_meta(store, &feature_name);
+                let meta = get_polyfill_meta(store, feature_name);
                 if let Some(meta) = meta {
                     if let Some(detect_source) = meta.detect_source {
                         if !detect_source.is_empty() {
@@ -483,9 +482,9 @@ pub fn get_polyfill_string_stream(
     }
     if let Some(callback) = &options.callback {
         output.write_str("\ntypeof ");
-        output.write_str(&callback);
+        output.write_str(callback);
         output.write_str("==='function' && ");
-        output.write_str(&callback);
+        output.write_str(callback);
         output.write_str("();");
     }
     output.finish().unwrap();
@@ -519,9 +518,9 @@ fn polyfill_source(
                     store,
                     &format!("/{feature_name}/{format}.js"),
                     counter,
-                    e.to_string()
+                    e
                 );
-                eprintln!("{}", message);
+                eprintln!("{message}");
                 counter += 1;
             }
         }

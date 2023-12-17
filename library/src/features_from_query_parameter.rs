@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use std::iter::FromIterator;
 
-pub fn features_from_query_parameter(
+#[must_use] pub fn features_from_query_parameter(
     features_parameter: &str,
     flags_parameter: &str,
 ) -> HashMap<String, HashSet<String>> {
@@ -9,7 +9,7 @@ pub fn features_from_query_parameter(
         .split(',')
         .filter(|f| !f.is_empty())
         .collect();
-    features.sort();
+    features.sort_unstable();
     let global_flags: Vec<&str> = flags_parameter.split(',').collect();
     let mut features_with_flags: HashMap<String, HashSet<String>> = HashMap::new();
 
@@ -19,7 +19,7 @@ pub fn features_from_query_parameter(
         let mut things: Vec<&str> = safe_feature.split('|').collect();
         let name = things.remove(0);
         things.append(&mut global_flags.clone());
-        let feature_specific_flags = things.into_iter().map(|f| f.to_owned());
+        let feature_specific_flags = things.into_iter().map(std::borrow::ToOwned::to_owned);
         features_with_flags.insert(
             name.replace('?', ""),
             HashSet::from_iter(feature_specific_flags),

@@ -24,26 +24,20 @@ pub fn get_polyfill_parameters(request: &Request) -> PolyfillParameters {
     let excludes = query
         .get("excludes")
         .map(|f| {
-            decode(f)
-                .map(|f| f.to_string())
-                .unwrap_or_else(|_| f.to_string())
+            decode(f).map_or_else(|_| f.to_string(), |f| f.to_string())
         })
-        .unwrap_or_else(|| "".to_owned());
+        .unwrap_or_else(String::new);
     let features = query
         .get("features")
         .map(|f| {
-            decode(f)
-                .map(|f| f.to_string())
-                .unwrap_or_else(|_| f.to_string())
+            decode(f).map_or_else(|_| f.to_string(), |f| f.to_string())
         })
         .unwrap_or_else(|| "default".to_owned());
     let unknown = query
-        .get("unknown")
-        .map(|f| f.to_owned())
-        .unwrap_or_else(|| "polyfill".to_owned());
+        .get("unknown").map_or_else(|| "polyfill".to_owned(), std::clone::Clone::clone);
     let version = query
         .get("version")
-        .map(|f| f.to_owned())
+        .map(std::clone::Clone::clone)
         .map(|f| {
             if f.is_empty() {
                 "3.111.0".to_owned()
@@ -55,23 +49,21 @@ pub fn get_polyfill_parameters(request: &Request) -> PolyfillParameters {
     let callback = query
         .get("callback")
         .filter(|callback| Regex::new(r"^[\w.]+$").unwrap().is_match(callback))
-        .map(|callback| callback.to_owned());
-    let ua_string = query.get("ua").map(|f| f.to_owned()).unwrap_or_else(|| {
+        .map(std::clone::Clone::clone);
+    let ua_string = query.get("ua").map(std::clone::Clone::clone).unwrap_or_else(|| {
         request
             .get_header_str("user-agent")
             .unwrap_or_default()
             .to_owned()
     });
     let flags = query
-        .get("flags")
-        .map(|f| f.to_owned())
-        .unwrap_or_else(|| "".to_owned());
+        .get("flags").map_or_else(String::new, std::clone::Clone::clone);
 
     let strict = query.contains_key("strict");
 
     return PolyfillParameters {
         excludes: if !excludes.is_empty() {
-            excludes.split(',').map(|e| e.to_owned()).collect()
+            excludes.split(',').map(std::borrow::ToOwned::to_owned).collect()
         } else {
             vec![]
         },
