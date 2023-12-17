@@ -36,13 +36,12 @@ impl UserAgent for OldUA {
         let mut minor: String;
         // let mut patch: String = "0".to_owned();
         let re: Regex = Regex::new(r"(?i)^(\w+)\/(\d+)(?:\.(\d+){2})?$").unwrap();
-        if let Some(normalized) = re.captures(&ua_string) {
+        if let Some(normalized) = re.captures(ua_string) {
             family = normalized.get(1).map(Into::<&str>::into).unwrap().into();
             major = normalized.get(2).map(Into::<&str>::into).unwrap().into();
             minor = normalized
                 .get(3)
-                .map(Into::<&str>::into)
-                .unwrap_or("0")
+                .map_or("0", Into::<&str>::into)
                 .to_owned();
         } else {
             // Chrome and Opera on iOS uses a UIWebView of the underlying platform to render content. By stripping the CriOS or OPiOS strings, the useragent parser will alias the user agent to ios_saf for the UIWebView, which is closer to the actual renderer
@@ -50,7 +49,7 @@ impl UserAgent for OldUA {
                 r"(?i)((CriOS|OPiOS)\/(\d+)\.(\d+)\.(\d+)\.(\d+)|(FxiOS\/(\d+)\.(\d+)))",
             )
             .unwrap()
-            .replace(&ua_string, "");
+            .replace(ua_string, "");
 
             // Vivaldi browser is recognised by UA module but is actually identical to Chrome, so the best way to get accurate targeting is to remove the vivaldi token from the UA
             let ua_string = Regex::new(r"(?i) vivaldi\/[\d.]+\d+")
@@ -352,9 +351,9 @@ impl UserAgent for OldUA {
         let version = format!("{major}.{minor}.0");
         // println!("{}/{}", family, version);
 
-        OldUA {
+        Self {
             version,
-            family: family.to_owned(),
+            family,
             // major: major.to_owned(),
             // minor: minor.to_owned(),
             // patch: patch.to_owned(),
@@ -373,12 +372,12 @@ impl UserAgent for OldUA {
 
     fn meets_baseline(&self) -> bool {
         let family = &self.family;
-        let range = format!(">={}", OldUA::get_baselines().get(family).unwrap());
+        let range = format!(">={}", Self::get_baselines().get(family).unwrap());
         self.satisfies(range)
     }
 
     fn is_unknown(&self) -> bool {
-        !OldUA::get_baselines().contains_key(&self.family) || !self.meets_baseline()
+        !Self::get_baselines().contains_key(&self.family) || !self.meets_baseline()
     }
 
     fn get_baselines() -> HashMap<String, String> {

@@ -33,20 +33,19 @@ impl UserAgent for UA {
         let mut major: String;
         let mut minor: String;
         let re: Regex = Regex::new(r"(?i)^(\w+)/(\d+)\.?(\d+)?\.?(\d+)?$").unwrap();
-        if let Some(normalized) = re.captures(&ua_string) {
+        if let Some(normalized) = re.captures(ua_string) {
             // println!("normalized: {:#?}", normalized);
             family = normalized.get(1).map(Into::<&str>::into).unwrap().into();
             major = normalized.get(2).map(Into::<&str>::into).unwrap().into();
             minor = normalized
                 .get(3)
-                .map(Into::<&str>::into)
-                .unwrap_or("0")
+                .map_or("0", Into::<&str>::into)
                 .to_owned();
         } else {
             // Google Search iOS app should be detected as the underlying browser, which is safari on iOS
             let ua_string = Regex::new(r"(?i) GSA\/[\d.]+")
                 .unwrap()
-                .replace(&ua_string, "");
+                .replace(ua_string, "");
 
             // Instagram should be detected as the underlying browser, which is safari on ios
             let ua_string = Regex::new(r"(?i) Instagram [\d.]+")
@@ -523,9 +522,9 @@ impl UserAgent for UA {
         let version = format!("{major}.{minor}.0");
 
         // println!("ua norm: {}/{}", family, version);
-        UA {
+        Self {
             version,
-            family: family.to_owned(),
+            family,
         }
     }
 
@@ -534,11 +533,11 @@ impl UserAgent for UA {
     }
 
     fn satisfies(&self, range: String) -> bool {
-        let req: Range = range.parse().expect(&format!("err: {}", range));
+        let req: Range = range.parse().unwrap_or_else(|_| panic!("err: {}", range));
         let version: Version = self
             .version
             .parse()
-            .expect(&format!("err: {}", self.version));
+            .unwrap_or_else(|_| panic!("err: {}", self.version));
         // println!("req: {:#?}", req);
         // println!("version: {:#?}", version);
         version.satisfies(&req)
@@ -546,9 +545,9 @@ impl UserAgent for UA {
 
     fn meets_baseline(&self) -> bool {
         let family = &self.family;
-        match UA::get_baselines().get(family) {
+        match Self::get_baselines().get(family) {
             Some(family) => {
-                let range = format!(">={}", family);
+                let range = format!(">={family}");
                 self.satisfies(range)
             }
             None => false,
@@ -556,7 +555,7 @@ impl UserAgent for UA {
     }
 
     fn is_unknown(&self) -> bool {
-        !UA::get_baselines().contains_key(&self.family) || !self.meets_baseline()
+        !Self::get_baselines().contains_key(&self.family) || !self.meets_baseline()
     }
 
     fn get_baselines() -> HashMap<String, String> {

@@ -1,15 +1,15 @@
-use std::collections::{HashMap, HashSet};
+use std::{collections::{HashMap, HashSet}, convert::TryInto};
 
 pub fn toposort(
     nodes: &Vec<String>,
     edges: &Vec<(String, String)>,
 ) -> Result<Vec<String>, String> {
     let mut cursor = nodes.len();
-    let mut sorted: Vec<String> = vec!["".to_string(); cursor];
+    let mut sorted: Vec<String> = vec![String::new(); cursor];
     let mut visited: HashSet<u32> = HashSet::new();
-    let mut i = cursor as u32;
-    let outgoing_edges = make_outgoing_edges(&edges);
-    let nodes_hash = make_nodes_hash(&nodes);
+    let mut i = cursor.try_into().expect("Unexpected u32 overflow in i");
+    let outgoing_edges = make_outgoing_edges(edges);
+    let nodes_hash = make_nodes_hash(nodes);
 
     for edge in edges {
         if !nodes_hash.contains_key(&edge.0) || !nodes_hash.contains_key(&edge.1) {
@@ -22,8 +22,10 @@ pub fn toposort(
     while i > 0 {
         i -= 1;
         if !visited.contains(&i) {
+            let node = nodes.get::<usize>(i.try_into().expect("Unexpected usize overflow in i"));
+            let node = node.unwrap().to_string();
             visit(
-                nodes.get(i as usize).unwrap().to_string(),
+                node,
                 i,
                 &mut HashSet::new(),
                 &mut visited,
@@ -50,14 +52,13 @@ fn visit(
     cursor: &mut usize,
 ) -> Result<(), String> {
     if predecessors.contains(&node) {
-        let node_rep = format!(", node was: {}", node);
-        return Err(format!("Cyclic dependency{}", node_rep));
+        let node_rep = format!(", node was: {node}");
+        return Err(format!("Cyclic dependency{node_rep}"));
     }
 
     if !nodes_hash.contains_key(&node) {
         return Err(format!(
-            "Found unknown node. Make sure to provide all involved nodes. Unknown node: {}",
-            node
+            "Found unknown node. Make sure to provide all involved nodes. Unknown node: {node}"
         ));
     }
 
@@ -67,7 +68,7 @@ fn visit(
     visited.insert(i);
 
     let outgoing = outgoing_edges.get(&node).unwrap_or(&Vec::new()).clone();
-    let outgoing: Vec<String> = outgoing.iter().cloned().collect();
+    let outgoing: Vec<String> = outgoing;
 
     let mut i = outgoing.len();
     if i > 0 {
@@ -77,7 +78,7 @@ fn visit(
             let child = outgoing.get(i).unwrap();
             visit(
                 child.to_string(),
-                *nodes_hash.get(child).unwrap() as u32,
+                (*nodes_hash.get(child).unwrap()).try_into().expect("Unexpected u32 overflow in i"),
                 predecessors,
                 visited,
                 outgoing_edges,
