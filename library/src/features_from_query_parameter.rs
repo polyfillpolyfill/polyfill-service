@@ -1,5 +1,5 @@
 use std::collections::{HashMap, HashSet};
-use std::iter::FromIterator;
+
 
 #[must_use] pub fn features_from_query_parameter(
     features_parameter: &str,
@@ -22,7 +22,7 @@ use std::iter::FromIterator;
         let feature_specific_flags = things.into_iter().map(std::borrow::ToOwned::to_owned);
         features_with_flags.insert(
             name.replace('?', ""),
-            HashSet::from_iter(feature_specific_flags),
+            feature_specific_flags.collect::<HashSet<_>>(),
         );
     }
 

@@ -1,16 +1,15 @@
 #![warn(
     clippy::all,
-    clippy::restriction,
     clippy::pedantic,
-    clippy::nursery,
-    clippy::cargo,
+    clippy::cargo
 )]
+#![allow(clippy::missing_docs_in_private_items)]
 mod pages;
 mod polyfill;
 
 use crate::polyfill::polyfill;
 use fastly::http::{header, Method, StatusCode};
-use fastly::{Error, Request, Response, SecretStore};
+use fastly::{Request, Response, SecretStore};
 use pages::{home, privacy, terms};
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -110,7 +109,7 @@ fn stats() -> Option<Stats> {
     }
 }
 
-fn main() -> Result<(), Error> {
+fn main() {
     fastly::init();
     RequestLimits::set_max_header_value_bytes(Some(15_000));
     let mut req = Request::from_client();
@@ -119,14 +118,14 @@ fn main() -> Result<(), Error> {
     //     "FASTLY_SERVICE_VERSION: {}",
     //     std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
     // );
-    let url = req.get_url_str().to_string();
+    let url = req.get_url_str().to_owned();
     // println!("url: {}", url);
     std::panic::set_hook(Box::new(move |info| {
         eprintln!(
             "FASTLY_SERVICE_VERSION: {}\nurl: {}\n{}",
-            std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new()),
+            std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| return String::new()),
             url.clone(),
-            info.to_string()
+            info
         );
     }));
 
@@ -136,7 +135,7 @@ fn main() -> Result<(), Error> {
             .with_header("allow", "OPTIONS, GET, HEAD")
             .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
             .send_to_client();
-            return Ok(());
+            return;
         }
         &Method::CONNECT
         | &Method::DELETE
@@ -148,7 +147,7 @@ fn main() -> Result<(), Error> {
                 .with_header(header::ALLOW, "GET, HEAD")
                 .with_body_text_plain("This method is not allowed\n")
                 .send_to_client();
-            return Ok(());
+            return;
         }
         _ => {}
     };
@@ -168,7 +167,6 @@ fn main() -> Result<(), Error> {
                     "max-age=60, stale-while-revalidate=60, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/img/logo.svg" => {
             Response::from_body(include_str!("logo.svg"))
@@ -176,7 +174,6 @@ fn main() -> Result<(), Error> {
                 .with_header("x-compress-hint", "on")
                 .with_header("surrogate-key", "website")
                 .send_to_client();
-            return Ok(());
         }
         "/v3/terms" => {
             Response::from_body(terms())
@@ -188,7 +185,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/privacy-policy" => {
             Response::from_body(privacy())
@@ -200,19 +196,16 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/robots.txt" => {
             Response::from_status(200)
                 .with_body_text_plain("User-agent: *\nDisallow:")
                 .send_to_client();
-            return Ok(());
         }
         "/v1" => {
             Response::from_status(StatusCode::PERMANENT_REDIRECT)
                 .with_header("Location", "/v3/")
                 .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable").send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.101.0.json" => {
             Response::from_body(include_str!("json/library-3.101.0.json"))
@@ -224,7 +217,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.103.0.json" => {
             Response::from_body(include_str!("json/library-3.103.0.json"))
@@ -236,7 +228,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.104.0.json" => {
             Response::from_body(include_str!("json/library-3.104.0.json"))
@@ -248,7 +239,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.108.0.json" => {
             Response::from_body(include_str!("json/library-3.108.0.json"))
@@ -260,7 +250,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.109.0.json" => {
             Response::from_body(include_str!("json/library-3.109.0.json"))
@@ -272,7 +261,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.110.1.json" => {
             Response::from_body(include_str!("json/library-3.110.1.json"))
@@ -284,7 +272,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.111.0.json" => {
             Response::from_body(include_str!("json/library-3.111.0.json"))
@@ -296,7 +283,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.27.4.json" => {
             Response::from_body(include_str!("json/library-3.27.4.json"))
@@ -308,7 +294,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.34.0.json" => {
             Response::from_body(include_str!("json/library-3.34.0.json"))
@@ -320,7 +305,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.39.0.json" => {
             Response::from_body(include_str!("json/library-3.39.0.json"))
@@ -332,7 +316,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.40.0.json" => {
             Response::from_body(include_str!("json/library-3.40.0.json"))
@@ -344,7 +327,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.41.0.json" => {
             Response::from_body(include_str!("json/library-3.41.0.json"))
@@ -356,7 +338,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.42.0.json" => {
             Response::from_body(include_str!("json/library-3.42.0.json"))
@@ -368,7 +349,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.46.0.json" => {
             Response::from_body(include_str!("json/library-3.46.0.json"))
@@ -380,7 +360,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.48.0.json" => {
             Response::from_body(include_str!("json/library-3.48.0.json"))
@@ -392,7 +371,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.50.2.json" => {
             Response::from_body(include_str!("json/library-3.50.2.json"))
@@ -404,7 +382,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.51.0.json" => {
             Response::from_body(include_str!("json/library-3.51.0.json"))
@@ -416,7 +393,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.52.0.json" => {
             Response::from_body(include_str!("json/library-3.52.0.json"))
@@ -428,7 +404,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.52.1.json" => {
             Response::from_body(include_str!("json/library-3.52.1.json"))
@@ -440,7 +415,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.52.2.json" => {
             Response::from_body(include_str!("json/library-3.52.2.json"))
@@ -452,7 +426,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.52.3.json" => {
             Response::from_body(include_str!("json/library-3.52.3.json"))
@@ -464,7 +437,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.53.1.json" => {
             Response::from_body(include_str!("json/library-3.53.1.json"))
@@ -476,7 +448,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.89.4.json" => {
             Response::from_body(include_str!("json/library-3.89.4.json"))
@@ -488,7 +459,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.96.0.json" => {
             Response::from_body(include_str!("json/library-3.96.0.json"))
@@ -500,7 +470,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
         "/v3/json/library-3.98.0.json" => {
             Response::from_body(include_str!("json/library-3.98.0.json"))
@@ -512,7 +481,6 @@ fn main() -> Result<(), Error> {
                     "max-age=86400, stale-while-revalidate=86400, stale-if-error=86400",
                 )
                 .send_to_client();
-            return Ok(());
         }
 
         _ => {
@@ -523,10 +491,11 @@ fn main() -> Result<(), Error> {
             if path == "/v2/polyfill.js" || path == "/v2/polyfill.min.js" {
                 req.set_path(&(String::from("/v3") + &path[3..]));
 
-                let mut search_params: HashMap<String, String> = req.get_query().unwrap();
-                search_params.insert("version".to_string(), "3.25.1".to_string());
+                let mut search_params: HashMap<String, String> =
+                    req.get_query().unwrap_or_default();
+                search_params.insert("version".to_owned(), "3.25.1".to_owned());
                 if !search_params.contains_key("unknown") {
-                    search_params.insert("unknown".to_string(), "ignore".to_string());
+                    search_params.insert("unknown".to_owned(), "ignore".to_owned());
                 }
                 req.set_query(&search_params).unwrap();
                 path = req.get_path().to_owned();
@@ -534,12 +503,10 @@ fn main() -> Result<(), Error> {
 
             if path == "/v3/polyfill.min.js" || path == "/v3/polyfill.js" {
                 polyfill(&req);
-                return Ok(());
             } else {
                 Response::from_status(StatusCode::NOT_FOUND).with_body("Not Found")
                 .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
                 .send_to_client();
-                return Ok(());
             }
         }
     }

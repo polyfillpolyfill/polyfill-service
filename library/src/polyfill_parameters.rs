@@ -19,33 +19,30 @@ pub struct PolyfillParameters {
 }
 
 pub fn get_polyfill_parameters(request: &Request) -> PolyfillParameters {
-    let query: HashMap<String, String> = request.get_query().unwrap();
+    let query: HashMap<String, String> = request.get_query().unwrap_or_default();
     let path = request.get_path();
     let excludes = query
         .get("excludes")
-        .map(|f| {
+        .map_or_else(String::new, |f| {
             decode(f).map_or_else(|_| f.to_string(), |f| f.to_string())
-        })
-        .unwrap_or_else(String::new);
+        });
     let features = query
         .get("features")
-        .map(|f| {
+        .map_or_else(|| "default".to_owned(),|f| {
             decode(f).map_or_else(|_| f.to_string(), |f| f.to_string())
-        })
-        .unwrap_or_else(|| "default".to_owned());
+        });
     let unknown = query
         .get("unknown").map_or_else(|| "polyfill".to_owned(), std::clone::Clone::clone);
     let version = query
         .get("version")
         .map(std::clone::Clone::clone)
-        .map(|f| {
+        .map_or_else(|| "3.111.0".to_owned(), |f| {
             if f.is_empty() {
                 "3.111.0".to_owned()
             } else {
                 f
             }
-        })
-        .unwrap_or_else(|| "3.111.0".to_owned());
+        });
     let callback = query
         .get("callback")
         .filter(|callback| Regex::new(r"^[\w.]+$").unwrap().is_match(callback))
