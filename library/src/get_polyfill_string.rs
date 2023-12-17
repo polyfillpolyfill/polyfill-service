@@ -79,19 +79,12 @@ fn get_polyfill_meta(store: &str, feature_name: &str) -> Option<PolyfillConfig> 
     if feature_name.is_empty() {
         return None;
     }
-    let polyfills = POLYFILL_SOURCE_KV_STORE
-        .get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
-    let meta = polyfills.lookup(&format!("/{store}/{feature_name}/meta.json"));
-    let mut meta = match meta {
-        Err(_) => return None,
-        Ok(None) => return None,
-        Ok(Some(meta)) => meta,
+    let meta = lookup(&format!("/{store}/{feature_name}/meta.json"));
+    let meta = match meta {
+        None => return None,
+        Some(meta) => meta,
     };
-    let mut buffer = Vec::new();
-    if meta.read_to_end(&mut buffer).is_err() {
-        return None;
-    }
-    serde_json::from_slice(&buffer).unwrap()
+    serde_json::from_slice(&meta).unwrap()
 }
 
 fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
