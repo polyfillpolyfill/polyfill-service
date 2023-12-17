@@ -342,17 +342,17 @@ fn get_polyfills(
 
 pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_version: &str) -> Body {
     let lf = if options.minify { "" } else { "\n" };
-    let app_version_text = "Polyfill service v".to_owned() + &app_version;
+    let app_version_text = "Polyfill service v".to_owned() + app_version;
     let mut output = Body::new();
     let mut explainer_comment: Vec<String> = vec![];
     // Build a polyfill bundle of polyfill sources sorted in dependency order
-    let mut targeted_features = get_polyfills(&options, store, "3.111.0");
+    let mut targeted_features = get_polyfills(options, store, "3.111.0");
     let mut warnings: Vec<String> = vec![];
     let mut feature_nodes: Vec<String> = vec![];
     let mut feature_edges: Vec<(String, String)> = vec![];
 
     let t = targeted_features.clone();
-    for (feature_name, feature) in targeted_features.iter_mut() {
+    for (feature_name, feature) in &mut targeted_features {
         let polyfill = get_polyfill_meta(store, feature_name);
         match polyfill {
             Some(polyfill) => {
@@ -384,23 +384,23 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
         POLYFILL_SOURCE_KV_STORE.get_or_init(|| KVStore::open("polyfill-library").unwrap().unwrap());
     let mut sorted_features_bb = vec![];
     for feature_name in &sorted_features {
-        sorted_features_bb.push((feature_name, polyfill_source(store, &feature_name, m)));
+        sorted_features_bb.push((feature_name, polyfill_source(store, feature_name, m)));
     }
     if !options.minify {
         explainer_comment.push(app_version_text);
         explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
-        explainer_comment.push("".to_owned());
-        let mut features: Vec<String> = options.features.keys().map(|s| s.to_owned()).collect();
+        explainer_comment.push(String::new());
+        let mut features: Vec<String> = options.features.keys().map(|s| s.clone()).collect();
         features.sort();
         explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
-        explainer_comment.push("".to_owned());
-        sorted_features.iter().for_each(|feature_name| {
+        explainer_comment.push(String::new());
+        for feature_name in sorted_features.iter() {
             if let Some(feature) = targeted_features.get(feature_name) {
                 explainer_comment.push(format!("- {}", feature.comment.as_ref().unwrap()));
             }
-        });
+        }
         if !warnings.is_empty() {
-            explainer_comment.push("".to_owned());
+            explainer_comment.push(String::new());
             explainer_comment.push("These features were not recognised:".to_owned());
             let mut warnings = warnings
                 .iter()
@@ -424,7 +424,7 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
         for (feature_name, bb) in sorted_features_bb {
             let wrap_in_detect = targeted_features[feature_name].flags.contains("gated");
             if wrap_in_detect {
-                let meta = get_polyfill_meta(store, &feature_name);
+                let meta = get_polyfill_meta(store, feature_name);
                 if let Some(meta) = meta {
                     if let Some(detect_source) = meta.detect_source {
                         if !detect_source.is_empty() {
@@ -465,9 +465,9 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
     }
     if let Some(callback) = &options.callback {
         output.write_str("\ntypeof ");
-        output.write_str(&callback);
+        output.write_str(callback);
         output.write_str("==='function' && ");
-        output.write_str(&callback);
+        output.write_str(callback);
         output.write_str("();");
     }
     output

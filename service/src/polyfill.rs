@@ -62,8 +62,7 @@ pub(crate) fn polyfill(request: &Request) {
         get_polyfill_string_stream(sbody, &parameters, library, &version);
         return;
     }
-    let fastly_service_version = std::env::var("FASTLY_SERVICE_VERSION").unwrap();
-    let key = fastly_service_version + &request.get_url_str().to_owned();
+    let key = &request.get_url_str().to_owned();
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
@@ -95,7 +94,7 @@ pub(crate) fn polyfill(request: &Request) {
             // now we can use the item we just inserted
             sbody.append(found.to_stream().unwrap());
             sbody.finish().unwrap();
-            cache.insert(&key, get_polyfill_string(&parameters, library, &version));
+            let _ = cache.insert(&key, get_polyfill_string(&parameters, library, &version)).unwrap_or(());
         }
     } else if lookup_tx.must_insert_or_update() {
         // a cached item was found and used above, and now we need to perform
