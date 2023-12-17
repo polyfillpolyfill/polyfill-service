@@ -2,10 +2,10 @@ use std::time::Duration;
 
 use fastly::{
     cache::core::Transaction,
-    Request, Response,
+    Request, Response, KVStore,
 };
 use polyfill_library::{
-    get_polyfill_string::get_polyfill_string_stream,
+    get_polyfill_string::{get_polyfill_string_stream, get_polyfill_string},
     polyfill_parameters::get_polyfill_parameters,
 };
 
@@ -67,7 +67,7 @@ pub(crate) fn polyfill(request: &Request) {
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
-    let lookup_tx = Transaction::lookup(key.into())
+    let lookup_tx = Transaction::lookup(key.clone().into())
         .execute()
         .unwrap();
     if let Some(found) = lookup_tx.found() {
@@ -84,10 +84,19 @@ pub(crate) fn polyfill(request: &Request) {
             // stream back the object so we can use it after inserting
             .execute_and_stream_back()
             .unwrap();
-        get_polyfill_string_stream(writer, &parameters, library, &version);
-        // now we can use the item we just inserted
-        sbody.append(found.to_stream().unwrap());
-        sbody.finish().unwrap();
+
+        let mut cache = KVStore::open("cache").unwrap().unwrap();
+        let value = cache.lookup(&key);
+        if let Ok(Some(value)) = value {
+            sbody.append(value);
+            sbody.finish().unwrap();
+        } else {
+            get_polyfill_string_stream(writer, &parameters, library, &version);
+            // now we can use the item we just inserted
+            sbody.append(found.to_stream().unwrap());
+            sbody.finish().unwrap();
+            cache.insert(&key, get_polyfill_string(&parameters, library, &version));
+        }
     } else if lookup_tx.must_insert_or_update() {
         // a cached item was found and used above, and now we need to perform
         // revalidation
