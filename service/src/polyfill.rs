@@ -53,6 +53,10 @@ pub(crate) fn polyfill(request: &Request) {
     res.set_header("X-Compress-Hint", "on");
     res.set_header("Content-Type", "text/javascript; charset=UTF-8");
     res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
+    // We need "Vary: User-Agent" in the browser cache because a browser
+    // may update itself to a version which needs different polyfills
+    // So we need to have it ignore the browser cached bundle when the user-agent changes.
+    res.set_header("Vary", "User-Agent, Accept-Encoding");
     res.take_body();
     let mut sbody = res.stream_to_client();
 
@@ -63,7 +67,10 @@ pub(crate) fn polyfill(request: &Request) {
         return;
     }
 
-    let key: String = seahash::hash(&request.get_url_str().as_bytes()).to_string();
+    let key: String = serde_json::to_string(&parameters).unwrap();
+    println!("key: {key}");
+    let key: String = seahash::hash(&serde_json::to_string(&parameters).unwrap().as_bytes()).to_string();
+    println!("key: {key}");
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
@@ -85,6 +92,8 @@ pub(crate) fn polyfill(request: &Request) {
         // a cached item was not found, and we've been chosen to insert it
         let (mut writer, found) = lookup_tx
             .insert(TTL)
+            // Enable purging of all objects in the cache by issuing a purge with the key "polyfill-service".
+            .surrogate_keys(["polyfill-service"])
             // stream back the object so we can use it after inserting
             .execute_and_stream_back()
             .unwrap();

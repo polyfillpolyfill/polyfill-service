@@ -161,7 +161,15 @@ fn main() {
             Response::from_body(home(stats(), DAYS))
                 .with_content_type(fastly::mime::TEXT_HTML_UTF_8)
                 .with_header("x-compress-hint", "on")
-                .with_header("surrogate-key", "website")
+                // Enables the cross-site scripting filter built into most modern web browsers.
+                .with_header("X-XSS-Protection", "1; mode=block")
+                // Prevents MIME-sniffing a response away from the declared content type.
+                .with_header("X-Content-Type-Options", "nosniff")
+                // The Referrer-Policy header governs which referrer information, sent in the Referer header, should be included with requests made.
+                // Send a full URL when performing a same-origin request, but only send the origin of the document for other cases.
+                .with_header("Referrer-Policy", "origin-when-cross-origin")
+                // Ensure the site is only served over HTTPS and reduce the chances of someone performing a MITM attack.
+                .with_header("Strict-Transport-Security", "max-age=31536000; includeSubdomains; preload")
                 .with_header(
                     "Cache-Control",
                     "max-age=60, stale-while-revalidate=60, stale-if-error=86400",

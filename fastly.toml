@@ -7,11 +7,11 @@ language = "other"
 manifest_version = 3
 name = "polyfill-service-rs"
 # dev
-# service_id = "06FSzBcnfHpOjSqXwzOxvy"
+service_id = "06FSzBcnfHpOjSqXwzOxvy"
 # qa
 # service_id = "4cUBTkiSVlJnR8JPnLvt85"
 # prod
-service_id = "3AfcolkTD4KUfkrKGIYZ4T"
+# service_id = "3AfcolkTD4KUfkrKGIYZ4T"
 
 [scripts]
   build = "cargo build --bin service --release --target wasm32-wasi --color always -p service && cp target/wasm32-wasi/release/service.wasm bin/main.wasm"
