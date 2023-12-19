@@ -106,7 +106,7 @@ fn get_config_aliases(store: &str, alias: &str) -> Option<Vec<String>> {
 
 #[derive(Clone, Default, Debug)]
 struct FeatureProperties {
-    flags: HashSet<String>,
+    flags: IndexSet<String>,
     comment: Option<String>,
 }
 
@@ -149,7 +149,7 @@ fn remove_feature(
 
 fn add_feature(
     feature_name: &str,
-    feature_flags: HashSet<String>,
+    feature_flags: IndexSet<String>,
     feature_properties: FeatureProperties,
     // comment: Option<String>,
     feature_names: &mut IndexSet<String>,
@@ -223,7 +223,7 @@ fn get_polyfills(
                 });
 
             let mut properties = FeatureProperties {
-                flags: HashSet::new(),
+                flags: IndexSet::new(),
                 comment: Option::default(),
             };
 
@@ -264,7 +264,7 @@ fn get_polyfills(
                 feature_names.remove(&feature_name);
                 if add_feature(
                     &feature_name,
-                    HashSet::new(),
+                    IndexSet::new(),
                     properties,
                     // None,
                     &mut feature_names,
@@ -390,11 +390,11 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
         explainer_comment.push(app_version_text);
         explainer_comment.push("For detailed credits and licence information see https://polyfill.io.".to_owned());
         explainer_comment.push(String::new());
-        let mut features: Vec<String> = options.features.keys().map(|s| s.clone()).collect();
+        let mut features: Vec<String> = options.features.keys().map(std::clone::Clone::clone).collect();
         features.sort();
         explainer_comment.push("Features requested: ".to_owned() + &features.join(","));
         explainer_comment.push(String::new());
-        for feature_name in sorted_features.iter() {
+        for feature_name in &sorted_features {
             if let Some(feature) = targeted_features.get(feature_name) {
                 explainer_comment.push(format!("- {}", feature.comment.as_ref().unwrap()));
             }
@@ -574,14 +574,14 @@ pub fn get_polyfill_string_stream(
                 if let Some(meta) = meta {
                     if let Some(detect_source) = meta.detect_source {
                         if detect_source.is_empty() {
-                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().expect(&format!("failed to get {} from {}", feature_name, store));
                             output.append(bb);
                         } else {
                             output.write_str("if (!(");
                             output.write_str(detect_source.as_str());
                             output.write_str(")) {");
                             output.write_str(lf);
-                            let bb = polyfills.pending_lookup_wait(bb).unwrap().unwrap();
+                            let bb = polyfills.pending_lookup_wait(bb).unwrap().expect(&format!("failed to get {} from {}", feature_name, store));
                             output.append(bb);
                             output.write_str(lf);
                             output.write_str("}");
