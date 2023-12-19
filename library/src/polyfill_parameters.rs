@@ -1,15 +1,17 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use regex::Regex;
+use serde::Serialize;
 use urlencoding::decode;
 use fastly::Request;
+use indexmap::{IndexMap, IndexSet};
 
 use crate::features_from_query_parameter::features_from_query_parameter;
 
 #[allow(dead_code)]
-#[derive(Clone, Default)]
+#[derive(Clone, Default, Serialize)]
 pub struct PolyfillParameters {
     pub excludes: Vec<String>,
-    pub features: HashMap<String, HashSet<String>>,
+    pub features: IndexMap<String, IndexSet<String>>,
     pub minify: bool,
     pub callback: Option<String>,
     pub unknown: String,

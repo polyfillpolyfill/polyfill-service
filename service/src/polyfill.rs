@@ -55,21 +55,26 @@ pub(crate) fn polyfill(request: &Request) {
     res.set_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable");
     res.take_body();
     let mut sbody = res.stream_to_client();
-    
+
     let is_running_locally =
         std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
     if is_running_locally {
         get_polyfill_string_stream(sbody, &parameters, library, &version);
         return;
     }
-    let key = &request.get_url_str().to_owned();
+
+    let key: String = seahash::hash(&request.get_url_str().as_bytes()).to_string();
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
-    let lookup_tx = Transaction::lookup(key.clone().into())
+    let lookup_tx = Transaction::lookup(("2".to_owned() + &key).into())
         .execute()
         .unwrap();
     if let Some(found) = lookup_tx.found() {
+        println!(
+            "FASTLY_SERVICE_VERSION: {} - Cached in cache",
+            std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+        );
         // a cached item was found; we use it now even though it might be stale,
         // and we'll revalidate it below
         sbody.append(found.to_stream().unwrap());
@@ -78,7 +83,7 @@ pub(crate) fn polyfill(request: &Request) {
     // now we need to handle the "must insert" and "must update" cases
     else if lookup_tx.must_insert() {
         // a cached item was not found, and we've been chosen to insert it
-        let (writer, found) = lookup_tx
+        let (mut writer, found) = lookup_tx
             .insert(TTL)
             // stream back the object so we can use it after inserting
             .execute_and_stream_back()
@@ -87,14 +92,28 @@ pub(crate) fn polyfill(request: &Request) {
         let mut cache = KVStore::open("cache").unwrap().unwrap();
         let value = cache.lookup(&key);
         if let Ok(Some(value)) = value {
-            sbody.append(value);
+            println!(
+                "FASTLY_SERVICE_VERSION: {} - Cached in KV",
+                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+            );
+            writer.append(value);
+            writer.finish().unwrap();
+            sbody.append(found.to_stream().unwrap());
             sbody.finish().unwrap();
         } else {
+            println!(
+                "FASTLY_SERVICE_VERSION: {} - Miss",
+                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+            );
             get_polyfill_string_stream(writer, &parameters, library, &version);
             // now we can use the item we just inserted
             sbody.append(found.to_stream().unwrap());
             sbody.finish().unwrap();
-            let _ = cache.insert(&key, get_polyfill_string(&parameters, library, &version)).unwrap_or(());
+            cache.insert(&key, get_polyfill_string(&parameters, library, &version)).unwrap();
+            println!(
+                "FASTLY_SERVICE_VERSION: {} - Inserted into KV",
+                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+            );
         }
     } else if lookup_tx.must_insert_or_update() {
         // a cached item was found and used above, and now we need to perform
@@ -105,6 +124,10 @@ pub(crate) fn polyfill(request: &Request) {
                 .update(TTL)
                 .execute()
                 .unwrap();
+            println!(
+                "FASTLY_SERVICE_VERSION: {} - Updated",
+                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+            );
         }
     }
 }

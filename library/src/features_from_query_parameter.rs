@@ -1,17 +1,17 @@
-use std::collections::{HashMap, HashSet};
+use indexmap::{IndexMap, IndexSet};
 
 
 #[must_use] pub fn features_from_query_parameter(
     features_parameter: &str,
     flags_parameter: &str,
-) -> HashMap<String, HashSet<String>> {
+) -> IndexMap<String, IndexSet<String>> {
     let mut features: Vec<&str> = features_parameter
         .split(',')
         .filter(|f| !f.is_empty())
         .collect();
     features.sort_unstable();
     let global_flags: Vec<&str> = flags_parameter.split(',').collect();
-    let mut features_with_flags: HashMap<String, HashSet<String>> = HashMap::new();
+    let mut features_with_flags: IndexMap<String, IndexSet<String>> = IndexMap::new();
 
     for feature in features {
         // Eliminate XSS vuln
@@ -22,7 +22,7 @@ use std::collections::{HashMap, HashSet};
         let feature_specific_flags = things.into_iter().map(std::borrow::ToOwned::to_owned);
         features_with_flags.insert(
             name.replace('?', ""),
-            feature_specific_flags.collect::<HashSet<_>>(),
+            feature_specific_flags.collect::<IndexSet<_>>(),
         );
     }
 
