@@ -1,12 +1,12 @@
 use crate::{
-    old_ua::{self, OldUA},
+    old_ua::{OldUA, Browser},
     ua::{UserAgent, UA},
 };
 use chrono::Utc;
 use fastly::{http::body::StreamingBody, KVStore, Body};
 use indexmap::IndexSet;
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::{
     collections::{HashMap, HashSet},
     sync::OnceLock,
@@ -41,7 +41,7 @@ struct Browsers {
 struct PolyfillConfig {
     license: Option<String>,
     dependencies: Option<Vec<String>>,
-    browsers: Option<HashMap<String, String>>,
+    browsers: Option<HashMap<Browser, String>>,
     detect_source: Option<String>,
 }
 
@@ -110,8 +110,8 @@ struct FeatureProperties {
     comment: Option<String>,
 }
 
-#[derive(Debug)]
-enum U {
+#[derive(Debug, Clone, Serialize)]
+pub enum U {
     Old(OldUA),
     Current(UA),
 }
@@ -124,7 +124,7 @@ impl U {
         }
     }
 
-    fn get_family(&self) -> String {
+    fn get_family(&self) -> Browser {
         match self {
             Self::Old(u) => u.get_family(),
             Self::Current(u) => u.get_family(),
@@ -187,13 +187,8 @@ fn add_feature(
 fn get_polyfills(
     options: &PolyfillParameters,
     store: &str,
-    version: &str,
 ) -> HashMap<String, FeatureProperties> {
-    let ua = if version == "3.25.1" {
-        U::Old(old_ua::OldUA::new(&options.ua_string))
-    } else {
-        U::Current(UA::new(&options.ua_string))
-    };
+    let ua = &options.ua_string;
     let mut feature_names = options.features.keys().cloned().collect::<IndexSet<_>>();
     feature_names.sort();
     let mut targeted_features: HashMap<String, FeatureProperties> = HashMap::new();
@@ -346,7 +341,7 @@ pub fn get_polyfill_string(options: &PolyfillParameters, store: &str, app_versio
     let mut output = Body::new();
     let mut explainer_comment: Vec<String> = vec![];
     // Build a polyfill bundle of polyfill sources sorted in dependency order
-    let mut targeted_features = get_polyfills(options, store, "3.111.0");
+    let mut targeted_features = get_polyfills(options, store);
     let mut warnings: Vec<String> = vec![];
     let mut feature_nodes: Vec<String> = vec![];
     let mut feature_edges: Vec<(String, String)> = vec![];
@@ -483,7 +478,7 @@ pub fn get_polyfill_string_stream(
     let app_version_text = "Polyfill service v".to_owned() + app_version;
     let mut explainer_comment: Vec<String> = vec![];
     // Build a polyfill bundle of polyfill sources sorted in dependency order
-    let mut targeted_features = get_polyfills(options, store, "3.111.0");
+    let mut targeted_features = get_polyfills(options, store);
     let mut warnings: Vec<String> = vec![];
     let mut feature_nodes: Vec<String> = vec![];
     let mut feature_edges: Vec<(String, String)> = vec![];

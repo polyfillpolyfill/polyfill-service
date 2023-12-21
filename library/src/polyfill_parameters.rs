@@ -5,17 +5,17 @@ use urlencoding::decode;
 use fastly::Request;
 use indexmap::{IndexMap, IndexSet};
 
-use crate::features_from_query_parameter::features_from_query_parameter;
+use crate::{features_from_query_parameter::features_from_query_parameter, old_ua, ua::{UA, UserAgent}, get_polyfill_string::U};
 
 #[allow(dead_code)]
-#[derive(Clone, Default, Serialize)]
+#[derive(Clone, Serialize)]
 pub struct PolyfillParameters {
     pub excludes: Vec<String>,
     pub features: IndexMap<String, IndexSet<String>>,
     pub minify: bool,
     pub callback: Option<String>,
     pub unknown: String,
-    pub ua_string: String,
+    pub ua_string: U,
     pub version: String,
     pub strict: bool,
 }
@@ -59,6 +59,12 @@ pub fn get_polyfill_parameters(request: &Request) -> PolyfillParameters {
         .get("flags").map_or_else(String::new, std::clone::Clone::clone);
 
     let strict = query.contains_key("strict");
+
+    let ua_string: U = if version == "3.25.1" {
+        U::Old(old_ua::OldUA::new(&ua_string))
+    } else {
+        U::Current(UA::new(&ua_string))
+    };
 
     return PolyfillParameters {
         excludes: if !excludes.is_empty() {

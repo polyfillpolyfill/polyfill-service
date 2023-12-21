@@ -2,16 +2,17 @@ use std::collections::HashMap;
 
 use nodejs_semver::{Range, Version};
 use regex::Regex;
+use serde::Serialize;
 
-use crate::useragent::useragent;
+use crate::{useragent::useragent, old_ua::Browser};
 
 pub trait UserAgent {
     fn new(ua_string: &str) -> Self;
-	fn get_family(&self) -> String;
+	fn get_family(&self) -> Browser;
 	fn satisfies(&self, range: String) -> bool;
 	fn meets_baseline(&self) -> bool;
 	fn is_unknown(&self) -> bool;
-	fn get_baselines() -> HashMap<String, String>;
+	fn get_baselines() -> HashMap<Browser, String>;
 }
 
 /// JavaScript's
@@ -20,10 +21,10 @@ pub trait UserAgent {
 /// JS-compatible way.
 pub const MAX_SAFE_INTEGER: u64 = 900_719_925_474_099;
 
-#[derive(Clone, Default, Debug)]
+#[derive(Clone, Default, Debug, Serialize)]
 pub struct UA {
     version: String,
-    family: String,
+    pub family: Browser,
 }
 
 impl UserAgent for UA {
@@ -522,13 +523,31 @@ impl UserAgent for UA {
         let version = format!("{major}.{minor}.0");
 
         // println!("ua norm: {}/{}", family, version);
+
+        let family = match family.as_str() {
+            "android" => Browser::android,
+            "bb" => Browser::bb,
+            "chrome" => Browser::chrome,
+            "firefox" => Browser::firefox,
+            "firefox_mob" => Browser::firefox_mob,
+            "ie" => Browser::ie,
+            "ie_mob" => Browser::ie_mob,
+            "ios_saf" => Browser::ios_saf,
+            "ios_chr" => Browser::ios_chr,
+            "safari" => Browser::safari,
+            "opera" => Browser::opera,
+            "op_mob" => Browser::op_mob,
+            "op_mini" => Browser::op_mini,
+            "samsung_mob" => Browser::samsung_mob,
+            _ => Browser::unknown,
+        };
         Self {
             version,
             family,
         }
     }
 
-    fn get_family(&self) -> String {
+    fn get_family(&self) -> Browser {
         self.family.clone()
     }
 
@@ -558,24 +577,24 @@ impl UserAgent for UA {
         !Self::get_baselines().contains_key(&self.family) || !self.meets_baseline()
     }
 
-    fn get_baselines() -> HashMap<String, String> {
-        let mut b: HashMap<String, String> = HashMap::new();
-        b.insert("edge".to_owned(), "*".to_owned());
-        b.insert("edge_mob".to_owned(), "*".to_owned());
-        b.insert("ie".to_owned(), "8".to_owned());
-        b.insert("ie_mob".to_owned(), "11".to_owned());
-        b.insert("chrome".to_owned(), "29".to_owned());
-        b.insert("safari".to_owned(), "9".to_owned());
-        b.insert("ios_saf".to_owned(), "9".to_owned());
-        b.insert("ios_chr".to_owned(), "9".to_owned());
-        b.insert("firefox".to_owned(), "38".to_owned());
-        b.insert("firefox_mob".to_owned(), "38".to_owned());
-        b.insert("android".to_owned(), "4.3".to_owned());
-        b.insert("opera".to_owned(), "33".to_owned());
-        b.insert("op_mob".to_owned(), "10".to_owned());
-        b.insert("op_mini".to_owned(), "5".to_owned());
-        b.insert("bb".to_owned(), "6".to_owned());
-        b.insert("samsung_mob".to_owned(), "4".to_owned());
+    fn get_baselines() -> HashMap<Browser, String> {
+        let mut b: HashMap<Browser, String> = HashMap::new();
+        b.insert(Browser::edge, "*".to_owned());
+        b.insert(Browser::edge_mob, "*".to_owned());
+        b.insert(Browser::ie, "8".to_owned());
+        b.insert(Browser::ie_mob, "11".to_owned());
+        b.insert(Browser::chrome, "29".to_owned());
+        b.insert(Browser::safari, "9".to_owned());
+        b.insert(Browser::ios_saf, "9".to_owned());
+        b.insert(Browser::ios_chr, "9".to_owned());
+        b.insert(Browser::firefox, "38".to_owned());
+        b.insert(Browser::firefox_mob, "38".to_owned());
+        b.insert(Browser::android, "4.3".to_owned());
+        b.insert(Browser::opera, "33".to_owned());
+        b.insert(Browser::op_mob, "10".to_owned());
+        b.insert(Browser::op_mini, "5".to_owned());
+        b.insert(Browser::bb, "6".to_owned());
+        b.insert(Browser::samsung_mob, "4".to_owned());
         b
     }
 }

@@ -9,8 +9,55 @@ use polyfill_library::{
     polyfill_parameters::get_polyfill_parameters,
 };
 
-pub(crate) fn polyfill(request: &Request) {
+pub(crate) fn polyfill(request: &Request) -> (&str, &str) {
     let parameters = get_polyfill_parameters(request);
+
+    // these are just for globeviz
+    let mut cache_state = "H";
+    let browser = match parameters.ua_string {
+        polyfill_library::get_polyfill_string::U::Old(ref o) => {
+            match o.family {
+                polyfill_library::old_ua::Browser::android => "Z",
+                polyfill_library::old_ua::Browser::bb => "Z",
+                polyfill_library::old_ua::Browser::chrome => "C",
+                polyfill_library::old_ua::Browser::edge => "E",
+                polyfill_library::old_ua::Browser::edge_mob => "Z",
+                polyfill_library::old_ua::Browser::firefox => "F",
+                polyfill_library::old_ua::Browser::firefox_mob => "F",
+                polyfill_library::old_ua::Browser::ie => "Z",
+                polyfill_library::old_ua::Browser::ie_mob => "Z",
+                polyfill_library::old_ua::Browser::ios_chr => "Z",
+                polyfill_library::old_ua::Browser::ios_saf => "Z",
+                polyfill_library::old_ua::Browser::op_mini => "Z",
+                polyfill_library::old_ua::Browser::op_mob => "Z",
+                polyfill_library::old_ua::Browser::opera => "Z",
+                polyfill_library::old_ua::Browser::safari => "S",
+                polyfill_library::old_ua::Browser::samsung_mob => "A",
+                polyfill_library::old_ua::Browser::unknown => "Z",
+            }
+        },
+        polyfill_library::get_polyfill_string::U::Current(ref o) => {
+            match o.family {
+                polyfill_library::old_ua::Browser::android => "Z",
+                polyfill_library::old_ua::Browser::bb => "Z",
+                polyfill_library::old_ua::Browser::chrome => "C",
+                polyfill_library::old_ua::Browser::edge => "E",
+                polyfill_library::old_ua::Browser::edge_mob => "Z",
+                polyfill_library::old_ua::Browser::firefox => "F",
+                polyfill_library::old_ua::Browser::firefox_mob => "F",
+                polyfill_library::old_ua::Browser::ie => "Z",
+                polyfill_library::old_ua::Browser::ie_mob => "Z",
+                polyfill_library::old_ua::Browser::ios_chr => "Z",
+                polyfill_library::old_ua::Browser::ios_saf => "Z",
+                polyfill_library::old_ua::Browser::op_mini => "Z",
+                polyfill_library::old_ua::Browser::op_mob => "Z",
+                polyfill_library::old_ua::Browser::opera => "Z",
+                polyfill_library::old_ua::Browser::safari => "S",
+                polyfill_library::old_ua::Browser::samsung_mob => "A",
+                polyfill_library::old_ua::Browser::unknown => "Z",
+            }
+        },
+    };
 
     let library = match parameters.version.as_str() {
         "3.25.1" => "3.25.1",
@@ -43,7 +90,7 @@ pub(crate) fn polyfill(request: &Request) {
             Response::from_status(400)
             .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
             .with_body("requested version does not exist").send_to_client();
-            return;
+            return (cache_state, browser);
         }
     };
     let version = parameters.version.clone();
@@ -64,7 +111,7 @@ pub(crate) fn polyfill(request: &Request) {
         std::env::var("FASTLY_HOSTNAME").unwrap_or_else(|_| String::new()) == "localhost";
     if is_running_locally {
         get_polyfill_string_stream(sbody, &parameters, library, &version);
-        return;
+        return (cache_state, browser);
     }
 
     let key: String = serde_json::to_string(&parameters).unwrap();
@@ -89,6 +136,7 @@ pub(crate) fn polyfill(request: &Request) {
     }
     // now we need to handle the "must insert" and "must update" cases
     else if lookup_tx.must_insert() {
+        cache_state = "M";
         // a cached item was not found, and we've been chosen to insert it
         let (mut writer, found) = lookup_tx
             .insert(TTL)
@@ -139,4 +187,6 @@ pub(crate) fn polyfill(request: &Request) {
             );
         }
     }
+
+    (cache_state, browser)
 }

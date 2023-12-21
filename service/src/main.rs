@@ -6,16 +6,20 @@
 #![allow(clippy::missing_docs_in_private_items)]
 mod pages;
 mod polyfill;
-
+use std::io::Write;
+use std::time::SystemTime;
 use crate::polyfill::polyfill;
+use fastly::log::Endpoint;
+use rand::Rng;
+use fastly::geo::{ProxyType, ConnType};
 use fastly::http::{header, Method, StatusCode};
-use fastly::{Request, Response, SecretStore};
+use fastly::{Request, Response, SecretStore, geo};
 use pages::{home, privacy, terms};
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::io::Read;
 use std::str;
-
+use accept_language::intersection_ordered;
 use fastly::limits::RequestLimits;
 
 #[derive(Deserialize)]
@@ -110,6 +114,7 @@ fn stats() -> Option<Stats> {
 }
 
 fn main() {
+    let now = SystemTime::now();
     fastly::init();
     RequestLimits::set_max_header_value_bytes(Some(15_000));
     let mut req = Request::from_client();
@@ -509,13 +514,69 @@ fn main() {
                 path = req.get_path().to_owned();
             }
 
-            if path == "/v3/polyfill.min.js" || path == "/v3/polyfill.js" {
-                polyfill(&req);
-            } else {
+            if path != "/v3/polyfill.min.js" && path != "/v3/polyfill.js" {
                 Response::from_status(StatusCode::NOT_FOUND).with_body("Not Found")
                 .with_header("Cache-Control", "public, s-maxage=31536000, max-age=604800, stale-while-revalidate=604800, stale-if-error=604800, immutable")
                 .send_to_client();
             }
+            let (cache_state, browser) = polyfill(&req);
+            globeviz(&req, cache_state, browser, now);
         }
+    }
+}
+
+// Record the following data (space separated)
+//    PIO             Name of source service (3 char)
+//    LCY             Name of Fastly POP (3 char)
+//    51.43,-0.23     Client location (var length)
+//    17234           Duration (var length)
+//    42426           Minimum observed RTT (var length)
+//    EN              Normalized Accept-Language (2 char)
+//    M               Cache state (1 char: H, M, P)
+//    2               HTTP version (numeric, variable length)
+//    1.2             TLS version (numeric, variable length)
+//    C               Browser (1 char: C, F, E, K, S, A)
+//    M               Is mobile (M) or other (-)
+//
+fn globeviz(req: &Request, cache_state: &str, browser: &str, now: SystemTime) {
+
+    let mut globeviz_config: HashMap<String, String> = HashMap::new();
+    {
+        globeviz_config.insert("sample_rate".to_string(), "1000".to_string());
+        globeviz_config.insert("sample_rate_AF".to_string(), "50".to_string());
+        globeviz_config.insert("sample_rate_SA".to_string(), "100".to_string());
+        globeviz_config.insert("sample_rate_OC".to_string(), "100".to_string());
+        globeviz_config.insert("service_name".to_string(), "PIO".to_string());
+    }
+
+    let client_ip = req.get_client_ip_addr().unwrap();
+    let geo = geo::geo_lookup(client_ip).unwrap();
+
+    let sample_rate = globeviz_config.get(&("sample_rate_".to_owned() + geo.continent().as_code())).unwrap_or_else(|| globeviz_config.get("sample_rate").unwrap()).parse::<i32>().unwrap_or(100_000);
+    // Record only non-VPN requests at the specified sample frequency
+    let mut rng = rand::thread_rng();
+    if geo.proxy_type() == ProxyType::Unknown && rng.gen_range(1..sample_rate) == 1 {
+
+        let mut endpoint = Endpoint::from_name("fastly-devrel-traffic-globe");
+        let name = match globeviz_config.get("service_name") {
+            Some(name) => name,
+            None => "-",
+        };
+        let datacenter = std::env::var("FASTLY_POP").unwrap_or_else(|_| String::new());
+        let latitude = geo.latitude();
+        let longitude = geo.longitude();
+        let elapsed = SystemTime::now().duration_since(now).expect("get millis error").as_micros();
+        // TODO: when this exists on compute, let's use it
+        let client_socket_tcpi_min_rtt = 0;
+        let lang = match intersection_ordered(&req.get_header_str_lossy("Accept-Language").unwrap_or_default(), &["en","de","fr","nl","jp","es","ar","zh","gu","he","hi","id","it","ko","ms","pl","pt","ru","th","uk"]).first() {
+            Some(lang) => lang,
+            None => "en",
+        }.to_uppercase();
+        let proto = req.get_tls_protocol().map(|a| a.chars().last().unwrap_or_default()).unwrap_or_default();
+        let conn_type = if geo.conn_type() == ConnType::Mobile {
+            "M"
+        } else { "-"
+        };
+        writeln!(endpoint, "{name} {datacenter} {latitude},{longitude} {elapsed} {client_socket_tcpi_min_rtt} {lang} {cache_state} {proto} {browser} {conn_type}").unwrap();
     }
 }
