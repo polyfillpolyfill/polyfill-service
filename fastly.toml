@@ -16,3 +16,9 @@ service_id = "06FSzBcnfHpOjSqXwzOxvy"
 [scripts]
   build = "cargo build --bin service --release --target wasm32-wasi --color always -p service && cp target/wasm32-wasi/release/service.wasm bin/main.wasm"
 
+[local_server]
+  [local_server.config_stores]
+    [local_server.config_stores.toppops_config]
+      format = "inline-toml"
+    [local_server.config_stores.toppops_config.contents]
+      "datacenters" = "ACC MAD CHI BOG EZE LGB JNB HEL FJR QPG TYO PER AKL"

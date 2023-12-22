@@ -12,8 +12,8 @@ use crate::polyfill::polyfill;
 use fastly::log::Endpoint;
 use rand::Rng;
 use fastly::geo::{ProxyType, ConnType};
-use fastly::http::{header, Method, StatusCode};
-use fastly::{Request, Response, SecretStore, geo};
+use fastly::http::{header, Method, StatusCode, Version};
+use fastly::{Request, Response, SecretStore, geo, ConfigStore};
 use pages::{home, privacy, terms};
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -521,6 +521,7 @@ fn main() {
             }
             let (cache_state, browser) = polyfill(&req);
             globeviz(&req, cache_state, browser, now);
+            toppops_collect(&req, cache_state, now);
         }
     }
 }
@@ -580,3 +581,49 @@ fn globeviz(req: &Request, cache_state: &str, browser: &str, now: SystemTime) {
         writeln!(endpoint, "{name} {datacenter} {latitude},{longitude} {elapsed} {client_socket_tcpi_min_rtt} {lang} {cache_state} {proto} {browser} {conn_type}").unwrap();
     }
 }
+
+
+fn toppops_collect(req: &Request, cache_state: &str, start: SystemTime) {
+    match ConfigStore::try_open("toppops_config") {
+        Ok(config) => {
+            match config.try_get("datacenters") {
+                Ok(Some(dcs)) => {
+                    // dcs = ACC MAD CHI BOG EZE LGB JNB HEL FJR QPG TYO PER AKL
+                    let thisdc = std::env::var("FASTLY_POP").unwrap_or_else(|_| String::new());
+                    let mut rng = rand::thread_rng();
+                    let sample_percent = match config.try_get("sample_percent") {
+                        Ok(Some(v)) => v.parse::<i32>(),
+                        _ => Ok(0),
+                    }.unwrap_or_else(|_|0);
+                    if !thisdc.is_empty() && dcs.contains(&thisdc) && rng.gen_range(sample_percent..100) <= sample_percent{
+                        let mut endpoint = Endpoint::from_name("toppops-collector");
+                        let elapsed = SystemTime::now().duration_since(start).expect("get millis error").as_micros();
+                        let start = start.duration_since(SystemTime::UNIX_EPOCH).unwrap().as_micros();
+                        let ish2 = if req.get_version() == Version::HTTP_2 { 1 } else { 0 };
+                        let client_ip = req.get_client_ip_addr().unwrap();
+                        let isipv6 = if client_ip.is_ipv6() { 1 } else { 0 };
+                        let isssl = if req.get_tls_protocol().is_some() { 1 } else { 0 };
+                        let state = if cache_state == "H" { 1 } else { 0 };
+                        let supported_languages = &vec![
+                            "aa","ab","ae","af","ak","am","an","ar","as","av","ay","az","ba","be","bg","bh","bi","bm","bn","bo","br","ca","ce","ch","co","cr","cs","cu","cv","cy","da","de","dv","dz","ee","el","en","eo","es","et","eu","fa","ff","fi","fj","fo","fr","fy","ga","gd","gl","gn","gu","gv","ha","he","hi","ho","ht","hu","hy","hz","ia","ie","ig","ii","ik","io","is","it","iu","iw","ja","ji","jv","jw","ka","kg","ki","kj","kk","kl","km","kn","ko","kr","ks","ku","kv","kw","ky","la","lb","lg","li","ln","lo","lt","lu","lv","mg","mh","mi","mk","ml","mn","mo","mr","ms","mt","my","na","nd","ne","ng","nl","no","nr","nv","ny","oc","oj","om","or","os","pa","pi","pl","ps","pt","qu","rm","rn","ro","ru","rw","sa","sc","sd","se","sg","sh","si","sk","sl","sm","sn","so","sq","ss","st","su","sv","sw","ta","te","tg","th","ti","tk","tl","tn","to","tr","ts","tt","ty","ug","uk","ur","uz","ve","vi","vo","wa","wo","xh","yi","yo","za","zh","zu"
+                            ];
+                        let raw_languages = req.get_header_str_lossy("Accept-Language").unwrap_or_default();
+                        let lang = &intersection_ordered(&raw_languages, supported_languages);
+                        let lang = match lang.first() {
+                            Some(lang) => lang,
+                            None => "en",
+                        };
+                        let client_socket_cwnd = 0;
+                        let client_socket_tcpi_pacing_rate = 0;
+                        let client_socket_tcpi_min_rtt = 0;
+                        writeln!(endpoint, "{thisdc} {start} {elapsed} {ish2} {isipv6} {isssl} {state} {lang} {client_socket_cwnd} {client_socket_tcpi_pacing_rate} {client_socket_tcpi_min_rtt}").unwrap();
+                    }
+
+                },
+                _ => todo!(),
+            }
+        },
+        _ => todo!(),
+    }
+}
+
