@@ -18,22 +18,16 @@ resource "fastly_service_compute" "app" {
     name           = "toppops-collector"
     url            = "https://toppops-ingest.fastlylabs.com/ingest"
     message_type   = "blank"
-    format_version = 2
-    format         = ""
     content_type   = "text/plain"
     method         = "POST"
-    placement      = "none"
   }
 
   logging_https {
     name           = "fastly-devrel-traffic-globe"
     url            = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com/collector"
     message_type   = "blank"
-    format_version = 2
-    format         = ""
     content_type   = "text/plain"
     method         = "POST"
-    placement      = "none"
   }
 
   dynamic "domain" {
