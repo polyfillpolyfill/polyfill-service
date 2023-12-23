@@ -42,3 +42,4 @@ resource "fastly_service_compute" "app" {  name = var.compute_name
     }
   }
 }
+
