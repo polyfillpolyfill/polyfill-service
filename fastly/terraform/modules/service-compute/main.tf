@@ -1,5 +1,4 @@
-resource "fastly_service_compute" "app" {
-  name = var.compute_name
+resource "fastly_service_compute" "app" {  name = var.compute_name
 
   force_destroy = false
 
@@ -14,15 +13,26 @@ resource "fastly_service_compute" "app" {
     port    = 80
   }
 
-  dynamic "logger" {
-    for_each = var.https_loggers
-    content {
-      name         = logger.value["name"]
-      url          = logger.value["url"]
-      message_type = logger.value["message_type"]
-      content_type = logger.value["content_type"]
-      method       = logger.value["method"]
-    }
+  logging_https {
+    name           = "toppops-collector"
+    url            = "https://toppops-ingest.fastlylabs.com/ingest"
+    message_type   = "blank"
+    format_version = 2
+    format         = ""
+    content_type   = "text/plain"
+    method         = "POST"
+    placement      = "none"
+  }
+
+  logging_https {
+    name           = "fastly-devrel-traffic-globe"
+    url            = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com/collector"
+    message_type   = "blank"
+    format_version = 2
+    format         = ""
+    content_type   = "text/plain"
+    method         = "POST"
+    placement      = "none"
   }
 
   dynamic "domain" {
