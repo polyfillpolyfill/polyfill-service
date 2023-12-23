@@ -6,23 +6,6 @@ compute_domains = [
   }
 ]
 
-https_loggers = [
-  {
-    name         = "toppops-collector"
-    url          = "https://toppops-ingest.fastlylabs.com/ingest"
-    message_type = "blank"
-    content_type = "text/plain"
-    method       = "POST"
-  },
-  {
-    name         = "fastly-devrel-traffic-globe"
-    url          = "https://globeviz-data-proxy-dot-rd---product.uc.r.appspot.com/collector"
-    message_type = "blank"
-    content_type = "text/plain"
-    method       = "POST"
-  }
-]
-
 vcl_name = "cdn.polyfill.io"
 vcl_backends = [
   {
