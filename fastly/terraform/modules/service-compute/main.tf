@@ -1,4 +1,5 @@
-resource "fastly_service_compute" "app" {  name = var.compute_name
+resource "fastly_service_compute" "app" {
+  name = var.compute_name
 
   force_destroy = false
 
