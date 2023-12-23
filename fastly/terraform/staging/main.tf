@@ -9,5 +9,4 @@ module "compute" {
   source          = "../modules/service-compute"
   compute_domains = var.compute_domains
   compute_name    = var.compute_name
-  https_loggers   = var.https_loggers
 }
