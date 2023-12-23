@@ -7,6 +7,16 @@ variable "compute_domains" {
   }))
 }
 
+variable "https_loggers" {
+  type = list(object({
+    name         = string
+    url          = string
+    message_type = string
+    content_type = string
+    method       = string
+  }))
+}
+
 variable "vcl_name" {
   type = string
 }

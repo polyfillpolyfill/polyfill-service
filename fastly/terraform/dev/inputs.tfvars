@@ -6,6 +6,8 @@ compute_domains = [
   }
 ]
 
+https_loggers = []
+
 vcl_name = "dev.polyfill.io"
 vcl_backends = [
   {
