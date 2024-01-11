@@ -18,7 +18,7 @@ humansize = "2.1.3"
 indexmap = "2.1.0"
 polyfill-library = { path = "../library" }
 maud = "0.25.0"
-nodejs-semver = "3.3.1"
+nodejs-semver = "3.4.0"
 regex = "1.10.2"
 semver = "1.0.21"
 serde = { version = "1.0", features = ["derive"] }
