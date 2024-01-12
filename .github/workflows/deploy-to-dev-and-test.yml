@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
-      - uses: actions-rust-lang/setup-rust-toolchain@c7e1de28469b16b21a170a200a7a9e810bb5cdff # pin@v1
+      - uses: actions-rust-lang/setup-rust-toolchain@d5fcac478a8270ade8a005df33017ae06891af79 # pin@v1
       - name: Set up Fastly CLI
         uses: fastly/compute-actions/setup@c2f38daa58a1a6562575c9665f13b080803b8989 # pin@v5
         with:
@@ -29,7 +29,7 @@ jobs:
         with:
           name: ${{ steps.cache-key.outputs.CACHE_KEY }}
           path: pkg/package.tar.gz
-      - uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # pin@v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # pin@v3
         with:
           path: pkg/package.tar.gz
           key: ${{ steps.cache-key.outputs.CACHE_KEY }}
@@ -43,7 +43,7 @@ jobs:
         id: cache-key
         run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Restore compute-package from cache
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # pin@v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # pin@v3
         id: compute-package
         with:
           path: pkg/package.tar.gz
