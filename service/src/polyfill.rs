@@ -76,7 +76,7 @@ pub(crate) fn polyfill(request: &Request) {
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
-    let lookup_tx = Transaction::lookup(("2".to_owned() + &key).into()).execute();
+    let lookup_tx = Transaction::lookup(key.into()).execute();
     match lookup_tx {
         Err(_) => {
             get_polyfill_string_stream(res_body, &parameters, &library, &version);
@@ -91,40 +91,54 @@ pub(crate) fn polyfill(request: &Request) {
             // now we need to handle the "must insert" and "must update" cases
             else if lookup_tx.must_insert() {
                 // a cached item was not found, and we've been chosen to insert it
-                let (mut writer, found) = lookup_tx
+                match lookup_tx
                     .insert(TTL)
                     // Enable purging of all objects in the cache by issuing a purge with the key "polyfill-service".
                     .surrogate_keys(["polyfill-service"])
                     // stream back the object so we can use it after inserting
                     .execute_and_stream_back()
-                    .unwrap();
-
-                let cache = KVStore::open("cache");
-                match cache {
-                    Ok(Some(mut cache)) => {
-                        let value = cache.lookup(&key);
-                        if let Ok(Some(value)) = value {
-                            writer.append(value);
-                            writer.finish().unwrap();
-                            res_body.append(found.to_stream().unwrap());
-                            res_body.finish().unwrap();
-                        } else {
-                            get_polyfill_string_stream(writer, &parameters, &library, &version);
-                            // now we can use the item we just inserted
-                            res_body.append(found.to_stream().unwrap());
-                            res_body.finish().unwrap();
-                            cache
-                                .insert(&key, get_polyfill_string(&parameters, &library, &version))
-                                .unwrap();
+                {
+                    Err(_) => {
+                        lookup_tx.cancel_insert_or_update();
+                        get_polyfill_string_stream(res_body, &parameters, &library, &version);
+                    }
+                    Ok((mut writer, found)) => {
+                        let cache = KVStore::open("cache");
+                        match cache {
+                            Ok(Some(mut cache)) => {
+                                let value = cache.lookup(&key);
+                                if let Ok(Some(value)) = value {
+                                    writer.append(value);
+                                    writer.finish().unwrap();
+                                    res_body.append(found.to_stream().unwrap());
+                                    res_body.finish().unwrap();
+                                } else {
+                                    get_polyfill_string_stream(
+                                        writer,
+                                        &parameters,
+                                        &library,
+                                        &version,
+                                    );
+                                    // now we can use the item we just inserted
+                                    res_body.append(found.to_stream().unwrap());
+                                    res_body.finish().unwrap();
+                                    cache
+                                        .insert(
+                                            &key,
+                                            get_polyfill_string(&parameters, &library, &version),
+                                        )
+                                        .unwrap();
+                                }
+                            }
+                            Ok(None) | Err(_) => {
+                                get_polyfill_string_stream(writer, &parameters, &library, &version);
+                                // now we can use the item we just inserted
+                                res_body.append(found.to_stream().unwrap());
+                                res_body.finish().unwrap();
+                            }
                         }
                     }
-                    Ok(None) | Err(_) => {
-                        get_polyfill_string_stream(writer, &parameters, &library, &version);
-                        // now we can use the item we just inserted
-                        res_body.append(found.to_stream().unwrap());
-                        res_body.finish().unwrap();
-                    }
-                }
+                };
             } else if lookup_tx.must_insert_or_update() {
                 // a cached item was found and used above, and now we need to perform
                 // revalidation
