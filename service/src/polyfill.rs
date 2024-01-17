@@ -69,7 +69,7 @@ pub(crate) fn polyfill(request: &Request) {
 
     let key: String = serde_json::to_string(&parameters).unwrap();
     println!("key: {key}");
-    let key: String = seahash::hash(&serde_json::to_string(&parameters).unwrap().as_bytes()).to_string();
+    let key: String = seahash::hash(&key.as_bytes()).to_string();
     println!("key: {key}");
 
     const TTL: Duration = Duration::from_secs(31536000);
