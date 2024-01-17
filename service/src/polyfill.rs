@@ -1,12 +1,13 @@
 use std::time::Duration;
 
 use fastly::{
-    cache::core::Transaction,
-    Request, Response, KVStore,
+    cache::core::{Found, Transaction},
+    http::body::StreamingBody,
+    KVStore, Request, Response,
 };
 use polyfill_library::{
-    get_polyfill_string::{get_polyfill_string_stream, get_polyfill_string},
-    polyfill_parameters::get_polyfill_parameters,
+    get_polyfill_string::{get_polyfill_string, get_polyfill_string_stream},
+    polyfill_parameters::{get_polyfill_parameters, PolyfillParameters},
 };
 
 pub(crate) fn polyfill(request: &Request) {
@@ -67,10 +68,8 @@ pub(crate) fn polyfill(request: &Request) {
         return;
     }
 
-    let key: String = serde_json::to_string(&parameters).unwrap();
-    println!("key: {key}");
-    let key: String = seahash::hash(&key.as_bytes()).to_string();
-    println!("key: {key}");
+    let key = serde_json::to_string(&parameters).unwrap();
+    let key = seahash::hash(&key.as_bytes()).to_string();
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
@@ -78,10 +77,6 @@ pub(crate) fn polyfill(request: &Request) {
         .execute()
         .unwrap();
     if let Some(found) = lookup_tx.found() {
-        println!(
-            "FASTLY_SERVICE_VERSION: {} - Cached in cache",
-            std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
-        );
         // a cached item was found; we use it now even though it might be stale,
         // and we'll revalidate it below
         sbody.append(found.to_stream().unwrap());
@@ -98,45 +93,38 @@ pub(crate) fn polyfill(request: &Request) {
             .execute_and_stream_back()
             .unwrap();
 
-        let mut cache = KVStore::open("cache").unwrap().unwrap();
-        let value = cache.lookup(&key);
-        if let Ok(Some(value)) = value {
-            println!(
-                "FASTLY_SERVICE_VERSION: {} - Cached in KV",
-                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
-            );
-            writer.append(value);
-            writer.finish().unwrap();
-            sbody.append(found.to_stream().unwrap());
-            sbody.finish().unwrap();
-        } else {
-            println!(
-                "FASTLY_SERVICE_VERSION: {} - Miss",
-                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
-            );
-            get_polyfill_string_stream(writer, &parameters, library, &version);
-            // now we can use the item we just inserted
-            sbody.append(found.to_stream().unwrap());
-            sbody.finish().unwrap();
-            cache.insert(&key, get_polyfill_string(&parameters, library, &version)).unwrap();
-            println!(
-                "FASTLY_SERVICE_VERSION: {} - Inserted into KV",
-                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
-            );
+        let cache = KVStore::open("cache");
+        match cache {
+            Ok(Some(mut cache)) => {
+                let value = cache.lookup(&key);
+                if let Ok(Some(value)) = value {
+                    writer.append(value);
+                    writer.finish().unwrap();
+                    sbody.append(found.to_stream().unwrap());
+                    sbody.finish().unwrap();
+                } else {
+                    get_polyfill_string_stream(writer, &parameters, library, &version);
+                    // now we can use the item we just inserted
+                    sbody.append(found.to_stream().unwrap());
+                    sbody.finish().unwrap();
+                    cache
+                        .insert(&key, get_polyfill_string(&parameters, library, &version))
+                        .unwrap();
+                }
+            }
+            Ok(None) | Err(_) => {
+                get_polyfill_string_stream(writer, &parameters, library, &version);
+                // now we can use the item we just inserted
+                sbody.append(found.to_stream().unwrap());
+                sbody.finish().unwrap();
+            }
         }
     } else if lookup_tx.must_insert_or_update() {
         // a cached item was found and used above, and now we need to perform
         // revalidation
         if lookup_tx.found().is_some() {
             // update the stale object's metadata
-            lookup_tx
-                .update(TTL)
-                .execute()
-                .unwrap();
-            println!(
-                "FASTLY_SERVICE_VERSION: {} - Updated",
-                std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
-            );
+            lookup_tx.update(TTL).execute().unwrap();
         }
     }
 }
