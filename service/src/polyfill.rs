@@ -76,7 +76,7 @@ pub(crate) fn polyfill(request: &Request) {
 
     const TTL: Duration = Duration::from_secs(31536000);
     // perform the lookup
-    let lookup_tx = Transaction::lookup(key.into()).execute();
+    let lookup_tx = Transaction::lookup(&key.into()).execute();
     match lookup_tx {
         Err(_) => {
             get_polyfill_string_stream(res_body, &parameters, &library, &version);
