@@ -99,7 +99,6 @@ pub(crate) fn polyfill(request: &Request) {
                     .execute_and_stream_back()
                 {
                     Err(_) => {
-                        lookup_tx.cancel_insert_or_update();
                         get_polyfill_string_stream(res_body, &parameters, &library, &version);
                     }
                     Ok((mut writer, found)) => {
