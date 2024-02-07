@@ -32,7 +32,7 @@ jobs:
           cli_version: '10.4.0'
       - if: steps.compute-package.outputs.cache-hit != 'true'
         run: fastly compute build --package-name package
-      - uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # pin@v3
+      - uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # pin@v3
         with:
           name: ${{ steps.cache-key.outputs.CACHE_KEY }}
           path: pkg/package.tar.gz
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
-      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # pin@v4.0.1
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # pin@v4.0.2
         with:
           node-version: 18.x
       - name: 'Install test dependencies'
