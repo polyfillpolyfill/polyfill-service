@@ -11,15 +11,15 @@ publish = false
 debug = true
 
 [dependencies]
-chrono = "0.4.31"
+chrono = "0.4.34"
 fastly = "0.9.10"
 http = "1.0.0"
-indexmap = { version = "2.1.0", features = ["serde"] }
+indexmap = { version = "2.2.3", features = ["serde"] }
 lazy_static = "1.4.0"
 nodejs-semver = "3.4.0"
-regex = "1.10.2"
+regex = "1.10.3"
 semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.111"
+serde_json = "1.0.114"
 sha2 = "0.10.8"
 urlencoding = "2.1.3"
