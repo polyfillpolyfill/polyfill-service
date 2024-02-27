@@ -32,7 +32,7 @@ const createPolyfillBundleURL = options => {
 	const minified = options.minified ? true : false;
 	const extension = minified ? ".min.js" : ".js";
 
-	return Object.keys(parameters).length > 0 ? `${location.protocol}//${location.host}/v3/polyfill${extension}?${new URLSearchParams(parameters).toString()}` : `${location.protocol}//${location.host}/v3/polyfill${extension}`;
+	return Object.keys(parameters).length > 0 ? `${location.protocol}//${location.host}/polyfill/v3/polyfill${extension}?${new URLSearchParams(parameters).toString()}` : `${location.protocol}//${location.host}/polyfill/v3/polyfill${extension}`;
 };
 
 const updatePolyfillBundle = options => {
@@ -84,7 +84,7 @@ if (libraryVersionInput) {
 	libraryVersionInput.addEventListener("change", async event => {
 		const version = event.target.value;
 		// if version is not selected, get the data for the latest version
-		const response = await fetch(`/v3/json/library-${version || event.target.options[1].value}.json`);
+		const response = await fetch(`/polyfill/v3/json/library-${version || event.target.options[1].value}.json`);
 		if (response.ok) {
 			const data = await response.json();
 			featuresList.innerHTML = renderFeatureList(data);
