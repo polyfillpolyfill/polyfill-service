@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+ <h3><em>Polyfill.io</em> は、ブラウザが必要とするものだけを選択的にポリフィルすることで、Web 開発のストレスを軽減するサービスです。 <em>Polyfill.io</em> は、各リクエストの User-Agent ヘッダーを読み取り、リクエスト元のブラウザに適したポリフィルを返します。</h3>
 <div>
 
   <a href="./LICENSE.md">
@@ -30,25 +30,26 @@
 
 ##
 
-English | [中文](./README_cn.md) | [日本語](./README_ja.md)
+[English](./README.md) | [中文](./README_cn.md) | 日本語
 
-## Documentation
+## ドキュメンテーション
 
-Polyfill.io documentation is [on the website][website].
+Polyfill.io のドキュメントは [Web サイト上][website] にあります。
 
 
-## [Contributing][contributing guide]
+## [貢献する][contributing guide]
 
-Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
+[contributing guide] を読んで、開発プロセス、バグ修正と改善を提案する方法、変更をビルドしてテストする方法について学びます。
 
-## Self-Hosting
+## セルフホスティング
 
 <https://github.com/jakeChampion/polyfill-service-self-hosted/>
 
 
-## License
+## ライセンス
 
-Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
+
+Polyfill.io は、[MIT ライセンス][license] の条件に基づいてライセンス供与されています。寄稿者は当社の[寄稿規約][contribution terms]に同意する必要があります。
 
 [contributing guide]: ./.github/CONTRIBUTING.md
 [contribution terms]: ./.github/contribution_licence_agreement.md

@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+  <h3><em>Polyfill.io</em> 是一项服务，它通过选择性地填充浏览器所需的内容来减少 Web 开发的挫败感。 <em>Polyfill.io</em> 读取每个请求的 User-Agent 标头并返回适合请求浏览器的 polyfill。</h3>
 <div>
 
   <a href="./LICENSE.md">
@@ -30,25 +30,26 @@
 
 ##
 
-English | [中文](./README_cn.md) | [日本語](./README_ja.md)
+[English](./README.md) | 中文 | [日本語](./README_ja.md)
 
-## Documentation
-
-Polyfill.io documentation is [on the website][website].
+## 文档
 
 
-## [Contributing][contributing guide]
+Polyfill.io 文档位于[网站上][website]。
 
-Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
 
-## Self-Hosting
+## [贡献][contributing guide]
+
+阅读我们的[contributing guide]，了解我们的开发流程、如何提出错误修复和改进，以及如何构建和测试您的更改。
+
+## 自托管
 
 <https://github.com/jakeChampion/polyfill-service-self-hosted/>
 
 
-## License
+## 执照
 
-Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
+Polyfill.io 根据 [MIT 许可证][license] 的条款获得许可。贡献者必须接受我们的[contribution terms]。
 
 [contributing guide]: ./.github/CONTRIBUTING.md
 [contribution terms]: ./.github/contribution_licence_agreement.md
