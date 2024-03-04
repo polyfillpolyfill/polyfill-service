@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+  <h3><em>Polyfill.io</em> एक ऐसी सेवा है जो ब्राउज़र की ज़रूरतों को चुनिंदा रूप से पॉलीफ़िल करके वेब विकास को कम निराशाजनक बनाती है। <em>Polyfill.io</em> प्रत्येक अनुरोध के उपयोगकर्ता-एजेंट हेडर को पढ़ता है और अनुरोध करने वाले ब्राउज़र के लिए उपयुक्त पॉलीफ़िल लौटाता है।</h3>
 <div>
 
   <a href="./LICENSE.md">
@@ -36,25 +36,25 @@
 
 ##
 
-English | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
+[English](./README.md) | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | हिंदी
 
 ## Documentation
 
-Polyfill.io documentation is [on the website][website].
+Polyfill.io दस्तावेज़ [वेबसाइट पर][website] पर है.
 
 
-## [Contributing][contributing guide]
+## [योगदान][contributing guide]
 
-Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
+हमारी विकास प्रक्रिया, बग फिक्स और सुधारों का प्रस्ताव कैसे करें, और अपने परिवर्तनों का निर्माण और परीक्षण कैसे करें, इसके बारे में जानने के लिए हमारी [योगदान मार्गदर्शिका][contributing guide] पढ़ें।
 
-## Self-Hosting
+## स्व की मेजबानी
 
 <https://github.com/jakeChampion/polyfill-service-self-hosted/>
 
 
-## License
+## लाइसेंस
 
-Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
+Polyfill.io को [MIT लाइसेंस][license] की शर्तों के तहत लाइसेंस प्राप्त है। योगदानकर्ताओं को हमारी [योगदान शर्तों][contribution terms] को स्वीकार करना होगा।
 
 [contributing guide]: ./.github/CONTRIBUTING.md
 [contribution terms]: ./.github/contribution_licence_agreement.md

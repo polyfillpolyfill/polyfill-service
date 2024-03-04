@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+  <h3><em>Polyfill.io</em> là một dịch vụ giúp việc phát triển web bớt khó khăn hơn bằng cách điền đầy đủ có chọn lọc những gì trình duyệt cần. <em>Polyfill.io</em> đọc tiêu đề Tác nhân người dùng của từng yêu cầu và trả về các polyfill phù hợp với trình duyệt yêu cầu.</h3> 
 <div>
 
   <a href="./LICENSE.md">
@@ -36,25 +36,25 @@
 
 ##
 
-English | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
+[English](./README.md) | [中文](./README_cn.md) | [日本語](./README_ja.md) | Tiếng Việt | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
 
-## Documentation
+## Tài liệu
 
-Polyfill.io documentation is [on the website][website].
+Tài liệu Polyfill.io có [trên trang web] [website].
 
 
-## [Contributing][contributing guide]
+## [Đóng góp][contributing guide]
 
-Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
+Đọc [hướng dẫn đóng góp][contributing guide] của chúng tôi để tìm hiểu về quy trình phát triển của chúng tôi, cách đề xuất các bản sửa lỗi và cải tiến cũng như cách xây dựng và kiểm tra các thay đổi của bạn.
 
-## Self-Hosting
+## Tự lưu trữ
 
 <https://github.com/jakeChampion/polyfill-service-self-hosted/>
 
 
-## License
+## Giấy phép
 
-Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
+Polyfill.io được cấp phép theo các điều khoản của [giấy phép MIT][license]. Những người đóng góp phải chấp nhận [điều khoản đóng góp][contribution terms] của chúng tôi.
 
 [contributing guide]: ./.github/CONTRIBUTING.md
 [contribution terms]: ./.github/contribution_licence_agreement.md

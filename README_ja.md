@@ -16,6 +16,12 @@
   <a href="https://github.com/polyfillpolyfill/polyfill-service/releases">
     <img src="https://img.shields.io/github/v/release/polyfillpolyfill/polyfill-service?logo=github" alt="latest version" />
   </a>
+  <a href="https://github.com/polyfillpolyfill/polyfill-service/releases">
+    <img src="https://img.shields.io/github/downloads/polyfillpolyfill/polyfill-service/total?logo=github&color=239F7AEA" alt="Downloads" />
+  </a>
+  <a href="https://github.com/polyfillpolyfill/polyfill-service/releases">
+    <img src="https://img.shields.io/github/discussions/polyfillpolyfill/polyfill-service?logo=github&color=23ED8936" alt="Discussions" />
+  </a>
   <a href="https://github.com/polyfillpolyfill/polyfill-service/stargazers">
     <img src="https://img.shields.io/github/stars/polyfillpolyfill/polyfill-service?style=plastic&logo=github&color=%23FFAC2D" alt="Stars" />
   </a>
@@ -30,7 +36,7 @@
 
 ##
 
-[English](./README.md) | [中文](./README_cn.md) | 日本語
+[English](./README.md) | [中文](./README_cn.md) | 日本語 | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
 
 ## ドキュメンテーション
 
@@ -39,7 +45,7 @@ Polyfill.io のドキュメントは [Web サイト上][website] にあります
 
 ## [貢献する][contributing guide]
 
-[contributing guide] を読んで、開発プロセス、バグ修正と改善を提案する方法、変更をビルドしてテストする方法について学びます。
+[貢献ガイド][contributing guide] を読んで、開発プロセス、バグ修正と改善を提案する方法、変更をビルドしてテストする方法について学びます。
 
 ## セルフホスティング
 

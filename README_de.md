@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+  <h3><em>Polyfill.io</em> ist ein Dienst, der die Webentwicklung weniger frustrierend macht, indem er selektiv genau das ausfüllt, was der Browser benötigt. <em>Polyfill.io</em> liest den User-Agent-Header jeder Anfrage und gibt Polyfills zurück, die für den anfragenden Browser geeignet sind.</h3>
 <div>
 
   <a href="./LICENSE.md">
@@ -36,25 +36,25 @@
 
 ##
 
-English | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
+[English](./README.md) | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | Deutsch | [हिंदी](./README_hi.md)
 
-## Documentation
+## Dokumentation
 
-Polyfill.io documentation is [on the website][website].
+Die Dokumentation zu Polyfill.io befindet sich [auf der Website][Website].
 
 
-## [Contributing][contributing guide]
+## [Beitrag leisten][contributing guide]
 
-Read our [contributing guide] to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes.
+Lesen Sie unseren [guía de contribución][contributing guide], um mehr über unseren Entwicklungsprozess zu erfahren, wie Sie Fehlerbehebungen und Verbesserungen vorschlagen und wie Sie Ihre Änderungen erstellen und testen.
 
-## Self-Hosting
+## Selbsthosting
 
 <https://github.com/jakeChampion/polyfill-service-self-hosted/>
 
 
-## License
+## Lizenz
 
-Polyfill.io is licensed under the terms of the [MIT license][license]. Contributors must accept our [contribution terms].
+Polyfill.io ist unter den Bedingungen der [MIT-Lizenz][license] lizenziert. Mitwirkende müssen unsere [términos de contribución][contribution terms] akzeptieren.
 
 [contributing guide]: ./.github/CONTRIBUTING.md
 [contribution terms]: ./.github/contribution_licence_agreement.md
