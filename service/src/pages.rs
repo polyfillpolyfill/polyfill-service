@@ -486,7 +486,7 @@ pub(crate) fn privacy() -> String {
                 strong{"The Service:"}
                 " What information do we collect from the Service?"
             }
-            p {"The Service is a hosted instance of software known as Polyfill Service. Polyfill Service provides snippets of code, called “polyfills”, that allows websites operated by FT and by others to provide a consistent experience across different browsers. When you load a web page which uses Polyfill Service, your browser will download any polyfills required in order to present the web page successfully in your browser."}
+            p {"The Service is a hosted instance of software known as Polyfill Service. Polyfill Service provides snippets of code, called “polyfills”, that allows websites to provide a consistent experience across different browsers. When you load a web page which uses Polyfill Service, your browser will download any polyfills required in order to present the web page successfully in your browser."}
             p {"In order to provide the polyfills, the Service receives certain technical information from your browser including:"}
             ul {
                 li {"browser details;"}
