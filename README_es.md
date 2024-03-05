@@ -38,6 +38,10 @@
 
 [English](./README.md) | [中文](./README_cn.md) | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | española | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
 
+## Annonce
+
+Nous sommes passés à l'utilisation de Cloudflare comme fournisseur de réseau de diffusion de contenu (CDN). Nous nous excusons pour tout inconvénient qui aurait pu survenir pendant cette période de migration. Soyez assuré que nous continuerons à offrir le service polyfill gratuitement.
+
 ## Documentación
 
 La documentación de Polyfill.io está [en el sitio web][website].

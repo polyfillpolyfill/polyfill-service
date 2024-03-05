@@ -38,6 +38,10 @@
 
 [English](./README.md) | 中文 | [日本語](./README_ja.md) | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
 
+## 公告
+
+我们已转而使用 Cloudflare 作为我们的内容交付网络 (CDN) 提供商。 对于迁移期间可能出现的任何不便，我们深表歉意。 请放心，我们将继续免费提供 Polyfill 服务。
+
 ## 文档
 
 

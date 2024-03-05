@@ -38,6 +38,10 @@
 
 [English](./README.md) | [中文](./README_cn.md) | 日本語 | [Tiếng Việt](./README_vt.md) | [española](./README_es.md) | [française](./README_fr.md) | [Português](./README_pt.md) | [বাংলা](./README_bn.md) | [Deutsch](./README_de.md) | [हिंदी](./README_hi.md)
 
+ ## 発表
+
+当社は、コンテンツ配信ネットワーク (CDN) プロバイダーとして Cloudflare を利用することに移行しました。 この移行期間中に発生した可能性のあるご不便をお詫び申し上げます。 当社は今後もポリフィルサービスを無料で提供してまいりますので、ご安心ください。
+
 ## ドキュメンテーション
 
 Polyfill.io のドキュメントは [Web サイト上][website] にあります。
