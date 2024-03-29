@@ -13,26 +13,26 @@ jobs:
   deploy-to-staging:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # pin@v3
       - uses: actions-rust-lang/setup-rust-toolchain@b113a30d27a8e59c969077c0a0168cc13dab5ffc # pin@v1
       - name: Set cache-key
         id: cache-key
         run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Restore compute-package from cache
-        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # pin@v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # pin@v3
         id: compute-package
         with:
           path: pkg/package.tar.gz
           key: ${{ steps.cache-key.outputs.CACHE_KEY }}
       - if: steps.compute-package.outputs.cache-hit != 'true'
         name: Set up Fastly CLI
-        uses: fastly/compute-actions/setup@c2f38daa58a1a6562575c9665f13b080803b8989 # pin@v5
+        uses: fastly/compute-actions/setup@c31e44b2a680e0d61640971d0962cca4bcad3484 # pin@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           cli_version: '10.4.0'
       - if: steps.compute-package.outputs.cache-hit != 'true'
         run: fastly compute build --package-name package
-      - uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # pin@v3
+      - uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # pin@v3
         with:
           name: ${{ steps.cache-key.outputs.CACHE_KEY }}
           path: pkg/package.tar.gz
@@ -50,8 +50,8 @@ jobs:
     needs: [ deploy-to-staging ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
-      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # pin@v4.0.1
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # pin@v3
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # pin@v4.0.2
         with:
           node-version: 18.x
       - name: 'Install test dependencies'
