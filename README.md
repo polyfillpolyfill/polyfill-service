@@ -4,7 +4,7 @@
 
   <a href="https://polyfill.io"><img height="100px" alt="logo" src="https://polyfill.io/img/logo.svg"/></a>
   
-  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfilling just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfills that are suitable for the requesting browser.</h3> 
+  <h3><em>Polyfill.io</em> is a service which makes web development less frustrating by selectively polyfill just what the browser needs. <em>Polyfill.io</em> reads the User-Agent header of each request and returns polyfill that are suitable for the requesting browser.</h3> 
 <div>
 
   <a href="./LICENSE.md">
