@@ -13,19 +13,19 @@ jobs:
   deploy-to-production:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v3
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # pin@v3
       - uses: actions-rust-lang/setup-rust-toolchain@b113a30d27a8e59c969077c0a0168cc13dab5ffc # pin@v1
       - name: Set cache-key
         id: cache-key
         run: echo "CACHE_KEY=compute-package-$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Restore compute-package from cache
-        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # pin@v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # pin@v3
         id: compute-package
         with:
           path: pkg/package.tar.gz
           key: ${{ steps.cache-key.outputs.CACHE_KEY }}
           fail-on-cache-miss: true
-      - uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # pin@v3
+      - uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v3
         with:
           name: ${{ steps.cache-key.outputs.CACHE_KEY }}
           path: pkg/package.tar.gz
