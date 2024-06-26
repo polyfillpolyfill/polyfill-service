@@ -30,7 +30,11 @@
   </a>
   <a href="https://github.com/polyfillpolyfill/polyfill-service/forks">
     <img src="https://img.shields.io/github/forks/polyfillpolyfill/polyfill-service?style=plastic&logo=github&color=%236C6C6C" alt="Foks" />
-    
+  </a>
+  <a href="https://x.com/polyfill_global">
+    <img src="https://img.shields.io/twitter/follow/polyfill_global?style=plastic&logo=github&color=%236C6C6C" alt="Foks" />
+  </a>  
+  
 </div>
 </div>
 
